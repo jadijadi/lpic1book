@@ -5,52 +5,6 @@ Thinkgs you should know: [LPI Exam 101](https://www.lpi.org/linux-certifications
 A great study resource: [IBM LPI Reference](http://www.ibm.com/developerworks/linux/lpi/101.html)
 
 
-## 104.3. Control mounting and unmounting of filesystems (3)
-
-Configure the mounting of a filesystem. Tasks include manually mounting and unmounting filesystems, configuring filesystem mounting on bootup, and configuring user-mountable removable filesystems. 
-
-- Mount and unmount filesystems manually
-- Configure filesystem mounting on bootup
-- Configure user-mountable, removable filesystems
-
-### Mounting and Unmounting
-
-Describe the linux filesystem concept. A huge tree.
-There are other kinds of mountings: tmpfs, NFS, ..
-
-It is better to mount on empty directories
-
-#### Basic commands
-cat /et/fstab
-basic mount command
-mount a drive 
-unmount a drive
-
-#### Some switches
-mount -t ext4 /dev/sda1 /media
-mount -o remount,ro /dev/sda1
-
-#### Get info on UUID and Label and Format
-blkid /dev/sda2
-
-### Bootup
-/etc/fstab
-
-- file system: Label, UUID, device
-- mount point: swap or none for swap
-- type: can be auto
-- options:  defaults, rw / ro, noauto, user, exec / noexec, noatime
-- dump: do dump command backup this? mostly 0
-- pass: Non-zero values of pass specify the order of checking filesystems at boot time (seen in Integrity of file ystems)
-
-**note:** 
-- User-mounted filesystems default to noexec unless exec is specified afteruser.
-- noatime will disable recording of access times. Not using access times may improve performance.
-
-##### swap
-swapon
-swapoff
-swapon -s
 
 
 
