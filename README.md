@@ -1,5 +1,7 @@
 # LPIC 101 exam
 
+**http://j.mp/jadilpic1**
+
 Welcome to the Jadi's LPIC exam guide.
 
 Easy, Fast and efficient.
