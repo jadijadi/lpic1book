@@ -1,5 +1,8 @@
 # 104.3. Control mounting and unmounting of filesystems
 
+weight: 3
+
+**http://j.mp/jadilpic1**
 
 Configure the mounting of a filesystem. Tasks include manually mounting and unmounting filesystems, configuring filesystem mounting on bootup, and configuring user-mountable removable filesystems. 
 
