@@ -28,7 +28,7 @@ first process, process in charge, a big family tree of commands:
 
     pstree
 
-init is being replaced in many distros (say ubuntu with upstart). 
+init is being replaced in many distros (say ubuntu with upstart) but still is in exam and has its own section.
 
 #### dmesg
 
