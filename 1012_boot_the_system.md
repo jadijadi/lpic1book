@@ -21,7 +21,7 @@ BIOS is Basic Input Output Service and does the first steps of the PC bootup. Fo
 
 #### bootloader
 
-Bootloader can be GRUB (1&2) or LIOL which are great for disks less than 2TB.
+Bootloader can be GRUB (1&2) or LILO which are great for disks less than 2TB.
 
 	/etc/lilo.conf
 	/boot/grub/grub.cfg
