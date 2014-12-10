@@ -16,7 +16,10 @@ Candidates should be able to guide the system through the booting process.
 - /var/log/messages
 - dmesg
 
+#### BIOS
 BIOS is Basic Input Output System
+
+#### bootloader
 
 Bootloader can be GRUB (1&2) or LIOL
 
@@ -24,6 +27,8 @@ Bootloader can be GRUB (1&2) or LIOL
 first process, process in charge, a big family tree of commands:
 
     pstree
+
+init is being replaced in many distros (say ubuntu with upstart). 
 
 #### dmesg
 
