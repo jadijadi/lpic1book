@@ -39,10 +39,10 @@ it can also be done on grub kernel parameters.
 or using the runleveland telinit commands:
 
 ````
-root@funlife ~# runlevel
+# runlevel
 N 3
-root@funlife ~# telinit 5 
-root@funlife ~# runlevel
+# telinit 5 
+# runlevel
 3 5
 
 ````
@@ -115,7 +115,11 @@ this is the format:
 * runlevels: which runlevel this commands refers to (empty means all)
 * action: respawn, wait, once, initdefault (default run level as seen above), ctrlaltdel (what to do with crrl+alt+delete)
 
-Checking the scripts of init:
+all scripts are here: 
+
+    ls -ltrh /etc/init.d
+    
+and start/stop on runlevels are controlled from these directories:
 
     root@funlife:~# ls /etc/rc2.d/
 
@@ -143,15 +147,45 @@ for more advance users:
 
 
 ### upstart
-is not static set of init scripts and understands events. defined in /etc/init. 
+is not static set of init scripts and understands events. Events are used to trigger tasks or services (jobs). Examples are connecting a usb or starting the Apache server only after having network and filesystem.
+
+jobs are defined in /etc/init and subdirectories.
 
     initctl list
 
 being used in ubuntu. 
 
 ### systemd
-uses sockets and a socket will be open for each daemon process but will start the daemon only when needed. Faster and parallel. 
+uses sockets and a socket will be open for each daemon process but will start the daemon only when needed. Understands dependencies. Faster and parallel. 
 
-   systemctl
+    systemctl
+
+works with units (service, socket, device, mount, automount, target (group of other units), snapshot (save/rollback)). config files has unit type suffix (say cups.service or rpcbind.socket) and are located at /etc/systemd/system
 
 being used in Fedora based systems and SUSE
+
+.
+
+.
+
+.
+
+.
+
+
+.
+
+.
+
+
+.
+
+
+.
+.
+
+
+
+
+
+
