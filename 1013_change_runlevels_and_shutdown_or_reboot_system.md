@@ -133,7 +133,7 @@ The preferred method to shut down or reboot the system is to use the shutdown co
 * whatever you add, will be broadcasted to logged in users
 * if the command is running, ctrl+c or the "shutdown -c" will cancel it
 
-    shutdown -r 60 Reloading updated kernel
+      shutdown -r 60 Reloading updated kernel
 
 for more advance users:
 * -t60 will delay 60 secconds between SIGTERM and SIGKILL 
