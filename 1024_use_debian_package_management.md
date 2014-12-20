@@ -103,6 +103,10 @@ Do you want to continue? [Y/n] y
 
 ````
 
+Notes: 
+- removing a package will not remove its dependencies
+- if removing a dependency, you'll get a warning about what will be removed alongside this package
+
 ### Updating
 for updating a single package
 
