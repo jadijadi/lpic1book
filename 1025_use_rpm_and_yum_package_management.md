@@ -150,3 +150,53 @@ yum whatprovides bzr
 ````
 
 ### File Integrity
+Security is important! So RPM can check the MD5 or SHA1 of files. The option is --checksig (-K) and it is a good idea to use it with -v option (verbose):
+
+````
+rpm -vK packagename.rpm
+````
+
+it is also possible to check if the installed FILES by a packages is OK:
+
+````
+rpm -V file name
+````
+
+if anything goes wrong, we can allways reinstall a package:
+
+````
+yum reinstall bzr
+````
+
+### yumdownloader
+this tool will download rpms from repositories but wont install them. If you need to downloda all the dependencies too, use the --resolve switch:
+
+````
+yumdownloader --resolve bzr
+````
+
+### rpm2cpio
+The **cpio** is kind of an archive, just like zip or rar or tar. the rpm2cpio can convert rpm files to cpio archives so you can *open* them using cpio command.  
+
+````
+[ian@echidna ~]$ yumdownloader gcl-selinux
+Loaded plugins: presto, refresh-packagekit
+gcl-selinux-2.6.8-0.7.20100201cvs.fc12.x86_64.rpm        |  17 kB     00:00     
+[ian@echidna ~]$ mkdir gcl-selinux
+[ian@echidna ~]$ cd gcl-selinux
+[ian@echidna gcl-selinux]$ rpm2cpio ../gcl-selinux*.rpm | cpio -idv
+./usr/share/selinux/packages/gcl
+./usr/share/selinux/packages/gcl/gcl.pp
+182 blocks
+[ian@echidna gcl-selinux]$ find .
+.
+./usr
+./usr/share
+./usr/share/selinux
+./usr/share/selinux/packages
+./usr/share/selinux/packages/gcl
+./usr/share/selinux/packages/gcl/gcl.pp
+````
+
+### Other tools
+YUM and RPM are the main package manager tools on Fedora, RHEL & Centos. but other system are available. The SUSE uses YaST and many modern desktops (KDE & Gnome) use PackageKit. Package Kit installs and updates packags on graphical interfaces on most linux systems (Debian, Fedora, Arch, ...). 
