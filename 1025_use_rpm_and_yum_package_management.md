@@ -131,3 +131,22 @@ package /usr/bin/cal is not installed
 [jadi@localhost ~]$ rpm -qf /usr/bin/cal 
 util-linux-2.24-2.fc20.x86_64
 ````
+
+#### Dependencies
+if you need to check what a packages is dependent on, use the ````--requires```` or ````-R```` switch:
+
+````
+rpm -qR bzr
+````
+
+or use ````yum deplist bzr```` instead.
+
+Poof.. I know this part was long so here comes the last important RPM Quering command: **whatprovides**. 
+
+If you need to use bzr, you need to check what provides it! if installed you can go with ````rpm -q --whatprovides bzr```` and if not :
+
+````
+yum whatprovides bzr
+````
+
+### File Integrity
