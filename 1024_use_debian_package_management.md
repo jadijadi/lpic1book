@@ -173,7 +173,7 @@ Homepage: http://bazaar-vcs.org
 Original-Maintainer: Debian Bazaar Maintainers <pkg-bazaar-maint@lists.alioth.debian.org>
 ````
 
-another commang is **purge** which will remove the package and all of its configurations.
+another commang is **purge** which will remove the package and all of its configurations.. the switch is -P or --purge.
 
 There is also -L to check the files and directories a package intalled:
 
