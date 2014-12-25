@@ -15,10 +15,10 @@ Candidates should be able to perform package management using the Debian package
 - apt-cache
 - aptitude
 
-### Concept of the package management system
+## Concept of the package management system
 Linux used to be based on compiling source code but then Distributions arrived. Most distributions have their own Package Manager for installing pre-build programs from defined *repositories*. Debian based distros use .deb files with apt, dpkg, aptitude and Fedora, RedHat, RHEL, SUSE, .. use RPM and Yum package mangaers.
 
-### Installing packages
+## Installing packages
 
 We do not have "bzr" installed.
 
@@ -52,7 +52,7 @@ and this will only download the files without installing them:
 
 (or you can use -d instead).
 
-### Package location 
+## Package location 
 where these packages come from? from a **Repository** of different **Repositories** which are defined at /etc/apt/sources.list file and files located at /etc/apt/sources.list.d/ in the form of:
 
 ````
@@ -76,14 +76,14 @@ Updating sources information:
 
     apt-get update
 
-### Removing debian packages
+## Removing debian packages
 
     apt-get remove bzr
 
 and if you want to remove automatically installed dependencies:
 
 ````
-$apt-get autoremove bzr
+$ apt-get autoremove bzr
 ````
 
 or even
@@ -105,7 +105,14 @@ Notes:
 - removing a package will not remove its dependencies
 - if removing a dependency, you'll get a warning about what will be removed alongside this package
 
-### Updating
+
+## searching for packages
+````
+$ apt-cache search "tiny window"
+$ aptitude search grub2
+````
+
+## Updating
 for updating a single package
 
     apt-get install tzdata
@@ -120,17 +127,29 @@ or going to a new distribution:
 
 Note: as most other softwares, you can configure the default configs at /etc/apt/apt.conf and there is a program apt-config for this purpose.
 
-### reconfiguring packages
+## reconfiguring packages
 
 A program called debconf configures packages after they are installed. you can reconfigure a package (say tzdata) using 
 
      dpkg-reconfigure tzdata
 
-### package information with dpkg
+## package information with dpkg
+dpkg is a very powerful tool for working with .deb package files. If you want to see what is inside a .deb file:
+
+````
+dpkg --contents bzr_2.6.0+bzr6595-1ubuntu1_all.deb 
+drwxr-xr-x root/root         0 2014-05-02 18:16 ./
+drwxr-xr-x root/root         0 2014-05-02 18:15 ./etc/
+drwxr-xr-x root/root         0 2014-05-02 18:15 ./etc/bash_completion.d/
+-rw-r--r-- root/root      1467 2010-04-22 11:31 ./etc/bash_completion.d/bzr
+...
+...
+````
+
 another apt tool is dpkg. dpkg can install, remove, configure and query packages and as always the config is at /etc/dpkg/dpkg.cfg and uses /var/lib/dpkg tree . the most important switch is **-s** for **status**. 
 
 ````
-jadi@funlife:~/w/lpic/101$ dpkg -s bzr
+$ dpkg -s bzr
 Package: bzr
 Status: deinstall ok config-files
 Priority: optional
@@ -173,12 +192,12 @@ Homepage: http://bazaar-vcs.org
 Original-Maintainer: Debian Bazaar Maintainers <pkg-bazaar-maint@lists.alioth.debian.org>
 ````
 
-another commang is **purge** which will remove the package and all of its configurations.. the switch is -P or --purge.
+another commang is **purge** which will remove the package and all of its configurations.. the switch is **-P** or **--purge**.
 
-There is also -L to check the files and directories a package intalled:
+There is also **-L** to check the files and directories a package intalled:
 
 ````
-jadi@funlife:~/w/lpic/101$ dpkg -L jcal 
+$ dpkg -L jcal 
 /.
 /usr
 /usr/bin
@@ -194,35 +213,35 @@ jadi@funlife:~/w/lpic/101$ dpkg -L jcal
 /usr/share/doc/jcal/changelog.Debian.gz
 ````
 
-and -S will show which package installed the given file:
+and **-S** will show which package installed the given file:
 
 ````
-jadi@funlife:~/w/lpic/101$ dpkg -S /var/lib/mplayer/prefs/mirrors 
+$ dpkg -S /var/lib/mplayer/prefs/mirrors 
 mplayer: /var/lib/mplayer/prefs/mirrors
 ````
 
-Note: you can also use 'which" for finding out what file will be used on any given command:
+Note: you can also use ````which```` for finding out what file will be used on any given command:
 
 ````
 jadi@funlife:~/w/lpic/101$ which java
 /usr/bin/java
 ````
 
-### aptitude
+## aptitude
 is a newer tool for managing files. It can be used like this:
 
 ````
 $ aptitude install jcal
 $ aptitude remove jcal
-$ aptitude search cal #will search for any package name with cal in it
-$ aptitude show bzr #show info
+$ aptitude search cal 
+$ aptitude show bzr 
 ````
 
 or it can also be used as a standalone program:
 
 ![aptitude sample](http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-4/fig-102-4-2.gif)
 
-### other tools
+## other tools
 there is gui tools like "synaptic" and "update manager". These will Searck, Update, Upgrade, Install, Remove via a graphical user interface and are present in many distributions. This is ubuntu software center:
 
 ![Ubuntu Software Center](http://screenshots.debian.net/screenshots/s/software-center/10674_large.png)
@@ -233,12 +252,6 @@ and this is a software updater GUI for gnome:
 
 
 
-### finding packages
-
-````
-$ apt-cache search "tiny window"
-$ aptitude search grub2
-````
 .
 
 
