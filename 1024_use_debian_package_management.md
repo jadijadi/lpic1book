@@ -1,6 +1,5 @@
 # 102.4. Use Debian package management 
 
-
 *weight: 3*
 
 Candidates should be able to perform package management using the Debian package tools.
