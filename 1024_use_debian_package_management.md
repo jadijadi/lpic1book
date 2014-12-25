@@ -137,7 +137,7 @@ A program called debconf configures packages after they are installed. you can r
 dpkg is a very powerful tool for working with .deb package files. If you want to see what is inside a .deb file:
 
 ````
-dpkg --contents bzr_2.6.0+bzr6595-1ubuntu1_all.deb 
+$ dpkg --contents bzr_2.6.0+bzr6595-1ubuntu1_all.deb 
 drwxr-xr-x root/root         0 2014-05-02 18:16 ./
 drwxr-xr-x root/root         0 2014-05-02 18:15 ./etc/
 drwxr-xr-x root/root         0 2014-05-02 18:15 ./etc/bash_completion.d/
