@@ -21,7 +21,7 @@ Description: Candidates should be able to design a disk partitioning scheme for 
 - partitions
 
 ## Basics
-As any other OS, Linux uses *files* and *directories* to operate. But unlike *Windows*, it does not use A:, C:, D:, etc. In Linux everything is in **one big tree*, starting with / (called root). Any partion, disk, CD, USB, network drive, ... will be placed somewhere in this huge tree. 
+As any other OS, Linux uses *files* and *directories* to operate. But unlike *Windows*, it does not use A:, C:, D:, etc. In Linux everything is in **one big tree*, starting with / (called root). Any partition, disk, CD, USB, network drive, ... will be placed somewhere in this huge tree. 
 
 > Note: Most of external devices (USB, CD, ..) are mounted at /media/ or /mnt/ .
 
@@ -42,9 +42,9 @@ usr	Secondary hierarchy
 var	Variable data
 
 ## Partitions
-In linux world, devices are defined at /dev/. First SCSI disk is /dev/sda, seccond SCSI disk is /dev/sdb, ... and first SATA disk (older systems) is /dev/hda.
+In Linux world, devices are defined at /dev/. First SCSI disk is /dev/sda, seccond SCSI disk is /dev/sdb, ... and first SATA disk (older systems) is /dev/hda.
 
-You have to *PARTITION* the disks, that is creating smaller parts on a big disk and calling them /dev/sda1 (first partition on first SCSI disk) or /dev/hd**b**3 (3rd partition on seccond disk). 
+You have to *PARTITION* the disks, that is creating smaller parts on a big disk and calling them /dev/sda1 (first partition on first SCSI disk) or /dev/hd**b**3 (3rd partition on second disk). 
 
 
 ````
@@ -73,7 +73,7 @@ Device     Boot     Start       End   Sectors   Size Id Type
 ### Primary, Extended & Logical Partitions
 The partition table is located in the master boot record (**MBR**) of a disk. The MBR is the first sector on the disk, so the partition table is not a very large part of it. This limits the primary partitions to 4 and the max size of a disk to around 2TBs. If you need more partitions you have a define one extended and then create logicals *inside* them. 
 
-Linux numbers the primary paritions 1, 2, 3 & 4. If you defin an extended partitions, logical partitions inside it will be called 5, 6, 7. 
+Linux numbers the primary partitions 1, 2, 3 & 4. If you define an extended partitions, logical partitions inside it will be called 5, 6, 7. 
 
 >Note: an Extended partition is just an empty box for creating Logical partitions inside it.
 
@@ -131,9 +131,9 @@ Device     Boot     Start       End   Sectors   Size Id Type
 
 
 #### gparted
-A gparhical tool. 
+A gparhical tool for managing disks and partitions.
 
-![http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-1/gparted-1s.jpg]
+![](http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-1/gparted-1s.jpg)
 
  
 ### LVM
@@ -141,38 +141,56 @@ In many cases you need to resize your partitions or even add new disks and *add*
 
 LVM helps you create one partition from different disks and add or remove space to them. The main concepts are:
 
-- Physical Volume (pv): a whole drive or a partition. It is better to define paritions and **not use whole disks - unpartitioned**.
-- Volume Garoups (vg): this is the collection of one or more **pv**s. OS will see the vg as one big disk. PVs in one vg, can have different sizes or even be on different physical disks.
-- Logical Volumes (lv): OS will see lvs as paritions. You can format an lv wit your OS and use it. 
+- Physical Volume (pv): a whole drive or a partition. It is better to define partitions and **not use whole disks - unpartitioned**.
+- Volume Groups (vg): this is the collection of one or more **pv**s. OS will see the vg as one big disk. PVs in one vg, can have different sizes or even be on different physical disks.
+- Logical Volumes (lv): OS will see lvs as partitions. You can format an lv wit your OS and use it. 
 
 ## Design Hard disk layout
 Disk layout and allocation partitions to directories depends on you usage. First we will discuss *swap* and *boot* and then will see three different cases.
 
 #### swap
-swap in linux works like an extended memory. Kernel will *page* memory to this paritoin / file. It is enoungh to format one partion with **swap file system** and define it in /etc/fstab (you will see this later in 104 modules). 
+swap in Linux works like an extended memory. Kernel will *page* memory to this partition / file. It is enough to format one partition with **swap file system** and define it in /etc/fstab (you will see this later in 104 modules). 
 
 > Note: swap size is 1 or 2 times the system memory but not more than 8GBs. So if you have 2GB of RAM, swap will be 4GB but if you have 6GB of RAM, it is recommended to have a 8GB swap partition.
 
-Older linuxes were not able to handle HUGE disks (say Terrabytes) so there were /boot. 
-Swap
+#### /boot
+Older Linuxes were not able to handle HUGE disks during the boot (say Terrabytes) so there were a separated /boot. It is also useful to recover broken systems or even you can make /boot read only. Most of the time, having 100MB for /boot is enough. This can be a different disk or a separated partition.
 
-on setup
-/
-/boot
-swap
+This partition should be accessible by BIOS during the boot (no network drive).
+
+### case one: Desktop computer
+On a desktop computer, it is good to have one swap, one /boot and allocate all other space to / (root). 
+
+### network workstation
+As any other system /boot should be local (a physical disk connected to the machine) and most of the time, the / (root file system) is also local. But in a network station, /home can be mounted from a network drive (NFS, SMB, SSH, ..). This lets users to sit at any station, login and have their own home mounted from a network drive. Swap can be mounted from network or local. 
+
+### Server
+On servers /boot is still local and based on usage, /home can be local or network. In many cases we separate the /var because logs and many other files are there and being updated so it is good to separate it or even put it on a more advanced storage (like RAID disks to prevent data loss). Some people also separate the /usr and write-protect it (read only file systems) or even mount the /usr from network so they can change / update one file on the network storage and all the servers will use the new file (you remember? /usr contains important executables like apache web server).
+
+.
+
+.
+
+.
 
 
-
-network workstation
-/
-/boot
-/home (might be NFS, SMB, SSH)
-swap
+.
 
 
-server
-/
-/home/
-/var
-/usr (sometimes read only from a network so all machine will be updated in one move)
+.
 
+.
+
+
+.
+
+
+.
+
+.
+
+
+.
+
+
+.
