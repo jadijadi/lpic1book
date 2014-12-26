@@ -280,13 +280,11 @@ If you need to find files in a installed package:
 
 > if you need same info for a downloaded package, just add the -p switch to your rpm command.
 
-Another important task is checking which package, own a specific file. Lets see what package gave us the ````cal``` command:
+Another important task is checking which package, own a specific file. Lets see what package gave us the ````cal```` command:
 
 ````
 [jadi@localhost ~]$ which cal 
 /usr/bin/cal
-[jadi@localhost ~]$ rpm -qR /usr/bin/cal 
-package /usr/bin/cal is not installed
 [jadi@localhost ~]$ rpm -qf /usr/bin/cal 
 util-linux-2.24-2.fc20.x86_64
 ````
