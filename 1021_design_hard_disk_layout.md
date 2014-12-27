@@ -26,20 +26,21 @@ As any other OS, Linux uses *files* and *directories* to operate. But unlike *Wi
 > Note: Most of external devices (USB, CD, ..) are mounted at /media/ or /mnt/ .
 
 ## Unix directories
-Directory	Description
-bin	Essential command binaries
-boot	Static files of the boot loader
-dev	Device files
-etc	Host-specific system configuration
-lib	Essential shared libraries and kernel modules
-media	Mount point for removable media
-mnt	Mount point for mounting a filesystem temporarily
-opt	Add-on application software packages
-sbin	Essential system binaries
-srv	Data for services provided by this system
-tmp	Temporary files
-usr	Secondary hierarchy
-var	Variable data
+| Directory	| Description |
+| -- | --|
+| bin | Essential command binaries |
+| boot | Static files of the boot loader |
+| dev | Device files |
+| etc | Host-specific system configuration |
+| lib | Essential shared libraries and kernel modules |
+| media | Mount point for removable media |
+| mnt | Mount point for mounting a filesystem temporarily |
+| opt | Add-on application software packages |
+| sbin | Essential system binaries |
+| srv | Data for services provided by this system |
+| tmp | Temporary files |
+| usr | Secondary hierarchy |
+| var | Variable data |
 
 ## Partitions
 In Linux world, devices are defined at /dev/. First SCSI disk is /dev/sda, seccond SCSI disk is /dev/sdb, ... and first SATA disk (older systems) is /dev/hda.
