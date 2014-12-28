@@ -34,9 +34,10 @@ the ````ldd```` command helps you find:
 
 lets have a look at two files:
 ````
-root@funlife:/home/jadi/Downloads# ldd /sbin/ldconfig
+# ldd /sbin/ldconfig
 	not a dynamic executable
-root@funlife:/home/jadi/Downloads# ldd /bin/ls
+
+# ldd /bin/ls
 ls     lsblk  lsmod  
 root@funlife:/home/jadi/Downloads# ldd /bin/ls
 	linux-vdso.so.1 =>  (0x00007fffef1fc000)
@@ -57,12 +58,12 @@ If you are writing a program and you udev functions, you will ask for a library 
 
 I will check the same thing on my system. First I'll find where the libudev.so.1 on my system is:
 
-	root@funlife:/sbin# locate libudev.so.1
+	# locate libudev.so.1
 	/lib/i386-linux-gnu/libudev.so.1
 
 and then will check that file:
 
-	root@funlife:/sbin# locate /lib/i386-linux-gnu/libudev.so.1
+	# locate /lib/i386-linux-gnu/libudev.so.1
 	lrwxrwxrwx 1 root root    16 Nov 13 23:05 /lib/i386-linux-gnu/libudev.so.1 -> libudev.so.1.4.0
 
 As you can see, this is a symbolic link pointing to the version of libudev I have installed (1.4.0) so even if a software says it need libudev.so.1, my system will use its libusdev.so.1.4.0.
@@ -71,15 +72,15 @@ As you can see, this is a symbolic link pointing to the version of libudev I hav
 As most of other linux softwares, dynamic linking is also configured using a text config file. It is located at */etc/ld.so.conf*. On an Ubuntu system it is just points to other config files in /etc/ld.so.conf.d/ but all those lines can be included in the main file too:
 
 ````
-root@funlife:/sbin# cat /etc/ld.so.conf
+# cat /etc/ld.so.conf
 include /etc/ld.so.conf.d/*.conf
 
-root@funlife:/sbin# ls /etc/ld.so.conf.d/
+# ls /etc/ld.so.conf.d/
 fakeroot-x86_64-linux-gnu.conf          i686-linux-gnu.conf                     x86_64-linux-gnu_EGL.conf               
 i386-linux-gnu.conf                     libc.conf                               x86_64-linux-gnu_GL.conf                
 i386-linux-gnu_GL.conf                  x86_64-linux-gnu.conf                   x86_64-linux-gnu_mirclient8driver.conf  
 
-root@funlife:/sbin# cat /etc/ld.so.conf.d/libc.conf 
+# cat /etc/ld.so.conf.d/libc.conf 
 # libc default configuration
 /usr/local/lib
 
@@ -94,7 +95,7 @@ the ````ldconfig```` commands processed all these files to make the loading of l
 To close this section lets run ldconfig with the **-p** switch to see what is saved in ld.so.cache:
 
 ````
-root@funlife:/sbin# ldconfig -p | head
+# ldconfig -p | head
 1358 libs found in cache `/etc/ld.so.cache'
 	libzvbi.so.0 (libc6,x86-64) => /usr/lib/x86_64-linux-gnu/libzvbi.so.0
 	libzvbi-chains.so.0 (libc6,x86-64) => /usr/lib/x86_64-linux-gnu/libzvbi-chains.so.0
