@@ -3,7 +3,7 @@
 
 Description: Candidates should be able to interact with shells and commands using the command line. The objective assumes the bash shell.
 
-## Goals
+## Objectives
 
 - Use single shell commands and one line command sequences to perform basic tasks on command line.
 - Use and modify the shell environment including defining, referencing and exporting environment variables.
