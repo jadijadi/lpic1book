@@ -44,25 +44,25 @@ $
 > in most cases, root users prompt uses # instead of $ (say: ````root@funlife:/etc# 
 ````). 
 
-Globau bash configs are stored at /etc/profile and each user has her own config at ~/.profile & ~/.bash_profile & ~/.bash_logout
+Global bash configs are stored at /etc/profile and each user has her own config at ~/.profile & ~/.bash_profile & ~/.bash_logout
 
 ### Commands and sequences
 Most commands have a *command name* and some *parameters*. A simple one is the ````echo``` command:
 
 ````
-jadi@funlife:~$ echo
+$ echo
 
-jadi@funlife:~$ echo Hello lpic
+$ echo Hello lpic
 Hello lpic
-jadi@funlife:~$ echo Hello lpic #just a simple hi
+$ echo Hello lpic #just a simple hi
 Hello lpic
 ````
 
-> Note: the # is for *commnets*. Anything after it is comment. 
+> Note: the # is for *comments*. Anything after it is comment. 
 
 #### escaped characters
 
-Some special characters need special case in programing and linux world. Say you want to go to the new line dusring an echo command.
+Some special characters need special case in programing and linux world. Say you want to go to the new line during an echo command.
 
 ````
 jadi@funlife:~$ echo -e "hello\nthere"
@@ -85,11 +85,11 @@ there
 $ echo but tihs \
 > is another \
 > usage
-but tihs is another usage
+but this is another usage
 ````
 
 #### metacharavters and Control operators
-Also there are characters with special meaning. You need to escape theh if you need them in your commands: **| & ; ( ) < >***
+Also there are characters with special meaning. You need to escape then if you need them in your commands: **| & ; ( ) < >***
 
 There is also control operators. They also have special meanings: ** || && & ; ;; | ( )** 
 
@@ -114,7 +114,7 @@ line 3
 ## exiting shell
 the ````exit```` command exits the shell. Same as ctrl+d. 
 
-if you run a command inside parantesses, that command will be run inside a subshell. 
+if you run a command inside parentheses that command will be run inside a subshell. 
 
 and ````exec``` will run a command and closes the current shell.
 
@@ -305,7 +305,7 @@ There are 9 man sections:
 
 of course there can be more and one command can be in different places.
 
-If you are searchint, you can do:
+If you are searching, do:
 
 ````
 jadi@funlife:~$ man -f ls
