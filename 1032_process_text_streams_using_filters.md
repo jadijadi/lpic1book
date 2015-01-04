@@ -180,4 +180,128 @@ Shows the *head* (top) of a file or its *tail* (bottom). The default lines to sh
 
 >````tali -f```` will continue showing the new lines which are being written at the eng of the file. Very useful. 
 
-## expand & unexpand
+## expand & unexpand & tr
+Expand will replace the tabs in a stream with spaces (normally 8 but can be defined with -n12 for 12):
+
+````
+jadi@funlife:~/w/lpic/101$ cat howcool 
+jadi	5
+sina	6
+rubic	2
+you 	12
+jadi@funlife:~/w/lpic/101$ od -tc howcool 
+0000000   j   a   d   i  \t   5  \n   s   i   n   a  \t   6  \n   r   u
+0000020   b   i   c  \t   2  \n   y   o   u      \t   1   2  \n
+0000036
+jadi@funlife:~/w/lpic/101$ expand howcool | od -tc
+0000000   j   a   d   i                   5  \n   s   i   n   a        
+0000020           6  \n   r   u   b   i   c               2  \n   y   o
+0000040   u                       1   2  \n
+0000051
+````
+
+Unexpand will do the reverse. Again the default is converting every 8 spaces to on tab but this can be configures with -n12 (for 12 spaces to one tab).
+
+> unexpand needs at least two spaces.
+
+The ````tr```` command *translates* A to 1, B to 2 and C to 3 in a stream you have to ````tr 'ABC' '123'````. It is a pure filter so if you need to give it file to work on, you have to use cat:
+
+ ````
+jadi@funlife:~/w/lpic/101$ cat mydata 
+hello
+this is seccond line
+but as you can see we are
+still writing
+and this is getting longer
+.
+.
+and longer
+and longer!
+jadi@funlife:~/w/lpic/101$ cat mydata | tr 'and' 'AND'
+hello
+this is seccoND liNe
+but As you cAN see we Are
+still writiNg
+AND this is gettiNg loNger
+.
+.
+AND loNger
+AND loNger!
+````
+
+>Note: all **a**s are replaced with **A**.
+
+## -
+You shoud know that if you put ````-```` instead of a filename, the data will be replaced from the pipe (or keyboard stdin). 
+
+````
+jadi@funlife:~/w/lpic/101$ wc -l mydata | cat mydata - mydata  
+hello
+this is seccond line
+but as you can see we are
+still writing
+and this is getting longer
+.
+.
+and longer
+and longer!
+9 mydata
+hello
+this is seccond line
+but as you can see we are
+still writing
+and this is getting longer
+.
+.
+and longer
+and longer!
+````
+
+## pr
+this formats text for classic *printers*. The default header includes the filename and file creation date and time, along with a page number and two lines of blank footer.
+
+````
+pr mydata 
+
+
+2015-01-04 17:58                      mydata                      Page 1
+
+
+hello
+this is seccond line
+but as you can see we are
+still writing
+and this is getting longer
+.
+.
+and longer
+and longer!
+````
+
+It is possible to print in two or more columns and other outdated fun stuff. 
+
+> When output is created from multiple files or the standard input stream, the current date and time are used instead of the filename and creation date. 
+
+## nl
+Simply numbers lines. 
+
+````
+jadi@funlife:~/w/lpic/101$ nl mydata  | head -3
+     1	hello
+     2	this is seccond line
+     3	but as you can see we are
+
+````
+
+> cat -n will also number lines.
+
+## fmt
+Will reformat a text file within margins (say 80 columns width or 60 if you use -w60). 
+
+````
+jadi@funlife:~/w/lpic/101$ fmt mydata 
+hello this is seccond line but as you can see we are still writing and
+this is getting longer .  .  and longer and longer!
+````
+
+## sort
