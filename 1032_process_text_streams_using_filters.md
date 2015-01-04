@@ -7,6 +7,7 @@ Description: Candidates should be able to apply filters to text streams.
 ## Objectives
 - Send text files and output streams through text utility filters to modify the output using standard UNIX commands found in the GNU textutils package.
 
+
 - cat
 - cut
 - expand
