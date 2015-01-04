@@ -165,6 +165,8 @@ still writing
 - the ````-l 2``` switch told the split to put 2 lines in output files. It is possible to use ````-b 42```` to split every 42 bytes or even ````-n 5```` to force 5 output files.
 - if you want numeric output (x00, x01, ..) use ````-d````
 
+>need to join these files? ````cat```` them with ````cat x* > originalfile````.
+
 ## wc
 wc is *word count*. It counts the characters, lines and bytes in the input stream.
 
@@ -200,7 +202,7 @@ jadi@funlife:~/w/lpic/101$ expand howcool | od -tc
 0000051
 ````
 
-Unexpand will do the reverse. Again the default is converting every 8 spaces to on tab but this can be configures with -n12 (for 12 spaces to one tab).
+Unexpand will do the reverse. The default is converting only the initial blanks but his can be overrided by using ````-a````.
 
 > unexpand needs at least two spaces.
 
@@ -304,4 +306,190 @@ hello this is seccond line but as you can see we are still writing and
 this is getting longer .  .  and longer and longer!
 ````
 
-## sort
+## sort & uniq
+Will sorts its input(s). 
+
+````
+jadi@funlife:~/w/lpic/101$ cat uses 
+you fedora
+jadi ubuntu
+rubic windows
+neda mac
+jadi@funlife:~/w/lpic/101$ cat howcool 
+jadi	5
+sina	6
+rubic	2
+you 	12
+jadi@funlife:~/w/lpic/101$ sort howcool uses 
+jadi	5
+jadi ubuntu
+neda mac
+rubic	2
+rubic windows
+sina	6
+you 	12
+````
+
+> if you want to sort NUMERICALLY (so 9 is lower than 19), use ````-n````
+> -r will reverse the search
+
+and the ````uniq```` removes duplicate entries from its input. Normal behavior is removing only the duplicated lines but you can change the behaviour for example by giving ````-f1```` to force it to not check fist field.
+
+````
+jadi@funlife:~/w/lpic/101$ uniq what_i_have.txt 
+laptop
+socks
+tshirt
+ball
+socks
+glasses
+jadi@funlife:~/w/lpic/101$ sort what_i_have.txt | uniq 
+ball
+glasses
+laptop
+socks
+tshirt
+jadi@funlife:~/w/lpic/101$ 
+````
+
+> As you can see, the input HAVE TO BE sorted for uniq to work
+
+uniq has great switches:
+
+````
+jadi@funlife:~/w/lpic/101$ cat what_i_have.txt 
+laptop
+socks
+tshirt
+ball
+socks
+glasses
+jadi@funlife:~/w/lpic/101$ sort what_i_have.txt  | uniq -c  #show count of each item
+      1 ball
+      1 glasses
+      1 laptop
+      2 socks
+      1 tshirt
+jadi@funlife:~/w/lpic/101$ sort what_i_have.txt  | uniq -u #show only non-repeated items
+ball
+glasses
+laptop
+tshirt
+jadi@funlife:~/w/lpic/101$ sort what_i_have.txt  | uniq -d #show only repeated items
+socks
+````
+
+> how many things I have? ````wc -l what_i_have.txt```` :)
+
+## cut
+cut command will *cut* a column of one file. Good for seperating fields:
+
+Lets cut the *first field* of a file. 
+
+````
+jadi@funlife:~/w/lpic/101$ cat howcool 
+jadi	5
+sina	6
+rubic	2
+you 	12
+jadi@funlife:~/w/lpic/101$ cut -f1 howcool 
+jadi
+sina
+rubic
+you 
+````
+
+>normal delimiter is TAB. use -dx to change it to "x" or use ```` | tr ' ' '\t' | ```` to convert spraces in your stream to TABs.
+
+It is also possible to *cut* fields 1, 2, 3 with ````-f1-3```` or only characters 4,5,7,8 with ````-c4,5,7,8````.
+
+
+#paste
+The paste command pastes lines from two or more files side-by-side! You can not do this in a normal text editor.
+
+````
+jadi@funlife:~/w/lpic/101$ cat howcool 
+jadi	5
+sina	6
+rubic	2
+you 	12
+jadi@funlife:~/w/lpic/101$ cat uses 
+you fedora
+jadi ubuntu
+rubic windows
+neda mac
+jadi@funlife:~/w/lpic/101$ paste howcool uses 
+jadi	5	you fedora
+sina	6	jadi ubuntu
+rubic	2	rubic windows
+you 	12	neda mac
+````
+
+## join
+Our final field-manipulating command is join, which joins files based on a matching field. **The files should be sorted on the join field.**
+
+````
+jadi@funlife:~/w/lpic/101$ cat howcool 
+jadi	5
+sina	6
+rubic	2
+you 	12
+jadi@funlife:~/w/lpic/101$ cat uses 
+you fedora
+jadi ubuntu
+rubic windows
+neda mac
+jadi@funlife:~/w/lpic/101$ sort howcool > howcool.sorted
+jadi@funlife:~/w/lpic/101$ sort uses  > uses.sorted
+jadi@funlife:~/w/lpic/101$ join howcool.sorted uses.sorted 
+jadi 5 ubuntu
+rubic 2 windows
+you 12 fedora
+````
+
+>join does not work on numeric fields unless the fields are all the same length. It default delimiter is any white space (TAB, sprace) and it joins on first field. check ````man sort```` for more info.
+
+## sed
+sed is ***s**tream **ed**itor*. It is POWERFUL and can do magic! Just like most of the tools we saw, sed sed can work as a filter or take its input from a file. It uses **regular expressions** and is a great tool for replacing text. If you need to replace A with B only once in each line in a stream you have to say ````sed 's/A/B/'````:
+
+````
+jadi@funlife:~/w/lpic/101$ cat uses
+you fedora
+jadi ubuntu
+rubic windows
+neda mac
+jadi@funlife:~/w/lpic/101$ sed 's/ubuntu/debian/' uses
+you fedora
+jadi debian
+rubic windows
+neda mac
+jadi@funlife:~/w/lpic/101$ 
+````
+
+the pattern for changing EVERY occurance of A to B in a line is ````sed 's/A/B/g'````. 
+
+Remember escape characters? They also work here and this will remove every *new line* from a file ang will replace it with a space:
+
+````
+jadi@funlife:~/w/lpic/101$ cat mydata
+hello
+this is seccond line
+but as you can see we are
+still writing
+and this is getting longer
+.
+.
+and longer
+and longer!
+jadi@funlife:~/w/lpic/101$ sed 's/ /\t/g' mydata > mydata.tab
+jadi@funlife:~/w/lpic/101$ cat mydata.tab 
+hello
+this	is	seccond	line
+but	as	you	can	see	we	are
+still	writing
+and	this	is	getting	longer
+.
+.
+and	longer
+and	longer!
+````
