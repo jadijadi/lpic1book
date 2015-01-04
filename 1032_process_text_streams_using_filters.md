@@ -119,3 +119,65 @@ total 0
 -rw-rw-r-- 1 jadi jadi 0 Jan  4 17:34 amir
 -rw-rw-r-- 1 jadi jadi 0 Jan  4 17:37 directory_data
 ````
+
+## od
+This command *dump*s files (shows files in formats other than text). Normal behaviour is OctalDump (base 8):
+
+````
+jadi@funlife:~/w/lpic/101$ od mydata 
+0000000 062564 072163 072012 064550 020163 071551 072040 062550
+0000020 071440 061545 067543 062156 066040 067151 005145 074542
+0000040 005145
+0000042
+````
+
+Not good.. lets use two switches:
+- -t will tell what format to print (````-t a```` for showing only named characters or ````-t c```` for showing escaped chars)
+- -A for choosing how to show offsets (````-A```  ````D````ecimal, ````O````ctal, ````H````ex or ````N````one)
+
+> ````od```` is very useful to find problems in your text files - say finding out if you are using tabs or correct line endings
+
+## split
+Will split files. It is very useful for transferring HUGE files on smaller media (say splitting a 3TB file to 8GB parts and moving them to another machine with a USB Disk). 
+
+````
+jadi@funlife:~/w/lpic/101$ cat mydata 
+hello
+this is seccond line
+but as you can see we are
+still writing
+and this is getting longer
+.
+.
+and longer
+and longer!
+jadi@funlife:~/w/lpic/101$ ls
+mydata
+jadi@funlife:~/w/lpic/101$ split -l 2 mydata 
+jadi@funlife:~/w/lpic/101$ ls
+mydata	xaa  xab  xac  xad  xae
+jadi@funlife:~/w/lpic/101$ cat xab
+but as you can see we are
+still writing
+````
+
+- on normal case, split uses xaa, xab, xac, .. for output files. If can be changed with ````split -l 2 mydata output```` which will lead to outputaa, outputab, ..
+- the ````-l 2``` switch told the split to put 2 lines in output files. It is possible to use ````-b 42```` to split every 42 bytes or even ````-n 5```` to force 5 output files.
+- if you want numeric output (x00, x01, ..) use ````-d````
+
+## wc
+wc is *word count*. It counts the characters, lines and bytes in the input stream.
+
+````
+jadi@funlife:~/w/lpic/101$ wc mydata 
+  9  25 121 mydata
+````
+
+>It is very nowmal to count the line numbers with ````-l```` switch. 
+
+## head & tail
+Shows the *head* (top) of a file or its *tail* (bottom). The default lines to show is 10 but you can specify with ````-n20```` or ````-20````. 
+
+>````tali -f```` will continue showing the new lines which are being written at the eng of the file. Very useful. 
+
+## expand & unexpand
