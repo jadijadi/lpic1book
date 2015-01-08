@@ -385,3 +385,112 @@ jadi@funlife:~/w/lpic/101$ file -i mydir
 mydir: inode/directory; charset=binary
 ````
 > -i switch prints the complete mime format
+
+## Compressing files
+Compressing works best on text files.
+
+#### zip
+we mostly use ````gzip``` and ````gunzip```` in linux. It is very easy:
+
+````
+jadi@funlife:~/w/lpic/101$ ls *  -ltrh 
+-rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+jadi@funlife:~/w/lpic/101$ gzip  The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt 
+jadi@funlife:~/w/lpic/101$ ls *  -ltrh 
+-rw-r--r-- 1 jadi jadi  30K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz
+jadi@funlife:~/w/lpic/101$ gunzip The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz 
+jadi@funlife:~/w/lpic/101$ ls *  -ltrh 
+-rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+
+````
+
+- gzip preserves time
+- gzip creates the new comressed file with the same name but with .gz ending
+- gzip removes the original files after creating the compressed file
+
+#### bzip2
+is another compressing tool. Works just the same but with another compression algorithm.
+
+````
+jadi@funlife:~/w/lpic/101$ ls *  -ltrh 
+-rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+jadi@funlife:~/w/lpic/101$ bzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt 
+jadi@funlife:~/w/lpic/101$ ls *  -ltrh 
+-rw-r--r-- 1 jadi jadi  22K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2
+jadi@funlife:~/w/lpic/101$ bunzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2 
+jadi@funlife:~/w/lpic/101$ ls *  -ltrh 
+-rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+````
+
+## Archiving files
+Sometimes we need to create an archive file from many files for easier moving or backing up. This is done with ````cpio```` and ````tar````.
+
+#### tar
+TapeARchive or tar is the most common archiving tool. In automatically create an archive file from a directory and all its subdirs. 
+
+
+Common switches are
+
+|switch|meanint|
+|---|---|
+|-cf myarchive.tar|create file named myarchive.tar|
+|-xf myarchive.tar|extract a file called myarchive.tar|
+|-z|compress the archive with gzip after creating it|
+|-b|compress the archive with bzip2 after creating it|
+|-v|verbose! print a lot of data about what you are doing|
+|-r| appeng new files to the currentyp available archive|
+ 
+
+> If you issue absolute paths, tar removes the startint / for safety reasond when creating an archive. If you want to override, use -p option. 
+
+> tar can work with tapes and other storages. Thats why we use ````-f```` to tell it that we are working with files.
+
+#### cpio
+
+
+## dd
+The ``dd`` command copies data from one location to another. This data comes from files. You can use it just like copy:
+
+````
+jadi@funlife:~/w/lpic/101$ cat howcool
+jadi	5
+sina	6
+rubic	2
+you 	12
+jadi@funlife:~/w/lpic/101$ dd if=howcool of=newcool
+0+1 records in
+0+1 records out
+30 bytes (30 B) copied, 0.0227904 s, 1.3 kB/s
+jadi@funlife:~/w/lpic/101$ cat newcool 
+jadi	5
+sina	6
+rubic	2
+you 	12
+jadi@funlife:~/w/lpic/101$ 
+````
+
+- ````if```` is In File
+- ````of```` is Out File
+
+But it is used in many other cases specially writint directly to block devices such as /dev/sdb or changing data to upper/lower case. 
+
+This will backup my whole hard to a file:
+
+````
+# dd if=/dev/sda of=backup.dd bs=4096
+````
+ 
+or better:
+
+````
+# dd if=/dev/sda2 |gzip >backup.dd.gzip
+````
+
+Anothe common usage is creating files of specific size:
+
+````
+$ dd if=/dev/zero of=1g.bin bs=1G count=1
+````
+
+
+
