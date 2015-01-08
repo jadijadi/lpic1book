@@ -1,6 +1,6 @@
 # 103.3 Perform basic file management
 
-** Weight: 4 **
+*Weight: 4*
 
 Candidates should be able to use the basic Linux commands to manage files and directories.
 
