@@ -363,9 +363,10 @@ At last you have to know the ````-mtime```` switch for finding files based on th
 
 |switch|meanint|
 |---|---|
-|-mtime -6|file moditication time is 6*24 ago till now (same as -atime +6)|
-|-atime -6|file was last accessed 6*24 hours ago (same as -mtime +6)|
-|-mmin 90|file's data was last modified 90 minutes ago|
+|-atime -6|file was last accessed less than 6*24 hours ago|
+|-ctime +6|file was changed more than 6*24 hours ago|
+|-mtime -6|file *content* moditication less than time is 6*24 ago|
+|-mmin -90|file's data was last modified less than 90 minutes ago|
 
 > if you add ````-daystart```` switch to -mtime or -atime it means that we want to consider days as calendar days, starting at midnight.
 
@@ -446,6 +447,29 @@ Common switches are
 > tar can work with tapes and other storages. Thats why we use ````-f```` to tell it that we are working with files.
 
 #### cpio
+Gets a list of files and creates archive (one file) of it whlch can be opened later.
+
+````
+jadi@funlife:~/w/lpic/101$ ls | cpio -o > allfilesls.cpio
+3090354 blocks
+````
+- ````-o```` makes cpio to create an output from its input
+- cpio does not goes into the folders. So mostly we use it with find:
+
+````
+find . -name "*" | cpio -o > myarchivefind.cpio
+````
+
+to decompress it:
+
+````
+mkdir extract
+mv myarchivefind.cpio extract
+cd extract
+cpio -id < myarchivefind.cpio
+````
+- ````-d```` will create the folders
+- ````-i```` is for extract
 
 
 ## dd
@@ -492,5 +516,25 @@ Anothe common usage is creating files of specific size:
 $ dd if=/dev/zero of=1g.bin bs=1G count=1
 ````
 
+.
 
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
 
