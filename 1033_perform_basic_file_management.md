@@ -279,4 +279,109 @@ Fri Aug 14 18:25:50 EDT 2009
 ````
 
 ## Finding files
-The ````find```` command 
+The ````find```` command helps us to find files based on MANY criteria. Look at this:
+
+````
+jadi@funlife:~/w/lpic/101$ find . -iname "[a-j]*"
+./howcool.sort
+./alldata
+./mydir/howcool.sort
+./mydir/newDir/insideNew
+./howcool
+````
+
+- the first parameter says where should be searched (with subdirectories).
+- the ````-name```` switch indicates the criteria (here iname: searching for files with this name).
+
+a common switch is ````-iname```` which says "name but case is not important (z is same as Z)". Also ````-d```` is commonly used:
+
+````
+jadi@funlife:~/w/lpic/101$ find . -iname "*my*" 
+./myfiles
+./mydata.noenter
+./mydata
+./mydir
+./mydir/hereisMYfile.txt
+./touch/myfile
+./mydata.tab
+jadi@funlife:~/w/lpic/101$ find . -type f -iname "*my*" 
+./myfiles
+./mydata.noenter
+./mydata
+./mydir/hereisMYfile.txt
+./touch/myfile
+./mydata.tab
+````
+
+These are the most common file types:
+
+- ````-type f```` will search for a regular file
+- ````-type d```` will search for a directory
+- ````-type l```` will search for a symbolic link
+
+you can also search for file sizes:
+
+|command|meanint|
+|---|---|
+| -size 100c| files which are exactly 100 bytes (you can also use **b**|
+| -size +100k| files which are more than 100 kilobytes|
+| -size -20M| files smaller than 20Megabytes|
+| -size +2G| files bigger than 2Gigabytes|
+
+So this will find all files ending in *tmp* with size between 1M and 100M in /var/ directory:
+
+````
+find /var -iname '*tmp* -size +1M -size -100M
+````
+
+> you can find all empty files with ````find . -size 0b```` or ````find . -empty````
+
+#### Acting on files
+We can act on files with varous switches:
+
+|switch|meanint|
+|---|---|
+| -ls | will run ls -dils on each file|
+| -print | will print the full name of the files on each line|
+
+
+But the best way to run commands on found files is ````-exec```` switch. You can point to the file with **'{}'** or **\{\}** and finish your command with **\;**. 
+
+This will remove all empty files in this directory and its subdirectories:
+
+````
+find . -empty -exec rm '{}' \;
+````
+
+or this will rename all htm files to hfml
+
+````
+find . -name "*.htm" -exec mv '{}' '{}l' \;
+````
+
+At last you have to know the ````-mtime```` switch for finding files based on their time. 
+
+|switch|meanint|
+|---|---|
+|-mtime -6|file moditication time is 6*24 ago till now (same as -atime +6)|
+|-atime -6|file was last accessed 6*24 hours ago (same as -mtime +6)|
+|-mmin 90|file's data was last modified 90 minutes ago|
+
+> if you add ````-daystart```` switch to -mtime or -atime it means that we want to consider days as calendar days, starting at midnight.
+
+## Identify a file
+That is the ````file```` command:
+
+````
+jadi@funlife:~/w/lpic/101$ file mydata.tab 
+mydata.tab: ASCII text
+jadi@funlife:~/w/lpic/101$ file /bin/bash 
+/bin/bash: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=cb63ec0718f2022619814c04a5b6cd8a36752a83, stripped
+jadi@funlife:~/w/lpic/101$ file mydata.tab 
+mydata.tab: ASCII text
+jadi@funlife:~/w/lpic/101$ file /bin/bash 
+/bin/bash: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=cb63ec0718f2022619814c04a5b6cd8a36752a83, stripped
+jadi@funlife:~/w/lpic/101$ file -i mydir
+mydir: inode/directory; charset=binary
+````
+> -i switch prints the complete mime format
