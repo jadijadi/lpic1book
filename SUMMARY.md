@@ -10,7 +10,7 @@
 * [103.1. Work on the command line ](1031_work_on_the_command_line.md)
 * [103.2. Process text streams using filters](1032_process_text_streams_using_filters.md)
 * [103.3. Perform basic file management](1033_perform_basic_file_management.md)
+* 103.4. Use streams, pipes and redirects 
 * [104.3. Control mounting and unmounting of filesystems](1043_control_mounting_and_unmounting_of_filesystems.md)
 * [104.6. Create and change hard & symbolic links](1046_create_and_change_hard_&_symbolic_links.md)
-* 103.4. Use streams, pipes and redirects 
 
