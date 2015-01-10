@@ -149,8 +149,29 @@ these are files: errors f file1 fiona habib mahmoodrm minoo mojtaba output outpu
 
 Have in mind that xargs breaks input based on blanks and use any part as an argument. You can limit the number of arguments with ```--max-args``` (same as `-n`) switch and escape blanks or quote them to prevent them from breaking. 
 
+One important switch is -I. This is useful if you need to pass stdin arguments in the middle (or even start) of your commands. use the form `xargs -I SOMETHING echo here is SOMETHING end`:
 
+```
+jadi@funlife:~/w/lpic/101/103.4$ cat what_i_have.txt 
+laptop
+socks
+tshirt
+ball
+socks
+glasses
+jadi@funlife:~/w/lpic/101/103.4$ cat what_i_have.txt | xargs -I DATA echo I have DATA and I love it.
+I have laptop and I love it.
+I have socks and I love it.
+I have tshirt and I love it.
+I have ball and I love it.
+I have socks and I love it.
+I have glasses and I love it.
+```
 
+> If you use -L, the input will break by line and not by blanks.
+
+## tee
+What if you need to see the output on screen and also save it to a file? Ugly way is redirecting to the file and using `tail -f file` in another window. Nice way is using `tee` and 
 
 
 
