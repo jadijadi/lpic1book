@@ -171,8 +171,21 @@ I have glasses and I love it.
 > If you use -L, the input will break by line and not by blanks.
 
 ## tee
-What if you need to see the output on screen and also save it to a file? Ugly way is redirecting to the file and using `tail -f file` in another window. Nice way is using `tee` and 
+What if you need to see the output on screen and also save it to a file? Ugly way is redirecting to the file and using `tail -f file` in another window. Nice way is using `tee` and giving it one or more filenames for standard output (if you need to save *stderr*, first redirect it to *stdout*). This will write the output to those files and also writes them to the screen:
 
+```
+jadi@funlife:~/w/lpic/101/103.4$ ls -1 | tee allfiles myfiles
+allfiles
+f
+fiona
+habib
+mahmoodrm
+minoo
+mojtaba
+myfiles
+sina
+```
+> if you want to prevent overwring files, use the `-a` swltch to append to files if exists.
 
 
 
