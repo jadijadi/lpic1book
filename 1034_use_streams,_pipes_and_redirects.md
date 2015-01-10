@@ -147,6 +147,7 @@ these are files: errors f file1 fiona habib mahmoodrm minoo mojtaba output outpu
 
 > if you do not give any command to the `xargs` , the echo will be the default command (it will show the stdin).
 
+Have in mind that xargs breaks input based on blanks and use any part as an argument. You can limit the number of arguments with ```--max-args``` (same as `-n`) switch and escape blanks or quote them to prevent them from breaking. 
 
 
 
