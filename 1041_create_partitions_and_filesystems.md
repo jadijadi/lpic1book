@@ -340,8 +340,8 @@ to GPT format!
 |---|---|---|-|
 |/dev/sda3|ext4|`mkfs -t ext4 -L data`/dev/sda3|Named it *dafa*. Or use the `mkfs.ext4` command|
 |/dev/sdb2|xfs|`mkfs -t xfs -i size=512 /dev/sdb2`|telling it to have larger inodes (normal is 256)|
-|/dev/sda8|ReiserFS|`mkfs -f reiserfs /dev/sda8`|Or you can use `mkreiserfs` command.
-|/dev/sdc|FAT32|`mkfs -f vfat /dev/sdc`|Or you can use `mkfs.vfat` command|
+|/dev/sda8|ReiserFS|`mkfs -t reiserfs /dev/sda8`|Or you can use `mkreiserfs` command.
+|/dev/sdc|FAT32|`mkfs -t vfat /dev/sdc`|Or you can use `mkfs.vfat` command|
 |/dev/sda2|swap|`mkswap /dev/sda2`|will be used as swap space|
 
 
