@@ -60,20 +60,21 @@ drwxrwxr-x 2 jadi jadi 4096 Jan  8 16:46 newdir
 ## Copying, Moving & Deleting
 
 #### cp
-This will *copy* files from one place / name to another place / name. it works like:
+This will *copy* files from one place / name to another place / name. If the target is a directory, all sources will be copied there.
 
 ````
 cp source destination
 ````
 
+#### mv
+Will *move* or *rename* files or directories. It works like ````cp```` command. If you are moving a file on the same file system, the **inode** wont change.
+
+In general:
 - If the target is an existing directory, then all sources are copied into the target
 - If the target is a directory that does not exist, then the (single) source must also be a directory and a copy of the source directory and its contents is made with the target name as the new name
 - If the target is a file, then the (single) source must also be a file and a copy of the source file is made with the target name as the new name, replacing any existing file of the same name.
 
-> Use common sense!
-
-#### mv
-Will *move* or *rename* files or directories. It works like ````cp```` command. If you are moving a file on the same file system, the **inode** wont change.
+But use common sense when answering questions or using `cp` and `mv` in real life.
 
 #### rm
 Removes (Deletes) **files**. 
