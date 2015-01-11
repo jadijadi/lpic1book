@@ -35,7 +35,7 @@ Candidates should be able to use the basic Linux commands to manage files and di
 Is used to *list* directories & files. It can use absolute and relative paths
 
 ````
-jadi@funlife:~/w/lpic/101$ ls -l
+$ ls -l
 total 52
 -rw-rw-r-- 1 jadi jadi  146 Jan  5 08:29 alldata
 -rw-rw-r-- 1 jadi jadi   30 Jan  5 09:15 howcool.sort
@@ -90,10 +90,10 @@ Normally, the cp command will copy a file over an existing copy, if the existing
 The ````mkdir```` command creates directories. 
 
 ````
-jadi@funlife:~/w/lpic/101/mydir$ ls
+/mydir$ ls
 howcool.sort  uses.sort
-jadi@funlife:~/w/lpic/101/mydir$ mkdir dirA dirB
-jadi@funlife:~/w/lpic/101/mydir$ ls -ltrh 
+/mydir$ mkdir dirA dirB
+/mydir$ ls -ltrh 
 total 16K
 -rw-rw-r-- 1 jadi jadi   30 Jan  8 16:45 howcool.sort
 -rw-rw-r-- 1 jadi jadi   58 Jan  8 16:45 uses.sort
@@ -104,10 +104,10 @@ drwxrwxr-x 2 jadi jadi 4.0K Jan  8 17:11 dirA
 - ````-p```` will create nested directories:
 
 ````
-jadi@funlife:~/w/lpic/101/mydir$ mkdir newDir/insideNew/lastDir
+/mydir$ mkdir newDir/insideNew/lastDir
 mkdir: cannot create directory ‘newDir/insideNew/lastDir’: No such file or directory
-jadi@funlife:~/w/lpic/101/mydir$ mkdir -p newDir/insideNew/lastDir
-jadi@funlife:~/w/lpic/101/mydir$ ls newDir/insideNew/ -ltrh
+/mydir$ mkdir -p newDir/insideNew/lastDir
+/mydir$ ls newDir/insideNew/ -ltrh
 total 4.0K
 drwxrwxr-x 2 jadi jadi 4.0K Jan  8 17:13 lastDir
 ````
@@ -115,7 +115,7 @@ drwxrwxr-x 2 jadi jadi 4.0K Jan  8 17:13 lastDir
 If you need to delete a directory the command is ````rmdir```` and you can also use the -p for nested removing:
 
 ````
-jadi@funlife:~/w/lpic/101/mydir$ tree
+/mydir$ tree
 .
 ├── dirA
 ├── dirB
@@ -123,9 +123,9 @@ jadi@funlife:~/w/lpic/101/mydir$ tree
 └── uses.sort
 
 2 directories, 2 files
-jadi@funlife:~/w/lpic/101/mydir$ rmdir dirA dirB
-jadi@funlife:~/w/lpic/101/mydir$ mkdir -p newDir/insideNew/lastDir
-jadi@funlife:~/w/lpic/101/mydir$ tree
+/mydir$ rmdir dirA dirB
+/mydir$ mkdir -p newDir/insideNew/lastDir
+/mydir$ tree
 .
 ├── howcool.sort
 ├── newDir
@@ -134,8 +134,8 @@ jadi@funlife:~/w/lpic/101/mydir$ tree
 └── uses.sort
 
 3 directories, 2 files
-jadi@funlife:~/w/lpic/101/mydir$ rmdir -p newDir/insideNew/lastDir
-jadi@funlife:~/w/lpic/101/mydir$ tree
+/mydir$ rmdir -p newDir/insideNew/lastDir
+/mydir$ tree
 .
 ├── howcool.sort
 └── uses.sort
@@ -152,9 +152,9 @@ Most of the times we need to work with more than one file. This is *Linux* and t
 Recursive means going inside and inside and inside and inside! In many commands -r or -R is dedicated to recursive commands. Say ls. It uses -R : 
 
 ````
-jadi@funlife:~/w/lpic/101/mydir$ ls
+/mydir$ ls
 howcool.sort  newDir  uses.sort
-jadi@funlife:~/w/lpic/101/mydir$ ls -R
+/mydir$ ls -R
 .:
 howcool.sort  newDir  uses.sort
 
@@ -170,7 +170,7 @@ lastDir
 It is more useful when you are copying or deleting. When using ````cp```` or ````rm````, -r (or -R or --recursive) will copy/delete all files inside the given source. 
 
 ````
-jadi@funlife:~/w/lpic/101$ tree mydir
+$ tree mydir
 mydir
 ├── howcool.sort
 ├── newDir
@@ -180,11 +180,11 @@ mydir
 └── uses.sort
 
 3 directories, 3 files
-jadi@funlife:~/w/lpic/101$ mkdir newCopy
-jadi@funlife:~/w/lpic/101$ cp mydir newCopy
+$ mkdir newCopy
+$ cp mydir newCopy
 cp: omitting directory ‘mydir’
-jadi@funlife:~/w/lpic/101$ cp -r mydir newCopy
-jadi@funlife:~/w/lpic/101$ tree newCopy/
+$ cp -r mydir newCopy
+$ tree newCopy/
 newCopy/
 └── mydir
     ├── howcool.sort
@@ -200,9 +200,9 @@ newCopy/
 Same works with ````rm````:
 
 ````
-jadi@funlife:~/w/lpic/101$ rm newCopy
+$ rm newCopy
 rm: cannot remove ‘newCopy’: Is a directory
-jadi@funlife:~/w/lpic/101$ rm -r newCopy
+$ rm -r newCopy
 ````
 
 As you can see we can not ````rm```` a file but if using -r (or -R or --recursive) it works because it deletes the dir and whatever inside it.
@@ -234,11 +234,11 @@ So... this means that you can use these patterns in your commands to point to th
 The ````touch```` command with no option will update the **moditication** date of a file to the current time (will create a file if it is not presented).
 
 ````
-jadi@funlife:~/w/lpic/101/touch$ ls -l
+/touch$ ls -l
 total 0
 -rw-rw-r-- 1 jadi jadi 0 Jan  8 17:47 myfile
-jadi@funlife:~/w/lpic/101/touch$ touch myfile  #after a minute
-jadi@funlife:~/w/lpic/101/touch$ ls -l
+/touch$ touch myfile  #after a minute
+/touch$ ls -l
 total 0
 -rw-rw-r-- 1 jadi jadi 0 Jan  8 17:48 myfile
 ````
@@ -282,7 +282,7 @@ Fri Aug 14 18:25:50 EDT 2009
 The ````find```` command helps us to find files based on MANY criteria. Look at this:
 
 ````
-jadi@funlife:~/w/lpic/101$ find . -iname "[a-j]*"
+$ find . -iname "[a-j]*"
 ./howcool.sort
 ./alldata
 ./mydir/howcool.sort
@@ -296,7 +296,7 @@ jadi@funlife:~/w/lpic/101$ find . -iname "[a-j]*"
 a common switch is ````-iname```` which says "name but case is not important (z is same as Z)". Also ````-d```` is commonly used:
 
 ````
-jadi@funlife:~/w/lpic/101$ find . -iname "*my*" 
+$ find . -iname "*my*" 
 ./myfiles
 ./mydata.noenter
 ./mydata
@@ -304,7 +304,7 @@ jadi@funlife:~/w/lpic/101$ find . -iname "*my*"
 ./mydir/hereisMYfile.txt
 ./touch/myfile
 ./mydata.tab
-jadi@funlife:~/w/lpic/101$ find . -type f -iname "*my*" 
+$ find . -type f -iname "*my*" 
 ./myfiles
 ./mydata.noenter
 ./mydata
@@ -374,15 +374,15 @@ At last you have to know the ````-mtime```` switch for finding files based on th
 That is the ````file```` command:
 
 ````
-jadi@funlife:~/w/lpic/101$ file mydata.tab 
+$ file mydata.tab 
 mydata.tab: ASCII text
-jadi@funlife:~/w/lpic/101$ file /bin/bash 
+$ file /bin/bash 
 /bin/bash: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=cb63ec0718f2022619814c04a5b6cd8a36752a83, stripped
-jadi@funlife:~/w/lpic/101$ file mydata.tab 
+$ file mydata.tab 
 mydata.tab: ASCII text
-jadi@funlife:~/w/lpic/101$ file /bin/bash 
+$ file /bin/bash 
 /bin/bash: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=cb63ec0718f2022619814c04a5b6cd8a36752a83, stripped
-jadi@funlife:~/w/lpic/101$ file -i mydir
+$ file -i mydir
 mydir: inode/directory; charset=binary
 ````
 > -i switch prints the complete mime format
@@ -394,13 +394,13 @@ Compressing works best on text files.
 we mostly use ````gzip``` and ````gunzip```` in linux. It is very easy:
 
 ````
-jadi@funlife:~/w/lpic/101$ ls *  -ltrh 
+$ ls *  -ltrh 
 -rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
-jadi@funlife:~/w/lpic/101$ gzip  The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt 
-jadi@funlife:~/w/lpic/101$ ls *  -ltrh 
+$ gzip  The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt 
+$ ls *  -ltrh 
 -rw-r--r-- 1 jadi jadi  30K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz
-jadi@funlife:~/w/lpic/101$ gunzip The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz 
-jadi@funlife:~/w/lpic/101$ ls *  -ltrh 
+$ gunzip The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz 
+$ ls *  -ltrh 
 -rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
 
 ````
@@ -413,13 +413,13 @@ jadi@funlife:~/w/lpic/101$ ls *  -ltrh
 is another compressing tool. Works just the same but with another compression algorithm.
 
 ````
-jadi@funlife:~/w/lpic/101$ ls *  -ltrh 
+$ ls *  -ltrh 
 -rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
-jadi@funlife:~/w/lpic/101$ bzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt 
-jadi@funlife:~/w/lpic/101$ ls *  -ltrh 
+$ bzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt 
+$ ls *  -ltrh 
 -rw-r--r-- 1 jadi jadi  22K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2
-jadi@funlife:~/w/lpic/101$ bunzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2 
-jadi@funlife:~/w/lpic/101$ ls *  -ltrh 
+$ bunzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2 
+$ ls *  -ltrh 
 -rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
 ````
 
@@ -450,7 +450,7 @@ Common switches are
 Gets a list of files and creates archive (one file) of it whlch can be opened later.
 
 ````
-jadi@funlife:~/w/lpic/101$ ls | cpio -o > allfilesls.cpio
+$ ls | cpio -o > allfilesls.cpio
 3090354 blocks
 ````
 - ````-o```` makes cpio to create an output from its input
@@ -476,21 +476,21 @@ cpio -id < myarchivefind.cpio
 The ``dd`` command copies data from one location to another. This data comes from files. You can use it just like copy:
 
 ````
-jadi@funlife:~/w/lpic/101$ cat howcool
+$ cat howcool
 jadi	5
 sina	6
 rubic	2
 you 	12
-jadi@funlife:~/w/lpic/101$ dd if=howcool of=newcool
+$ dd if=howcool of=newcool
 0+1 records in
 0+1 records out
 30 bytes (30 B) copied, 0.0227904 s, 1.3 kB/s
-jadi@funlife:~/w/lpic/101$ cat newcool 
+$ cat newcool 
 jadi	5
 sina	6
 rubic	2
 you 	12
-jadi@funlife:~/w/lpic/101$ 
+$ 
 ````
 
 - ````if```` is In File
