@@ -32,44 +32,44 @@ What are these **file descriptions**? There are used to control the output. If y
 > The user who runs the command should have write access to the file.
 
 ````
-jadi@funlife:~/w/lpic/101/103.4$ ls 
+$ ls 
 fiona  habib  mahmoodrm  minoo	mojtaba  sina
-jadi@funlife:~/w/lpic/101/103.4$ ls j* 
+$ ls j* 
 ls: cannot access j*: No such file or directory
-jadi@funlife:~/w/lpic/101/103.4$ ls m* 
+$ ls m* 
 mahmoodrm  minoo  mojtaba
-jadi@funlife:~/w/lpic/101/103.4$ ls j* m* 
+$ ls j* m* 
 ls: cannot access j*: No such file or directory
 mahmoodrm  minoo  mojtaba
-jadi@funlife:~/w/lpic/101/103.4$ ls j* m* > output 2> errors
-jadi@funlife:~/w/lpic/101/103.4$ cat output 
+$ ls j* m* > output 2> errors
+$ cat output 
 mahmoodrm
 minoo
 mojtaba
-jadi@funlife:~/w/lpic/101/103.4$ cat errors 
+$ cat errors 
 ls: cannot access j*: No such file or directory
-jadi@funlife:~/w/lpic/101/103.4$ 
+$ 
 ````
 
 #### Redirectint both stdout and stderr to one location
-Sometimes (say automated tasks) we prefer to send both standard input and output to same place, Use ````&>```` and ````&>>```` to say *both stderr and stdout*. 
+Sometimes (say during automated tasks) we prefer to send both standard input and output to same place, Use ````&>```` and ````&>>```` to say *both stderr and stdout*. 
 
-It is also possible to use ````&1```` and ````&2```` and ````&0```` to refer to **current place** of stdout, stderr & stdin.  So ````ls > file1 2>&1```` means *redirect output to file1 and output stderr to same place as stdout (file1)*
+It is also possible to use `&1` and `&2` and `&0` to refer to **current place** of stdout, stderr & stdin.  In this case `ls > file1 2>&1` means *redirect output to file1 and output stderr to same place as stdout (file1)*
 
 > Be careeful! `ls 2>&1 > file1` means *print stderr to current location of stdout (screen) and then change the stdout to file1*
 
 #### sending to null
-In linux, **/dev/null** is like a trashcan. You can send anything there and not see it anymore. So it is normal to say:
+In linux, **/dev/null** is like a trashcan. You can send anything there and it dissapears. So it is normal to say:
 
 ```
-jadi@funlife:~/w/lpic/101/103.4$ ls j* m* > file1
+$ ls j* m* > file1
 ls: cannot access j*: No such file or directory
-jadi@funlife:~/w/lpic/101/103.4$ ls j* m* > file1 2>/dev/null
-jadi@funlife:~/w/lpic/101/103.4$ cat file1 
+$ ls j* m* > file1 2>/dev/null
+$ cat file1 
 mahmoodrm
 minoo
 mojtaba
-jadi@funlife:~/w/lpic/101/103.4$ 
+$ 
 
 ```
 
@@ -77,13 +77,13 @@ jadi@funlife:~/w/lpic/101/103.4$
 The **<** operand redirects the input. 
 
 ```
-jadi@funlife:~/w/lpic/101/103.4$ cat uses 
+$ cat uses 
 you fedora
 jadi ubuntu
 rubic windows
 neda mac
 narsin arch
-jadi@funlife:~/w/lpic/101/103.4$ tr ' ' ',' < uses 
+$ tr ' ' ',' < uses 
 you,fedora
 jadi,ubuntu
 rubic,windows
@@ -92,10 +92,10 @@ narsin,arch
 ```
 
 ### here-documnets
-Many shells, have here-documnts or here-docs. It is a way of input. You use `<<` and a `WORD` and then whatever you input is considered stdin till you give only the WORD in one line.
+Many shells, have here-documnts (also called here-docs) as a way of input. You use `<<` and a `WORD` and then whatever you input is considered stdin till you give only the WORD in one line.
 
 ```
-jadi@funlife:~/w/lpic/101/103.4$ tr ' ' '.' << END_OF_DATA
+$ tr ' ' '.' << END_OF_DATA
 > this is a line
 > and then this
 > 
@@ -119,14 +119,14 @@ Piping is sending one commands output to another commands input (Piping the stdo
 > As previously seen, many commands use a hyphen `-` in place of a filename as an argument to indicate when the input should come from stdin rather than a file.
 
 ```
-jadi@funlife:~/w/lpic/101/103.4$ cat what_i_have.txt 
+$ cat what_i_have.txt 
 laptop
 socks
 tshirt
 ball
 socks
 glasses
-jadi@funlife:~/w/lpic/101/103.4$ cut -f1 -d' ' what_i_have.txt | sort | uniq -c | sort -nr 
+$ cut -f1 -d' ' what_i_have.txt | sort | uniq -c | sort -nr 
       2 socks
       1 tshirt
       1 laptop
@@ -141,7 +141,7 @@ jadi@funlife:~/w/lpic/101/103.4$ cut -f1 -d' ' what_i_have.txt | sort | uniq -c 
 This command reads input from *stdin* and uses them as arguments.
 
 ```
-jadi@funlife:~/w/lpic/101/103.4$ ls | xargs echo these are files: 
+$ ls | xargs echo these are files: 
 these are files: errors f file1 fiona habib mahmoodrm minoo mojtaba output output.txt sina uses what_i_have.txt
 ```
 
@@ -152,14 +152,14 @@ Have in mind that xargs breaks input based on blanks and use any part as an argu
 One important switch is -I. This is useful if you need to pass stdin arguments in the middle (or even start) of your commands. use the form `xargs -I SOMETHING echo here is SOMETHING end`:
 
 ```
-jadi@funlife:~/w/lpic/101/103.4$ cat what_i_have.txt 
+$ cat what_i_have.txt 
 laptop
 socks
 tshirt
 ball
 socks
 glasses
-jadi@funlife:~/w/lpic/101/103.4$ cat what_i_have.txt | xargs -I DATA echo I have DATA and I love it.
+$ cat what_i_have.txt | xargs -I DATA echo I have DATA and I love it.
 I have laptop and I love it.
 I have socks and I love it.
 I have tshirt and I love it.
@@ -174,7 +174,7 @@ I have glasses and I love it.
 What if you need to see the output on screen and also save it to a file? Ugly way is redirecting to the file and using `tail -f file` in another window. Nice way is using `tee` and giving it one or more filenames for standard output (if you need to save *stderr*, first redirect it to *stdout*). This will write the output to those files and also writes them to the screen:
 
 ```
-jadi@funlife:~/w/lpic/101/103.4$ ls -1 | tee allfiles myfiles
+$ ls -1 | tee allfiles myfiles
 allfiles
 f
 fiona
