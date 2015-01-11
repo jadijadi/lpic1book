@@ -217,8 +217,8 @@ There are main cases:
 - ````*```` means **any string**
 - ````?```` means any single character
 - ````[ABC]```` matches A, B & C
-- ````[a-k]```` matches a, b, c, ..., k
-- ````[0-9a-zA-Z]```` matches all digits and numbers
+- ````[a-k]```` matches a, b, c, ..., k (both lowercase and capital)
+- ````[0-9a-z]```` matches all digits and numbers
 - ````[!x]```` means NOT X.
 
 So... this means that you can use these patterns in your commands to point to these files:
@@ -228,7 +228,7 @@ So... this means that you can use these patterns in your commands to point to th
 |rm *|delete all files|
 |ls A*B|all files starting with A ending with B|
 |cp ???.* /tmp|Copy all files with 3 characters, then a dot then whatever (even nothing) to /tmp|
-|rmdir [a-zA-z]*|remove all directories which start with a letter|
+|rmdir [a-z]*|remove all directories which start with a letter|
 
 ## touch
 The ````touch```` command with no option will update the **moditication** date of a file to the current time (will create a file if it is not exists).
