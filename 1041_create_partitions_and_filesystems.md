@@ -11,6 +11,7 @@ Description: Candidates should be able to configure disk partitions and then cre
 - reiserfs v3
 - vfat
 
+
 - fdisk
 - mkfs
 - mkswap
@@ -21,7 +22,7 @@ Is a technical term for any storage device which can be formatted to fixed sized
 In long ls format, the first **b** indicates Block Device:
 
 ```
-jadi@funlife:~/w/lpic/101/103.4$ ls -l /dev/loop1  /dev/sd[a-zb] 
+$ ls -l /dev/loop1  /dev/sd[a-z] 
 brw-rw---- 1 root disk 7, 1 Jan  8 10:46 /dev/loop1
 brw-rw---- 1 root disk 8, 0 Jan  8 10:46 /dev/sda
 ```
@@ -52,7 +53,7 @@ Device     Boot     Start       End   Sectors   Size Id Type
 - Size is size!
 - ID indicated the partiton format (82 is swap, 83 is linux data, ..)
 
-It is also possible to run fdisk in interactive mode. `m` wlii show you the help:
+It is also possible to run fdisk in interactive mode. `m` will show you the help:
 
 ```
 root@funlife:~# fdisk /dev/sda
@@ -141,7 +142,7 @@ Partition number (1-3,5,6, default 6): 1
 Partition 1 has been deleted.
 ```
 
-I'm brave! NBow lets create a smaller one there:
+I'm brave! Now lets create a smaller one there:
 
 ```
 Command (m for help): n
@@ -171,7 +172,7 @@ Device     Boot     Start       End   Sectors   Size Id Type
 /dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
 ```
 
-> This new partitioned is not formatted but still masked 83 for later use. If I needed to use this partition as **swap** I had to set its ID to 82:
+> This new partitioned is not formatted but still marked 83 for later use. If I needed to use this partition as **swap** I had to set its ID to 82:
 
 ```
 Command (m for help): p
@@ -272,7 +273,7 @@ Linux can handle more than 100 kind of partitions but most commons are:
 |vfat|FAT32, no journaling, good for data exchange with windows, does not understand permissions and symbolic links|
 |ext4|newer than ext3|
 
-You can format your partitions with `mkfs` command (and `mkswap` for swap). There are is front end to commands like  mkfs.ext3 for ext3, mkfs.ext4 for ext4 and mkfs.reiserfs for ReiserFS. full list of installed on your system is here:
+You can format your partitions with `mkfs` command (and `mkswap` for swap). This is a front end to commands like  mkfs.ext3 for ext3, mkfs.ext4 for ext4 and mkfs.reiserfs for ReiserFS. full list of installed on your system is here:
 
 ```
 root@funlife:~# ls /sbin/mk* 
