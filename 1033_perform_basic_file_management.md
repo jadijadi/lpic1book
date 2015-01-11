@@ -90,10 +90,10 @@ Normally, the cp command will copy a file over an existing copy, if the existing
 The ````mkdir```` command creates directories. 
 
 ````
-/mydir$ ls
+$ ls
 howcool.sort  uses.sort
-/mydir$ mkdir dirA dirB
-/mydir$ ls -ltrh 
+$ mkdir dirA dirB
+$ ls -ltrh 
 total 16K
 -rw-rw-r-- 1 jadi jadi   30 Jan  8 16:45 howcool.sort
 -rw-rw-r-- 1 jadi jadi   58 Jan  8 16:45 uses.sort
@@ -104,10 +104,10 @@ drwxrwxr-x 2 jadi jadi 4.0K Jan  8 17:11 dirA
 - ````-p```` will create nested directories:
 
 ````
-/mydir$ mkdir newDir/insideNew/lastDir
+$ mkdir newDir/insideNew/lastDir
 mkdir: cannot create directory ‘newDir/insideNew/lastDir’: No such file or directory
-/mydir$ mkdir -p newDir/insideNew/lastDir
-/mydir$ ls newDir/insideNew/ -ltrh
+$ mkdir -p newDir/insideNew/lastDir
+$ ls newDir/insideNew/ -ltrh
 total 4.0K
 drwxrwxr-x 2 jadi jadi 4.0K Jan  8 17:13 lastDir
 ````
@@ -115,7 +115,7 @@ drwxrwxr-x 2 jadi jadi 4.0K Jan  8 17:13 lastDir
 If you need to delete a directory the command is ````rmdir```` and you can also use the -p for nested removing:
 
 ````
-/mydir$ tree
+$ tree
 .
 ├── dirA
 ├── dirB
@@ -123,9 +123,9 @@ If you need to delete a directory the command is ````rmdir```` and you can also 
 └── uses.sort
 
 2 directories, 2 files
-/mydir$ rmdir dirA dirB
-/mydir$ mkdir -p newDir/insideNew/lastDir
-/mydir$ tree
+$ rmdir dirA dirB
+$ mkdir -p newDir/insideNew/lastDir
+$ tree
 .
 ├── howcool.sort
 ├── newDir
@@ -134,8 +134,8 @@ If you need to delete a directory the command is ````rmdir```` and you can also 
 └── uses.sort
 
 3 directories, 2 files
-/mydir$ rmdir -p newDir/insideNew/lastDir
-/mydir$ tree
+$ rmdir -p newDir/insideNew/lastDir
+$ tree
 .
 ├── howcool.sort
 └── uses.sort
@@ -143,7 +143,7 @@ If you need to delete a directory the command is ````rmdir```` and you can also 
 0 directories, 2 files
 ````
 
-> If you are using ````rmdir```` to remove a directory, it HAVE TO BE EMPTY! althouth later we will see how you can erase directories using ````rm```` command.
+> If you are using ````rmdir```` to remove a directory, it MUST BE EMPTY! althouth later we will see how you can erase directories using ````rm```` command.
 
 ## Handling multiple files at once
 Most of the times we need to work with more than one file. This is *Linux* and there are ways!
@@ -152,9 +152,9 @@ Most of the times we need to work with more than one file. This is *Linux* and t
 Recursive means going inside and inside and inside and inside! In many commands -r or -R is dedicated to recursive commands. Say ls. It uses -R : 
 
 ````
-/mydir$ ls
+$ ls
 howcool.sort  newDir  uses.sort
-/mydir$ ls -R
+$ ls -R
 .:
 howcool.sort  newDir  uses.sort
 
@@ -231,7 +231,7 @@ So... this means that you can use these patterns in your commands to point to th
 |rmdir [a-zA-z]*|remove all directories which start with a letter|
 
 ## touch
-The ````touch```` command with no option will update the **moditication** date of a file to the current time (will create a file if it is not presented).
+The ````touch```` command with no option will update the **moditication** date of a file to the current time (will create a file if it is not exists).
 
 ````
 /touch$ ls -l
@@ -367,6 +367,7 @@ At last you have to know the ````-mtime```` switch for finding files based on th
 |-ctime +6|file was changed more than 6*24 hours ago|
 |-mtime -6|file *content* moditication less than time is 6*24 ago|
 |-mmin -90|file's data was last modified less than 90 minutes ago|
+|-amin, -cmin|you guess!|
 
 > if you add ````-daystart```` switch to -mtime or -atime it means that we want to consider days as calendar days, starting at midnight.
 
@@ -391,7 +392,7 @@ mydir: inode/directory; charset=binary
 Compressing works best on text files.
 
 #### zip
-we mostly use ````gzip``` and ````gunzip```` in linux. It is very easy:
+we mostly use `gzip` and `gunzip` in linux. It is very easy:
 
 ````
 $ ls *  -ltrh 
