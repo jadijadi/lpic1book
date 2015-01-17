@@ -18,7 +18,7 @@ Candidates should be able to manage process execution priorities.
 On a Linux system, we are running a lot of processes and programs on a few CPUs. So you need a way to tell your OS to give more priority to some tasks or give less resources to some others. In last section you saw the `top` command to check the CPU usage of each process:
 
 ````
-jadi@funlife:~$ top
+$ top
 
 top - 08:44:51 up 13:00,  5 users,  load average: 0.57, 1.50, 1.50
 Tasks: 290 total,   2 running, 288 sleeping,   0 stopped,   0 zombie
@@ -52,7 +52,7 @@ $ nice
 It is also possible to tell `ps` command to write the nice parameter of processes:
 
 ```
-jadi@funlife:~$ ps -l 
+$ ps -l 
 F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 0 S  1000 15044 15035  0  80   0 -  7453 wait   pts/29   00:00:00 bash
 0 S  1000 15052 15044  0  60 -20 -  3976 hrtime pts/29   00:00:00 sleep
@@ -63,12 +63,12 @@ F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 If you need to change the niceness level of a program you can running it with `nice` command and `-n` switch (for nice):
 
 ````
-jadi@funlife:~$ nice -n -20 echo "I am running!"
+$ nice -n -20 echo "I am running!"
 nice: cannot set niceness: Permission denied
 I am running!
-jadi@funlife:~$ sudo nice -n -20 echo "I am running!"
+$ sudo nice -n -20 echo "I am running!"
 I am running!
-jadi@funlife:~$ sudo nice -n 19 echo "I am running!"
+$ sudo nice -n 19 echo "I am running!"
 I am running!
 ````
 
@@ -79,9 +79,9 @@ Please note to two points:
 If you run a command with `nice` without any parameters, the nice value will be 10:
 
 ````
-jadi@funlife:~$ nice xeyes & 
+$ nice xeyes & 
 [1] 15217
-jadi@funlife:~$ ps -l 
+$ ps -l 
 F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 0 S  1000 15044 15035  0  80   0 -  7455 wait   pts/29   00:00:00 bash
 0 S  1000 15217 15044  0  90  10 - 12522 poll_s pts/29   00:00:00 xeyes
@@ -92,10 +92,10 @@ F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 The `renice` command can change the *niceness* of running processes:
 
 ````
-jadi@funlife:~$ ps -ef | grep firefox
+$ ps -ef | grep firefox
 jadi     13605 11226 30 08:28 ?        00:10:13 /usr/lib/firefox/firefox
 jadi     15192 15044  0 09:01 pts/29   00:00:00 grep firefox
-jadi@funlife:~$ sudo renice -n -10 13605
+$ sudo renice -n -10 13605
 13605 (process ID) old priority 5, new priority -10
 ````
 
