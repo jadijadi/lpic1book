@@ -36,30 +36,30 @@ xeyes &
 But what if we started it normally? We can break / cancel it with `Ctrl+c` or *suspend* it using `Ctrl+z`. 
 
 ```
-jadi@funlife:~$ xeyes 
+$ xeyes 
 ^Z
 [1]+  Stopped                 xeyes
-jadi@funlife:~$ jobs
+$ jobs
 [1]+  Stopped                 xeyes
-jadi@funlife:~$ bg
+$ bg
 [1]+ xeyes &
-jadi@funlife:~$ jobs
+$ jobs
 [1]+  Running                 xeyes &
-jadi@funlife:~$ sleep 1000 & 
+$ sleep 1000 & 
 [2] 7395
-jadi@funlife:~$ jobs
+$ jobs
 [1]-  Running                 xeyes &
 [2]+  Running                 sleep 1000 &
-jadi@funlife:~$ fg %2
+$ fg %2
 sleep 1000
 ^Z
 [2]+  Stopped                 sleep 1000
-jadi@funlife:~$ jobs
+$ jobs
 [1]-  Running                 xeyes &
 [2]+  Stopped                 sleep 1000
-jadi@funlife:~$ bg sle
+$ bg sle
 [2]+ sleep 1000 &
-jadi@funlife:~$ jobs
+$ jobs
 [1]-  Running                 xeyes &
 [2]+  Running                 sleep 1000 &
 ````
@@ -71,9 +71,9 @@ jadi@funlife:~$ jobs
 The `nohup` command lets you run your commands even after you logged out and writes its output to **nohup.out**:
 
 ````
-jadi@funlife:~$ nohup ping 4.2.2.4
+$ nohup ping 4.2.2.4
 nohup: ignoring input and appending output to ‘nohup.out’
-^Cjadi@funlife:~$ cat nohup.out 
+^C$ cat nohup.out 
 PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.
 64 bytes from 4.2.2.4: icmp_seq=1 ttl=51 time=225 ms
 64 bytes from 4.2.2.4: icmp_seq=3 ttl=51 time=223 ms
@@ -89,18 +89,18 @@ rtt min/avg/max/mdev = 223.584/224.767/225.950/1.183 ms
 You can control processes by **signals**. Actually pressing `Ctrl+c` and `Ctrl+z` is also sending signals. Another way for this is using the kill command:
 
 ````
-jadi@funlife:~$ jobs
+$ jobs
 [3]   Running                 xeyes &
 [4]   Running                 sleep 1000 &
 [5]-  Running                 sleep 2000 &
 [6]+  Running                 sleep 3000 &
-jadi@funlife:~$ kill %4
-jadi@funlife:~$ jobs
+$ kill %4
+$ jobs
 [3]   Running                 xeyes &
 [4]   Terminated              sleep 1000
 [5]-  Running                 sleep 2000 &
 [6]+  Running                 sleep 3000 &
-jadi@funlife:~$ jobs
+$ jobs
 [3]   Running                 xeyes &
 [5]-  Running                 sleep 2000 &
 [6]+  Running                 sleep 3000 &
@@ -121,20 +121,20 @@ So you can do a `kill -9 8733` to force proccess ID 8733 to close.
 Will send the given signal (or 15) to all the processes with the given name:
 
 ````
-jadi@funlife:~$ jobs
+$ jobs
 [3]   Running                 xeyes &
 [5]-  Running                 sleep 2000 &
 [6]+  Running                 sleep 3000 &
-jadi@funlife:~$ ps -ef | grep sleep
+$ ps -ef | grep sleep
 jadi      7864  7651  0 21:07 pts/1    00:00:00 sleep 2000
 jadi      7865  7651  0 21:07 pts/1    00:00:00 sleep 3000
 jadi      7977  7651  0 21:14 pts/1    00:00:00 grep sleep
-jadi@funlife:~$ killall sleep 
+$ killall sleep 
 [5]-  Terminated              sleep 2000
 [6]+  Terminated              sleep 3000
-jadi@funlife:~$ jobs
+$ jobs
 [3]+  Running                 xeyes &
-jadi@funlife:~$ ps -ef | grep sleep
+$ ps -ef | grep sleep
 jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep
 ````
 
@@ -144,13 +144,13 @@ jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep
 The `ps` command shows running processes on your computer.
 
 ````
-jadi@funlife:~$ sleep 1000 & 
+$ sleep 1000 & 
 [1] 7678
-jadi@funlife:~$ sleep 1001 & 
+$ sleep 1001 & 
 [2] 7679
-jadi@funlife:~$ xeyes & 
+$ xeyes & 
 [3] 7680
-jadi@funlife:~$ ps
+$ ps
   PID TTY          TIME CMD
  7651 pts/1    00:00:00 bash
  7678 pts/1    00:00:00 sleep
@@ -162,7 +162,7 @@ jadi@funlife:~$ ps
 But using ```ps aux``` (= `-aux`) or  `ps -ef` is also common & shows ALL processes on this system:
 
 ````
-jadi@funlife:~$ ps -aux | wc -l
+$ ps -aux | wc -l
 293
 ````
 
@@ -172,7 +172,7 @@ jadi@funlife:~$ ps -aux | wc -l
 You've seen that `ps -ef` shows processes from all users. We can `grep` on that and see who is running `gedit` and what is its process ID:
 
 ````
-jadi@funlife:~$ ps -ef | grep gedit
+$ ps -ef | grep gedit
 jadi      6213  4604  9 20:06 ?        00:04:43 gedit
 jadi      7725  7651  0 20:55 pts/1    00:00:00 grep gedit
 ````
@@ -180,7 +180,7 @@ jadi      7725  7651  0 20:55 pts/1    00:00:00 grep gedit
 but there is also a more direct way:
 
 ````
-jadi@funlife:~$ ps -C gedit -o user,pid,tty,time,comm
+$ ps -C gedit -o user,pid,tty,time,comm
 USER       PID TT           TIME COMMAND
 jadi      6213 ?        00:04:49 gedit
 ````
@@ -188,7 +188,7 @@ jadi      6213 ?        00:04:49 gedit
 It is also possible to use the `--sort` switch to sort output based on different fields (+ for ascending & - for descending).
 
 ````
-jadi@funlife:~$ ps -af --sort +comm,-sid
+$ ps -af --sort +comm,-sid
 UID        PID  PPID  C STIME TTY          TIME CMD
 root      5486  5478  0 19:59 pts/12   00:00:00 -su
 root      4444  1169  0 19:56 tty4     00:00:00 -bash
@@ -242,7 +242,7 @@ You can see the processes, system load, uptime, CPU status, memory, ... and do s
 The `free` command will show you info about the system memory. The default is *kilobytes* but you can change it with `-m` for megabytes, `-g` for *gigabytes* or even `-b` for bytes:
 
 ````
-jadi@funlife:~$ free -m
+$ free -m
              total       used       free     shared    buffers     cached
 Mem:          7871       5231       2640        332        169       2195
 -/+ buffers/cache:       2866       5005
@@ -255,7 +255,7 @@ Swap:         7627          0       7627
 The `uptime` command shows the time, how long the system is up, how may users are logged in and the load average of 1, 5 & 15 minutes:
 
 ````
-jadi@funlife:~$ uptime
+$ uptime
  21:18:52 up  1:34,  5 users,  load average: 2.38, 2.64, 2.41
 ````
 
