@@ -27,10 +27,10 @@ Candidates should be able to perform basic process management.
 ## foreground and background jobs
 One of the great points of linux on its beginning days, was the ability to run many programs at the same time. This is done with sending programs to the background. 
 
-Normally if you run a program on the terminal, it *blocks* your teminal but sending a command to the background will prevent this:
+Normally if you run a program on the terminal, it *blocks* your terminal but sending a command to the background will prevent this:
 
 ````
-xclock &
+xeyes &
 ````
 
 But what if we started it normally? We can break / cancel it with `Ctrl+c` or *suspend* it using `Ctrl+z`. 
@@ -86,7 +86,7 @@ rtt min/avg/max/mdev = 223.584/224.767/225.950/1.183 ms
 > It is common to use 2> to redirect the nohup errors to a file: `nohup script.sh > mynohup.out 2>&1 &`
 
 ## kill
-You can control proccesses by **signals**. Actually pressind `Ctrl+c` and `Ctrl+z` is sends signals. Another way for this is using the kill command:
+You can control processes by **signals**. Actually pressing `Ctrl+c` and `Ctrl+z` is also sending signals. Another way for this is using the kill command:
 
 ````
 jadi@funlife:~$ jobs
@@ -118,7 +118,7 @@ So you can do a `kill -9 8733` to force proccess ID 8733 to close.
 > Now you can understand what `nohup` means: go not answer to the SIGHUP.
 
 ## killall 
-Will send the given signal (or 15) to all the proccesses with the given name:
+Will send the given signal (or 15) to all the processes with the given name:
 
 ````
 jadi@funlife:~$ jobs
@@ -141,7 +141,7 @@ jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep
 
 ## Monitorint Processes
 ### ps
-The `ps` command showd running processes on your computer.
+The `ps` command shows running processes on your computer.
 
 ````
 jadi@funlife:~$ sleep 1000 & 
@@ -159,7 +159,7 @@ jadi@funlife:~$ ps
  7681 pts/1    00:00:00 ps
 ````
 
-But using ```ps aux``` (= `-aux`) or  `ps -ef` is also common & showd ALL processes on this system:
+But using ```ps aux``` (= `-aux`) or  `ps -ef` is also common & shows ALL processes on this system:
 
 ````
 jadi@funlife:~$ ps -aux | wc -l
@@ -169,7 +169,7 @@ jadi@funlife:~$ ps -aux | wc -l
 > Every process has a ProcessID (PID) and a PPID (Parent Process ID). 
 
 #### finding proccesses
-You've seen that `ps -ef` shows proccesses from all users. We can `grep` on that and see who is running `gedit` and what is its proccess ID:
+You've seen that `ps -ef` shows processes from all users. We can `grep` on that and see who is running `gedit` and what is its process ID:
 
 ````
 jadi@funlife:~$ ps -ef | grep gedit
@@ -205,7 +205,7 @@ jadi      7680  7651  0 20:48 pts/1    00:00:01 xeyes
 ````
 
 ### top
-Proccesses are changing and sometimes you need to check them live. `top` command will help you:
+Processes are changing and sometimes you need to check them live. `top` command will help you:
 
 ````
 $top
@@ -228,7 +228,7 @@ KiB Swap:  7811068 total,        0 used,  7811068 free.  2250692 cached Mem
     1 root      20   0   29528   4320   2584 S   0.0  0.1   0:01.71 init              
 ````
 
-You can see the proccesses, system load, uptime, CPU status, memory, ... and do some stuff:
+You can see the processes, system load, uptime, CPU status, memory, ... and do some stuff:
 
 |key during top|functionality|
 |---|---|
@@ -252,9 +252,29 @@ Swap:         7627          0       7627
 > The system should not use swap in long term
 
 ## uptime
-The `uptime` command showd the time, how long the system is up, how may users are logged in and the loag average of 1, 5 & 15 minutes:
+The `uptime` command shows the time, how long the system is up, how may users are logged in and the load average of 1, 5 & 15 minutes:
 
 ````
 jadi@funlife:~$ uptime
  21:18:52 up  1:34,  5 users,  load average: 2.38, 2.64, 2.41
 ````
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
