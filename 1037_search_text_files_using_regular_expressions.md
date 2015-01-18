@@ -78,10 +78,10 @@ There are easy ways to  commonly used classes. Named classes open with [: and cl
 The `grep` command can search inside the files. 
 
 ````
-jadi@funlife:~/w/lpic/data$ grep p friends 
+$ grep p friends 
 payam
 pedram
-jadi@funlife:~/w/lpic/data$ 
+$ 
 ````
 
 There are the most important switches:
@@ -95,25 +95,25 @@ There are the most important switches:
 |-i|case insenserive|
 
 ````
-jadi@funlife:~/w/lpic/data$ grep p *
+$ grep p *
 friends:payam
 friends:pedram
 what_I_have.txt:laptop	2
 what_I_have.txt:pillow	5
 what_I_have.txt:apple	2
-jadi@funlife:~/w/lpic/data$ grep p * -n
+$ grep p * -n
 friends:12:payam
 friends:15:pedram
 what_I_have.txt:2:laptop	2
 what_I_have.txt:3:pillow	5
 what_I_have.txt:4:apple	2
-jadi@funlife:~/w/lpic/data$ grep p * -l
+$ grep p * -l
 friends
 what_I_have.txt
-jadi@funlife:~/w/lpic/data$ grep p * -c
+$ grep p * -c
 friends:2
 what_I_have.txt:3
-jadi@funlife:~/w/lpic/data$ 
+$ 
 ````
 
 > If is very common to combine grep and find: `find . -type f -print0 | xargs -0 grep -c a | grep -v ali` # find all files with **a** in them but not **ali**`
@@ -128,7 +128,7 @@ If you need to search the exact string (and not interpret it as a regex), use `g
 In previous lessons we saw simple `sed` usage. Here I have great news for you: **sed understands regex**! If is good to use `-r` switch to tell sed that we are using them. 
 
 ````
-jadi@funlife:~/w/lpic/data$ sed -r "s/^(a|b)/STARTS WITH A OR B/" friends 
+$ sed -r "s/^(a|b)/STARTS WITH A OR B/" friends 
 STARTS WITH A OR Bmir
 mina
 jadi
@@ -145,7 +145,7 @@ Main switches:
 |-n|suppress output, you can use p at the end of your regex ( /something/p ) to print the output|
 
 ````
-jadi@funlife:~/w/lpic/data$ sed -rn "/^(a|b)/p" friends 
+$ sed -rn "/^(a|b)/p" friends 
 amir
 bita
 ali
