@@ -50,14 +50,14 @@ The `/var` filesystem contains variable data files, including spool directories 
 A general linux install has a lot of files; 741341 files in my case. So how it find out where to look when you type a command? This is done by a variable called PATH:
 
 ````
-jadi@funlife:~$ echo $PATH
+$ echo $PATH
 /home/jadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games;/home/jadi/bin/
 ````
 
 And for root user:
 
 ````
-root@funlife:~# echo $PATH
+# echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ````
 
@@ -67,8 +67,8 @@ As you can see, this is the list of directories separated with a colon. Obviousl
 The `which` command shows the first appearance of the command given in path:
 
 ````
-jadi@funlife:~$ which mkfd
-jadi@funlife:~$ which mkfs
+$ which mkfd
+$ which mkfs
 /sbin/mkfs
 ````
 
@@ -77,21 +77,21 @@ jadi@funlife:~$ which mkfs
 But what happens if you `which for` ?
 
 ````
-jadi@funlife:~$ which for
-jadi@funlife:~$ type for
+$ which for
+$ type for
 for is a shell keyword
 ````
 
 As you can see, `which` did not found anything for `for` and we used `type`.
 
 ````
-jadi@funlife:~$ type type
+$ type type
 type is a shell builtin
-jadi@funlife:~$ type for
+$ type for
 for is a shell keyword
-jadi@funlife:~$ type mkfs
+$ type mkfs
 mkfs is /sbin/mkfs
-jadi@funlife:~$ type mkfd
+$ type mkfd
 bash: type: mkfd: not found
 ````
 
@@ -101,13 +101,13 @@ Another useful command in this category is `whereis`. Unlike `which`, `whereis` 
 
 
 ````
-jadi@funlife:~$ whereis mkfs
+$ whereis mkfs
 mkfs: /sbin/mkfs.bfs /sbin/mkfs.ext3 /sbin/mkfs.ext4 /sbin/mkfs.vfat /sbin/mkfs.cramfs /sbin/mkfs.minix /sbin/mkfs.ext2 /sbin/mkfs.msdos /sbin/mkfs.fat /sbin/mkfs.ntfs /sbin/mkfs.ext4dev /sbin/mkfs /usr/share/man/man8/mkfs.8.gz
-jadi@funlife:~$ whereis ping
+$ whereis ping
 ping: /bin/ping /usr/share/man/man8/ping.8.gz
-jadi@funlife:~$ whereis chert
+$ whereis chert
 chert:
-jadi@funlife:~$ 
+$ 
 ````
 
 ## find
@@ -117,8 +117,8 @@ We have already seen this command in detail but lets see a couple of new switche
 - The `-maxdepth` tells the find how deep it shoud go into the directories.
 
 ````
-jadi@funlife:~$ find /tmp/ -maxdepth 1 -user jadi | head
-jadi@funlife:~$ find /tmp/ -maxdepth 1 -user jadi | head
+$ find /tmp/ -maxdepth 1 -user jadi | head
+$ find /tmp/ -maxdepth 1 -user jadi | head
 /tmp/asheghloo.png
 /tmp/tmpAN6Drb
 /tmp/wrapper-24115-2-out
@@ -139,7 +139,7 @@ Or even find the files not belonging to any user / group with `-nouser` and `-no
 You tries `find` and know that it is slowwwww... It searches the file system on each run but lets see the fastest command:
 
 ````
-jadi@funlife:~$ locate happy
+$ locate happy
 /home/jadi/.Spark/xtra/emoticons/Default.adiumemoticonset/happy.png
 /home/jadi/.Spark/xtra/emoticons/sparkEmoticonSet/happy.png
 /home/jadi/Downloads/jadi-net_radio-geek_040_antihappy.mp3
@@ -156,7 +156,7 @@ jadi@funlife:~$ locate happy
 And it is fast:
 
 ````
-jadi@funlife:~$ time locate kernel | wc -l 
+$ time locate kernel | wc -l 
 11235
 
 real	0m0.341s
@@ -167,7 +167,7 @@ sys	0m0.015s
 This is fast because its data comes from a database created with `updatedb` command which is usually run on a daily basis with a cron job. Its configuration file is `/etc/updatedb.conf` or `/etc/sysconfig/locate`:
 
 ````
-jadi@funlife:~$ cat /etc/updatedb.conf 
+$ cat /etc/updatedb.conf 
 PRUNE_BIND_MOUNTS="yes"
 # PRUNENAMES=".git .bzr .hg .svn"
 PRUNEPATHS="/tmp /var/spool /media /home/.ecryptfs"
@@ -177,7 +177,7 @@ PRUNEFS="NFS nfs nfs4 rpc_pipefs afs binfmt_misc proc smbfs autofs iso9660 ncpfs
 Please note that you can update the db by running `updatedb` as root and get some info about it by `-S` switch of `locate` command:
 
 ````
-jadi@funlife:~$ locate -S
+$ locate -S
 Database /var/lib/mlocate/mlocate.db:
 	73,602 directories
 	711,894 files
