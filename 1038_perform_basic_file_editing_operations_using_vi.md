@@ -52,7 +52,7 @@ $ vi file.txt
 
 ## Moving the cursor
 
-If you need to move aound, use these keys:
+If you need to move around, use these keys:
 
 |key|function|
 |---|---|
@@ -118,9 +118,9 @@ It is always funny when you see someone entering to the vi and now knowing how t
 |:e!|Reload the file from disk|
 |:!|Run a shell command|
 
-Entering colon (`:`) during *command mode* will move the cursor to the buttom of the screen and vi will wait for your commands. Press ESC to return back to the normal command mode.
+Entering colon (`:`) during *command mode* will move the cursor to the bottom of the screen and vi will wait for your commands. Press ESC to return back to the normal command mode.
 
-> The exclamation mark in most commands will say "I know what I'm doing" and will write on read-only files if you hvae access and will exit without asking
+> The exclamation mark in most commands will say "I know what I'm doing" and will write on read-only files if you have access and will exit without asking
 
 
 ## help
