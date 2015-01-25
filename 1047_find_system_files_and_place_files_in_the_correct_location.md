@@ -185,7 +185,9 @@ Database /var/lib/mlocate/mlocate.db:
 	18,912,999 bytes used to store database
 ```
 # And... the LPIC1 exam 101 is DONE! Congrats.
-.
+
+
+http://j.mp/jadilpic1
 
 .
 
