@@ -19,7 +19,7 @@ Candidates should be thouroughly familiar with the **Filesystem Hierarchy Standa
 - /etc/updatedb.conf
 
 ## FHS
-Filesystem Hierarchy Standard (FHS) is a documnt describing the Linux / Unix file hierarchy. It is very useful to familirize yourself with this because it lets you easily find what you are looking for:
+Filesystem Hierarchy Standard (FHS) is a document describing the Linux / Unix file hierarchy. It is very useful to know these because it lets you easily find what you are looking for:
 
 |directory|usage|
 |---|---|
@@ -47,7 +47,7 @@ The `/var` filesystem contains variable data files, including spool directories 
 
 
 ## Path
-A gerenal linux install has a lot of files; 741341 files in my case. So how it find out where to look when you type a command? This is done by a variable called PATH:
+A general linux install has a lot of files; 741341 files in my case. So how it find out where to look when you type a command? This is done by a variable called PATH:
 
 ````
 jadi@funlife:~$ echo $PATH
@@ -61,10 +61,10 @@ root@funlife:~# echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ````
 
-As you can see, this is the list of directories seperated with a colon. Obviously you can change your path with ```export PATH=$PATH:/usr/new/dir``` or put this in ```.bashrc``` to make it permanent.
+As you can see, this is the list of directories separated with a colon. Obviously you can change your path with ```export PATH=$PATH:/usr/new/dir``` or put this in ```.bashrc``` to make it permanent.
 
 ## which, type and whereis
-The `which` command shows the first occurance of the command given in path:
+The `which` command shows the first appearance of the command given in path:
 
 ````
 jadi@funlife:~$ which mkfd
@@ -72,7 +72,7 @@ jadi@funlife:~$ which mkfs
 /sbin/mkfs
 ````
 
-> use the `-a` switch to show all occurances in the path and not only the first one.
+> use the `-a` switch to show all appearance in the path and not only the first one.
 
 But what happens if you `which for` ?
 
@@ -95,7 +95,7 @@ jadi@funlife:~$ type mkfd
 bash: type: mkfd: not found
 ````
 
-The `type` command is more genreal that `which` and also understand and showd the *bash keywords*. 
+The `type` command is more general that `which` and also understand and shows the *bash keywords*. 
 
 Another useful command in this category is `whereis`. Unlike `which`, `whereis` shows man pages and source codes of programs alongside their binary location. 
 
@@ -132,7 +132,7 @@ jadi@funlife:~$ find /tmp/ -maxdepth 1 -user jadi | head
 
 Or even find the files not belonging to any user / group with `-nouser` and `-nogroup`. 
 
->Like other *tests*, you can add a `!` just before any phrase to negete it. So this will find files **not belonging** to jadi: `find . ! -user jadi`
+>Like other *tests*, you can add a `!` just before any phrase to negate it. So this will find files **not belonging** to jadi: `find . ! -user jadi`
 
 
 ## locate & updatedb
@@ -164,7 +164,7 @@ user	0m0.322s
 sys	0m0.015s
 ````
 
-This is fast because its data comes from a database created with `updatedb` command which is usually run on a daily basis with a cron job. Its confituration file is `/etc/updatedb.conf` or `/etc/sysconfig/locate`:
+This is fast because its data comes from a database created with `updatedb` command which is usually run on a daily basis with a cron job. Its configuration file is `/etc/updatedb.conf` or `/etc/sysconfig/locate`:
 
 ````
 jadi@funlife:~$ cat /etc/updatedb.conf 
@@ -184,6 +184,7 @@ Database /var/lib/mlocate/mlocate.db:
 	46,160,154 bytes in file names
 	18,912,999 bytes used to store database
 ```
+# And... the LPIC1 exam 101 is DONE! Congrats.
 .
 
 .
