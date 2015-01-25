@@ -184,4 +184,20 @@ Database /var/lib/mlocate/mlocate.db:
 	46,160,154 bytes in file names
 	18,912,999 bytes used to store database
 ```
+.
 
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
