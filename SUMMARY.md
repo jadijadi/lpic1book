@@ -16,7 +16,7 @@
 * [103.7. Search text files using regular expressions](1037_search_text_files_using_regular_expressions.md)
 * [103.8. Perform basic file editing operations using vi](1038_perform_basic_file_editing_operations_using_vi.md)
 * [104.1. Create partitions and filesystems](1041_create_partitions_and_filesystems.md)
-* 104.2. Maintain the integrity of filesystems
+* [104.2. Maintain the integrity of filesystems](1042_maintain_the_integrity_of_filesystems.md)
 * [104.3. Control mounting and unmounting of filesystems](1043_control_mounting_and_unmounting_of_filesystems.md)
 * [104.6. Create and change hard & symbolic links](1046_create_and_change_hard_&_symbolic_links.md)
 * [104.7. Find system files and place files in the correct location](1047_find_system_files_and_place_files_in_the_correct_location.md)
