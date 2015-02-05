@@ -10,6 +10,7 @@
 * [102.5. Use RPM and YUM package management](1025_use_rpm_and_yum_package_management.md)
 * [103.1. Work on the command line ](1031_work_on_the_command_line.md)
 * [103.2. Process text streams using filters](1032_process_text_streams_using_filters.md)
+* 104.4. Manage disk quotas
 * [103.3. Perform basic file management](1033_perform_basic_file_management.md)
 * [103.4. Use streams, pipes and redirects ](1034_use_streams,_pipes_and_redirects.md)
 * [103.5. Create, monitor and kill processes](1035_create,_monitor_and_kill_processes.md)
@@ -21,5 +22,4 @@
 * [104.3. Control mounting and unmounting of filesystems](1043_control_mounting_and_unmounting_of_filesystems.md)
 * [104.6. Create and change hard & symbolic links](1046_create_and_change_hard_&_symbolic_links.md)
 * [104.7. Find system files and place files in the correct location](1047_find_system_files_and_place_files_in_the_correct_location.md)
-* 104.4. Manage disk quotas
 
