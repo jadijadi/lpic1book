@@ -12,6 +12,7 @@
 * [103.3. Perform basic file management](1033_perform_basic_file_management.md)
 * [103.4. Use streams, pipes and redirects ](1034_use_streams,_pipes_and_redirects.md)
 * [103.5. Create, monitor and kill processes](1035_create,_monitor_and_kill_processes.md)
+* 102.2. Install a boot manager
 * [103.6. Modify process execution priorities](1036_modify_process_execution_priorities.md)
 * [103.7. Search text files using regular expressions](1037_search_text_files_using_regular_expressions.md)
 * [103.8. Perform basic file editing operations using vi](1038_perform_basic_file_editing_operations_using_vi.md)
@@ -20,5 +21,4 @@
 * [104.3. Control mounting and unmounting of filesystems](1043_control_mounting_and_unmounting_of_filesystems.md)
 * [104.6. Create and change hard & symbolic links](1046_create_and_change_hard_&_symbolic_links.md)
 * [104.7. Find system files and place files in the correct location](1047_find_system_files_and_place_files_in_the_correct_location.md)
-* 102.2. Install a boot manager
 
