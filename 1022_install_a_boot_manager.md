@@ -289,7 +289,7 @@ There are options in this file:
 |savedefault|remember the last booted item|
 |chainloader|another file will act as stage 1 loader. Used for booting Windows systems|
 
-### GRUB (legacy) comamnds
+### GRUB (legacy) commands
 After creating the configuration, you need to install the grub on a disk do this with one of these command forms:
 
 ````
@@ -369,3 +369,23 @@ menuentry "Ubuntu, Linux 2.6.31-20-generic (recovery mode)" {
         initrd  /boot/initrd.img-2.6.31-20-generic
 }
 ````
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
