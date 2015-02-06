@@ -6,13 +6,13 @@
 * [102.1. Design hard disk layout ](1021_design_hard_disk_layout.md)
 * [102.2. Install a boot manager](1022_install_a_boot_manager.md)
 * [102.3. Manage shared libraries ](1023_manage_shared_libraries.md)
+* 101.1. Determine and configure hardware settings 
 * [102.4. Use Debian package management ](1024_use_debian_package_management.md)
 * [102.5. Use RPM and YUM package management](1025_use_rpm_and_yum_package_management.md)
 * [103.1. Work on the command line ](1031_work_on_the_command_line.md)
 * [103.2. Process text streams using filters](1032_process_text_streams_using_filters.md)
 * [103.3. Perform basic file management](1033_perform_basic_file_management.md)
 * [103.4. Use streams, pipes and redirects ](1034_use_streams,_pipes_and_redirects.md)
-* 101.1. Determine and configure hardware settings 
 * [103.5. Create, monitor and kill processes](1035_create,_monitor_and_kill_processes.md)
 * [103.6. Modify process execution priorities](1036_modify_process_execution_priorities.md)
 * [103.7. Search text files using regular expressions](1037_search_text_files_using_regular_expressions.md)
