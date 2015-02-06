@@ -12,6 +12,7 @@
 * [103.2. Process text streams using filters](1032_process_text_streams_using_filters.md)
 * [103.3. Perform basic file management](1033_perform_basic_file_management.md)
 * [103.4. Use streams, pipes and redirects ](1034_use_streams,_pipes_and_redirects.md)
+* 101.1. Determine and configure hardware settings 
 * [103.5. Create, monitor and kill processes](1035_create,_monitor_and_kill_processes.md)
 * [103.6. Modify process execution priorities](1036_modify_process_execution_priorities.md)
 * [103.7. Search text files using regular expressions](1037_search_text_files_using_regular_expressions.md)
@@ -22,5 +23,4 @@
 * [104.4. Manage disk quotas](1044_manage_disk_quotas.md)
 * [104.6. Create and change hard & symbolic links](1046_create_and_change_hard_&_symbolic_links.md)
 * [104.7. Find system files and place files in the correct location](1047_find_system_files_and_place_files_in_the_correct_location.md)
-* 101.1. Determine and configure hardware settings 
 
