@@ -1,4 +1,4 @@
-vi /etc/#104.4 Manage disk quotas
+#104.4 Manage disk quotas
 *Weight: 1*
 
 Candidates should be able to manage disk quotas for users.
@@ -27,13 +27,13 @@ The option should be added to required `/etc/fstab` file. The most famous ones a
 |grpquota|group quotas|
 |gquota|same as grpquota|
 
-So forexample is we want to enable quotas on sda2 we have to change the line in /etc/fstab like this:
+So for example is we want to enable quotas on sda2 we have to change the line in /etc/fstab like this:
 
 ````
 /dev/sda2  /home  ext4    defaults,usrquota,grpquota          1 2
 ````
 
-Next we need to specity the quotas of each user and each group. Two files called `aquota.user` and `aquota.group` in the root file system will do this. 
+Next we need to specify the quotas of each user and each group. Two files called `aquota.user` and `aquota.group` in the root file system will do this. 
 Now it is enough to run the `quotacheck` command. 
 
 > the `quotacheck` command will create the aquota.user and aquota.group if they do not exist
@@ -68,7 +68,7 @@ Disk quotas for user jadi (uid 1000):
   /dev/sda1                         0          0          0          0        0        0
 ````
 
-As you can see, the system showd the current blocks of 1k data, number of inodes (number of files and directories) and soft and hard limits for each of them. If a user goes over its softlimits, there will be emails. Hard limits are real limits and user can not go over them. If you need to save soft or hard limits, just change the file and save it.
+As you can see, the system shows the current blocks of 1k data, number of inodes (number of files and directories) and soft and hard limits for each of them. If a user goes over its softlimits, there will be emails. Hard limits are real limits and user can not go over them. If you need to save soft or hard limits, just change the file and save it.
 
 > You have to run `quotacheck` to update these data
 
@@ -90,7 +90,7 @@ Disk quotas for user jadi (uid 1000):
       /dev/sda1       5    5000       0               2       0       0      
 ````
 
-This is not easy if you have many usres so you can use `repquota` as follow:
+This is not easy if you have many users so you can use `repquota` as follow:
 
 ````
 # repquota -u -a
@@ -104,7 +104,7 @@ jadi      --       5    5000       0              2     0     0
 
 ````
 
-## Warning usres
+## Warning users
 There is a command for checking quotas and warning users called `warnquota`. If is good to run it time to time using a crontab (will see this crontabs later). 
 
 .
