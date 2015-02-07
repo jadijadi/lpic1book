@@ -23,4 +23,5 @@
 * [104.4. Manage disk quotas](1044_manage_disk_quotas.md)
 * [104.6. Create and change hard & symbolic links](1046_create_and_change_hard_&_symbolic_links.md)
 * [104.7. Find system files and place files in the correct location](1047_find_system_files_and_place_files_in_the_correct_location.md)
+* 104.5. Manage file permissions and ownership 
 
