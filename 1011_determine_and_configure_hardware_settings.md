@@ -302,3 +302,19 @@ Every other device has its own ID which can be used to *identify* it.
 
 ## hotplug
 Hotplug is when you insert a hardware into a running computer and clodplug is when you have to turn your computer off when installing a hardware. USB devcies are hotpluggale while PCI cards should be coldplugged.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
