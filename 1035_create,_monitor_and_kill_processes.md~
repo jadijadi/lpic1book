@@ -113,7 +113,7 @@ If is also possible to use PIDs in from of the kill or send other signals:
 |15|SIGHUP|normal termination request|
 |9|SIGKILL|force kills the proccess|
 
-So you can do a `kill -9 8733` to force process ID 8733 to close.
+So you can do a `kill -9 8733` to force proccess ID 8733 to close.
 
 > Now you can understand what `nohup` means: go not answer to the SIGHUP.
 

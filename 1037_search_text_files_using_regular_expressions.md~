@@ -46,7 +46,7 @@ If you need to add (concat) two expressions, just write them after each other.
 If you say `a\|b` it will match a or b.
 
 #### Character Classes
-The dot (**.**) means any character. So **..** will match anything with at least two character in it. You can also create your own classes with [abc] which will match a or b or c and [a-z] which match a to z.
+The dof (**.**) means any character. So **..** will match anything with at least two character in it. You can also create your own classes with [abc] which will match a or b or c and [a-z] which match a to z.
 
 You can also refer to digits with \d and 
 #### Ranges
@@ -60,7 +60,7 @@ There are easy ways to  commonly used classes. Named classes open with [: and cl
 |[:upper:] and [:lower:]|Upper and lower case letters, respectively.|
 |^ (negation)|As the first character after [ in a character class negates the sense of the remaining characters|
 
-> A common form is .* which matches any character (zero or any length). 
+> A common form is .* which matches any charater (zero or any length). 
 
 #### Matching specific locations
 - The caret **^** means beginning of the string
@@ -119,7 +119,7 @@ $
 > If is very common to combine grep and find: `find . -type f -print0 | xargs -0 grep -c a | grep -v ali` # find all files with **a** in them but not **ali**`
 
 ## extended grep
-Extended grep is a GNU extension. It does not need the escaping and much easier. It can be used with -E option or **egrep** command which equals to `grep -E`.
+Extended grep is a GNU extention. It does not need the escaping and much easier. It can be used with -E option or **egrep** command which equals to `grep -E`.
 
 ## Fixed grep
 If you need to search the exact string (and not interpret it as a regex), use `grep -F` or `fgrep` so the `fgrep this$` wont go for the end of the line and will find *this$that* too.

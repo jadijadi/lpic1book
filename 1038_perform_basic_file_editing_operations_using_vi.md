@@ -17,7 +17,7 @@ Candidates should be able to edit text files using vi. This objective includes v
 - ZZ, :w!, :q!, :e!
 
 ## Introduction
-`vi` is a great tool! The best editor ever (some say aefer Emacd) and it is installed on all linux systems. Some say it is difficult to use and *anormal* and some say it is the most natural editor there can be. Lets see.
+`vi` is a great tool! The best editor ever (some say after Emacs) and it is installed on all linux systems. Some say it is difficult to use and *abnormal* and some say it is the most natural editor there can be. Lets see.
 
 > vi can be used with simplest keyboards and over network on ssh terminals
 

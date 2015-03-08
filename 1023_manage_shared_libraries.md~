@@ -69,7 +69,7 @@ and then will check that file:
 As you can see, this is a symbolic link pointing to the version of libudev I have installed (1.4.0) so even if a software says it need libudev.so.1, my system will use its libusdev.so.1.4.0.
 
 #### Dynamic library configs
-As most of other linux tools, dynamic linking is also configured using a text config file. It is located at */etc/ld.so.conf*. On an Ubuntu system it is just points to other config files in /etc/ld.so.conf.d/ but all those lines can be included in the main file too:
+As most of other linux softwares, dynamic linking is also configured using a text config file. It is located at */etc/ld.so.conf*. On an Ubuntu system it is just points to other config files in /etc/ld.so.conf.d/ but all those lines can be included in the main file too:
 
 ````
 # cat /etc/ld.so.conf

@@ -29,7 +29,7 @@ Runlevels define what tasks can be accomplished in the current state (or runleve
 * 5- RHEL/Fedora/SUSE graphical mode
 * 6- reboot
 
-default run level can be seen in this file which says init what to do, sets default runlevel and.. being phased out!
+default run level can be seen in this file which says init what to do, sets defualt runlevel and.. being phased out!
 
     grep "^id:" /etc/inittab #on init systems
     id:5:initdefault:

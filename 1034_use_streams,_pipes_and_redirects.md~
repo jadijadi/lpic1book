@@ -24,7 +24,7 @@ These streams can be from (and toward) various things including keyboard, block 
 3. *stdin* is the standard input stream, which provides input to commands (file descriptor 0)
 
 What are these **file descriptions**? There are used to control the output. If you need to control where your output goes, you can add ```` n>```` or ````n>>````. 
-* **n>** redirects **file description n** to a file or device. If the file already exists it is **overwritten** and if it does not exists, it will be created.
+* **n>** redirects **file description n** to a file or device. If the file already exists it is **overwitten** and if it does not exists, it will be created.
 * **n>>** redirects file description n to a file or device. If the file already exists the stream will be appended to the end of it and if it does not exists, it will be created.
 
 > if the **n** is not given, the  default is *standard output*
@@ -59,7 +59,7 @@ It is also possible to use `&1` and `&2` and `&0` to refer to **current place** 
 > Be careeful! `ls 2>&1 > file1` means *print stderr to current location of stdout (screen) and then change the stdout to file1*
 
 #### sending to null
-In linux, **/dev/null** is like a trash-can. You can send anything there and it disappears. So it is normal to say:
+In linux, **/dev/null** is like a trashcan. You can send anything there and it dissapears. So it is normal to say:
 
 ```
 $ ls j* m* > file1

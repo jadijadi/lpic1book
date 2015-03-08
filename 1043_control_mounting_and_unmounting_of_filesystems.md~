@@ -45,7 +45,7 @@ blkid /dev/sda2
 - pass: Non-zero values of pass specify the order of checking filesystems at boot time (seen in Integrity of file ystems)
 
 **note:** 
-- User-mounted filesystems default to noexec unless exec is specified after user.
+- User-mounted filesystems default to noexec unless exec is specified afteruser.
 - noatime will disable recording of access times. Not using access times may improve performance.
 
 ### swap

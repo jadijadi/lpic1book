@@ -25,7 +25,7 @@ Description: Candidates should be able to interact with shells and commands usin
 
 
 ### Bash
-As any other thing Linux, you can choose your shell too (by shell I mean the command line interface). **Bash** in the most common one.
+As anyother thing in linux you can choose your shell (The command line interface). Bash in the most common one.
 
 Some commands are build in (cd, break, exec) and it uses streams:
 
@@ -62,7 +62,7 @@ Hello lpic
 
 #### escaped characters
 
-Some special characters need special case in programming and linux world. Say you want to go to the new line during an echo command.
+Some special characters need special case in programing and linux world. Say you want to go to the new line during an echo command.
 
 ````
 jadi@funlife:~$ echo -e "hello\nthere"
@@ -114,7 +114,7 @@ line 3
 ## exiting shell
 the ````exit```` command exits the shell. Same as ctrl+d. 
 
-if you run a command inside parentheses that command will be run inside a sub-shell. 
+if you run a command inside parentheses that command will be run inside a subshell. 
 
 and ````exec``` will run a command and closes the current shell.
 
@@ -210,7 +210,7 @@ Linux funlife 3.16.0-28-generic #38-Ubuntu SMP Fri Dec 12 17:37:40 UTC 2014 x86_
 ````
 
 ## history
-The bash, saves the commands you issue in a file defined in **HISTFILE** ev. the ````history```` shows the full command history (500 commands normally but can be changes in HISTSIZE).
+The bash, saves the commands you issue in a file defined in **HISTFILE** ev. the ````hostory```` shows the full command hostory (500 commands normally but can be changes in HISTSIZE).
 
 There are also some shortcuts:
 - ````history 20```` shows last 20 commands

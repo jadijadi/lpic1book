@@ -55,7 +55,7 @@ drwxrwxr-x 2 jadi jadi 4096 Jan  8 16:46 newdir
 - ````-t```` sorts based on modification date
 - ````-r```` reverses the search (so -tr is reverse time (newer files at the bottom).
 
-> you can always mix switches. A famous one is ````-ltrh```` (long+human readable sizes+reverse time).
+> you can always mix switches. A famouse one is ````-ltrh```` (long+human readable sizes+reverse time).
 
 ## Copying, Moving & Deleting
 
@@ -80,12 +80,12 @@ But use common sense when answering questions or using `cp` and `mv` in real lif
 Removes (Deletes) **files**. 
 
 ### General notes
-Normally, the cp command will copy a file over an existing copy, if the existing file is writeable. On the other hand, the `mv` will not move or rename a file if the target exists. You can overcome this using the ````-f```` switch.
+Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the mv will not move or rename a file if the target exists. You can overcome this using the ````-f```` switch.
 
 - ````-f```` (--force) will cause cp to try overwrite the target.
 - ````-i```` (--interactive) will ask Y/N question (deleting / overwriting). 
-- ````-b```` (--backup) will make backups of overwritten files
-- ````-p```` will *preserve* the attributes.
+- ````-b```` (--backup) will make backups of overwitten files
+- ````-p```` will *preserve* the attribites.
 
 ## Creating and removing directories
 The ````mkdir```` command creates directories. 
@@ -144,7 +144,7 @@ $ tree
 0 directories, 2 files
 ````
 
-> If you are using ````rmdir```` to remove a directory, it MUST BE EMPTY! although later we will see how you can erase directories using ````rm```` command.
+> If you are using ````rmdir```` to remove a directory, it MUST BE EMPTY! althouth later we will see how you can erase directories using ````rm```` command.
 
 ## Handling multiple files at once
 Most of the times we need to work with more than one file. This is *Linux* and there are ways!
@@ -208,7 +208,7 @@ $ rm -r newCopy
 
 As you can see we can not ````rm```` a file but if using -r (or -R or --recursive) it works because it deletes the dir and whatever inside it.
 
-> ````rm -rf /```` is EXTREMELY DANGEROUS: force delete whatever in /
+> ````rm -rf /```` is EXTREMELY DANGEOUS: force delete wharever in /
 
 #### Wildcards and globbing
 This is a way to say **All files** or **everything which starts with A** or **all files with 3 letter names which end in A or B or C**. 
@@ -218,7 +218,7 @@ There are main cases:
 - ````*```` means **any string**
 - ````?```` means any single character
 - ````[ABC]```` matches A, B & C
-- ````[a-k]```` matches a, b, c, ..., k (both lower-case and capital)
+- ````[a-k]```` matches a, b, c, ..., k (both lowercase and capital)
 - ````[0-9a-z]```` matches all digits and numbers
 - ````[!x]```` means NOT X.
 
@@ -232,7 +232,7 @@ So... this means that you can use these patterns in your commands to point to th
 |rmdir [a-z]*|remove all directories which start with a letter|
 
 ## touch
-The ````touch```` command with no option will update the **modification** date of a file to the current time (will create a file if it is not exists).
+The ````touch```` command with no option will update the **moditication** date of a file to the current time (will create a file if it is not exists).
 
 ````
 /touch$ ls -l
@@ -338,7 +338,7 @@ find /var -iname '*tmp* -size +1M -size -100M
 > you can find all empty files with ````find . -size 0b```` or ````find . -empty````
 
 #### Acting on files
-We can act on files with various switches:
+We can act on files with varous switches:
 
 |switch|meanint|
 |---|---|
@@ -444,12 +444,12 @@ Common switches are
 |-r| appeng new files to the currentyp available archive|
  
 
-> If you issue absolute paths, tar removes the starting slash (/) for safety reasons when creating an archive. If you want to override, use -p option. 
+> If you issue absolute paths, tar removes the startint / for safety reasond when creating an archive. If you want to override, use -p option. 
 
 > tar can work with tapes and other storages. Thats why we use ````-f```` to tell it that we are working with files.
 
 #### cpio
-Gets a list of files and creates archive (one file) of it which can be opened later.
+Gets a list of files and creates archive (one file) of it whlch can be opened later.
 
 ````
 $ ls | cpio -o > allfilesls.cpio

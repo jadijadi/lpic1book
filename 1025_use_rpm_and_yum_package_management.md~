@@ -23,7 +23,7 @@ Candidates should be able to perform package management using RPM and YUM tools.
 YUM adds extra features likes automatic updates, dependency management and works with repositories (collection on packages accessed over network or on a CD). 
 
 ### Installing
-Say you want to install "bzr" and you don't have it:
+Say you want to install "bzr" and you dont have it:
 
 ````
 bzr:[jadi@localhost ~]$ bzr
@@ -175,9 +175,9 @@ the most common command is ````yum update````. This will update the repository d
 
 will upgrade all packages starting with cal (sal calendarj, calibre, ...).
 
-if using RPM, you can upgrade a system using -U or -F instead of -i. This is the difference:
+if using RPM, you can upgrade a sysem using -U or -F instaed of -i. This is the difference:
 
-> -i is for install, -U is upgrade or install, -F is upgrade if installed. Note that -F wont install / upgrade the package if it is not already istalled.
+> -i is for install, -U is upgrade os install, -F is upgrade if installed. Note that -F wont install / upgrade the package if it is not already istalled.
 
 > please note that in many cases, we also us -v (verbose = print a lot of info) and -h (show a progress bar with hash signs (#) ).
 
@@ -256,7 +256,7 @@ wmMatrix.x86_64 : DockApp version of Jamie Zawinski's xmatrix screensaver hack
   Name and summary matches only, use "search all" for everything.
 ````
 
-it is also possible to find **all installed** packages with ````rpm -qa```` (query all). In most cases we pipe this with ````sort```` or ````grep```` and ````less```:
+it is also possible to find **all intalled** packages with ````rpm -qa```` (query all). In most cases we pipe this with ````sort```` or ````grep```` and ````less```:
 
 ````
 [root@localhost ~]# rpm -qa | grep vim 
@@ -305,7 +305,7 @@ libc.so.6(GLIBC_2.3.4)(64bit)
 
 or use ````yum deplist bzr```` instead.
 
-Poof.. I know this part was long so here comes the last important RPM querying command: **whatprovides**. 
+Poof.. I know this part was long so here comes the last important RPM Quering command: **whatprovides**. 
 
 If you need to use bzr, you need to check what provides it! if installed you can go with ````rpm -q --whatprovides bzr```` and if not :
 
@@ -346,7 +346,7 @@ yum reinstall bzr
 ````
 
 ### yumdownloader
-this tool will download rpms from repositories but wont install them. If you need to download all the dependencies too, use the --resolve switch:
+this tool will download rpms from repositories but wont install them. If you need to downloda all the dependencies too, use the --resolve switch:
 
 ````
 yumdownloader --resolve bzr

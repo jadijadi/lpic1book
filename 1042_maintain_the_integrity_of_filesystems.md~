@@ -1,7 +1,7 @@
 # 104.2 Maintain the integrity of filesystems 
 *Weight: 2*
 
-Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journalling filesystem.
+Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem.
 
 # Objectives
 
@@ -162,7 +162,7 @@ This is same as the `tune2fs` but for xfs file systems.
 
 In many cases you want to find out about the free space of a disk or find how much space a directory is using. This space can be used by the blocks of files or inodes.
 
-> inodes contain the information about files. Information like the owner, when the last time it is used or edited, its size, if its a directory or not and peoples access rights on if. The inode number is unique within a particular filesystem and is also called files serial number.
+> inodes contain the information about files. Information like the owner, when the last time it is used or edites, its size, if its a directory or not and peoples access rights on if. The inode number is unique within a particular filesystem and is also called files serial number.
 
 ## df
 The DiskFree command is used to find out about the free and used space of file systems.
@@ -244,7 +244,7 @@ On non-journaling file systems (ext2) the fsck will show you many questions abou
 An important switch is `-n` which causes these commands **not to fix** anything and just show what was going to be done.
 
 ## debugfs
-This is an interactive tool for debug an ext filesystem. It opens the filesystem in read-only mode unless we tell it not to (with `-w` option). If can un-delete files and directories..
+This is an interactive tool for debut an ext filesystem. It opens the filesystem in read-only mode unless we tell it not to (with `-w` option). If can undelete files and directories..
  
 ````
 root@funlife:~# debugfs /dev/sda2

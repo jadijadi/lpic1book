@@ -155,7 +155,7 @@ swap in Linux works like an extended memory. Kernel will *page* memory to this p
 > Note: swap size is 1 or 2 times the system memory but not more than 8GBs. So if you have 2GB of RAM, swap will be 4GB but if you have 6GB of RAM, it is recommended to have a 8GB swap partition.
 
 #### /boot
-Older Linux systems were not able to handle HUGE disks during the boot (say Terrabytes) so there were a separated /boot. It is also useful to recover broken systems or even you can make /boot read only. Most of the time, having 100MB for /boot is enough. This can be a different disk or a separated partition.
+Older Linuxes were not able to handle HUGE disks during the boot (say Terrabytes) so there were a separated /boot. It is also useful to recover broken systems or even you can make /boot read only. Most of the time, having 100MB for /boot is enough. This can be a different disk or a separated partition.
 
 This partition should be accessible by BIOS during the boot (no network drive).
 
@@ -166,7 +166,7 @@ On a desktop computer, it is good to have one swap, one /boot and allocate all o
 As any other system /boot should be local (a physical disk connected to the machine) and most of the time, the / (root file system) is also local. But in a network station, /home can be mounted from a network drive (NFS, SMB, SSH, ..). This lets users to sit at any station, login and have their own home mounted from a network drive. Swap can be mounted from network or local. 
 
 ### Server
-On servers /boot is still local and based on usage, /home can be local or network. In many cases we separate the /var because logs and many other files are there and being updated so it is good to separate it or even put it on a more advanced storage (like RAID disks to prevent data loss). Some people also separate the /usr and write-protect it (read only file systems) or even mount the /usr from network so they can change / update one file on the network storage and all the servers will use the new file (you remember? /usr contains important executables like Apache web server).
+On servers /boot is still local and based on usage, /home can be local or network. In many cases we separate the /var because logs and many other files are there and being updated so it is good to separate it or even put it on a more advanced storage (like RAID disks to prevent data loss). Some people also separate the /usr and write-protect it (read only file systems) or even mount the /usr from network so they can change / update one file on the network storage and all the servers will use the new file (you remember? /usr contains important executables like apache web server).
 
 .
 

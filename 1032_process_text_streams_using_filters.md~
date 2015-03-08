@@ -28,7 +28,7 @@ Description: Candidates should be able to apply filters to text streams.
 - wc
 
 ## Streams
-In **UNIX** world a lot of data is in TEXT form. Log files, configurations, user inputs,  list of files, ... . **Filtering** this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a **streams** is nothing more than *"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"*. 
+In **UNIX** world a lot of data is in TEXT form. Log files, configurations, user inputs,  list of files, ... . **Filtering** this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this contect, a **streams** is nothing more than *"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"*. 
 
 In simple words, a text stream is an input of text from keyboard, a file, a network device, .. and filtering it is authomatically changing it. 
 
@@ -333,7 +333,7 @@ you 	12
 > if you want to sort NUMERICALLY (so 9 is lower than 19), use ````-n````
 > -r will reverse the search
 
-and the ````uniq```` removes duplicate entries from its input. Normal behaviour is removing only the duplicated lines but you can change the behaviour for example by giving ````-f1```` to force it to not check fist field.
+and the ````uniq```` removes duplicate entries from its input. Normal behavior is removing only the duplicated lines but you can change the behaviour for example by giving ````-f1```` to force it to not check fist field.
 
 ````
 jadi@funlife:~/w/lpic/101$ uniq what_i_have.txt 
@@ -382,7 +382,7 @@ socks
 > how many things I have? ````wc -l what_i_have.txt```` :)
 
 ## cut
-cut command will *cut* a column of one file. Good for separating fields:
+cut command will *cut* a column of one file. Good for seperating fields:
 
 Lets cut the *first field* of a file. 
 
@@ -399,7 +399,7 @@ rubic
 you 
 ````
 
->normal delimiter is TAB. use -dx to change it to "x" or use ```` | tr ' ' '\t' | ```` to convert spaces in your stream to TABs.
+>normal delimiter is TAB. use -dx to change it to "x" or use ```` | tr ' ' '\t' | ```` to convert spraces in your stream to TABs.
 
 It is also possible to *cut* fields 1, 2, 3 with ````-f1-3```` or only characters 4,5,7,8 with ````-c4,5,7,8````.
 
@@ -447,7 +447,7 @@ rubic 2 windows
 you 12 fedora
 ````
 
->join does not work on numeric fields unless the fields are all the same length. It default delimiter is any white space (TAB, space) and it joins on first field. check ````man sort```` for more info.
+>join does not work on numeric fields unless the fields are all the same length. It default delimiter is any white space (TAB, sprace) and it joins on first field. check ````man sort```` for more info.
 
 ## sed
 sed is ***s**tream **ed**itor*. It is POWERFUL and can do magic! Just like most of the tools we saw, sed sed can work as a filter or take its input from a file. It uses **regular expressions** and is a great tool for replacing text. If you need to replace A with B only once in each line in a stream you have to say ````sed 's/A/B/'````:
@@ -466,9 +466,9 @@ neda mac
 jadi@funlife:~/w/lpic/101$ 
 ````
 
-the pattern for changing EVERY occurrence of A to B in a line is ````sed 's/A/B/g'````. 
+the pattern for changing EVERY occurance of A to B in a line is ````sed 's/A/B/g'````. 
 
-Remember escape characters? They also work here and this will remove every *new line* from a file and will replace it with a space:
+Remember escape characters? They also work here and this will remove every *new line* from a file ang will replace it with a space:
 
 ````
 jadi@funlife:~/w/lpic/101$ cat mydata

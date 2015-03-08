@@ -40,7 +40,7 @@ Now it is enough to run the `quotacheck` command.
 
 ````
 # quotacheck -u -a -m -c -v
-quotacheck: Your kernel probably supports journaled quota but you are not using it. Consider switching to journalled quota to avoid running quotacheck after an unclean shutdown.
+quotacheck: Your kernel probably supports journaled quota but you are not using it. Consider switching to journaled quota to avoid running quotacheck after an unclean shutdown.
 quotacheck: Scanning /dev/sda1 [/boot] done
 quotacheck: Old group file name could not been determined. Usage will not be subtracted.
 quotacheck: Checked 13 directories and 389 files
@@ -68,7 +68,7 @@ Disk quotas for user jadi (uid 1000):
   /dev/sda1                         0          0          0          0        0        0
 ````
 
-As you can see, the system shows the current blocks of 1k data, number of inodes (number of files and directories) and soft and hard limits for each of them. If a user goes over its soft-limits, there will be emails. Hard limits are real limits and user can not go over them. If you need to save soft or hard limits, just change the file and save it.
+As you can see, the system shows the current blocks of 1k data, number of inodes (number of files and directories) and soft and hard limits for each of them. If a user goes over its softlimits, there will be emails. Hard limits are real limits and user can not go over them. If you need to save soft or hard limits, just change the file and save it.
 
 > You have to run `quotacheck` to update these data
 

@@ -97,7 +97,7 @@ drwxr-xr-x 160 jadi jadi 12288 Feb  7 11:44 jadi
 The first character is a `d` so this is a directory! The owner (jadi) has read, write and execute access but other members of the **group** jadi and **others** only have read and execute access on this directory (execute means that they can see the files inside it). 
 
 ## Chanhging permissions
-It is possible to change the permissions on files & directories using the `chmod` command. There are to ways to tell this command what you want to do:
+It is possilbe to change the permissions on files & directories using the `chmod` command. There are to ways to tell this command what you want to do:
 
 1. using octal codes
 2. using short coeds
@@ -139,7 +139,7 @@ $ ls -ltrh myfile
 -rwxr-xr-x 1 jadi jadi 0 Feb  8 21:01 myfile
 ````
 
-> you can tell `chmod` whos permission should be granted or removed by doing things like `u+r` (give read to user), `og-w` (remove write for other and group). 
+> you can tell `chmod` whos permission shoulb be granted or removed by doing things like `u+r` (give read to user), `og-w` (remove write for other and group). 
 
 One very common switch on `chmod` is `-R` for recursive chmoding on files. This will give read permission of all files inside /tmp/ to any user:
 
@@ -149,7 +149,7 @@ One very common switch on `chmod` is `-R` for recursive chmoding on files. This 
 
 
 ## Access modes
-So you have access only to your files. But how you should change your password? or use programs which needs access to system files? You should be able to access /etc/passwd or /etc/shadow to change your password but you should not be able to access other people files!
+So you have access only to your files. But how you should change your password? or use programs which needs access to system files? You shoud be able to access /etc/passwd or /etc/shadow to change your password but you should not be able to access other people files!
 
 Normally when you run a program, it runs with *your* access levels but linux has to special bits on each file; **suid** (set user id) and **guid** (set group id). If these are set on a file, that file be will be executed with the access of the **owner** of the file and not the user who is running it.
 
@@ -158,7 +158,7 @@ $ ls -ltrh /usr/bin/passwd
 -rwsr-xr-x 1 root root 50K Jul 18  2014 /usr/bin/passwd
 ````
 
-Did you note the `s` in the place of *executable bit* for the user and for the group? That means when any user runs this program, it will be run be the access of the owner of the file (which is root) instead of that users id. 
+Did you note the `s` in the palce of *executable bit* for the user and for the group? That means when any user runs this program, it will be run be the access of the owner of the file (which is root) instead of that users id. 
 
 It is possilbe to set / unser the suid and sgid using `chmod` and `+s` or `-s` instead of `x`. 
 
