@@ -100,7 +100,7 @@ These command during the *command mode* will help you enter, edit, replace, .. t
 |key|function|
 |---|---|
 |/|Search forward (`/happiness` will find the next happiness)|
-|?|Search backward|
+|?|Search bacnward|
 |n|repeat previous search. You can also use `/` and `?` without any parameters)|
 
 >Search wraps around to the top once the bottom of file is reached
