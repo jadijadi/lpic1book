@@ -1,13 +1,12 @@
-# LPIC 101 exam
+# LPIC 101 exam for non-english people
 
-**http://j.mp/jadilpic1**
 
-Welcome to the Jadi's LPIC exam guide.
+Laters version is always will be hosted at **http://j.mp/jadilpic1**
 
-Easy, Fast and efficient.
+Welcome to the Jadi's LPIC exam guide. I've tried to write a short, easy to understand but still comprehensive exam guide using *normal, easy to understand, english*. 
 
-Things you should know: [LPI Exam 101](https://www.lpi.org/linux-certifications/programs/lpic-1/exam-101)
+The book is based on [LPI Exam 101](https://www.lpi.org/linux-certifications/programs/lpic-1/exam-101) titles.
 
-A great study resource: [IBM LPI Reference](http://www.ibm.com/developerworks/linux/lpi/101.html)
+Enjoy.
 
-Go to the next Chapter! This is FAST book.
+[Jadi.ir](http://jadi.ir)
