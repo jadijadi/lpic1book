@@ -1,4 +1,4 @@
-# LPIC 101 exam for non-english speakers
+# LPIC 101 exam for non-english human beings 
 
 This book originally comes as part of a [free video tutorials for LPIC1 exam 101 by Jadi (Persian)](git@github.com:jadijadi/lpic1book.git) but it can also be used by its own for LPIC1-101 exam.
 
