@@ -1,5 +1,6 @@
 # LPIC 101 exam for non-english speakers
 
+This book originally comes as part of a [free video tutorials for LPIC1 exam 101 by Jadi (Persian)](git@github.com:jadijadi/lpic1book.git) but it can also be used by its own for LPIC1-101 exam.
 
 Latest version is always will be hosted at **http://j.mp/jadilpic1**
 
@@ -10,3 +11,5 @@ This book is based on [LPI Exam 101](https://www.lpi.org/linux-certifications/pr
 Enjoy.
 
 [Jadi.ir](http://jadi.ir)
+
+p.s. LPIC1-102 is coming soon
