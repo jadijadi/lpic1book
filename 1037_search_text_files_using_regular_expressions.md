@@ -92,7 +92,7 @@ There are the most important switches:
 |-v|reverse the search|
 |-n|show line numbers|
 |-l|show only file names|
-|-i|case insenserive|
+|-i|case insensitive|
 
 ````
 $ grep p *
