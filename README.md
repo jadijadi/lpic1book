@@ -12,4 +12,4 @@ Enjoy.
 
 [Jadi.ir](http://jadi.ir)
 
-p.s. LPIC1-102 is coming soon
+p.s. LPIC1-102 will come soon
