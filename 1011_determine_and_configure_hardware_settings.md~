@@ -35,7 +35,7 @@ Is really a bus and lets parts of the system communicate with each other. For ex
 ### udev
 Supplies the software with the events and access info of devices and can handle rules.
 
-There are a lot of devices in /dev/ and if you plugin any device, it will have a file in /dev (say /dev/sdb2). **udev** lets you control what will be what in /dev. For example you can use a rule to force your 8GB flash drive with one specific vendor to be /dev/mybackup all the time or you can tell it to copy all photos to your home directory as soon as your camera is connected.
+There are a lot of devices in /dev/ and if you plugin any device, it will have a file in /dev (say /dev/sdb2). **udev** lets you control what will be what in /dev. For example you can use a rule to force your 8GB flash drive with one specifiv vendar to be /dev/mybackup all the time or you can tell it to copy all photos to your home directory as soon as your camera is connected.
 
 ### sysfs
 The `/sys` directory is where **HAL** keeps its database of everything connected to the system. 
@@ -129,7 +129,7 @@ address sizes	: 36 bits physical, 48 bits virtual
 power management:
 ````
 
-We can also write here. Since I'm on an IBM Lenovo laptop I can turn my LED on and off by writing here:
+We can also write here. Since I'm on an IBM lenovo laptop I can turn my LED on and off by writing here:
 
 ````
 root@funlife:/proc/acpi/ibm# echo on > light 
@@ -145,7 +145,7 @@ root@funlife:/proc/sys/fs# echo 1000000 > file-max
 root@funlife:/proc/sys/fs# cat file-max 
 1000000
 ````
-Another very useful directory here, is `/proc/sys/net/ipv4` which controls real time networking configurations. 
+Another very useful directory here, is `/proc/sys/net/ipv4` which controls realtime networking configurations. 
 
 > All there changes will be reverted after a boot. You have to read config files in `/etc/` to make these changes permanent
 
@@ -225,15 +225,15 @@ And this is for installing the modules:
 # insmod lwlwifi
 ````
 
-but nobody uses `insmod` because it does not understands dependencies. Instead use the `modprobe` command:
+but nobody uses `insmod` because it does not understands dependencies. Instad use the `modprobe` command:
 
 ````
 # modprobe iwlwifi
 ````
 
-> you can use `-f` switch to FORCE `rmmod` to remove the module even if it is in use
+> you can use `-f` switch to FORCE rmmod to remove the module even if it is in use
 
-If you need to load some modules everytime your system boots do one of the follow:
+If you need to load some modules eveythime your system boots do one of the follow:
 1. add their name to this file `/etc/modules`
 2. add its config to the /etc/modprobe.d/
 
@@ -301,7 +301,7 @@ tmpfs /run tmpfs rw,nosuid,noexec,relatime,size=806028k,mode=755 0 0
 Every other device has its own ID which can be used to *identify* it. 
 
 ## hotplug
-Hotplug is when you insert a hardware into a running computer and coldplug is when you have to turn your computer off when installing a hardware. USB devices are hotpluggale while PCI cards should be coldplugged.
+Hotplug is when you insert a hardware into a running computer and clodplug is when you have to turn your computer off when installing a hardware. USB devcies are hotpluggale while PCI cards should be coldplugged.
 
 .
 
