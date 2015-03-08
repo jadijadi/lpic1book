@@ -52,7 +52,7 @@ $
 ````
 
 #### Redirectint both stdout and stderr to one location
-Sometimes (say during automated tasks) we prefer to send both standard input and output to same place, Use ````&>```` and ````&>>```` to say *both stderr and stdout*. 
+Sometimes (say during automated tasks) we prefer to send both standard output and standard error to same place, Use ````&>```` and ````&>>```` to say *both stderr and stdout*. 
 
 It is also possible to use `&1` and `&2` and `&0` to refer to **current place** of stdout, stderr & stdin.  In this case `ls > file1 2>&1` means *redirect output to file1 and output stderr to same place as stdout (file1)*
 
