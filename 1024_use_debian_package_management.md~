@@ -16,7 +16,7 @@ Candidates should be able to perform package management using the Debian package
 - aptitude
 
 ## Concept of the package management system
-Linux used to be based on compiling source code but then Distributions arrived. Most distributions have their own Package Manager for installing pre-build programs from defined *repositories*. Debian based distros use .deb files with apt, dpkg, aptitude and Fedora, RedHat, RHEL, SUSE, .. use RPM and Yum package mangaers.
+Linux used to be based on compiling source code but then Distributions arrived. Most distributions have their own Package Manager for installing pre-build programs from defined *repositories*. Debian based distros use .deb files with apt, dpkg, aptitude and Fedora, RedHat, RHEL, SUSE, .. use RPM and Yum package managers.
 
 ## Installing packages
 
@@ -37,7 +37,7 @@ so lets install it. If we have the .deb file:
 
 note that
 - apt-get install asked for confirmation (Y)
-- apt-get resolved *dependencies*, it know what is neded to install this package and installs them
+- apt-get resolved *dependencies*, it know what is needed to install this package and installs them
 - debian packages are something.deb 
 
     bzr
@@ -125,7 +125,7 @@ or going to a new distribution:
 
     apt-get dist-upgrade
 
-Note: as most other softwares, you can configure the default configs at /etc/apt/apt.conf and there is a program apt-config for this purpose.
+Note: as most other tools, you can configure the default configs at /etc/apt/apt.conf and there is a program apt-config for this purpose.
 
 ## reconfiguring packages
 
