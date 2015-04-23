@@ -17,7 +17,7 @@ Candidates should be able to guide the system through the booting process.
 - dmesg
 
 #### BIOS
-BIOS is Basic Input Output Service and does the first steps of the PC bootup. For example is does a POST (Power On Self Test) and decides which hardware should boot the system.
+BIOS is Basic Input Output System and does the first steps of the PC bootup. For example is does a POST (Power On Self Test) and decides which hardware should boot the system.
 
 #### bootloader
 

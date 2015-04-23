@@ -114,7 +114,7 @@ $
 We have already seen this command in detail but lets see a couple of new switches.
 
 - The `-user` and `-group` specifies a specific user & group
-- The `-maxdepth` tells the find how deep it shoud go into the directories.
+- The `-maxdepth` tells the find how deep it should go into the directories.
 
 ````
 $ find /tmp/ -maxdepth 1 -user jadi | head

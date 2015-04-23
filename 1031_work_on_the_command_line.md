@@ -82,18 +82,18 @@ there
 
 > Note: you can use \ to break a command in many lines:
 ````
-$ echo but tihs \
+$ echo but this \
 > is another \
 > usage
 but this is another usage
 ````
 
-#### metacharavters and Control operators
+#### metacharacters and Control operators
 Also there are characters with special meaning. You need to escape then if you need them in your commands: **| & ; ( ) < >***
 
 There is also control operators. They also have special meanings: ** || && & ; ;; | ( )** 
 
-The most important ones are ; (do one by one), && (logiacal and) and || (logical or). 
+The most important ones are ; (do one by one), && (logical and) and || (logical or). 
 
 ````
 $ echo line 1;echo line 2; echo line 3
@@ -216,7 +216,7 @@ There are also some shortcuts:
 - ````history 20```` shows last 20 commands
 - ````!!```` last command
 - ````!string```` most recent command that starts with string
-- ````!?string?```` most recent command that containsstring
+- ````!?string?```` most recent command that contains string
 
 when you logout, all these are saved in .bash_history
 
@@ -238,7 +238,7 @@ jadi@funlife:~$ whereis tar
 tar: /usr/lib/tar /bin/tar /usr/include/tar.h /usr/share/man/man1/tar.1.gz
 ````
 
-#### runnig other commands
+#### running other commands
 - It is possible to add to my path
 - give the full path
 - give the relative path (. & ..)

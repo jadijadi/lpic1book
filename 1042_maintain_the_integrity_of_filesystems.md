@@ -1,7 +1,7 @@
 # 104.2 Maintain the integrity of filesystems 
 *Weight: 2*
 
-Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journalling filesystem.
+Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem.
 
 # Objectives
 

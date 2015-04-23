@@ -194,7 +194,7 @@ Original-Maintainer: Debian Bazaar Maintainers <pkg-bazaar-maint@lists.alioth.de
 
 another command is **purge** which will remove the package and all of its configurations.. the switch is **-P** or **--purge**.
 
-There is also **-L** to check the files and directories a package intalled:
+There is also **-L** to check the files and directories a package installed:
 
 ````
 $ dpkg -L jcal 
@@ -242,7 +242,7 @@ or it can also be used as a standalone program:
 ![aptitude sample](http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-4/fig-102-4-2.gif)
 
 ## other tools
-there is gui tools like "synaptic" and "update manager". These will Searck, Update, Upgrade, Install, Remove via a graphical user interface and are present in many distributions. This is ubuntu software center:
+there is gui tools like "synaptic" and "update manager". These will Search, Update, Upgrade, Install, Remove via a graphical user interface and are present in many distributions. This is ubuntu software center:
 
 ![Ubuntu Software Center](http://screenshots.debian.net/screenshots/s/software-center/10674_large.png)
 

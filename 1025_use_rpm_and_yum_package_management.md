@@ -177,11 +177,11 @@ will upgrade all packages starting with cal (sal calendarj, calibre, ...).
 
 if using RPM, you can upgrade a system using -U or -F instead of -i. This is the difference:
 
-> -i is for install, -U is upgrade or install, -F is upgrade if installed. Note that -F wont install / upgrade the package if it is not already istalled.
+> -i is for install, -U is upgrade or install, -F is upgrade if installed. Note that -F wont install / upgrade the package if it is not already installed.
 
 > please note that in many cases, we also us -v (verbose = print a lot of info) and -h (show a progress bar with hash signs (#) ).
 
-Last thing you should now is if intsalling or updating using ````rpm```` and you have many files which are dependent to each other, you can copy all your rpm files into one directory and do a ````rpm -Uvh *.rpm```` and rpm will install/upgrade all the packages based on their dependencies to each other.
+Last thing you should now is if installing or updating using ````rpm```` and you have many files which are dependent to each other, you can copy all your rpm files into one directory and do a ````rpm -Uvh *.rpm```` and rpm will install/upgrade all the packages based on their dependencies to each other.
 
 ### Querying info
 You saw that rpm needed a full file name and yum needed only the package name. How can we find these info?
@@ -339,7 +339,7 @@ rm: remove regular file ‘/etc/bash_completion.d/bzr’? y
 missing     /etc/bash_completion.d/bzr
 ````
 
-if anything goes wrong, we can allways reinstall a package:
+if anything goes wrong, we can always reinstall a package:
 
 ````
 yum reinstall bzr
@@ -370,7 +370,7 @@ The **cpio** is kind of an archive, just like zip or rar or tar. the rpm2cpio ca
 ````
 
 ### Other tools
-YUM and RPM are the main package manager tools on Fedora, RHEL & Centos. but other system are available. The SUSE uses YaST and many modern desktops (KDE & Gnome) use PackageKit. Package Kit installs and updates packags on graphical interfaces on most linux systems (Debian, Fedora, Arch, ...). 
+YUM and RPM are the main package manager tools on Fedora, RHEL & Centos. but other system are available. The SUSE uses YaST and many modern desktops (KDE & Gnome) use PackageKit. Package Kit installs and updates packages on graphical interfaces on most linux systems (Debian, Fedora, Arch, ...). 
 
 .
 

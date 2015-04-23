@@ -282,7 +282,7 @@ Shows inserted lspcmcia cards
 Shows hal data
 
 #### lshw
-Showd hardware. Test it!
+Shows hardware. Test it!
 
 ## Device UUIDs
 Each device has an ID. If you speak about /dev/sda, you are speaking about the "first hard" but if you want a specific drive to be your /home, you have to use UUID. 

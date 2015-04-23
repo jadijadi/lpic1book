@@ -1,6 +1,6 @@
 # 102.3. Manage shared libraries 
 
-*weigth 2*
+*weight 2*
 
 ## Objectives
 
@@ -121,7 +121,7 @@ For example if you give this command:
 
 	export  LD_LIBRARY_PATH=/usr/lib/myoldlibs:/home/jadi/lpic/libs/
 
-and then run any command, the system will search /usr/lib/myoldlibs and then /home/jadi/lpic/libs/ before going to the main system libaries (defined in ld.so.cache). 
+and then run any command, the system will search /usr/lib/myoldlibs and then /home/jadi/lpic/libs/ before going to the main system libraries (defined in ld.so.cache). 
 .
 .
 

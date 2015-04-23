@@ -102,7 +102,7 @@ It is possible to change the permissions on files & directories using the `chmod
 1. using octal codes
 2. using short coeds
 
-When usind octal codes, you have to to create an octal string to tell chmod what you want to do. This way, 0 means no access,  means execute, 2 means write and 4 means read. So if you want to give read+execute, you have to give 4+1 which is 5. This table shows every possible combination:
+When using octal codes, you have to to create an octal string to tell chmod what you want to do. This way, 0 means no access,  means execute, 2 means write and 4 means read. So if you want to give read+execute, you have to give 4+1 which is 5. This table shows every possible combination:
 
 |Symbolic|Octal|
 |---|---|
@@ -160,7 +160,7 @@ $ ls -ltrh /usr/bin/passwd
 
 Did you note the `s` in the place of *executable bit* for the user and for the group? That means when any user runs this program, it will be run be the access of the owner of the file (which is root) instead of that users id. 
 
-It is possilbe to set / unser the suid and sgid using `chmod` and `+s` or `-s` instead of `x`. 
+It is possible to set / unser the suid and sgid using `chmod` and `+s` or `-s` instead of `x`. 
 
 The last special option is `chmod` is the **sticky bit** which lets only the owner of the file to delete it, even if other users have write (delete) access on that directory. This is good for places like /tmp. 
 
@@ -212,7 +212,7 @@ $ umask
 0177
 ````
 
-> Note how we use `u=rw,g=,o=` to tell umasn or chomd what we exactly need.
+> Note how we use `u=rw,g=,o=` to tell umask or chomd what we exactly need.
 
 ## Changing owner and groups
 If you need to change the ownership or group belonging of a file or directory, use the `chown` command:

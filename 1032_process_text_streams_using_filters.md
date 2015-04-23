@@ -30,7 +30,7 @@ Description: Candidates should be able to apply filters to text streams.
 ## Streams
 In **UNIX** world a lot of data is in TEXT form. Log files, configurations, user inputs,  list of files, ... . **Filtering** this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a **streams** is nothing more than *"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"*. 
 
-In simple words, a text stream is an input of text from keyboard, a file, a network device, .. and filtering it is authomatically changing it. 
+In simple words, a text stream is an input of text from keyboard, a file, a network device, .. and filtering it is automatically changing it. 
 
 As you saw in previous section, modern programming environments and shells (including bash) use three standard I/O streams:
 
@@ -93,11 +93,11 @@ this command simply outputs its input stream (or the filename you give it). As y
 ````
 jadi@funlife:~/w/lpic/101$ cat > mydata
 test
-this is the seccond line
+this is the second line
 bye
 jadi@funlife:~/w/lpic/101$ cat mydata 
 test
-this is the seccond line
+this is the second line
 bye
 ````
 
@@ -108,7 +108,7 @@ it is also possible to add files to each other using cat:
 ````
 jadi@funlife:~/w/lpic/101$ cat mydata directory_data 
 test
-this is the seccond line
+this is the second line
 bye
 total 0
 -rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 12
@@ -143,7 +143,7 @@ Will split files. It is very useful for transferring HUGE files on smaller media
 ````
 jadi@funlife:~/w/lpic/101$ cat mydata 
 hello
-this is seccond line
+this is second line
 but as you can see we are
 still writing
 and this is getting longer
@@ -175,7 +175,7 @@ jadi@funlife:~/w/lpic/101$ wc mydata
   9  25 121 mydata
 ````
 
->It is very nowmal to count the line numbers with ````-l```` switch. 
+>It is very normal to count the line numbers with ````-l```` switch. 
 
 ## head & tail
 Shows the *head* (top) of a file or its *tail* (bottom). The default lines to show is 10 but you can specify with ````-n20```` or ````-20````. 
@@ -211,7 +211,7 @@ The ````tr```` command *translates* A to 1, B to 2 and C to 3 in a stream you ha
  ````
 jadi@funlife:~/w/lpic/101$ cat mydata 
 hello
-this is seccond line
+this is second line
 but as you can see we are
 still writing
 and this is getting longer
@@ -221,7 +221,7 @@ and longer
 and longer!
 jadi@funlife:~/w/lpic/101$ cat mydata | tr 'and' 'AND'
 hello
-this is seccoND liNe
+this is second liNe
 but As you cAN see we Are
 still writiNg
 AND this is gettiNg loNger
@@ -234,12 +234,12 @@ AND loNger!
 >Note: all **a**s are replaced with **A**.
 
 ## -
-You shoud know that if you put ````-```` instead of a filename, the data will be replaced from the pipe (or keyboard stdin). 
+You should know that if you put ````-```` instead of a filename, the data will be replaced from the pipe (or keyboard stdin). 
 
 ````
 jadi@funlife:~/w/lpic/101$ wc -l mydata | cat mydata - mydata  
 hello
-this is seccond line
+this is second line
 but as you can see we are
 still writing
 and this is getting longer
@@ -249,7 +249,7 @@ and longer
 and longer!
 9 mydata
 hello
-this is seccond line
+this is second line
 but as you can see we are
 still writing
 and this is getting longer
@@ -270,7 +270,7 @@ pr mydata
 
 
 hello
-this is seccond line
+this is second line
 but as you can see we are
 still writing
 and this is getting longer
@@ -290,7 +290,7 @@ Simply numbers lines.
 ````
 jadi@funlife:~/w/lpic/101$ nl mydata  | head -3
      1	hello
-     2	this is seccond line
+     2	this is second line
      3	but as you can see we are
 
 ````
@@ -302,7 +302,7 @@ Will reformat a text file within margins (say 80 columns width or 60 if you use 
 
 ````
 jadi@funlife:~/w/lpic/101$ fmt mydata 
-hello this is seccond line but as you can see we are still writing and
+hello this is second line but as you can see we are still writing and
 this is getting longer .  .  and longer and longer!
 ````
 
@@ -473,7 +473,7 @@ Remember escape characters? They also work here and this will remove every *new 
 ````
 jadi@funlife:~/w/lpic/101$ cat mydata
 hello
-this is seccond line
+this is second line
 but as you can see we are
 still writing
 and this is getting longer
@@ -484,7 +484,7 @@ and longer!
 jadi@funlife:~/w/lpic/101$ sed 's/ /\t/g' mydata > mydata.tab
 jadi@funlife:~/w/lpic/101$ cat mydata.tab 
 hello
-this	is	seccond	line
+this	is	second	line
 but	as	you	can	see	we	are
 still	writing
 and	this	is	getting	longer
