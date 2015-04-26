@@ -139,7 +139,7 @@ jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep
 ````
 
 
-## Monitorint Processes
+## Monitoring Processes
 ### ps
 The `ps` command shows running processes on your computer.
 
@@ -168,7 +168,7 @@ $ ps -aux | wc -l
 
 > Every process has a ProcessID (PID) and a PPID (Parent Process ID). 
 
-#### finding proccesses
+#### finding processes
 You've seen that `ps -ef` shows processes from all users. We can `grep` on that and see who is running `gedit` and what is its process ID:
 
 ````

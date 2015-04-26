@@ -42,7 +42,7 @@ If you need to add (concat) two expressions, just write them after each other.
 |a+b|ab, aab, aaabenz|wont match **sober** or **b** because there needs to be at lear one **a**|
 |a?b|ab, a**ab**, b, batman (zero a then b), ...|.|
 
-#### Aliternation (\|)
+#### Alternation (\|)
 If you say `a\|b` it will match a or b.
 
 #### Character Classes

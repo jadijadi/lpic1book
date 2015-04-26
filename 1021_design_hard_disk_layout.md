@@ -43,7 +43,7 @@ As any other OS, Linux uses *files* and *directories* to operate. But unlike *Wi
 | var | Variable data |
 
 ## Partitions
-In Linux world, devices are defined at /dev/. First SCSI disk is /dev/sda, seccond SCSI disk is /dev/sdb, ... and first SATA disk (older systems) is /dev/hda.
+In Linux world, devices are defined at /dev/. First SCSI disk is /dev/sda, second SCSI disk is /dev/sdb, ... and first SATA disk (older systems) is /dev/hda.
 
 You have to *PARTITION* the disks, that is creating smaller parts on a big disk and calling them /dev/sda1 (first partition on first SCSI disk) or /dev/hd**b**3 (3rd partition on second disk). 
 
@@ -80,7 +80,7 @@ Linux numbers the primary partitions 1, 2, 3 & 4. If you define an extended part
 
 So:
 - /dev/sda3 is the 3rd primary partition on the first disk
-- /dev/sdb5 is the first logical partition on the seccond disk
+- /dev/sdb5 is the first logical partition on the second disk
 - /dev/sda7 is the 3rd logical partition of the first physical disk
 
 The newer **GUID Partition Table (or GPT)** solves this problems. If you format your disk with GTP you can have 128 primary partitions (no need to extended and logical). 
@@ -132,7 +132,7 @@ Device     Boot     Start       End   Sectors   Size Id Type
 
 
 #### gparted
-A gparhical tool for managing disks and partitions.
+A graphical tool for managing disks and partitions.
 
 ![](http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-1/gparted-1s.jpg)
 
@@ -155,7 +155,7 @@ swap in Linux works like an extended memory. Kernel will *page* memory to this p
 > Note: swap size is 1 or 2 times the system memory but not more than 8GBs. So if you have 2GB of RAM, swap will be 4GB but if you have 6GB of RAM, it is recommended to have a 8GB swap partition.
 
 #### /boot
-Older Linux systems were not able to handle HUGE disks during the boot (say Terrabytes) so there were a separated /boot. It is also useful to recover broken systems or even you can make /boot read only. Most of the time, having 100MB for /boot is enough. This can be a different disk or a separated partition.
+Older Linux systems were not able to handle HUGE disks during the boot (say Terabytes) so there were a separated /boot. It is also useful to recover broken systems or even you can make /boot read only. Most of the time, having 100MB for /boot is enough. This can be a different disk or a separated partition.
 
 This partition should be accessible by BIOS during the boot (no network drive).
 

@@ -42,7 +42,7 @@ blkid /dev/sda2
 - type: can be auto
 - options:  defaults, rw / ro, noauto, user, exec / noexec, noatime
 - dump: do dump command backup this? mostly 0
-- pass: Non-zero values of pass specify the order of checking filesystems at boot time (seen in Integrity of file ystems)
+- pass: Non-zero values of pass specify the order of checking filesystems at boot time (seen in Integrity of file systems)
 
 **note:** 
 - User-mounted filesystems default to noexec unless exec is specified after user.

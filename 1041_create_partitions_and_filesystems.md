@@ -51,7 +51,7 @@ Device     Boot     Start       End   Sectors   Size Id Type
 - The **Boot** flag shows which partition starts the boot on DOS PCs and has no importance on LILO & GRUB
 - Start and End shows the where this partition is located on the disk
 - Size is size!
-- ID indicated the partiton format (82 is swap, 83 is linux data, ..)
+- ID indicated the partition format (82 is swap, 83 is linux data, ..)
 
 It is also possible to run fdisk in interactive mode. `m` will show you the help:
 
@@ -248,7 +248,7 @@ But all we done was in memory! We need to write it to the partition table. 'v' w
 Command (m for help): v
 Remaining 11639159 unallocated 512-byte sectors.
 ```
-It tells me that I have unallocated space! I'm waisting my hard but I'm fine with it. So lets save it with `w` comamnd (for write):
+It tells me that I have unallocated space! I'm waisting my hard but I'm fine with it. So lets save it with `w` command (for write):
 
 ```
 Command (m for help): w
@@ -260,13 +260,13 @@ Re-reading the partition table failed.: Device or resource busy
 The kernel still uses the old table. The new table will be used at the next reboot or after you run partprobe(8) or kpartx(8).
 ```
 
-## Fomatting the partition
+## Formatting the partition
 Linux can handle more than 100 kind of partitions but most commons are:
 
 |Format|Description|
 |---|---|
 |ext2|second extended filesystem was developed to address shortcomings in the Minix filesystem used in early versions of Linux. It has been used extensively on Linux for many years. There is no journaling in ext2, and it has largely been replaced by ext3 and more recently ext4.|
-|ext3| ext2 + jopurnaling, total storage can be 1EXAByte and each file can be 16TB, ...|
+|ext3| ext2 + journaling, total storage can be 1EXAByte and each file can be 16TB, ...|
 |ReiserFS|ReiserFS is a B-tree-based filesystem, great for large numbers of small files, journaling, no longer in active development & does not support SELinux, replaced with Reiser4. |
 |XFS| journaling, caches to RAM, great for uninterruptible power supplies|
 |swap| Swap space must be formatted for use as swap space, but it is not generally considered a filesystem. |
@@ -306,7 +306,7 @@ root@funlife:~#
 
 > This will have a same effect: `mkfs.ext3 /dev/sda1`
 
-If you need to assign a lable to the partition, you have to use the `-L lable_name` option. Please note that in renect system, people use UUIDs instead of lables. UUID of a disk can be viewed with:
+If you need to assign a lable to the partition, you have to use the `-L lable_name` option. Please note that in renect system, people use UUIDs instead of labels. UUID of a disk can be viewed with:
 
 ```
 $ blkid /dev/sda1

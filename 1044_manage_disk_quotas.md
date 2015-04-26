@@ -40,7 +40,7 @@ Now it is enough to run the `quotacheck` command.
 
 ````
 # quotacheck -u -a -m -c -v
-quotacheck: Your kernel probably supports journaled quota but you are not using it. Consider switching to journalled quota to avoid running quotacheck after an unclean shutdown.
+quotacheck: Your kernel probably supports journaled quota but you are not using it. Consider switching to journaled quota to avoid running quotacheck after an unclean shutdown.
 quotacheck: Scanning /dev/sda1 [/boot] done
 quotacheck: Old group file name could not been determined. Usage will not be subtracted.
 quotacheck: Checked 13 directories and 389 files
