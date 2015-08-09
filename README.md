@@ -6,12 +6,13 @@ If you want to download the Farsi LPIC 101 exam videos [use this torrent magnet 
 
 Latest version is always will be hosted at **http://j.mp/jadilpic1**
 
-Welcome to the Jadi's LPIC exam guide. I've tried to write a short, easy to understand but still comprehensive exam guide using *normal, easy to understand, English*. Remember that the exam is in English so you need to study in English!
+Welcome to the Jadi's LPIC exam guide. I've tried to write a short, easy to understand but still comprehensive exam guide. I'm not a native English speaker so expect some mistakes. Remember that the exam is in English so you need to study in English!
 
 This book is based on [LPI Exam 101](https://www.lpi.org/linux-certifications/programs/lpic-1/exam-101) titles.
 
 Enjoy.
 
-[Jadi.ir](http://jadi.ir)
+- Personal site: [Jadi.ir](http://jadi.ir)
+- Weblog: [jadi.net](http://jadi.net)
+- twitter: [@jadi](http://twitter.com/jadi)
 
-p.s. LPIC1-102 will come soon
