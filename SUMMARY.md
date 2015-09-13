@@ -29,4 +29,5 @@
 * 105.3. SQL data management
 * 106.1. Install and configure X11
 * 106.2. Setup a display manager
+* 106.3. Accessibility
 
