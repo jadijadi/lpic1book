@@ -28,7 +28,7 @@
 * [105.2. Customize or write simple scripts](1052_customize_or_write_simple_scripts.md)
 * 105.3. SQL data management
 * 106.1. Install and configure X11
-* 106.2. Setup a display manager
+* [106.2. Setup a display manager](1062_setup_a_display_manager.md)
 * [106.3. Accessibility](1063_accessibility.md)
 * [107.1. Manage user and group accounts and related system files](1071_manage_user_and_group_accounts_and_related_system_files.md)
 * [107.2. Automate system administration tasks by scheduling jobs](1072_automate_system_administration_tasks_by_scheduling_jobs.md)
