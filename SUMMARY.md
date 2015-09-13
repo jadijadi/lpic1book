@@ -43,5 +43,5 @@
 * 109.4. Configure client side DNS
 * 110.1. Perform security administration tasks
 * 110.2. Setup host security
-* 110.3. Securing data with encryption
+* [110.3. Securing data with encryption](1103_securing_data_with_encryption.md)
 
