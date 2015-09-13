@@ -30,7 +30,7 @@
 * 106.1. Install and configure X11
 * 106.2. Setup a display manager
 * 106.3. Accessibility
-* 107.1. Manage user and group accounts and related system files
+* [107.1. Manage user and group accounts and related system files](1071_manage_user_and_group_accounts_and_related_system_files.md)
 * [107.2. Automate system administration tasks by scheduling jobs](1072_automate_system_administration_tasks_by_scheduling_jobs.md)
 * [107.3. Localisation and internationalisation](1073_localisation_and_internationalisation.md)
 * [108.1. Maintain system time](1081_maintain_system_time.md)
