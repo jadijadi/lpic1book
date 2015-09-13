@@ -31,4 +31,5 @@
 * 106.2. Setup a display manager
 * 106.3. Accessibility
 * 107.1. Manage user and group accounts and related system files
+* 107.2. Automate system administration tasks by scheduling jobs
 
