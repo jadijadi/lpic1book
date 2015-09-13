@@ -28,4 +28,5 @@
 * 105.2. Customize or write simple scripts
 * 105.3. SQL data management
 * 106.1. Install and configure X11
+* 106.2. Setup a display manager
 
