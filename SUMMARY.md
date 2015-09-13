@@ -30,4 +30,5 @@
 * 106.1. Install and configure X11
 * 106.2. Setup a display manager
 * 106.3. Accessibility
+* 107.1. Manage user and group accounts and related system files
 
