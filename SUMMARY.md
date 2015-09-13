@@ -39,4 +39,5 @@
 * 108.4. Manage printers and printing
 * 109.1. Fundamentals of internet protocols
 * 109.2. Basic network configuration
+* 109.3. Basic network troubleshooting
 
