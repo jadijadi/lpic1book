@@ -35,7 +35,7 @@
 * 107.3. Localisation and internationalisation
 * 108.1. Maintain system time
 * 108.2. System logging
-* 108.3. Mail Transfer Agent (MTA) basics
+* [108.3. Mail Transfer Agent (MTA) basics](1083_mail_transfer_agent_mta_basics.md)
 * [108.4. Manage printers and printing](1084_manage_printers_and_printing.md)
 * [109.1. Fundamentals of internet protocols](1091_fundamentals_of_internet_protocols.md)
 * [109.2. Basic network configuration](1092_basic_network_configuration.md)
