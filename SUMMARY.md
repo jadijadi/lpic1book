@@ -26,7 +26,7 @@
 * [104.7. Find system files and place files in the correct location](1047_find_system_files_and_place_files_in_the_correct_location.md)
 * [105.1. Customize and use the shell environment](1051_customize_and_use_the_shell_environment.md)
 * [105.2. Customize or write simple scripts](1052_customize_or_write_simple_scripts.md)
-* 105.3. SQL data management
+* [105.3. SQL data management](1053_sql_data_management.md)
 * [106.1. Install and configure X11](1061_install_and_configure_x11.md)
 * [106.2. Setup a display manager](1062_setup_a_display_manager.md)
 * [106.3. Accessibility](1063_accessibility.md)
