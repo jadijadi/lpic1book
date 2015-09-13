@@ -41,4 +41,5 @@
 * 109.2. Basic network configuration
 * 109.3. Basic network troubleshooting
 * 109.4. Configure client side DNS
+* 110.1. Perform security administration tasks
 
