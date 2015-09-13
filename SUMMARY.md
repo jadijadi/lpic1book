@@ -27,4 +27,5 @@
 * 105.1. Customize and use the shell environment
 * 105.2. Customize or write simple scripts
 * 105.3. SQL data management
+* 106.1. Install and configure X11
 
