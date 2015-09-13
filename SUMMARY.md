@@ -32,7 +32,7 @@
 * 106.3. Accessibility
 * 107.1. Manage user and group accounts and related system files
 * 107.2. Automate system administration tasks by scheduling jobs
-* 107.3. Localisation and internationalisation
+* [107.3. Localisation and internationalisation](1073_localisation_and_internationalisation.md)
 * [108.1. Maintain system time](1081_maintain_system_time.md)
 * [108.2. System logging](1082_system_logging.md)
 * [108.3. Mail Transfer Agent (MTA) basics](1083_mail_transfer_agent_mta_basics.md)
