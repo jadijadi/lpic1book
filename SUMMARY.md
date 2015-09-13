@@ -40,7 +40,7 @@
 * 109.1. Fundamentals of internet protocols
 * 109.2. Basic network configuration
 * 109.3. Basic network troubleshooting
-* 109.4. Configure client side DNS
+* [109.4. Configure client side DNS](1094_configure_client_side_dns.md)
 * [110.1. Perform security administration tasks](1101_perform_security_administration_tasks.md)
 * [110.2. Setup host security](1102_setup_host_security.md)
 * [110.3. Securing data with encryption](1103_securing_data_with_encryption.md)
