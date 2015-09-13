@@ -38,7 +38,7 @@
 * 108.3. Mail Transfer Agent (MTA) basics
 * 108.4. Manage printers and printing
 * 109.1. Fundamentals of internet protocols
-* 109.2. Basic network configuration
+* [109.2. Basic network configuration](1092_basic_network_configuration.md)
 * [109.3. Basic network troubleshooting](1093_basic_network_troubleshooting.md)
 * [109.4. Configure client side DNS](1094_configure_client_side_dns.md)
 * [110.1. Perform security administration tasks](1101_perform_security_administration_tasks.md)
