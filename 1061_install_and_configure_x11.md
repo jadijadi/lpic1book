@@ -21,7 +21,7 @@ Candidates should be able to install and configure X11.
 This lesson is useless in modern life! Very strange but practically nothing in this lesson is used in real life because xorg.conf, xhost, ... is not used in any modern linux system anymore. Maybe they are here so you wont be shocked if you see an older linux. 
 
 ## X
-The X Window System is a network transparent window system which runs on a wide range of computing and graphics machines; including practically ALL linux systems with graphical interfaces. It is also called by its version X11.
+The X Window System is a network transparent window system which runs on a wide range of computing and graphics machines; including practically ALL linux systems with graphical interfaces. It is also called X11 because of its version, X window system, X server, ...
 
 ## /etc/X11/xorg.conf
 This is file X used to use for its configuration. In most cases this is automatically generated and works. Newer systems do not have this file so lets have a look at a xorg.conf I found on the Internet.
@@ -39,7 +39,7 @@ Section "Files"
 EndSection
 ````
 
-This part is about Fonts. When X-Server is running it needs these files. FontPaths tell X11 where fonts are. It also can refer to an IP running a font-server which is not common these days because these days our computers are fast can handle their own fonts.
+This part is about Fonts. When X-Server is running it needs these files. FontPaths tell X11 where fonts are. It also can refer to an IP running a font-server which is not common these days. Font servers used to be responsible of rendering fonts to be shown on clients but nowadays computers are fast and can render their own fonts. Font servers are going out of fashion! 
 
 ````
 Section "Module"
