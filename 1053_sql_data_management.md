@@ -422,7 +422,16 @@ mysql> SELECT * FROM info;
 4 rows in set (0.00 sec)
 ````
 
-Easy.
+Easy. The last command is even easier:
+
+## quit
+
+````
+mysql> quit
+Bye
+jadi@funlife:~$ 
+````
+
 .
 
 .
