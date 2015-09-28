@@ -14,7 +14,7 @@ Candidates should be able to describe the basic features and configuration of th
 - /etc/lightdm/
 
 ## Display Manager
-A **Display Manager** is a graphical interface which lets you login into your system when you turn your computer on. There are many different display managers (say XDM, SDDM, KDM, GDM, ...) but their general functionality is same: show a login form and let the user the enter (or choose) its name, password and the Desktop she needs to use. Also many of the DMs let the user to choose Accesibility Tools (covered in 106.3), connect to the network, change the keyboard layout or change the system volume.
+A **Display Manager** is a graphical interface which lets you login into your system when you turn your computer on. There are many different display managers (say XDM, SDDM, KDM, GDM, ...) but their general functionality is same: show a login form and let the user the enter (or choose) its name, password and the Desktop she needs to use. Also many of the DMs let the user to choose Accessibility Tools (covered in 106.3), connect to the network, change the keyboard layout or change the system volume.
 
 ## lightdm
 Many of the distros use **LightDM** as their display/login manager. It shows the default user (last logged in user) and asks for password. If you have more than one desktop installed (say XFCE, KDE and Gnome) it also lets you choose the one you need.
