@@ -35,7 +35,7 @@ This is discussed in the past. But how we should set them when we login or chang
 Sometimes you *login* into the shell, say after a ssh but sometimes you just *open* a shell; say in GUI. 
 
 #### login shell
-This happens when you give your usre and pass to enter a shell. Many steps are involved to setup your variables and settings. These are the steps:
+This happens when you give your user and pass to enter a shell. Many steps are involved to setup your variables and settings. These are the steps:
 
 1. /etc/profile is run
 2. A line in /etc/profile runs whatever is in /etc/profile.d/* 
