@@ -26,14 +26,14 @@ Demonstrate knowledge and awareness of accessibility technologies.
 Some people have physical complications. Some can not see well, some can not see at all and some can not user their finger as I can do. Linux have 3 answers:
 
 1- AccessX helps people with physical problems to use keyboard/mouse
-2- Visual Settings help people with vision problems by magnifying the screen and thins like that
+2- Visual Settings help people with vision problems by magnifying the screen and things like that
 3- Assistive Technologies are things like text-to-speech (tts) and reads the screen for people with visual problem
 
 These options are available in display managers (login screen) and in major desktops (like gnome, kde, xfce, ...). Its logo is a human stretching its hands a legs. 
 
 In Gnome the config is located at Settings ~ Universal Access. The configurations are categorized and are as follows:
 
-- Hight Contrast
+- High Contrast
 - Zoom
 - Large text
 - Screen Reader
@@ -41,11 +41,11 @@ In Gnome the config is located at Settings ~ Universal Access. The configuration
 - Visual Alerts (instead Beeps, flash the screen )
 - Sticky Keys (Press shift, then press a -> capital A)
 - Slow Keys (do not repeat keys after pressing a key for few seconds)
-- Bounce Keys (if you hit a key twice fast, it wont accept the second one)
+- Bounce Keys (if you hit a key twice fast, it won't accept the second one)
 - Mouse Keys (Arrow keys on number path will work as a mouse)
 - Simulate Secondary Click (by holding down the click)
 - Hover click (click by waiting on a button)
 
 ## TTS
-Softwares like **Orca** or **Emacspeak** can read the dialog boxes to you so you can decide what the answer only by hearing. 
+Applications like **Orca** or **Emacspeak** can read the dialog boxes to you so you can decide what the answer only by hearing. 
 
