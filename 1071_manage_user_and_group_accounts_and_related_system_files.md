@@ -1,4 +1,4 @@
-#07.1 Manage user and group accounts and related system files
+#107.1 Manage user and group accounts and related system files
 *Weight: 5*
 
 Candidates should be able to add, remove, suspend and change user accounts.
@@ -191,12 +191,12 @@ Wow! Jadi has an encrypted password there. Some numbers are following that encry
 |-|-|
 |16737|When was the last time this password changes|
 |0|User wont be able to change the password 0 days after each change|
-|99999|On this time, the password will be expired and...|
+|99999|After this many days, the user HAVE to change his password|
 |7|...and the user will be informed 7 days before the expiration to change his password|
 
 > Note: there numbers are "days after 1st of January 1970" or the Epoch time in days. For example 16737 means 16373 days after 1st Jan 1970. Strange but practical!
 
-But we do not need to change these. If needed, we can use the `chage` tool to change these numbers.
+But we do not need to change these strange number manually. If needed, we can use the `chage` tool to change these numbers. If you issue the `chage jadi` the system will prompt you for all the parameters one by one. Also it is possible to use switches to change specific parameters on command line.
 
 |switch|meaning|
 |-|-|
