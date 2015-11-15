@@ -222,10 +222,10 @@ If you need to add a module to your kernel (say a new driver for a hardware) or 
 And this is for installing the modules:
 
 ````
-# insmod lwlwifi
+# insmod kernel/drivers/net/wireless/lwlwifi.ko
 ````
 
-but nobody uses `insmod` because it does not understands dependencies. Instead use the `modprobe` command:
+but nobody uses `insmod` because it does not understands dependencies and you need to give it the whole path to the module file. Instead use the `modprobe` command:
 
 ````
 # modprobe iwlwifi
