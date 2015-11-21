@@ -110,8 +110,9 @@ If is also possible to use PIDs in from of the kill or send other signals:
 
 |signal number|signal name|meaning|
 |---|---|---|
-|15|SIGHUP|normal termination request|
-|9|SIGKILL|force kills the proccess|
+|1|SIGHUP|Informing the process that its controlling terminal (like an ssh connection) is terminated|
+|15|SIGTERM|normal termination request|
+|9|SIGKILL|forcefully kills the proccess|
 
 So you can do a `kill -9 8733` to force process ID 8733 to close.
 
