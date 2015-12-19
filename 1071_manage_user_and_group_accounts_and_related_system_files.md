@@ -1,4 +1,4 @@
-#107.1 Manage user and group accounts and related system files
+# 107.1 Manage user and group accounts and related system files
 *Weight: 5*
 
 Candidates should be able to add, remove, suspend and change user accounts.

@@ -46,7 +46,7 @@ block  bus  class  dev	devices  firmware  fs  hypervisor  kernel  module  power
 
 ````
 
-All block devices are at the `block` and `bus` directory has all the connected pci, usb, serial, .. devices. Note taht here in `sys` we have the devices based on their technology but `/dev/` is abstracted. 
+All block devices are at the `block` and `bus` directory has all the connected pci, usb, serial, .. devices. Note that here in `sys` we have the devices based on their technology but `/dev/` is abstracted. 
 
 ### proc directory
 This is where kernel keeps its data structure and is created in RAM. You can read and write here (after reboot, the write is gone). 
@@ -136,7 +136,7 @@ root@funlife:/proc/acpi/ibm# echo on > light
 root@funlife:/proc/acpi/ibm# echo off > light 
 ````
 
-A more traditional example is changing the max number of open files per user:
+One more traditional example is changing the max number of open files per user:
 
 ````
 root@funlife:/proc/sys/fs# cat file-max 
@@ -276,7 +276,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 ````
 
 #### lspcmcia
-Shows inserted lspcmcia cards
+Shows available PCMCIA cards on this computer
 
 #### lshal
 Shows hal data
@@ -301,7 +301,7 @@ tmpfs /run tmpfs rw,nosuid,noexec,relatime,size=806028k,mode=755 0 0
 Every other device has its own ID which can be used to *identify* it. 
 
 ## hotplug
-Hotplug is when you insert a hardware into a running computer and coldplug is when you have to turn your computer off when installing a hardware. USB devices are hotpluggale while PCI cards should be coldplugged.
+Hotplug is when you insert a hardware into a running computer and coldplug is when you have to turn your computer off to install a hardware. USB devices are hot pluggable while PCI cards should be cold-plugged.
 
 .
 
