@@ -36,7 +36,7 @@ On linux systems you can use `date` and `cal` commands to check the date and the
 ````
 
 
-Timezone determines what is your time difference comparing with a reference timezone. This way you can talk about times regardless from your location. In another words, I can tell you "start the change request at 02:30 GMT" we both know when the change will be started in our own timezone (mine is 02:30 - 3:30).
+Timezone determines what is your time difference comparing with a reference timezone. This way you can talk about times regardless from your location. In another words, I can tell you "start the change request at 02:30 UTC" we both know when the change will be started in our own timezone (mine is 02:30 - 3:30).
 
 You can configure your timezone while installing the system or using a GUI in the system settings or by right clicking on the timer in your panel. But as always there is a command line way. The old one used to be ````tzconfig```` but it is not used anymore.
 
