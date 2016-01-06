@@ -123,13 +123,17 @@ It is also possible to do a LC_ALL=C.
 
 ## Character Encoding
 ### ACSII
-Computers used to work with only 7bit characters encoding. That would give us only 128 characters which was enough for numbers, punctuation and digits!
+Computers used to work with 7bit characters encoding. That would give us 128 characters which was enough for numbers, punctuation and digits!
 
 ### ISO-8859
 It had more characters and a lots of sets for Thai, Arabic and other languages but still had ASCII character sets.
 
 ### UTF-8
-The `Unicode Transformation Format` is the newest encoding method and practically a real universal encoding with characters not for all languages, but also for many fun characters like  ¾, ♠, π and ⚤. It is backward compatible with the ASCII and uses 8 bit code units (**not 8 bit codings!**). In most cases it is a good idea to use UTF-8 and be sure that your system will work correctly in practically all cases.
+The `Unicode Transformation Format` is the newest encoding method and practically a real universal encoding with characters not for all languages, but also for fun characters like  ¾, ♠, π and ⚤. It is backward compatible with the ASCII and uses 8 bit code units (**not 8 bit coding!**). In most cases it is a good idea to use UTF-8 and be sure that your system will work in practically all cases.
+
+![](UnicodeGrow.png)
+
+Above table shows how UTF8 is the leader compared with ASCII and ISO-8859.
 
 ## iconv
 If you needed to convert coding to each other, the command is `iconv`. The `-l` switch will show you all the available codings:
