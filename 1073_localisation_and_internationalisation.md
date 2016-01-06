@@ -36,9 +36,9 @@ On linux systems you can use `date` and `cal` commands to check the date and the
 ````
 
 
-Timezone determines what is your time difference comparing with a reference timezone. This way you can talk about times regardless from your location. In another words, I can tell you "start the change request at 02:30 UTC" we both know when the change will be started in our own timezone (mine is 02:30 - 3:30).
+Timezone determines what is your time difference comparing with a reference timezone. This way you can talk about times regardless from your location. In another words, I can tell you "start the change request at 02:30 UTC" we both know when the change will be started in our own timezone (mine is 02:30 minus 3:30).
 
-You can configure your timezone while installing the system or using a GUI in the system settings or by right clicking on the timer in your panel. But as always there is a command line way. The old one used to be ````tzconfig```` but it is not used anymore.
+You can configure your timezone while installing the system or by using a GUI in the system settings. It is even possible to set the timezone by clicking or right-clicking on the date and time on your panel. But as always there is a command line way. The old one used to be ````tzconfig```` but it is not used anymore.
 
 Different distros do have their own configuration commands, a general one is:
 
@@ -81,7 +81,7 @@ and there is a short link at this place:
 # ls -ltrh /etc/localtime 
 -rw-r--r-- 1 root root 1.7K Jan  2 18:10 /etc/localtime
 ````
-this file should be replaced by the correct file from `/usr/share/zoneinfo/`. It is nicer to make a symbolic link rather than copying the actual file because the original file might be changed after an update since some countries change their policies regarding time saving change time to time.
+This file should be replaced by the correct file from `/usr/share/zoneinfo/`. It is nicer to make a symbolic link rather than copying the actual file. This will prevent the conflicts during next upgrades.
 
 ## Configuring Languages
 You can check the status of current selected system language by issuing `locale`:
@@ -129,7 +129,7 @@ Computers used to work with 7bit characters encoding. That would give us 128 cha
 It had more characters and a lots of sets for Thai, Arabic and other languages but still had ASCII character sets.
 
 ### UTF-8
-The `Unicode Transformation Format` is the newest encoding method and practically a real universal encoding with characters not for all languages, but also for fun characters like  ¾, ♠, π and ⚤. It is backward compatible with the ASCII and uses 8 bit code units (**not 8 bit coding!**). In most cases it is a good idea to use UTF-8 and be sure that your system will work in practically all cases.
+The `Unicode Transformation Format` is the newest encoding method. It is  a real universal encoding with characters not only for all written languages but also for fun characters like  ¾, ♠, π and ⚤. It is backward compatible with the ASCII and uses 8 bit code units (**not 8 bit coding!**). In most cases it is a good idea to use UTF-8 and be sure that your system will work in practically all cases.
 
 ![](UnicodeGrow.png)
 
