@@ -111,7 +111,7 @@ These are all environment variables telling system what languages to use. Here I
 
 Other variables tell the system how to show different things based on localization systems. For example if we change the LC_TIME to "en_GB.UTF-8" the time will be printed in Great Britain format from that moment on.
 
-Another important settings is `LC_ALL`. It can be used to change **ALL** settings. If you do a `export LC_ALL=fa_IR.UTF-*`, all the settings will be set to that one, with no exception. It is always possible to `unset LC_ALL`.
+Another important settings is `LC_ALL`. It can be used to change **ALL** settings. If you do a `export LC_ALL=fa_IR.UTF-8`, all the settings will be set to that one, with no exception. It is always possible to `unset LC_ALL`.
 
 ### LANG=C
 Another important point to know is the `LANG=C` settings. This indicates two things:
@@ -120,6 +120,9 @@ Another important point to know is the `LANG=C` settings. This indicates two thi
 2. Binary sort order
 
 It is also possible to do a LC_ALL=C.
+
+### changing or adding locales
+This is not a part of LPIC exam but it is good to know that on a debian based machine, you can change, add or set your default *locales* using `dpkg-reconfigure locales`.
 
 ## Character Encoding
 ### ACSII
