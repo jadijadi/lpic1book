@@ -37,14 +37,17 @@ Sometimes you *login* into the shell, say after a ssh but sometimes you just *op
 #### login shell
 This happens when you give your user and pass to enter a shell. Many steps are involved to setup your variables and settings. These are the steps:
 
-1. /etc/profile is run
-2. A line in /etc/profile runs whatever is in /etc/profile.d/* 
+1- /etc/profile is run
+
+2- A line in /etc/profile runs whatever is in /etc/profile.d/* 
 
 Now the global profile is loaded and system will go for user specific profiles:
 
-3. /home/USERNAME/.bash_profile
-4. /home/USERNAME/.bash_login
-5. /home/USERNAME/.profile
+3- /home/USERNAME/.bash_profile
+
+4- /home/USERNAME/.bash_login
+
+5- /home/USERNAME/.profile
 
 > Note that only one of the 3, 4 & 5 will be run. The system will go for .bash_profile and IF IT IS NOT THERE will try for .bash_login and IF IT IS NOT THERE will try to run .profile. If any of these exists, the system wont look any furthur. So if you have only 4 & 5, only the 4 will be run.
 
