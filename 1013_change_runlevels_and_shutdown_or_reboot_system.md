@@ -126,7 +126,7 @@ and start/stop on runlevels are controlled from these directories:
 ### Shutdown
 The preferred method to shut down or reboot the system is to use the shutdown command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 5 seconds, or another delay if specified, init sends a SIGKILL signal to forcibly end each remaining process. 
 
-* default is 5 secconds delay and then going to runlevel 1
+* default is 5 seconds delay and then going to runlevel 1
 * -h will halt the system
 * -r will reboot the system
 * time is hh:mm or n (minutes) or now
@@ -136,7 +136,7 @@ The preferred method to shut down or reboot the system is to use the shutdown co
       shutdown -r 60 Reloading updated kernel
 
 for more advance users:
-* -t60 will delay 60 secconds between SIGTERM and SIGKILL 
+* -t60 will delay 60 seconds between SIGTERM and SIGKILL 
 * if you cancel a shutdown, users wont get the news! you can use "wall" command to tell them that the shutdown is canceled
 
 ### Halt, reboot and poweroff

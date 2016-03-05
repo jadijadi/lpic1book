@@ -3,12 +3,12 @@ weight: 3
 
 Candidates should be able to guide the system through the booting process.
 
-### Key Knowledge Areas
+## Key Knowledge Areas
 - Provide common commands to the boot loader and options to the kernel at boot time.
 - Demonstrate knowledge of the boot sequence from BIOS to boot completion.
 - Check boot events in the log files.
 
-### Terms
+## Terms
 - BIOS
 - bootloader
 - kernel
@@ -16,10 +16,10 @@ Candidates should be able to guide the system through the booting process.
 - /var/log/messages
 - dmesg
 
-#### BIOS
-BIOS is Basic Input Output Service and does the first steps of the PC bootup. For example is does a POST (Power On Self Test) and decides which hardware should boot the system.
+### BIOS
+BIOS is Basic Input Output System and does the first steps of the PC bootup. For example is does a POST (Power On Self Test) and decides which hardware should boot the system.
 
-#### bootloader
+### bootloader
 
 Bootloader can be GRUB (1&2) or LILO which are great for disks less than 2TB.
 
@@ -28,10 +28,10 @@ Bootloader can be GRUB (1&2) or LILO which are great for disks less than 2TB.
 	/boot/grub/menu.lst
 
 
-#### Kernel
+### Kernel
 Kernel parameters (sometimes called boot parameters) supply the kernel with information about hardware parameters that it might not determine on its own - say single user mod boot (S)
 
-#### init
+### init
 When the kernel finishes loading, it usually starts /sbin/init. This program remains running until the system is shut down. It is always assigned process ID 1. 
 
 first process, process in charge, a big family tree of commands:
@@ -40,7 +40,7 @@ first process, process in charge, a big family tree of commands:
 
 init is being replaced in many distros (say ubuntu with upstart) but still is in exam and has its own section.
 
-#### dmesg
+### dmesg
 **Funny fact:** During the bootup, only The Kernel is running so it should record and keep its own logs!
 
 dmesg command will show the full data from  **kernel ring buffer** up to know. But
@@ -49,7 +49,7 @@ dmesg command will show the full data from  **kernel ring buffer** up to know. B
 
 will show **only** the data during the boot
 
-#### /var/log/messages
+### /var/log/messages
 After the init process comes up, syslog daemon will log messages. It has timestamps and will persist during restarts.
 
 - Kernel is still logging its own messages in dmesg

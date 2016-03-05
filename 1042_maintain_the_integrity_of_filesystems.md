@@ -1,7 +1,7 @@
 # 104.2 Maintain the integrity of filesystems 
 *Weight: 2*
 
-Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journalling filesystem.
+Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem.
 
 # Objectives
 
@@ -101,7 +101,7 @@ fsck from util-linux 2.25.1
 
 > If you want to check a XFS filesystem, you have to use `xfs_check` command
 
-### fune2fs
+### tune2fs
 This is a command to tune *ext* file systems. It can show information and set many options. The `-l` option lists the current configs:
 
 ````

@@ -110,8 +110,9 @@ If is also possible to use PIDs in from of the kill or send other signals:
 
 |signal number|signal name|meaning|
 |---|---|---|
-|15|SIGHUP|normal termination request|
-|9|SIGKILL|force kills the proccess|
+|1|SIGHUP|Informing the process that its controlling terminal (like an ssh connection) is terminated|
+|15|SIGTERM|normal termination request|
+|9|SIGKILL|forcefully kills the proccess|
 
 So you can do a `kill -9 8733` to force process ID 8733 to close.
 
@@ -139,7 +140,7 @@ jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep
 ````
 
 
-## Monitorint Processes
+## Monitoring Processes
 ### ps
 The `ps` command shows running processes on your computer.
 
@@ -168,7 +169,7 @@ $ ps -aux | wc -l
 
 > Every process has a ProcessID (PID) and a PPID (Parent Process ID). 
 
-#### finding proccesses
+#### finding processes
 You've seen that `ps -ef` shows processes from all users. We can `grep` on that and see who is running `gedit` and what is its process ID:
 
 ````

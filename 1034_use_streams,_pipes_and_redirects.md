@@ -51,12 +51,12 @@ ls: cannot access j*: No such file or directory
 $ 
 ````
 
-#### Redirectint both stdout and stderr to one location
+#### Redirecting both stdout and stderr to one location
 Sometimes (say during automated tasks) we prefer to send both standard output and standard error to same place, Use ````&>```` and ````&>>```` to say *both stderr and stdout*. 
 
 It is also possible to use `&1` and `&2` and `&0` to refer to **current place** of stdout, stderr & stdin.  In this case `ls > file1 2>&1` means *redirect output to file1 and output stderr to same place as stdout (file1)*
 
-> Be careeful! `ls 2>&1 > file1` means *print stderr to current location of stdout (screen) and then change the stdout to file1*
+> Be careful! `ls 2>&1 > file1` means *print stderr to current location of stdout (screen) and then change the stdout to file1*
 
 #### sending to null
 In linux, **/dev/null** is like a trash-can. You can send anything there and it disappears. So it is normal to say:
@@ -91,8 +91,8 @@ neda,mac
 narsin,arch
 ```
 
-### here-documnets
-Many shells, have here-documnts (also called here-docs) as a way of input. You use `<<` and a `WORD` and then whatever you input is considered stdin till you give only the WORD in one line.
+### here-documents
+Many shells, have here-documents (also called here-docs) as a way of input. You use `<<` and a `WORD` and then whatever you input is considered stdin till you give only the WORD in one line.
 
 ```
 $ tr ' ' '.' << END_OF_DATA
@@ -185,7 +185,7 @@ mojtaba
 myfiles
 sina
 ```
-> if you want to prevent overwring files, use the `-a` swltch to append to files if exists.
+> if you want to prevent overwriting files, use the `-a` switch to append to files if exists.
 
 
 

@@ -50,7 +50,7 @@ If you are using relative names, you will usually want the current working direc
   $ cd mydir
   $ ln -s ../myfile.txt .
 
-we can find symbloic links with ls -i or even find:
+we can find symbolic links with ls -i or even find:
 
   $ find . -type l
 

@@ -80,7 +80,7 @@ But use common sense when answering questions or using `cp` and `mv` in real lif
 Removes (Deletes) **files**. 
 
 ### General notes
-Normally, the cp command will copy a file over an existing copy, if the existing file is writeable. On the other hand, the `mv` will not move or rename a file if the target exists. You can overcome this using the ````-f```` switch.
+Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the `mv` will not move or rename a file if the target exists. You can overcome this using the ````-f```` switch.
 
 - ````-f```` (--force) will cause cp to try overwrite the target.
 - ````-i```` (--interactive) will ask Y/N question (deleting / overwriting). 
@@ -408,7 +408,7 @@ $ ls *  -ltrh
 ````
 
 - gzip preserves time
-- gzip creates the new comressed file with the same name but with .gz ending
+- gzip creates the new compressed file with the same name but with .gz ending
 - gzip removes the original files after creating the compressed file
 
 #### bzip2
@@ -498,7 +498,7 @@ $
 - ````if```` is In File
 - ````of```` is Out File
 
-But it is used in many other cases specially writint directly to block devices such as /dev/sdb or changing data to upper/lower case. 
+But it is used in many other cases specially writing directly to block devices such as /dev/sdb or changing data to upper/lower case. 
 
 This will backup my whole hard to a file:
 
