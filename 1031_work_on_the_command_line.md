@@ -116,7 +116,7 @@ the ````exit```` command exits the shell. Same as ctrl+d.
 
 if you run a command inside parentheses that command will be run inside a sub-shell. 
 
-and ````exec``` will run a command and closes the current shell.
+and ````exec```` will run a command and closes the current shell.
 
 ## Environment variables
 Concept of EV.
