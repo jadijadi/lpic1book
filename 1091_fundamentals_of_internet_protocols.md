@@ -111,7 +111,7 @@ Remember our discussion about binary numbers? We can represent the IPs in binari
 When talking bout subnet masks, we will put a 1 when that digit can not be changed and a 0 when that digit can be changed. 
 
 #### CIDR
-Classless Inter-Domain Routing or CIDR is another way of talking about subnet masks. Telling someone that "my network is 192.168.1.0 and my subnet mask is 255.255.255.0" is difficult so some people prefer to say "my network is 192.168.1.0/16". This is a shortcut! 16 is the number of 1s in your subnet which is 11111111.11111111.11111111.00000000 in binary and has 24 ones! Looks a bit strange but when you understand it, it is much more functional that saying 255.255.255.0. 
+Classless Inter-Domain Routing or CIDR is another way of talking about subnet masks. Telling someone that "my network is 192.168.1.0 and my subnet mask is 255.255.255.0" is difficult so some people prefer to say "my network is 192.168.1.0/24". This is a shortcut! 24 is the number of 1s in your subnet which is 11111111.11111111.11111111.00000000 in binary and has 24 ones! Looks a bit strange but when you understand it, it easier to use.
 
 Here are some famous samples:
 
