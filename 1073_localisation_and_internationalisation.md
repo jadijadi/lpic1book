@@ -1,7 +1,7 @@
 #107.3 Localisation and internationalisation
 *Weight: 3*
 
-Candidates should be able to localize a system in a different language than English. As well, an understanding of why LANG=C is useful when scripting.
+Candidates should be able to localise a system in a different language than English. As well, an understanding of why LANG=C is useful when scripting.
 
 ## Key Knowledge Areas
 - Configure locale settings and environment variables.
@@ -109,7 +109,7 @@ These are all environment variables telling system what languages to use. Here I
 
 > UTF-8 and other encodings will be discussed a bit later in this chapter
 
-Other variables tell the system how to show different things based on localization systems. For example if we change the LC_TIME to "en_GB.UTF-8" the time will be printed in Great Britain format from that moment on.
+Other variables tell the system how to show different things based on localisation systems. For example if we change the LC_TIME to "en_GB.UTF-8" the time will be printed in Great Britain format from that moment on.
 
 Another important settings is `LC_ALL`. It can be used to change **ALL** settings. If you do a `export LC_ALL=fa_IR.UTF-8`, all the settings will be set to that one, with no exception. It is always possible to `unset LC_ALL`.
 
