@@ -139,7 +139,7 @@ PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
 rtt min/avg/max/mdev = 3.039/3.174/3.310/0.146 ms
 ````
 
-What is going on here? Lets see what clued do I have: 1) I can reach the gateway 2) when asking for the Internet, my computer does not know what to do. In this case the **default gateway** is missing: the computer does not know what to do if a packet is outside its network mask. You know that we can set the default gateway using the /etc/network/interfaces config file but there is also a `route` command to show and change the routing configurations on the fly.
+What is going on here? Lets see what clues do I have: 1) I can reach the gateway 2) when asking for the Internet, my computer does not know what to do. In this case the **default gateway** is missing: the computer does not know what to do if a packet is outside its network mask. You know that we can set the default gateway using the /etc/network/interfaces config file but there is also a `route` command to show and change the routing configurations on the fly.
 
 > routes added or changed via `route` command will be lost after a reboot! Permanent configurations should come from configuration files.
 
