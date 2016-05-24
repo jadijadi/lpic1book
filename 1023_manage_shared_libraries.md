@@ -54,7 +54,7 @@ root@funlife:/home/jadi/Downloads# ldd /bin/ls
 As you can see, ````ldd```` tells us that the /sbin/ldconfig is not dynamically linked but shows us the libraries needed by /bin/ls. 
 
 #### symbolic links for libraries
-If you are writing a program and you udev functions, you will ask for a library called *libudev.so.1*. But a Linux distro, might call its version of udev library *libudev.so.1.4.0*. How can we solve this problem? with **symbolic links** you will learn more about this in next chapters but for short, a symbolic name is a new name for the same file.
+If you are writing a program and you use udev functions, you will ask for a library called *libudev.so.1*. But a Linux distro, might call its version of udev library *libudev.so.1.4.0*. How can we solve this problem? with **symbolic links** you will learn more about this in next chapters but for short, a symbolic name is a new name for the same file.
 
 I will check the same thing on my system. First I'll find where the libudev.so.1 on my system is:
 

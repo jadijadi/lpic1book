@@ -95,7 +95,7 @@ Adding a user is done using the `useradd` command. Easy to remember! These are t
 | -G | add to additional groups |
 | -c | comment. most of the time, users actual name. Use quotes if comments has spaces or special characters in them |
 
-On some systems `useradd` creates the home directory and on some, you have to specify the `-m` switch yourself. If is good to use it all the time. 
+On some systems `useradd` creates the home directory and on some, you have to specify the `-m` switch yourself. It is good to use it all the time. 
 
 When a new user directory is being created, the system will copy the contents of `/etc/skel` to their home dir. `/etc/skel` is used as a template for the home of users. 
 

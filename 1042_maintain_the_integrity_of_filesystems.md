@@ -244,7 +244,7 @@ On non-journaling file systems (ext2) the fsck will show you many questions abou
 An important switch is `-n` which causes these commands **not to fix** anything and just show what was going to be done.
 
 ## debugfs
-This is an interactive tool for debug an ext filesystem. It opens the filesystem in read-only mode unless we tell it not to (with `-w` option). If can un-delete files and directories..
+This is an interactive tool for debug an ext filesystem. It opens the filesystem in read-only mode unless we tell it not to (with `-w` option). It can un-delete files and directories..
  
 ````
 root@funlife:~# debugfs /dev/sda2
