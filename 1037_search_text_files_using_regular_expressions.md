@@ -16,7 +16,7 @@ Candidates should be able to manipulate files and text data using regular expres
 - regex
 
 ## Regex
-Regular expression, Regex, regexp is a pattern to describe what we want to *match* from a text. Here will discuss the form of regex which is used with the **grep** (generalized regular expression processor) command.
+Regular expression, Regex, regexp is a pattern to describe what we want to *match* from a text. Here will discuss the form of regex which is used with the **grep** (generalised regular expression processor) command.
 
 > There is two kind of regex in GNU grep: Basic an Extended. 
 
