@@ -109,7 +109,7 @@ As you can see *down*ing the interface removed it from the list of active interf
 In may systems there are `ifup` and `ifdown` commands directly to up and down interfaces easily. They work just like `ifup eth0`.
 
 ### Network Gateways
-A computer normaly can see all of the computers in its own subnet / netmask. But what happens when you send a packet to a computer *outside* of your own network? In this case your computer delivers that packet to an address called **network gateway**. The **gateway** device can **route** the packets between different networks. In has more than 1 interface and is connected to different networks so working like a post office, it can hand over your packets to another network and after several handovers, your packet will reach its destination.
+A computer normaly can see all of the computers in its own subnet / netmask. But what happens when you send a packet to a computer *outside* of your own network? In this case your computer delivers that packet to an address called **network gateway**. The **gateway** device can **route** the packets between different networks. It has more than 1 interface and is connected to different networks so working like a post office, it can hand over your packets to another network and after several handovers, your packet will reach its destination.
 
 In your network configurations, there is a **default gateway**. That is the address which is used as a **gateway** when your computer tries to reach a computer outside its network.
 
