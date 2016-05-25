@@ -72,7 +72,7 @@ Another way is giving our scripts name as a parameter to the `bash` or `sh` comm
 > Note: you know that for making a file executable we can do `chmod 755 filename` or `chmod +x fiename`. 
 
 ## Conditions
-Up to know, we were just running commands one by one. That is not very *programmatic*. If we are going to have some *logic* in our programs, we need *conditions* and *loops*. First we will cover conditions, using the `if` command. Its usage is like this:
+Up to now, we were just running commands one by one. That is not very *programmatic*. If we are going to have some *logic* in our programs, we need *conditions* and *loops*. First we will cover conditions, using the `if` command. Its usage is like this:
 
 ````
 if [condition]

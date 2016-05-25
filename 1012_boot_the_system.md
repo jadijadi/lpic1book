@@ -43,7 +43,7 @@ init is being replaced in many distros (say ubuntu with upstart) but still is in
 ### dmesg
 **Funny fact:** During the bootup, only The Kernel is running so it should record and keep its own logs!
 
-dmesg command will show the full data from  **kernel ring buffer** up to know. But
+dmesg command will show the full data from  **kernel ring buffer** up to now. But
 
     cat /var/log/dmesg
 

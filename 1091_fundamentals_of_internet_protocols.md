@@ -160,7 +160,7 @@ A- ...
 B- ...
 ````
 
-As you can see, TCP needs a lot of communications and sometimes it is not even suitable. When you are listening to music or having a vide chat, it is better if the computer just skips some packages in case of problems and continues from the new one it gets.
+As you can see, TCP needs a lot of communications and sometimes it is not even suitable. When you are listening to music or having a video chat, it is better if the computer just skips some packages in case of problems and continues from the new one it gets.
 
 ### UDP
 You are video-chatting with a friend and network fluctuates. What is a better choice? A) retransmitting the missing packets and/or reestablishing the connection and continue the whole conversation with a 2s delay or B) just show the newer packets we got and continue the live vide-conference and just forget about that 2 second fluctuation (missed data)? If your choice is B, it is better if you use UDP (User Datagram Protocol) for your chat program. UDP is less reliable: the sender sends packets without communicating much and hearing back from the receiver and receiver listens for packets without negotiating the exact details with the sender. It is much faster than TCP but you can not be sure that 100% of packets will be received by the B party. 
