@@ -51,7 +51,7 @@ wlp3s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 ````
 
-> `lo` is a virtual network adapter and is called *loopback*. It ia accessible only from the computer itself. It is used when programs want to speack with the computer they are running on it. 
+> `lo` is a virtual network adapter and is called *loopback*. It ia accessible only from the computer itself. It is used when programs want to speak with the computer they are running on it. 
 
 Ethernet networks are called **ethx** or things like **enp0s25**. 
 
@@ -73,7 +73,7 @@ enp0s25: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
 $ 
 ````
 
-in the same way, you can change the netmask of an interface with `ifconfig eh0 netmask 255.255.0.0` or do both in one step:
+in the same way, you can change the netmask of an interface with `ifconfig eth0 netmask 255.255.0.0` or do both in one step:
 
 ````
 # ifconfig eth0 192.168.42.42 netmask 255.255.255.0

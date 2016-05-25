@@ -50,7 +50,7 @@ and this will only download the files without installing them:
 
     apt-get install --download-only bzr
 
-(or you can use -d instead).
+(or you can use -d instead). Downloaded files are stored at /var/cache/apt/archive/
 
 ## Package location 
 where these packages come from? from a **Repository** of different **Repositories** which are defined at /etc/apt/sources.list file and files located at /etc/apt/sources.list.d/ in the form of:
