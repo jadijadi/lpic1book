@@ -76,7 +76,7 @@ Note that sometimes on the action we have a `-`. This means the log will go the 
 Again there is a `/etc/rsyslog.d/` and it is better for different softwares and admins to add their specific configs there, instead of editing the main configuration file.
 
 ### creating rsyslog listener
-If you need to start a rsylog listener and catch other systems log messages, it is enough to add an `-r` switch too rsyslog options. Just edit the  `/etc/default/rsyslog` and change options from `""` to `"-r"`.
+If you need to start a rsylog listener and catch other systems log messages, it is enough to add an `-r` switch to rsyslog options. Just edit the  `/etc/default/rsyslog` and change options from `""` to `"-r"`.
 
 ````
 cat /etc/default/rsyslog 

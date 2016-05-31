@@ -151,7 +151,7 @@ One very common switch on `chmod` is `-R` for recursive chmoding on files. This 
 ## Access modes
 So you have access only to your files. But how you should change your password? or use programs which needs access to system files? You should be able to access /etc/passwd or /etc/shadow to change your password but you should not be able to access other people files!
 
-Normally when you run a program, it runs with *your* access levels but linux has to special bits on each file; **suid** (set user id) and **guid** (set group id). If these are set on a file, that file be will be executed with the access of the **owner** of the file and not the user who is running it.
+Normally when you run a program, it runs with *your* access levels but linux has two special bits on each file; **suid** (set user id) and **guid** (set group id). If these are set on a file, that file be will be executed with the access of the **owner** of the file and not the user who is running it.
 
 ````
 $ ls -ltrh /usr/bin/passwd 
