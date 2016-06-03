@@ -79,8 +79,8 @@ This is done using a netmask. But before going there, let me do a fast review on
 You are probably familiar with binary base - it is the basis of anything related to computers. If not I highly recommend you to do a google search and read if from another source since this book assumes you already know it. In short when writing numbers on binary format (base 2), the only used digits are 0 and 1. An easy way for conversion is using the following table to convert 0 and 1s to our *normal* decimal format. 
 
 
-128|64|32|16|8|4|2|1|
-|-|-|-|-|-|-|-|-|
+|128|64|32|16|8|4|2|1||
+|-|-|-|-|-|-|-|-|-|
 |0|0|0|0|0|0|0|0|equals 0 in decimal|
 |1|0|0|0|0|0|0|0|equals 128 in decimal|
 |1|0|0|0|0|0|0|1|equals 129 in decimal|
