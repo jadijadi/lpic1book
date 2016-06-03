@@ -27,7 +27,7 @@ Candidates should be able to determine and configure fundamental system hardware
 
 ## Find out about the hardware
 ### HAL
-**HAL** is Hardware Abstraction Layer. It abstracts your hardware details from you, say any first network card will be *eth0*. This way linux will see any hardware as an *standard* hardware and you will be able to replace the hardware easily. 
+**HAL** is Hardware Abstraction Layer. It abstracts your hardware details from you, say any first network card will be *eth0*. This way Linux will see any hardware as an *standard* hardware and you will be able to replace the hardware easily. 
 
 ### dbus
 Is really a bus and lets parts of the system communicate with each other. For example when you install a USB into your computer, dbus lets GNOME know about it. Using dbus, hardware & software can talk with each other.
@@ -43,7 +43,6 @@ The `/sys` directory is where **HAL** keeps its database of everything connected
 ````
 jadi@funlife:~$ ls /sys
 block  bus  class  dev	devices  firmware  fs  hypervisor  kernel  module  power
-
 ````
 
 All block devices are at the `block` and `bus` directory has all the connected pci, usb, serial, .. devices. Note that here in `sys` we have the devices based on their technology but `/dev/` is abstracted. 
@@ -147,7 +146,7 @@ root@funlife:/proc/sys/fs# cat file-max
 ````
 Another very useful directory here, is `/proc/sys/net/ipv4` which controls real time networking configurations. 
 
-> All there changes will be reverted after a boot. You have to read config files in `/etc/` to make these changes permanent
+> All there changes will be reverted after a boot. You have to write into config files in `/etc/` to make these changes permanent
 
 ### dev
 **udev** controls `/dev/` directory. There are abstracted devices like a hard, is /dev/sda or /dev/hd0 regardless of its brand, model or technology:
@@ -213,7 +212,7 @@ iwlwifi               183038  1 iwldvm
 
 These are the kernel modules which are loaded. 
 
-If you need to add a module to your kernel (say a new driver for a hardware) or remove it (uninstall a driver) you can user `rmmod` and ``.
+If you need to add a module to your kernel (say a new driver for a hardware) or remove it (uninstall a driver) you can use `rmmod` and `modprobe`.
 
 ````
 # rmmod iwlwifi 
@@ -225,7 +224,7 @@ And this is for installing the modules:
 # insmod kernel/drivers/net/wireless/lwlwifi.ko
 ````
 
-but nobody uses `insmod` because it does not understands dependencies and you need to give it the whole path to the module file. Instead use the `modprobe` command:
+but nobody uses `insmod` because it does not understand dependencies and you need to give it the whole path to the module file. Instead use the `modprobe` command:
 
 ````
 # modprobe iwlwifi
@@ -235,7 +234,7 @@ but nobody uses `insmod` because it does not understands dependencies and you ne
 
 If you need to load some modules everytime your system boots do one of the follow:
 1. add their name to this file `/etc/modules`
-2. add its config to the /etc/modprobe.d/
+2. add their config files to the `/etc/modprobe.d/`
 
 #### lspci
 Shows pci devices that are connected to the computer.
@@ -276,10 +275,10 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 ````
 
 #### lspcmcia
-Shows available PCMCIA cards on this computer
+Shows available PCMCIA cards on this computer.
 
 #### lshal
-Shows hal data
+Shows hal data.
 
 #### lshw
 Shows hardware. Test it!
@@ -302,19 +301,3 @@ Every other device has its own ID which can be used to *identify* it.
 
 ## hotplug
 Hotplug is when you insert a hardware into a running computer and coldplug is when you have to turn your computer off to install a hardware. USB devices are hot pluggable while PCI cards should be cold-plugged.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
