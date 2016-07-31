@@ -45,7 +45,7 @@ As any other OS, Linux uses *files* and *directories* to operate. But unlike *Wi
 | var | Variable data |
 
 ## Partitions
-In Linux world, devices are defined at /dev/. First SCSI disk is /dev/sda, second SCSI disk is /dev/sdb, ... and first SATA disk (older systems) is /dev/hda.
+In Linux world, devices are defined at /dev/. First SATA disk is /dev/sda, second SATA disk is /dev/sdb, ... and first SCSI disk (older systems) is /dev/hda.
 
 You have to *PARTITION* the disks, that is creating smaller parts on a big disk and calling them /dev/sda1 (first partition on first SCSI disk) or /dev/hd**b**3 (3rd partition on second disk). 
 
