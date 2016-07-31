@@ -18,9 +18,11 @@ Terms and Utilities
 - superblock
 
 ## Boot overview
-System starts from BIOS and will do a self test called POST. Then it will hand over the boot process to the first sector of master boot record (MBR).
+System starts from BIOS and will do a self test called POST. Then it will hand over the boot process to the first sector of master boot record (MBR). 
 
-MBS is only 512bytes so we need a *smart bootloader* to handle larger boot managers and even multiple systems. Some of these boot loaders are LILO, GRUB and GRUB2. 
+> MBR is on track (Cylinder) 0, side (Head) 0 and Sector 1 of the first disk which defines CHS.
+
+MBR is only 512bytes so we need a *smart bootloader* to handle larger boot managers and even multiple systems. Some of these boot loaders are LILO, GRUB and GRUB2. 
 
 > Chain Loading is when a boot loaders, loads another boot loader. This is done when a linux bootloader needs to start a Windows system.
 
