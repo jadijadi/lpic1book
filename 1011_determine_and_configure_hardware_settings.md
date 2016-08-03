@@ -30,12 +30,12 @@ Candidates should be able to determine and configure fundamental system hardware
 **HAL** is Hardware Abstraction Layer. It abstracts your hardware details from you, say any first network card will be *eth0*. This way Linux will see any hardware as an *standard* hardware and you will be able to replace the hardware easily. 
 
 ### dbus
-Is really a bus and lets parts of the system communicate with each other. For example when you install a USB into your computer, dbus lets GNOME know about it. Using dbus, hardware & software can talk with each other.
+Is really a bus and lets parts of the system communicate with each other. For example, when you install a USB into your computer, dbus lets GNOME know about it. Using dbus, hardware & software can talk with each other.
 
 ### udev
 Supplies the software with the events and access info of devices and can handle rules.
 
-There are a lot of devices in /dev/ and if you plugin any device, it will have a file in /dev (say /dev/sdb2). **udev** lets you control what will be what in /dev. For example you can use a rule to force your 8GB flash drive with one specific vendor to be /dev/mybackup all the time or you can tell it to copy all photos to your home directory as soon as your camera is connected.
+There are a lot of devices in /dev/ and if you plugin any device, it will have a file in /dev (say /dev/sdb2). **udev** lets you control what will be what in /dev. For example, you can use a rule to force your 8GB flash drive with one specific vendor to be /dev/mybackup all the time or you can tell it to copy all photos to your home directory as soon as your camera is connected.
 
 ### sysfs
 The `/sys` directory is where **HAL** keeps its database of everything connected to the system. 
@@ -45,7 +45,7 @@ jadi@funlife:~$ ls /sys
 block  bus  class  dev	devices  firmware  fs  hypervisor  kernel  module  power
 ````
 
-All block devices are at the `block` and `bus` directory has all the connected pci, usb, serial, .. devices. Note that here in `sys` we have the devices based on their technology but `/dev/` is abstracted. 
+All block devices are at the `block` and `bus` directory has all the connected PCI, USB, serial, .. devices. Note that here in `sys` we have the devices based on their technology but `/dev/` is abstracted. 
 
 ### proc directory
 This is where kernel keeps its data structure and is created in RAM. You can read and write here (after reboot, the write is gone). 
@@ -146,7 +146,7 @@ root@funlife:/proc/sys/fs# cat file-max
 ````
 Another very useful directory here, is `/proc/sys/net/ipv4` which controls real time networking configurations. 
 
-> All there changes will be reverted after a boot. You have to write into config files in `/etc/` to make these changes permanent
+> All these changes will be reverted after a boot. You have to write into config files in `/etc/` to make these changes permanent
 
 ### dev
 **udev** controls `/dev/` directory. There are abstracted devices like a hard, is /dev/sda or /dev/hd0 regardless of its brand, model or technology:
@@ -232,12 +232,12 @@ but nobody uses `insmod` because it does not understand dependencies and you nee
 
 > you can use `-f` switch to FORCE `rmmod` to remove the module even if it is in use
 
-If you need to load some modules everytime your system boots do one of the follow:
+If you need to load some modules every time your system boots do one of the following:
 1. add their name to this file `/etc/modules`
 2. add their config files to the `/etc/modprobe.d/`
 
 #### lspci
-Shows pci devices that are connected to the computer.
+Shows PCI devices that are connected to the computer.
 
 ````
 # lspci
@@ -260,7 +260,7 @@ Shows pci devices that are connected to the computer.
 
 
 #### lsusb
-Shows all the usb devices connected to the system.
+Shows all the USB devices connected to the system.
 
 ````
 # lsusb
@@ -278,7 +278,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 Shows available PCMCIA cards on this computer.
 
 #### lshal
-Shows hal data.
+Shows HAL data.
 
 #### lshw
 Shows hardware. Test it!
