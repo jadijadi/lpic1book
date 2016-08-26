@@ -15,7 +15,7 @@ Candidates should be able to manage print queues and user print jobs using CUPS 
 - lpd legacy interface (lpr, lprm, lpq)
 
 ## CUPS
-Most linux distros use CUPS for printing. CUPS stands for Common Unix Printing System.  There are different interfaces for CUPS link command line tools, web based interface and GUIs. CUPS is desined to simplify the printing on various printers from various manufactures.
+Most Linux distros use CUPS for printing. CUPS stands for Common Unix Printing System.  There are different interfaces for CUPS link command line tools, web based interface and GUIs. CUPS is designed to simplify the printing on various printers from different manufactures.
 
 ### CUPS web interface
 The general way to access the CUPS configuration and info page is going to the servers IP on port **631** from a browser. That will be **localhost:631** or **127.0.0.1:631** from your browser. 
@@ -168,20 +168,4 @@ Apple-Dot-Matrix:
 	2 entries
 	daemon present
 ````
-.
 
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
