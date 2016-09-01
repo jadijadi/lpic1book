@@ -447,10 +447,10 @@ rubic 2 windows
 you 12 fedora
 ````
 
->join does not work on numeric fields unless the fields are all the same length. It default delimiter is any white space (TAB, space) and it joins on first field. check ````man sort```` for more info.
+>join does not work on numeric fields unless the fields are all the same length. It default delimiter is any white space (TAB, space) and it joins on first field. check ````man join```` for more info.
 
 ## sed
-sed is ***s**tream **ed**itor*. It is POWERFUL and can do magic! Just like most of the tools we saw, sed sed can work as a filter or take its input from a file. It uses **regular expressions** and is a great tool for replacing text. If you need to replace A with B only once in each line in a stream you have to say ````sed 's/A/B/'````:
+sed is **s**tream **ed**itor. It is POWERFUL and can do magic! Just like most of the tools we saw, sed can work as a filter or take its input from a file. It uses **regular expressions** and is a great tool for replacing text. If you need to replace A with B only once in each line in a stream you have to say ````sed 's/A/B/'````:
 
 ````
 jadi@funlife:~/w/lpic/101$ cat uses

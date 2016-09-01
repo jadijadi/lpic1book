@@ -512,7 +512,7 @@ or better:
 # dd if=/dev/sda2 |gzip >backup.dd.gzip
 ````
 
-Anothe common usage is creating files of specific size:
+Another common usage is creating files of specific size:
 
 ````
 $ dd if=/dev/zero of=1g.bin bs=1G count=1

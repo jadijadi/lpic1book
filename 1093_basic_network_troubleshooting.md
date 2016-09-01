@@ -189,8 +189,6 @@ Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
 192.168.1.0     0.0.0.0         255.255.255.0   U         0 0          0 wlp3s0
 ````
 
-> `nr` switch can be memorized as 'network routes` ;)
-
 It is also very useful to the see what ports are in listening state in our server:
 
 ````
@@ -199,6 +197,8 @@ tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN
 ````
 
 The `-na` switch will show all the open ports and here I'm checking if port 80 (web) is active on my server. It is and listening to any connection from `0.0.0.0` which means "anywhere": Any one can connect to my computers web server and request pages.
+
+> in these switches, `-n` stands for *numeric*, `-a` stands for *all ports* and `-r` stands for *routes*. 
 
 
 #### traceroute

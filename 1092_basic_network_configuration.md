@@ -115,7 +115,7 @@ In your network configurations, there is a **default gateway**. That is the addr
 
 ### network configuration files
 #### Redhat based systems
-Unfortunately Debian based and Redhat based systems use different locations for their nework configuration files. On Redhat, CentOS, Fedora, ... the fiels are located at `/etc/sysconfig/network-scipts/`. A sample is as below:
+Unfortunately Debian based and Redhat based systems use different locations for their nework configuration files. On Redhat, CentOS, Fedora, ... the fiels are located at `/etc/sysconfig/network-scripts/`. A sample is as below:
 
 ````
 $ cat /etc/sysconfig/network-scripts/ifcfg-eth0
