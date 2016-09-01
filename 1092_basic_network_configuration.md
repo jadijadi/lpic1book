@@ -155,7 +155,7 @@ dns-nameservers 4.2.2.4
 > ifdown and ifup will use these config files 
 
 ### DNS config file
-As you saw, we were able to set the DNS configuration in network interface config files. But this is not the only way. There is another file which contains this data: `/etc/resolve.conf`.
+As you saw, we were able to set the DNS configuration in network interface config files. But this is not the only way. There is another file which contains this data: `/etc/resolv.conf`.
 
 ````
 $ cat /etc/resolv.conf
