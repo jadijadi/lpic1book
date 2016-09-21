@@ -76,7 +76,7 @@ ErrorPolicy retry-job
 Just like the MTP programs, CUPS support all the legacy command line programs too. 
 
 |command|usage|
-|-|-|
+|-------|-----|
 |lpr|print a file|
 |lpq |show print queue/jobs|
 |lprm|rm/remove a file from priner queue|
@@ -151,6 +151,8 @@ Here,
 
 If you are having problems with your printer or need to prevent it from accepting new jobs or let it accept jobs but not print, these four commands will let you achieve your needs:
 
+|command|usage|
+|-------|-----|
 |cupsaccept|tells the printer queue to accept new jobs|
 |cupsreject|tells the printer to reject any new job|
 |cupsenable|enables the actual/physical printing of the jobs|
