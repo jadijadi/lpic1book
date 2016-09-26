@@ -11,7 +11,7 @@ I've tried to write a short, easy to understand but still comprehensive exam gui
 Enjoy!
 
 - Personal site: [Jadi.ir](http://jadi.ir)
-- Weblog: [jadi.net](http://jadi.net)
+- Persian Weblog: [jadi.net](http://jadi.net)
 - twitter: [@jadi](http://twitter.com/jadi)
 
 Donations? [http://jadi.ir/support-donate/](http://jadi.ir/support-donate/) :D
