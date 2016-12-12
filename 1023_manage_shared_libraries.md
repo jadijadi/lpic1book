@@ -63,7 +63,7 @@ I will check the same thing on my system. First I'll find where the libudev.so.1
 
 and then will check that file:
 
-	# ls la /lib/i386-linux-gnu/libudev.so.1
+	# ls -la /lib/i386-linux-gnu/libudev.so.1
 	lrwxrwxrwx 1 root root    16 Nov 13 23:05 /lib/i386-linux-gnu/libudev.so.1 -> libudev.so.1.4.0
 
 As you can see, this is a symbolic link pointing to the version of libudev I have installed (1.4.0) so even if a software says it need libudev.so.1, my system will use its libusdev.so.1.4.0.
