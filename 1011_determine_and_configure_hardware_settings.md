@@ -52,23 +52,23 @@ This is where kernel keeps its data structure and is created in RAM. You can rea
 
 ````
 $ ls /proc/
-1      1249   1451   1565   18069  20346  2426	2765  2926  3175  3317	3537  39    468   4921	53    689   969		 filesystems  misc	     sysvipc
-10     13     146    157    18093  20681  2452	2766  2929  3183  3318	354   397   4694  4934	538   7     97		 fs	      modules	     timer_list
-1039   1321   147    1572   18243  21	  2456	28    2934  3187  34	3541  404   4695  4955	54    737   acpi	 interrupts   mounts	     timer_stats
-10899  13346  148    1576   18274  21021  2462	2841  2936  3191  3450	3550  41    47	  4970	546   74    asound	 iomem	      mtrr	     tty
-10960  13438  14817  158    1859   21139  25	2851  2945  32	  3459	357   42    4720  4982	55    742   buddyinfo	 ioports      net	     uptime
-11     13619  149    16     18617  2129   2592	2852  2947  3202  3466	36    43    4731  4995	551   75    bus		 irq	      pagetypeinfo   version
-11120  13661  15     1613   18781  214	  26	2862  2948  3206  3467	3683  44    4756  5	56    77    cgroups	 kallsyms     partitions     version_signature
-11145  13671  150    1630   1880   215	  27	2865  2952  3208  3469	3699  4484  4774  50	577   8     cmdline	 kcore	      sched_debug    vmallocinfo
-1159   13927  151    1633   1882   2199   2707	2866  2955  3212  3470	37    4495  4795  5008	5806  892   consoles	 keys	      schedstat      vmstat
-1163   14     1512   1634   19	   22	  2708	2884  2957  3225  3474	3710  45    48	  5013	60    9     cpuinfo	 key-users    scsi	     zoneinfo
-1164   14045  1515   1693   19061  2219   2709	2887  2961  3236  3475	3752  4506  4811  5077	61    904   crypto	 kmsg	      self
-1170   14047  152    17     19068  23	  2710	2891  3     324   3477	3761  4529  4821  5082	62    9061  devices	 kpagecount   slabinfo
-1174   14052  153    17173  19069  23055  2711	2895  3047  3261  3517	3778  4558  484   5091	677   915   diskstats	 kpageflags   softirqs
-12     1409   154    1732   19075  2354   2718	29    3093  3284  3522	38    4562  4861  51	678   923   dma		 loadavg      stat
-1231   1444   155    17413  2	   2390   2719	2904  31    3287  3525	3803  46    4891  52	679   939   driver	 locks	      swaps
-1234   1446   156    17751  20	   24	  2723	2908  3132  3298  3528	3823  4622  49	  5202	680   940   execdomains  mdstat       sys
-1236   145    1563   18     2028   2418   2763	2911  3171  33	  3533	3845  4661  4907  525	687   96    fb		 meminfo      sysrq-trigger
+1      1249   1451   1565   18069  20346  2426  2765  2926  3175  3317  3537  39    468   4921  53    689   969          filesystems  misc           sysvipc            
+10     13     146    157    18093  20681  2452  2766  2929  3183  3318  354   397   4694  4934  538   7     97           fs           modules        timer_list         
+1039   1321   147    1572   18243  21     2456  28    2934  3187  34    3541  404   4695  4955  54    737   acpi         interrupts   mounts         timer_stats        
+10899  13346  148    1576   18274  21021  2462  2841  2936  3191  3450  3550  41    47    4970  546   74    asound       iomem        mtrr           tty                
+10960  13438  14817  158    1859   21139  25    2851  2945  32    3459  357   42    4720  4982  55    742   buddyinfo    ioports      net            uptime             
+11     13619  149    16     18617  2129   2592  2852  2947  3202  3466  36    43    4731  4995  551   75    bus          irq          pagetypeinfo   version            
+11120  13661  15     1613   18781  214    26    2862  2948  3206  3467  3683  44    4756  5     56    77    cgroups      kallsyms     partitions     version_signature  
+11145  13671  150    1630   1880   215    27    2865  2952  3208  3469  3699  4484  4774  50    577   8     cmdline      kcore        sched_debug    vmallocinfo        
+1159   13927  151    1633   1882   2199   2707  2866  2955  3212  3470  37    4495  4795  5008  5806  892   consoles     keys         schedstat      vmstat             
+1163   14     1512   1634   19     22     2708  2884  2957  3225  3474  3710  45    48    5013  60    9     cpuinfo      key-users    scsi           zoneinfo           
+1164   14045  1515   1693   19061  2219   2709  2887  2961  3236  3475  3752  4506  4811  5077  61    904   crypto       kmsg         self           
+1170   14047  152    17     19068  23     2710  2891  3     324   3477  3761  4529  4821  5082  62    9061  devices      kpagecount   slabinfo       
+1174   14052  153    17173  19069  23055  2711  2895  3047  3261  3517  3778  4558  484   5091  677   915   diskstats    kpageflags   softirqs       
+12     1409   154    1732   19075  2354   2718  29    3093  3284  3522  38    4562  4861  51    678   923   dma          loadavg      stat           
+1231   1444   155    17413  2      2390   2719  2904  31    3287  3525  3803  46    4891  52    679   939   driver       locks        swaps          
+1234   1446   156    17751  20     24     2723  2908  3132  3298  3528  3823  4622  49    5202  680   940   execdomains  mdstat       sys            
+1236   145    1563   18     2028   2418   2763  2911  3171  33    3533  3845  4661  4907  525   687   96    fb           meminfo      sysrq-trigger
 ````
 
 The numbers are the process IDs! There are also other files like `cpuinfo`, `mounts`, `meminfo`, ...
