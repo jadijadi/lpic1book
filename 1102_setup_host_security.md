@@ -53,7 +53,7 @@ In the previous module, we learned how to find the running services on the serve
 
 |system|service manager|command|
 |-|-|-|
-|older linux systems|SysV|chkconfig httpd off<br>ssyv-rc-conf httpd off|
+|older linux systems|SysV|chkconfig httpd off<br>sysv-rc-conf httpd off|
 |Ubuntu|Upstart|update-rc.d httpd remove|
 |newer linux distros|systemd|systemctl disable httpd|   
 
