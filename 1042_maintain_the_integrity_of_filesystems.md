@@ -11,6 +11,7 @@ Candidates should be able to maintain a standard filesystem, as well as the extr
 * Repair simple filesystem problems.
 
 * du
+
 * df
 * fsck
 * e2fsck
@@ -212,7 +213,7 @@ The DiskUsage command give information about the used space of **directories and
 | switch | usage |
 | --- | --- |
 | -h | print sizes in powers of 1024 \(e.g., 1023M\) |
-|  | print sizes in powers of 1000 \(e.g., 1.1G\) |
+| -H | print sizes in powers of 1000 \(e.g., 1.1G\) |
 | -c | show the grand total |
 | --max-depth 2 | shows only 2 directories furthur |
 | -s | Only shows the summary and not all the directories one by one |
