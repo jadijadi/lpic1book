@@ -17,6 +17,7 @@ Candidates should be able to determine and configure fundamental system hardware
 * Conceptual understanding of sysfs, udev, hald, dbus
 
 * /sys
+
 * /proc
 * /dev
 * modprobe
@@ -32,9 +33,9 @@ Candidates should be able to determine and configure fundamental system hardware
 
 ### dbus
 
-Is really a bus and lets parts of the system communicate with each other. For example, when you install a USB into your computer, dbus lets GNOME know about it. Using dbus, hardware & software can talk with each other.
+A line like a bus that connects all parts of the OS to each other. dbus lets different parts of the system to communicate with each other. For example, when you install a USB into your computer, dbus lets GNOME know about it. Using dbus, hardware & software can talk with each other.
 
-### udev
+#### udev
 
 Supplies the software with the events and access info of devices and can handle rules.
 
