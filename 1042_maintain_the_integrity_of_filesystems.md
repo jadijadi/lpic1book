@@ -1,41 +1,43 @@
-# 104.2 Maintain the integrity of filesystems 
-*Weight: 2*
+# 104.2 Maintain the integrity of filesystems
+
+_Weight: 2_
 
 Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem.
 
 # Objectives
 
-- Verify the integrity of filesystems.
-- Monitor free space and inodes.
-- Repair simple filesystem problems.
+* Verify the integrity of filesystems.
+* Monitor free space and inodes.
+* Repair simple filesystem problems.
 
+* du
 
-- du
-- df
-- fsck
-- e2fsck
-- mke2fs
-- debugfs
-- dumpe2fs
-- tune2fs
-- xfs tools
+* df
+* fsck
+* e2fsck
+* mke2fs
+* debugfs
+* dumpe2fs
+* tune2fs
+* xfs tools
 
 # fsck
-If anything bad happens for your filesystem (say power suddenly goes down) you will have a corrupted file system. The command to fix this is `fsck`. Technically this command is a front end for many commands:
 
-````
+If anything bad happens for your filesystem \(say power suddenly goes down\) you will have a corrupted file system. The command to fix this is `fsck`. Technically this command is a front end for many commands:
+
+```
 jadi@funlife:~$ ls /sbin/*fsck*
-/sbin/dosfsck	   /sbin/fsck.ext2     /sbin/fsck.fat	 /sbin/fsck.vfat
-/sbin/e2fsck	   /sbin/fsck.ext3     /sbin/fsck.minix
-/sbin/fsck	   /sbin/fsck.ext4     /sbin/fsck.msdos
+/sbin/dosfsck       /sbin/fsck.ext2     /sbin/fsck.fat     /sbin/fsck.vfat
+/sbin/e2fsck       /sbin/fsck.ext3     /sbin/fsck.minix
+/sbin/fsck       /sbin/fsck.ext4     /sbin/fsck.msdos
 /sbin/fsck.cramfs  /sbin/fsck.ext4dev  /sbin/fsck.nfs
-````
+```
 
 > Some of these are just hardlinks to `e2fsck` command
 
-A common switch during boot is `-A` which tells fsck to check all file systems in /etc/fstab ordered by *passno* in that file which is 6th field (File systems with *passno* of 0, wont be checked during the boot. 
+A common switch during boot is `-A` which tells fsck to check all file systems in /etc/fstab ordered by _passno_ in that file which is 6th field \(File systems with _passno_ of 0, wont be checked during the boot.
 
-````
+```
 root@funlife:~# fsck /dev/sdb
 fsck from util-linux 2.25.1
 e2fsck 1.42.10 (18-May-2014)
@@ -60,11 +62,11 @@ is corrupt, and you might try running e2fsck with an alternate superblock:
     e2fsck -b 8193 <device>
  or
     e2fsck -b 32768 <device>
-````
+```
 
-You can also check filesystems with UUID (find them with `blkid` command or with labels):
+You can also check filesystems with UUID \(find them with `blkid` command or with labels\):
 
-````
+```
 root@funlife:~# fsck /dev/sdb
 fsck from util-linux 2.25.1
 e2fsck 1.42.10 (18-May-2014)
@@ -89,22 +91,23 @@ root@funlife:~# fsck UUID="BA82-BECD"
 fsck from util-linux 2.25.1
 fsck.fat 3.0.26 (2014-03-07)
 /dev/sdb1: 14 files, 1972/945094 clusters
-````
+```
 
 You can use `-N` switch to see what command/test is going to be executed:
 
-````
+```
 root@funlife:~# fsck -N UUID="BA82-BECD"
 fsck from util-linux 2.25.1
-[/sbin/fsck.vfat (1) -- /dev/sdb1] fsck.vfat /dev/sdb1 
-````
+[/sbin/fsck.vfat (1) -- /dev/sdb1] fsck.vfat /dev/sdb1
+```
 
 > If you want to check a XFS filesystem, you have to use `xfs_check` command
 
 ### tune2fs
-This is a command to tune *ext* file systems. It can show information and set many options. The `-l` option lists the current configs:
 
-````
+This is a command to tune _ext_ file systems. It can show information and set many options. The `-l` option lists the current configs:
+
+```
 jadi@funlife:~$ sudo tune2fs -l /dev/sda2
 tune2fs 1.42.10 (18-May-2014)
 Filesystem volume name:   <none>
@@ -143,7 +146,7 @@ Lifetime writes:          103 GB
 Reserved blocks uid:      0 (user root)
 Reserved blocks gid:      0 (group root)
 First inode:              11
-Inode size:	          256
+Inode size:              256
 Required extra isize:     28
 Desired extra isize:      28
 Journal inode:            8
@@ -151,12 +154,13 @@ First orphan inode:       786620
 Default directory hash:   half_md4
 Directory Hash Seed:      16c38a41-e709-4e04-b1c2-8a79d71ea7e8
 Journal backup:           inode blocks
-````
+```
 
-### xfs_info
+### xfs\_info
+
 This is same as the `tune2fs` but for xfs file systems.
 
-> xfs_info should be used on mounted file systems
+> xfs\_info should be used on mounted file systems
 
 # du & df
 
@@ -165,9 +169,10 @@ In many cases you want to find out about the free space of a disk or find how mu
 > inodes contain the information about files. Information like the owner, when the last time it is used or edited, its size, if its a directory or not and peoples access rights on if. The inode number is unique within a particular filesystem and is also called files serial number.
 
 ## df
+
 The DiskFree command is used to find out about the free and used space of file systems.
 
-````
+```
 jadi@funlife:~$ df -TH
 Filesystem        Type      Size  Used Avail Use% Mounted on
 /dev/sda2         ext4       23G   15G  7.7G  65% /
@@ -179,13 +184,13 @@ none              tmpfs     3.9G   19M  3.9G   1% /run/shm
 none              tmpfs     100M   28K  100M   1% /run/user
 /dev/mapper/chome ext4      243G  229G   14G  95% /home/jadi
 /dev/sdb1         vfat      3.7G  7.8M  3.6G   1% /media/jadi/BA82-BECD
-````
+```
 
-Here the `-T` switch make df to show the file system types and `-H` make numbers human readable on the the on the correct scale (1k=1024) while `-h` shows 1k for 1000 bytes. 
+Here the \`-T\` switch make df to show the file system types and \`-H\` make numbers human readable \(in powers of 1000\). Please note that \`-h\` is also human readable but in powres of 1024 \(e.g. shows 1k for 1000 bytes.
 
 If you need the inode data, use the `-i` switch:
 
-````
+```
 jadi@funlife:~$ df -i
 Filesystem          Inodes  IUsed    IFree IUse% Mounted on
 /dev/sda2          1531904 458616  1073288   30% /
@@ -197,63 +202,66 @@ none               1007533    162  1007371    1% /run/shm
 none               1007533     33  1007500    1% /run/user
 /dev/mapper/chome 16171008 269293 15901715    2% /home/jadi
 /dev/sdb1                0      0        0     - /media/jadi/BA82-BECD
-````
+```
 
 > vfat file format has no inodes; there is no owner or access rights on vfat filesystems.
 
 ## du
+
 The DiskUsage command give information about the used space of **directories and files**. The common switches are:
 
-|switch|usage|
-|---|---|
-|-h|human readable (1k = 1000)|
-|-H|human readable (1k= 1024)| 
-|-c|show the grand total|
-|--max-depth 2|shows only 2 directories furthur|
-|-s|Only shows the summary and not all the directories one by one|
+| switch | usage |
+| --- | --- |
+| -h | print sizes in powers of 1024 \(e.g., 1023M\) |
+| -H | print sizes in powers of 1000 \(e.g., 1.1G\) |
+| -c | show the grand total |
+| --max-depth 2 | shows only 2 directories furthur |
+| -s | Only shows the summary and not all the directories one by one |
 
-````
+```
 jadi@funlife:~/w/lpic$ du 
-16	./101
-701456	./done
-701464	./Logo/chert
-704588	./Logo
-12	./data
-12	./100
-9432884	.
+16    ./101
+701456    ./done
+701464    ./Logo/chert
+704588    ./Logo
+12    ./data
+12    ./100
+9432884    .
 jadi@funlife:~/w/lpic$ du -c
-16	./101
-701456	./done
-701464	./Logo/chert
-704588	./Logo
-12	./data
-12	./100
-9432884	.
-9432884	total
+16    ./101
+701456    ./done
+701464    ./Logo/chert
+704588    ./Logo
+12    ./data
+12    ./100
+9432884    .
+9432884    total
 jadi@funlife:~/w/lpic$ du -hs
-9.0G	.
-````
+9.0G    .
+```
 
 # Repairing
-We used the `fcsk` for showing file system information but if is designed to *fix* file systems too. If the boot time check find a problems, you will be put into a command line to fix the problems. 
 
-On non-journaling file systems (ext2) the fsck will show you many questions about each block and you have to say `y` if you want it to fix them. On journaling file systems (ext3&4, xfs, ..) the fsck has much less tasks to perform. 
+We used the `fcsk` for showing file system information but if is designed to _fix_ file systems too. If the boot time check find a problems, you will be put into a command line to fix the problems.
 
-> for xfs file systems, we have `xfs_check` command 
+On non-journaling file systems \(ext2\) the fsck will show you many questions about each block and you have to say `y` if you want it to fix them. On journaling file systems \(ext3&4, xfs, ..\) the fsck has much less tasks to perform.
+
+> for xfs file systems, we have `xfs_check` command
 
 An important switch is `-n` which causes these commands **not to fix** anything and just show what was going to be done.
 
 ## debugfs
-This is an interactive tool for debug an ext filesystem. It opens the filesystem in read-only mode unless we tell it not to (with `-w` option). It can un-delete files and directories..
- 
-````
+
+This is an interactive tool for debug an ext filesystem. It opens the filesystem in read-only mode unless we tell it not to \(with `-w` option\). It can un-delete files and directories..
+
+```
 root@funlife:~# debugfs /dev/sda2
 debugfs 1.42.10 (18-May-2014)
-debugfs:  cd /etc/		<-- cd 
-debugfs:  pwd			<-- show were am I
+debugfs:  cd /etc/        <-- cd 
+debugfs:  pwd            <-- show were am I
 [pwd]   INODE: 524289  PATH: /etc
 [root]  INODE:      2  PATH: /
-debugfs:  stat passwd		<-- show data on one file
+debugfs:  stat passwd        <-- show data on one file
 Inode: 527187   Type: regular    Mode:  0644   Flags: 0x80000
 Generation: 1875144872    Version: 0x00000000:00000001
 User:     0   Group:     0   Size: 2145
@@ -267,18 +275,17 @@ crtime: 0x548d4241:9f1c52f8 -- Sun Dec 14 11:24:41 2014
 Size of extra inode fields: 28
 EXTENTS:
 (0):2188172
-debugfs:  ncheck 527187		<-- node check an inode
-Inode	Pathname		
-527187	/etc/passwd
-debugfs:  q			<-- quit
-````
-
-
+debugfs:  ncheck 527187        <-- node check an inode
+Inode    Pathname        
+527187    /etc/passwd
+debugfs:  q            <-- quit
+```
 
 # Superblock
-Unix systems use superblocks to save *filesystem metadata*. Most of the times this block is located at the beginning of the file system and replicated on other locations too. The `-n` of `mke2fs` displays superblock locations
 
-````
+Unix systems use superblocks to save _filesystem metadata_. Most of the times this block is located at the beginning of the file system and replicated on other locations too. The `-n` of `mke2fs` displays superblock locations
+
+```
 # mke2fs -n /dev/sda7
 mke2fs 1.41.9 (22-Aug-2009)
 Filesystem label=
@@ -293,26 +300,26 @@ Maximum filesystem blocks=4294967296
 32768 blocks per group, 32768 fragments per group
 8192 inodes per group
 Superblock backups stored on blocks: 
-	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
-	4096000, 7962624, 11239424, 20480000, 23887872
-````
-
+    32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
+    4096000, 7962624, 11239424, 20480000, 23887872
+```
 
 # Other tools
+
 For the LPIC exam, it is good to know about these commands.
 
-|filesystem|command|usage|
-|---|---|---|
-|ext|tune2fs|Show or set ext2 and ext3 parameters or even set the journaling options|
-|ext|dumpe2fs|Prints the super block and block group descriptor information for an ext2 or ext3 filesystem.|
-|ext|debugfs|Is an interactive file system debugger. Use it to examine or change the state of an ext2 or ext3file system.|
-|reiserfs|reiserfstune|show and set parameters|
-|reiserfs|debugreiserfs|Prints the super block and block group descriptor information for an ext2 or ext3 filesystem.|
-|XFS|xfs_info|display information|
-|XFS|xfs_growfs|expand file system|
-|XFS|xfs_admin|change parameters on XFS file systems|
-|XFS|xfs_repair|repair the problems|
-|XFS|xfs_db|checks and debugs the filesystem|
+| filesystem | command | usage |
+| --- | --- | --- |
+| ext | tune2fs | Show or set ext2 and ext3 parameters or even set the journaling options |
+| ext | dumpe2fs | Prints the super block and block group descriptor information for an ext2 or ext3 filesystem. |
+| ext | debugfs | Is an interactive file system debugger. Use it to examine or change the state of an ext2 or ext3file system. |
+| reiserfs | reiserfstune | show and set parameters |
+| reiserfs | debugreiserfs | Prints the super block and block group descriptor information for an ext2 or ext3 filesystem. |
+| XFS | xfs\_info | display information |
+| XFS | xfs\_growfs | expand file system |
+| XFS | xfs\_admin | change parameters on XFS file systems |
+| XFS | xfs\_repair | repair the problems |
+| XFS | xfs\_db | checks and debugs the filesystem |
 
 .
 
@@ -335,3 +342,4 @@ For the LPIC exam, it is good to know about these commands.
 .
 
 .
+
