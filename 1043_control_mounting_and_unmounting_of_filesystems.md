@@ -18,7 +18,7 @@ Configure the mounting of a filesystem. Tasks include manually mounting and unmo
 
 #### Basic commands
 ```
-cat /et/fstab
+cat /etc/fstab
 mount /dev/sda1 /media
 umount /media
 ```
