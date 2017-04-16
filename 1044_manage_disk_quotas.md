@@ -22,7 +22,7 @@ The option should be added to required `/etc/fstab` file. The most famous ones a
 |option|meaning|
 |--|--|
 |usrquota|user quotas|
-|uqouta|same as usrquota|
+|uquota|same as usrquota|
 |quota|same as usrquota|
 |grpquota|group quotas|
 |gquota|same as grpquota|
