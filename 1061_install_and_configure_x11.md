@@ -17,7 +17,7 @@ Candidates should be able to install and configure X11.
 - xdpyinfo
 - X
 
-## Hisotry
+## History
 This lesson is useless in modern life! Very strange but practically nothing in this lesson is used in real life because xorg.conf, xhost, ... is not used in any modern linux system anymore. Maybe they are here so you wont be shocked if you see an older linux. 
 
 ## X
