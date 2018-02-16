@@ -34,7 +34,7 @@ qmail is an attempt to provide an ultra secure MTA while keeping the MTA compati
 It aims to be a general and flexible mailer with extensive facilities for checking incoming e-mail. It is feature rich with ACLs, authentication, ...
 
 ### postfix
-This is a new alternative to sendmail and uses easy to understand configuration files. It supports multiple domains, encryption, etc. Postfix is what you may find on most distos as default.
+This is a new alternative to sendmail and uses easy to understand configuration files. It supports multiple domains, encryption, etc. Postfix is what you may find on most distros as default.
 
 ## sendmail emulation layer
 As I already said, `sendmail` is the oldest MTA which is still active. Other MTAs respect his age and provide a *sendmail emulation layer* to keep themselves backward compatible with it. In other words you can type `sendmail` or `mailq` on your command line regardless of what MTA you've installed.

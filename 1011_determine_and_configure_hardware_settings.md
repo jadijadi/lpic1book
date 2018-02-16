@@ -54,7 +54,7 @@ All block devices are at the `block` and `bus` directory has all the connected P
 
 ### proc directory
 
-This is where kernel keeps its settings and properties. This direcgtory is created on ram and files might have write accessible.
+This is where kernel keeps its settings and properties. This directory is created on ram and files might have write accessible.
 
 ```
 $ ls /proc/
