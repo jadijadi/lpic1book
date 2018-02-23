@@ -167,7 +167,7 @@ jadi@funlife ~$
 
 Note that when running `su` you have to **provide the root password** to become root; or any other users password to become that user! 
 
-On the other hand, sudo asks for you own password and runs the command you gave it, with the root privileges. So `sudo ls` runs the ls command with the root privileges after asking for **your passowrd**.  Obviously you should have the *sudo right* to issue sudo. This is defined in /etc/sudoers file:
+On the other hand, sudo asks for your own password and runs the command you gave it, with the root privileges. So `sudo ls` runs the ls command with the root privileges after asking for **your passowrd**.  Obviously you should have the *sudo right* to issue sudo. This is defined in /etc/sudoers file:
 
 ````
 $ sudo cat /etc/sudoers
@@ -203,7 +203,7 @@ root	ALL=(ALL:ALL) ALL
 #includedir /etc/sudoers.d
 ````
 
-note the 2 important lines: how root gets the right to run all the commands and how the sudo and admin groups get rights to run commands as root. The `ALL:ALL` means these users can run as any use and any group. The last ALL tells the sudo that these users / groups can run ALL commands. It is possible to put /bin/ping in the last part to tell sudo that this user can run only ping as root. 
+note the 2 important lines: how root gets the right to run all the commands and how the sudo and admin groups get rights to run commands as root. The `ALL:ALL` means these users can run as any user and any group. The last ALL tells the sudo that these users / groups can run ALL commands. It is possible to put /bin/ping in the last part to tell sudo that this user can run only ping as root. 
 
 > The /etc/sudoers file is very important and breaking it will make major problems. to prevent you from adding un-interpretable lines in that file, the `visudo` command should be used instead of `vi /etc/sudoers`. This tool will check your edits to make sure that sudo command can understand them.
 
