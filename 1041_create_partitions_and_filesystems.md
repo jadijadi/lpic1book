@@ -306,7 +306,7 @@ root@funlife:~#
 
 > This will have a same effect: `mkfs.ext3 /dev/sda1`
 
-If you need to assign a lable to the partition, you have to use the `-L lable_name` option. Please note that in renect system, people use UUIDs instead of labels. UUID of a disk can be viewed with:
+If you need to assign a lable to the partition, you have to use the `-L lable_name` option. Please note that in recent system, people use UUIDs instead of labels. UUID of a disk can be viewed with:
 
 ```
 $ blkid /dev/sda1

@@ -216,7 +216,7 @@ One warning was issued.
 
 > -v -v doubles the verbosity! You can have up to 5 `-v`s!
 
-No you can boot your system from that floppy and you will get a menu to choose one of the boot options.
+Now you can boot your system from that floppy and you will get a menu to choose one of the boot options.
 
 These are some other LILO switches:
 
