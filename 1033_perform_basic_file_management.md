@@ -206,7 +206,7 @@ rm: cannot remove ‘newCopy’: Is a directory
 $ rm -r newCopy
 ````
 
-As you can see we can not ````rm```` a file but if using -r (or -R or --recursive) it works because it deletes the dir and whatever inside it.
+As you can see we can not ````rm```` a folder but if using -r (or -R or --recursive) it works because it deletes the dir and whatever inside it.
 
 > ````rm -rf /```` is EXTREMELY DANGEROUS: force delete whatever in /
 
