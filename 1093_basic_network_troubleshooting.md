@@ -276,21 +276,16 @@ You can see that SERVER 4.2.2.4 is resolving google.com to 216.58.214.46.
 
 The nc \(or netcat\) utility is used for just about anything under the sun involving TCP, UDP, or UNIX-domain sockets.  It can open TCP connections, send UDP packets, listen on arbitrary TCP and UDP ports, do port scanning, and deal with both IPv4 and IPv6.  Unlike telnet, nc scripts nicely, and separates error messages onto standard error instead of sending them to standard output, as telnet does with some. This is a very capable command and it is enough for you to be familier with its general concept.
 
-.
+I can start listening on a specific port using command below:
 
-.
+```
+[jadi@funlife ~]$ netcat -l 8000
+```
 
-.
+switch `-l` is used to specify that nc should listen for an incoming connection rather than initiate a connection to a remote host.  The destination and port to listen on can be specified either as non-optional arguments, or with options `-s` and `-p` respctively.
+recall that we could verify weather if it listens on the given port or not.
 
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
+```
+[jadi@funlife ~]$ netstat -na | grep 8000
+tcp        0      0 0.0.0.0:8888            0.0.0.0:*               LISTEN 
+```
