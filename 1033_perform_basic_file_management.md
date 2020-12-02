@@ -80,7 +80,7 @@ But use common sense when answering questions or using `cp` and `mv` in real lif
 Removes (Deletes) **files**. 
 
 ### General notes
-Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the `mv` will not move or rename a file if the target exists. You can overcome this using the ````-f```` switch.
+Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the `mv` will not move or rename a file if the target exists. Although this is highly dependent on your systems configuration. But in all cases you can overcome this using the ````-f```` switch.
 
 - ````-f```` (--force) will cause cp to try overwrite the target.
 - ````-i```` (--interactive) will ask Y/N question (deleting / overwriting). 
