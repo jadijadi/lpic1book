@@ -441,7 +441,7 @@ Common switches are
 |-z|compress the archive with gzip after creating it|
 |-b|compress the archive with bzip2 after creating it|
 |-v|verbose! print a lot of data about what you are doing|
-|-r| appeng new files to the currentyp available archive|
+|-r| append new files to the currentyp available archive|
  
 
 > If you issue absolute paths, tar removes the starting slash (/) for safety reasons when creating an archive. If you want to override, use -p option. 
