@@ -188,35 +188,3 @@ sina
 > if you want to prevent overwriting files, use the `-a` switch to append to files if exists.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-

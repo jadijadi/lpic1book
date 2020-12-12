@@ -80,7 +80,7 @@ But use common sense when answering questions or using `cp` and `mv` in real lif
 Removes (Deletes) **files**. 
 
 ### General notes
-Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the `mv` will not move or rename a file if the target exists. You can overcome this using the ````-f```` switch.
+Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the `mv` will not move or rename a file if the target exists. Although this is highly dependent on your systems configuration. But in all cases you can overcome this using the ````-f```` switch.
 
 - ````-f```` (--force) will cause cp to try overwrite the target.
 - ````-i```` (--interactive) will ask Y/N question (deleting / overwriting). 
@@ -206,7 +206,7 @@ rm: cannot remove ‘newCopy’: Is a directory
 $ rm -r newCopy
 ````
 
-As you can see we can not ````rm```` a file but if using -r (or -R or --recursive) it works because it deletes the dir and whatever inside it.
+As you can see we can not ````rm```` a folder but if using -r (or -R or --recursive) it works because it deletes the dir and whatever inside it.
 
 > ````rm -rf /```` is EXTREMELY DANGEROUS: force delete whatever in /
 
