@@ -354,7 +354,7 @@ This will remove all empty files in this directory and its subdirectories:
 find . -empty -exec rm '{}' \;
 ````
 
-or this will rename all htm files to hfml
+or this will rename all htm files to html
 
 ````
 find . -name "*.htm" -exec mv '{}' '{}l' \;
