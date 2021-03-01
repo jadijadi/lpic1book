@@ -91,8 +91,8 @@ These command during the *command mode* will help you enter, edit, replace, .. t
 |d|delete. you can mix with w (`dw`) to delete a word. Same as cw but dw does not to to the insert mode|
 |dd|Delete the current line|
 |x|Delete character at the position of the cursor|
-|p|Paste the last deleted text after the cursor|
-|P|Paste the last deleted text before the cursor|
+|p|Paste the last deleted text before the cursor|
+|P|Paste the last deleted text after the cursor|
 |xp|swaps the character at the cursor position with the one on its right|
 
 ## Searching
