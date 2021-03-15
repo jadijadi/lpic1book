@@ -26,7 +26,7 @@ The candidate should be able to use public key techniques to secure data and com
 ### Key Pairs
 In traditional cryptography the symetric keys were used: both parties had a shared password; the files were encrypted with that password and then decrypted using the same password. These years the KeyPairs are becomming more and more common. When generating a key pair, we generate two keys using a computer algorithm in the way that any message which is encrypted using one, can be opened only using the other key. These are called Public & Private key. You publish the public key to your friends and even the strangers and if they need to send an ecrypted message to you, scramble it using YOUR public key and send it to you. After receiving it, you open the file using your PRIVATE key. 
 
-> great point about Public / Private key is that the data can be transmitted over the internet with no fear of hackers or governments. You are publishing your key to the word, some one picks it and uses it to encrypt some data and sent the result to you. People can see that you are receiving "some data" but they can not encrypt it because they do not have the private key needed to decrypt it.
+> great point about Public / Private key is that the data can be transmitted over the internet with no fear of hackers or governments. You are publishing your key to the world, some one picks it and uses it to encrypt some data and sent the result to you. People can see that you are receiving "some data" but they can not encrypt it because they do not have the private key needed to decrypt it.
 
 
 ### ssh key pairs
