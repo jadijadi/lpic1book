@@ -81,7 +81,7 @@ For copying one users limits to another user, use the `-p` switch:
 
 ## quota reports
 
-If you need to check the quota of only one user user the `quota` command.
+If you need to check the quota of only one user use the `quota` command.
 
 ````
 # quota  jadi
