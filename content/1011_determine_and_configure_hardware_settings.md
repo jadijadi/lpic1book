@@ -1,3 +1,6 @@
+Title: 101.1 Determine and configure hardware settings
+Date: 2021-08-03 13:00
+Category: 101
 # 101.1 Determine and configure hardware settings
 
 _Weight: 2_
@@ -80,7 +83,7 @@ $ ls /proc/
 The numbers are the process IDs! There are also other files like `cpuinfo`, `mounts`, `meminfo`, ...
 
 ```
-$ cat /proc/cpuinfo 
+$ cat /proc/cpuinfo
 processor    : 0
 vendor_id    : GenuineIntel
 cpu family    : 6
@@ -137,17 +140,17 @@ power management:
 We can also write here. Since I'm on an IBM Lenovo laptop I can turn my LED on and off by writing here:
 
 ```
-root@funlife:/proc/acpi/ibm# echo on > light 
-root@funlife:/proc/acpi/ibm# echo off > light 
+root@funlife:/proc/acpi/ibm# echo on > light
+root@funlife:/proc/acpi/ibm# echo off > light
 ```
 
 One more traditional example is changing the max number of open files per user:
 
 ```
-root@funlife:/proc/sys/fs# cat file-max 
+root@funlife:/proc/sys/fs# cat file-max
 797946
-root@funlife:/proc/sys/fs# echo 1000000 > file-max 
-root@funlife:/proc/sys/fs# cat file-max 
+root@funlife:/proc/sys/fs# echo 1000000 > file-max
+root@funlife:/proc/sys/fs# cat file-max
 1000000
 ```
 
@@ -175,46 +178,46 @@ Shows kernel modules.
 ```
 root@funlife:/dev# lsmod
 Module                  Size  Used by
-pci_stub               12622  1 
-vboxpci                23256  0 
-vboxnetadp             25670  0 
-vboxnetflt             27605  0 
+pci_stub               12622  1
+vboxpci                23256  0
+vboxnetadp             25670  0
+vboxnetflt             27605  0
 vboxdrv               418013  3 vboxnetadp,vboxnetflt,vboxpci
-ctr                    13049  3 
-ccm                    17731  3 
-dm_crypt               23172  1 
-bnep                   19543  2 
-rfcomm                 69509  8 
-uvcvideo               81065  0 
-arc4                   12608  2 
+ctr                    13049  3
+ccm                    17731  3
+dm_crypt               23172  1
+bnep                   19543  2
+rfcomm                 69509  8
+uvcvideo               81065  0
+arc4                   12608  2
 videobuf2_vmalloc      13216  1 uvcvideo
-intel_rapl             18783  0 
-iwldvm                236430  0 
-x86_pkg_temp_thermal    14205  0 
-intel_powerclamp       18786  0 
-btusb                  32448  0 
+intel_rapl             18783  0
+iwldvm                236430  0
+x86_pkg_temp_thermal    14205  0
+intel_powerclamp       18786  0
+btusb                  32448  0
 videobuf2_memops       13362  1 videobuf2_vmalloc
 videobuf2_core         59104  1 uvcvideo
 v4l2_common            15682  1 videobuf2_core
 mac80211              660592  1 iwldvm
-coretemp               13441  0 
+coretemp               13441  0
 videodev              149725  3 uvcvideo,v4l2_common,videobuf2_core
 media                  21963  2 uvcvideo,videodev
 bluetooth             446190  22 bnep,btusb,rfcomm
-kvm_intel             143592  0 
+kvm_intel             143592  0
 kvm                   459835  1 kvm_intel
-snd_hda_codec_hdmi     47547  1 
-crct10dif_pclmul       14307  0 
+snd_hda_codec_hdmi     47547  1
+crct10dif_pclmul       14307  0
 6lowpan_iphc           18702  1 bluetooth
-crc32_pclmul           13133  0 
-snd_hda_codec_conexant    23064  1 
-ghash_clmulni_intel    13230  0 
+crc32_pclmul           13133  0
+snd_hda_codec_conexant    23064  1
+ghash_clmulni_intel    13230  0
 snd_hda_codec_generic    68914  1 snd_hda_codec_conexant
-aesni_intel           152552  10 
-snd_seq_midi           13564  0 
+aesni_intel           152552  10
+snd_seq_midi           13564  0
 snd_seq_midi_event     14899  1 snd_seq_midi
 aes_x86_64             17131  1 aesni_intel
-mei_me                 19742  0 
+mei_me                 19742  0
 lrw                    13287  1 aesni_intel
 iwlwifi               183038  1 iwldvm
 ```
@@ -224,7 +227,7 @@ These are the kernel modules which are loaded.
 If you need to add a module to your kernel \(say a new driver for a hardware\) or remove it \(uninstall a driver\) you can use `rmmod` and `modprobe`.
 
 ```
-# rmmod iwlwifi 
+# rmmod iwlwifi
 ```
 
 And this is for installing the module:
@@ -280,7 +283,7 @@ Bus 002 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
 Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 Bus 001 Device 005: ID 04f2:b217 Chicony Electronics Co., Ltd Lenovo Integrated Camera (0.3MP)
 Bus 001 Device 004: ID 0a5c:217f Broadcom Corp. BCM2045B (BDC-2.1)
-Bus 001 Device 003: ID 192f:0916 Avago Technologies, Pte. 
+Bus 001 Device 003: ID 192f:0916 Avago Technologies, Pte.
 Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
 Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 ```
@@ -302,7 +305,7 @@ Shows hardware. Test it!
 Each device has an ID. If you speak about `/dev/sda`, you are speaking about the "first hard" but if you want a specific drive to be your `/home`, you have to use UUID.
 
 ```
-root@funlife:/dev# cat /proc/mounts 
+root@funlife:/dev# cat /proc/mounts
 rootfs / rootfs rw 0 0
 sysfs /sys sysfs rw,nosuid,nodev,noexec,relatime 0 0
 proc /proc proc rw,nosuid,nodev,noexec,relatime 0 0
@@ -317,4 +320,3 @@ Every other device has its own ID which can be used to _identify_ it.
 ## hotplug
 
 Hotplug is when you insert a hardware into a running computer and coldplug is when you have to turn your computer off to install a hardware. USB devices are hot pluggable while PCI cards should be cold-plugged.
-

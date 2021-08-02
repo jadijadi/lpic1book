@@ -1,3 +1,7 @@
+Title: 109.2 Basic network configuration
+Date: 2021-08-03 13:37
+Category: 109
+
 # 109.2 Basic network configuration
 
 _Weight: 4_
@@ -63,7 +67,7 @@ It is possible to use `ifconfig` to change the network configurations, but you s
 
 ```
 $  sudo ifconfig enp0s25 192.168.42.42
-password for jadi: 
+password for jadi:
 $ ifconfig enp0s25
 enp0s25: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
         inet 192.168.42.42  netmask 255.255.255.0  broadcast 192.168.42.255
@@ -87,7 +91,7 @@ It is also possible to turn the interfaces _up_ and _down_ \(on and off\) using 
 
 ```
 $ sudo ifconfig enp0s25 down
-[sudo] password for jadi: 
+[sudo] password for jadi:
 $ ifconfig
 lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
         inet 127.0.0.1  netmask 255.0.0.0
@@ -153,7 +157,7 @@ iface lo inte loopback
 
 auto eth0
 #ifconfig eth0 inet dhcp
-iface eth0 inet static 
+iface eth0 inet static
 address 192.168.1.10
 netmask 255.255.255.0
 gateway 192.168.1.1
@@ -223,13 +227,13 @@ $ ip addr show
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
        valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host 
+    inet6 ::1/128 scope host
        valid_lft forever preferred_lft forever
 2: wlp3s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
     link/ether 8c:a9:82:7b:89:06 brd ff:ff:ff:ff:ff:ff
     inet 192.168.1.35/24 brd 192.168.1.255 scope global dynamic wlp3s0
        valid_lft 254572sec preferred_lft 254572sec
-    inet6 fe80::8ea9:82ff:fe7b:8906/64 scope link 
+    inet6 fe80::8ea9:82ff:fe7b:8906/64 scope link
        valid_lft forever preferred_lft forever
 3: enp0s25: <BROADCAST,MULTICAST> mtu 1500 qdisc fq_codel state DOWN group default qlen 1000
     link/ether f0:de:f1:62:c5:73 brd ff:ff:ff:ff:ff:ff
@@ -263,7 +267,7 @@ I issued the command, waited for 6 packets, each of them returned back after 103
 The `/etc/nsswitch.conf` file is used to configure which services are to be used to determine information such as hostnames, password files, and group files. Mine is
 
 ```
-# cat /etc/nsswitch.conf 
+# cat /etc/nsswitch.conf
 # Begin /etc/nsswitch.conf
 
 passwd: files
@@ -292,4 +296,3 @@ hosts:      dns files
 ```
 
 any resolve request will be sent to a DNS server first and the /etc/hosts will be used _only_ if the DNS servers answeres "I dont know!"
-

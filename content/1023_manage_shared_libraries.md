@@ -1,4 +1,8 @@
-# 102.3. Manage shared libraries 
+Title: 102.3. Manage shared libraries
+Date: 2021-08-03 13:07
+Category: 102
+
+# 102.3. Manage shared libraries
 
 *weight 2*
 
@@ -25,7 +29,7 @@ When we write a program, we use libraries. For example if you need to read text 
 > Dynamic linking is also called **shared** libraries because all the programs are sharing one library which is separately installed.
 
 ## What libraries I need
-first you should know that libraries are installed in `/lib` and `/lib64` (for 32bit and 64bit libraries). 
+first you should know that libraries are installed in `/lib` and `/lib64` (for 32bit and 64bit libraries).
 
 #### ldd
 the `ldd` command helps you find:
@@ -51,7 +55,7 @@ root@funlife:/home/jadi/Downloads# ldd /bin/ls
 	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f616884f000)
 ```
 
-As you can see, `ldd` tells us that the `/sbin/ldconfig` is not dynamically linked but shows us the libraries needed by `/bin/ls`. 
+As you can see, `ldd` tells us that the `/sbin/ldconfig` is not dynamically linked but shows us the libraries needed by `/bin/ls`.
 
 #### symbolic links for libraries
 If you are writing a program and you use udev functions, you will ask for a library called *libudev.so.1*. But a Linux distro, might call its version of udev library *libudev.so.1.4.0*. How can we solve this problem? with **symbolic links** you will learn more about this in next chapters but for short, a symbolic name is a new name for the same file.
@@ -80,15 +84,15 @@ fakeroot-x86_64-linux-gnu.conf          i686-linux-gnu.conf                     
 i386-linux-gnu.conf                     libc.conf                               x86_64-linux-gnu_GL.conf                
 i386-linux-gnu_GL.conf                  x86_64-linux-gnu.conf                   x86_64-linux-gnu_mirclient8driver.conf  
 
-# cat /etc/ld.so.conf.d/libc.conf 
+# cat /etc/ld.so.conf.d/libc.conf
 # libc default configuration
 /usr/local/lib
 
-root@funlife:/sbin# cat /etc/ld.so.conf.d/x86_64-linux-gnu_GL.conf 
+root@funlife:/sbin# cat /etc/ld.so.conf.d/x86_64-linux-gnu_GL.conf
 /usr/lib/x86_64-linux-gnu/mesa
 ```
 
-the `ldconfig` commands processed all these files to make the loading of libraries faster. This command creates ld.so.cache to locate files that are to be dynamically loaded and linked. 
+the `ldconfig` commands processed all these files to make the loading of libraries faster. This command creates ld.so.cache to locate files that are to be dynamically loaded and linked.
 
 > if you change the ld.so.conf (or sub-directories) you need to run `ldconfig`
 
@@ -115,13 +119,13 @@ Sometimes you need to override the original installed libraries and use your own
 - You are developing a shared library and want to test is without installing it
 - You are running a specific program (say from opt) which needs to access its own libraries
 
-in these cases, you have to use the environment variable ** LD_LIBRARY_PATH**. A collon (:) separated list of directories will tell your program where to search for needed libraries **before** checking the libraries in ld.so.cache. 
+in these cases, you have to use the environment variable ** LD_LIBRARY_PATH**. A collon (:) separated list of directories will tell your program where to search for needed libraries **before** checking the libraries in ld.so.cache.
 
 For example if you give this command:
 
 	export  LD_LIBRARY_PATH=/usr/lib/myoldlibs:/home/jadi/lpic/libs/
 
-and then run any command, the system will search `/usr/lib/myoldlibs` and then `/home/jadi/lpic/libs/` before going to the main system libraries (defined in ld.so.cache). 
+and then run any command, the system will search `/usr/lib/myoldlibs` and then `/home/jadi/lpic/libs/` before going to the main system libraries (defined in ld.so.cache).
 .
 .
 

@@ -1,4 +1,8 @@
-#108.3 Mail Transfer Agent (MTA) basics
+Title: 108.3 Mail Transfer Agent (MTA) basics
+Date: 2021-08-03 13:34
+Category: 108
+
+# 108.3 Mail Transfer Agent (MTA) basics
 *Weight: 3*
 
 Candidates should be aware of the commonly available MTA programs and be able to perform basic forward and alias configuration on a client host. Other configuration files are not covered.
@@ -60,14 +64,14 @@ security: root
 root: jadi
 ````
 
-This tells the system if there is a message for 'usenet' it will sent to the `root` user. Note that in the last line, `jadi` is reading the `root` emails. This line lets me read emails sent to root without needing 
+This tells the system if there is a message for 'usenet' it will sent to the `root` user. Note that in the last line, `jadi` is reading the `root` emails. This line lets me read emails sent to root without needing
 to login with root.
 
 > when this file is update, the `newaliases` should be run!
 
 ````
-root@funlife:~# newaliases 
-root@funlife:~# 
+root@funlife:~# newaliases
+root@funlife:~#
 ````
 
 ## sending mail
@@ -76,12 +80,12 @@ It is possible to send an email from the command line using the `mail` command:
 ````
 [jadi@funlife ~]$ mail news
 Subject: Email to news user
-hahah.. we know where this will go. 
-this will go to root and then to jadi! 
+hahah.. we know where this will go.
+this will go to root and then to jadi!
 
 Hi Jadi!
 
-Cc: 
+Cc:
 [jadi@funlife ~]$ mail
 Mail version 8.1.2 01/15/2001.  Type ? for help.
 "/var/mail/jadi": 12 messages 12 new
@@ -106,8 +110,8 @@ Subject: Email to news user
 Date: Thu,  7 Jan 2016 19:53:08 +0330 (IRST)
 From: jadi@funlife (jadi)
 
-hahah.. we know where this will go. 
-this will go to root and then to jadi! 
+hahah.. we know where this will go.
+this will go to root and then to jadi!
 
 Hi Jadi!
 

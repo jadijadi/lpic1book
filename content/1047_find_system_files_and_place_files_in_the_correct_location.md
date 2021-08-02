@@ -1,3 +1,7 @@
+Title: 104.7 Find system files and place files in the correct location
+Date: 2021-08-03 13:24
+Category: 104
+
 # 104.7 Find system files and place files in the correct location
 *Weight: 2*
 
@@ -42,7 +46,7 @@ Filesystem Hierarchy Standard (FHS) is a document describing the Linux / Unix fi
 
 The `/usr` filesystem is the second major section of the filesystem, containing shareable, read-only data. It can be shared between systems, although present practice does not often do this.
 
-The `/var` filesystem contains variable data files, including spool directories and files, administrative and logging data, and transient and temporary files. Some portions of /var are not shareable between different systems, but others, such as /var/mail, /var/cache/man, /var/cache/fonts, and /var/spool/news, may be shared. 
+The `/var` filesystem contains variable data files, including spool directories and files, administrative and logging data, and transient and temporary files. Some portions of /var are not shareable between different systems, but others, such as /var/mail, /var/cache/man, /var/cache/fonts, and /var/spool/news, may be shared.
 
 
 
@@ -95,9 +99,9 @@ $ type mkfd
 bash: type: mkfd: not found
 ````
 
-The `type` command is more general that `which` and also understand and shows the *bash keywords*. 
+The `type` command is more general that `which` and also understand and shows the *bash keywords*.
 
-Another useful command in this category is `whereis`. Unlike `which`, `whereis` shows man pages and source codes of programs alongside their binary location. 
+Another useful command in this category is `whereis`. Unlike `which`, `whereis` shows man pages and source codes of programs alongside their binary location.
 
 
 ````
@@ -107,7 +111,7 @@ $ whereis ping
 ping: /bin/ping /usr/share/man/man8/ping.8.gz
 $ whereis chert
 chert:
-$ 
+$
 ````
 
 ## find
@@ -130,7 +134,7 @@ $ find /tmp/ -maxdepth 1 -user jadi | head
 /tmp/batman.jpg
 ````
 
-Or even find the files not belonging to any user / group with `-nouser` and `-nogroup`. 
+Or even find the files not belonging to any user / group with `-nouser` and `-nogroup`.
 
 >Like other *tests*, you can add a `!` just before any phrase to negate it. So this will find files **not belonging** to jadi: `find . ! -user jadi`
 
@@ -156,7 +160,7 @@ $ locate happy
 And it is fast:
 
 ````
-$ time locate kernel | wc -l 
+$ time locate kernel | wc -l
 11235
 
 real	0m0.341s
@@ -167,7 +171,7 @@ sys	0m0.015s
 This is fast because its data comes from a database created with `updatedb` command which is usually run on a daily basis with a cron job. Its configuration file is `/etc/updatedb.conf` or `/etc/sysconfig/locate`:
 
 ````
-$ cat /etc/updatedb.conf 
+$ cat /etc/updatedb.conf
 PRUNE_BIND_MOUNTS="yes"
 # PRUNENAMES=".git .bzr .hg .svn"
 PRUNEPATHS="/tmp /var/spool /media /home/.ecryptfs"

@@ -1,3 +1,7 @@
+Title: 103.5. Create, monitor and kill processes
+Date: 2021-08-03 13:14
+Category: 103
+
 # 103.5. Create, monitor and kill processes
 *Weight: 4*
 
@@ -25,7 +29,7 @@ Candidates should be able to perform basic process management.
 - killall
 
 ## foreground and background jobs
-One of the great points of linux on its beginning days, was the ability to run many programs at the same time. This is done with sending programs to the background. 
+One of the great points of linux on its beginning days, was the ability to run many programs at the same time. This is done with sending programs to the background.
 
 Normally if you run a program on the terminal, it *blocks* your terminal but sending a command to the background will prevent this:
 
@@ -33,10 +37,10 @@ Normally if you run a program on the terminal, it *blocks* your terminal but sen
 xeyes &
 ````
 
-But what if we started it normally? We can break / cancel it with `Ctrl+c` or *suspend* it using `Ctrl+z`. 
+But what if we started it normally? We can break / cancel it with `Ctrl+c` or *suspend* it using `Ctrl+z`.
 
 ```
-$ xeyes 
+$ xeyes
 ^Z
 [1]+  Stopped                 xeyes
 $ jobs
@@ -45,7 +49,7 @@ $ bg
 [1]+ xeyes &
 $ jobs
 [1]+  Running                 xeyes &
-$ sleep 1000 & 
+$ sleep 1000 &
 [2] 7395
 $ jobs
 [1]-  Running                 xeyes &
@@ -73,7 +77,7 @@ The `nohup` command lets you run your commands even after you logged out and wri
 ````
 $ nohup ping 4.2.2.4
 nohup: ignoring input and appending output to ‘nohup.out’
-^C$ cat nohup.out 
+^C$ cat nohup.out
 PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.
 64 bytes from 4.2.2.4: icmp_seq=1 ttl=51 time=225 ms
 64 bytes from 4.2.2.4: icmp_seq=3 ttl=51 time=223 ms
@@ -118,7 +122,7 @@ So you can do a `kill -9 8733` to force process ID 8733 to close.
 
 > Now you can understand what `nohup` means: go not answer to the SIGHUP.
 
-## killall 
+## killall
 Will send the given signal (or 15) to all the processes with the given name:
 
 ````
@@ -130,7 +134,7 @@ $ ps -ef | grep sleep
 jadi      7864  7651  0 21:07 pts/1    00:00:00 sleep 2000
 jadi      7865  7651  0 21:07 pts/1    00:00:00 sleep 3000
 jadi      7977  7651  0 21:14 pts/1    00:00:00 grep sleep
-$ killall sleep 
+$ killall sleep
 [5]-  Terminated              sleep 2000
 [6]+  Terminated              sleep 3000
 $ jobs
@@ -145,11 +149,11 @@ jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep
 The `ps` command shows running processes on your computer.
 
 ````
-$ sleep 1000 & 
+$ sleep 1000 &
 [1] 7678
-$ sleep 1001 & 
+$ sleep 1001 &
 [2] 7679
-$ xeyes & 
+$ xeyes &
 [3] 7680
 $ ps
   PID TTY          TIME CMD
@@ -167,7 +171,7 @@ $ ps -aux | wc -l
 293
 ````
 
-> Every process has a ProcessID (PID) and a PPID (Parent Process ID). 
+> Every process has a ProcessID (PID) and a PPID (Parent Process ID).
 
 #### finding processes
 You've seen that `ps -ef` shows processes from all users. We can `grep` on that and see who is running `gedit` and what is its process ID:

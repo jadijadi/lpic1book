@@ -1,4 +1,8 @@
-#108.1 Maintain system time
+Title: 108.1 Maintain system time
+Date: 2021-08-03 13:32
+Category: 108
+
+# 108.1 Maintain system time
 *Weight: 3*
 
 Candidates should be able to properly maintain the system time and synchronize the clock via NTP.
@@ -28,7 +32,7 @@ There is a clock in your computer; a hardware clock on your motherboard! It has 
 Hardware clock can be the localtime (your computers timezone) or UTC time (standard time). You can check this by /etc/adjtime:
 
 ````
-$ cat /etc/adjtime 
+$ cat /etc/adjtime
 0.000000 1451741899 0.000000
 1451741899
 UTC
@@ -43,7 +47,7 @@ Mon Jan  4 22:01:18 IRST 2016
 Mon Jan  4 22:22:22 IRST 2016
 root@funlife:~# date
 Mon Jan  4 22:02:18 IRST 2016
-root@funlife:~# hwclock 
+root@funlife:~# hwclock
 Mon 04 Jan 2016 10:02:21 PM IRST  .108596 seconds
 ````
 
@@ -97,7 +101,7 @@ As you can see, now the `ntp` is using the NTP port and `ntpdate` has problems s
 Main configuration file of `ntp` is located at /etc/ntp.conf:
 
 ````
-# cat /etc/ntp.conf 
+# cat /etc/ntp.conf
 # /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
 
 driftfile /var/lib/ntp/ntp.drift
@@ -157,15 +161,15 @@ restrict source notrap nomodify noquery
 #broadcastclient
 ````
 
-If needed, you can change the ntp servers to the ntp servers you want to use. 
+If needed, you can change the ntp servers to the ntp servers you want to use.
 
-Review the configuration and you will see cool things like giving the ntp service to other computers although you do not need it for passing LPIC. 
+Review the configuration and you will see cool things like giving the ntp service to other computers although you do not need it for passing LPIC.
 
 ### ntpq
 The `ntpq` queries the ntp service. One famous switch is `-p` (for Print) that shows the pool we are using to sync the clock:
 
 ````
- ntpq -p 
+ ntpq -p
      remote           refid      st t when poll reach   delay   offset  jitter
 ==============================================================================
  0.debian.pool.n .POOL.          16 p    -   64    0    0.000    0.000   0.000
@@ -178,4 +182,4 @@ The `ntpq` queries the ntp service. One famous switch is `-p` (for Print) that s
 +5.160.24.41     192.168.5.2      4 u    3   64    1   90.000  -28.328  21.643
 ````
 
-In this output a `*` means that the ntp is using this server as the main reference, `+` means that this is a good server and `-` shows an out of range server which will be neglected. 
+In this output a `*` means that the ntp is using this server as the main reference, `+` means that this is a good server and `-` shows an out of range server which will be neglected.

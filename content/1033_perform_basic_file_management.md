@@ -1,3 +1,7 @@
+Title: 103.3 Perform basic file management
+Date: 2021-08-03 13:12
+Category: 103
+
 # 103.3 Perform basic file management
 
 *Weight: 4*
@@ -48,7 +52,7 @@ drwxrwxr-x 2 jadi jadi 4096 Jan  8 16:46 newdir
 -rw-rw-r-- 1 jadi jadi   58 Jan  5 09:14 uses
 ````
 
-> First field indicates if this is a file (-) or directory (d). 
+> First field indicates if this is a file (-) or directory (d).
 
 - ````-l```` is for *long* (more info for each file)
 - ````-1```` will print one file per line
@@ -77,24 +81,24 @@ In general:
 But use common sense when answering questions or using `cp` and `mv` in real life.
 
 #### rm
-Removes (Deletes) **files**. 
+Removes (Deletes) **files**.
 
 ### General notes
 Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the `mv` will not move or rename a file if the target exists. Although this is highly dependent on your systems configuration. But in all cases you can overcome this using the ````-f```` switch.
 
 - ````-f```` (--force) will cause cp to try overwrite the target.
-- ````-i```` (--interactive) will ask Y/N question (deleting / overwriting). 
+- ````-i```` (--interactive) will ask Y/N question (deleting / overwriting).
 - ````-b```` (--backup) will make backups of overwritten files
 - ````-p```` will *preserve* the attributes.
 
 ## Creating and removing directories
-The ````mkdir```` command creates directories. 
+The ````mkdir```` command creates directories.
 
 ````
 $ ls
 howcool.sort  uses.sort
 $ mkdir dirA dirB
-$ ls -ltrh 
+$ ls -ltrh
 total 16K
 -rw-rw-r-- 1 jadi jadi   30 Jan  8 16:45 howcool.sort
 -rw-rw-r-- 1 jadi jadi   58 Jan  8 16:45 uses.sort
@@ -150,7 +154,7 @@ $ tree
 Most of the times we need to work with more than one file. This is *Linux* and there are ways!
 
 #### Recursive commands
-Recursive means going inside and inside and inside and inside! In many commands -r or -R is dedicated to recursive commands. Say ls. It uses -R : 
+Recursive means going inside and inside and inside and inside! In many commands -r or -R is dedicated to recursive commands. Say ls. It uses -R :
 
 ````
 $ ls
@@ -168,7 +172,7 @@ lastDir
 ./newDir/insideNew/lastDir:
 ````
 
-It is more useful when you are copying or deleting. When using ````cp```` or ````rm````, -r (or -R or --recursive) will copy/delete all files inside the given source. 
+It is more useful when you are copying or deleting. When using ````cp```` or ````rm````, -r (or -R or --recursive) will copy/delete all files inside the given source.
 
 ````
 $ tree mydir
@@ -211,7 +215,7 @@ As you can see we can not ````rm```` a folder but if using -r (or -R or --recurs
 > ````rm -rf /```` is EXTREMELY DANGEROUS: force delete whatever in /
 
 #### Wildcards and globbing
-This is a way to say **All files** or **everything which starts with A** or **all files with 3 letter names which end in A or B or C**. 
+This is a way to say **All files** or **everything which starts with A** or **all files with 3 letter names which end in A or B or C**.
 
 There are main cases:
 
@@ -297,7 +301,7 @@ $ find . -iname "[a-j]*"
 a common switch is ````-iname```` which says "name but case is not important (z is same as Z)". Also ````-d```` is commonly used:
 
 ````
-$ find . -iname "*my*" 
+$ find . -iname "*my*"
 ./myfiles
 ./mydata.noenter
 ./mydata
@@ -305,7 +309,7 @@ $ find . -iname "*my*"
 ./mydir/hereisMYfile.txt
 ./touch/myfile
 ./mydata.tab
-$ find . -type f -iname "*my*" 
+$ find . -type f -iname "*my*"
 ./myfiles
 ./mydata.noenter
 ./mydata
@@ -346,7 +350,7 @@ We can act on files with various switches:
 | -print | will print the full name of the files on each line|
 
 
-But the best way to run commands on found files is ````-exec```` switch. You can point to the file with **'{}'** or **\{\}** and finish your command with **\;**. 
+But the best way to run commands on found files is ````-exec```` switch. You can point to the file with **'{}'** or **\{\}** and finish your command with **\;**.
 
 This will remove all empty files in this directory and its subdirectories:
 
@@ -360,7 +364,7 @@ or this will rename all htm files to hfml
 find . -name "*.htm" -exec mv '{}' '{}l' \;
 ````
 
-At last you have to know the ````-mtime```` switch for finding files based on their time. 
+At last you have to know the ````-mtime```` switch for finding files based on their time.
 
 |switch|meanint|
 |---|---|
@@ -376,13 +380,13 @@ At last you have to know the ````-mtime```` switch for finding files based on th
 That is the ````file```` command:
 
 ````
-$ file mydata.tab 
+$ file mydata.tab
 mydata.tab: ASCII text
-$ file /bin/bash 
+$ file /bin/bash
 /bin/bash: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=cb63ec0718f2022619814c04a5b6cd8a36752a83, stripped
-$ file mydata.tab 
+$ file mydata.tab
 mydata.tab: ASCII text
-$ file /bin/bash 
+$ file /bin/bash
 /bin/bash: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=cb63ec0718f2022619814c04a5b6cd8a36752a83, stripped
 $ file -i mydir
 mydir: inode/directory; charset=binary
@@ -396,13 +400,13 @@ Compressing works best on text files.
 we mostly use `gzip` and `gunzip` in linux. It is very easy:
 
 ````
-$ ls *  -ltrh 
+$ ls *  -ltrh
 -rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
-$ gzip  The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt 
-$ ls *  -ltrh 
+$ gzip  The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+$ ls *  -ltrh
 -rw-r--r-- 1 jadi jadi  30K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz
-$ gunzip The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz 
-$ ls *  -ltrh 
+$ gunzip The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz
+$ ls *  -ltrh
 -rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
 
 ````
@@ -415,13 +419,13 @@ $ ls *  -ltrh
 is another compressing tool. Works just the same but with another compression algorithm.
 
 ````
-$ ls *  -ltrh 
+$ ls *  -ltrh
 -rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
-$ bzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt 
-$ ls *  -ltrh 
+$ bzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+$ ls *  -ltrh
 -rw-r--r-- 1 jadi jadi  22K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2
-$ bunzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2 
-$ ls *  -ltrh 
+$ bunzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2
+$ ls *  -ltrh
 -rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
 ````
 
@@ -429,7 +433,7 @@ $ ls *  -ltrh
 Sometimes we need to create an archive file from many files for easier moving or backing up. This is done with ````cpio```` and ````tar````.
 
 #### tar
-TapeARchive or tar is the most common archiving tool. In automatically create an archive file from a directory and all its subdirs. 
+TapeARchive or tar is the most common archiving tool. In automatically create an archive file from a directory and all its subdirs.
 
 
 Common switches are
@@ -442,9 +446,9 @@ Common switches are
 |-b|compress the archive with bzip2 after creating it|
 |-v|verbose! print a lot of data about what you are doing|
 |-r| append new files to the currentyp available archive|
- 
 
-> If you issue absolute paths, tar removes the starting slash (/) for safety reasons when creating an archive. If you want to override, use -p option. 
+
+> If you issue absolute paths, tar removes the starting slash (/) for safety reasons when creating an archive. If you want to override, use -p option.
 
 > tar can work with tapes and other storages. Thats why we use ````-f```` to tell it that we are working with files.
 
@@ -487,25 +491,25 @@ $ dd if=howcool of=newcool
 0+1 records in
 0+1 records out
 30 bytes (30 B) copied, 0.0227904 s, 1.3 kB/s
-$ cat newcool 
+$ cat newcool
 jadi	5
 sina	6
 rubic	2
 you 	12
-$ 
+$
 ````
 
 - ````if```` is In File
 - ````of```` is Out File
 
-But it is used in many other cases specially writing directly to block devices such as /dev/sdb or changing data to upper/lower case. 
+But it is used in many other cases specially writing directly to block devices such as /dev/sdb or changing data to upper/lower case.
 
 This will backup my whole hard to a file:
 
 ````
 # dd if=/dev/sda of=backup.dd bs=4096
 ````
- 
+
 or better:
 
 ````
@@ -539,4 +543,3 @@ $ dd if=/dev/zero of=1g.bin bs=1G count=1
 .
 
 .
-

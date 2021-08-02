@@ -1,10 +1,14 @@
+Title: 104.3. Control mounting and unmounting of filesystems
+Date: 2021-08-03 13:20
+Category: 104
+
 # 104.3. Control mounting and unmounting of filesystems
 
 weight: 3
 
 **http://j.mp/jadilpic1**
 
-Configure the mounting of a filesystem. Tasks include manually mounting and unmounting filesystems, configuring filesystem mounting on bootup, and configuring user-mountable removable filesystems. 
+Configure the mounting of a filesystem. Tasks include manually mounting and unmounting filesystems, configuring filesystem mounting on bootup, and configuring user-mountable removable filesystems.
 
 - Mount and unmount filesystems manually
 - Configure filesystem mounting on bootup
@@ -44,7 +48,7 @@ blkid /dev/sda2
 - dump: do dump command backup this? mostly 0
 - pass: Non-zero values of pass specify the order of checking filesystems at boot time (seen in Integrity of file systems)
 
-**note:** 
+**note:**
 - User-mounted filesystems default to noexec unless exec is specified after user.
 - noatime will disable recording of access times. Not using access times may improve performance.
 

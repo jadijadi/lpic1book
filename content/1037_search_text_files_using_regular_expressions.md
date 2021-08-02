@@ -1,4 +1,8 @@
-#103.7 Search text files using regular expressions
+Title: 103.7 Search text files using regular expressions
+Date: 2021-08-03 13:16
+Category: 103
+
+# 103.7 Search text files using regular expressions
 *Weight: 2*
 
 Candidates should be able to manipulate files and text data using regular expressions. This objective includes creating simple regular expressions containing several notational elements. It also includes using regular expression tools to perform searches through a filesystem or file content.
@@ -18,11 +22,11 @@ Candidates should be able to manipulate files and text data using regular expres
 ## Regex
 Regular expression, Regex, regexp is a pattern to describe what we want to *match* from a text. Here will discuss the form of regex which is used with the **grep** (generalised regular expression processor) command.
 
-> There is two kind of regex in GNU grep: Basic an Extended. 
+> There is two kind of regex in GNU grep: Basic an Extended.
 
 ### Basic blocks
 #### Adding two expressions
-If you need to add (concat) two expressions, just write them after each other. 
+If you need to add (concat) two expressions, just write them after each other.
 
 |Regex|Will match|
 |---|---|
@@ -48,9 +52,9 @@ If you say `a\|b` it will match a or b.
 #### Character Classes
 The dot (**.**) means any character. So **..** will match anything with at least two character in it. You can also create your own classes with [abc] which will match a or b or c and [a-z] which match a to z.
 
-You can also refer to digits with \d and 
+You can also refer to digits with \d and
 #### Ranges
-There are easy ways to  commonly used classes. Named classes open with [: and close with :] 
+There are easy ways to  commonly used classes. Named classes open with [: and close with :]
 
 |Range|Meaning|
 |---|---|
@@ -60,7 +64,7 @@ There are easy ways to  commonly used classes. Named classes open with [: and cl
 |[:upper:] and [:lower:]|Upper and lower case letters, respectively.|
 |^ (negation)|As the first character after [ in a character class negates the sense of the remaining characters|
 
-> A common form is .* which matches any character (zero or any length). 
+> A common form is .* which matches any character (zero or any length).
 
 #### Matching specific locations
 - The caret **^** means beginning of the string
@@ -75,13 +79,13 @@ There are easy ways to  commonly used classes. Named classes open with [: and cl
 
 
 ## grep
-The `grep` command can search inside the files. 
+The `grep` command can search inside the files.
 
 ````
-$ grep p friends 
+$ grep p friends
 payam
 pedram
-$ 
+$
 ````
 
 There are the most important switches:
@@ -113,7 +117,7 @@ what_I_have.txt
 $ grep p * -c
 friends:2
 what_I_have.txt:3
-$ 
+$
 ````
 
 > If is very common to combine grep and find: `find . -type f -print0 | xargs -0 grep -c a | grep -v ali` # find all files with **a** in them but not **ali**`
@@ -125,10 +129,10 @@ Extended grep is a GNU extension. It does not need the escaping and much easier.
 If you need to search the exact string (and not interpret it as a regex), use `grep -F` or `fgrep` so the `fgrep this$` wont go for the end of the line and will find *this$that* too.
 
 ## sed
-In previous lessons we saw simple `sed` usage. Here I have great news for you: **sed understands regex**! If is good to use `-r` switch to tell sed that we are using them. 
+In previous lessons we saw simple `sed` usage. Here I have great news for you: **sed understands regex**! If is good to use `-r` switch to tell sed that we are using them.
 
 ````
-$ sed -r "s/^(a|b)/STARTS WITH A OR B/" friends 
+$ sed -r "s/^(a|b)/STARTS WITH A OR B/" friends
 STARTS WITH A OR Bmir
 mina
 jadi
@@ -145,7 +149,7 @@ Main switches:
 |-n|suppress output, you can use p at the end of your regex ( /something/p ) to print the output|
 
 ````
-$ sed -rn "/^(a|b)/p" friends 
+$ sed -rn "/^(a|b)/p" friends
 amir
 bita
 ali

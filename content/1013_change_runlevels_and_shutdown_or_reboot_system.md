@@ -1,3 +1,7 @@
+Title: 101.3. Change runlevels and shutdown or reboot system
+Date: 2021-08-03 13:04
+Category: 101
+
 # 101.3. Change runlevels and shutdown or reboot system
 weight: 3
 
@@ -41,7 +45,7 @@ or using the runleveland telinit commands:
 ````
 # runlevel
 N 3
-# telinit 5 
+# telinit 5
 # runlevel
 3 5
 
@@ -115,16 +119,16 @@ this is the format:
 * runlevels: which runlevel this commands refers to (empty means all)
 * action: respawn, wait, once, initdefault (default run level as seen above), ctrlaltdel (what to do with crrl+alt+delete)
 
-all scripts are here: 
+all scripts are here:
 
     ls -ltrh /etc/init.d
-    
+
 and start/stop on runlevels are controlled from these directories:
 
     root@funlife:~# ls /etc/rc2.d/
 
 ### Shutdown
-The preferred method to shut down or reboot the system is to use the shutdown command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 5 seconds, or another delay if specified, init sends a SIGKILL signal to forcibly end each remaining process. 
+The preferred method to shut down or reboot the system is to use the shutdown command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 5 seconds, or another delay if specified, init sends a SIGKILL signal to forcibly end each remaining process.
 
 * default is 5 seconds delay and then going to runlevel 1
 * -h will halt the system
@@ -136,7 +140,7 @@ The preferred method to shut down or reboot the system is to use the shutdown co
       shutdown -r 60 Reloading updated kernel
 
 for more advance users:
-* -t60 will delay 60 seconds between SIGTERM and SIGKILL 
+* -t60 will delay 60 seconds between SIGTERM and SIGKILL
 * if you cancel a shutdown, users wont get the news! you can use "wall" command to tell them that the shutdown is canceled
 
 ### Halt, reboot and poweroff
@@ -153,10 +157,10 @@ jobs are defined in /etc/init and subdirectories.
 
     initctl list
 
-being used in ubuntu. 
+being used in ubuntu.
 
 ### systemd
-uses sockets and a socket will be open for each daemon process but will start the daemon only when needed. Understands dependencies. Faster and parallel. 
+uses sockets and a socket will be open for each daemon process but will start the daemon only when needed. Understands dependencies. Faster and parallel.
 
     systemctl
 
@@ -183,9 +187,3 @@ being used in Fedora based systems and SUSE
 
 .
 .
-
-
-
-
-
-

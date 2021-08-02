@@ -1,3 +1,7 @@
+Title: 104.5 Manage file permissions and ownership
+Date: 2021-08-03 13:22
+Category: 104
+
 # 104.5 Manage file permissions and ownership
 *Weight: 3*
 
@@ -17,7 +21,7 @@ Candidates should be able to control file access through the proper use of permi
 - chgrp
 
 ## Users and Groups
-A linux system can have many users and many groups. You can login with one user and use `su` command to change to another group. Each user belongs to one primary group and can be a member of other groups too. 
+A linux system can have many users and many groups. You can login with one user and use `su` command to change to another group. Each user belongs to one primary group and can be a member of other groups too.
 
 There commands like `whoami`, `groups` and `id` to determine who you are.
 
@@ -29,7 +33,7 @@ jadi adm cdrom sudo dip plugdev netdev lpadmin sambashare debian-tor
 - $ id
 uid=1000(jadi) gid=1000(jadi) groups=1000(jadi),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),102(netdev),108(lpadmin),124(sambashare),125(debian-tor)
 - $ su root -
-Password: 
+Password:
 bash: cannot set terminal process group (-1): Inappropriate ioctl for device
 bash: no job control in this shell
 - # id
@@ -51,7 +55,7 @@ lpadmin:x:108:jadi
 ````
 
 ## File ownership & permissions
-Files are also belong to one user and one group. 
+Files are also belong to one user and one group.
 
 ````
 $ ls -l /sbin/fdisk ~/w/lpic/notes.txt
@@ -59,7 +63,7 @@ $ ls -l /sbin/fdisk ~/w/lpic/notes.txt
 -rwxr-xr-x 1 root root 267176 Oct 15 18:58 /sbin/fdisk
 ````
 
-As you can see, the notes.txt belongs to jadi and a group called *users*. 
+As you can see, the notes.txt belongs to jadi and a group called *users*.
 
 > In many distros, when you create a user, system creates a group with same name and assign that users files to that group
 
@@ -73,16 +77,16 @@ Another part of the `ls -l` command shows the permissions on that file. Linux sy
 |8,9,10|read, write and execute access for other users|
 |11|Indicated if any other access methos (such as SELinux) applies to this file - not part of the 101 exam|
 
-As you can see in our example, characters 2 to 10 show the accesses. A `-` there means "no access on this part" and read, write and execute are shown by r, w & x. 
+As you can see in our example, characters 2 to 10 show the accesses. A `-` there means "no access on this part" and read, write and execute are shown by r, w & x.
 
 In the following line:
 
 ````
-$ ls -l /sbin/fdisk 
+$ ls -l /sbin/fdisk
 -rwxr-xr-x 1 root root 267176 Oct 15 18:58 /sbin/fdisk
 ````
 
-We can see that the fdisk can be read, written and and be executed by its owner (root), only be read and executed by whoever is part of group root and be read and executed by all other users. 
+We can see that the fdisk can be read, written and and be executed by its owner (root), only be read and executed by whoever is part of group root and be read and executed by all other users.
 
 >although non-root users can execute the fdisk, this program wont do much if it sees that a non root user is running it.
 
@@ -94,7 +98,7 @@ total 12
 drwxr-xr-x 160 jadi jadi 12288 Feb  7 11:44 jadi
 ````
 
-The first character is a `d` so this is a directory! The owner (jadi) has read, write and execute access but other members of the **group** jadi and **others** only have read and execute access on this directory (execute means that they can see the files inside it). 
+The first character is a `d` so this is a directory! The owner (jadi) has read, write and execute access but other members of the **group** jadi and **others** only have read and execute access on this directory (execute means that they can see the files inside it).
 
 ## Chanhging permissions
 It is possible to change the permissions on files & directories using the `chmod` command. There are to ways to tell this command what you want to do:
@@ -118,28 +122,28 @@ When using octal codes, you have to to create an octal string to tell chmod what
 So if you want to give rwx to owner, rx to group and only x to others, you have to use 751:
 
 ````
-$ ls -ltrh myfile 
+$ ls -ltrh myfile
 -rw-rw-r-- 1 jadi jadi 0 Feb  8 21:01 myfile
-$ chmod 751 myfile 
-$ ls -ltrh myfile 
+$ chmod 751 myfile
+$ ls -ltrh myfile
 -rwxr-x--x 1 jadi jadi 0 Feb  8 21:01 myfile
 ````
 
-But there is also an *easier* method. You can use `+x` to give execute permission, `+r` to give read permission and `+w` to give read permission. Removing these permissions will be like `-r`. 
+But there is also an *easier* method. You can use `+x` to give execute permission, `+r` to give read permission and `+w` to give read permission. Removing these permissions will be like `-r`.
 
 ````
-$ ls -ltrh myfile 
+$ ls -ltrh myfile
 -rwxr-x--x 1 jadi jadi 0 Feb  8 21:01 myfile
-$ chmod u-x myfile 
-$ ls -ltrh myfile 
+$ chmod u-x myfile
+$ ls -ltrh myfile
 -rw-r-x--x 1 jadi jadi 0 Feb  8 21:01 myfile
-$ chmod +x myfile 
-$ chmod uo+xr myfile 
-$ ls -ltrh myfile 
+$ chmod +x myfile
+$ chmod uo+xr myfile
+$ ls -ltrh myfile
 -rwxr-xr-x 1 jadi jadi 0 Feb  8 21:01 myfile
 ````
 
-> you can tell `chmod` whos permission should be granted or removed by doing things like `u+r` (give read to user), `og-w` (remove write for other and group). 
+> you can tell `chmod` whos permission should be granted or removed by doing things like `u+r` (give read to user), `og-w` (remove write for other and group).
 
 One very common switch on `chmod` is `-R` for recursive chmoding on files. This will give read permission of all files inside /tmp/ to any user:
 
@@ -154,20 +158,20 @@ So you have access only to your files. But how you should change your password? 
 Normally when you run a program, it runs with *your* access levels but linux has two special bits on each file; **suid** (set user id) and **guid** (set group id). If these are set on a file, that file be will be executed with the access of the **owner** of the file and not the user who is running it.
 
 ````
-$ ls -ltrh /usr/bin/passwd 
+$ ls -ltrh /usr/bin/passwd
 -rwsr-xr-x 1 root root 50K Jul 18  2014 /usr/bin/passwd
 ````
 
-Did you note the `s` in the place of *executable bit* for the user and for the group? That means when any user runs this program, it will be run be the access of the owner of the file (which is root) instead of that users id. 
+Did you note the `s` in the place of *executable bit* for the user and for the group? That means when any user runs this program, it will be run be the access of the owner of the file (which is root) instead of that users id.
 
-It is possible to set / unser the suid and sgid using `chmod` and `+s` or `-s` instead of `x`. 
+It is possible to set / unser the suid and sgid using `chmod` and `+s` or `-s` instead of `x`.
 
-The last special option is `chmod` is the **sticky bit** which lets only the owner of the file to delete it, even if other users have write (delete) access on that directory. This is good for places like /tmp. 
+The last special option is `chmod` is the **sticky bit** which lets only the owner of the file to delete it, even if other users have write (delete) access on that directory. This is good for places like /tmp.
 
 Sticky bit is identified by `t` and will be shown on the last bit of a directory:
 
 ````
-$ ls -dl /tmp 
+$ ls -dl /tmp
 drwxrwxrwt 13 root root 77824 Feb  8 21:27 /tmp
 ````
 
@@ -192,21 +196,21 @@ $ umask
 ````
 
 Which removes write (2) permissions from files.
- 
+
 If we need to change umask, it can be done with the same command:
 
 ````
 $ umask
 0002
 $ touch newfile
-$ ls -ltrh newfile 
+$ ls -ltrh newfile
 -rw-rw-r-- 1 jadi jadi 0 Feb  8 21:38 newfile
 $ mkdir newdir
 $ ls -ltrhd newdir
 drwxrwxr-x 2 jadi jadi 4.0K Feb  8 21:38 newdir
 $ umask u=rw,g=,o=
 $ touch newerfile
-$ ls -l newerfile 
+$ ls -l newerfile
 -rw------- 1 jadi jadi 0 Feb  8 21:41 newerfile
 $ umask
 0177
@@ -218,13 +222,13 @@ $ umask
 If you need to change the ownership or group belonging of a file or directory, use the `chown` command:
 
 ````
-$ ls -ltrh newfile 
+$ ls -ltrh newfile
 -rw-rw-r-- 1 jadi jadi 0 Feb  8 21:38 newfile
 $ chown root:root newfile
 chown: changing ownership of ‘newfile’: Operation not permitted
 $ sudo chown root:root newfile
-[sudo] password for jadi: 
-$ ls -ltrh newfile 
+[sudo] password for jadi:
+$ ls -ltrh newfile
 -rw-rw-r-- 1 root root 0 Feb  8 21:38 newfile
 ````
 
@@ -233,8 +237,8 @@ A common switch is `-R` to do the chown recursively and the general style is `ch
 There is also a command specially for changing the group:
 
 ````
-$ sudo chgrp postgres newfile 
-$ ls -ltrh newfile 
+$ sudo chgrp postgres newfile
+$ ls -ltrh newfile
 -rw-rw-r-- 1 root postgres 0 Feb  8 21:38 newfile
 ````
 
@@ -242,7 +246,7 @@ If a user is member of different groups, she can change her **default group** us
 
 ````
 $ touch newfile
-$ ls -ltrh newfile 
+$ ls -ltrh newfile
 -rw------- 1 jadi jadi 0 Feb  8 21:53 newfile
 $ groups
 jadi adm cdrom sudo dip plugdev netdev lpadmin sambashare debian-tor
@@ -252,5 +256,3 @@ $ ls -ltrh new*
 -rw------- 1 jadi jadi 0 Feb  8 21:53 newfile
 -rw------- 1 jadi adm  0 Feb  8 21:54 newerfile
 ````
-
-

@@ -1,4 +1,8 @@
-#106.2 Setup a display manager
+Title: 106.2 Setup a display manager
+Date: 2021-08-03 13:27
+Category: 106
+
+# 106.2 Setup a display manager
 *Weight: 1*
 
 Candidates should be able to describe the basic features and configuration of the LightDM display manager. This objective covers awareness of the display managers XDM (X Display Manger), GDM (Gnome Display Manager) and KDM (KDE Display Manager).
@@ -19,10 +23,10 @@ A **Display Manager** is a graphical interface which lets you login into your sy
 ## lightdm
 Many of the distros use **LightDM** as their display/login manager. It shows the default user (last logged in user) and asks for password. If you have more than one desktop installed (say XFCE, KDE and Gnome) it also lets you choose the one you need.
 
-*lightdm* can accept *themes* and calls them *greeters*. 
+*lightdm* can accept *themes* and calls them *greeters*.
 
 ## /etc/lightdm
-All of the lightdm configs are in `/etc/lightdm`. 
+All of the lightdm configs are in `/etc/lightdm`.
 
 ````
 $ ls -ltrh /etc/lightdm/
@@ -34,7 +38,7 @@ total 24K
 -rw-r--r-- 1 root root 6.5K Sep 27 13:08 lightdm.conf
 ````
 
-Some distributions like Ubuntu are using a `lightdm.conf.d` directory instead of a straight forward `lightdm.conf` and put their configs there. 
+Some distributions like Ubuntu are using a `lightdm.conf.d` directory instead of a straight forward `lightdm.conf` and put their configs there.
 
 ````
 [SeatDefaults]
@@ -47,11 +51,9 @@ greeter-session=lightdm-webkit2-greeter
 ...
 ````
 
-The `greeter-session` tells which greeter (theme) should be used. You can install more greeters using your package manager. Another important config is `user-session` which tells the lightdm what desktop is the default one. 
+The `greeter-session` tells which greeter (theme) should be used. You can install more greeters using your package manager. Another important config is `user-session` which tells the lightdm what desktop is the default one.
 
 ## controlling DMs
-The `lightdm` works as a service. You can start, stop & restart it or even use `systemctl disable lightdm` to disable it on next boots. 
+The `lightdm` works as a service. You can start, stop & restart it or even use `systemctl disable lightdm` to disable it on next boots.
 
-> You already know how to reboot your computer in text mode from previous lessons (using grub, kernel parameters during the boot or using `init` command). 
-
-
+> You already know how to reboot your computer in text mode from previous lessons (using grub, kernel parameters during the boot or using `init` command).

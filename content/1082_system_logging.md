@@ -1,4 +1,8 @@
-#108.2 System logging
+Title: 108.2 System logging
+Date: 2021-08-03 13:33
+Category: 108
+
+# 108.2 System logging
 *Weight: 3*
 
 Candidates should be able to configure the syslog daemon. This objective also includes configuring the logging daemon to send log output to a central log  server or accept log output as a central log server. Use of the systemd journal subsystem is covered. Also, awareness of rsyslog and syslog-ng as alternative logging systems is included.
@@ -49,7 +53,7 @@ kern.panic      @192.168.1.100
 
 If you log some specific priority, all the **more important** things will be logged too! So if you write `cron.notice   /var/log/cron/log`, you are logging the emerg/panic, alert, critical, error, warning and notice logs of the cron category too.
 
-> If you need to log ONLY one specific level, add an equal sign (=) before the priority like this `local3.=alert    /var/log/user.alert.log`. 
+> If you need to log ONLY one specific level, add an equal sign (=) before the priority like this `local3.=alert    /var/log/user.alert.log`.
 
 It is important to know that the binary which logs the **kern* category is a standalone daemon. This daemon is called `klogd` and uses same configuration files. Why? so even after everything is crashed, klogd can log the kernel crashes ;)
 
@@ -79,7 +83,7 @@ Again there is a `/etc/rsyslog.d/` and it is better for different softwares and 
 If you need to start a rsylog listener and catch other systems log messages, it is enough to add an `-r` switch to rsyslog options. Just edit the  `/etc/default/rsyslog` and change options from `""` to `"-r"`.
 
 ````
-cat /etc/default/rsyslog 
+cat /etc/default/rsyslog
 # Options for rsyslogd
 # -x disables DNS lookups for remote messages
 # See rsyslogd(8) for more details
@@ -95,7 +99,7 @@ and restart the daemon:
 The newer distributions are switching to **systemd** and are using **systemd journal** for their logging. As I mentioned earlier the systemd keeps its logs as binary files and the user should use the `journalctl` to access them.
 
 ````
-# journalctl 
+# journalctl
 -- Logs begin at Sun 2016-01-03 10:35:53 IRST, end at Tue 2016-01-05 22:34:06 IRST. --
 Jan 03 10:35:53 funlife systemd-journald[184]: Runtime journal (/run/log/journal/) is currently using 8.0M.
                                                Maximum allowed usage is set to 238.1M.
@@ -111,7 +115,7 @@ Jan 03 10:35:53 funlife kernel: Disabled fast string operations
 
 > At the moment, most new systems use `systemd` and `journalctl` but also have `rsyslog` installed and are logging information in both systems.
 
-The config file of journalctl is located at `/etc/systemd/journald.conf`. 
+The config file of journalctl is located at `/etc/systemd/journald.conf`.
 
 ## logger
 
@@ -124,10 +128,10 @@ and this will appear at `/var/log/syslog`.
 
 ## logrotate
 
-Now we are generating a lot of logs. What should we do with them? How they should be archived? The `logrotate` utility assists us in this area. Its main config file is `/etc/logrotate.conf` and as any modern program, other config files can go into `/etc/logrotate.d/`. 
+Now we are generating a lot of logs. What should we do with them? How they should be archived? The `logrotate` utility assists us in this area. Its main config file is `/etc/logrotate.conf` and as any modern program, other config files can go into `/etc/logrotate.d/`.
 
 ````
-# cat /etc/logrotate.conf 
+# cat /etc/logrotate.conf
 # see "man logrotate" for details
 # rotate log files weekly
 weekly
@@ -196,4 +200,4 @@ These are the meaning of some of these parameters:
 |create 0640 www-data adm|create the files with this access and owners|
 |pre & post rotate|run these scripts or commands before and after the rotation|
 
-This configuration will create a zipped file for each week, keeping only 52 of them instead of a huge log file for this program. 
+This configuration will create a zipped file for each week, keeping only 52 of them instead of a huge log file for this program.

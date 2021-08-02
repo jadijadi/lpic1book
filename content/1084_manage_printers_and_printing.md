@@ -1,3 +1,7 @@
+Title: 108.4 Manage printers and printing
+Date: 2021-08-03 13:35
+Category: 108
+
 # 108.4 Manage printers and printing
 
 _Weight: 2_
@@ -109,7 +113,7 @@ active  unknown 1       unknown                         7168 bytes
 This command is used to send a job to a printer. Again the printer is specified by `-P`.
 
 ```
-$ lpr -PApple-Dot-Matrix for_print.txt 
+$ lpr -PApple-Dot-Matrix for_print.txt
  lpq
 Apple-Dot-Matrix is ready and printing
 Rank    Owner   Job     File(s)                         Total Size
@@ -185,6 +189,3 @@ Apple-Dot-Matrix:
     2 entries
     daemon present
 ```
-
-
-

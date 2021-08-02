@@ -1,4 +1,8 @@
-#110.3 Securing data with encryption
+Title: 110.3 Securing data with encryption
+Date: 2021-08-03 13:41
+Category: 110
+
+# 110.3 Securing data with encryption
 *Weight: 3*
 
 The candidate should be able to use public key techniques to secure data and communication.
@@ -22,9 +26,9 @@ The candidate should be able to use public key techniques to secure data and com
 - ssh_known_hosts
 - gpg
 - ~/.gnupg/
- 
+
 ### Key Pairs
-In traditional cryptography the symetric keys were used: both parties had a shared password; the files were encrypted with that password and then decrypted using the same password. These years the KeyPairs are becomming more and more common. When generating a key pair, we generate two keys using a computer algorithm in the way that any message which is encrypted using one, can be opened only using the other key. These are called Public & Private key. You publish the public key to your friends and even the strangers and if they need to send an ecrypted message to you, scramble it using YOUR public key and send it to you. After receiving it, you open the file using your PRIVATE key. 
+In traditional cryptography the symetric keys were used: both parties had a shared password; the files were encrypted with that password and then decrypted using the same password. These years the KeyPairs are becomming more and more common. When generating a key pair, we generate two keys using a computer algorithm in the way that any message which is encrypted using one, can be opened only using the other key. These are called Public & Private key. You publish the public key to your friends and even the strangers and if they need to send an ecrypted message to you, scramble it using YOUR public key and send it to you. After receiving it, you open the file using your PRIVATE key.
 
 > great point about Public / Private key is that the data can be transmitted over the internet with no fear of hackers or governments. You are publishing your key to the word, some one picks it and uses it to encrypt some data and sent the result to you. People can see that you are receiving "some data" but they can not encrypt it because they do not have the private key needed to decrypt it.
 
@@ -33,12 +37,12 @@ In traditional cryptography the symetric keys were used: both parties had a shar
 Before using keys, we have to generate them. This task is as simple as running one command:
 
 ````
-$ ssh-keygen 
+$ ssh-keygen
 Generating public/private rsa key pair.
-Enter file in which to save the key (/home/jadi/.ssh/id_rsa): 
+Enter file in which to save the key (/home/jadi/.ssh/id_rsa):
 Created directory '/home/jadi/.ssh'.
-Enter passphrase (empty for no passphrase): 
-Enter same passphrase again: 
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
 Your identification has been saved in /home/jadi/.ssh/id_rsa.
 Your public key has been saved in /home/jadi/.ssh/id_rsa.pub.
 The key fingerprint is:
@@ -60,9 +64,9 @@ The key's randomart image is:
 > The above process asked for a prassphrase. It is used to secure our key. You can create a password and it will be asked each time you want to use this key.
 
 We have the option to generate keys using different algorithsm, here I used the default RSA and these two keys are created in `~/.ssh/`:
- 
+
 ````
-[jadi@localhost ~]$ ls .ssh -ltrh 
+[jadi@localhost ~]$ ls .ssh -ltrh
 total 8.0K
 -rw-r--r--. 1 jadi jadi  408 Jun 15 13:58 id_rsa.pubss
 -rw-------. 1 jadi jadi 1.7K Jun 15 13:58 id_rsa
@@ -72,7 +76,7 @@ As soon as we ssh to any server, a file called `known_hosts` will save that site
 
 ````
  ssh-copy-id 10.0.2.15
-jadi@10.0.2.15's password: 
+jadi@10.0.2.15's password:
 Now try logging into the machine, with "ssh '10.0.2.15'", and check in:
 
   .ssh/authorized_keys
@@ -86,7 +90,7 @@ There is a keypair called `/etc/ssh_host_rsa_key` and `/etc/ssh_host_rsa_key.pub
 
 
 ### ssh tunnels
-We have already discussed X forwarding. 
+We have already discussed X forwarding.
 
 ### encryption using gpg
 A software called `gpg` lets us use public and private keys to encrypt our data. At the beginning we have to create a key pair:
@@ -119,7 +123,7 @@ and give the `file.txt.encrypted` to us. For openning it, we just need to:
 gpg --out out.txt --decrypt file.txt.encrypted
 ````
 
-and Done! 
+and Done!
 
 > As you saw, the public keys should be shared. The B party uses A parties public key to encrypt a data and A party uses his Private key to open it.
 

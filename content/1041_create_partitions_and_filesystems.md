@@ -1,3 +1,7 @@
+Title: 104.1. Create partitions and filesystems
+Date: 2021-08-03 13:18
+Category: 104
+
 # 104.1. Create partitions and filesystems
 
 *Weight: 2*
@@ -22,7 +26,7 @@ Is a technical term for any storage device which can be formatted to fixed sized
 In long ls format, the first **b** indicates Block Device:
 
 ```
-$ ls -l /dev/loop1  /dev/sd[a-z] 
+$ ls -l /dev/loop1  /dev/sd[a-z]
 brw-rw---- 1 root disk 7, 1 Jan  8 10:46 /dev/loop1
 brw-rw---- 1 root disk 8, 0 Jan  8 10:46 /dev/sda
 ```
@@ -151,7 +155,7 @@ Partition type
    l   logical (numbered from 5)
 Select (default p): p
 Partition number (1,4, default 1): 1
-First sector (2048-625142447, default 2048): 
+First sector (2048-625142447, default 2048):
 Last sector, +sectors or +size{K,M,G,T,P} (2048-43094015, default 43094015): +15G
 
 Created a new partition 1 of type 'Linux' and of size 15 GiB.
@@ -193,7 +197,7 @@ Device     Boot     Start       End   Sectors   Size Id Type
 
 Command (m for help): t
 Partition number (1-3,5,6, default 6): 1
-Hex code (type L to list all codes): L 
+Hex code (type L to list all codes): L
 
  0  Empty           24  NEC DOS         81  Minix / old Lin bf  Solaris        
  1  FAT12           27  Hidden NTFS Win 82  Linux swap / So c1  DRDOS/sec (FAT-
@@ -215,7 +219,7 @@ Hex code (type L to list all codes): L
 12  Compaq diagnost 5c  Priam Edisk     a9  NetBSD          f4  SpeedStor      
 14  Hidden FAT16 <3 61  SpeedStor       ab  Darwin boot     f2  DOS secondary  
 16  Hidden FAT16    63  GNU HURD or Sys af  HFS / HFS+      fb  VMware VMFS    
-17  Hidden HPFS/NTF 64  Novell Netware  b7  BSDI fs         fc  VMware VMKCORE 
+17  Hidden HPFS/NTF 64  Novell Netware  b7  BSDI fs         fc  VMware VMKCORE
 18  AST SmartSleep  65  Novell Netware  b8  BSDI swap       fd  Linux raid auto
 1b  Hidden W95 FAT3 70  DiskSecure Mult bb  Boot Wizard hid fe  LANstep        
 1c  Hidden W95 FAT3 75  PC/IX           be  Solaris boot    ff  BBT            
@@ -276,7 +280,7 @@ Linux can handle more than 100 kind of partitions but most commons are:
 You can format your partitions with `mkfs` command (and `mkswap` for swap). This is a front end to commands like  mkfs.ext3 for ext3, mkfs.ext4 for ext4 and mkfs.reiserfs for ReiserFS. full list of installed on your system is here:
 
 ```
-root@funlife:~# ls /sbin/mk* 
+root@funlife:~# ls /sbin/mk*
 /sbin/mkdosfs  /sbin/mkfs      /sbin/mkfs.cramfs  /sbin/mkfs.ext3  /sbin/mkfs.ext4dev  /sbin/mkfs.minix  /sbin/mkfs.ntfs  /sbin/mkhomedir_helper  /sbin/mkswap
 /sbin/mke2fs   /sbin/mkfs.bfs  /sbin/mkfs.ext2    /sbin/mkfs.ext4  /sbin/mkfs.fat      /sbin/mkfs.msdos  /sbin/mkfs.vfat  /sbin/mkntfs
 
@@ -292,8 +296,8 @@ mke2fs 1.42.10 (18-May-2014)
 Proceed anyway? (y,n) y
 Creating filesystem with 5386496 4k blocks and 1349040 inodes
 Filesystem UUID: 0b5aad86-b507-41b9-a0ff-cf899cb92785
-Superblock backups stored on blocks: 
-	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
+Superblock backups stored on blocks:
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
 	4096000
 
 Allocating group tables: done                            
@@ -301,7 +305,7 @@ Writing inode tables: done
 Creating journal (32768 blocks): done
 Writing superblocks and filesystem accounting information: done   
 
-root@funlife:~# 
+root@funlife:~#
 ```
 
 > This will have a same effect: `mkfs.ext3 /dev/sda1`
@@ -310,7 +314,7 @@ If you need to assign a lable to the partition, you have to use the `-L lable_na
 
 ```
 $ blkid /dev/sda1
-/dev/sda1: UUID="59d8cbdb-0e78-4605-8aaf-cf02fcb85d2e" SEC_TYPE="ext2" TYPE="ext3" 
+/dev/sda1: UUID="59d8cbdb-0e78-4605-8aaf-cf02fcb85d2e" SEC_TYPE="ext2" TYPE="ext3"
 ```
 ## GPT
 Some systems use GUID Partition Table (GPT) instead of older MBR. In this case you have to use the `gdisk` tool which has more capabilities than `fdisk`.

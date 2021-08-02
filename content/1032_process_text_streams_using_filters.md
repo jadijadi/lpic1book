@@ -1,4 +1,8 @@
-103.2. Process text streams using filters
+Title: 103.2. Process text streams using filters
+Date: 2021-08-03 13:11
+Category: 103
+
+# 103.2. Process text streams using filters
 
 *Weight: 3*
 
@@ -28,18 +32,18 @@ Description: Candidates should be able to apply filters to text streams.
 - wc
 
 ## Streams
-In **UNIX** world a lot of data is in TEXT form. Log files, configurations, user inputs,  list of files, ... . **Filtering** this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a **streams** is nothing more than *"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"*. 
+In **UNIX** world a lot of data is in TEXT form. Log files, configurations, user inputs,  list of files, ... . **Filtering** this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a **streams** is nothing more than *"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"*.
 
-In simple words, a text stream is an input of text from keyboard, a file, a network device, .. and filtering it is automatically changing it. 
+In simple words, a text stream is an input of text from keyboard, a file, a network device, .. and filtering it is automatically changing it.
 
 As you saw in previous section, modern programming environments and shells (including bash) use three standard I/O streams:
 
 - **stdin** is the standard input stream, which provides input to commands.
 - **stdout** is the standard output stream, which displays output from commands.
-- **stderr** is the standard error stream, which displays error output from commands 
+- **stderr** is the standard error stream, which displays error output from commands
 
 ## Piping ( | )
-In *normal* cases, you give input from keyboard and output to the monitor. But in real life of a system admin, most inputs come from another commands. If you want to give the output of ````command1```` as the input of ````command2````, you should **PIPE** them as ````command1 | command2````. 
+In *normal* cases, you give input from keyboard and output to the monitor. But in real life of a system admin, most inputs come from another commands. If you want to give the output of ````command1```` as the input of ````command2````, you should **PIPE** them as ````command1 | command2````.
 
 
 > this | looks like a pipe!
@@ -67,7 +71,7 @@ amir
 Another useful way of controlling the streams is ````>````. This help you to redirect your output (mostly to a file).
 
 ````
-jadi@funlife:~/w/lpic/101$ ls -ltrh 
+jadi@funlife:~/w/lpic/101$ ls -ltrh
 total 0
 -rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 12
 -rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 62
@@ -76,7 +80,7 @@ total 0
 -rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 you
 -rw-rw-r-- 1 jadi jadi 0 Jan  4 17:34 amir
 jadi@funlife:~/w/lpic/101$ ls -ltrh > directory_data
-jadi@funlife:~/w/lpic/101$ cat directory_data 
+jadi@funlife:~/w/lpic/101$ cat directory_data
 total 0
 -rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 12
 -rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 62
@@ -95,18 +99,18 @@ jadi@funlife:~/w/lpic/101$ cat > mydata
 test
 this is the second line
 bye
-jadi@funlife:~/w/lpic/101$ cat mydata 
+jadi@funlife:~/w/lpic/101$ cat mydata
 test
 this is the second line
 bye
 ````
 
-> When inputting data, ````ctrl+d```` will end the stream. 
+> When inputting data, ````ctrl+d```` will end the stream.
 
 it is also possible to add files to each other using cat:
 
 ````
-jadi@funlife:~/w/lpic/101$ cat mydata directory_data 
+jadi@funlife:~/w/lpic/101$ cat mydata directory_data
 test
 this is the second line
 bye
@@ -124,7 +128,7 @@ total 0
 This command *dump*s files (shows files in formats other than text). Normal behaviour is OctalDump (base 8):
 
 ````
-jadi@funlife:~/w/lpic/101$ od mydata 
+jadi@funlife:~/w/lpic/101$ od mydata
 0000000 062564 072163 072012 064550 020163 071551 072040 062550
 0000020 071440 061545 067543 062156 066040 067151 005145 074542
 0000040 005145
@@ -138,10 +142,10 @@ Not good.. lets use two switches:
 > ````od```` is very useful to find problems in your text files - say finding out if you are using tabs or correct line endings
 
 ## split
-Will split files. It is very useful for transferring HUGE files on smaller media (say splitting a 3TB file to 8GB parts and moving them to another machine with a USB Disk). 
+Will split files. It is very useful for transferring HUGE files on smaller media (say splitting a 3TB file to 8GB parts and moving them to another machine with a USB Disk).
 
 ````
-jadi@funlife:~/w/lpic/101$ cat mydata 
+jadi@funlife:~/w/lpic/101$ cat mydata
 hello
 this is second line
 but as you can see we are
@@ -153,7 +157,7 @@ and longer
 and longer!
 jadi@funlife:~/w/lpic/101$ ls
 mydata
-jadi@funlife:~/w/lpic/101$ split -l 2 mydata 
+jadi@funlife:~/w/lpic/101$ split -l 2 mydata
 jadi@funlife:~/w/lpic/101$ ls
 mydata	xaa  xab  xac  xad  xae
 jadi@funlife:~/w/lpic/101$ cat xab
@@ -171,27 +175,27 @@ still writing
 wc is *word count*. It counts the lines, words and bytes in the input stream.
 
 ````
-jadi@funlife:~/w/lpic/101$ wc mydata 
+jadi@funlife:~/w/lpic/101$ wc mydata
   9  25 121 mydata
 ````
 
->It is very normal to count the line numbers with ````-l```` switch. 
+>It is very normal to count the line numbers with ````-l```` switch.
 
 ## head & tail
-Shows the *head* (top) of a file or its *tail* (bottom). The default lines to show is 10 but you can specify with ````-n20```` or ````-20````. 
+Shows the *head* (top) of a file or its *tail* (bottom). The default lines to show is 10 but you can specify with ````-n20```` or ````-20````.
 
->````tali -f```` will continue showing the new lines which are being written at the eng of the file. Very useful. 
+>````tali -f```` will continue showing the new lines which are being written at the eng of the file. Very useful.
 
 ## expand & unexpand & tr
 Expand will replace the tabs in a stream with spaces (normally 8 but can be defined with -n12 for 12):
 
 ````
-jadi@funlife:~/w/lpic/101$ cat howcool 
+jadi@funlife:~/w/lpic/101$ cat howcool
 jadi	5
 sina	6
 rubic	2
 you 	12
-jadi@funlife:~/w/lpic/101$ od -tc howcool 
+jadi@funlife:~/w/lpic/101$ od -tc howcool
 0000000   j   a   d   i  \t   5  \n   s   i   n   a  \t   6  \n   r   u
 0000020   b   i   c  \t   2  \n   y   o   u      \t   1   2  \n
 0000036
@@ -209,7 +213,7 @@ Unexpand will do the reverse. The default is converting only the initial blanks 
 The ````tr```` command *translates* A to 1, B to 2 and C to 3 in a stream you have to ````tr 'ABC' '123'````. It is a pure filter so if you need to give it file to work on, you have to use cat:
 
  ````
-jadi@funlife:~/w/lpic/101$ cat mydata 
+jadi@funlife:~/w/lpic/101$ cat mydata
 hello
 this is second line
 but as you can see we are
@@ -234,7 +238,7 @@ AND loNger!
 >Note: all **a**s are replaced with **A**.
 
 ## -
-You should know that if you put ````-```` instead of a filename, the data will be replaced from the pipe (or keyboard stdin). 
+You should know that if you put ````-```` instead of a filename, the data will be replaced from the pipe (or keyboard stdin).
 
 ````
 jadi@funlife:~/w/lpic/101$ wc -l mydata | cat mydata - mydata  
@@ -263,7 +267,7 @@ and longer!
 this formats text for classic *printers*. The default header includes the filename and file creation date and time, along with a page number and two lines of blank footer.
 
 ````
-pr mydata 
+pr mydata
 
 
 2015-01-04 17:58                      mydata                      Page 1
@@ -280,12 +284,12 @@ and longer
 and longer!
 ````
 
-It is possible to print in two or more columns and other outdated fun stuff. 
+It is possible to print in two or more columns and other outdated fun stuff.
 
-> When output is created from multiple files or the standard input stream, the current date and time are used instead of the filename and creation date. 
+> When output is created from multiple files or the standard input stream, the current date and time are used instead of the filename and creation date.
 
 ## nl
-Simply numbers lines. 
+Simply numbers lines.
 
 ````
 jadi@funlife:~/w/lpic/101$ nl mydata  | head -3
@@ -298,29 +302,29 @@ jadi@funlife:~/w/lpic/101$ nl mydata  | head -3
 > cat -n will also number lines.
 
 ## fmt
-Will reformat a text file within margins (say 80 columns width or 60 if you use -w60). 
+Will reformat a text file within margins (say 80 columns width or 60 if you use -w60).
 
 ````
-jadi@funlife:~/w/lpic/101$ fmt mydata 
+jadi@funlife:~/w/lpic/101$ fmt mydata
 hello this is second line but as you can see we are still writing and
 this is getting longer .  .  and longer and longer!
 ````
 
 ## sort & uniq
-Will sorts its input(s). 
+Will sorts its input(s).
 
 ````
-jadi@funlife:~/w/lpic/101$ cat uses 
+jadi@funlife:~/w/lpic/101$ cat uses
 you fedora
 jadi ubuntu
 rubic windows
 neda mac
-jadi@funlife:~/w/lpic/101$ cat howcool 
+jadi@funlife:~/w/lpic/101$ cat howcool
 jadi	5
 sina	6
 rubic	2
 you 	12
-jadi@funlife:~/w/lpic/101$ sort howcool uses 
+jadi@funlife:~/w/lpic/101$ sort howcool uses
 jadi	5
 jadi ubuntu
 neda mac
@@ -336,20 +340,20 @@ you 	12
 and the ````uniq```` removes duplicate entries from its input. Normal behaviour is removing only the duplicated lines but you can change the behaviour for example by giving ````-f1```` to force it to not check fist field.
 
 ````
-jadi@funlife:~/w/lpic/101$ uniq what_i_have.txt 
+jadi@funlife:~/w/lpic/101$ uniq what_i_have.txt
 laptop
 socks
 tshirt
 ball
 socks
 glasses
-jadi@funlife:~/w/lpic/101$ sort what_i_have.txt | uniq 
+jadi@funlife:~/w/lpic/101$ sort what_i_have.txt | uniq
 ball
 glasses
 laptop
 socks
 tshirt
-jadi@funlife:~/w/lpic/101$ 
+jadi@funlife:~/w/lpic/101$
 ````
 
 > As you can see, the input HAVE TO BE sorted for uniq to work
@@ -357,7 +361,7 @@ jadi@funlife:~/w/lpic/101$
 uniq has great switches:
 
 ````
-jadi@funlife:~/w/lpic/101$ cat what_i_have.txt 
+jadi@funlife:~/w/lpic/101$ cat what_i_have.txt
 laptop
 socks
 tshirt
@@ -384,19 +388,19 @@ socks
 ## cut
 cut command will *cut* a column of one file. Good for separating fields:
 
-Lets cut the *first field* of a file. 
+Lets cut the *first field* of a file.
 
 ````
-jadi@funlife:~/w/lpic/101$ cat howcool 
+jadi@funlife:~/w/lpic/101$ cat howcool
 jadi	5
 sina	6
 rubic	2
 you 	12
-jadi@funlife:~/w/lpic/101$ cut -f1 howcool 
+jadi@funlife:~/w/lpic/101$ cut -f1 howcool
 jadi
 sina
 rubic
-you 
+you
 ````
 
 >normal delimiter is TAB. use -dx to change it to "x" or use ```` | tr ' ' '\t' | ```` to convert spaces in your stream to TABs.
@@ -408,17 +412,17 @@ It is also possible to *cut* fields 1, 2, 3 with ````-f1-3```` or only character
 The paste command pastes lines from two or more files side-by-side! You can not do this in a normal text editor.
 
 ````
-jadi@funlife:~/w/lpic/101$ cat howcool 
+jadi@funlife:~/w/lpic/101$ cat howcool
 jadi	5
 sina	6
 rubic	2
 you 	12
-jadi@funlife:~/w/lpic/101$ cat uses 
+jadi@funlife:~/w/lpic/101$ cat uses
 you fedora
 jadi ubuntu
 rubic windows
 neda mac
-jadi@funlife:~/w/lpic/101$ paste howcool uses 
+jadi@funlife:~/w/lpic/101$ paste howcool uses
 jadi	5	you fedora
 sina	6	jadi ubuntu
 rubic	2	rubic windows
@@ -429,19 +433,19 @@ you 	12	neda mac
 Our final field-manipulating command is join, which joins files based on a matching field. **The files should be sorted on the join field.**
 
 ````
-jadi@funlife:~/w/lpic/101$ cat howcool 
+jadi@funlife:~/w/lpic/101$ cat howcool
 jadi	5
 sina	6
 rubic	2
 you 	12
-jadi@funlife:~/w/lpic/101$ cat uses 
+jadi@funlife:~/w/lpic/101$ cat uses
 you fedora
 jadi ubuntu
 rubic windows
 neda mac
 jadi@funlife:~/w/lpic/101$ sort howcool > howcool.sorted
 jadi@funlife:~/w/lpic/101$ sort uses  > uses.sorted
-jadi@funlife:~/w/lpic/101$ join howcool.sorted uses.sorted 
+jadi@funlife:~/w/lpic/101$ join howcool.sorted uses.sorted
 jadi 5 ubuntu
 rubic 2 windows
 you 12 fedora
@@ -463,10 +467,10 @@ you fedora
 jadi debian
 rubic windows
 neda mac
-jadi@funlife:~/w/lpic/101$ 
+jadi@funlife:~/w/lpic/101$
 ````
 
-the pattern for changing EVERY occurrence of A to B in a line is ````sed 's/A/B/g'````. 
+the pattern for changing EVERY occurrence of A to B in a line is ````sed 's/A/B/g'````.
 
 Remember escape characters? They also work here and this will remove every *new line* from a file and will replace it with a space:
 
@@ -482,7 +486,7 @@ and this is getting longer
 and longer
 and longer!
 jadi@funlife:~/w/lpic/101$ sed 's/ /\t/g' mydata > mydata.tab
-jadi@funlife:~/w/lpic/101$ cat mydata.tab 
+jadi@funlife:~/w/lpic/101$ cat mydata.tab
 hello
 this	is	second	line
 but	as	you	can	see	we	are

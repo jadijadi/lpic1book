@@ -1,3 +1,7 @@
+Title: 104.2 Maintain the integrity of filesystems
+Date: 2021-08-03 13:19
+Category: 104
+
 # 104.2 Maintain the integrity of filesystems
 
 _Weight: 2_
@@ -47,7 +51,7 @@ e2fsck: Cannot continue, aborting.
 
 root@funlife:~# umount /dev/sdb
 umount: /dev/sdb: not mounted
-root@funlife:~# umount /dev/sdb1 
+root@funlife:~# umount /dev/sdb1
 root@funlife:~# fsck /dev/sdb
 fsck from util-linux 2.25.1
 e2fsck 1.42.10 (18-May-2014)
@@ -82,9 +86,9 @@ is corrupt, and you might try running e2fsck with an alternate superblock:
  or
     e2fsck -b 32768 <device>
 
-root@funlife:~# blkid 
-/dev/sda1: LABEL="movies" 
-/dev/sdb1: UUID="BA82-BECD" TYPE="vfat" PARTUUID="381add66-01" 
+root@funlife:~# blkid
+/dev/sda1: LABEL="movies"
+/dev/sdb1: UUID="BA82-BECD" TYPE="vfat" PARTUUID="381add66-01"
 root@funlife:~# fsck LABEL=movies
 fsck from util-linux 2.25.1
 root@funlife:~# fsck UUID="BA82-BECD"
@@ -116,7 +120,7 @@ Filesystem UUID:          1651a94e-0b4e-47fb-aca0-f77e05714617
 Filesystem magic number:  0xEF53
 Filesystem revision #:    1 (dynamic)
 Filesystem features:      has_journal ext_attr resize_inode dir_index filetype needs_recovery extent flex_bg sparse_super large_file huge_file uninit_bg dir_nlink extra_isize
-Filesystem flags:         signed_directory_hash 
+Filesystem flags:         signed_directory_hash
 Default mount options:    user_xattr acl
 Filesystem state:         clean
 Errors behavior:          Continue
@@ -219,7 +223,7 @@ The DiskUsage command give information about the used space of **directories and
 | -s | Only shows the summary and not all the directories one by one |
 
 ```
-jadi@funlife:~/w/lpic$ du 
+jadi@funlife:~/w/lpic$ du
 16    ./101
 701456    ./done
 701464    ./Logo/chert
@@ -257,7 +261,7 @@ This is an interactive tool for debug an ext filesystem. It opens the filesystem
 ```
 root@funlife:~# debugfs /dev/sda2
 debugfs 1.42.10 (18-May-2014)
-debugfs:  cd /etc/        <-- cd 
+debugfs:  cd /etc/        <-- cd
 debugfs:  pwd            <-- show were am I
 [pwd]   INODE: 524289  PATH: /etc
 [root]  INODE:      2  PATH: /
@@ -299,8 +303,8 @@ Maximum filesystem blocks=4294967296
 874 block groups
 32768 blocks per group, 32768 fragments per group
 8192 inodes per group
-Superblock backups stored on blocks: 
-    32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
+Superblock backups stored on blocks:
+    32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
     4096000, 7962624, 11239424, 20480000, 23887872
 ```
 
@@ -342,4 +346,3 @@ For the LPIC exam, it is good to know about these commands.
 .
 
 .
-

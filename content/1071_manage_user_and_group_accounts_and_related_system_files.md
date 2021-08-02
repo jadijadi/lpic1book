@@ -1,3 +1,7 @@
+Title: 107.1 Manage user and group accounts and related system files
+Date: 2021-08-03 13:29
+Category: 107
+
 # 107.1 Manage user and group accounts and related system files
 *Weight: 5*
 
@@ -29,9 +33,9 @@ Each user can change her password using the `passwd` command:
 ````
 $ passwd
 Changing password for jadi.
-(current) UNIX password: 
-New password: 
-Retype new password: 
+(current) UNIX password:
+New password:
+Retype new password:
 passwd: password updated successfully
 ````
 
@@ -41,18 +45,18 @@ The root user can change any users password to anything (weak passwords) without
 
 ````
 # passwd jadi
-New password: 
+New password:
 BAD PASSWORD: it does not contain enough DIFFERENT characters
 BAD PASSWORD: is too simple
-Retype new password: 
+Retype new password:
 passwd: password updated successfully
 ````
 
 
 ## Users and groups
-Linux is a multi-user system so you should be able to manage these users. You should be able to **add**, **remove** and **modify** users. 
+Linux is a multi-user system so you should be able to manage these users. You should be able to **add**, **remove** and **modify** users.
 
-Linux also has the concept of **groups**. You can define groups, give privileges to them and make users members of these groups. For example there can be a "printer" group who has access to printings and you can add user "jadi" to this group. 
+Linux also has the concept of **groups**. You can define groups, give privileges to them and make users members of these groups. For example there can be a "printer" group who has access to printings and you can add user "jadi" to this group.
 
 - Each user can be a member of many different groups
 - Each file belongs to one user and one group
@@ -63,9 +67,9 @@ Each user can change her password using the `passwd` command:
 ````
 $ passwd
 Changing password for jadi.
-(current) UNIX password: 
-New password: 
-Retype new password: 
+(current) UNIX password:
+New password:
+Retype new password:
 passwd: password updated successfully
 ````
 
@@ -75,10 +79,10 @@ The root user can change any users password to anything (weak passwords) without
 
 ````
 # passwd jadi
-New password: 
+New password:
 BAD PASSWORD: it does not contain enough DIFFERENT characters
 BAD PASSWORD: is too simple
-Retype new password: 
+Retype new password:
 passwd: password updated successfully
 ````
 
@@ -95,9 +99,9 @@ Adding a user is done using the `useradd` command. Easy to remember! These are t
 | -G | add to additional groups |
 | -c | comment. most of the time, users actual name. Use quotes if comments has spaces or special characters in them |
 
-On some systems `useradd` creates the home directory and on some, you have to specify the `-m` switch yourself. It is good to use it all the time. 
+On some systems `useradd` creates the home directory and on some, you have to specify the `-m` switch yourself. It is good to use it all the time.
 
-When a new user directory is being created, the system will copy the contents of `/etc/skel` to their home dir. `/etc/skel` is used as a template for the home of users. 
+When a new user directory is being created, the system will copy the contents of `/etc/skel` to their home dir. `/etc/skel` is used as a template for the home of users.
 
 ### Modifying users
 It supports most of the `useradd` switches. For example you can change *jadi*'s login shell by issuing `usermod -s /bin/csh jadi`. But there are 3 more switches:
@@ -108,7 +112,7 @@ It supports most of the `useradd` switches. For example you can change *jadi*'s 
 |-U| Unlock the account|
 |-aG| add to more groups (say `usermod -aG wheel jadi`)|
 
-> Note: If you do `usermod -G wheel,users jadi`, jadi will be ONLY the member of these two groups. That is why we use `-aG newgoup` to ADD a new group to what jadi is a member of. `-G` is like saying "jadis groups are ..." and `-aG` is like "add this group to whatever groups jadi is a member of". 
+> Note: If you do `usermod -G wheel,users jadi`, jadi will be ONLY the member of these two groups. That is why we use `-aG newgoup` to ADD a new group to what jadi is a member of. `-G` is like saying "jadis groups are ..." and `-aG` is like "add this group to whatever groups jadi is a member of".
 
 ### Deleting users
 If you want to remove a user, use `userdel` as easy as:
@@ -120,20 +124,20 @@ userdel jadi
 If you add the `-r` swtich, the home direcoty and mail spool will be erased too!
 
 ## Managing Groups
-It is kind of same as users, you can do `groupadd`, `groupdel` and `groupmod`. Each group as an id an a name. 
+It is kind of same as users, you can do `groupadd`, `groupdel` and `groupmod`. Each group as an id an a name.
 
 ````
 # groupadd -g 1200 newgroup
 ````
 
-adds a group called *newgroup* with id 1200. If needed, the root user can change a groups ID (to 2000) by issuing `groupmod -g 2000 newgroup` or deleting the group by `groupdel newgroup`. 
+adds a group called *newgroup* with id 1200. If needed, the root user can change a groups ID (to 2000) by issuing `groupmod -g 2000 newgroup` or deleting the group by `groupdel newgroup`.
 
 > Note: If root deletes a group with members, people wont be deleted! They will just wont be the members of that group anymore.
 
 
 ## Important files
 ### /etc/passwd
-This is the file which contains all the user names and their shells, etc, .. 
+This is the file which contains all the user names and their shells, etc, ..
 
 ````
 tail /etc/passwd
@@ -153,7 +157,7 @@ As you can see the format is:
 username:password:userid:primary group id:Name and comments:home dir:shell
 ````
 
-In old days the password or the hashed password was actually shown in this file but nowadays that is moved to the /etc/shadow file. 
+In old days the password or the hashed password was actually shown in this file but nowadays that is moved to the /etc/shadow file.
 
 > Note: /etc/passwd should be readable to all users so it is not a good place for password! These days if there is a `x` instead of password, it means *go look at the /etc/shadow* file.
 

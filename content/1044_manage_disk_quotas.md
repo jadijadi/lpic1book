@@ -1,4 +1,8 @@
-#104.4 Manage disk quotas
+Title: 104.4 Manage disk quotas
+Date: 2021-08-03 13:21
+Category: 104
+
+# 104.4 Manage disk quotas
 *Weight: 1*
 
 Candidates should be able to manage disk quotas for users.
@@ -15,7 +19,7 @@ Candidates should be able to manage disk quotas for users.
 - quotaon
 
 ## Enabling quotas
-Quotas will let the system admin to control how much a user or a group consumes disk. The version 2 quota discussed in LPIC, needs kernel 2.4 and above. The package is called `quota`. 
+Quotas will let the system admin to control how much a user or a group consumes disk. The version 2 quota discussed in LPIC, needs kernel 2.4 and above. The package is called `quota`.
 
 The option should be added to required `/etc/fstab` file. The most famous ones are:
 
@@ -33,8 +37,8 @@ So for example is we want to enable quotas on sda2 we have to change the line in
 /dev/sda2  /home  ext4    defaults,usrquota,grpquota          1 2
 ````
 
-Next we need to specify the quotas of each user and each group. Two files called `aquota.user` and `aquota.group` in the root file system will do this. 
-Now it is enough to run the `quotacheck` command. 
+Next we need to specify the quotas of each user and each group. Two files called `aquota.user` and `aquota.group` in the root file system will do this.
+Now it is enough to run the `quotacheck` command.
 
 > the `quotacheck` command will create the aquota.user and aquota.group if they do not exist
 
@@ -59,7 +63,7 @@ Then you need to turn the quota checking on:
 
 
 ## Setting limits
-The main command for *editing* quota is **edquota*. It will check the users quota from all file systems and presents them in a file editor to you. 
+The main command for *editing* quota is **edquota*. It will check the users quota from all file systems and presents them in a file editor to you.
 
 ````
 #edquota -u jadi
@@ -85,7 +89,7 @@ If you need to check the quota of only one user user the `quota` command.
 
 ````
 # quota  jadi
-Disk quotas for user jadi (uid 1000): 
+Disk quotas for user jadi (uid 1000):
      Filesystem  blocks   quota   limit   grace   files   quota   limit   grace
       /dev/sda1       5    5000       0               2       0       0      
 ````
@@ -105,7 +109,7 @@ jadi      --       5    5000       0              2     0     0
 ````
 
 ## Warning users
-There is a command for checking quotas and warning users called `warnquota`. If is good to run it time to time using a crontab (will see this crontabs later). 
+There is a command for checking quotas and warning users called `warnquota`. If is good to run it time to time using a crontab (will see this crontabs later).
 
 .
 

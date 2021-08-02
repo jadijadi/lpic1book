@@ -1,3 +1,7 @@
+Title: 103.6. Modify process execution priorities
+Date: 2021-08-03 13:15
+Category: 103
+
 # 103.6. Modify process execution priorities
 *Weight: 2*
 
@@ -37,7 +41,7 @@ KiB Swap:  7811068 total,        0 used,  7811068 free.  2842344 cached Mem
     2 root      20   0       0      0      0 S   0.0  0.0   0:00.00 kthreadd                                                                                                     
     3 root      20   0       0      0      0 S   0.0  0.0   0:00.27 ksoftirqd/0                                                                                                  
     5 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kworker/0:0H    ```
-    
+
     Chkecn th
 ````
 
@@ -52,7 +56,7 @@ $ nice
 It is also possible to tell `ps` command to write the nice parameter of processes:
 
 ```
-$ ps -l 
+$ ps -l
 F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 0 S  1000 15044 15035  0  80   0 -  7453 wait   pts/29   00:00:00 bash
 0 S  1000 15052 15044  0  60 -20 -  3976 hrtime pts/29   00:00:00 sleep
@@ -79,9 +83,9 @@ Please note to two points:
 If you run a command with `nice` without any parameters, the nice value will be 10:
 
 ````
-$ nice xeyes & 
+$ nice xeyes &
 [1] 15217
-$ ps -l 
+$ ps -l
 F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 0 S  1000 15044 15035  0  80   0 -  7455 wait   pts/29   00:00:00 bash
 0 S  1000 15217 15044  0  90  10 - 12522 poll_s pts/29   00:00:00 xeyes

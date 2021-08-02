@@ -1,4 +1,8 @@
-# 102.4. Use Debian package management 
+Title: 102.4. Use Debian package management
+Date: 2021-08-03 13:08
+Category: 102
+
+# 102.4. Use Debian package management
 
 *weight: 3*
 
@@ -38,7 +42,7 @@ so lets install it. If we have the .deb file:
 note that
 - apt-get install asked for confirmation (Y)
 - apt-get resolved *dependencies*, it know what is needed to install this package and installs them
-- debian packages are something.deb 
+- debian packages are something.deb
 
     bzr
 
@@ -52,7 +56,7 @@ and this will only download the files without installing them:
 
 which only Downloaded files are stored them at /var/cache/apt/archive/ (or use the -d switch instead)
 
-## Package location 
+## Package location
 where these packages come from? from a **Repository** of different **Repositories** which are defined at /etc/apt/sources.list file and files located at /etc/apt/sources.list.d/ in the form of:
 
 ````
@@ -101,7 +105,7 @@ Do you want to continue? [Y/n] y
 
 ````
 
-Notes: 
+Notes:
 - removing a package will not remove its dependencies
 - if removing a dependency, you'll get a warning about what will be removed alongside this package
 
@@ -129,7 +133,7 @@ Note: as most other tools, you can configure the default configs at /etc/apt/apt
 
 ## reconfiguring packages
 
-A program called debconf configures packages after they are installed. you can reconfigure a package (say tzdata) using 
+A program called debconf configures packages after they are installed. you can reconfigure a package (say tzdata) using
 
      dpkg-reconfigure tzdata
 
@@ -137,7 +141,7 @@ A program called debconf configures packages after they are installed. you can r
 dpkg is a very powerful tool for working with .deb package files. If you want to see what is inside a .deb file:
 
 ````
-$ dpkg --contents bzr_2.6.0+bzr6595-1ubuntu1_all.deb 
+$ dpkg --contents bzr_2.6.0+bzr6595-1ubuntu1_all.deb
 drwxr-xr-x root/root         0 2014-05-02 18:16 ./
 drwxr-xr-x root/root         0 2014-05-02 18:15 ./etc/
 drwxr-xr-x root/root         0 2014-05-02 18:15 ./etc/bash_completion.d/
@@ -146,7 +150,7 @@ drwxr-xr-x root/root         0 2014-05-02 18:15 ./etc/bash_completion.d/
 ...
 ````
 
-another apt tool is dpkg. dpkg can install, remove, configure and query packages and as always the config is at /etc/dpkg/dpkg.cfg and uses /var/lib/dpkg tree . the most important switch is **-s** for **status**. 
+another apt tool is dpkg. dpkg can install, remove, configure and query packages and as always the config is at /etc/dpkg/dpkg.cfg and uses /var/lib/dpkg tree . the most important switch is **-s** for **status**.
 
 ````
 $ dpkg -s bzr
@@ -197,7 +201,7 @@ another command is **purge** which will remove the package and all of its config
 There is also **-L** to check the files and directories a package installed:
 
 ````
-$ dpkg -L jcal 
+$ dpkg -L jcal
 /.
 /usr
 /usr/bin
@@ -216,7 +220,7 @@ $ dpkg -L jcal
 and **-S** will show which package installed the given file:
 
 ````
-$ dpkg -S /var/lib/mplayer/prefs/mirrors 
+$ dpkg -S /var/lib/mplayer/prefs/mirrors
 mplayer: /var/lib/mplayer/prefs/mirrors
 ````
 
@@ -233,8 +237,8 @@ is a newer tool for managing files. It can be used like this:
 ````
 $ aptitude install jcal
 $ aptitude remove jcal
-$ aptitude search cal 
-$ aptitude show bzr 
+$ aptitude search cal
+$ aptitude show bzr
 ````
 
 or it can also be used as a standalone program:

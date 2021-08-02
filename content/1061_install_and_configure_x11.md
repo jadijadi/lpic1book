@@ -1,4 +1,8 @@
-#106.1 Install and configure X11
+Title: 106.1 Install and configure X11
+Date: 2021-08-03 13:26
+Category: 106
+
+# 106.1 Install and configure X11
 *Weight: 2*
 
 Candidates should be able to install and configure X11.
@@ -18,7 +22,7 @@ Candidates should be able to install and configure X11.
 - X
 
 ## Hisotry
-This lesson is useless in modern life! Very strange but practically nothing in this lesson is used in real life because xorg.conf, xhost, ... is not used in any modern linux system anymore. Maybe they are here so you wont be shocked if you see an older linux. 
+This lesson is useless in modern life! Very strange but practically nothing in this lesson is used in real life because xorg.conf, xhost, ... is not used in any modern linux system anymore. Maybe they are here so you wont be shocked if you see an older linux.
 
 ## X
 The X Window System is a network transparent window system which runs on a wide range of computing and graphics machines; including practically ALL linux systems with graphical interfaces. It is also called X11 because of its version, X window system, X server, ...
@@ -39,7 +43,7 @@ Section "Files"
 EndSection
 ````
 
-This part is about Fonts. When X-Server is running it needs these files. FontPaths tell X11 where fonts are. It also can refer to an IP running a font-server which is not common these days. Font servers used to be responsible of rendering fonts to be shown on clients but nowadays computers are fast and can render their own fonts. Font servers are going out of fashion! 
+This part is about Fonts. When X-Server is running it needs these files. FontPaths tell X11 where fonts are. It also can refer to an IP running a font-server which is not common these days. Font servers used to be responsible of rendering fonts to be shown on clients but nowadays computers are fast and can render their own fonts. Font servers are going out of fashion!
 
 ````
 Section "Module"
@@ -146,7 +150,7 @@ Section "Screen"
 EndSection
 ````
 
-Note how the screen uses the defined monitor (using its identifier "Generic Monitor") and defined graphic card. Also note the different color modes (say 24bit 1024x768). 
+Note how the screen uses the defined monitor (using its identifier "Generic Monitor") and defined graphic card. Also note the different color modes (say 24bit 1024x768).
 
 At the end we have to glue all of the above in one place as `ServerLayout`:
 
@@ -168,7 +172,7 @@ We have a layout with a screen and 3 input devices :)
 The `xwininfo` command is a window information utility for X. Run it and it waits for you to click on any window and gives you some information about that *window* like its size, position, color depth, ...
 
 ````
-$ xwininfo 
+$ xwininfo
 
 xwininfo: Please select the window about which you
           would like information by clicking the
@@ -199,7 +203,7 @@ xwininfo: Window id: 0x5400004 "jadi@funlife: ~/w/lpic/lpic1book"
 ````
 
 ## xdpyinfo
-This give you information about the running X session. Things like screens, color depth, version, name, ... 
+This give you information about the running X session. Things like screens, color depth, version, name, ...
 
 ````
 name of display:    :0
@@ -231,7 +235,7 @@ number of extensions:    28
 ````
 
 ## xhost
-This command used to control the access to the X server. If you are on a X server and run `xhost` it tells you the access status. 
+This command used to control the access to the X server. If you are on a X server and run `xhost` it tells you the access status.
 
 ````
 $ xhost

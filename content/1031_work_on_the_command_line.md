@@ -1,4 +1,8 @@
-# Work on the command line
+Title: 103.1 Work on the command line
+Date: 2021-08-03 13:10
+Category: 103
+
+# 103.1 Work on the command line
 *Weight: 4*
 
 Description: Candidates should be able to interact with shells and commands using the command line. The objective assumes the bash shell.
@@ -36,13 +40,13 @@ Some commands are build in (cd, break, exec) and it uses streams:
 User Prompts are like these:
 
 ````
-jadi@funlife:~$ 
+jadi@funlife:~$
 [jadi@funlife lpic1]$
 $
 ````
 
-> in most cases, root users prompt uses # instead of $ (say: ````root@funlife:/etc# 
-````). 
+> in most cases, root users prompt uses # instead of $ (say: ````root@funlife:/etc#
+````).
 
 Global bash configs are stored at /etc/profile and each user has her own config at ~/.profile & ~/.bash_profile & ~/.bash_logout
 
@@ -58,7 +62,7 @@ $ echo Hello lpic #just a simple hi
 Hello lpic
 ````
 
-> Note: the # is for *comments*. Anything after it is comment. 
+> Note: the # is for *comments*. Anything after it is comment.
 
 #### escaped characters
 
@@ -91,9 +95,9 @@ but this is another usage
 #### metacharacters and Control operators
 Also there are characters with special meaning. You need to escape then if you need them in your commands: **| & ; ( ) < >***
 
-There is also control operators. They also have special meanings: ** || && & ; ;; | ( )** 
+There is also control operators. They also have special meanings: ** || && & ; ;; | ( )**
 
-The most important ones are ; (do one by one), && (logical and) and || (logical or). 
+The most important ones are ; (do one by one), && (logical and) and || (logical or).
 
 ````
 $ echo line 1;echo line 2; echo line 3
@@ -112,9 +116,9 @@ line 3
 ````
 
 ## exiting shell
-the ````exit```` command exits the shell. Same as ctrl+d. 
+the ````exit```` command exits the shell. Same as ctrl+d.
 
-if you run a command inside parentheses that command will be run inside a sub-shell. 
+if you run a command inside parentheses that command will be run inside a sub-shell.
 
 and ````exec```` will run a command and closes the current shell.
 
@@ -170,7 +174,7 @@ $ echo "-${HOME}_abc-"
 ### env, set, unset
 the ````env```` shows current EVs. It can also be used to run a command in a specific environment.
 
-set is a bit more complicated. it can configure how your bash behaves. 
+set is a bit more complicated. it can configure how your bash behaves.
 unset, unsets a variable.
 
 ````
@@ -289,7 +293,7 @@ As you can see, on top:
 - short description
 - detailed info
 
-and at the end bug reporting, files, related commands and authors. 
+and at the end bug reporting, files, related commands and authors.
 
 There are 9 man sections:
 

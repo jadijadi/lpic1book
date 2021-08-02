@@ -1,4 +1,8 @@
-#109.1 Fundamentals of internet protocols
+Title: 109.1 Fundamentals of internet protocols
+Date: 2021-08-03 13:36
+Category: 109
+
+# 109.1 Fundamentals of internet protocols
 *Weight: 4*
 
 Candidates should demonstrate a proper understanding of TCP/IP network fundamentals.
@@ -68,15 +72,15 @@ Any one can use any of these IPs on her devices as long as it is not connected d
 
 ````
 
-In the middle you can see a `Network Address Translation` or `NAT` device. It is connected to the Internet using only one public IP (It might be 5.27.1.30). On the left side of the NAT box, there are 4 computers with Private IPs. Each time any of these devices targets an address on the Internet (a public IP), the NAT device will use his own public IP to request that IP and when he gets the data, will provide it to the *Natted* device - the device behind the NAT. This way we can create huge networks behind a NAT device. In this scenario, all the devices can reach the Internet but no-one from the Intenret can reach any of them, directly. 
+In the middle you can see a `Network Address Translation` or `NAT` device. It is connected to the Internet using only one public IP (It might be 5.27.1.30). On the left side of the NAT box, there are 4 computers with Private IPs. Each time any of these devices targets an address on the Internet (a public IP), the NAT device will use his own public IP to request that IP and when he gets the data, will provide it to the *Natted* device - the device behind the NAT. This way we can create huge networks behind a NAT device. In this scenario, all the devices can reach the Internet but no-one from the Intenret can reach any of them, directly.
 
 ### Subnetting
 OK! We have around 4B addresses in IPv4. But what happens if I send a packet to another IP? Say I try to print a document on the *local* printer as you learned in previous section? Who should listen for this packet? Does the whole Internet passes it hand to hand? Obviously not! Only my *local* network will wait for such a packet and only my printer (with its local IP) will receive it. When configuring a network we devince **subnet**s. For example my home network is configured on `192.168.1.0-255`. This way my WiFi router is 192.168.1.1, my laptop will be 192.168.1.10, my printer 192.168.1.100, my desktop 192.168.1.2 and my tv 192.168.1.200. When my phone connects to my WiFi it might be 192.168.1.33. Any time any packets tries to reach any IP in my **subnet** (that is 192.168.1.0-255), my router does so. If any devices tries to reach anything out of my subnet (say a public IP), my router will use its NAT functionality to send the packets over the Internet.
 
-This is done using a netmask. But before going there, let me do a fast review on binary representation of number, and specially IP addresses. 
+This is done using a netmask. But before going there, let me do a fast review on binary representation of number, and specially IP addresses.
 
 #### Binary representation of IPs
-You are probably familiar with binary base - it is the basis of anything related to computers. If not I highly recommend you to do a google search and read if from another source since this book assumes you already know it. In short when writing numbers on binary format (base 2), the only used digits are 0 and 1. An easy way for conversion is using the following table to convert 0 and 1s to our *normal* decimal format. 
+You are probably familiar with binary base - it is the basis of anything related to computers. If not I highly recommend you to do a google search and read if from another source since this book assumes you already know it. In short when writing numbers on binary format (base 2), the only used digits are 0 and 1. An easy way for conversion is using the following table to convert 0 and 1s to our *normal* decimal format.
 
 
 |128|64|32|16|8|4|2|1||
@@ -89,7 +93,7 @@ You are probably familiar with binary base - it is the basis of anything related
 |1|0|1|1|0|0|1|1|equals 179 in decimal|
 |1|1|1|1|1|1|1|1|equals 255 in decimal|
 
-So `11000000.10101000.00000001.00001111` equals to `192.168.1.15`. 
+So `11000000.10101000.00000001.00001111` equals to `192.168.1.15`.
 
 ### netmask mask
 We already saw that subnets are used to create small / local networks. When computers are in one subnet, they can see each other directly without any routing. For any address out of my subnet, a router should handle the packets and send them to their destination. This is done using subnet masks. Lets try an example.
@@ -108,7 +112,7 @@ Remember our discussion about binary numbers? We can represent the IPs in binari
 |subnet mask (binary)|11111111.11111111.11111111.|00000000|
 |subnet mask (decimal)|255.255.255.|0|
 
-When talking bout subnet masks, we will put a 1 when that digit can not be changed and a 0 when that digit can be changed. 
+When talking bout subnet masks, we will put a 1 when that digit can not be changed and a 0 when that digit can be changed.
 
 #### CIDR
 Classless Inter-Domain Routing or CIDR is another way of talking about subnet masks. Telling someone that "my network is 192.168.1.0 and my subnet mask is 255.255.255.0" is difficult so some people prefer to say "my network is 192.168.1.0/24". This is a shortcut! 24 is the number of 1s in your subnet which is 11111111.11111111.11111111.00000000 in binary and has twenty four 1s. At the beginning this might look difficult but in practice it is more functional to use "my network is 172.16.1.1/16" instead of "my network is 172.16.1.1 with netmask 255.255.0.0".
@@ -125,17 +129,17 @@ Here are some famous samples:
 
 As you can see on the last two examples, the subnet mask (or **netmask**) can start anywhere in any octet.
 
-In short CIDR is just "number of 1s in a netmask". 
+In short CIDR is just "number of 1s in a netmask".
 
 > for a better understanding of subnetting, have a look at [Cisco document](http://www.cisco.com/c/en/us/support/docs/ip/routing-information-protocol-rip/13788-3.html)
 
 
 ## IPv6
-We saw that there are only around 4B IPv4s available. Just consider that we are around 7B people on the planet earth so there is not even enough IP for every person on IPv4 range. Add to this the latest demands from all the mobile phones, cars, fridges, clocks, TVs, camera, ...! They all want to be on the Internet; this is called Internet Of Things. What should be done? We saw one solution called NAT but the permanent solution is a new version of the IP; IP version 6. In version 6 IPs are not limited to 4 octets anymore. 
+We saw that there are only around 4B IPv4s available. Just consider that we are around 7B people on the planet earth so there is not even enough IP for every person on IPv4 range. Add to this the latest demands from all the mobile phones, cars, fridges, clocks, TVs, camera, ...! They all want to be on the Internet; this is called Internet Of Things. What should be done? We saw one solution called NAT but the permanent solution is a new version of the IP; IP version 6. In version 6 IPs are not limited to 4 octets anymore.
 
 A sample IPv6 address looks like `2001:0db8:0a0b:12f0:0000:0000:0000:0001` and it can be shortened to `2001:db8:a0b:12f0::1`. Here we have decimal numbers from **0000** to **FFFF** and **8** fields which are separated by **:**. This way we will have around 3.4*(10^38) IPs which is enough for whatever we can imagine at the moment. Just imagine that it can allocate 2^52 addresses for every observable star in the known universe.
 
-> Although at the moment there is shortage on IPv4, IPv6 is not adopted much yet and most of the Internet is still working on IPv4. 
+> Although at the moment there is shortage on IPv4, IPv6 is not adopted much yet and most of the Internet is still working on IPv4.
 
 ## Communication Protocols
 When computers communicate, they use Protocols. This protocols are designed to let computers speak in different ways for fulfilling different needs. Here we will have a look at three of the most popular protocols on the Internet: TCP / UDP / ICMP.
@@ -163,7 +167,7 @@ B- ...
 As you can see, TCP needs a lot of communications and sometimes it is not even suitable. When you are listening to music or having a video chat, it is better if the computer just skips some packages in case of problems and continues from the new one it gets.
 
 ### UDP
-You are video-chatting with a friend and network fluctuates. What is a better choice? A) retransmitting the missing packets and/or reestablishing the connection and continue the whole conversation with a 2s delay or B) just show the newer packets we got and continue the live vide-conference and just forget about that 2 second fluctuation (missed data)? If your choice is B, it is better if you use UDP (User Datagram Protocol) for your chat program. UDP is less reliable: the sender sends packets without communicating much and hearing back from the receiver and receiver listens for packets without negotiating the exact details with the sender. It is much faster than TCP but you can not be sure that 100% of packets will be received by the B party. 
+You are video-chatting with a friend and network fluctuates. What is a better choice? A) retransmitting the missing packets and/or reestablishing the connection and continue the whole conversation with a 2s delay or B) just show the newer packets we got and continue the live vide-conference and just forget about that 2 second fluctuation (missed data)? If your choice is B, it is better if you use UDP (User Datagram Protocol) for your chat program. UDP is less reliable: the sender sends packets without communicating much and hearing back from the receiver and receiver listens for packets without negotiating the exact details with the sender. It is much faster than TCP but you can not be sure that 100% of packets will be received by the B party.
 
 ### ICMP
 Internet Control Messaging Protocol or ICMP is a specific purpose protocol used to check the connectivity of the servers by the `ping` command. The first computer just tells "are you there?" and the second will answer "yes I'm here". Have a look at this practical example:
@@ -184,7 +188,7 @@ As you can see, we are pinging (send ICMP packets) to a server and it answers ar
 > ICMP is used for network troubleshooting and DOES NOT transfers user data
 
 ## Port
-Any computer has an address but there are many programs running on that computer. By using an IP address you can tell the Internet the destination of your packets but how can you decide which program on that computer should answer to your packet? We know that a computer with the address of 5.1.23.1 has a webserver and a ftp server on it but how can we reach it and tell it "i want the index.html of your webserver" or "deliver me the XYZ file from your FTP server"? This is done using PORTs. Ports are numbers where a program LISTENS to. For example port 80 is reserved for webservers so if I connect to 5.1.23.1:80 I'm sure that I'm talking with the webserver. In the same way, when the file transport protocol (FTP) starts, it starts listening on port 20 & 21 and if I use a FTP client to reach that computer, I will automatically connect to port 21 which is reserved for FTP. 
+Any computer has an address but there are many programs running on that computer. By using an IP address you can tell the Internet the destination of your packets but how can you decide which program on that computer should answer to your packet? We know that a computer with the address of 5.1.23.1 has a webserver and a ftp server on it but how can we reach it and tell it "i want the index.html of your webserver" or "deliver me the XYZ file from your FTP server"? This is done using PORTs. Ports are numbers where a program LISTENS to. For example port 80 is reserved for webservers so if I connect to 5.1.23.1:80 I'm sure that I'm talking with the webserver. In the same way, when the file transport protocol (FTP) starts, it starts listening on port 20 & 21 and if I use a FTP client to reach that computer, I will automatically connect to port 21 which is reserved for FTP.
 
 Different ports can use different transmission protocols (UDP or TCP). The default port of some protocols are as follow. These are very important and most admins know them.
 
@@ -233,11 +237,3 @@ You can find all of the above ports and many many others in `/etc/services`
 .
 
 .
-
-
-
-
-
-
-
-

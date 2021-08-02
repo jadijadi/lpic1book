@@ -1,4 +1,8 @@
-#110.2 Setup host security
+Title: 110.2 Setup host security
+Date: 2021-08-03 13:41
+Category: 110
+
+# 110.2 Setup host security
 *Weight: 3*
 
 Candidates should know how to set up a basic level of host security.
@@ -22,7 +26,7 @@ Candidates should know how to set up a basic level of host security.
 - /etc/hosts.deny
 
 ### shadow passwords
-The `/dev/passwd` is already discussed. It contains the passwords of the users but there is a logical problem: if a user should be able to change her own password, he should have access to this file and if this is the case, he can see other peoples passwords. This is not interesting even when the passwords are hashed (shown as a more complex form using a one way function). 
+The `/dev/passwd` is already discussed. It contains the passwords of the users but there is a logical problem: if a user should be able to change her own password, he should have access to this file and if this is the case, he can see other peoples passwords. This is not interesting even when the passwords are hashed (shown as a more complex form using a one way function).
 
 ````
 $ ls -ltrh /etc/passwd
@@ -37,7 +41,7 @@ jadi:x:1000:1000:jadi,,,:/home/jadi:/bin/bash
 jadi@funlife ~$ grep jadi /etc/shadow
 grep: /etc/shadow: Permission denied
 jadi@funlife ~$ sudo grep jadi /etc/shadow
-[sudo] password for jadi: 
+[sudo] password for jadi:
 jadi:$6$bp01DBX.$I6dt4pz8GeXJl6asgPeKhSdepf40bgepTz8zwB3HFmN56SdcsxjTETdZAmRt17biwMYOI7SoGFOXssHqeNFgw/:16963:0:99999:7:::
 jadi@funlife ~$ sudo ls -ltrh /etc/shadow
 -rw-r----- 1 root shadow 1.5K Jun 11 17:36 /etc/shadow
@@ -61,7 +65,7 @@ Please note that these commands prevent the service from starting on system boot
 
 ### super-servers
 
-A super-server or sometimes called a service dispatcher is a type of daemon run generally on Unix-like systems for security reasons. It starts other servers when needed, normally with access to them checked by a TCP wrapper. 
+A super-server or sometimes called a service dispatcher is a type of daemon run generally on Unix-like systems for security reasons. It starts other servers when needed, normally with access to them checked by a TCP wrapper.
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Super-server.png/420px-Super-server.png">
 
@@ -86,10 +90,10 @@ service telnet
 If we change the `disable` to `yes` and restart the xinetd, the telnet daemon will start running. There are a few files to control to xinetd related files.
 
 #### /etc/hosts.allow & /etc/hosts.deny
-These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowd, everything else is denied but if you add something to the /etc/hosts.deny, only that specific thing is denied (and every other thing is allowed). 
+These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowd, everything else is denied but if you add something to the /etc/hosts.deny, only that specific thing is denied (and every other thing is allowed).
 
 ````
-jadi@funlife ~$ cat /etc/hosts.allow 
+jadi@funlife ~$ cat /etc/hosts.allow
 # /etc/hosts.allow: list of hosts that are allowed to access the system.
 #                   See the manual pages hosts_access(5) and hosts_options(5).
 #
@@ -103,7 +107,7 @@ jadi@funlife ~$ cat /etc/hosts.allow
 telnet: 10.10.100.
 ````
 
-Here the `telnet` service is only allowed from 10.10.100.* . It is possible to use `ALL` as the service name to allow or deny ALL services. 
+Here the `telnet` service is only allowed from 10.10.100.* . It is possible to use `ALL` as the service name to allow or deny ALL services.
 
 > after changing this file, xinetd should be restarted
 

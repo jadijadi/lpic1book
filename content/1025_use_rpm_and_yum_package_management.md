@@ -1,4 +1,8 @@
-#102.5 Use RPM and YUM package management
+Title: 102.5 Use RPM and YUM package management
+Date: 2021-08-03 13:09
+Category: 102
+
+# 102.5 Use RPM and YUM package management
 
 *Weight: 3*
 
@@ -18,9 +22,9 @@ Candidates should be able to perform package management using RPM and YUM tools.
 
 
 ### Introduction
-**RedHat Package Manager (RPM)** and **Yellowdog Updater Modified (YUM)** are fedora / redhat / rhel / centos / .. tools to manage packages. There are also gui tools for installing and updating. As you saw on 102.4, all package managers can do standard functions like installing, updating and removing packages. 
+**RedHat Package Manager (RPM)** and **Yellowdog Updater Modified (YUM)** are fedora / redhat / rhel / centos / .. tools to manage packages. There are also gui tools for installing and updating. As you saw on 102.4, all package managers can do standard functions like installing, updating and removing packages.
 
-YUM adds extra features likes automatic updates, dependency management and works with repositories (collection on packages accessed over network or on a CD). 
+YUM adds extra features likes automatic updates, dependency management and works with repositories (collection on packages accessed over network or on a CD).
 
 ### Installing
 Say you want to install "bzr" and you don't have it:
@@ -33,13 +37,13 @@ bash: bzr: command not found
 [jadi@localhost ~]$ whatis bzr
 bzr: nothing appropriate.
 [jadi@localhost ~]$ whereis bzr
-bzr:[jadi@localhost ~]$ 
+bzr:[jadi@localhost ~]$
 ````
 
 we can obtain the bzr RPM package and try to install it:
 
 ````
-[root@localhost ~]# rpm -i bzr-2.6.0-2.fc20.x86_64.rpm 
+[root@localhost ~]# rpm -i bzr-2.6.0-2.fc20.x86_64.rpm
 error: Failed dependencies:
 	python-paramiko is needed by bzr-2.6.0-2.fc20.x86_64
 ````
@@ -86,12 +90,12 @@ Running transaction check
 Running transaction test
 Transaction test succeeded
 Running transaction
-  Installing : python-crypto-2.6.1-1.fc20.x86_64                                                                     1/3 
-  Installing : python-paramiko-1.15.1-1.fc20.noarch                                                                  2/3 
-  Installing : bzr-2.6.0-2.fc20.x86_64                                                                               3/3 
-  Verifying  : python-crypto-2.6.1-1.fc20.x86_64                                                                     1/3 
-  Verifying  : python-paramiko-1.15.1-1.fc20.noarch                                                                  2/3 
-  Verifying  : bzr-2.6.0-2.fc20.x86_64                                                                               3/3 
+  Installing : python-crypto-2.6.1-1.fc20.x86_64                                                                     1/3
+  Installing : python-paramiko-1.15.1-1.fc20.noarch                                                                  2/3
+  Installing : bzr-2.6.0-2.fc20.x86_64                                                                               3/3
+  Verifying  : python-crypto-2.6.1-1.fc20.x86_64                                                                     1/3
+  Verifying  : python-paramiko-1.15.1-1.fc20.noarch                                                                  2/3
+  Verifying  : bzr-2.6.0-2.fc20.x86_64                                                                               3/3
 
 Installed:
   bzr.x86_64 0:2.6.0-2.fc20                                                                                              
@@ -143,7 +147,7 @@ skip_if_unavailable=False
 
 
 ### Removing
-For removing a package we have to use -e option of rpm (e for erase) or use the *remove* option of yum. 
+For removing a package we have to use -e option of rpm (e for erase) or use the *remove* option of yum.
 
 ````
 [root@localhost ~]# rpm -e bzr
@@ -151,8 +155,8 @@ For removing a package we have to use -e option of rpm (e for erase) or use the 
 bash: bzr: command not found
 ````
 
-notes: 
-- rpm does not have a database of automatic package installation so it can not remove dependencies which are installed automatically. 
+notes:
+- rpm does not have a database of automatic package installation so it can not remove dependencies which are installed automatically.
 - rpm removes package without asking!
 - rpm wont remove a package which is needed by another package
 
@@ -237,14 +241,14 @@ Description : Emacs is a powerful, customizable, self-documenting, modeless text
             : editor. Emacs contains special code editing features, a scripting
             : language (elisp), and the capability to read mail, news, and more
             : without leaving the editor.
-            : 
+            :
             : This package provides an emacs binary with support for X windows.
 ````
 
 It is also possible to search for packages:
 
 ````
-[root@localhost ~]# yum search hack 
+[root@localhost ~]# yum search hack
 Loaded plugins: langpacks
 =================================================== N/S matched: hack ===================================================
 nethack-vultures.x86_64 : NetHack - Vulture's Eye and Vulture's Claw
@@ -259,7 +263,7 @@ wmMatrix.x86_64 : DockApp version of Jamie Zawinski's xmatrix screensaver hack
 it is also possible to find **all installed** packages with ````rpm -qa```` (query all). In most cases we pipe this with ````sort```` or ````grep```` and ````less```:
 
 ````
-[root@localhost ~]# rpm -qa | grep vim 
+[root@localhost ~]# rpm -qa | grep vim
 vim-minimal-7.4.027-2.fc20.x86_64
 ````
 
@@ -283,9 +287,9 @@ If you need to find files in a installed package:
 Another important task is checking which package, own a specific file. Lets see what package gave us the ````cal```` command:
 
 ````
-[jadi@localhost ~]$ which cal 
+[jadi@localhost ~]$ which cal
 /usr/bin/cal
-[jadi@localhost ~]$ rpm -qf /usr/bin/cal 
+[jadi@localhost ~]$ rpm -qf /usr/bin/cal
 util-linux-2.24-2.fc20.x86_64
 ````
 
@@ -305,7 +309,7 @@ libc.so.6(GLIBC_2.3.4)(64bit)
 
 or use ````yum deplist bzr```` instead.
 
-Poof.. I know this part was long so here comes the last important RPM querying command: **whatprovides**. 
+Poof.. I know this part was long so here comes the last important RPM querying command: **whatprovides**.
 
 If you need to use bzr, you need to check what provides it! if installed you can go with ````rpm -q --whatprovides bzr```` and if not :
 
@@ -332,10 +336,10 @@ The above output shows that this file is a valid file.
 it is also possible to check if the installed FILES by a packages is OK:
 
 ````
-[root@localhost ~]# rpm -V bzr 
-[root@localhost ~]# rm /etc/bash_completion.d/bzr 
+[root@localhost ~]# rpm -V bzr
+[root@localhost ~]# rm /etc/bash_completion.d/bzr
 rm: remove regular file ‘/etc/bash_completion.d/bzr’? y
-[root@localhost ~]# rpm -V bzr 
+[root@localhost ~]# rpm -V bzr
 missing     /etc/bash_completion.d/bzr
 ````
 
@@ -356,7 +360,7 @@ yumdownloader --resolve bzr
 The **cpio** is kind of an archive, just like zip or rar or tar. the rpm2cpio can convert rpm files to cpio archives so you can *open* them using cpio command.  
 
 ````
-# rpm2cpio bzr-2.6.0-2.fc20.x86_64.rpm | cpio -idv 
+# rpm2cpio bzr-2.6.0-2.fc20.x86_64.rpm | cpio -idv
 ./etc/bash_completion.d
 ./etc/bash_completion.d/bzr
 ./usr/bin/bzr
@@ -370,7 +374,7 @@ The **cpio** is kind of an archive, just like zip or rar or tar. the rpm2cpio ca
 ````
 
 ### Other tools
-YUM and RPM are the main package manager tools on Fedora, RHEL & Centos. but other system are available. The SUSE uses YaST and many modern desktops (KDE & Gnome) use PackageKit. Package Kit installs and updates packages on graphical interfaces on most linux systems (Debian, Fedora, Arch, ...). 
+YUM and RPM are the main package manager tools on Fedora, RHEL & Centos. but other system are available. The SUSE uses YaST and many modern desktops (KDE & Gnome) use PackageKit. Package Kit installs and updates packages on graphical interfaces on most linux systems (Debian, Fedora, Arch, ...).
 
 .
 
@@ -390,13 +394,3 @@ YUM and RPM are the main package manager tools on Fedora, RHEL & Centos. but oth
 .
 
 .
-
-
-
-
-
-
-
-
-
-

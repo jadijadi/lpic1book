@@ -1,3 +1,7 @@
+Title: Introduction
+Date: 2021-08-03 13:43
+Category: Introduction
+
 # LPIC 1 study guide in plain English
 
 This book is originally released as a part of a series of free video tutorials for LPIC1 created by Jadi (in Persian language). But it is also possible to use it as a reference for self-study to prepare for LPIC1-101 & LPIC-102 exam.
@@ -6,7 +10,7 @@ If you want to download Farsi LPIC 101 & LPIC 102 exam videos [use this torrent 
 
 Latest versions of this be book is always available at **http://j.mp/jadilpic1**
 
-I've tried to write a short, easy to understand but still comprehensive exam guide. I'm not a native English speaker be ready for some possible language flaws. 
+I've tried to write a short, easy to understand but still comprehensive exam guide. I'm not a native English speaker be ready for some possible language flaws.
 
 Enjoy!
 
@@ -15,4 +19,3 @@ Enjoy!
 - twitter: [@jadi](http://twitter.com/jadi)
 
 Donations? [http://jadi.ir/support-donate/](http://jadi.ir/support-donate/) :D
-

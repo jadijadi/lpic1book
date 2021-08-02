@@ -1,4 +1,8 @@
-#103.8 Perform basic file editing operations using vi 
+Title: 103.8 Perform basic file editing operations using vi
+Date: 2021-08-03 13:17
+Category: 103
+
+# 103.8 Perform basic file editing operations using vi
 *Weight: 3*
 
 Candidates should be able to edit text files using vi. This objective includes vi navigation, basic vi modes, inserting, editing, deleting, copying and finding text.
@@ -46,7 +50,7 @@ $ vi file.txt
 ## vi moded
 `vi` has 2 different modes:
 - **Command mode** is where you go around the file, search, delete text, copy paste, replace, ... and give other commands to the vi. Some commands start with a `:` and some are only a keypress.
-- **Insert mode** is where what you type, goes into the file at the cursors position. 
+- **Insert mode** is where what you type, goes into the file at the cursors position.
 
 > If you want to go to the Command mode from the Insert mode, press ESC key. There are several ways to go to the Insert mode from Command mode (including the 'i' key).
 

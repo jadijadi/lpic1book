@@ -1,3 +1,7 @@
+Title: 101.2. Boot the system
+Date: 2021-08-03 13:02
+Category: 101
+
 # 101.2. Boot the system
 weight: 3
 
@@ -32,7 +36,7 @@ Bootloader can be GRUB (1&2) or LILO which are great for disks less than 2TB.
 Kernel parameters (sometimes called boot parameters) supply the kernel with information about hardware parameters that it might not determine on its own - say single user mod boot (S)
 
 ### init
-When the kernel finishes loading, it usually starts /sbin/init. This program remains running until the system is shut down. It is always assigned process ID 1. 
+When the kernel finishes loading, it usually starts /sbin/init. This program remains running until the system is shut down. It is always assigned process ID 1.
 
 first process, process in charge, a big family tree of commands:
 

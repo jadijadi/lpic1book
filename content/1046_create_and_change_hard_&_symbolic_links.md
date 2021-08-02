@@ -1,3 +1,7 @@
+Title: 104.6. Create and change hard & symbolic links
+Date: 2021-08-03 13:23
+Category: 104
+
 # 104.6. Create and change hard & symbolic links
 weight: 2
 
@@ -20,11 +24,11 @@ A link is simply an additional directory entry for a file or directory
 
   $ ls -il
   $ vi link2file.txt #will edit both
-  $ mv myfile.txt 
+  $ mv myfile.txt
 
 A link is simply an additional directory entry for a file or directory, allowing two or more names for the same thing. A hard link is a directory entry that points to an inode, while a soft link or symbolic link is a directory entry that points to an inode that provides the name of another directory entry. The exact mechanism for storing the second name may depend on both the file system and the length of the name. Symbolic links are also called symlinks.
 
-Soft links, or symlinks, merely point to another file or directory by name rather than by inode. Soft links can cross file system boundaries. 
+Soft links, or symlinks, merely point to another file or directory by name rather than by inode. Soft links can cross file system boundaries.
 
   $ cp myfile.txt newfile.txt
   $ vi myfile.txt
@@ -38,9 +42,9 @@ You can create hard links only for files and not for directories. The exception 
 
   $ ls -ltrhi /etc/grub2.cfg
 
-You will get an error if you attempt to create hard links that cross file systems or that are for directories. 
+You will get an error if you attempt to create hard links that cross file systems or that are for directories.
 
-  $ ln mydir link2dir # error! 
+  $ ln mydir link2dir # error!
   $ ln -s mydir link2dir
 
 If you are using relative names, you will usually want the current working directory to be the directory where you are creating the link; otherwise, the link you create will be relative to another point in the file system.
@@ -54,11 +58,8 @@ we can find symbolic links with ls -i or even find:
 
   $ find . -type l
 
-and they are useful! 
+and they are useful!
 
   $ which java # linking to specific versions
   $ ls -ltrhi /etc/grub2.cfg # easier admin tasks
   $ ls -l /usr/lib64/ # keeping libraries clean
-
-
-

@@ -1,4 +1,8 @@
-#105.3 SQL data management
+Title: 105.3 SQL data management
+Date: 2021-08-03 13:25
+Category: 105
+
+# 105.3 SQL data management
 *Weight: 2*
 
 Candidates should be able to query databases and manipulate data using basic SQL commands. This objective includes performing queries involving joining of 2 tables and/or subselects.
@@ -34,14 +38,14 @@ which means I'm going to use `u`ser root and will provide a password. It was als
 $ mysql -u root -p mypass lpic
 ````
 
-to provide the pass on command line (not a good idea for security reasons!) and tell mysql program to connect to `lpic` database when it starts. 
+to provide the pass on command line (not a good idea for security reasons!) and tell mysql program to connect to `lpic` database when it starts.
 
 ### using a database
-When you connect to a database, you have to use the `use` command to select which database you are going to issue commands on. Normally a database server (say mysql) can have 100s of different databases in it, each for one user or program. 
+When you connect to a database, you have to use the `use` command to select which database you are going to issue commands on. Normally a database server (say mysql) can have 100s of different databases in it, each for one user or program.
 
 ````
 jadi@funlife:~$ mysql -u root -p
-Enter password: 
+Enter password:
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 17
 Server version: 5.6.25-0ubuntu0.15.04.1 (Ubuntu)
@@ -84,9 +88,9 @@ mysql> SHOW TABLES;
 
 ````
 
-As you can see `mysql` is friendly and shows lovely tables! I've told her to `use lpic` and then `show tables` and now I know that I have two tables: info & phonebook. 
+As you can see `mysql` is friendly and shows lovely tables! I've told her to `use lpic` and then `show tables` and now I know that I have two tables: info & phonebook.
 
-> Note: it is common to type MYSQL commands in CAPITAL LETTERS and names and values and .. in lower case. 
+> Note: it is common to type MYSQL commands in CAPITAL LETTERS and names and values and .. in lower case.
 
 ## SELECT
 `SELECt` is obvious! It selects from a table. When we are not sure what field we are looking for, we can select `*` to get all fields.
@@ -135,7 +139,7 @@ mysql> SELECT * FROM info;
 4 rows in set (0.00 sec)
 ````
 
-What if we only wanted to see our *happy* friends? 
+What if we only wanted to see our *happy* friends?
 
 ````
 mysql> SELECT * FROM info WHERE mood = 'happy';
@@ -148,10 +152,10 @@ mysql> SELECT * FROM info WHERE mood = 'happy';
 +--------+--------+--------+-------+
 3 rows in set (0.00 sec)
 
-mysql> 
+mysql>
 ````
 
-Dont be afraid for *mina*, we will make her happy later but for now we need to see the friends who are happy and more than 80Kg. 
+Dont be afraid for *mina*, we will make her happy later but for now we need to see the friends who are happy and more than 80Kg.
 
 ````
 mysql> SELECT * FROM info WHERE mood = 'happy' AND weight >= 80;
@@ -249,7 +253,7 @@ mysql> SELECT count(mood), mood FROM info GROUP BY mood;
 
 Whic counts home many rows have that specific mood. So I have 3 happy friends and one sad friend.
 
-> Note: `count` is not part of LPIC 105.3 
+> Note: `count` is not part of LPIC 105.3
 
 ## INSERT
 Another clear command. It adds a new row to a talbe. Say I want to add some data to phonebook:
@@ -322,7 +326,7 @@ mysql> SELECT * FROM phonebook;
 ````
 
 
-## JOIN 
+## JOIN
 The JOIN command can be complicated but luckily we are on LPIC1-Exam 102 and we do not need to learn much ;) Join will join/mix two tables. Just check this:
 
 ````
@@ -378,7 +382,7 @@ mysql> SELECT phonebook.name, phone, mood FROM phonebook JOIN info ON phonebook.
 3 rows in set (0.00 sec)
 ````
 
-> Note: both tables have a field called `name` so I needed to use phonebook.name to tell SQL which name I want to show. 
+> Note: both tables have a field called `name` so I needed to use phonebook.name to tell SQL which name I want to show.
 
 Obviously we can add more criteria and go out with a person shorter than 175cm:
 
@@ -429,7 +433,7 @@ Easy. The last command is even easier:
 ````
 mysql> quit
 Bye
-jadi@funlife:~$ 
+jadi@funlife:~$
 ````
 
 .

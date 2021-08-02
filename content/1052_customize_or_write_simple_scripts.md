@@ -1,3 +1,7 @@
+Title: 105.2 Customize or write simple scripts
+Date: 2021-08-03 13:25
+Category: 105
+
 # 105.2 Customize or write simple scripts
 
 _Weight: 4_
@@ -42,7 +46,7 @@ We can use the command we already know in our shell scripts. A sample is:
 ```
 #!/bin/bash
 
-echo 
+echo
 echo "We are learning! Wowww..."
 echo
 ```
@@ -56,7 +60,7 @@ Already seen in some parts. You can define variables like this `VARNAME=VALUE`. 
 
 NAME=Jadi
 
-echo 
+echo
 echo "$NAME is learning! Wowww..."
 echo
 ```
@@ -86,7 +90,7 @@ Up to now, we were just running commands one by one. That is not very _programma
 ```
 if [condition]
 then
-   do something 
+   do something
    do another thing
 else
    do new things
@@ -133,19 +137,19 @@ Using `read` we can read the user input. Look at this:
 
 ```
 1 #!/bin/sh
-  2 
+  2
   3 echo "what is your name?"
   4 read NAME
-  5 
+  5
   6 echo "Hello $NAME"
-  7 
+  7
   8 if [ $NAME = "Jadi" ]
   9 then
  10      echo "Oh I know you!"
  11  else
  12      echo "I wish I knew you"
  13 fi
- 14 
+ 14
  15 echo "Bye"
 ```
 
@@ -220,7 +224,7 @@ For sending mail, you need to install `mailutils`. Then the `mail` command will 
 
 ```
 jadi@funlife:~$ mail root
-Cc: 
+Cc:
 Subject: Hi there root
 hello there. This is my mail
 ```
@@ -234,4 +238,3 @@ $ echo "Body!" | mail -s "Subject" root
 ```
 
 This can be easily embeded as poart of your scripts!
-

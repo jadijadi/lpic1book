@@ -1,4 +1,8 @@
-#110.1 Perform security administration tasks
+Title: 110.1 Perform security administration tasks
+Date: 2021-08-03 13:40
+Category: 110
+
+# 110.1 Perform security administration tasks
 *Weight: 3*
 
 Candidates should know how to review system configuration to ensure host security in accordance with local security policies.
@@ -45,10 +49,10 @@ jadi@funlife ~$ ls -ltrh /usr/bin/vi
 lrwxrwxrwx 1 root root 20 Jun  1 12:52 /usr/bin/vi -> /etc/alternatives/vi
 ````
 
-at the moment, the `vi` is owned by root,  so if the suid bit is set, vi will always be run as root! In that case anybody will be able to edit any file! You can see why it is important to check for suid files on your system: 
+at the moment, the `vi` is owned by root,  so if the suid bit is set, vi will always be run as root! In that case anybody will be able to edit any file! You can see why it is important to check for suid files on your system:
 
 ````
-$sudo find / -perm -u+s 
+$sudo find / -perm -u+s
 ````
 
 > same applies for guid. if the guid is set, the file will be run with access of its group
@@ -65,7 +69,7 @@ tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN
 tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN     
 tcp        0      0 127.0.1.1:53            0.0.0.0:*               LISTEN     
 tcp        0      0 127.0.0.1:9050          0.0.0.0:*               LISTEN     
-tcp       25      0 192.168.59.9:49934      192.168.59.192:139      CLOSE_WAIT 
+tcp       25      0 192.168.59.9:49934      192.168.59.192:139      CLOSE_WAIT
 tcp        0      0 127.0.0.1:60228         127.0.0.1:1080          ESTABLISHED
 tcp        0      0 192.168.1.35:55324      159.203.148.169:8385    ESTABLISHED
 tcp        0      0 127.0.0.1:59590         127.0.0.1:1080          ESTABLISHED
@@ -79,7 +83,7 @@ udp        0      0 0.0.0.0:5353            0.0.0.0:*
 udp        0      0 0.0.0.0:5353            0.0.0.0:*         
 ````
 
-All the `LISTEN` ports are servers; they are LISTENING for new incoming connections. The `ESTABLISHED` connections are the active connections between your computer and another computer. In these tables `0.0.0.0` dictates *any address* or *any interface*. 
+All the `LISTEN` ports are servers; they are LISTENING for new incoming connections. The `ESTABLISHED` connections are the active connections between your computer and another computer. In these tables `0.0.0.0` dictates *any address* or *any interface*.
 
 Another useful tool here is `lsof` and `fuser`. The former is already discussed in previous sections. `lsof` shows the open files on the system and having in mind that *everything in Linux is a file or a process* you can conclude that this command should be able to display open connections too; and you are right:
 
@@ -87,10 +91,10 @@ Another useful tool here is `lsof` and `fuser`. The former is already discussed 
 # lsof -i
 COMMAND     PID       USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
 privoxy     806    privoxy    4u  IPv4   16130      0t0  TCP funlife:8118 (LISTEN)
-cups-brow   903       root    8u  IPv4   17477      0t0  UDP *:ipp 
+cups-brow   903       root    8u  IPv4   17477      0t0  UDP *:ipp
 mysqld      971      mysql   19u  IPv4   20875      0t0  TCP funlife:mysql (LISTEN)
 tor        1038 debian-tor    6u  IPv4   19155      0t0  TCP funlife:9050 (LISTEN)
-dnsmasq    1260     nobody   11u  IPv4 1910037      0t0  UDP *:18666 
+dnsmasq    1260     nobody   11u  IPv4 1910037      0t0  UDP *:18666
 adb        1278       jadi    5u  IPv4  579541      0t0  TCP funlife:5037 (LISTEN)
 chromium-  2891       jadi   88u  IPv4  813611      0t0  TCP 192.168.1.35:45702->do-13.lastpass.com:https (ESTABLISHED)
 chromium-  2891       jadi  126u  IPv4 1907389      0t0  TCP 192.168.1.35:50642->ntt-2.lastpass.com:https (ESTABLISHED)
@@ -98,10 +102,10 @@ chromium-  2891       jadi  133u  IPv4 1909733      0t0  TCP 192.168.1.35:50644-
 chromium-  2891       jadi  268u  IPv4  785289      0t0  TCP 192.168.1.35:60736->lf-in-f188.1e100.net:5228 (ESTABLISHED)
 python     4925       jadi    4u  IPv4  658287      0t0  TCP funlife:8000 (LISTEN)
 Telegram   4943       jadi   39u  IPv4  773463      0t0  TCP 192.168.1.35:44732->149.154.175.50:https (ESTABLISHED)
-dhclient   9984       root    6u  IPv4  787885      0t0  UDP *:bootpc 
+dhclient   9984       root    6u  IPv4  787885      0t0  UDP *:bootpc
 nginx     11095       root    6u  IPv4   17998      0t0  TCP *:http (LISTEN)
 nginx     11099   www-data    7u  IPv6   17999      0t0  TCP *:http (LISTEN)
-chrome    14264       jadi  114u  IPv4  788089      0t0  UDP *:mdns 
+chrome    14264       jadi  114u  IPv4  788089      0t0  UDP *:mdns
 chrome    14264       jadi  126u  IPv4 1872872      0t0  TCP funlife:60370->funlife:socks (ESTABLISHED)
 chrome    14264       jadi  138u  IPv4 1908382      0t0  TCP funlife:60408->funlife:socks (ESTABLISHED)
 ````
@@ -134,7 +138,7 @@ PORT     STATE SERVICE
 9050/tcp open  tor-socks
 
 Nmap done: 1 IP address (1 host up) scanned in 1.66 seconds
-root@funlife:~# 
+root@funlife:~#
 ````
 
 In the most basic form, nmap checks all the open ports from 1 to 1000 and prints the results. There are a lot of switches to find other information about the hosts and they are used by every single hacker who wants to examine a servers status.
@@ -146,7 +150,7 @@ We've used sudo and su in all the chapters and this is time to have a closer loo
 jadi@funlife ~$ whoami
 jadi
 jadi@funlife ~$ su -
-Password: 
+Password:
 root@funlife:~# whoami
 root
 root@funlife:~# su jadi -
@@ -162,10 +166,10 @@ root@funlife:~# exit
 logout
 jadi@funlife ~$ whoami
 jadi
-jadi@funlife ~$ 
+jadi@funlife ~$
 ````
 
-Note that when running `su` you have to **provide the root password** to become root; or any other users password to become that user! 
+Note that when running `su` you have to **provide the root password** to become root; or any other users password to become that user!
 
 On the other hand, sudo asks for your own password and runs the command you gave it, with the root privileges. So `sudo ls` runs the ls command with the root privileges after asking for **your passowrd**.  Obviously you should have the *sudo right* to issue sudo. This is defined in /etc/sudoers file:
 
@@ -203,11 +207,11 @@ root	ALL=(ALL:ALL) ALL
 #includedir /etc/sudoers.d
 ````
 
-note the 2 important lines: how root gets the right to run all the commands and how the sudo and admin groups get rights to run commands as root. The `ALL:ALL` means these users can run as any user and any group. The last ALL tells the sudo that these users / groups can run ALL commands. It is possible to put /bin/ping in the last part to tell sudo that this user can run only ping as root. 
+note the 2 important lines: how root gets the right to run all the commands and how the sudo and admin groups get rights to run commands as root. The `ALL:ALL` means these users can run as any user and any group. The last ALL tells the sudo that these users / groups can run ALL commands. It is possible to put /bin/ping in the last part to tell sudo that this user can run only ping as root.
 
 > The /etc/sudoers file is very important and breaking it will make major problems. to prevent you from adding un-interpretable lines in that file, the `visudo` command should be used instead of `vi /etc/sudoers`. This tool will check your edits to make sure that sudo command can understand them.
 
-Now we know what `sudo su -` means. The sudo tells the system to run the `su -` command with the root access. It asks your password and runs the `su -` as the root if you have sudo access. The `su` commands changes your user to root and `-` switch load the root environment variables. This way you can become root using your own password via running `su` with `sudo`. 
+Now we know what `sudo su -` means. The sudo tells the system to run the `su -` command with the root access. It asks your password and runs the `su -` as the root if you have sudo access. The `su` commands changes your user to root and `-` switch load the root environment variables. This way you can become root using your own password via running `su` with `sudo`.
 
 ### user limits
 The resources on a Linux machine can be manages for users by the `ulimit` command. It is part of the PAM system. If you want to check the limits on the system run:
@@ -249,7 +253,7 @@ Changing the ulimit as we did is a temporary thing. It only persists in that spe
 To change the ulimits system-wide:
 
 ````
-$ cat /etc/security/limits.conf 
+$ cat /etc/security/limits.conf
 # /etc/security/limits.conf
 #
 #Each line describes a limit for a user in the form:
@@ -329,7 +333,7 @@ jadi     pts/26   :0               21:39    0.00s  0.07s  0.00s w
 jadi     pts/27   :0               21:55    8:09   0.01s  0.01s /bin/bash
 ````
 
-You have a line for each logged in users (every single shell window is a seperated login). 
+You have a line for each logged in users (every single shell window is a seperated login).
 
 Another userul command is `who`. Lets check it:
 

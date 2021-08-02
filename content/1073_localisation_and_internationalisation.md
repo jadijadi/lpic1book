@@ -1,4 +1,8 @@
-#107.3 Localisation and internationalisation
+Title: 107.3 Localisation and internationalisation
+Date: 2021-08-03 13:31
+Category: 107
+
+# 107.3 Localisation and internationalisation
 *Weight: 3*
 
 Candidates should be able to localise a system in a different language than English. As well, an understanding of why LANG=C is useful when scripting.
@@ -44,7 +48,7 @@ Different distros do have their own configuration commands, a general one is:
 
 
 ````
-tzselect 
+tzselect
 Please identify a location so that time zone rules can be set correctly.
 Please select a continent, ocean, "coord", or "TZ".
  1) Africa
@@ -71,14 +75,14 @@ TZ='Asia/Tehran'; export TZ
 There is a directory at `/usr/share/zoneinfo/` containing all the timezone info. These are binary files. If you need to change your systems timezone you need to change 2 files:
 
 ````
-cat /etc/timezone 
+cat /etc/timezone
 Asia/Tehran
 ````
 
 and there is a short link at this place:
 
 ````
-# ls -ltrh /etc/localtime 
+# ls -ltrh /etc/localtime
 -rw-r--r-- 1 root root 1.7K Jan  2 18:10 /etc/localtime
 ````
 This file should be replaced by the correct file from `/usr/share/zoneinfo/`. It is nicer to make a symbolic link rather than copying the actual file. This will prevent the conflicts during next upgrades.
@@ -147,4 +151,4 @@ iconv -f WINDOWS-1258 -t UTF-8 /tmp/myfile.txt
 
 > Note: -f is for "from" and -t is for "to". Easy to remember
 
-In 2016 you will seldom need this command but it is a must to know it, specially if you are living in a non US country! 
+In 2016 you will seldom need this command but it is a must to know it, specially if you are living in a non US country!

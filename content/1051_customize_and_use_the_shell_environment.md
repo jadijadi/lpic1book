@@ -1,4 +1,8 @@
-#105.1. Customize and use the shell environment
+Title: 105.1. Customize and use the shell environment
+Date: 2021-08-03 13:25
+Category: 105
+
+# 105.1. Customize and use the shell environment
 *Weight: 4*
 
 Candidates should be able to customize shell environments to meet users’ needs. Candidates should be able to modify global and user profiles.
@@ -28,18 +32,18 @@ Set command search path with the proper directory
 - lists
 
 ### Environment variables
-This is discussed in the past. But how we should set them when we login or change shell. Oh! And what happen when we are not logged in? ;) 
+This is discussed in the past. But how we should set them when we login or change shell. Oh! And what happen when we are not logged in? ;)
 
 
 ### login vs non-login shell
-Sometimes you *login* into the shell, say after a ssh but sometimes you just *open* a shell; say in GUI. 
+Sometimes you *login* into the shell, say after a ssh but sometimes you just *open* a shell; say in GUI.
 
 #### login shell
 This happens when you give your user and pass to enter a shell. Many steps are involved to setup your variables and settings. These are the steps:
 
 1- /etc/profile is run
 
-2- A line in /etc/profile runs whatever is in /etc/profile.d/* 
+2- A line in /etc/profile runs whatever is in /etc/profile.d/*
 
 Now the global profile is loaded and system will go for user specific profiles:
 
@@ -55,7 +59,7 @@ At the end, the system loads:
 
 6. /home/USERNAME/.bashrc
 
-which is users information (like aliases). 
+which is users information (like aliases).
 
 > Note: /etc/profile also loads /etc/bashrc or /etc/bash.bashrc
 
@@ -69,7 +73,7 @@ if you run a shell in an interactive mode (non-login) shell say from a GUI, only
 you can add your global new config files int /etc/profile.d/ (with .sh at the end). It is cleaner and better than editing the /etc/profile because an update can overwrite your changes if you do so.
 
 ### adding global configs for interactive/non-login shell
-you can use /etc/bash.bashrc file (some systems /etc/bashrc). This is good for *aliases* and other global configs. 
+you can use /etc/bash.bashrc file (some systems /etc/bashrc). This is good for *aliases* and other global configs.
 
 ### user specific configs
 Most of the time PATH and env vars go into the in ~/.bash_profile and aliases go into the ~/.bashrc. Have a look at them!
@@ -83,25 +87,25 @@ alias la='ls -A'
 alias l='ls -CF'
 ````
 
-It is kind of a shortcut. 
+It is kind of a shortcut.
 
 ### /etc/skel
-This directory contains files which will be used as a starting template for each new user. 
+This directory contains files which will be used as a starting template for each new user.
 
 ### .bash_logout
-runs when you logout from a login shell. In many distros it only clears the screen so the next person will not be able to watch what you were doing before you logout. 
+runs when you logout from a login shell. In many distros it only clears the screen so the next person will not be able to watch what you were doing before you logout.
 
 
 ### . (and source)
-Yes only a dot! This is a shortcut for the bash source command. You can find it in files like /etc/profile. It runs the executable in front of it as part of the current environment. 
+Yes only a dot! This is a shortcut for the bash source command. You can find it in files like /etc/profile. It runs the executable in front of it as part of the current environment.
 
-> Note: If you just execute a file (without source or dot) bash creates a child, runs the executable there and then closes it. 
+> Note: If you just execute a file (without source or dot) bash creates a child, runs the executable there and then closes it.
 
 ### functions
 Like "real" programming languages, Bash has functions, though in a somewhat limited implementation. A function is a subroutine, a code block that implements a set of operations, a "black box" that performs a specified task. Wherever there is repetitive code, when a task repeats with only slight variations in procedure, then consider using a function.
 
 ````
-funnyls () { 
+funnyls () {
 	ls -ltrh
 	echo "This is a funny ls"
 }
@@ -128,13 +132,13 @@ $ export name=jadi
 $ echo $name
 jadi
 ````
-> Note: when exporting, the variable will exists in child processes (commands you run from the current shell). If you only say ```name=jadi``` and run a new command in your shell, the name **wont be** jadi in **that** shell. 
+> Note: when exporting, the variable will exists in child processes (commands you run from the current shell). If you only say ```name=jadi``` and run a new command in your shell, the name **wont be** jadi in **that** shell.
 
 ````
 $ name=jadi
 $ echo $name
 jadi
-$ bash 
+$ bash
 $ echo $name
 
 $ exit
@@ -142,13 +146,13 @@ exit
 $ echo $name
 jadi
 $ export name=jadi
-$ bash 
+$ bash
 $ echo $name
 jadi
 ````
 
 ### unset
-This command *has nothing to do* with ```set``` command! This can unset the defined variables or functions. 
+This command *has nothing to do* with ```set``` command! This can unset the defined variables or functions.
 
 ````
 $ name=jadi
@@ -159,10 +163,10 @@ $ echo $name
 
 ````
 
-You can also unset functions. 
+You can also unset functions.
 
 ### env
-can set, remove or display variables or even run a command in a modified environment. 
+can set, remove or display variables or even run a command in a modified environment.
 
 ````
 Syntax
