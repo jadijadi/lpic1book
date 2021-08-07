@@ -1,0 +1,17 @@
+div#sidebar-social-link a svg {
+  filter: saturate(0%) brightness(0.7);
+  height: 20px;
+  width: 20px;
+  margin-right: 3px;
+  transition: all 0.2s ease-in-out;
+  z-index: 0;
+  position: relative;
+}
+div#sidebar-social-link a {
+  text-decoration: none;
+}
+div#sidebar-social-link a svg:hover {
+  filter: none;
+  transform: scale(2.5);
+  z-index: 1;
+}

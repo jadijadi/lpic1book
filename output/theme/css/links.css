@@ -1,0 +1,76 @@
+article p:not(#list-of-translations):not(#post-share-links) a:not(.ampl),
+article ol a:not(.ampl),
+blockquote a:not(.ampl),
+article
+  div.article-content
+  ul:not(.articles-timeline):not(.related-posts-list)
+  a {
+  color: black;
+  display: inline-block;
+  position: relative;
+  &:after {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: silver;
+    content: "";
+    opacity: 1;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(0px);
+  }
+  &:hover {
+    color: royalblue;
+    text-decoration: none;
+    transition: color 0.1s;
+    &:after {
+      opacity: 0;
+      transform: translateY(5px);
+    }
+  }
+  &:focus {
+    text-decoration: none;
+  }
+}
+div.recent-posts-posted a {
+  color: inherit;
+  padding-left: 0.3em;
+  &:hover {
+    border-bottom: 1px dashed;
+    text-decoration: none;
+  }
+  &:focus {
+    text-decoration: none;
+  }
+}
+#lunr-search-result > div.lunr-search-result-item > h4 > a,
+a.ampl {
+  color: royalblue;
+  display: inline-block;
+  position: relative;
+  &:focus {
+    text-decoration: none;
+  }
+  &:hover {
+    color: dodgerblue;
+    text-decoration: none;
+    transition: color 0.1s;
+    &:after {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+  &:after {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: dodgerblue;
+    content: "";
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(5px);
+  }
+}

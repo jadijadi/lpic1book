@@ -1,0 +1,38 @@
+.article-content {
+  & blockquote {
+    --quotes-margin: 13px;
+    background: Cornsilk;
+    border-left: 5px solid goldenrod;
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    margin: 1rem auto 2rem;
+    padding: 0.1rem 1.2rem;
+    position: relative;
+    width: 80%;
+    &:before,
+    &:after {
+      color: dimgray;
+      font-size: 4rem;
+      line-height: 0;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+    }
+    &:before {
+      content: open-quote;
+      margin-right: var(--quotes-margin);
+      right: 100%;
+      top: 30px;
+    }
+    &:after {
+      bottom: 0px;
+      content: close-quote;
+      left: 100%;
+      margin-left: var(--quotes-margin);
+      top: auto;
+    }
+    & p {
+      margin: 20px 0;
+    }
+  }
+}
