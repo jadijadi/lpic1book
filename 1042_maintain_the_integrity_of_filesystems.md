@@ -186,7 +186,7 @@ none              tmpfs     100M   28K  100M   1% /run/user
 /dev/sdb1         vfat      3.7G  7.8M  3.6G   1% /media/jadi/BA82-BECD
 ```
 
-Here the \`-T\` switch make df to show the file system types and \`-H\` make numbers human readable \(in powers of 1000\). Please note that \`-h\` is also human readable but in powres of 1024 \(e.g. shows 1k for 1000 bytes.
+Here, the \`-T\` switch make df to show the file system types and \`-H\` make numbers human readable \(in powers of 1000\). Please note that \`-h\` is also human readable but in powres of 1024 \(e.g. shows 1k for 1000 bytes.
 
 If you need the inode data, use the `-i` switch:
 
@@ -242,7 +242,7 @@ jadi@funlife:~/w/lpic$ du -hs
 
 # Repairing
 
-We used the `fsck` for showing file system information but if is designed to _fix_ file systems too. If the boot time check find a problems, you will be put into a command line to fix the problems.
+We used the `fsck` for showing file system information but it is designed to _fix_ file systems too. If the boot time check find a problems, you will be put into a command line to fix the problems.
 
 On non-journaling file systems \(ext2\) the fsck will show you many questions about each block and you have to say `y` if you want it to fix them. On journaling file systems \(ext3&4, xfs, ..\) the fsck has much less tasks to perform.
 
