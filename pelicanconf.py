@@ -3,7 +3,7 @@
 
 AUTHOR = 'Jadi'
 SITENAME = 'lpic1book'
-SITEURL = ''
+SITEURL = '.'
 
 PATH = 'content'
 
