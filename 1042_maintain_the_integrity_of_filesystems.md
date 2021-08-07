@@ -242,7 +242,7 @@ jadi@funlife:~/w/lpic$ du -hs
 
 # Repairing
 
-We used the `fcsk` for showing file system information but if is designed to _fix_ file systems too. If the boot time check find a problems, you will be put into a command line to fix the problems.
+We used the `fsck` for showing file system information but if is designed to _fix_ file systems too. If the boot time check find a problems, you will be put into a command line to fix the problems.
 
 On non-journaling file systems \(ext2\) the fsck will show you many questions about each block and you have to say `y` if you want it to fix them. On journaling file systems \(ext3&4, xfs, ..\) the fsck has much less tasks to perform.
 
