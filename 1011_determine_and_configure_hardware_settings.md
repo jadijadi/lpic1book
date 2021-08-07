@@ -1,54 +1,60 @@
-
 # 101.1 Determine and configure hardware settings
-*Weight: 2*
+
+_Weight: 2_
 
 Candidates should be able to determine and configure fundamental system hardware.
 
 ## Objectives
 
-- Enable and disable integrated peripherals.
-- Configure systems with or without external peripherals such as keyboards.
-- Differentiate between the various types of mass storage devices.
-- Set the correct hardware ID for different devices, especially the boot device.
-- Know the differences between coldplug and hotplug devices.
-- Determine hardware resources for devices.
-- Tools and utilities to list various hardware information (e.g. lsusb, lspci, etc.)
-- Tools and utilities to manipulate USB devices
-- Conceptual understanding of sysfs, udev, hald, dbus
+* Enable and disable integrated peripherals.
+* Configure systems with or without external peripherals such as keyboards.
+* Differentiate between the various types of mass storage devices.
+* Set the correct hardware ID for different devices, especially the boot device.
+* Know the differences between coldplug and hotplug devices.
+* Determine hardware resources for devices.
+* Tools and utilities to list various hardware information \(e.g. lsusb, lspci, etc.\)
+* Tools and utilities to manipulate USB devices
+* Conceptual understanding of sysfs, udev, hald, dbus
 
+* /sys
 
-- /sys
-- /proc
-- /dev
-- modprobe
-- lsmod
-- lspci
-- lsusb
+* /proc
+* /dev
+* modprobe
+* lsmod
+* lspci
+* lsusb
 
 ## Find out about the hardware
+
 ### HAL
-**HAL** is Hardware Abstraction Layer. It abstracts your hardware details from you, say any first network card will be *eth0*. This way Linux will see any hardware as an *standard* hardware and you will be able to replace the hardware easily. 
+
+**HAL** is Hardware Abstraction Layer. It abstracts your hardware details from you, say any first network card will be _eth0_. This way Linux will see any hardware as an _standard_ hardware and you will be able to replace the hardware easily.
 
 ### dbus
-Is really a bus and lets parts of the system communicate with each other. For example, when you install a USB into your computer, dbus lets GNOME know about it. Using dbus, hardware & software can talk with each other.
 
-### udev
+A line like a bus that connects all parts of the OS to each other. dbus lets different parts of the system to communicate with each other. For example, when you install a USB into your computer, dbus lets GNOME know about it. Using dbus, hardware & software can talk with each other.
+
+#### udev
+
 Supplies the software with the events and access info of devices and can handle rules.
 
-There are a lot of devices in `/dev/` and if you plugin any device, it will have a file in `/dev` (say /dev/sdb2). **udev** lets you control what will be what in `/dev`. For example, you can use a rule to force your 8GB flash drive with one specific vendor to be `/dev/mybackup` all the time or you can tell it to copy all photos to your home directory as soon as your camera is connected.
+There are a lot of devices in `/dev/` and if you plugin any device, it will have a file in `/dev` \(say /dev/sdb2\). **udev** lets you control what will be what in `/dev`. For example, you can use a rule to force your 8GB flash drive with one specific vendor to be `/dev/mybackup` all the time or you can tell it to copy all photos to your home directory as soon as your camera is connected.
 
 ### sysfs
-The `/sys` directory is where **HAL** keeps its database of everything connected to the system. 
+
+The `/sys` directory is where **HAL** keeps its database of everything connected to the system.
 
 ```
 jadi@funlife:~$ ls /sys
-block  bus  class  dev	devices  firmware  fs  hypervisor  kernel  module  power
+block  bus  class  dev    devices  firmware  fs  hypervisor  kernel  module  power
 ```
 
-All block devices are at the `block` and `bus` directory has all the connected PCI, USB, serial, .. devices. Note that here in `sys` we have the devices based on their technology but `/dev/` is abstracted. 
+All block devices are at the `block` and `bus` directory has all the connected PCI, USB, serial, .. devices. Note that here in `sys` we have the devices based on their technology but `/dev/` is abstracted.
 
 ### proc directory
-This is where kernel keeps its data structure and is created in RAM. You can read and write here (after reboot, the write is gone). 
+
+This is where kernel keeps its settings and properties. This directory is created on ram and files might have write accessible.
 
 ```
 $ ls /proc/
@@ -75,56 +81,56 @@ The numbers are the process IDs! There are also other files like `cpuinfo`, `mou
 
 ```
 $ cat /proc/cpuinfo 
-processor	: 0
-vendor_id	: GenuineIntel
-cpu family	: 6
-model		: 42
-model name	: Intel(R) Core(TM) i5-2520M CPU @ 2.50GHz
-stepping	: 7
-microcode	: 0x15
-cpu MHz		: 3195.312
-cache size	: 3072 KB
-physical id	: 0
-siblings	: 4
-core id		: 0
-cpu cores	: 2
-apicid		: 0
-initial apicid	: 0
-fpu		: yes
-fpu_exception	: yes
-cpuid level	: 13
-wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 4983.79
-clflush size	: 64
-cache_alignment	: 64
-address sizes	: 36 bits physical, 48 bits virtual
+processor    : 0
+vendor_id    : GenuineIntel
+cpu family    : 6
+model        : 42
+model name    : Intel(R) Core(TM) i5-2520M CPU @ 2.50GHz
+stepping    : 7
+microcode    : 0x15
+cpu MHz        : 3195.312
+cache size    : 3072 KB
+physical id    : 0
+siblings    : 4
+core id        : 0
+cpu cores    : 2
+apicid        : 0
+initial apicid    : 0
+fpu        : yes
+fpu_exception    : yes
+cpuid level    : 13
+wp        : yes
+flags        : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips    : 4983.79
+clflush size    : 64
+cache_alignment    : 64
+address sizes    : 36 bits physical, 48 bits virtual
 power management:
 
-processor	: 1
-vendor_id	: GenuineIntel
-cpu family	: 6
-model		: 42
-model name	: Intel(R) Core(TM) i5-2520M CPU @ 2.50GHz
-stepping	: 7
-microcode	: 0x15
-cpu MHz		: 3010.839
-cache size	: 3072 KB
-physical id	: 0
-siblings	: 4
-core id		: 0
-cpu cores	: 2
-apicid		: 1
-initial apicid	: 1
-fpu		: yes
-fpu_exception	: yes
-cpuid level	: 13
-wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
-bogomips	: 4983.79
-clflush size	: 64
-cache_alignment	: 64
-address sizes	: 36 bits physical, 48 bits virtual
+processor    : 1
+vendor_id    : GenuineIntel
+cpu family    : 6
+model        : 42
+model name    : Intel(R) Core(TM) i5-2520M CPU @ 2.50GHz
+stepping    : 7
+microcode    : 0x15
+cpu MHz        : 3010.839
+cache size    : 3072 KB
+physical id    : 0
+siblings    : 4
+core id        : 0
+cpu cores    : 2
+apicid        : 1
+initial apicid    : 1
+fpu        : yes
+fpu_exception    : yes
+cpuid level    : 13
+wp        : yes
+flags        : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips    : 4983.79
+clflush size    : 64
+cache_alignment    : 64
+address sizes    : 36 bits physical, 48 bits virtual
 power management:
 ```
 
@@ -144,11 +150,13 @@ root@funlife:/proc/sys/fs# echo 1000000 > file-max
 root@funlife:/proc/sys/fs# cat file-max 
 1000000
 ```
-Another very useful directory here, is `/proc/sys/net/ipv4` which controls real time networking configurations. 
+
+Another very useful directory here, is `/proc/sys/net/ipv4` which controls real time networking configurations.
 
 > All these changes will be reverted after a boot. You have to write into config files in `/etc/` to make these changes permanent
 
 ### dev
+
 **udev** controls `/dev/` directory. There are abstracted devices like a hard, is `/dev/sda` or `/dev/hd0` regardless of its brand, model or technology:
 
 ```
@@ -156,11 +164,12 @@ root@funlife:/dev# ls /dev/sda*
 /dev/sda  /dev/sda1  /dev/sda2  /dev/sda3  /dev/sda5  /dev/sda6
 ```
 
-
 ### lsmod, lsusb, lspci
-These commands show list of modules and hardwares on the system. 
+
+These commands show list of modules and hardwares on the system.
 
 #### lsmod
+
 Shows kernel modules.
 
 ```
@@ -210,9 +219,9 @@ lrw                    13287  1 aesni_intel
 iwlwifi               183038  1 iwldvm
 ```
 
-These are the kernel modules which are loaded. 
+These are the kernel modules which are loaded.
 
-If you need to add a module to your kernel (say a new driver for a hardware) or remove it (uninstall a driver) you can use `rmmod` and `modprobe`.
+If you need to add a module to your kernel \(say a new driver for a hardware\) or remove it \(uninstall a driver\) you can use `rmmod` and `modprobe`.
 
 ```
 # rmmod iwlwifi 
@@ -238,6 +247,7 @@ If you need to load some modules every time your system boots, do one of the fol
 2. add their configs files to the `/etc/modprobe.d/`
 
 #### lspci
+
 Shows PCI devices that are connected to the computer.
 
 ```
@@ -259,8 +269,8 @@ Shows PCI devices that are connected to the computer.
 0d:00.0 System peripheral: Ricoh Co Ltd MMC/SD Host Controller (rev 07)
 ```
 
-
 #### lsusb
+
 Shows all the USB devices connected to the system.
 
 ```
@@ -276,16 +286,20 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 ```
 
 #### lspcmcia
+
 Shows available PCMCIA cards on this computer.
 
 #### lshal
+
 Shows HAL data.
 
 #### lshw
+
 Shows hardware. Test it!
 
 ## Device UUIDs
-Each device has an ID. If you speak about `/dev/sda`, you are speaking about the "first hard" but if you want a specific drive to be your `/home`, you have to use UUID. 
+
+Each device has an ID. If you speak about `/dev/sda`, you are speaking about the "first hard" but if you want a specific drive to be your `/home`, you have to use UUID.
 
 ```
 root@funlife:/dev# cat /proc/mounts 
@@ -298,7 +312,9 @@ tmpfs /run tmpfs rw,nosuid,noexec,relatime,size=806028k,mode=755 0 0
 /dev/disk/by-uuid/1651a94e-0b4e-47fb-aca0-f77e05714617 / ext4 rw,relatime,errors=remount-ro,data=ordered 0 0
 ```
 
-Every other device has its own ID which can be used to *identify* it. 
+Every other device has its own ID which can be used to _identify_ it.
 
 ## hotplug
+
 Hotplug is when you insert a hardware into a running computer and coldplug is when you have to turn your computer off to install a hardware. USB devices are hot pluggable while PCI cards should be cold-plugged.
+

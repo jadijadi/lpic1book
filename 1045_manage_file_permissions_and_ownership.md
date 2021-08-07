@@ -102,7 +102,7 @@ It is possible to change the permissions on files & directories using the `chmod
 1. using octal codes
 2. using short coeds
 
-When using octal codes, you have to to create an octal string to tell chmod what you want to do. This way, 0 means no access,  means execute, 2 means write and 4 means read. So if you want to give read+execute, you have to give 4+1 which is 5. This table shows every possible combination:
+When using octal codes, you have to to create an octal string to tell chmod what you want to do. This way, 0 means no access, 1 means execute, 2 means write and 4 means read. So if you want to give read+execute, you have to give 4+1 which is 5. This table shows every possible combination:
 
 |Symbolic|Octal|
 |---|---|

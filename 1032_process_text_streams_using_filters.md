@@ -168,7 +168,7 @@ still writing
 >need to join these files? ````cat```` them with ````cat x* > originalfile````.
 
 ## wc
-wc is *word count*. It counts the characters, lines and bytes in the input stream.
+wc is *word count*. It counts the lines, words and bytes in the input stream.
 
 ````
 jadi@funlife:~/w/lpic/101$ wc mydata 
