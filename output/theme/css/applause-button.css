@@ -1,0 +1,15 @@
+div.applause_button {
+  display: flex;
+  justify-content: flex-end;
+  & applause-button {
+    height: 50px;
+    width: 50px;
+    & div.style-root {
+      /* We are forced to use important because applause-button has defined
+       * style on the element */
+      fill: maroon !important;
+      stroke: maroon !important;
+      color: maroon !important;
+    }
+  }
+}

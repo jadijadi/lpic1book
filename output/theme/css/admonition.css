@@ -1,0 +1,153 @@
+/* Admonition styles */
+div.admonition {
+  padding: 0;
+  margin-bottom: 20px;
+  background-color: #fcf8e3;
+  border: 1px solid;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+div.admonition p {
+  margin: 0.5em 1em 0.5em 1em;
+  padding: 0;
+}
+
+div.admonition p a {
+  color: inherit !important;
+}
+
+div.admonition div.highlight {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+div.admonition table.highlighttable {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+div.admonition table.highlighttable div.highlight {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+div.admonition p.admonition-title {
+  color: #fff;
+  margin: 0;
+  padding: 0.1em 0 0.1em 0.5em;
+  font-weight: bold;
+}
+
+div.admonition ul,
+div.admonition ol {
+  margin: 0.1em 0.5em 0.5em 3em;
+  padding: 0;
+}
+
+/* -- danger, error -- */
+div.danger,
+div.error {
+  color: #b94a48;
+  background-color: #f2dede;
+}
+
+div.danger p.admonition-title,
+div.error p.admonition-title {
+  background-color: #b94a48;
+}
+
+/* -- warning, caution, attention -- */
+div.warning,
+div.caution,
+div.attention {
+  color: #c09853;
+}
+div.warning p.admonition-title,
+div.caution p.admonition-title,
+div.attention p.admonition-title {
+  background-color: #c09853;
+}
+
+/* -- note, important -- */
+div.note,
+div.important {
+  color: #468847;
+  background-color: #dff0d8;
+}
+
+div.note p.admonition-title,
+div.important p.admonition-title {
+  background-color: #468847;
+}
+
+/* -- hint, tip -- */
+div.hint,
+div.tip {
+  color: #3a87ad;
+  background-color: #d9edf7;
+}
+
+div.hint p.admonition-title,
+div.tip p.admonition-title {
+  background-color: #3a87ad;
+}
+
+div.danger p.admonition-title:before,
+div.error p.admonition-title:before,
+div.warning p.admonition-title:before,
+div.caution p.admonition-title:before,
+div.attention p.admonition-title:before,
+div.important p.admonition-title:before,
+div.note p.admonition-title:before,
+div.hint p.admonition-title:before,
+div.tip p.admonition-title:before {
+  display: inline-block;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+div.danger p.admonition-title:before,
+div.error p.admonition-title:before {
+  height: 20px;
+  width: 23px;
+  background-size: 20px 20px;
+  content: "";
+  background-repeat: no-repeat;
+  background-image: url('data:image/svg+xml; utf8, <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="white" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"></path></svg>');
+  vertical-align: -20%;
+}
+div.warning p.admonition-title:before,
+div.caution p.admonition-title:before,
+div.attention p.admonition-title:before {
+  height: 20px;
+  width: 23px;
+  background-size: 20px 20px;
+  content: "";
+  background-repeat: no-repeat;
+  background-image: url('data:image/svg+xml; utf8, <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="white" d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"></path></svg>');
+  vertical-align: -20%;
+}
+div.important p.admonition-title:before,
+div.note p.admonition-title:before {
+  height: 20px;
+  width: 23px;
+  background-size: 20px 20px;
+  content: "";
+  background-repeat: no-repeat;
+  background-image: url('data:image/svg+xml; utf8, <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="white" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"></path></svg>');
+  vertical-align: -20%;
+}
+div.hint p.admonition-title:before,
+div.tip p.admonition-title:before {
+  height: 20px;
+  width: 23px;
+  background-size: 20px 20px;
+  content: "";
+  background-repeat: no-repeat;
+  background-image: url('data:image/svg+xml; utf8, <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="white" d="M176 80c-52.94 0-96 43.06-96 96 0 8.84 7.16 16 16 16s16-7.16 16-16c0-35.3 28.72-64 64-64 8.84 0 16-7.16 16-16s-7.16-16-16-16zM96.06 459.17c0 3.15.93 6.22 2.68 8.84l24.51 36.84c2.97 4.46 7.97 7.14 13.32 7.14h78.85c5.36 0 10.36-2.68 13.32-7.14l24.51-36.84c1.74-2.62 2.67-5.7 2.68-8.84l.05-43.18H96.02l.04 43.18zM176 0C73.72 0 0 82.97 0 176c0 44.37 16.45 84.85 43.56 115.78 16.64 18.99 42.74 58.8 52.42 92.16v.06h48v-.12c-.01-4.77-.72-9.51-2.15-14.07-5.59-17.81-22.82-64.77-62.17-109.67-20.54-23.43-31.52-53.15-31.61-84.14-.2-73.64 59.67-128 127.95-128 70.58 0 128 57.42 128 128 0 30.97-11.24 60.85-31.65 84.14-39.11 44.61-56.42 91.47-62.1 109.46a47.507 47.507 0 0 0-2.22 14.3v.1h48v-.05c9.68-33.37 35.78-73.18 52.42-92.16C335.55 260.85 352 220.37 352 176 352 78.8 273.2 0 176 0z"></path></svg>');
+  vertical-align: -20%;
+}
