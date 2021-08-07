@@ -32,5 +32,5 @@ SOCIAL = (('You can add links in your config file', '#'),
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
-THEME = 'elegant'
+THEME = 'theme/elegant'
 AUTHORS = ['jadi','rahim']

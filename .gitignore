@@ -1,4 +1,6 @@
 /_book/
+.*.swo
+.*.swp
 .DS_Store
 *~
 *.html
