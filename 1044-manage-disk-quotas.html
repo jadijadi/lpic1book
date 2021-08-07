@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 104, " />
+
+<meta property="og:title" content="104.4 Manage disk quotas "/>
+<meta property="og:url" content="/1044-manage-disk-quotas.html" />
+<meta property="og:description" content="104.4 Manage disk quotas Weight: 1 Candidates should be able to manage disk quotas for users. Objectives Set up a disk quota for a filesystem. Edit, check and generate user quota reports. quota edquota repquota quotaon Enabling quotas Quotas will let the system admin to control how much a …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:21:00+02:00" />
+<meta name="twitter:title" content="104.4 Manage disk quotas ">
+<meta name="twitter:description" content="104.4 Manage disk quotas Weight: 1 Candidates should be able to manage disk quotas for users. Objectives Set up a disk quota for a filesystem. Edit, check and generate user quota reports. quota edquota repquota quotaon Enabling quotas Quotas will let the system admin to control how much a …">
+
+        <title>104.4 Manage disk quotas  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1044-manage-disk-quotas.html">
+                104.4 Manage disk quotas
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>104.4 Manage disk quotas</h1>
+<p><em>Weight: 1</em></p>
+<p>Candidates should be able to manage disk quotas for users.</p>
+<h2>Objectives</h2>
+<ul>
+<li>Set up a disk quota for a filesystem.</li>
+<li>
+<p>Edit, check and generate user quota reports.</p>
+</li>
+<li>
+<p>quota</p>
+</li>
+<li>edquota</li>
+<li>repquota</li>
+<li>quotaon</li>
+</ul>
+<h2>Enabling quotas</h2>
+<p>Quotas will let the system admin to control how much a user or a group consumes disk. The version 2 quota discussed in LPIC, needs kernel 2.4 and above. The package is called <code>quota</code>.</p>
+<p>The option should be added to required <code>/etc/fstab</code> file. The most famous ones are:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>usrquota</td>
+<td>user quotas</td>
+</tr>
+<tr>
+<td>uqouta</td>
+<td>same as usrquota</td>
+</tr>
+<tr>
+<td>quota</td>
+<td>same as usrquota</td>
+</tr>
+<tr>
+<td>grpquota</td>
+<td>group quotas</td>
+</tr>
+<tr>
+<td>gquota</td>
+<td>same as grpquota</td>
+</tr>
+</tbody>
+</table>
+<p>So for example is we want to enable quotas on sda2 we have to change the line in /etc/fstab like this:</p>
+<div class="highlight"><pre><span></span><code><span class="err">/dev/sda2  /home  ext4    defaults,usrquota,grpquota          1 2</span>
+</code></pre></div>
+
+<p>Next we need to specify the quotas of each user and each group. Two files called <code>aquota.user</code> and <code>aquota.group</code> in the root file system will do this.
+Now it is enough to run the <code>quotacheck</code> command.</p>
+<blockquote>
+<p>the <code>quotacheck</code> command will create the aquota.user and aquota.group if they do not exist</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="err"># quotacheck -u -a -m -c -v</span>
+<span class="c">quotacheck: Your kernel probably supports journaled quota but you are not using it. Consider switching to journaled quota to avoid running quotacheck after an unclean shutdown.</span>
+<span class="c">quotacheck: Scanning /dev/sda1 [/boot] done</span>
+<span class="c">quotacheck: Old group file name could not been determined. Usage will not be subtracted.</span>
+<span class="c">quotacheck: Checked 13 directories and 389 files</span>
+<span class="err"># ls /boot/</span>
+<span class="err">aquota.user   </span>
+</code></pre></div>
+
+<p><strong>C</strong>reates quota files for <strong>u</strong>sers on <strong>a</strong>ll file systems and will work on <strong>m</strong>ounted file systems; being <strong>v</strong>erbose.</p>
+<p>Then you need to turn the quota checking on:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># quotaon -auv ##all in /etc/fstab, for user quotas and be verbose</span>
+<span class="err">/dev/sda1 [/boot]: user quotas turned on</span>
+</code></pre></div>
+
+<h2>Setting limits</h2>
+<p>The main command for <em>editing</em> quota is *<em>edquota</em>. It will check the users quota from all file systems and presents them in a file editor to you.</p>
+<div class="highlight"><pre><span></span><code><span class="err">#edquota -u jadi</span>
+<span class="err">Disk quotas for user jadi (uid 1000):</span>
+<span class="err">  Filesystem                   blocks       soft       hard     inodes     soft     hard</span>
+<span class="err">  /dev/sda1                         0          0          0          0        0        0</span>
+</code></pre></div>
+
+<p>As you can see, the system shows the current blocks of 1k data, number of inodes (number of files and directories) and soft and hard limits for each of them. If a user goes over its soft-limits, there will be emails. Hard limits are real limits and user can not go over them. If you need to save soft or hard limits, just change the file and save it.</p>
+<blockquote>
+<p>You have to run <code>quotacheck</code> to update these data</p>
+</blockquote>
+<p>For copying one users limits to another user, use the <code>-p</code> switch:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># edquota -p jadi newuser neweruser lastuser</span>
+</code></pre></div>
+
+<h2>quota reports</h2>
+<p>If you need to check the quota of only one user use the <code>quota</code> command.</p>
+<div class="highlight"><pre><span></span><code><span class="err"># quota  jadi</span>
+<span class="err">Disk quotas for user jadi (uid 1000):</span>
+<span class="err">     Filesystem  blocks   quota   limit   grace   files   quota   limit   grace</span>
+<span class="err">      /dev/sda1       5    5000       0               2       0       0      </span>
+</code></pre></div>
+
+<p>This is not easy if you have many users so you can use <code>repquota</code> as follow:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># repquota -u -a</span>
+<span class="err">*** Report for user quotas on device /dev/sda1</span>
+<span class="err">Block grace time: 7days; Inode grace time: 7days</span>
+<span class="err">                        Block limits                File limits</span>
+<span class="err">User            used    soft    hard  grace    used  soft  hard  grace</span>
+<span class="err">----------------------------------------------------------------------</span>
+<span class="err">root      --  120288       0       0            401     0     0       </span>
+<span class="err">jadi      --       5    5000       0              2     0     0       </span>
+</code></pre></div>
+
+<h2>Warning users</h2>
+<p>There is a command for checking quotas and warning users called <code>warnquota</code>. If is good to run it time to time using a crontab (will see this crontabs later).</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:21:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#104-ref">104</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

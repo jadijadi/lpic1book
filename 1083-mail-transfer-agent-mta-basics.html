@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 108, " />
+
+<meta property="og:title" content="108.3 Mail Transfer Agent (MTA) basics "/>
+<meta property="og:url" content="/1083-mail-transfer-agent-mta-basics.html" />
+<meta property="og:description" content="108.3 Mail Transfer Agent (MTA) basics Weight: 3 Candidates should be aware of the commonly available MTA programs and be able to perform basic forward and alias configuration on a client host. Other configuration files are not covered. Key Knowledge Areas Create e-mail aliases. Configure e-mail forwarding. Knowledge of …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:34:00+02:00" />
+<meta name="twitter:title" content="108.3 Mail Transfer Agent (MTA) basics ">
+<meta name="twitter:description" content="108.3 Mail Transfer Agent (MTA) basics Weight: 3 Candidates should be aware of the commonly available MTA programs and be able to perform basic forward and alias configuration on a client host. Other configuration files are not covered. Key Knowledge Areas Create e-mail aliases. Configure e-mail forwarding. Knowledge of …">
+
+        <title>108.3 Mail Transfer Agent (MTA) basics  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1083-mail-transfer-agent-mta-basics.html">
+                108.3 Mail Transfer Agent (MTA) basics
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>108.3 Mail Transfer Agent (MTA) basics</h1>
+<p><em>Weight: 3</em></p>
+<p>Candidates should be aware of the commonly available MTA programs and be able to perform basic forward and alias configuration on a client host. Other configuration files are not covered.</p>
+<h2>Key Knowledge Areas</h2>
+<ul>
+<li>Create e-mail aliases.</li>
+<li>Configure e-mail forwarding.</li>
+<li>Knowledge of commonly available MTA programs (postfix, sendmail, qmail, exim) (no configuration)</li>
+</ul>
+<h2>Terms and Utilities</h2>
+<ul>
+<li>~/.forward</li>
+<li>sendmail emulation layer commands</li>
+<li>newaliases</li>
+<li>mail</li>
+<li>mailq</li>
+<li>postfix</li>
+<li>sendmail</li>
+<li>exim</li>
+<li>qmail</li>
+</ul>
+<h2>MTAs</h2>
+<p>Mai Transfer Agents or MTAs are programs which handle emails in your operating system. There are lot of MTAs available and each distro or sysadmin uses the one she likes more.</p>
+<h3>sendmail</h3>
+<p>Is one of the oldest options available. It is big and difficult to configure and keep safe and secure so very few systems use it as default MTA.</p>
+<h3>qmail</h3>
+<p>qmail is an attempt to provide an ultra secure MTA while keeping the MTA compatible with sendmail ideas. It is modular and claims to be free of any security bug. It also claim to be the 2nd popular mail agent on the Internet.</p>
+<blockquote>
+<p>qmail is not a GPL software. It is Public Domain.</p>
+</blockquote>
+<h3>exim</h3>
+<p>It aims to be a general and flexible mailer with extensive facilities for checking incoming e-mail. It is feature rich with ACLs, authentication, ...</p>
+<h3>postfix</h3>
+<p>This is a new alternative to sendmail and uses easy to understand configuration files. It supports multiple domains, encryption, etc. Postfix is what you may find on most distros as default.</p>
+<h2>sendmail emulation layer</h2>
+<p>As I already said, <code>sendmail</code> is the oldest MTA which is still active. Other MTAs respect his age and provide a <em>sendmail emulation layer</em> to keep themselves backward compatible with it. In other words you can type <code>sendmail</code> or <code>mailq</code> on your command line regardless of what MTA you've installed.</p>
+<h2>aliases</h2>
+<p>There are some mail aliases on the system. Defined in <code>/etc/aliases</code>.</p>
+<div class="highlight"><pre><span></span><code>$ cat /etc/aliases
+<span class="c1"># /etc/aliases</span>
+mailer-daemon: postmaster
+postmaster: root
+nobody: root
+hostmaster: root
+usenet: root    <span class="c1"># &lt;--- I&#39;m using this sample</span>
+news: root
+webmaster: root
+www: root
+ftp: root
+abuse: root
+noc: root
+security: root
+root: jadi
+</code></pre></div>
+
+<p>This tells the system if there is a message for 'usenet' it will sent to the <code>root</code> user. Note that in the last line, <code>jadi</code> is reading the <code>root</code> emails. This line lets me read emails sent to root without needing
+to login with root.</p>
+<blockquote>
+<p>when this file is update, the <code>newaliases</code> should be run!</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="err">root@funlife:~# newaliases</span>
+<span class="err">root@funlife:~#</span>
+</code></pre></div>
+
+<h2>sending mail</h2>
+<p>It is possible to send an email from the command line using the <code>mail</code> command:</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@funlife ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">mail</span><span class="w"> </span><span class="n">news</span><span class="w"></span>
+<span class="nl">Subject</span><span class="p">:</span><span class="w"> </span><span class="n">Email</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">news</span><span class="w"> </span><span class="k">user</span><span class="w"></span>
+<span class="n">hahah</span><span class="p">..</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">know</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">go</span><span class="p">.</span><span class="w"></span>
+<span class="n">this</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">go</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">jadi</span><span class="err">!</span><span class="w"></span>
+
+<span class="n">Hi</span><span class="w"> </span><span class="n">Jadi</span><span class="err">!</span><span class="w"></span>
+
+<span class="nl">Cc</span><span class="p">:</span><span class="w"></span>
+<span class="o">[</span><span class="n">jadi@funlife ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">mail</span><span class="w"></span>
+<span class="n">Mail</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="mf">8.1.2</span><span class="w"> </span><span class="mi">01</span><span class="o">/</span><span class="mi">15</span><span class="o">/</span><span class="mf">2001.</span><span class="w">  </span><span class="n">Type</span><span class="w"> </span><span class="vm">?</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">help</span><span class="p">.</span><span class="w"></span>
+<span class="ss">&quot;/var/mail/jadi&quot;</span><span class="err">:</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="n">messages</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="k">new</span><span class="w"></span>
+<span class="o">&gt;</span><span class="n">N</span><span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Sat</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">02</span><span class="w"> </span><span class="mi">08</span><span class="err">:</span><span class="mi">50</span><span class="w">   </span><span class="mi">39</span><span class="o">/</span><span class="mi">1373</span><span class="w">  </span><span class="n">apt</span><span class="o">-</span><span class="nl">listchanges</span><span class="p">:</span><span class="w"> </span><span class="n">news</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">f</span><span class="w"></span>
+<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">2</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Sat</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">02</span><span class="w"> </span><span class="mi">09</span><span class="err">:</span><span class="mi">01</span><span class="w">  </span><span class="mi">165</span><span class="o">/</span><span class="mi">7438</span><span class="w">  </span><span class="n">apt</span><span class="o">-</span><span class="nl">listchanges</span><span class="p">:</span><span class="w"> </span><span class="n">news</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">f</span><span class="w"></span>
+<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">3</span><span class="w"> </span><span class="n">jadi</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Sat</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">02</span><span class="w"> </span><span class="mi">19</span><span class="err">:</span><span class="mi">58</span><span class="w">   </span><span class="mi">18</span><span class="o">/</span><span class="mi">640</span><span class="w">   </span><span class="o">***</span><span class="w"> </span><span class="n">SECURITY</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="n">fo</span><span class="w"></span>
+<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">4</span><span class="w"> </span><span class="n">jadi</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Sat</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">02</span><span class="w"> </span><span class="mi">20</span><span class="err">:</span><span class="mi">04</span><span class="w">   </span><span class="mi">18</span><span class="o">/</span><span class="mi">631</span><span class="w">   </span><span class="o">***</span><span class="w"> </span><span class="n">SECURITY</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="n">fo</span><span class="w"></span>
+<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">5</span><span class="w"> </span><span class="n">jadi</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Sun</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">03</span><span class="w"> </span><span class="mi">10</span><span class="err">:</span><span class="mi">15</span><span class="w">   </span><span class="mi">18</span><span class="o">/</span><span class="mi">664</span><span class="w">   </span><span class="o">***</span><span class="w"> </span><span class="n">SECURITY</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="n">fo</span><span class="w"></span>
+<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">6</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Mon</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">04</span><span class="w"> </span><span class="mi">12</span><span class="err">:</span><span class="mi">42</span><span class="w">   </span><span class="mi">27</span><span class="o">/</span><span class="mi">941</span><span class="w">   </span><span class="n">Cron</span><span class="w"> </span><span class="o">&lt;</span><span class="n">jadi</span><span class="nv">@funlife</span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">j</span><span class="w"></span>
+<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">7</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Mon</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">04</span><span class="w"> </span><span class="mi">17</span><span class="err">:</span><span class="mi">11</span><span class="w">   </span><span class="mi">26</span><span class="o">/</span><span class="mi">845</span><span class="w">   </span><span class="n">apt</span><span class="o">-</span><span class="nl">listchanges</span><span class="p">:</span><span class="w"> </span><span class="n">news</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">f</span><span class="w"></span>
+<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">8</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Tue</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">05</span><span class="w"> </span><span class="mi">18</span><span class="err">:</span><span class="mi">42</span><span class="w">   </span><span class="mi">27</span><span class="o">/</span><span class="mi">945</span><span class="w">   </span><span class="n">Cron</span><span class="w"> </span><span class="o">&lt;</span><span class="n">jadi</span><span class="nv">@funlife</span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">j</span><span class="w"></span>
+<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">9</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Wed</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">06</span><span class="w"> </span><span class="mi">09</span><span class="err">:</span><span class="mi">17</span><span class="w">   </span><span class="mi">46</span><span class="o">/</span><span class="mi">1788</span><span class="w">  </span><span class="n">apt</span><span class="o">-</span><span class="nl">listchanges</span><span class="p">:</span><span class="w"> </span><span class="n">news</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">f</span><span class="w"></span>
+<span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Thu</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">07</span><span class="w"> </span><span class="mi">12</span><span class="err">:</span><span class="mi">42</span><span class="w">   </span><span class="mi">27</span><span class="o">/</span><span class="mi">945</span><span class="w">   </span><span class="n">Cron</span><span class="w"> </span><span class="o">&lt;</span><span class="n">jadi</span><span class="nv">@funlife</span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">j</span><span class="w"></span>
+<span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Thu</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">07</span><span class="w"> </span><span class="mi">18</span><span class="err">:</span><span class="mi">42</span><span class="w">   </span><span class="mi">27</span><span class="o">/</span><span class="mi">943</span><span class="w">   </span><span class="n">Cron</span><span class="w"> </span><span class="o">&lt;</span><span class="n">jadi</span><span class="nv">@funlife</span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">j</span><span class="w"></span>
+<span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="n">jadi</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Thu</span><span class="w"> </span><span class="n">Jan</span><span class="w">  </span><span class="mi">7</span><span class="w"> </span><span class="mi">19</span><span class="err">:</span><span class="mi">53</span><span class="w">   </span><span class="mi">17</span><span class="o">/</span><span class="mi">478</span><span class="w">   </span><span class="n">Email</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">news</span><span class="w"> </span><span class="k">user</span><span class="w"></span>
+<span class="o">&amp;</span><span class="w"> </span><span class="mi">12</span><span class="w"></span>
+<span class="n">Message</span><span class="w"> </span><span class="mi">12</span><span class="err">:</span><span class="w"></span>
+<span class="k">From</span><span class="w"> </span><span class="n">jadi</span><span class="nv">@funlife</span><span class="w">  </span><span class="n">Thu</span><span class="w"> </span><span class="n">Jan</span><span class="w">  </span><span class="mi">7</span><span class="w"> </span><span class="mi">19</span><span class="err">:</span><span class="mi">53</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="mi">2016</span><span class="w"></span>
+<span class="n">X</span><span class="o">-</span><span class="n">Original</span><span class="o">-</span><span class="k">To</span><span class="err">:</span><span class="w"> </span><span class="n">news</span><span class="w"></span>
+<span class="k">To</span><span class="err">:</span><span class="w"> </span><span class="n">news</span><span class="nv">@funlife</span><span class="w"></span>
+<span class="nl">Subject</span><span class="p">:</span><span class="w"> </span><span class="n">Email</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">news</span><span class="w"> </span><span class="k">user</span><span class="w"></span>
+<span class="nc">Date</span><span class="err">:</span><span class="w"> </span><span class="n">Thu</span><span class="p">,</span><span class="w">  </span><span class="mi">7</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">2016</span><span class="w"> </span><span class="mi">19</span><span class="err">:</span><span class="mi">53</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="o">+</span><span class="mi">0330</span><span class="w"> </span><span class="p">(</span><span class="n">IRST</span><span class="p">)</span><span class="w"></span>
+<span class="k">From</span><span class="err">:</span><span class="w"> </span><span class="n">jadi</span><span class="nv">@funlife</span><span class="w"> </span><span class="p">(</span><span class="n">jadi</span><span class="p">)</span><span class="w"></span>
+
+<span class="n">hahah</span><span class="p">..</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">know</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">go</span><span class="p">.</span><span class="w"></span>
+<span class="n">this</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">go</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">jadi</span><span class="err">!</span><span class="w"></span>
+
+<span class="n">Hi</span><span class="w"> </span><span class="n">Jadi</span><span class="err">!</span><span class="w"></span>
+
+<span class="o">&amp;</span><span class="w"> </span><span class="n">d</span><span class="w"></span>
+<span class="o">&amp;</span><span class="w"> </span><span class="n">q</span><span class="w"></span>
+<span class="n">Held</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="n">messages</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="o">/</span><span class="nf">var</span><span class="o">/</span><span class="n">mail</span><span class="o">/</span><span class="n">jadi</span><span class="w"></span>
+</code></pre></div>
+
+<h2>local forwards</h2>
+<p>We saw that it is possible to forward emails using the <code>/etc/aliases</code>. That file is not writable by normal users so what a normal user like <em>jadi</em> should do?</p>
+<p>Each user can create a <code>.forward</code> file in her own directory and all mail targeted to that user will be forwarded to that address.</p>
+<blockquote>
+<p>You can even put a complete email address like <code>jadijadi@gmail.com</code> in your <code>.forward</code> file.</p>
+<p><code>mail</code> command is not part of LPIC102 but it is good if you play and learn it to some extent. It also can send email from within the scripts like 'echo -e "email content" | mail -s "email subject" "example@example.com"'</p>
+</blockquote>
+<h2>mailq</h2>
+<p>This command lists the mail queue. Each entry shows the queue file ID, message size, arrival time, sender, and the recipients that still need to be delivered. If mail could not be delivered upon the last attempt, the reason for failure is shown. The sysadmin can use this command to check the status of emails still in the queues.</p>
+<div class="highlight"><pre><span></span><code>$ mailq
+-Queue ID- --Size-- ----Arrival Time---- -Sender/Recipient-------
+AA52C228E6B      <span class="m">468</span> Thu Jan  <span class="m">7</span> <span class="m">19</span>:59:41  jadi@funlife
+<span class="o">(</span>connect to alt2.gmail-smtp-in.l.google.com<span class="o">[</span><span class="m">2404</span>:6800:4003:c01::1a<span class="o">]</span>:25: Network is unreachable<span class="o">)</span>
+                                         jadijadi@gmail.com
+
+-- <span class="m">0</span> Kbytes in <span class="m">1</span> Request.
+</code></pre></div>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:34:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#108-ref">108</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

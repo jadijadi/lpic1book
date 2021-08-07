@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 110, " />
+
+<meta property="og:title" content="110.3 Securing data with encryption "/>
+<meta property="og:url" content="/1103-securing-data-with-encryption.html" />
+<meta property="og:description" content="110.3 Securing data with encryption Weight: 3 The candidate should be able to use public key techniques to secure data and communication. Key Knowledge Areas Perform basic OpenSSH 2 client configuration and usage. Understand the role of OpenSSH 2 server host keys. Perform basic GnuPG configuration, usage and revocation …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:41:00+02:00" />
+<meta name="twitter:title" content="110.3 Securing data with encryption ">
+<meta name="twitter:description" content="110.3 Securing data with encryption Weight: 3 The candidate should be able to use public key techniques to secure data and communication. Key Knowledge Areas Perform basic OpenSSH 2 client configuration and usage. Understand the role of OpenSSH 2 server host keys. Perform basic GnuPG configuration, usage and revocation …">
+
+        <title>110.3 Securing data with encryption  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1103-securing-data-with-encryption.html">
+                110.3 Securing data with encryption
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>110.3 Securing data with encryption</h1>
+<p><em>Weight: 3</em></p>
+<p>The candidate should be able to use public key techniques to secure data and communication.</p>
+<h2>Key Knowledge Areas</h2>
+<ul>
+<li>Perform basic OpenSSH 2 client configuration and usage.</li>
+<li>Understand the role of OpenSSH 2 server host keys.</li>
+<li>Perform basic GnuPG configuration, usage and revocation.</li>
+<li>Understand SSH port tunnels (including X11 tunnels).</li>
+</ul>
+<h2>Terms and Utilities</h2>
+<ul>
+<li>ssh</li>
+<li>ssh-keygen</li>
+<li>ssh-agent</li>
+<li>ssh-add</li>
+<li>~/.ssh/id_rsa and id_rsa.pub</li>
+<li>~/.ssh/id_dsa and id_dsa.pub</li>
+<li>/etc/ssh/ssh_host_rsa_key and ssh_host_rsa_key.pub</li>
+<li>/etc/ssh/ssh_host_dsa_key and ssh_host_dsa_key.pub</li>
+<li>~/.ssh/authorized_keys</li>
+<li>ssh_known_hosts</li>
+<li>gpg</li>
+<li>~/.gnupg/</li>
+</ul>
+<h3>Key Pairs</h3>
+<p>In traditional cryptography the symetric keys were used: both parties had a shared password; the files were encrypted with that password and then decrypted using the same password. These years the KeyPairs are becomming more and more common. When generating a key pair, we generate two keys using a computer algorithm in the way that any message which is encrypted using one, can be opened only using the other key. These are called Public &amp; Private key. You publish the public key to your friends and even the strangers and if they need to send an ecrypted message to you, scramble it using YOUR public key and send it to you. After receiving it, you open the file using your PRIVATE key.</p>
+<blockquote>
+<p>great point about Public / Private key is that the data can be transmitted over the internet with no fear of hackers or governments. You are publishing your key to the world, some one picks it and uses it to encrypt some data and sent the result to you. People can see that you are receiving "some data" but they can not encrypt it because they do not have the private key needed to decrypt it.</p>
+</blockquote>
+<h3>ssh key pairs</h3>
+<p>Before using keys, we have to generate them. This task is as simple as running one command:</p>
+<div class="highlight"><pre><span></span><code>$ ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key <span class="o">(</span>/home/jadi/.ssh/id_rsa<span class="o">)</span>:
+Created directory <span class="s1">&#39;/home/jadi/.ssh&#39;</span>.
+Enter passphrase <span class="o">(</span>empty <span class="k">for</span> no passphrase<span class="o">)</span>:
+Enter same passphrase again:
+Your identification has been saved in /home/jadi/.ssh/id_rsa.
+Your public key has been saved in /home/jadi/.ssh/id_rsa.pub.
+The key fingerprint is:
+bc:1c:1a:da:0b:8b:22:56:da:1f:68:14:5b:da:7e:2e jadi@localhost.localdomain
+The key<span class="err">&#39;</span>s randomart image is:
++--<span class="o">[</span> RSA <span class="m">2048</span><span class="o">]</span>----+
+<span class="p">|</span>                 <span class="p">|</span>
+<span class="p">|</span>                 <span class="p">|</span>
+<span class="p">|</span>   . .           <span class="p">|</span>
+<span class="p">|</span>    *  .         <span class="p">|</span>
+<span class="p">|</span>   + .. S        <span class="p">|</span>
+<span class="p">|</span>  ..oo + o       <span class="p">|</span>
+<span class="p">|</span>  +oooo.o        <span class="p">|</span>
+<span class="p">|</span>oo.o E+.         <span class="p">|</span>
+<span class="p">|</span>o.. o.o.         <span class="p">|</span>
++-----------------+
+</code></pre></div>
+
+<blockquote>
+<p>The above process asked for a prassphrase. It is used to secure our key. You can create a password and it will be asked each time you want to use this key.</p>
+</blockquote>
+<p>We have the option to generate keys using different algorithsm, here I used the default RSA and these two keys are created in <code>~/.ssh/</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="err">[jadi@localhost ~]$ ls .ssh -ltrh</span>
+<span class="err">total 8.0K</span>
+<span class="err">-rw-r--r--. 1 jadi jadi  408 Jun 15 13:58 id_rsa.pubss</span>
+<span class="err">-rw-------. 1 jadi jadi 1.7K Jun 15 13:58 id_rsa</span>
+</code></pre></div>
+
+<p>As soon as we ssh to any server, a file called <code>known_hosts</code> will save that sites public keys. The next step is copying our public key there. For this task there is command called <code>ssh-copyid</code>. It works like this:</p>
+<div class="highlight"><pre><span></span><code> <span class="n">ssh</span><span class="o">-</span><span class="k">copy</span><span class="o">-</span><span class="kt">id</span> <span class="mf">10.0.2.15</span>
+<span class="n">jadi</span><span class="mf">@10.0.2.15</span><span class="err">&#39;</span><span class="n">s</span> <span class="nl">password</span><span class="p">:</span>
+<span class="n">Now</span> <span class="n">try</span> <span class="n">logging</span> <span class="n">into</span> <span class="n">the</span> <span class="n">machine</span><span class="p">,</span> <span class="n">with</span> <span class="s">&quot;ssh &#39;10.0.2.15&#39;&quot;</span><span class="p">,</span> <span class="n">and</span> <span class="n">check</span> <span class="k">in</span><span class="o">:</span>
+
+  <span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">authorized_keys</span>
+
+<span class="n">to</span> <span class="n">make</span> <span class="n">sure</span> <span class="n">we</span> <span class="n">haven</span><span class="err">&#39;</span><span class="n">t</span> <span class="n">added</span> <span class="n">extra</span> <span class="n">keys</span> <span class="n">that</span> <span class="n">you</span> <span class="n">weren</span><span class="err">&#39;</span><span class="n">t</span> <span class="n">expecting</span><span class="p">.</span>
+</code></pre></div>
+
+<p>Now we will be able to login into that server without providing our password.</p>
+<p>There is a keypair called <code>/etc/ssh_host_rsa_key</code> and <code>/etc/ssh_host_rsa_key.pub</code> on any server. These keys are used to verify the security of the connectivity. Server provides me its public key and uses its private key to keep the connection secure. This is the public key the client saved in its ~/.ssh/known_hosts.</p>
+<h3>ssh tunnels</h3>
+<p>We have already discussed X forwarding.</p>
+<h3>encryption using gpg</h3>
+<p>A software called <code>gpg</code> lets us use public and private keys to encrypt our data. At the beginning we have to create a key pair:</p>
+<div class="highlight"><pre><span></span><code><span class="err">gpg --gen-key</span>
+</code></pre></div>
+
+<p>Then we need to share our public key to other people. To export our public key file we need to run:</p>
+<div class="highlight"><pre><span></span><code><span class="err">gpg --export name &gt; gpg.pub</span>
+</code></pre></div>
+
+<p>and the other party can import our public key into his gpg database by:</p>
+<div class="highlight"><pre><span></span><code><span class="n">gpg</span> <span class="o">--</span><span class="kn">import</span> <span class="nn">gpg.pub</span>
+</code></pre></div>
+
+<p>At this stage, if he wants to encrypt some data to us (say the file file.txt) he should run:</p>
+<div class="highlight"><pre><span></span><code><span class="err">gpg --out file.txt.encrypted --recipient jadijdai@gmail.com --encrypt file.txt</span>
+</code></pre></div>
+
+<p>and give the <code>file.txt.encrypted</code> to us. For openning it, we just need to:</p>
+<div class="highlight"><pre><span></span><code><span class="err">gpg --out out.txt --decrypt file.txt.encrypted</span>
+</code></pre></div>
+
+<p>and Done!</p>
+<blockquote>
+<p>As you saw, the public keys should be shared. The B party uses A parties public key to encrypt a data and A party uses his Private key to open it.</p>
+</blockquote>
+<h3>revoking keys</h3>
+<p>What happens if you forget your key password or someone hacked your computer and acquired your private key? In this case you have to announce to the world that "I'm hacked! Do not use that public key of mine anymore!". This is called revoking. To create a revoke key, run:</p>
+<div class="highlight"><pre><span></span><code><span class="err">gpg --output revoke.asc --gen-revoke jadijadi@gmail.com</span>
+</code></pre></div>
+
+<p>This tells gpg to create a revoke file called revoke.asc for the identity jadijadi@gmail.com. If jadijadi@gmail.com needs to invalidate his public key, he have to publish this file to the intenet or key servers.</p>
+<h3>signing</h3>
+<p>In the previous section we used gpg to ecrypt the data. We used someones Public key to sign and she used her own Private key to decrypt the text. What happens if we do this in the reverse? I mean what happens if I encrypt something with my Private key, send it on the internet and everyone on the internet will be able to decrypt it using my Public key which is shared with everyone - since it is Public. This is signing!</p>
+<p>By encrypting a document using your private key, you let everyone to try to open it using your public key and if they succeed, they will be sure that you have signed it using YOUR private key! <code>gpg</code> has a specific command to sign documents:</p>
+<div class="highlight"><pre><span></span><code><span class="err">gpg --clearsign originalfile</span>
+</code></pre></div>
+
+<blockquote>
+<p>here the --clearsign tells the gpg to include the clear text message in the output file too. The output file will be originalfile.asc</p>
+</blockquote>
+<p>and another one to verify that a document is singed correctly:</p>
+<div class="highlight"><pre><span></span><code><span class="err">gpg --verify recievedfile</span>
+</code></pre></div>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:41:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#110-ref">110</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 103, " />
+
+<meta property="og:title" content="103.5. Create, monitor and kill processes "/>
+<meta property="og:url" content="/1035-create-monitor-and-kill-processes.html" />
+<meta property="og:description" content="103.5. Create, monitor and kill processes Weight: 4 Candidates should be able to perform basic process management. Objectives Run jobs in the foreground and background. Signal a program to continue running after logout. Monitor active processes. Select and sort processes for display. Send signals to processes. &amp; bg fg jobs …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:14:00+02:00" />
+<meta name="twitter:title" content="103.5. Create, monitor and kill processes ">
+<meta name="twitter:description" content="103.5. Create, monitor and kill processes Weight: 4 Candidates should be able to perform basic process management. Objectives Run jobs in the foreground and background. Signal a program to continue running after logout. Monitor active processes. Select and sort processes for display. Send signals to processes. &amp; bg fg jobs …">
+
+        <title>103.5. Create, monitor and kill processes  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1035-create-monitor-and-kill-processes.html">
+                103.5. Create, monitor and kill processes
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>103.5. Create, monitor and kill processes</h1>
+<p><em>Weight: 4</em></p>
+<p>Candidates should be able to perform basic process management.</p>
+<h2>Objectives</h2>
+<ul>
+<li>Run jobs in the foreground and background.</li>
+<li>Signal a program to continue running after logout.</li>
+<li>Monitor active processes.</li>
+<li>Select and sort processes for display.</li>
+<li>
+<p>Send signals to processes.</p>
+</li>
+<li>
+<p>&amp;</p>
+</li>
+<li>bg</li>
+<li>fg</li>
+<li>jobs</li>
+<li>kill</li>
+<li>nohup</li>
+<li>ps</li>
+<li>top</li>
+<li>free</li>
+<li>uptime</li>
+<li>killall</li>
+</ul>
+<h2>foreground and background jobs</h2>
+<p>One of the great points of linux on its beginning days, was the ability to run many programs at the same time. This is done with sending programs to the background.</p>
+<p>Normally if you run a program on the terminal, it <em>blocks</em> your terminal but sending a command to the background will prevent this:</p>
+<div class="highlight"><pre><span></span><code><span class="err">xeyes &amp;</span>
+</code></pre></div>
+
+<p>But what if we started it normally? We can break / cancel it with <code>Ctrl+c</code> or <em>suspend</em> it using <code>Ctrl+z</code>.</p>
+<p>```
+$ xeyes
+^Z
+[1]+  Stopped                 xeyes
+$ jobs
+[1]+  Stopped                 xeyes
+$ bg
+[1]+ xeyes &amp;
+$ jobs
+[1]+  Running                 xeyes &amp;
+$ sleep 1000 &amp;
+[2] 7395
+$ jobs
+[1]-  Running                 xeyes &amp;
+[2]+  Running                 sleep 1000 &amp;
+$ fg %2
+sleep 1000
+^Z
+[2]+  Stopped                 sleep 1000
+$ jobs
+[1]-  Running                 xeyes &amp;
+[2]+  Stopped                 sleep 1000
+$ bg sle
+[2]+ sleep 1000 &amp;
+$ jobs
+[1]-  Running                 xeyes &amp;
+[2]+  Running                 sleep 1000 &amp;</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="o">-</span><span class="n">l</span> <span class="n">switch</span> <span class="n">of</span> <span class="ss">`jobs`</span> <span class="n">will</span> <span class="n">also</span> <span class="k">show</span> <span class="n">the</span> <span class="n">process</span> <span class="n">ID</span>
+
+<span class="c1">## nohup</span>
+
+<span class="n">The</span> <span class="ss">`nohup`</span> <span class="n">command</span> <span class="n">lets</span> <span class="n">you</span> <span class="n">run</span> <span class="n">your</span> <span class="n">commands</span> <span class="n">even</span> <span class="n">after</span> <span class="n">you</span> <span class="n">logged</span> <span class="k">out</span> <span class="k">and</span> <span class="n">writes</span> <span class="n">its</span> <span class="n">output</span> <span class="k">to</span> <span class="o">**</span><span class="n">nohup</span><span class="p">.</span><span class="k">out</span><span class="o">**</span><span class="p">:</span>
+</code></pre></div>
+
+<p>$ nohup ping 4.2.2.4
+nohup: ignoring input and appending output to ‘nohup.out’
+^C$ cat nohup.out
+PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.
+64 bytes from 4.2.2.4: icmp_seq=1 ttl=51 time=225 ms
+64 bytes from 4.2.2.4: icmp_seq=3 ttl=51 time=223 ms</p>
+<p>--- 4.2.2.4 ping statistics ---
+4 packets transmitted, 2 received, 50% packet loss, time 3010ms
+rtt min/avg/max/mdev = 223.584/224.767/225.950/1.183 ms</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="n">It</span> <span class="k">is</span> <span class="n">common</span> <span class="k">to</span> <span class="n">use</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="k">to</span> <span class="n">redirect</span> <span class="n">the</span> <span class="n">nohup</span> <span class="n">errors</span> <span class="k">to</span> <span class="n">a</span> <span class="n">file</span><span class="p">:</span> <span class="o">`</span><span class="n">nohup</span> <span class="n">script</span><span class="p">.</span><span class="n">sh</span> <span class="o">&gt;</span> <span class="n">mynohup</span><span class="p">.</span><span class="k">out</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span> <span class="o">&amp;`</span>
+
+<span class="o">##</span> <span class="n">kill</span>
+<span class="n">You</span> <span class="n">can</span> <span class="n">control</span> <span class="n">processes</span> <span class="k">by</span> <span class="o">**</span><span class="n">signals</span><span class="o">**</span><span class="p">.</span> <span class="n">Actually</span> <span class="n">pressing</span> <span class="o">`</span><span class="n">Ctrl</span><span class="o">+</span><span class="k">c</span><span class="o">`</span> <span class="k">and</span> <span class="o">`</span><span class="n">Ctrl</span><span class="o">+</span><span class="n">z</span><span class="o">`</span> <span class="k">is</span> <span class="n">also</span> <span class="n">sending</span> <span class="n">signals</span><span class="p">.</span> <span class="n">Another</span> <span class="n">way</span> <span class="k">for</span> <span class="n">this</span> <span class="k">is</span> <span class="k">using</span> <span class="n">the</span> <span class="n">kill</span> <span class="n">command</span><span class="p">:</span>
+</code></pre></div>
+
+<p>$ jobs
+[3]   Running                 xeyes &amp;
+[4]   Running                 sleep 1000 &amp;
+[5]-  Running                 sleep 2000 &amp;
+[6]+  Running                 sleep 3000 &amp;
+$ kill %4
+$ jobs
+[3]   Running                 xeyes &amp;
+[4]   Terminated              sleep 1000
+[5]-  Running                 sleep 2000 &amp;
+[6]+  Running                 sleep 3000 &amp;
+$ jobs
+[3]   Running                 xeyes &amp;
+[5]-  Running                 sleep 2000 &amp;
+[6]+  Running                 sleep 3000 &amp;</p>
+<div class="highlight"><pre><span></span><code><span class="k">If</span> <span class="k">is</span> <span class="n">also</span> <span class="n">possible</span> <span class="k">to</span> <span class="k">use</span> <span class="n">PIDs</span> <span class="k">in</span> <span class="k">from</span> <span class="n">of</span> <span class="n">the</span> <span class="k">kill</span> <span class="k">or</span> <span class="n">send</span> <span class="n">other</span> <span class="n">signals</span><span class="p">:</span>
+
+<span class="o">|</span><span class="n">signal</span> <span class="n">number</span><span class="o">|</span><span class="n">signal</span> <span class="n">name</span><span class="o">|</span><span class="n">meaning</span><span class="o">|</span>
+<span class="o">|---|---|---|</span>
+<span class="o">|</span><span class="mi">1</span><span class="o">|</span><span class="n">SIGHUP</span><span class="o">|</span><span class="n">Informing</span> <span class="n">the</span> <span class="n">process</span> <span class="n">that</span> <span class="n">its</span> <span class="n">controlling</span> <span class="nf">terminal</span> <span class="p">(</span><span class="k">like</span> <span class="n">an</span> <span class="n">ssh</span> <span class="n">connection</span><span class="p">)</span> <span class="k">is</span> <span class="k">terminated</span><span class="o">|</span>
+<span class="o">|</span><span class="mi">15</span><span class="o">|</span><span class="n">SIGTERM</span><span class="o">|</span><span class="n">normal</span> <span class="n">termination</span> <span class="n">request</span><span class="o">|</span>
+<span class="o">|</span><span class="mi">9</span><span class="o">|</span><span class="n">SIGKILL</span><span class="o">|</span><span class="n">forcefully</span> <span class="n">kills</span> <span class="n">the</span> <span class="n">proccess</span><span class="o">|</span>
+
+<span class="n">So</span> <span class="n">you</span> <span class="n">can</span> <span class="n">do</span> <span class="n">a</span> <span class="ss">`kill -9 8733`</span> <span class="k">to</span> <span class="k">force</span> <span class="n">process</span> <span class="n">ID</span> <span class="mi">8733</span> <span class="k">to</span> <span class="n">close</span><span class="p">.</span>
+
+<span class="o">&gt;</span> <span class="n">Now</span> <span class="n">you</span> <span class="n">can</span> <span class="n">understand</span> <span class="n">what</span> <span class="ss">`nohup`</span> <span class="n">means</span><span class="p">:</span> <span class="n">go</span> <span class="k">not</span> <span class="n">answer</span> <span class="k">to</span> <span class="n">the</span> <span class="n">SIGHUP</span><span class="p">.</span>
+
+<span class="c1">## killall</span>
+<span class="n">Will</span> <span class="n">send</span> <span class="n">the</span> <span class="n">given</span> <span class="nf">signal</span> <span class="p">(</span><span class="k">or</span> <span class="mi">15</span><span class="p">)</span> <span class="k">to</span> <span class="k">all</span> <span class="n">the</span> <span class="n">processes</span> <span class="k">with</span> <span class="n">the</span> <span class="n">given</span> <span class="n">name</span><span class="p">:</span>
+</code></pre></div>
+
+<p>$ jobs
+[3]   Running                 xeyes &amp;
+[5]-  Running                 sleep 2000 &amp;
+[6]+  Running                 sleep 3000 &amp;
+$ ps -ef | grep sleep
+jadi      7864  7651  0 21:07 pts/1    00:00:00 sleep 2000
+jadi      7865  7651  0 21:07 pts/1    00:00:00 sleep 3000
+jadi      7977  7651  0 21:14 pts/1    00:00:00 grep sleep
+$ killall sleep
+[5]-  Terminated              sleep 2000
+[6]+  Terminated              sleep 3000
+$ jobs
+[3]+  Running                 xeyes &amp;
+$ ps -ef | grep sleep
+jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep</p>
+<div class="highlight"><pre><span></span><code><span class="c1">## Monitoring Processes</span>
+<span class="c1">### ps</span>
+<span class="n">The</span> <span class="ss">`ps`</span> <span class="n">command</span> <span class="n">shows</span> <span class="n">running</span> <span class="n">processes</span> <span class="k">on</span> <span class="n">your</span> <span class="n">computer</span><span class="p">.</span>
+</code></pre></div>
+
+<p>$ sleep 1000 &amp;
+[1] 7678
+$ sleep 1001 &amp;
+[2] 7679
+$ xeyes &amp;
+[3] 7680
+$ ps
+  PID TTY          TIME CMD
+ 7651 pts/1    00:00:00 bash
+ 7678 pts/1    00:00:00 sleep
+ 7679 pts/1    00:00:00 sleep
+ 7680 pts/1    00:00:00 xeyes
+ 7681 pts/1    00:00:00 ps</p>
+<div class="highlight"><pre><span></span><code><span class="err">But using ```ps aux``` (= `-aux`) or  `ps -ef` is also common &amp; shows ALL processes on this system:</span>
+</code></pre></div>
+
+<p>$ ps -aux | wc -l
+293</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="n">Every</span> <span class="n">process</span> <span class="n">has</span> <span class="n">a</span> <span class="nf">ProcessID</span> <span class="p">(</span><span class="n">PID</span><span class="p">)</span> <span class="k">and</span> <span class="n">a</span> <span class="nf">PPID</span> <span class="p">(</span><span class="n">Parent</span> <span class="n">Process</span> <span class="n">ID</span><span class="p">).</span>
+
+<span class="c1">#### finding processes</span>
+<span class="n">You</span><span class="err">&#39;</span><span class="n">ve</span> <span class="n">seen</span> <span class="n">that</span> <span class="ss">`ps -ef`</span> <span class="n">shows</span> <span class="n">processes</span> <span class="k">from</span> <span class="k">all</span> <span class="n">users</span><span class="p">.</span> <span class="n">We</span> <span class="n">can</span> <span class="ss">`grep`</span> <span class="k">on</span> <span class="n">that</span> <span class="k">and</span> <span class="n">see</span> <span class="n">who</span> <span class="k">is</span> <span class="n">running</span> <span class="ss">`gedit`</span> <span class="k">and</span> <span class="n">what</span> <span class="k">is</span> <span class="n">its</span> <span class="n">process</span> <span class="n">ID</span><span class="p">:</span>
+</code></pre></div>
+
+<p>$ ps -ef | grep gedit
+jadi      6213  4604  9 20:06 ?        00:04:43 gedit
+jadi      7725  7651  0 20:55 pts/1    00:00:00 grep gedit</p>
+<div class="highlight"><pre><span></span><code><span class="err">but there is also a more direct way:</span>
+</code></pre></div>
+
+<p>$ ps -C gedit -o user,pid,tty,time,comm
+USER       PID TT           TIME COMMAND
+jadi      6213 ?        00:04:49 gedit</p>
+<div class="highlight"><pre><span></span><code><span class="err">It is also possible to use the `--sort` switch to sort output based on different fields (+ for ascending &amp; - for descending).</span>
+</code></pre></div>
+
+<p>$ ps -af --sort +comm,-sid
+UID        PID  PPID  C STIME TTY          TIME CMD
+root      5486  5478  0 19:59 pts/12   00:00:00 -su
+root      4444  1169  0 19:56 tty4     00:00:00 -bash
+jadi      6638  5412  0 20:10 pts/0    00:00:04 node /usr/local/bin/sslocal
+jadi      7778  7651  0 20:58 pts/1    00:00:00 ps -af --sort +comm,-sid
+jadi      7678  7651  0 20:48 pts/1    00:00:00 sleep 1000
+jadi      7679  7651  0 20:48 pts/1    00:00:00 sleep 1001
+jadi      7775  7651  0 20:58 pts/1    00:00:00 sleep 1000
+jadi      7776  7651  0 20:58 pts/1    00:00:00 sleep 1000
+jadi      7777  7651  0 20:58 pts/1    00:00:00 sleep 1000
+root      5478  5477  0 19:59 pts/12   00:00:00 su -
+root      5477  5008  0 19:59 pts/12   00:00:00 sudo su -
+jadi      7680  7651  0 20:48 pts/1    00:00:01 xeyes</p>
+<div class="highlight"><pre><span></span><code><span class="c1">### top</span>
+<span class="n">Processes</span> <span class="n">are</span> <span class="n">changing</span> <span class="k">and</span> <span class="n">sometimes</span> <span class="n">you</span> <span class="n">need</span> <span class="k">to</span> <span class="k">check</span> <span class="n">them</span> <span class="n">live</span><span class="p">.</span> <span class="ss">`top`</span> <span class="n">command</span> <span class="n">will</span> <span class="n">help</span> <span class="n">you</span><span class="p">:</span>
+</code></pre></div>
+
+<p>$top</p>
+<p>top - 21:00:44 up  1:16,  5 users,  load average: 1.51, 1.65, 1.78
+Tasks: 293 total,   1 running, 292 sleeping,   0 stopped,   0 zombie
+%Cpu(s): 19.0 us,  5.0 sy,  0.0 ni, 70.9 id,  5.1 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem:   8060264 total,  5359812 used,  2700452 free,   169240 buffers
+KiB Swap:  7811068 total,        0 used,  7811068 free.  2250692 cached Mem</p>
+<p>PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND                                                                                                              <br>
+ 6570 jadi      20   0 1437752 546064  88312 S  18.4  6.8  12:00.96 firefox                                                                                                              <br>
+ 4870 jadi      20   0 1762516 299120  75664 S  12.2  3.7   7:37.05 compiz                                                                                                               <br>
+ 4492 jadi       9 -11  455152  11516   8940 S   6.1  0.1   1:06.81 pulseaudio                                                                                                           <br>
+ 4532 root      20   0  389028  77116  60192 S   6.1  1.0  12:16.63 Xorg                                                                                                                 <br>
+ 4723 jadi      20   0  358936   8288   5512 S   6.1  0.1   9:51.52 ibus-daemon                                                                                                          <br>
+ 5648 jadi      20   0 1641556 203676 102840 S   6.1  2.5   3:20.88 chrome                                                                                                               <br>
+ 7082 jadi      20   0 1210748  73136  42528 S   6.1  0.9   0:36.51 Telegram                                                                                                             <br>
+ 7806 jadi      20   0   33796   3004   2500 R   6.1  0.0   0:00.02 top                                                                                                                  <br>
+    1 root      20   0   29528   4320   2584 S   0.0  0.1   0:01.71 init              </p>
+<div class="highlight"><pre><span></span><code><span class="n">You</span> <span class="n">can</span> <span class="n">see</span> <span class="n">the</span> <span class="n">processes</span><span class="p">,</span> <span class="n">system</span> <span class="k">load</span><span class="p">,</span> <span class="n">uptime</span><span class="p">,</span> <span class="n">CPU</span> <span class="n">status</span><span class="p">,</span> <span class="n">memory</span><span class="p">,</span> <span class="p">...</span> <span class="k">and</span> <span class="n">do</span> <span class="n">some</span> <span class="n">stuff</span><span class="p">:</span>
+
+<span class="o">|</span><span class="k">key</span> <span class="n">during</span> <span class="n">top</span><span class="o">|</span><span class="n">functionality</span><span class="o">|</span>
+<span class="o">|---|---|</span>
+<span class="o">|</span><span class="n">h</span><span class="o">|</span><span class="n">help</span><span class="o">|</span>
+<span class="o">|</span><span class="n">q</span><span class="o">|</span><span class="n">quit</span><span class="o">|</span>
+<span class="o">|</span><span class="n">M</span><span class="o">|</span><span class="n">sort</span> <span class="n">based</span> <span class="k">on</span> <span class="n">memory</span> <span class="k">usage</span><span class="err">&quot;</span>
+<span class="o">|</span><span class="n">c</span><span class="o">|</span><span class="k">show</span> <span class="n">full</span> <span class="n">commands</span><span class="o">|</span>
+<span class="o">|</span><span class="n">k</span><span class="o">|</span><span class="k">kill</span> <span class="n">after</span> <span class="n">asking</span> <span class="n">pid</span> <span class="k">and</span> <span class="n">signal</span><span class="o">|</span>
+
+<span class="c1">## free</span>
+<span class="n">The</span> <span class="ss">`free`</span> <span class="n">command</span> <span class="n">will</span> <span class="k">show</span> <span class="n">you</span> <span class="n">info</span> <span class="n">about</span> <span class="n">the</span> <span class="n">system</span> <span class="n">memory</span><span class="p">.</span> <span class="n">The</span> <span class="k">default</span> <span class="k">is</span> <span class="o">*</span><span class="n">kilobytes</span><span class="o">*</span> <span class="n">but</span> <span class="n">you</span> <span class="n">can</span> <span class="k">change</span> <span class="n">it</span> <span class="k">with</span> <span class="ss">`-m`</span> <span class="k">for</span> <span class="n">megabytes</span><span class="p">,</span> <span class="ss">`-g`</span> <span class="k">for</span> <span class="o">*</span><span class="n">gigabytes</span><span class="o">*</span> <span class="k">or</span> <span class="n">even</span> <span class="ss">`-b`</span> <span class="k">for</span> <span class="n">bytes</span><span class="p">:</span>
+</code></pre></div>
+
+<p>$ free -m
+             total       used       free     shared    buffers     cached
+Mem:          7871       5231       2640        332        169       2195
+-/+ buffers/cache:       2866       5005
+Swap:         7627          0       7627</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="n">The</span> <span class="n">system</span> <span class="n">should</span> <span class="k">not</span> <span class="k">use</span> <span class="n">swap</span> <span class="k">in</span> <span class="k">long</span> <span class="n">term</span>
+
+<span class="c1">## uptime</span>
+<span class="n">The</span> <span class="ss">`uptime`</span> <span class="n">command</span> <span class="n">shows</span> <span class="n">the</span> <span class="kt">time</span><span class="p">,</span> <span class="n">how</span> <span class="k">long</span> <span class="n">the</span> <span class="n">system</span> <span class="k">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">how</span> <span class="n">may</span> <span class="n">users</span> <span class="n">are</span> <span class="n">logged</span> <span class="k">in</span> <span class="k">and</span> <span class="n">the</span> <span class="k">load</span> <span class="n">average</span> <span class="n">of</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span> <span class="o">&amp;</span> <span class="mi">15</span> <span class="n">minutes</span><span class="p">:</span>
+</code></pre></div>
+
+<p>$ uptime
+ 21:18:52 up  1:34,  5 users,  load average: 2.38, 2.64, 2.41
+````</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:14:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#103-ref">103</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

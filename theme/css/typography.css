@@ -1,0 +1,191 @@
+:root {
+  --headingBorderBottomWidth: 1px;
+  --headingBorderBottomStyle: solid;
+  /* Headings that are not inside article. Like in sidebar are "others" */
+  --headingOthersLineHeight: 1.3rem;
+  --headingOthersH4FontSize: 1.1rem;
+  --sansFontFamily: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --monoFontFamily: "PT Mono", Monaco, Menlo, Consolas, "Courier New", monospace;
+  --serifFontFamily: "PT Serif", Georgia, "Times New Roman", Times, serif;
+  --serifHeadingFontFamily: "PT Serif Caption", Baskerville, Garamond, Georgia,
+    "DejaVu Serif", "Times New Roman", Times, serif;
+}
+body {
+  margin: 0;
+  font-family: var(--sansFontFamily);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.page-header {
+  font-weight: normal;
+  text-align: left;
+  & small {
+    font-style: italic;
+  }
+}
+header.page-header h1 {
+  font-family: var(--serifHeadingFontFamily);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.tag-title,
+.list-of-tags,
+a.category-title-inside-accordion,
+ul.list-articles-under-tag-category li time {
+  font-family: var(--sansFontFamily);
+}
+h1 {
+  font-size: rfs(2.4rem);
+}
+h2 {
+  font-size: rfs(2.2rem);
+}
+h3 {
+  font-size: rfs(2rem);
+}
+h4 {
+  font-size: rfs(1.8rem);
+}
+h5 {
+  font-size: rfs(1.6rem);
+}
+h6 {
+  font-size: rfs(1.4rem);
+}
+h1,
+h2,
+h3 {
+  line-height: 1.3em;
+  border-bottom: var(--headingBorderBottomWidth) var(--headingBorderBottomStyle)
+    lightgray;
+  & code {
+    font-size: rfs(80%);
+  }
+  & small {
+    font-size: rfs(70%);
+  }
+}
+h4,
+h5,
+h6 {
+  line-height: 1.1em;
+  & code {
+    font-size: rfs(80%);
+  }
+  & small {
+    font-size: rfs(80%);
+  }
+}
+h1 small,
+h1 a,
+h1 a:hover,
+h2 small,
+h2 a,
+h2 a:hover,
+h3 small,
+h3 a,
+h3 a:hover,
+h4 small,
+h4 a,
+h4 a:hover,
+h5 small,
+h5 a,
+h5 a:hover,
+h6 small,
+h6 a,
+h6 a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+small.subtitle {
+  font-style: italic;
+}
+h1#my-projects,
+h1#recent-posts,
+div.blog-archives h2 {
+  border: none;
+}
+h1#recent-posts {
+  line-height: var(--headingOthersLineHeight);
+}
+section#article-sidebar h4,
+nav h4 {
+  font-size: rfs(var(--headingOthersH4FontSize));
+  line-height: var(--headingOthersLineHeight);
+}
+/* code */
+code,
+pre,
+.literal, /* reST */
+.site-name {
+  /*Site title */
+  font-family: var(--monoFontFamily);
+}
+/* code */
+code,
+pre,
+.literal /* reST */ {
+  font-size: rfs(0.9rem);
+}
+.brand .site-name {
+  font-size: rfs(1.5rem);
+  vertical-align: middle;
+}
+/* article */
+.article-content,
+div.recent-posts p {
+  font-size: rfs(1.125rem);
+  font-family: var(--serifFontFamily);
+  font-weight: 400;
+  line-height: 1.6;
+  text-transform: none;
+}
+/* blockquotes */
+blockquote {
+  & p {
+    font-family: var(--sansFontFamily);
+    font-weight: 400;
+  }
+}
+a.category-title-inside-accordion {
+  font-size: rfs(1.1rem);
+}
+.author-name {
+  font-weight: bold;
+  font-variant: small-caps;
+}
+.author-blurb {
+  font-style: italic;
+}
+ul.list-projects li,
+div.blog-archives div,
+div.recent-posts-article,
+ul.list-articles-under-tag-category li {
+  font-family: var(--sansFontFamily);
+  font-size: rfs(0.963rem);
+}
+.table-of-content .toc,
+.proj-desc,
+footer,
+div.blog-archives time,
+div.recent-posts time,
+ul.list-articles-under-tag-category li time,
+div.recent-posts-posted {
+  font-family: var(--sansFontFamily);
+  font-size: rfs(0.8rem);
+}
+span.superscript {
+  font-size: rfs(0.67rem);
+  vertical-align: super;
+}
+.navbar .nav > li > a {
+  font-size: rfs(1rem);
+}

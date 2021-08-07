@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 103, " />
+
+<meta property="og:title" content="103.8 Perform basic file editing operations using vi "/>
+<meta property="og:url" content="/1038-perform-basic-file-editing-operations-using-vi.html" />
+<meta property="og:description" content="103.8 Perform basic file editing operations using vi Weight: 3 Candidates should be able to edit text files using vi. This objective includes vi navigation, basic vi modes, inserting, editing, deleting, copying and finding text. Objectives Navigate a document using vi. Use basic vi modes. Insert, edit, delete, copy …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:17:00+02:00" />
+<meta name="twitter:title" content="103.8 Perform basic file editing operations using vi ">
+<meta name="twitter:description" content="103.8 Perform basic file editing operations using vi Weight: 3 Candidates should be able to edit text files using vi. This objective includes vi navigation, basic vi modes, inserting, editing, deleting, copying and finding text. Objectives Navigate a document using vi. Use basic vi modes. Insert, edit, delete, copy …">
+
+        <title>103.8 Perform basic file editing operations using vi  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1038-perform-basic-file-editing-operations-using-vi.html">
+                103.8 Perform basic file editing operations using vi
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>103.8 Perform basic file editing operations using vi</h1>
+<p><em>Weight: 3</em></p>
+<p>Candidates should be able to edit text files using vi. This objective includes vi navigation, basic vi modes, inserting, editing, deleting, copying and finding text.</p>
+<h2>Objectives</h2>
+<ul>
+<li>Navigate a document using vi.</li>
+<li>Use basic vi modes.</li>
+<li>
+<p>Insert, edit, delete, copy and find text.</p>
+</li>
+<li>
+<p>vi</p>
+</li>
+<li>/, ?</li>
+<li>h,j,k,l</li>
+<li>i, o, a</li>
+<li>c, d, p, y, dd, yy</li>
+<li>ZZ, :w!, :q!, :e!</li>
+</ul>
+<h2>Introduction</h2>
+<p><code>vi</code> is a great tool! The best editor ever (some say after Emacs) and it is installed on all linux systems. Some say it is difficult to use and <em>abnormal</em> and some say it is the most natural editor there can be. Lets see.</p>
+<blockquote>
+<p>vi can be used with simplest keyboards and over network on ssh terminals</p>
+</blockquote>
+<p>In many systems, <code>vi</code> command is a link / alias to <code>vim</code> and there are many versions of vi. Check with <code>--version</code> switch:</p>
+<div class="highlight"><pre><span></span><code>$ vi --version
+VIM - Vi IMproved <span class="m">7</span>.4 <span class="o">(</span><span class="m">2013</span> Aug <span class="m">10</span>, compiled Oct <span class="m">20</span> <span class="m">2014</span> <span class="m">16</span>:08:47<span class="o">)</span>
+Included patches: <span class="m">1</span>-273
+Modified by pkg-vim-maintainers@lists.alioth.debian.org
+Compiled by buildd@
+Small version without GUI.  Features included <span class="o">(</span>+<span class="o">)</span> or not <span class="o">(</span>-<span class="o">)</span>:
++acl             -farsi           -mouse_sgr       -tag_old_static
+-arabic          -file_in_path    -mouse_sysmouse  -tag_any_white
+-autocmd         -find_in_path    -mouse_urxvt     -tcl
+-balloon_eval    -float           -mouse_xterm     +terminfo
+...
+</code></pre></div>
+
+<p>To edit a file with vi, just give the file name to it:</p>
+<div class="highlight"><pre><span></span><code>$ vi file.txt
+</code></pre></div>
+
+<h2>vi moded</h2>
+<p><code>vi</code> has 2 different modes:
+- <strong>Command mode</strong> is where you go around the file, search, delete text, copy paste, replace, ... and give other commands to the vi. Some commands start with a <code>:</code> and some are only a keypress.
+- <strong>Insert mode</strong> is where what you type, goes into the file at the cursors position.</p>
+<blockquote>
+<p>If you want to go to the Command mode from the Insert mode, press ESC key. There are several ways to go to the Insert mode from Command mode (including the 'i' key).</p>
+</blockquote>
+<h2>Moving the cursor</h2>
+<p>If you need to move around, use these keys:</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>h</td>
+<td>One character to the left (only current line)</td>
+</tr>
+<tr>
+<td>j</td>
+<td>One line down</td>
+</tr>
+<tr>
+<td>k</td>
+<td>One line up</td>
+</tr>
+<tr>
+<td>l</td>
+<td>One character to the right (only current line)</td>
+</tr>
+<tr>
+<td>w</td>
+<td>Next word on the current line</td>
+</tr>
+<tr>
+<td>e</td>
+<td>Next end of word on the current line</td>
+</tr>
+<tr>
+<td>b</td>
+<td>Previous beginning of the word on the current line</td>
+</tr>
+<tr>
+<td>Ctrl-f</td>
+<td>Scroll forward one page</td>
+</tr>
+<tr>
+<td>Ctrl-b</td>
+<td>Scroll backward one page</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>you can type a number before most commands and that command will be repeated that many times (i.e. <code>6h</code> will go 6 characters to the left)</p>
+</blockquote>
+<h3>Jumping</h3>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G</td>
+<td>With no number, will jump to the end &amp; 10G will jump to line 10</td>
+</tr>
+<tr>
+<td>H</td>
+<td>5H will go to the 5th line from the top of the screen</td>
+</tr>
+<tr>
+<td>L</td>
+<td>3L will move the cursor to the 3rd line to the last line of the screen</td>
+</tr>
+</tbody>
+</table>
+<h2>Editing text</h2>
+<p>These command during the <em>command mode</em> will help you enter, edit, replace, .. test:</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i</td>
+<td>Enter the insert mode</td>
+</tr>
+<tr>
+<td>a</td>
+<td>Enter the insert mode after the current position of the cursor</td>
+</tr>
+<tr>
+<td>r</td>
+<td>replace only one character</td>
+</tr>
+<tr>
+<td>o</td>
+<td>open a new line below the cursor and go to the insert mode</td>
+</tr>
+<tr>
+<td>O</td>
+<td>open a new line above the cursor and go to the insert mode</td>
+</tr>
+<tr>
+<td>c</td>
+<td>clear to a location and go to the insert mode the replace till there and then normal insert (<code>cw</code> will overwrite the current word)</td>
+</tr>
+<tr>
+<td>d</td>
+<td>delete. you can mix with w (<code>dw</code>) to delete a word. Same as cw but dw does not to to the insert mode</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>Delete the current line</td>
+</tr>
+<tr>
+<td>x</td>
+<td>Delete character at the position of the cursor</td>
+</tr>
+<tr>
+<td>p</td>
+<td>Paste the last deleted text after the cursor</td>
+</tr>
+<tr>
+<td>P</td>
+<td>Paste the last deleted text before the cursor</td>
+</tr>
+<tr>
+<td>xp</td>
+<td>swaps the character at the cursor position with the one on its right</td>
+</tr>
+</tbody>
+</table>
+<h2>Searching</h2>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/</td>
+<td>Search forward (<code>/happiness</code> will find the next happiness)</td>
+</tr>
+<tr>
+<td>?</td>
+<td>Search backward</td>
+</tr>
+<tr>
+<td>n</td>
+<td>repeat previous search. You can also use <code>/</code> and <code>?</code> without any parameters)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Search wraps around to the top once the bottom of file is reached</p>
+</blockquote>
+<h2>Exiting</h2>
+<p>It is always funny when you see someone entering to the vi and now knowing how to exit! Learn these and prevent the laughter:</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:q!</td>
+<td>Quit editing without saving = runaway after any mistake</td>
+</tr>
+<tr>
+<td>:w!</td>
+<td>Write the file (whether modified or not). Attempt to overwrite existing files or read-only or other unwritable files</td>
+</tr>
+<tr>
+<td>:w myfile.txt</td>
+<td>Write to a new name</td>
+</tr>
+<tr>
+<td>ZZ</td>
+<td>Exit and save the file if modified</td>
+</tr>
+<tr>
+<td>:e!</td>
+<td>Reload the file from disk</td>
+</tr>
+<tr>
+<td>:!</td>
+<td>Run a shell command</td>
+</tr>
+</tbody>
+</table>
+<p>Entering colon (<code>:</code>) during <em>command mode</em> will move the cursor to the bottom of the screen and vi will wait for your commands. Press ESC to return back to the normal command mode.</p>
+<blockquote>
+<p>The exclamation mark in most commands will say "I know what I'm doing" and will write on read-only files if you have access and will exit without asking</p>
+</blockquote>
+<h2>help</h2>
+<p>You can always ask for help with <code>:help</code> or <code>:help subject</code>. This way vi will open a help text which you can use / search just like any other text. Close it with <code>:q</code> command.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.
+.</p>
+<p>.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:17:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#103-ref">103</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

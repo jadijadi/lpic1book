@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 107, " />
+
+<meta property="og:title" content="107.1 Manage user and group accounts and related system files "/>
+<meta property="og:url" content="/1071-manage-user-and-group-accounts-and-related-system-files.html" />
+<meta property="og:description" content="107.1 Manage user and group accounts and related system files Weight: 5 Candidates should be able to add, remove, suspend and change user accounts. Key Knowledge Areas Add, modify and remove users and groups. Manage user/group info in password/group databases. Create and manage special purpose and limited …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:29:00+02:00" />
+<meta name="twitter:title" content="107.1 Manage user and group accounts and related system files ">
+<meta name="twitter:description" content="107.1 Manage user and group accounts and related system files Weight: 5 Candidates should be able to add, remove, suspend and change user accounts. Key Knowledge Areas Add, modify and remove users and groups. Manage user/group info in password/group databases. Create and manage special purpose and limited …">
+
+        <title>107.1 Manage user and group accounts and related system files  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1071-manage-user-and-group-accounts-and-related-system-files.html">
+                107.1 Manage user and group accounts and related system files
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>107.1 Manage user and group accounts and related system files</h1>
+<p><em>Weight: 5</em></p>
+<p>Candidates should be able to add, remove, suspend and change user accounts.</p>
+<h2>Key Knowledge Areas</h2>
+<ul>
+<li>Add, modify and remove users and groups.</li>
+<li>Manage user/group info in password/group databases.</li>
+<li>Create and manage special purpose and limited accounts.</li>
+</ul>
+<h2>Terms and Utilities</h2>
+<ul>
+<li>/etc/passwd</li>
+<li>/etc/shadow</li>
+<li>/etc/group</li>
+<li>/etc/skel/</li>
+<li>chage</li>
+<li>getent</li>
+<li>groupadd</li>
+<li>groupdel</li>
+<li>groupmod</li>
+<li>passwd</li>
+<li>useradd</li>
+<li>userdel</li>
+<li>usermod</li>
+</ul>
+<h3>Changing password</h3>
+<p>Each user can change her password using the <code>passwd</code> command:</p>
+<div class="highlight"><pre><span></span><code>$ passwd
+Changing password <span class="k">for</span> jadi.
+<span class="o">(</span>current<span class="o">)</span> UNIX password:
+New password:
+Retype new password:
+passwd: password updated successfully
+</code></pre></div>
+
+<p>If the password is too short or too similar to the previous one or even a dictionary word, the <code>passwd</code> command may refuse to change it. Also note that the commands asks for the <em>current password</em> first to make sure that some one is not using your computer to change your password.</p>
+<p>The root user can change any users password to anything (weak passwords) without providing their current password:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># passwd jadi</span>
+<span class="err">New password:</span>
+<span class="err">BAD PASSWORD: it does not contain enough DIFFERENT characters</span>
+<span class="err">BAD PASSWORD: is too simple</span>
+<span class="err">Retype new password:</span>
+<span class="c">passwd: password updated successfully</span>
+</code></pre></div>
+
+<h2>Users and groups</h2>
+<p>Linux is a multi-user system so you should be able to manage these users. You should be able to <strong>add</strong>, <strong>remove</strong> and <strong>modify</strong> users.</p>
+<p>Linux also has the concept of <strong>groups</strong>. You can define groups, give privileges to them and make users members of these groups. For example there can be a "printer" group who has access to printings and you can add user "jadi" to this group.</p>
+<ul>
+<li>Each user can be a member of many different groups</li>
+<li>Each file belongs to one user and one group</li>
+</ul>
+<h3>Changing password</h3>
+<p>Each user can change her password using the <code>passwd</code> command:</p>
+<div class="highlight"><pre><span></span><code>$ passwd
+Changing password <span class="k">for</span> jadi.
+<span class="o">(</span>current<span class="o">)</span> UNIX password:
+New password:
+Retype new password:
+passwd: password updated successfully
+</code></pre></div>
+
+<p>If the password is too short or too similar to the previous one or even a dictionary word, the <code>passwd</code> command may refuse to change it. Also note that the commands asks for the <em>current password</em> first to make sure that some one is not using your computer to change your password.</p>
+<p>The root user can change any users password to anything (weak passwords) without providing their current passwrd:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># passwd jadi</span>
+<span class="err">New password:</span>
+<span class="err">BAD PASSWORD: it does not contain enough DIFFERENT characters</span>
+<span class="err">BAD PASSWORD: is too simple</span>
+<span class="err">Retype new password:</span>
+<span class="c">passwd: password updated successfully</span>
+</code></pre></div>
+
+<h2>Managing Users</h2>
+<h3>Adding users</h3>
+<p>Adding a user is done using the <code>useradd</code> command. Easy to remember! These are the main switches:</p>
+<table>
+<thead>
+<tr>
+<th>switch</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-d</td>
+<td>home directory (-d /home/user)</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>create home directory</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>specify shell</td>
+</tr>
+<tr>
+<td>-G</td>
+<td>add to additional groups</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>comment. most of the time, users actual name. Use quotes if comments has spaces or special characters in them</td>
+</tr>
+</tbody>
+</table>
+<p>On some systems <code>useradd</code> creates the home directory and on some, you have to specify the <code>-m</code> switch yourself. It is good to use it all the time.</p>
+<p>When a new user directory is being created, the system will copy the contents of <code>/etc/skel</code> to their home dir. <code>/etc/skel</code> is used as a template for the home of users.</p>
+<h3>Modifying users</h3>
+<p>It supports most of the <code>useradd</code> switches. For example you can change <em>jadi</em>'s login shell by issuing <code>usermod -s /bin/csh jadi</code>. But there are 3 more switches:</p>
+<table>
+<thead>
+<tr>
+<th>switch</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-L</td>
+<td>lock this account</td>
+</tr>
+<tr>
+<td>-U</td>
+<td>Unlock the account</td>
+</tr>
+<tr>
+<td>-aG</td>
+<td>add to more groups (say <code>usermod -aG wheel jadi</code>)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note: If you do <code>usermod -G wheel,users jadi</code>, jadi will be ONLY the member of these two groups. That is why we use <code>-aG newgoup</code> to ADD a new group to what jadi is a member of. <code>-G</code> is like saying "jadis groups are ..." and <code>-aG</code> is like "add this group to whatever groups jadi is a member of".</p>
+</blockquote>
+<h3>Deleting users</h3>
+<p>If you want to remove a user, use <code>userdel</code> as easy as:</p>
+<div class="highlight"><pre><span></span><code><span class="err">userdel jadi</span>
+</code></pre></div>
+
+<p>If you add the <code>-r</code> swtich, the home direcoty and mail spool will be erased too!</p>
+<h2>Managing Groups</h2>
+<p>It is kind of same as users, you can do <code>groupadd</code>, <code>groupdel</code> and <code>groupmod</code>. Each group as an id an a name.</p>
+<div class="highlight"><pre><span></span><code><span class="err"># groupadd -g 1200 newgroup</span>
+</code></pre></div>
+
+<p>adds a group called <em>newgroup</em> with id 1200. If needed, the root user can change a groups ID (to 2000) by issuing <code>groupmod -g 2000 newgroup</code> or deleting the group by <code>groupdel newgroup</code>.</p>
+<blockquote>
+<p>Note: If root deletes a group with members, people wont be deleted! They will just wont be the members of that group anymore.</p>
+</blockquote>
+<h2>Important files</h2>
+<h3>/etc/passwd</h3>
+<p>This is the file which contains all the user names and their shells, etc, ..</p>
+<div class="highlight"><pre><span></span><code><span class="err">tail /etc/passwd</span>
+<span class="c">scard:x:491:489:Smart Card Reader:/var/run/pcscd:/usr/sbin/nologin</span>
+<span class="c">sshd:x:493:491:SSH daemon:/var/lib/sshd:/bin/false</span>
+<span class="c">statd:x:488:65534:NFS statd daemon:/var/lib/nfs:/sbin/nologin</span>
+<span class="c">tftp:x:496:493:TFTP account:/srv/tftpboot:/bin/false</span>
+<span class="c">lightdm:x:10:14:Light Display Manager:/var/lib/lightdm:/bin/false</span>
+<span class="c">wwwrun:x:30:8:WWW daemon apache:/var/lib/wwwrun:/bin/false</span>
+<span class="c">jadi:x:1000:100:jadi:/home/jadi:/bin/bash</span>
+<span class="c">svn:x:485:482:user for Apache Subversion svnserve:/srv/svn:/sbin/nologin</span>
+<span class="c">privoxy:x:484:480:Daemon user for privoxy:/var/lib/privoxy:/bin/false</span>
+</code></pre></div>
+
+<p>As you can see the format is:</p>
+<div class="highlight"><pre><span></span><code><span class="n">username</span><span class="o">:</span><span class="n">password</span><span class="o">:</span><span class="n">userid</span><span class="o">:</span><span class="n">primary</span> <span class="n">group</span> <span class="n">id</span><span class="o">:</span><span class="n">Name</span> <span class="n">and</span> <span class="n">comments</span><span class="o">:</span><span class="n">home</span> <span class="n">dir</span><span class="o">:</span><span class="n">shell</span>
+</code></pre></div>
+
+<p>In old days the password or the hashed password was actually shown in this file but nowadays that is moved to the /etc/shadow file.</p>
+<blockquote>
+<p>Note: /etc/passwd should be readable to all users so it is not a good place for password! These days if there is a <code>x</code> instead of password, it means <em>go look at the /etc/shadow</em> file.</p>
+</blockquote>
+<p>Note how <em>special users</em> like lightdm are having /bin/false as their shell; this prevents them from logging into the system for real.</p>
+<h3>/etc/shadow</h3>
+<p>This file contains password (hashed passwords) of the users. See how the /etc/passwd is readable for all but /etc/shadow is only readable for root and members of the <code>shadow</code> group:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># ls -ltrh /etc/passwd /etc/shadow</span>
+<span class="err">-rw-r--r-- 1 root root   1.9K Oct 28 15:47 /etc/passwd</span>
+<span class="err">-rw-r----- 1 root shadow  851 Oct 29 19:06 /etc/shadow</span>
+</code></pre></div>
+
+<p>But what is in it?</p>
+<div class="highlight"><pre><span></span><code><span class="err"># tail /etc/shadow</span>
+<span class="c">scard:!:16369::::::</span>
+<span class="c">sshd:!:16369::::::</span>
+<span class="c">statd:!:16369::::::</span>
+<span class="c">tftp:!:16369::::::</span>
+<span class="c">uucp:*:16369::::::</span>
+<span class="c">lightdm:*:16369::::::</span>
+<span class="c">jadi:$6$enk5I3bv$uSQrRpen7m9xDapYLgwgh3P/71OLZUgj31n8AwzgIM2lA5Hc/BmRVAMC0eswdBGkseuXSvmaz0lsYFtduvuqUo:16737:0:99999:7:::</span>
+<span class="c">svn:!:16736::::::</span>
+<span class="c">privoxy:!:16736::::::</span>
+</code></pre></div>
+
+<blockquote>
+<p>Note: <code>!</code> means <strong>no password</strong></p>
+</blockquote>
+<p>Wow! Jadi has an encrypted password there. Some numbers are following that encrypted password too: <strong>16737:0:99999:7:::</strong>. What do the mean? The following table tells you.</p>
+<table>
+<thead>
+<tr>
+<th>filed</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>16737</td>
+<td>When was the last time this password changes</td>
+</tr>
+<tr>
+<td>0</td>
+<td>User wont be able to change the password 0 days after each change</td>
+</tr>
+<tr>
+<td>99999</td>
+<td>After this many days, the user HAVE to change his password</td>
+</tr>
+<tr>
+<td>7</td>
+<td>...and the user will be informed 7 days before the expiration to change his password</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note: there numbers are "days after 1st of January 1970" or the Epoch time in days. For example 16737 means 16373 days after 1st Jan 1970. Strange but practical!</p>
+</blockquote>
+<p>But we do not need to change these strange number manually. If needed, we can use the <code>chage</code> tool to change these numbers. If you issue the <code>chage jadi</code> the system will prompt you for all the parameters one by one. Also it is possible to use switches to change specific parameters on command line.</p>
+<table>
+<thead>
+<tr>
+<th>switch</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-l</td>
+<td>list information</td>
+</tr>
+<tr>
+<td>-E</td>
+<td>Set the expiration date. Date can be a number, in YYYY-MM-DD format or -1 which will mean <em>never</em></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="err"># chage -l jadi</span>
+<span class="err">Last password change                    : Oct 29, 2015</span>
+<span class="err">Password expires                    : never</span>
+<span class="err">Password inactive                   : never</span>
+<span class="err">Account expires                     : never</span>
+<span class="err">Minimum number of days between password change      : 0</span>
+<span class="err">Maximum number of days between password change      : 99999</span>
+<span class="err">Number of days of warning before password expires   : 7</span>
+</code></pre></div>
+
+<h3>/etc/group</h3>
+<p>This file contains the groups and their IDs.</p>
+<div class="highlight"><pre><span></span><code><span class="err"># tail /etc/group</span>
+<span class="c">avahi:x:486:</span>
+<span class="c">kdm:!:485:</span>
+<span class="c">mysql:x:484:</span>
+<span class="c">winbind:x:483:</span>
+<span class="c">at:x:25:</span>
+<span class="c">svn:x:482:</span>
+<span class="c">vboxusers:x:481:</span>
+<span class="c">input:x:1000:jadi</span>
+<span class="c">privoxy:x:480:</span>
+</code></pre></div>
+
+<blockquote>
+<p>Note: See that <code>x</code> there? Theoretically groups can have passwords but it is never used in any distro! The file is /etc/gshadow</p>
+</blockquote>
+<h2>checking user info</h2>
+<p>Previously you saw the <code>chage -l jadi</code> but there are more commands for checking user status. One is <code>id</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># id jadi</span>
+<span class="err">uid=1000(jadi) gid=100(users) groups=1000(input),100(users)</span>
+</code></pre></div>
+
+<p>Another solution is <code>getent</code> (for <strong>get entry</strong>). It can query important <em>databases</em> for specific entries. These databases include /etc/passwd, /etc/hosts, /etc/shadow, /etc/group, ...</p>
+<div class="highlight"><pre><span></span><code><span class="c">funlife:~ # getent group tor</span>
+<span class="c">tor:x:479:</span>
+<span class="c">funlife:~ # getent passwd jadi</span>
+<span class="c">jadi:x:1000:100:jadi:/home/jadi:/bin/bash</span>
+<span class="c">funlife:~ # getent shadow jadi</span>
+<span class="c">jadi:$6$enk5I3bv$uSQrRpen7m9xDapYLgwgh3P/71OLZUgj31n8AwzgIM2lA5Hc/BmRVAMC0eswdBGkseuXSvmaz0lsYFtduvuqUo:16737:0:99999:7:::</span>
+</code></pre></div>
+
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:29:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#107-ref">107</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

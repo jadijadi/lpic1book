@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 101, " />
+
+<meta property="og:title" content="101.3. Change runlevels and shutdown or reboot system "/>
+<meta property="og:url" content="/1013-change-runlevels-and-shutdown-or-reboot-system.html" />
+<meta property="og:description" content="101.3. Change runlevels and shutdown or reboot system weight: 3 Candidates should be able to manage the runlevel of the system. This objective includes changing to single user mode, shutdown or rebooting the system. Candidates should be able to alert users before switching run level and properly terminate processes …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:04:00+02:00" />
+<meta name="twitter:title" content="101.3. Change runlevels and shutdown or reboot system ">
+<meta name="twitter:description" content="101.3. Change runlevels and shutdown or reboot system weight: 3 Candidates should be able to manage the runlevel of the system. This objective includes changing to single user mode, shutdown or rebooting the system. Candidates should be able to alert users before switching run level and properly terminate processes …">
+
+        <title>101.3. Change runlevels and shutdown or reboot system  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1013-change-runlevels-and-shutdown-or-reboot-system.html">
+                101.3. Change runlevels and shutdown or reboot system
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>101.3. Change runlevels and shutdown or reboot system</h1>
+<p>weight: 3</p>
+<p>Candidates should be able to manage the runlevel of the system. This objective includes changing to single user mode, shutdown or rebooting the system. Candidates should be able to alert users before switching run level and properly terminate processes. This objective also includes setting the default run level. It also includes basic feature knowledge of potential replacements to init.</p>
+<h3>Key Knowledge Areas</h3>
+<ul>
+<li>Set the default runlevel.</li>
+<li>Change between run levels including single user mode.</li>
+<li>Shutdown and reboot from the command line.</li>
+<li>Alert users before switching runlevels or other major system event.</li>
+<li>Properly terminate processes.</li>
+<li>
+<p>Knowledge of basic features of systemd and Upstart</p>
+</li>
+<li>
+<p>/etc/inittab</p>
+</li>
+<li>shutdown</li>
+<li>init</li>
+<li>/etc/init.d</li>
+<li>telinit</li>
+</ul>
+<h3>runlevels</h3>
+<p>Runlevels define what tasks can be accomplished in the current state (or runlevel) of a Linux system</p>
+<ul>
+<li>0- Halt</li>
+<li>1- Single user mode (recovery)</li>
+<li>2- Debian/Ubuntu default</li>
+<li>3- RHEL/Fedora/SUSE text mode</li>
+<li>4- free</li>
+<li>5- RHEL/Fedora/SUSE graphical mode</li>
+<li>6- reboot</li>
+</ul>
+<p>default run level can be seen in this file which says init what to do, sets default runlevel and.. being phased out!</p>
+<div class="highlight"><pre><span></span><code><span class="err">grep &quot;^id:&quot; /etc/inittab #on init systems</span>
+<span class="c">id:5:initdefault:</span>
+</code></pre></div>
+
+<p>it can also be done on grub kernel parameters.</p>
+<p>or using the runleveland telinit commands:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># runlevel</span>
+<span class="err">N 3</span>
+<span class="err"># telinit 5</span>
+<span class="err"># runlevel</span>
+<span class="err">3 5</span>
+</code></pre></div>
+
+<p><strong>Note:</strong> runlevel 1 is single user mode!</p>
+<h3>/etc/inittab</h3>
+<p>is being replaced by upstart and systemd but is still part of the exam.</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"></span>
+<span class="err">#</span><span class="w"> </span><span class="n">inittab</span><span class="w">       </span><span class="n">This</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="n">describes</span><span class="w"> </span><span class="n">how</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">INIT</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">up</span><span class="w"></span>
+<span class="err">#</span><span class="w">               </span><span class="n">the</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">certain</span><span class="w"> </span><span class="n">run</span><span class="o">-</span><span class="k">level</span><span class="p">.</span><span class="w"></span>
+<span class="err">#</span><span class="w"></span>
+<span class="err">#</span><span class="w"> </span><span class="nl">Author</span><span class="p">:</span><span class="w">       </span><span class="n">Miquel</span><span class="w"> </span><span class="n">van</span><span class="w"> </span><span class="n">Smoorenburg</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;</span><span class="n">miquels</span><span class="nv">@drinkel</span><span class="p">.</span><span class="n">nl</span><span class="p">.</span><span class="n">mugnet</span><span class="p">.</span><span class="n">org</span><span class="o">&gt;</span><span class="w"></span>
+<span class="err">#</span><span class="w">               </span><span class="n">Modified</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">RHS</span><span class="w"> </span><span class="n">Linux</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Marc</span><span class="w"> </span><span class="n">Ewing</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Donnie</span><span class="w"> </span><span class="n">Barnes</span><span class="w"></span>
+<span class="err">#</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="k">Default</span><span class="w"> </span><span class="n">runlevel</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">runlevels</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">RHS</span><span class="w"> </span><span class="k">are</span><span class="err">:</span><span class="w"></span>
+<span class="err">#</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">halt</span><span class="w"> </span><span class="p">(</span><span class="n">Do</span><span class="w"> </span><span class="ow">NOT</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">initdefault</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">this</span><span class="p">)</span><span class="w"></span>
+<span class="err">#</span><span class="w">   </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Single</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">mode</span><span class="w"></span>
+<span class="err">#</span><span class="w">   </span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Multiuser</span><span class="p">,</span><span class="w"> </span><span class="k">without</span><span class="w"> </span><span class="n">NFS</span><span class="w"> </span><span class="p">(</span><span class="n">The</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">do</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">networking</span><span class="p">)</span><span class="w"></span>
+<span class="err">#</span><span class="w">   </span><span class="mi">3</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">Full</span><span class="w"> </span><span class="n">multiuser</span><span class="w"> </span><span class="n">mode</span><span class="w"></span>
+<span class="err">#</span><span class="w">   </span><span class="mi">4</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">unused</span><span class="w"></span>
+<span class="err">#</span><span class="w">   </span><span class="mi">5</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">X11</span><span class="w"></span>
+<span class="err">#</span><span class="w">   </span><span class="mi">6</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">reboot</span><span class="w"> </span><span class="p">(</span><span class="n">Do</span><span class="w"> </span><span class="ow">NOT</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">initdefault</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">this</span><span class="p">)</span><span class="w"></span>
+<span class="err">#</span><span class="w"></span>
+<span class="nl">id</span><span class="p">:</span><span class="mi">5</span><span class="err">:</span><span class="nl">initdefault</span><span class="p">:</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="k">System</span><span class="w"> </span><span class="n">initialization</span><span class="p">.</span><span class="w"></span>
+<span class="nl">si</span><span class="p">:</span><span class="err">:</span><span class="nl">sysinit</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rc</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">rc</span><span class="p">.</span><span class="n">sysinit</span><span class="w"></span>
+
+<span class="nl">l0</span><span class="p">:</span><span class="mi">0</span><span class="err">:</span><span class="nl">wait</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rc</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">rc</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="nl">l1</span><span class="p">:</span><span class="mi">1</span><span class="err">:</span><span class="nl">wait</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rc</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">rc</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="nl">l2</span><span class="p">:</span><span class="mi">2</span><span class="err">:</span><span class="nl">wait</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rc</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">rc</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
+<span class="nl">l3</span><span class="p">:</span><span class="mi">3</span><span class="err">:</span><span class="nl">wait</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rc</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">rc</span><span class="w"> </span><span class="mi">3</span><span class="w"></span>
+<span class="nl">l4</span><span class="p">:</span><span class="mi">4</span><span class="err">:</span><span class="nl">wait</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rc</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">rc</span><span class="w"> </span><span class="mi">4</span><span class="w"></span>
+<span class="nl">l5</span><span class="p">:</span><span class="mi">5</span><span class="err">:</span><span class="nl">wait</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rc</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">rc</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="nl">l6</span><span class="p">:</span><span class="mi">6</span><span class="err">:</span><span class="nl">wait</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rc</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">rc</span><span class="w"> </span><span class="mi">6</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">Trap</span><span class="w"> </span><span class="n">CTRL</span><span class="o">-</span><span class="n">ALT</span><span class="o">-</span><span class="k">DELETE</span><span class="w"></span>
+<span class="nl">ca</span><span class="p">:</span><span class="err">:</span><span class="nl">ctrlaltdel</span><span class="p">:</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="k">shutdown</span><span class="w"> </span><span class="o">-</span><span class="n">t3</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="n">now</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="k">When</span><span class="w"> </span><span class="n">our</span><span class="w"> </span><span class="n">UPS</span><span class="w"> </span><span class="n">tells</span><span class="w"> </span><span class="n">us</span><span class="w"> </span><span class="nf">power</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">failed</span><span class="p">,</span><span class="w"> </span><span class="n">assume</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">few</span><span class="w"> </span><span class="n">minutes</span><span class="w"></span>
+<span class="err">#</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nf">power</span><span class="w"> </span><span class="nf">left</span><span class="p">.</span><span class="w">  </span><span class="n">Schedule</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">shutdown</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">minutes</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">now</span><span class="p">.</span><span class="w"></span>
+<span class="err">#</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">does</span><span class="p">,</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">course</span><span class="p">,</span><span class="w"> </span><span class="n">assume</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">powerd</span><span class="w"> </span><span class="n">installed</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">your</span><span class="w"></span>
+<span class="err">#</span><span class="w"> </span><span class="n">UPS</span><span class="w"> </span><span class="n">connected</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">working</span><span class="w"> </span><span class="n">correctly</span><span class="p">.</span><span class="w"></span>
+<span class="nl">pf</span><span class="p">:</span><span class="err">:</span><span class="nl">powerfail</span><span class="p">:</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="k">shutdown</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="o">-</span><span class="n">h</span><span class="w"> </span><span class="o">+</span><span class="mi">2</span><span class="w"> </span><span class="ss">&quot;Power Failure; System Shutting Down&quot;</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="nf">power</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="n">restored</span><span class="w"> </span><span class="k">before</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">shutdown</span><span class="w"> </span><span class="n">kicked</span><span class="w"> </span><span class="ow">in</span><span class="p">,</span><span class="w"> </span><span class="n">cancel</span><span class="w"> </span><span class="n">it</span><span class="p">.</span><span class="w"></span>
+<span class="nl">pr</span><span class="p">:</span><span class="mi">12345</span><span class="err">:</span><span class="nl">powerokwait</span><span class="p">:</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="k">shutdown</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="ss">&quot;Power Restored; Shutdown Cancelled&quot;</span><span class="w"></span>
+
+
+<span class="err">#</span><span class="w"> </span><span class="n">Run</span><span class="w"> </span><span class="n">gettys</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">standard</span><span class="w"> </span><span class="n">runlevels</span><span class="w"></span>
+<span class="mi">1</span><span class="err">:</span><span class="mi">2345</span><span class="err">:</span><span class="nl">respawn</span><span class="p">:</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">mingetty</span><span class="w"> </span><span class="n">tty1</span><span class="w"></span>
+<span class="mi">2</span><span class="err">:</span><span class="mi">2345</span><span class="err">:</span><span class="nl">respawn</span><span class="p">:</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">mingetty</span><span class="w"> </span><span class="n">tty2</span><span class="w"></span>
+<span class="mi">3</span><span class="err">:</span><span class="mi">2345</span><span class="err">:</span><span class="nl">respawn</span><span class="p">:</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">mingetty</span><span class="w"> </span><span class="n">tty3</span><span class="w"></span>
+<span class="mi">4</span><span class="err">:</span><span class="mi">2345</span><span class="err">:</span><span class="nl">respawn</span><span class="p">:</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">mingetty</span><span class="w"> </span><span class="n">tty4</span><span class="w"></span>
+<span class="mi">5</span><span class="err">:</span><span class="mi">2345</span><span class="err">:</span><span class="nl">respawn</span><span class="p">:</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">mingetty</span><span class="w"> </span><span class="n">tty5</span><span class="w"></span>
+<span class="mi">6</span><span class="err">:</span><span class="mi">2345</span><span class="err">:</span><span class="nl">respawn</span><span class="p">:</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">mingetty</span><span class="w"> </span><span class="n">tty6</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">Run</span><span class="w"> </span><span class="n">xdm</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">runlevel</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="nl">x</span><span class="p">:</span><span class="mi">5</span><span class="err">:</span><span class="nl">respawn</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">X11</span><span class="o">/</span><span class="n">prefdm</span><span class="w"> </span><span class="o">-</span><span class="n">nodaemon</span><span class="w"></span>
+</code></pre></div>
+
+<p>this is the format:</p>
+<div class="highlight"><pre><span></span><code><span class="n">id</span><span class="o">:</span><span class="n">runlevels</span><span class="o">:</span><span class="n">action</span><span class="o">:</span><span class="n">process</span>
+</code></pre></div>
+
+<ul>
+<li>id: 2 or 3 chars</li>
+<li>runlevels: which runlevel this commands refers to (empty means all)</li>
+<li>action: respawn, wait, once, initdefault (default run level as seen above), ctrlaltdel (what to do with crrl+alt+delete)</li>
+</ul>
+<p>all scripts are here:</p>
+<div class="highlight"><pre><span></span><code><span class="err">ls -ltrh /etc/init.d</span>
+</code></pre></div>
+
+<p>and start/stop on runlevels are controlled from these directories:</p>
+<div class="highlight"><pre><span></span><code><span class="err">root@funlife:~# ls /etc/rc2.d/</span>
+</code></pre></div>
+
+<h3>Shutdown</h3>
+<p>The preferred method to shut down or reboot the system is to use the shutdown command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 5 seconds, or another delay if specified, init sends a SIGKILL signal to forcibly end each remaining process.</p>
+<ul>
+<li>default is 5 seconds delay and then going to runlevel 1</li>
+<li>-h will halt the system</li>
+<li>-r will reboot the system</li>
+<li>time is hh:mm or n (minutes) or now</li>
+<li>whatever you add, will be broadcasted to logged in users</li>
+<li>
+<p>if the command is running, ctrl+c or the "shutdown -c" will cancel it</p>
+<p>shutdown -r 60 Reloading updated kernel</p>
+</li>
+</ul>
+<p>for more advance users:
+* -t60 will delay 60 seconds between SIGTERM and SIGKILL
+* if you cancel a shutdown, users wont get the news! you can use "wall" command to tell them that the shutdown is canceled</p>
+<h3>Halt, reboot and poweroff</h3>
+<ul>
+<li>The halt command halts the system.</li>
+<li>The poweroff command is a symbolic link to the halt command, which halts the system and then attempts to power it off.</li>
+<li>The reboot command is another symbolic link to the halt command, which halts the system and then reboots it.</li>
+</ul>
+<h3>upstart</h3>
+<p>is not static set of init scripts and understands events. Events are used to trigger tasks or services (jobs). Examples are connecting a usb or starting the Apache server only after having network and filesystem.</p>
+<p>jobs are defined in /etc/init and subdirectories.</p>
+<div class="highlight"><pre><span></span><code><span class="err">initctl list</span>
+</code></pre></div>
+
+<p>being used in ubuntu.</p>
+<h3>systemd</h3>
+<p>uses sockets and a socket will be open for each daemon process but will start the daemon only when needed. Understands dependencies. Faster and parallel.</p>
+<div class="highlight"><pre><span></span><code><span class="err">systemctl</span>
+</code></pre></div>
+
+<p>works with units (service, socket, device, mount, automount, target (group of other units), snapshot (save/rollback)). config files has unit type suffix (say cups.service or rpcbind.socket) and are located at /etc/systemd/system</p>
+<p>being used in Fedora based systems and SUSE</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.
+.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:04:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#101-ref">101</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

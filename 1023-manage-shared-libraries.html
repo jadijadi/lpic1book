@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 102, " />
+
+<meta property="og:title" content="102.3. Manage shared libraries "/>
+<meta property="og:url" content="/1023-manage-shared-libraries.html" />
+<meta property="og:description" content="102.3. Manage shared libraries weight 2 Objectives Candidates should be able to determine the shared libraries that executable programs depend on and install them when necessary. Identify shared libraries. Identify the typical locations of system libraries. Load shared libraries. ldd ldconfig /etc/ld.so.conf LD_LIBRARY_PATH Linking When we …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:07:00+02:00" />
+<meta name="twitter:title" content="102.3. Manage shared libraries ">
+<meta name="twitter:description" content="102.3. Manage shared libraries weight 2 Objectives Candidates should be able to determine the shared libraries that executable programs depend on and install them when necessary. Identify shared libraries. Identify the typical locations of system libraries. Load shared libraries. ldd ldconfig /etc/ld.so.conf LD_LIBRARY_PATH Linking When we …">
+
+        <title>102.3. Manage shared libraries  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1023-manage-shared-libraries.html">
+                102.3. Manage shared libraries
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>102.3. Manage shared libraries</h1>
+<p><em>weight 2</em></p>
+<h2>Objectives</h2>
+<p>Candidates should be able to determine the shared libraries that executable programs depend on and install them when necessary.</p>
+<ul>
+<li>Identify shared libraries.</li>
+<li>Identify the typical locations of system libraries.</li>
+<li>
+<p>Load shared libraries.</p>
+</li>
+<li>
+<p>ldd</p>
+</li>
+<li>ldconfig</li>
+<li>/etc/ld.so.conf</li>
+<li>LD_LIBRARY_PATH</li>
+</ul>
+<h2>Linking</h2>
+<p>When we write a program, we use libraries. For example if you need to read text from standard input, you need to <em>link</em> a library which provides this. Think linking has two forms:</p>
+<ul>
+<li><strong>Static</strong> linking is when you add this library to your executable program. In this method your program size is big because it has all the needed libraries. One good advantage is your program can be run without being dependent to other programs / libraries.</li>
+<li><strong>Dynamic</strong> linking is when you just say in your program "We need this and that library to run this program". This way your program is smaller but you need to install those libraries separately. This makes programs more secure (because libraries can be updated centrally), more advanced (any improvement in a library will improve the whole program) and smaller.</li>
+</ul>
+<blockquote>
+<p>Dynamic linking is also called <strong>shared</strong> libraries because all the programs are sharing one library which is separately installed.</p>
+</blockquote>
+<h2>What libraries I need</h2>
+<p>first you should know that libraries are installed in <code>/lib</code> and <code>/lib64</code> (for 32bit and 64bit libraries).</p>
+<h4>ldd</h4>
+<p>the <code>ldd</code> command helps you find:
+- If a program is dynamically or statically linked
+- What libraries a program needs</p>
+<p>lets have a look at two files:</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">ldd</span><span class="w"> </span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">ldconfig</span><span class="w"></span>
+<span class="w">    </span><span class="ow">not</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">dynamic</span><span class="w"> </span><span class="n">executable</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">ldd</span><span class="w"> </span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">ls</span><span class="w"></span>
+<span class="n">ls</span><span class="w">     </span><span class="n">lsblk</span><span class="w">  </span><span class="n">lsmod</span><span class="w">  </span>
+<span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="n">Downloads</span><span class="err">#</span><span class="w"> </span><span class="n">ldd</span><span class="w"> </span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">ls</span><span class="w"></span>
+<span class="w">    </span><span class="n">linux</span><span class="o">-</span><span class="n">vdso</span><span class="p">.</span><span class="n">so</span><span class="mf">.1</span><span class="w"> </span><span class="o">=&gt;</span><span class="w">  </span><span class="p">(</span><span class="mh">0x00007fffef1fc000</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">libselinux</span><span class="p">.</span><span class="n">so</span><span class="mf">.1</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">libselinux</span><span class="p">.</span><span class="n">so</span><span class="mf">.1</span><span class="w"> </span><span class="p">(</span><span class="mh">0x00007f61696b3000</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">libacl</span><span class="p">.</span><span class="n">so</span><span class="mf">.1</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">libacl</span><span class="p">.</span><span class="n">so</span><span class="mf">.1</span><span class="w"> </span><span class="p">(</span><span class="mh">0x00007f61694aa000</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">libc</span><span class="p">.</span><span class="n">so</span><span class="mf">.6</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">libc</span><span class="p">.</span><span class="n">so</span><span class="mf">.6</span><span class="w"> </span><span class="p">(</span><span class="mh">0x00007f61690e4000</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">libpcre</span><span class="p">.</span><span class="n">so</span><span class="mf">.3</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">libpcre</span><span class="p">.</span><span class="n">so</span><span class="mf">.3</span><span class="w"> </span><span class="p">(</span><span class="mh">0x00007f6168e77000</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">libdl</span><span class="p">.</span><span class="n">so</span><span class="mf">.2</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">libdl</span><span class="p">.</span><span class="n">so</span><span class="mf">.2</span><span class="w"> </span><span class="p">(</span><span class="mh">0x00007f6168c73000</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">/</span><span class="n">lib64</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">64.</span><span class="n">so</span><span class="mf">.2</span><span class="w"> </span><span class="p">(</span><span class="mh">0x00007f61698f8000</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">libattr</span><span class="p">.</span><span class="n">so</span><span class="mf">.1</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">libattr</span><span class="p">.</span><span class="n">so</span><span class="mf">.1</span><span class="w"> </span><span class="p">(</span><span class="mh">0x00007f6168a6d000</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">libpthread</span><span class="p">.</span><span class="n">so</span><span class="mf">.0</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">libpthread</span><span class="p">.</span><span class="n">so</span><span class="mf">.0</span><span class="w"> </span><span class="p">(</span><span class="mh">0x00007f616884f000</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+<p>As you can see, <code>ldd</code> tells us that the <code>/sbin/ldconfig</code> is not dynamically linked but shows us the libraries needed by <code>/bin/ls</code>.</p>
+<h4>symbolic links for libraries</h4>
+<p>If you are writing a program and you use udev functions, you will ask for a library called <em>libudev.so.1</em>. But a Linux distro, might call its version of udev library <em>libudev.so.1.4.0</em>. How can we solve this problem? with <strong>symbolic links</strong> you will learn more about this in next chapters but for short, a symbolic name is a new name for the same file.</p>
+<p>I will check the same thing on my system. First I'll find where the libudev.so.1 on my system is:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># locate libudev.so.1</span>
+<span class="err">/lib/i386-linux-gnu/libudev.so.1</span>
+</code></pre></div>
+
+<p>and then will check that file:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># ls -la /lib/i386-linux-gnu/libudev.so.1</span>
+<span class="err">lrwxrwxrwx 1 root root    16 Nov 13 23:05 /lib/i386-linux-gnu/libudev.so.1 -&gt; libudev.so.1.4.0</span>
+</code></pre></div>
+
+<p>As you can see, this is a symbolic link pointing to the version of libudev I have installed (1.4.0) so even if a software says it need libudev.so.1, my system will use its libusdev.so.1.4.0.</p>
+<h4>Dynamic library configs</h4>
+<p>As most of other linux tools, dynamic linking is also configured using a text config file. It is located at <em>/etc/ld.so.conf</em>. On an Ubuntu system it just points to other config files in <code>/etc/ld.so.conf.d/</code> but all those lines can be included in the main file too:</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ld</span><span class="p">.</span><span class="n">so</span><span class="p">.</span><span class="n">conf</span><span class="w"></span>
+<span class="k">include</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ld</span><span class="p">.</span><span class="n">so</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">d</span><span class="cm">/*.conf</span>
+
+<span class="cm"># ls /etc/ld.so.conf.d/</span>
+<span class="cm">fakeroot-x86_64-linux-gnu.conf          i686-linux-gnu.conf                     x86_64-linux-gnu_EGL.conf               </span>
+<span class="cm">i386-linux-gnu.conf                     libc.conf                               x86_64-linux-gnu_GL.conf                </span>
+<span class="cm">i386-linux-gnu_GL.conf                  x86_64-linux-gnu.conf                   x86_64-linux-gnu_mirclient8driver.conf  </span>
+
+<span class="cm"># cat /etc/ld.so.conf.d/libc.conf</span>
+<span class="cm"># libc default configuration</span>
+<span class="cm">/usr/local/lib</span>
+
+<span class="cm">root@funlife:/sbin# cat /etc/ld.so.conf.d/x86_64-linux-gnu_GL.conf</span>
+<span class="cm">/usr/lib/x86_64-linux-gnu/mesa</span>
+</code></pre></div>
+
+<p>the <code>ldconfig</code> commands processed all these files to make the loading of libraries faster. This command creates ld.so.cache to locate files that are to be dynamically loaded and linked.</p>
+<blockquote>
+<p>if you change the ld.so.conf (or sub-directories) you need to run <code>ldconfig</code></p>
+</blockquote>
+<p>To close this section lets run ldconfig with the <strong>-p</strong> switch to see what is saved in ld.so.cache:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># ldconfig -p | head</span>
+<span class="err">1358 libs found in cache `/etc/ld.so.cache&#39;</span>
+<span class="err">    libzvbi.so.0 (libc6,x86-64) =&gt; /usr/lib/x86_64-linux-gnu/libzvbi.so.0</span>
+<span class="err">    libzvbi-chains.so.0 (libc6,x86-64) =&gt; /usr/lib/x86_64-linux-gnu/libzvbi-chains.so.0</span>
+<span class="err">    libzephyr.so.4 (libc6,x86-64) =&gt; /usr/lib/x86_64-linux-gnu/libzephyr.so.4</span>
+<span class="err">    libzeitgeist-2.0.so.0 (libc6,x86-64) =&gt; /usr/lib/x86_64-linux-gnu/libzeitgeist-2.0.so.0</span>
+<span class="err">    libzeitgeist-1.0.so.1 (libc6,x86-64) =&gt; /usr/lib/libzeitgeist-1.0.so.1</span>
+<span class="err">    libzbar.so.0 (libc6,x86-64) =&gt; /usr/lib/libzbar.so.0</span>
+<span class="err">...</span>
+<span class="err">...</span>
+</code></pre></div>
+
+<p>As you can see, this file tells the the kernel that anyone asks for <em>libzvbi.so.0</em>, the <em>/usr/lib/x86_64-linux-gnu/libzvbi.so.0</em> file should be loaded.</p>
+<h2>LD_LIBRARY_PATH</h2>
+<p>Sometimes you need to override the original installed libraries and use your own or a specific library. Cases can be :
+- You are running an old software which needs an old version of a library.
+- You are developing a shared library and want to test is without installing it
+- You are running a specific program (say from opt) which needs to access its own libraries</p>
+<p>in these cases, you have to use the environment variable <strong> LD_LIBRARY_PATH</strong>. A collon (:) separated list of directories will tell your program where to search for needed libraries <strong>before</strong> checking the libraries in ld.so.cache.</p>
+<p>For example if you give this command:</p>
+<div class="highlight"><pre><span></span><code><span class="err">export  LD_LIBRARY_PATH=/usr/lib/myoldlibs:/home/jadi/lpic/libs/</span>
+</code></pre></div>
+
+<p>and then run any command, the system will search <code>/usr/lib/myoldlibs</code> and then <code>/home/jadi/lpic/libs/</code> before going to the main system libraries (defined in ld.so.cache).
+.
+.</p>
+<p>.
+.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:07:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#102-ref">102</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

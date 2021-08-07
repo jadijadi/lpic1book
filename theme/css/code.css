@@ -1,0 +1,102 @@
+/* For highlighting lines in code snippets */
+.highlight span.hll span {
+  background-color: black;
+  display: inline-block;
+  width: 100%;
+}
+div.highlight {
+  margin-bottom: 20px;
+  border-radius: var(--borderRadius);
+}
+td.code div.highlight {
+  border-radius: 0 var(--borderRadius) var(--borderRadius) 0;
+}
+pre {
+  overflow: auto;
+  white-space: pre;
+  word-break: normal;
+  word-wrap: normal;
+  color: #ebdbb2; /* This is needed due to bug in Pygments. It does not wraps some part of the code of some lagauges, like reST. This is for fallback. */
+}
+/* liquid_tags.include_code */
+figure.code {
+  margin: 0;
+  padding: 0;
+  & figcaption {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: var(--borderRadius) var(--borderRadius) 0 0;
+    background-color: #544c50;
+    color: #ebdbb2;
+    padding: 1px 9.5px;
+    font-family: var(--sansFontFamily);
+    font-size: rfs(1.1rem);
+    & span.liquid-tags-code-title {
+      flex-grow: 1;
+    }
+    & span.liquid-tags-code-filename {
+      font-family: var(--monoFontFamily);
+      color: #fe8019;
+    }
+    /* Download Link */
+    & a {
+      color: #b8bb26;
+      text-transform: capitalize;
+      position: relative;
+      margin-left: 30px;
+      &:before {
+        height: rfs(0.9rem);
+        width: rfs(0.9rem);
+        top: rfs(0.35rem);
+        content: url("data:image/svg+xml,%3Csvg%20image-rendering%3D%22optimizeQuality%22%20shape-rendering%3D%22geometricPrecision%22%20text-rendering%3D%22geometricPrecision%22%20viewBox%3D%220%200%20294%20452.5%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22%23b8bb26%22%3E%3Cpath%20d%3D%22m126%200h42v185h62l-83%20111-83-111h62z%22%2F%3E%3Cpath%20d%3D%22m294%20257v105c-98%200-196%200-294%200v-105h34v71h226v-71z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E%0A");
+        margin: 0;
+        padding: 0 4px 0 0;
+        right: 100%;
+        position: absolute;
+      }
+    }
+  }
+  & div.highlight:not(:first-child) {
+    border-radius: 0 0 var(--borderRadius) var(--borderRadius);
+  }
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+td {
+  vertical-align: top;
+}
+@media (max-width: 979px) {
+  .linenos {
+    display: none !important;
+  }
+}
+.linenos {
+  width: 30px;
+}
+.linenos div pre {
+  text-align: right;
+  overflow: hidden;
+}
+td.code {
+  width: 100%;
+}
+.linenodiv pre {
+  border-radius: var(--borderRadius) 0 0 var(--borderRadius);
+  color: #ebdbb2;
+  background-color: #282828;
+}
+table.highlighttable {
+  border: none;
+}
+table.highlighttable td {
+  border: none;
+}
+table.highlighttable tbody > tr:nth-child(odd) > td {
+  background-color: transparent;
+}

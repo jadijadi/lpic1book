@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 108, " />
+
+<meta property="og:title" content="108.4 Manage printers and printing "/>
+<meta property="og:url" content="/1084-manage-printers-and-printing.html" />
+<meta property="og:description" content="108.4 Manage printers and printing Weight: 2 Candidates should be able to manage print queues and user print jobs using CUPS and the LPD compatibility interface. Key Knowledge Areas Basic CUPS configuration (for local and remote printers). Manage user print queues. Troubleshoot general printing problems. Add and remove jobs …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:35:00+02:00" />
+<meta name="twitter:title" content="108.4 Manage printers and printing ">
+<meta name="twitter:description" content="108.4 Manage printers and printing Weight: 2 Candidates should be able to manage print queues and user print jobs using CUPS and the LPD compatibility interface. Key Knowledge Areas Basic CUPS configuration (for local and remote printers). Manage user print queues. Troubleshoot general printing problems. Add and remove jobs …">
+
+        <title>108.4 Manage printers and printing  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1084-manage-printers-and-printing.html">
+                108.4 Manage printers and printing
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>108.4 Manage printers and printing</h1>
+<p><em>Weight: 2</em></p>
+<p>Candidates should be able to manage print queues and user print jobs using CUPS and the LPD compatibility interface.</p>
+<h2>Key Knowledge Areas</h2>
+<ul>
+<li>Basic CUPS configuration (for local and remote printers).</li>
+<li>Manage user print queues.</li>
+<li>Troubleshoot general printing problems.</li>
+<li>Add and remove jobs from configured printer queues.</li>
+</ul>
+<h2>Terms and Utilities</h2>
+<ul>
+<li>CUPS configuration files, tools and utilities</li>
+<li>/etc/cups/</li>
+<li>lpd legacy interface (lpr, lprm, lpq)</li>
+</ul>
+<h2>CUPS</h2>
+<p>Most Linux distros use CUPS for printing. CUPS stands for Common Unix Printing System.  There are different interfaces for CUPS link command line tools, web based interface and GUIs. CUPS is designed to simplify the printing on various printers from different manufactures.</p>
+<h3>CUPS web interface</h3>
+<p>The general way to access the CUPS configuration and info page is going to the servers IP on port <strong>631</strong> from a browser. That will be <strong>localhost:631</strong> or <strong>127.0.0.1:631</strong> from your browser.</p>
+<p><img alt="" src="cups.png"></p>
+<p>Important parts on this webpage are:</p>
+<p>|Jobs tab|to check the jobs the CUPS is handling|<br>
+|Administration|For adding printers, managing jobs and configuring the CUPS server|<br>
+|Printers|Show the printers|</p>
+<blockquote>
+<p>as soon as you push the Add Printer button, you will need to give CUPS admin user password</p>
+</blockquote>
+<p>Suggested Activity: Visit your CUPS web interface and add a printer</p>
+<p>Good news is that the CUPS has most of the common printer drivers installed. You just need to choose the printer from the dropdown menu.</p>
+<h3>configuration files</h3>
+<p>As any other linux program, CUPS saves its configuration at <code>/etc</code> directory.</p>
+<div class="highlight"><pre><span></span><code><span class="err"># ls /etc/cups</span>
+<span class="err">cups-browsed.conf  interfaces  raw.types  subscriptions.conf</span>
+<span class="err">cupsd.conf         ppd         snmp.conf  subscriptions.conf.O</span>
+<span class="err">cups-files.conf    raw.convs   ssl</span>
+</code></pre></div>
+
+<p>One important file is <code>cupsd.conf</code>. Have a look at it; it is very easy to understand. For example the <code>Listen localhost:631</code> line tells the CUPS to listen on localhost port 631.</p>
+<p>All the printer data is saved at <code>/etc/cups/printers.conf</code>. The web interface or any other GUI is actually editing this file.</p>
+<div class="highlight"><pre><span></span><code># Printer configuration file for CUPS v2.1.0
+# Written by cupsd
+# DO NOT EDIT THIS FILE WHEN CUPSD IS RUNNING
+<span class="nt">&lt;DefaultPrinter</span> <span class="err">Apple-Dot-Matrix</span><span class="nt">&gt;</span>
+UUID urn:uuid:0f6c2f2b-6338-388a-76de-09f2ef1994d5
+Info Apple Dot Matrix
+Location Fake Location
+MakeModel Apple Dot Matrix Foomatic/appledmp (recommended)
+DeviceURI ipp://fakeprinter/
+State Idle
+StateTime 1453402271
+ConfigTime 1453402271
+Type 8433668
+Accepting Yes
+Shared Yes
+JobSheets none none
+QuotaPeriod 0
+PageLimit 0
+KLimit 0
+OpPolicy default
+ErrorPolicy retry-job
+<span class="nt">&lt;/DefaultPrinter&gt;</span>
+</code></pre></div>
+
+<h3>legacy tools</h3>
+<p>Just like the MTA programs, CUPS support all the legacy command line programs too.</p>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lpr</td>
+<td>print a file</td>
+</tr>
+<tr>
+<td>lpq</td>
+<td>show print queue/jobs</td>
+</tr>
+<tr>
+<td>lprm</td>
+<td>rm/remove a file from priner queue</td>
+</tr>
+<tr>
+<td>lpc</td>
+<td>printer control / troubleshooting program</td>
+</tr>
+</tbody>
+</table>
+<h4>lpq</h4>
+<p>The <strong>q</strong> is for <strong>queue</strong> therefor <code>lpq</code> shows the printer queue and is used when you want to see the jobs. If you use the <code>-a</code> switch,  the lpq will show the jobs of <strong>all</strong> printers. Alternatively you can use the <code>-P</code> switch to show the jobs of a specific printer. So the following command will show the jobs of a printer called Apple-Dot-Matrix:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># lpq -PApple-Dot-Matrix</span>
+<span class="err">Apple-Dot-Matrix is ready and printing</span>
+<span class="err">Rank    Owner   Job     File(s)                         Total Size</span>
+<span class="err">active  unknown 1       unknown                         7168 bytes</span>
+<span class="err">1st     unknown 2       unknown                         2048 bytes</span>
+</code></pre></div>
+
+<blockquote>
+<p>It is strange but there should not be ANY space between <code>-P</code> and the printers name</p>
+</blockquote>
+<h4>lpr</h4>
+<p>This command is used to send a job to a printer. Again the printer is specified by <code>-P</code>.</p>
+<div class="highlight"><pre><span></span><code>$ lpr -PApple-Dot-Matrix for_print.txt
+ lpq
+Apple-Dot-Matrix is ready and printing
+Rank    Owner   Job     File<span class="o">(</span>s<span class="o">)</span>                         Total Size
+active  jadi    <span class="m">1</span>       Untitled Document <span class="m">1</span>             <span class="m">7168</span> bytes
+1st     jadi    <span class="m">2</span>       Untitled1                       <span class="m">2048</span> bytes
+2nd     jadi    <span class="m">3</span>       for_print.txt                   <span class="m">1024</span> bytes
+</code></pre></div>
+
+<blockquote>
+<p>If no printer is specified, the default printer will be used</p>
+</blockquote>
+<h4>lprm</h4>
+<p>The <em>rm</em> is for <em>remove</em> so the <code>lprm</code> will remove jobs from the queue. You need to provide the <strong>Job ID</strong> to this command.</p>
+<div class="highlight"><pre><span></span><code>$ lpq
+Apple-Dot-Matrix is ready and printing
+Rank    Owner   Job     File<span class="o">(</span>s<span class="o">)</span>                         Total Size
+active  jadi    <span class="m">1</span>       Untitled Document <span class="m">1</span>             <span class="m">7168</span> bytes
+1st     jadi    <span class="m">2</span>       Untitled1                       <span class="m">2048</span> bytes
+2nd     jadi    <span class="m">3</span>       for_print.txt                   <span class="m">1024</span> bytes
+jadi@funlife:/tmp$ lprm <span class="m">2</span>
+jadi@funlife:/tmp$ lpq
+Apple-Dot-Matrix is ready and printing
+Rank    Owner   Job     File<span class="o">(</span>s<span class="o">)</span>                         Total Size
+active  jadi    <span class="m">1</span>       Untitled Document <span class="m">1</span>             <span class="m">7168</span> bytes
+1st     jadi    <span class="m">3</span>       for_print.txt                   <span class="m">1024</span> bytes
+</code></pre></div>
+
+<blockquote>
+<p>Only root can remove other peoples print jobs</p>
+</blockquote>
+<p>If you need to remove ALL the jobs of a specific printer, you can go with <code>-Pprinter_name -</code>. Yes! that is only one dash (<code>-</code>) after the printer name; that's why this is called a legacy command.</p>
+<blockquote>
+<p>the <code>lprm -</code> will remove all the print jobs</p>
+</blockquote>
+<h4>lpc</h4>
+<p>Here, the <strong>c</strong> is for <strong>control</strong>. <code>lpc</code> lets you check the status (via <code>lpc status</code>) and troubleshoot your printers.</p>
+<div class="highlight"><pre><span></span><code>$ lpc status
+Apple-Dot-Matrix:
+    printer is on device <span class="s1">&#39;ipp&#39;</span> speed -1
+    queuing is enabled
+    printing is enabled
+    <span class="m">2</span> entries
+    daemon present
+</code></pre></div>
+
+<p>Here,</p>
+<ul>
+<li><strong>queuing is enabled</strong> tell us that the queue can accept new print jobs. If the queue is disabled, you can not even send new jobs to the printer.</li>
+<li><strong>printing is enabled</strong> means that the printer is actually can print on the paper. This will be on the disable state if the printer is out of ink or paper or experiencing a paper jam.</li>
+</ul>
+<p>If you are having problems with your printer or need to prevent it from accepting new jobs or let it accept jobs but not print, these four commands will let you achieve your needs:</p>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cupsaccept</td>
+<td>tells the printer queue to accept new jobs</td>
+</tr>
+<tr>
+<td>cupsreject</td>
+<td>tells the printer to reject any new job</td>
+</tr>
+<tr>
+<td>cupsenable</td>
+<td>enables the actual/physical printing of the jobs</td>
+</tr>
+<tr>
+<td>cupsdisable</td>
+<td>disables the physical printing of the jobs</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>In all cases you have to provide the printer name of the printer. it is also possible to provide a reason using <code>-r</code> switch.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>$ cupsdisable Apple-Dot-Matrix -r <span class="s2">&quot;need more paper&quot;</span>
+$ lpc status
+Apple-Dot-Matrix:
+    printer is on device <span class="s1">&#39;ipp&#39;</span> speed -1
+    queuing is enabled
+    printing is disabled
+    <span class="m">2</span> entries
+    daemon present
+</code></pre></div>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:35:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#108-ref">108</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

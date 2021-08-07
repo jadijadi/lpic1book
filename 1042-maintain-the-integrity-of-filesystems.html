@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 104, " />
+
+<meta property="og:title" content="104.2 Maintain the integrity of filesystems "/>
+<meta property="og:url" content="/1042-maintain-the-integrity-of-filesystems.html" />
+<meta property="og:description" content="104.2 Maintain the integrity of filesystems Weight: 2 Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem. Objectives Verify the integrity of filesystems. Monitor free space and inodes. Repair simple filesystem problems. du df fsck e2fsck mke2fs debugfs …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:19:00+02:00" />
+<meta name="twitter:title" content="104.2 Maintain the integrity of filesystems ">
+<meta name="twitter:description" content="104.2 Maintain the integrity of filesystems Weight: 2 Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem. Objectives Verify the integrity of filesystems. Monitor free space and inodes. Repair simple filesystem problems. du df fsck e2fsck mke2fs debugfs …">
+
+        <title>104.2 Maintain the integrity of filesystems  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1042-maintain-the-integrity-of-filesystems.html">
+                104.2 Maintain the integrity of filesystems
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>104.2 Maintain the integrity of filesystems</h1>
+<p><em>Weight: 2</em></p>
+<p>Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem.</p>
+<h1>Objectives</h1>
+<ul>
+<li>Verify the integrity of filesystems.</li>
+<li>Monitor free space and inodes.</li>
+<li>
+<p>Repair simple filesystem problems.</p>
+</li>
+<li>
+<p>du</p>
+</li>
+<li>
+<p>df</p>
+</li>
+<li>fsck</li>
+<li>e2fsck</li>
+<li>mke2fs</li>
+<li>debugfs</li>
+<li>dumpe2fs</li>
+<li>tune2fs</li>
+<li>xfs tools</li>
+</ul>
+<h1>fsck</h1>
+<p>If anything bad happens for your filesystem (say power suddenly goes down) you will have a corrupted file system. The command to fix this is <code>fsck</code>. Technically this command is a front end for many commands:</p>
+<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~$ ls /sbin/*fsck*</span>
+<span class="err">/sbin/dosfsck       /sbin/fsck.ext2     /sbin/fsck.fat     /sbin/fsck.vfat</span>
+<span class="err">/sbin/e2fsck       /sbin/fsck.ext3     /sbin/fsck.minix</span>
+<span class="err">/sbin/fsck       /sbin/fsck.ext4     /sbin/fsck.msdos</span>
+<span class="err">/sbin/fsck.cramfs  /sbin/fsck.ext4dev  /sbin/fsck.nfs</span>
+</code></pre></div>
+
+<blockquote>
+<p>Some of these are just hardlinks to <code>e2fsck</code> command</p>
+</blockquote>
+<p>A common switch during boot is <code>-A</code> which tells fsck to check all file systems in /etc/fstab ordered by <em>passno</em> in that file which is 6th field (File systems with <em>passno</em> of 0, wont be checked during the boot.</p>
+<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">fsck</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb</span><span class="w"></span>
+<span class="n">fsck</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">util</span><span class="o">-</span><span class="n">linux</span><span class="w"> </span><span class="mf">2.25.1</span><span class="w"></span>
+<span class="n">e2fsck</span><span class="w"> </span><span class="mf">1.42.10</span><span class="w"> </span><span class="p">(</span><span class="mi">18</span><span class="o">-</span><span class="n">May</span><span class="o">-</span><span class="mi">2014</span><span class="p">)</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">use</span><span class="p">.</span><span class="w"></span>
+<span class="nl">e2fsck</span><span class="p">:</span><span class="w"> </span><span class="n">Cannot</span><span class="w"> </span><span class="k">continue</span><span class="p">,</span><span class="w"> </span><span class="n">aborting</span><span class="p">.</span><span class="w"></span>
+
+
+<span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">umount</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb</span><span class="w"></span>
+<span class="nl">umount</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nl">sdb</span><span class="p">:</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">mounted</span><span class="w"></span>
+<span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">umount</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb1</span><span class="w"></span>
+<span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">fsck</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb</span><span class="w"></span>
+<span class="n">fsck</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">util</span><span class="o">-</span><span class="n">linux</span><span class="w"> </span><span class="mf">2.25.1</span><span class="w"></span>
+<span class="n">e2fsck</span><span class="w"> </span><span class="mf">1.42.10</span><span class="w"> </span><span class="p">(</span><span class="mi">18</span><span class="o">-</span><span class="n">May</span><span class="o">-</span><span class="mi">2014</span><span class="p">)</span><span class="w"></span>
+<span class="nl">ext2fs_open2</span><span class="p">:</span><span class="w"> </span><span class="n">Bad</span><span class="w"> </span><span class="n">magic</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">super</span><span class="o">-</span><span class="n">block</span><span class="w"></span>
+<span class="n">fsck</span><span class="p">.</span><span class="nl">ext2</span><span class="p">:</span><span class="w"> </span><span class="n">Superblock</span><span class="w"> </span><span class="n">invalid</span><span class="p">,</span><span class="w"> </span><span class="n">trying</span><span class="w"> </span><span class="k">backup</span><span class="w"> </span><span class="n">blocks</span><span class="p">...</span><span class="w"></span>
+<span class="n">fsck</span><span class="p">.</span><span class="nl">ext2</span><span class="p">:</span><span class="w"> </span><span class="n">Bad</span><span class="w"> </span><span class="n">magic</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">super</span><span class="o">-</span><span class="n">block</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="n">trying</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">open</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb</span><span class="w"></span>
+
+<span class="n">The</span><span class="w"> </span><span class="n">superblock</span><span class="w"> </span><span class="n">could</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">does</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">describe</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="n">ext2</span><span class="o">/</span><span class="n">ext3</span><span class="o">/</span><span class="n">ext4</span><span class="w"></span>
+<span class="n">filesystem</span><span class="p">.</span><span class="w">  </span><span class="k">If</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">really</span><span class="w"> </span><span class="k">contains</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">ext2</span><span class="o">/</span><span class="n">ext3</span><span class="o">/</span><span class="n">ext4</span><span class="w"></span>
+<span class="n">filesystem</span><span class="w"> </span><span class="p">(</span><span class="ow">and</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">swap</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">ufs</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">something</span><span class="w"> </span><span class="k">else</span><span class="p">),</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">superblock</span><span class="w"></span>
+<span class="k">is</span><span class="w"> </span><span class="n">corrupt</span><span class="p">,</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">might</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">running</span><span class="w"> </span><span class="n">e2fsck</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">alternate</span><span class="w"> </span><span class="nl">superblock</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">e2fsck</span><span class="w"> </span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="mi">8193</span><span class="w"> </span><span class="o">&lt;</span><span class="n">device</span><span class="o">&gt;</span><span class="w"></span>
+<span class="w"> </span><span class="ow">or</span><span class="w"></span>
+<span class="w">    </span><span class="n">e2fsck</span><span class="w"> </span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="mi">32768</span><span class="w"> </span><span class="o">&lt;</span><span class="n">device</span><span class="o">&gt;</span><span class="w"></span>
+</code></pre></div>
+
+<p>You can also check filesystems with UUID (find them with <code>blkid</code> command or with labels):</p>
+<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">fsck</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb</span><span class="w"></span>
+<span class="n">fsck</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">util</span><span class="o">-</span><span class="n">linux</span><span class="w"> </span><span class="mf">2.25.1</span><span class="w"></span>
+<span class="n">e2fsck</span><span class="w"> </span><span class="mf">1.42.10</span><span class="w"> </span><span class="p">(</span><span class="mi">18</span><span class="o">-</span><span class="n">May</span><span class="o">-</span><span class="mi">2014</span><span class="p">)</span><span class="w"></span>
+<span class="nl">ext2fs_open2</span><span class="p">:</span><span class="w"> </span><span class="n">Bad</span><span class="w"> </span><span class="n">magic</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">super</span><span class="o">-</span><span class="n">block</span><span class="w"></span>
+<span class="n">fsck</span><span class="p">.</span><span class="nl">ext2</span><span class="p">:</span><span class="w"> </span><span class="n">Superblock</span><span class="w"> </span><span class="n">invalid</span><span class="p">,</span><span class="w"> </span><span class="n">trying</span><span class="w"> </span><span class="k">backup</span><span class="w"> </span><span class="n">blocks</span><span class="p">...</span><span class="w"></span>
+<span class="n">fsck</span><span class="p">.</span><span class="nl">ext2</span><span class="p">:</span><span class="w"> </span><span class="n">Bad</span><span class="w"> </span><span class="n">magic</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">super</span><span class="o">-</span><span class="n">block</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="n">trying</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">open</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb</span><span class="w"></span>
+
+<span class="n">The</span><span class="w"> </span><span class="n">superblock</span><span class="w"> </span><span class="n">could</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">does</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">describe</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="n">ext2</span><span class="o">/</span><span class="n">ext3</span><span class="o">/</span><span class="n">ext4</span><span class="w"></span>
+<span class="n">filesystem</span><span class="p">.</span><span class="w">  </span><span class="k">If</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">really</span><span class="w"> </span><span class="k">contains</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">ext2</span><span class="o">/</span><span class="n">ext3</span><span class="o">/</span><span class="n">ext4</span><span class="w"></span>
+<span class="n">filesystem</span><span class="w"> </span><span class="p">(</span><span class="ow">and</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">swap</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">ufs</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">something</span><span class="w"> </span><span class="k">else</span><span class="p">),</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">superblock</span><span class="w"></span>
+<span class="k">is</span><span class="w"> </span><span class="n">corrupt</span><span class="p">,</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">might</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">running</span><span class="w"> </span><span class="n">e2fsck</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">alternate</span><span class="w"> </span><span class="nl">superblock</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">e2fsck</span><span class="w"> </span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="mi">8193</span><span class="w"> </span><span class="o">&lt;</span><span class="n">device</span><span class="o">&gt;</span><span class="w"></span>
+<span class="w"> </span><span class="ow">or</span><span class="w"></span>
+<span class="w">    </span><span class="n">e2fsck</span><span class="w"> </span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="mi">32768</span><span class="w"> </span><span class="o">&lt;</span><span class="n">device</span><span class="o">&gt;</span><span class="w"></span>
+
+<span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">blkid</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nl">sda1</span><span class="p">:</span><span class="w"> </span><span class="n">LABEL</span><span class="o">=</span><span class="ss">&quot;movies&quot;</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nl">sdb1</span><span class="p">:</span><span class="w"> </span><span class="n">UUID</span><span class="o">=</span><span class="ss">&quot;BA82-BECD&quot;</span><span class="w"> </span><span class="n">TYPE</span><span class="o">=</span><span class="ss">&quot;vfat&quot;</span><span class="w"> </span><span class="n">PARTUUID</span><span class="o">=</span><span class="ss">&quot;381add66-01&quot;</span><span class="w"></span>
+<span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">fsck</span><span class="w"> </span><span class="n">LABEL</span><span class="o">=</span><span class="n">movies</span><span class="w"></span>
+<span class="n">fsck</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">util</span><span class="o">-</span><span class="n">linux</span><span class="w"> </span><span class="mf">2.25.1</span><span class="w"></span>
+<span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">fsck</span><span class="w"> </span><span class="n">UUID</span><span class="o">=</span><span class="ss">&quot;BA82-BECD&quot;</span><span class="w"></span>
+<span class="n">fsck</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">util</span><span class="o">-</span><span class="n">linux</span><span class="w"> </span><span class="mf">2.25.1</span><span class="w"></span>
+<span class="n">fsck</span><span class="p">.</span><span class="n">fat</span><span class="w"> </span><span class="mf">3.0.26</span><span class="w"> </span><span class="p">(</span><span class="mi">2014</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">07</span><span class="p">)</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nl">sdb1</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="n">files</span><span class="p">,</span><span class="w"> </span><span class="mi">1972</span><span class="o">/</span><span class="mi">945094</span><span class="w"> </span><span class="n">clusters</span><span class="w"></span>
+</code></pre></div>
+
+<p>You can use <code>-N</code> switch to see what command/test is going to be executed:</p>
+<div class="highlight"><pre><span></span><code><span class="err">root@funlife:~# fsck -N UUID=&quot;BA82-BECD&quot;</span>
+<span class="err">fsck from util-linux 2.25.1</span>
+<span class="err">[/sbin/fsck.vfat (1) -- /dev/sdb1] fsck.vfat /dev/sdb1</span>
+</code></pre></div>
+
+<blockquote>
+<p>If you want to check a XFS filesystem, you have to use <code>xfs_check</code> command</p>
+</blockquote>
+<h3>tune2fs</h3>
+<p>This is a command to tune <em>ext</em> file systems. It can show information and set many options. The <code>-l</code> option lists the current configs:</p>
+<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~$ sudo tune2fs -l /dev/sda2</span>
+<span class="err">tune2fs 1.42.10 (18-May-2014)</span>
+<span class="err">Filesystem volume name:   &lt;none&gt;</span>
+<span class="err">Last mounted on:          /</span>
+<span class="err">Filesystem UUID:          1651a94e-0b4e-47fb-aca0-f77e05714617</span>
+<span class="err">Filesystem magic number:  0xEF53</span>
+<span class="err">Filesystem revision #:    1 (dynamic)</span>
+<span class="err">Filesystem features:      has_journal ext_attr resize_inode dir_index filetype needs_recovery extent flex_bg sparse_super large_file huge_file uninit_bg dir_nlink extra_isize</span>
+<span class="err">Filesystem flags:         signed_directory_hash</span>
+<span class="err">Default mount options:    user_xattr acl</span>
+<span class="err">Filesystem state:         clean</span>
+<span class="err">Errors behavior:          Continue</span>
+<span class="err">Filesystem OS type:       Linux</span>
+<span class="err">Inode count:              1531904</span>
+<span class="err">Block count:              6123046</span>
+<span class="err">Reserved block count:     306152</span>
+<span class="err">Free blocks:              2302702</span>
+<span class="err">Free inodes:              1073461</span>
+<span class="err">First block:              0</span>
+<span class="err">Block size:               4096</span>
+<span class="err">Fragment size:            4096</span>
+<span class="err">Reserved GDT blocks:      1022</span>
+<span class="err">Blocks per group:         32768</span>
+<span class="err">Fragments per group:      32768</span>
+<span class="err">Inodes per group:         8192</span>
+<span class="err">Inode blocks per group:   512</span>
+<span class="err">Flex block group size:    16</span>
+<span class="err">Filesystem created:       Mon Dec  1 10:21:42 2014</span>
+<span class="err">Last mount time:          Sat Jan 31 17:21:51 2015</span>
+<span class="err">Last write time:          Sat Jan 31 17:21:51 2015</span>
+<span class="err">Mount count:              32</span>
+<span class="err">Maximum mount count:      -1</span>
+<span class="err">Last checked:             Mon Dec  1 10:21:42 2014</span>
+<span class="err">Check interval:           0 (&lt;none&gt;)</span>
+<span class="err">Lifetime writes:          103 GB</span>
+<span class="err">Reserved blocks uid:      0 (user root)</span>
+<span class="err">Reserved blocks gid:      0 (group root)</span>
+<span class="err">First inode:              11</span>
+<span class="err">Inode size:              256</span>
+<span class="err">Required extra isize:     28</span>
+<span class="err">Desired extra isize:      28</span>
+<span class="err">Journal inode:            8</span>
+<span class="err">First orphan inode:       786620</span>
+<span class="err">Default directory hash:   half_md4</span>
+<span class="err">Directory Hash Seed:      16c38a41-e709-4e04-b1c2-8a79d71ea7e8</span>
+<span class="err">Journal backup:           inode blocks</span>
+</code></pre></div>
+
+<h3>xfs_info</h3>
+<p>This is same as the <code>tune2fs</code> but for xfs file systems.</p>
+<blockquote>
+<p>xfs_info should be used on mounted file systems</p>
+</blockquote>
+<h1>du &amp; df</h1>
+<p>In many cases you want to find out about the free space of a disk or find how much space a directory is using. This space can be used by the blocks of files or inodes.</p>
+<blockquote>
+<p>inodes contain the information about files. Information like the owner, when the last time it is used or edited, its size, if its a directory or not and peoples access rights on if. The inode number is unique within a particular filesystem and is also called files serial number.</p>
+</blockquote>
+<h2>df</h2>
+<p>The DiskFree command is used to find out about the free and used space of file systems.</p>
+<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~$ df -TH</span>
+<span class="err">Filesystem        Type      Size  Used Avail Use% Mounted on</span>
+<span class="err">/dev/sda2         ext4       23G   15G  7.7G  65% /</span>
+<span class="err">none              tmpfs     4.0K     0  4.0K   0% /sys/fs/cgroup</span>
+<span class="err">udev              devtmpfs  3.9G  4.0K  3.9G   1% /dev</span>
+<span class="err">tmpfs             tmpfs     788M  1.4M  786M   1% /run</span>
+<span class="err">none              tmpfs     5.0M  4.0K  5.0M   1% /run/lock</span>
+<span class="err">none              tmpfs     3.9G   19M  3.9G   1% /run/shm</span>
+<span class="err">none              tmpfs     100M   28K  100M   1% /run/user</span>
+<span class="err">/dev/mapper/chome ext4      243G  229G   14G  95% /home/jadi</span>
+<span class="err">/dev/sdb1         vfat      3.7G  7.8M  3.6G   1% /media/jadi/BA82-BECD</span>
+</code></pre></div>
+
+<p>Here, the `-T` switch make df to show the file system types and `-H` make numbers human readable (in powers of 1000). Please note that `-h` is also human readable but in powres of 1024 (e.g. shows 1k for 1000 bytes.</p>
+<p>If you need the inode data, use the <code>-i</code> switch:</p>
+<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~$ df -i</span>
+<span class="err">Filesystem          Inodes  IUsed    IFree IUse% Mounted on</span>
+<span class="err">/dev/sda2          1531904 458616  1073288   30% /</span>
+<span class="err">none               1007533      4  1007529    1% /sys/fs/cgroup</span>
+<span class="err">udev               1003703    542  1003161    1% /dev</span>
+<span class="err">tmpfs              1007533    644  1006889    1% /run</span>
+<span class="err">none               1007533      3  1007530    1% /run/lock</span>
+<span class="err">none               1007533    162  1007371    1% /run/shm</span>
+<span class="err">none               1007533     33  1007500    1% /run/user</span>
+<span class="err">/dev/mapper/chome 16171008 269293 15901715    2% /home/jadi</span>
+<span class="err">/dev/sdb1                0      0        0     - /media/jadi/BA82-BECD</span>
+</code></pre></div>
+
+<blockquote>
+<p>vfat file format has no inodes; there is no owner or access rights on vfat filesystems.</p>
+</blockquote>
+<h2>du</h2>
+<p>The DiskUsage command give information about the used space of <strong>directories and files</strong>. The common switches are:</p>
+<table>
+<thead>
+<tr>
+<th>switch</th>
+<th>usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-h</td>
+<td>print sizes in powers of 1024 (e.g., 1023M)</td>
+</tr>
+<tr>
+<td>-H</td>
+<td>print sizes in powers of 1000 (e.g., 1.1G)</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>show the grand total</td>
+</tr>
+<tr>
+<td>--max-depth 2</td>
+<td>shows only 2 directories furthur</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>Only shows the summary and not all the directories one by one</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~/w/lpic$ du</span>
+<span class="err">16    ./101</span>
+<span class="err">701456    ./done</span>
+<span class="err">701464    ./Logo/chert</span>
+<span class="err">704588    ./Logo</span>
+<span class="err">12    ./data</span>
+<span class="err">12    ./100</span>
+<span class="err">9432884    .</span>
+<span class="err">jadi@funlife:~/w/lpic$ du -c</span>
+<span class="err">16    ./101</span>
+<span class="err">701456    ./done</span>
+<span class="err">701464    ./Logo/chert</span>
+<span class="err">704588    ./Logo</span>
+<span class="err">12    ./data</span>
+<span class="err">12    ./100</span>
+<span class="err">9432884    .</span>
+<span class="err">9432884    total</span>
+<span class="err">jadi@funlife:~/w/lpic$ du -hs</span>
+<span class="err">9.0G    .</span>
+</code></pre></div>
+
+<h1>Repairing</h1>
+<p>We used the <code>fsck</code> for showing file system information but it is designed to <em>fix</em> file systems too. If the boot time check find a problems, you will be put into a command line to fix the problems.</p>
+<p>On non-journaling file systems (ext2) the fsck will show you many questions about each block and you have to say <code>y</code> if you want it to fix them. On journaling file systems (ext3&amp;4, xfs, ..) the fsck has much less tasks to perform.</p>
+<blockquote>
+<p>for xfs file systems, we have <code>xfs_check</code> command</p>
+</blockquote>
+<p>An important switch is <code>-n</code> which causes these commands <strong>not to fix</strong> anything and just show what was going to be done.</p>
+<h2>debugfs</h2>
+<p>This is an interactive tool for debug an ext filesystem. It opens the filesystem in read-only mode unless we tell it not to (with <code>-w</code> option). It can un-delete files and directories..</p>
+<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">debugfs</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda2</span><span class="w"></span>
+<span class="n">debugfs</span><span class="w"> </span><span class="mf">1.42.10</span><span class="w"> </span><span class="p">(</span><span class="mi">18</span><span class="o">-</span><span class="n">May</span><span class="o">-</span><span class="mi">2014</span><span class="p">)</span><span class="w"></span>
+<span class="nl">debugfs</span><span class="p">:</span><span class="w">  </span><span class="n">cd</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="w">        </span><span class="o">&lt;</span><span class="c1">-- cd</span>
+<span class="nl">debugfs</span><span class="p">:</span><span class="w">  </span><span class="n">pwd</span><span class="w">            </span><span class="o">&lt;</span><span class="c1">-- show were am I</span>
+<span class="o">[</span><span class="n">pwd</span><span class="o">]</span><span class="w">   </span><span class="nl">INODE</span><span class="p">:</span><span class="w"> </span><span class="mi">524289</span><span class="w">  </span><span class="k">PATH</span><span class="err">:</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="w"></span>
+<span class="o">[</span><span class="n">root</span><span class="o">]</span><span class="w">  </span><span class="nl">INODE</span><span class="p">:</span><span class="w">      </span><span class="mi">2</span><span class="w">  </span><span class="k">PATH</span><span class="err">:</span><span class="w"> </span><span class="o">/</span><span class="w"></span>
+<span class="nl">debugfs</span><span class="p">:</span><span class="w">  </span><span class="n">stat</span><span class="w"> </span><span class="n">passwd</span><span class="w">        </span><span class="o">&lt;</span><span class="c1">-- show data on one file</span>
+<span class="nl">Inode</span><span class="p">:</span><span class="w"> </span><span class="mi">527187</span><span class="w">   </span><span class="nl">Type</span><span class="p">:</span><span class="w"> </span><span class="n">regular</span><span class="w">    </span><span class="nl">Mode</span><span class="p">:</span><span class="w">  </span><span class="mi">0644</span><span class="w">   </span><span class="nl">Flags</span><span class="p">:</span><span class="w"> </span><span class="mh">0x80000</span><span class="w"></span>
+<span class="nl">Generation</span><span class="p">:</span><span class="w"> </span><span class="mi">1875144872</span><span class="w">    </span><span class="nl">Version</span><span class="p">:</span><span class="w"> </span><span class="mh">0x00000000</span><span class="err">:</span><span class="mi">00000001</span><span class="w"></span>
+<span class="k">User</span><span class="err">:</span><span class="w">     </span><span class="mi">0</span><span class="w">   </span><span class="k">Group</span><span class="err">:</span><span class="w">     </span><span class="mi">0</span><span class="w">   </span><span class="k">Size</span><span class="err">:</span><span class="w"> </span><span class="mi">2145</span><span class="w"></span>
+<span class="k">File</span><span class="w"> </span><span class="nl">ACL</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">    </span><span class="n">Directory</span><span class="w"> </span><span class="nl">ACL</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="nl">Links</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">   </span><span class="nl">Blockcount</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="w"></span>
+<span class="nl">Fragment</span><span class="p">:</span><span class="w">  </span><span class="nl">Address</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">    </span><span class="nl">Number</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">    </span><span class="k">Size</span><span class="err">:</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w"> </span><span class="nl">ctime</span><span class="p">:</span><span class="w"> </span><span class="mh">0x548d4241</span><span class="err">:</span><span class="n">a7b196fc</span><span class="w"> </span><span class="c1">-- Sun Dec 14 11:24:41 2014</span>
+<span class="w"> </span><span class="nl">atime</span><span class="p">:</span><span class="w"> </span><span class="mh">0x54cc635b</span><span class="err">:</span><span class="mi">6</span><span class="n">acfc148</span><span class="w"> </span><span class="c1">-- Sat Jan 31 08:38:43 2015</span>
+<span class="w"> </span><span class="nl">mtime</span><span class="p">:</span><span class="w"> </span><span class="mh">0x548d4241</span><span class="err">:</span><span class="n">a01076f8</span><span class="w"> </span><span class="c1">-- Sun Dec 14 11:24:41 2014</span>
+<span class="nl">crtime</span><span class="p">:</span><span class="w"> </span><span class="mh">0x548d4241</span><span class="err">:</span><span class="mi">9</span><span class="n">f1c52f8</span><span class="w"> </span><span class="c1">-- Sun Dec 14 11:24:41 2014</span>
+<span class="k">Size</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">extra</span><span class="w"> </span><span class="n">inode</span><span class="w"> </span><span class="nl">fields</span><span class="p">:</span><span class="w"> </span><span class="mi">28</span><span class="w"></span>
+<span class="nl">EXTENTS</span><span class="p">:</span><span class="w"></span>
+<span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="err">:</span><span class="mi">2188172</span><span class="w"></span>
+<span class="nl">debugfs</span><span class="p">:</span><span class="w">  </span><span class="n">ncheck</span><span class="w"> </span><span class="mi">527187</span><span class="w">        </span><span class="o">&lt;</span><span class="c1">-- node check an inode</span>
+<span class="n">Inode</span><span class="w">    </span><span class="n">Pathname</span><span class="w">        </span>
+<span class="mi">527187</span><span class="w">    </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">passwd</span><span class="w"></span>
+<span class="nl">debugfs</span><span class="p">:</span><span class="w">  </span><span class="n">q</span><span class="w">            </span><span class="o">&lt;</span><span class="c1">-- quit</span>
+</code></pre></div>
+
+<h1>Superblock</h1>
+<p>Unix systems use superblocks to save <em>filesystem metadata</em>. Most of the times this block is located at the beginning of the file system and replicated on other locations too. The <code>-n</code> of <code>mke2fs</code> displays superblock locations</p>
+<div class="highlight"><pre><span></span><code><span class="err"># mke2fs -n /dev/sda7</span>
+<span class="err">mke2fs 1.41.9 (22-Aug-2009)</span>
+<span class="err">Filesystem label=</span>
+<span class="err">OS type: Linux</span>
+<span class="err">Block size=4096 (log=2)</span>
+<span class="err">Fragment size=4096 (log=2)</span>
+<span class="err">7159808 inodes, 28637862 blocks</span>
+<span class="err">1431893 blocks (5.00%) reserved for the super user</span>
+<span class="err">First data block=0</span>
+<span class="err">Maximum filesystem blocks=4294967296</span>
+<span class="err">874 block groups</span>
+<span class="err">32768 blocks per group, 32768 fragments per group</span>
+<span class="err">8192 inodes per group</span>
+<span class="err">Superblock backups stored on blocks:</span>
+<span class="err">    32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,</span>
+<span class="err">    4096000, 7962624, 11239424, 20480000, 23887872</span>
+</code></pre></div>
+
+<h1>Other tools</h1>
+<p>For the LPIC exam, it is good to know about these commands.</p>
+<table>
+<thead>
+<tr>
+<th>filesystem</th>
+<th>command</th>
+<th>usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ext</td>
+<td>tune2fs</td>
+<td>Show or set ext2 and ext3 parameters or even set the journaling options</td>
+</tr>
+<tr>
+<td>ext</td>
+<td>dumpe2fs</td>
+<td>Prints the super block and block group descriptor information for an ext2 or ext3 filesystem.</td>
+</tr>
+<tr>
+<td>ext</td>
+<td>debugfs</td>
+<td>Is an interactive file system debugger. Use it to examine or change the state of an ext2 or ext3file system.</td>
+</tr>
+<tr>
+<td>reiserfs</td>
+<td>reiserfstune</td>
+<td>show and set parameters</td>
+</tr>
+<tr>
+<td>reiserfs</td>
+<td>debugreiserfs</td>
+<td>Prints the super block and block group descriptor information for an ext2 or ext3 filesystem.</td>
+</tr>
+<tr>
+<td>XFS</td>
+<td>xfs_info</td>
+<td>display information</td>
+</tr>
+<tr>
+<td>XFS</td>
+<td>xfs_growfs</td>
+<td>expand file system</td>
+</tr>
+<tr>
+<td>XFS</td>
+<td>xfs_admin</td>
+<td>change parameters on XFS file systems</td>
+</tr>
+<tr>
+<td>XFS</td>
+<td>xfs_repair</td>
+<td>repair the problems</td>
+</tr>
+<tr>
+<td>XFS</td>
+<td>xfs_db</td>
+<td>checks and debugs the filesystem</td>
+</tr>
+</tbody>
+</table>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:19:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#104-ref">104</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

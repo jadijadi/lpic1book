@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 102, " />
+
+<meta property="og:title" content="102.1. Design hard disk layout "/>
+<meta property="og:url" content="/1021-design-hard-disk-layout.html" />
+<meta property="og:description" content="102.1. Design hard disk layout Weight: 2 Description: Candidates should be able to design a disk partitioning scheme for a Linux system. Key Knowledge Areas Allocate filesystems and swap space to separate partitions or disks. Tailor the design to the intended use of the system. Ensure the /boot partition …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:05:00+02:00" />
+<meta name="twitter:title" content="102.1. Design hard disk layout ">
+<meta name="twitter:description" content="102.1. Design hard disk layout Weight: 2 Description: Candidates should be able to design a disk partitioning scheme for a Linux system. Key Knowledge Areas Allocate filesystems and swap space to separate partitions or disks. Tailor the design to the intended use of the system. Ensure the /boot partition …">
+
+        <title>102.1. Design hard disk layout  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1021-design-hard-disk-layout.html">
+                102.1. Design hard disk layout
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>102.1. Design hard disk layout</h1>
+<p><em>Weight: 2</em></p>
+<p>Description: Candidates should be able to design a disk partitioning scheme for a Linux system.</p>
+<h2>Key Knowledge Areas</h2>
+<ul>
+<li>Allocate filesystems and swap space to separate partitions or disks.</li>
+<li>Tailor the design to the intended use of the system.</li>
+<li>Ensure the /boot partition conforms to the hardware architecture requirements for booting.</li>
+<li>
+<p>Knowledge of basic features of LVM</p>
+</li>
+<li>
+<p>/ (root) filesystem</p>
+</li>
+<li>/var filesystem</li>
+<li>/home filesystem</li>
+<li>swap space</li>
+<li>mount points</li>
+<li>partitions</li>
+</ul>
+<h2>Basics</h2>
+<p>As any other OS, Linux uses <em>files</em> and <em>directories</em> to operate. But unlike <em>Windows</em>, it does not use A:, C:, D:, etc. In Linux everything is in *<em>one big tree</em>, starting with / (called root). Any partition, disk, CD, USB, network drive, ... will be placed somewhere in this huge tree.</p>
+<blockquote>
+<p>Note: Most of external devices (USB, CD, ..) are mounted at /media/ or /mnt/ .</p>
+</blockquote>
+<h2>Unix directories</h2>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bin</td>
+<td>Essential command binaries</td>
+</tr>
+<tr>
+<td>boot</td>
+<td>Static files of the boot loader</td>
+</tr>
+<tr>
+<td>dev</td>
+<td>Device files</td>
+</tr>
+<tr>
+<td>etc</td>
+<td>Host-specific system configuration</td>
+</tr>
+<tr>
+<td>home</td>
+<td>Home directory of the users</td>
+</tr>
+<tr>
+<td>lib</td>
+<td>Essential shared libraries and kernel modules</td>
+</tr>
+<tr>
+<td>media</td>
+<td>Mount point for removable media</td>
+</tr>
+<tr>
+<td>mnt</td>
+<td>Mount point for mounting a filesystem temporarily</td>
+</tr>
+<tr>
+<td>opt</td>
+<td>Add-on application software packages</td>
+</tr>
+<tr>
+<td>root</td>
+<td>Home directory of the root user</td>
+</tr>
+<tr>
+<td>sbin</td>
+<td>Essential system binaries</td>
+</tr>
+<tr>
+<td>srv</td>
+<td>Data for services provided by this system</td>
+</tr>
+<tr>
+<td>tmp</td>
+<td>Temporary files</td>
+</tr>
+<tr>
+<td>usr</td>
+<td>Secondary hierarchy</td>
+</tr>
+<tr>
+<td>var</td>
+<td>Variable data</td>
+</tr>
+</tbody>
+</table>
+<h2>Partitions</h2>
+<p>In Linux world, devices are defined at /dev/. First SATA disk is /dev/sda, second SATA disk is /dev/sdb, ... and first SCSI disk (older systems) is /dev/hda.</p>
+<p>You have to <em>PARTITION</em> the disks, that is creating smaller parts on a big disk and calling them /dev/sda1 (first partition on first SCSI disk) or /dev/hd<strong>b</strong>3 (3rd partition on second disk).</p>
+<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="n">fdisk</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span>
+<span class="n">Welcome</span> <span class="k">to</span> <span class="n">fdisk</span> <span class="p">(</span><span class="n">util</span><span class="o">-</span><span class="n">linux</span> <span class="mi">2</span><span class="p">.</span><span class="mi">25</span><span class="p">.</span><span class="mi">1</span><span class="p">).</span>
+<span class="n">Changes</span> <span class="n">will</span> <span class="n">remain</span> <span class="k">in</span> <span class="n">memory</span> <span class="k">only</span><span class="p">,</span> <span class="k">until</span> <span class="n">you</span> <span class="n">decide</span> <span class="k">to</span> <span class="k">write</span> <span class="n">them</span><span class="p">.</span>
+<span class="n">Be</span> <span class="n">careful</span> <span class="k">before</span> <span class="k">using</span> <span class="n">the</span> <span class="k">write</span> <span class="n">command</span><span class="p">.</span>
+
+
+<span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">p</span>
+<span class="n">Disk</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="p">:</span> <span class="mi">298</span><span class="p">.</span><span class="mi">1</span> <span class="n">GiB</span><span class="p">,</span> <span class="mi">320072933376</span> <span class="n">bytes</span><span class="p">,</span> <span class="mi">625142448</span> <span class="n">sectors</span>
+<span class="n">Units</span><span class="p">:</span> <span class="n">sectors</span> <span class="k">of</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">512</span> <span class="o">=</span> <span class="mi">512</span> <span class="n">bytes</span>
+<span class="n">Sector</span> <span class="k">size</span> <span class="p">(</span><span class="n">logical</span><span class="o">/</span><span class="n">physical</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
+<span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="k">size</span> <span class="p">(</span><span class="n">minimum</span><span class="o">/</span><span class="n">optimal</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
+<span class="n">Disklabel</span> <span class="k">type</span><span class="p">:</span> <span class="n">dos</span>
+<span class="n">Disk</span> <span class="n">identifier</span><span class="p">:</span> <span class="mi">0</span><span class="n">x000beca1</span>
+
+<span class="n">Device</span>     <span class="n">Boot</span>     <span class="k">Start</span>       <span class="k">End</span>   <span class="n">Sectors</span>   <span class="k">Size</span> <span class="n">Id</span> <span class="k">Type</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span>  <span class="o">*</span>         <span class="mi">2048</span>  <span class="mi">43094015</span>  <span class="mi">43091968</span>  <span class="mi">20</span><span class="p">.</span><span class="mi">6</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda2</span>        <span class="mi">43094016</span>  <span class="mi">92078390</span>  <span class="mi">48984375</span>  <span class="mi">23</span><span class="p">.</span><span class="mi">4</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span>        <span class="mi">92080126</span> <span class="mi">625141759</span> <span class="mi">533061634</span> <span class="mi">254</span><span class="p">.</span><span class="mi">2</span><span class="k">G</span>  <span class="mi">5</span> <span class="n">Extended</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda5</span>        <span class="mi">92080128</span> <span class="mi">107702271</span>  <span class="mi">15622144</span>   <span class="mi">7</span><span class="p">.</span><span class="mi">5</span><span class="k">G</span> <span class="mi">82</span> <span class="n">Linux</span> <span class="n">swap</span> <span class="o">/</span> <span class="n">Solaris</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span>       <span class="mi">107704320</span> <span class="mi">625141759</span> <span class="mi">517437440</span> <span class="mi">246</span><span class="p">.</span><span class="mi">8</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
+</code></pre></div>
+
+<h3>Primary, Extended &amp; Logical Partitions</h3>
+<p>The partition table is located in the master boot record (<strong>MBR</strong>) of a disk. The MBR is the first sector on the disk, so the partition table is not a very large part of it. This limits the primary partitions to 4 and the max size of a disk to around 2TBs. If you need more partitions you have a define one extended and then create logicals <em>inside</em> them.</p>
+<p>Linux numbers the primary partitions 1, 2, 3 &amp; 4. If you define an extended partitions, logical partitions inside it will be called 5, 6, 7.</p>
+<blockquote>
+<p>Note: an Extended partition is just an empty box for creating Logical partitions inside it.</p>
+</blockquote>
+<p>So:
+- /dev/sda3 is the 3rd primary partition on the first disk
+- /dev/sdb5 is the first logical partition on the second disk
+- /dev/sda7 is the 3rd logical partition of the first physical disk</p>
+<p>The newer <strong>GUID Partition Table (or GPT)</strong> solves this problems. If you format your disk with GTP you can have 128 primary partitions (no need to extended and logical).</p>
+<h2>commands</h2>
+<h3>parted</h3>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">parted</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="w"> </span><span class="n">p</span><span class="w"></span>
+<span class="nl">Model</span><span class="p">:</span><span class="w"> </span><span class="n">ATA</span><span class="w"> </span><span class="n">ST320LT000</span><span class="o">-</span><span class="mi">9</span><span class="n">VL14</span><span class="w"> </span><span class="p">(</span><span class="n">scsi</span><span class="p">)</span><span class="w"></span>
+<span class="k">Disk</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nl">sda</span><span class="p">:</span><span class="w"> </span><span class="mi">320</span><span class="n">GB</span><span class="w"></span>
+<span class="n">Sector</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="p">(</span><span class="n">logical</span><span class="o">/</span><span class="n">physical</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="mi">512</span><span class="n">B</span><span class="o">/</span><span class="mi">512</span><span class="n">B</span><span class="w"></span>
+<span class="k">Partition</span><span class="w"> </span><span class="nc">Table</span><span class="err">:</span><span class="w"> </span><span class="n">msdos</span><span class="w"></span>
+<span class="k">Disk</span><span class="w"> </span><span class="nl">Flags</span><span class="p">:</span><span class="w"></span>
+
+<span class="n">Number</span><span class="w">  </span><span class="k">Start</span><span class="w">   </span><span class="k">End</span><span class="w">     </span><span class="k">Size</span><span class="w">    </span><span class="n">Type</span><span class="w">      </span><span class="k">File</span><span class="w"> </span><span class="k">system</span><span class="w">     </span><span class="n">Flags</span><span class="w"></span>
+<span class="w"> </span><span class="mi">1</span><span class="w">      </span><span class="mi">1049</span><span class="n">kB</span><span class="w">  </span><span class="mf">22.1</span><span class="n">GB</span><span class="w">  </span><span class="mf">22.1</span><span class="n">GB</span><span class="w">  </span><span class="k">primary</span><span class="w">   </span><span class="n">ext4</span><span class="w">            </span><span class="n">boot</span><span class="w"></span>
+<span class="w"> </span><span class="mi">2</span><span class="w">      </span><span class="mf">22.1</span><span class="n">GB</span><span class="w">  </span><span class="mf">47.1</span><span class="n">GB</span><span class="w">  </span><span class="mf">25.1</span><span class="n">GB</span><span class="w">  </span><span class="k">primary</span><span class="w">   </span><span class="n">ext4</span><span class="w"></span>
+<span class="w"> </span><span class="mi">3</span><span class="w">      </span><span class="mf">47.1</span><span class="n">GB</span><span class="w">  </span><span class="mi">320</span><span class="n">GB</span><span class="w">   </span><span class="mi">273</span><span class="n">GB</span><span class="w">   </span><span class="n">extended</span><span class="w"></span>
+<span class="w"> </span><span class="mi">5</span><span class="w">      </span><span class="mf">47.1</span><span class="n">GB</span><span class="w">  </span><span class="mf">55.1</span><span class="n">GB</span><span class="w">  </span><span class="mi">7999</span><span class="n">MB</span><span class="w">  </span><span class="n">logical</span><span class="w">   </span><span class="n">linux</span><span class="o">-</span><span class="n">swap</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span><span class="w"></span>
+<span class="w"> </span><span class="mi">6</span><span class="w">      </span><span class="mf">55.1</span><span class="n">GB</span><span class="w">  </span><span class="mi">320</span><span class="n">GB</span><span class="w">   </span><span class="mi">265</span><span class="n">GB</span><span class="w">   </span><span class="n">logical</span><span class="w"></span>
+</code></pre></div>
+
+<h4>fdisk</h4>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">fdisk</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="w"></span>
+<span class="o">[</span><span class="n">sudo</span><span class="o">]</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nl">jadi</span><span class="p">:</span><span class="w"></span>
+
+<span class="n">Welcome</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">fdisk</span><span class="w"> </span><span class="p">(</span><span class="n">util</span><span class="o">-</span><span class="n">linux</span><span class="w"> </span><span class="mf">2.25.1</span><span class="p">).</span><span class="w"></span>
+<span class="n">Changes</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">remain</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">memory</span><span class="w"> </span><span class="k">only</span><span class="p">,</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">decide</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">write</span><span class="w"> </span><span class="n">them</span><span class="p">.</span><span class="w"></span>
+<span class="n">Be</span><span class="w"> </span><span class="n">careful</span><span class="w"> </span><span class="k">before</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">write</span><span class="w"> </span><span class="n">command</span><span class="p">.</span><span class="w"></span>
+
+
+<span class="n">Command</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">help</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="n">p</span><span class="w"></span>
+<span class="k">Disk</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nl">sda</span><span class="p">:</span><span class="w"> </span><span class="mf">298.1</span><span class="w"> </span><span class="n">GiB</span><span class="p">,</span><span class="w"> </span><span class="mi">320072933376</span><span class="w"> </span><span class="n">bytes</span><span class="p">,</span><span class="w"> </span><span class="mi">625142448</span><span class="w"> </span><span class="n">sectors</span><span class="w"></span>
+<span class="nl">Units</span><span class="p">:</span><span class="w"> </span><span class="n">sectors</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="n">bytes</span><span class="w"></span>
+<span class="n">Sector</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="p">(</span><span class="n">logical</span><span class="o">/</span><span class="n">physical</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="n">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="n">bytes</span><span class="w"></span>
+<span class="n">I</span><span class="o">/</span><span class="n">O</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="p">(</span><span class="n">minimum</span><span class="o">/</span><span class="n">optimal</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="n">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="n">bytes</span><span class="w"></span>
+<span class="n">Disklabel</span><span class="w"> </span><span class="nl">type</span><span class="p">:</span><span class="w"> </span><span class="n">dos</span><span class="w"></span>
+<span class="k">Disk</span><span class="w"> </span><span class="nl">identifier</span><span class="p">:</span><span class="w"> </span><span class="mh">0x000beca1</span><span class="w"></span>
+
+<span class="n">Device</span><span class="w">     </span><span class="n">Boot</span><span class="w">     </span><span class="k">Start</span><span class="w">       </span><span class="k">End</span><span class="w">   </span><span class="n">Sectors</span><span class="w">   </span><span class="k">Size</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="n">Type</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span><span class="w">  </span><span class="o">*</span><span class="w">         </span><span class="mi">2048</span><span class="w">  </span><span class="mi">43094015</span><span class="w">  </span><span class="mi">43091968</span><span class="w">  </span><span class="mf">20.6</span><span class="n">G</span><span class="w"> </span><span class="mi">83</span><span class="w"> </span><span class="n">Linux</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda2</span><span class="w">        </span><span class="mi">43094016</span><span class="w">  </span><span class="mi">92078390</span><span class="w">  </span><span class="mi">48984375</span><span class="w">  </span><span class="mf">23.4</span><span class="n">G</span><span class="w"> </span><span class="mi">83</span><span class="w"> </span><span class="n">Linux</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span><span class="w">        </span><span class="mi">92080126</span><span class="w"> </span><span class="mi">625141759</span><span class="w"> </span><span class="mi">533061634</span><span class="w"> </span><span class="mf">254.2</span><span class="n">G</span><span class="w">  </span><span class="mi">5</span><span class="w"> </span><span class="n">Extended</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda5</span><span class="w">        </span><span class="mi">92080128</span><span class="w"> </span><span class="mi">107702271</span><span class="w">  </span><span class="mi">15622144</span><span class="w">   </span><span class="mf">7.5</span><span class="n">G</span><span class="w"> </span><span class="mi">82</span><span class="w"> </span><span class="n">Linux</span><span class="w"> </span><span class="n">swap</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Solaris</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span><span class="w">       </span><span class="mi">107704320</span><span class="w"> </span><span class="mi">625141759</span><span class="w"> </span><span class="mi">517437440</span><span class="w"> </span><span class="mf">246.8</span><span class="n">G</span><span class="w"> </span><span class="mi">83</span><span class="w"> </span><span class="n">Linux</span><span class="w"></span>
+</code></pre></div>
+
+<blockquote>
+<p>Note: parted does not understands GPT</p>
+</blockquote>
+<h4>gparted</h4>
+<p>A graphical tool for managing disks and partitions.</p>
+<p><img alt="" src="http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-1/gparted-1s.jpg"></p>
+<h3>LVM</h3>
+<p>In many cases you need to resize your partitions or even add new disks and <em>add</em> them to your mount points. LVM is designed for this.</p>
+<p>LVM helps you create one partition from different disks and add or remove space to them. The main concepts are:</p>
+<ul>
+<li>Physical Volume (pv): a whole drive or a partition. It is better to define partitions and <strong>not use whole disks - unpartitioned</strong>.</li>
+<li>Volume Groups (vg): this is the collection of one or more <strong>pv</strong>s. OS will see the vg as one big disk. PVs in one vg, can have different sizes or even be on different physical disks.</li>
+<li>Logical Volumes (lv): OS will see lvs as partitions. You can format an lv wit your OS and use it.</li>
+</ul>
+<h2>Design Hard disk layout</h2>
+<p>Disk layout and allocation partitions to directories depends on you usage. First we will discuss <em>swap</em> and <em>boot</em> and then will see three different cases.</p>
+<h4>swap</h4>
+<p>swap in Linux works like an extended memory. Kernel will <em>page</em> memory to this partition / file. It is enough to format one partition with <strong>swap file system</strong> and define it in /etc/fstab (you will see this later in 104 modules).</p>
+<blockquote>
+<p>Note: swap size is 1 or 2 times the system memory but not more than 8GBs. So if you have 2GB of RAM, swap will be 4GB but if you have 6GB of RAM, it is recommended to have a 8GB swap partition.</p>
+</blockquote>
+<h4>/boot</h4>
+<p>Older Linux systems were not able to handle HUGE disks during the boot (say Terabytes) so there were a separated /boot. It is also useful to recover broken systems or even you can make /boot read only. Most of the time, having 100MB for /boot is enough. This can be a different disk or a separated partition.</p>
+<p>This partition should be accessible by BIOS during the boot (no network drive).</p>
+<h3>case one: Desktop computer</h3>
+<p>On a desktop computer, it is good to have one swap, one /boot and allocate all other space to / (root).</p>
+<h3>network workstation</h3>
+<p>As any other system /boot should be local (a physical disk connected to the machine) and most of the time, the / (root file system) is also local. But in a network station, /home can be mounted from a network drive (NFS, SMB, SSH, ..). This lets users to sit at any station, login and have their own home mounted from a network drive. Swap can be mounted from network or local.</p>
+<h3>Server</h3>
+<p>On servers /boot is still local and based on usage, /home can be local or network. In many cases we separate the /var because logs and many other files are there and being updated so it is good to separate it or even put it on a more advanced storage (like RAID disks to prevent data loss). Some people also separate the /usr and write-protect it (read only file systems) or even mount the /usr from network so they can change / update one file on the network storage and all the servers will use the new file (you remember? /usr contains important executables like Apache web server).</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:05:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#102-ref">102</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

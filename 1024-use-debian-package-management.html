@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 102, " />
+
+<meta property="og:title" content="102.4. Use Debian package management "/>
+<meta property="og:url" content="/1024-use-debian-package-management.html" />
+<meta property="og:description" content="102.4. Use Debian package management weight: 3 Candidates should be able to perform package management using the Debian package tools. Install, upgrade and uninstall Debian binary packages. Find packages containing specific files or libraries which may or may not be installed. Obtain package information like version, content, dependencies, package …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:08:00+02:00" />
+<meta name="twitter:title" content="102.4. Use Debian package management ">
+<meta name="twitter:description" content="102.4. Use Debian package management weight: 3 Candidates should be able to perform package management using the Debian package tools. Install, upgrade and uninstall Debian binary packages. Find packages containing specific files or libraries which may or may not be installed. Obtain package information like version, content, dependencies, package …">
+
+        <title>102.4. Use Debian package management  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1024-use-debian-package-management.html">
+                102.4. Use Debian package management
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>102.4. Use Debian package management</h1>
+<p><em>weight: 3</em></p>
+<p>Candidates should be able to perform package management using the Debian package tools.</p>
+<ul>
+<li>Install, upgrade and uninstall Debian binary packages.</li>
+<li>Find packages containing specific files or libraries which may or may not be installed.</li>
+<li>
+<p>Obtain package information like version, content, dependencies, package integrity and installation status (whether or not the package is installed).</p>
+</li>
+<li>
+<p>/etc/apt/sources.list</p>
+</li>
+<li>dpkg</li>
+<li>dpkg-reconfigure</li>
+<li>apt-get</li>
+<li>apt-cache</li>
+<li>aptitude</li>
+</ul>
+<h2>Concept of the package management system</h2>
+<p>Linux used to be based on compiling source code but then Distributions arrived. Most distributions have their own Package Manager for installing pre-build programs from defined <em>repositories</em>. Debian based distros use .deb files with apt, dpkg, aptitude and Fedora, RedHat, RHEL, SUSE, .. use RPM and Yum package managers.</p>
+<h2>Installing packages</h2>
+<p>We do not have "bzr" installed.</p>
+<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~/w/lpic/101$ bzr</span>
+<span class="err">The program &#39;bzr&#39; is currently not installed. You can install it by typing:</span>
+<span class="err">sudo apt-get install bzr</span>
+<span class="err">jadi@funlife:~/w/lpic/101$ which bzr</span>
+<span class="err">jadi@funlife:~/w/lpic/101$ type bzr</span>
+<span class="c">bash: type: bzr: not found</span>
+</code></pre></div>
+
+<p>so lets install it. If we have the .deb file:</p>
+<div class="highlight"><pre><span></span><code><span class="err"> apt-get install bzr</span>
+</code></pre></div>
+
+<p>note that
+- apt-get install asked for confirmation (Y)
+- apt-get resolved <em>dependencies</em>, it know what is needed to install this package and installs them
+- debian packages are something.deb</p>
+<div class="highlight"><pre><span></span><code><span class="err">bzr</span>
+</code></pre></div>
+
+<p>if you only want a dry-run / simulation:</p>
+<div class="highlight"><pre><span></span><code><span class="err">apt-get install -s bzr</span>
+</code></pre></div>
+
+<p>and this will only download the files without installing them:</p>
+<div class="highlight"><pre><span></span><code><span class="err">apt-get install --download-only bzr</span>
+</code></pre></div>
+
+<p>which only Downloaded files are stored them at /var/cache/apt/archive/ (or use the -d switch instead)</p>
+<h2>Package location</h2>
+<p>where these packages come from? from a <strong>Repository</strong> of different <strong>Repositories</strong> which are defined at /etc/apt/sources.list file and files located at /etc/apt/sources.list.d/ in the form of:</p>
+<div class="highlight"><pre><span></span><code><span class="err">$</span> <span class="err">cat</span> <span class="err">/etc/apt/sources.list</span>
+
+<span class="k">deb</span> <span class="s">http://ir.archive.ubuntu.com/ubuntu/</span> <span class="kp">utopic-updates</span> <span class="kp">multiverse</span>
+
+<span class="c">## N.B. software from this repository may not have been tested as</span>
+<span class="c">## extensively as that contained in the main release, although it includes</span>
+<span class="c">## newer versions of some applications which may provide useful features.</span>
+<span class="c">## Also, please note that software in backports WILL NOT receive any review</span>
+<span class="c">## or updates from the Ubuntu security team.</span>
+<span class="k">deb</span> <span class="s">http://ir.archive.ubuntu.com/ubuntu/</span> <span class="kp">utopic-backports</span> <span class="kp">main</span> <span class="kp">restricted</span> <span class="kp">universe</span> <span class="kp">multiverse</span>
+
+<span class="k">deb</span> <span class="s">http://security.ubuntu.com/ubuntu</span> <span class="kp">utopic-security</span> <span class="kp">main</span> <span class="kp">restricted</span>
+<span class="k">deb</span> <span class="s">http://security.ubuntu.com/ubuntu</span> <span class="kp">utopic-security</span> <span class="kp">universe</span>
+<span class="k">deb</span> <span class="s">http://security.ubuntu.com/ubuntu</span> <span class="kp">utopic-security</span> <span class="kp">multiverse</span>
+</code></pre></div>
+
+<p>Updating sources information:</p>
+<div class="highlight"><pre><span></span><code><span class="err">apt-get update</span>
+</code></pre></div>
+
+<h2>Removing debian packages</h2>
+<div class="highlight"><pre><span></span><code><span class="err">apt-get remove bzr</span>
+</code></pre></div>
+
+<p>and if you want to remove automatically installed dependencies:</p>
+<div class="highlight"><pre><span></span><code>$ apt-get autoremove bzr
+</code></pre></div>
+
+<p>or even</p>
+<div class="highlight"><pre><span></span><code>$ apt-get autoremove
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages will be REMOVED:
+  linux-image-3.16.0-25-generic linux-image-extra-3.16.0-25-generic
+<span class="m">0</span> upgraded, <span class="m">0</span> newly installed, <span class="m">2</span> to remove and <span class="m">0</span> not upgraded.
+After this operation, <span class="m">203</span> MB disk space will be freed.
+Do you want to <span class="k">continue</span>? <span class="o">[</span>Y/n<span class="o">]</span> y
+</code></pre></div>
+
+<p>Notes:
+- removing a package will not remove its dependencies
+- if removing a dependency, you'll get a warning about what will be removed alongside this package</p>
+<h2>searching for packages</h2>
+<div class="highlight"><pre><span></span><code>$ apt-cache search <span class="s2">&quot;tiny window&quot;</span>
+$ aptitude search grub2
+</code></pre></div>
+
+<h2>Updating</h2>
+<p>for updating a single package</p>
+<div class="highlight"><pre><span></span><code><span class="err">apt-get install tzdata</span>
+</code></pre></div>
+
+<p>and for upgrading whatever installed:</p>
+<div class="highlight"><pre><span></span><code><span class="err">apt-get upgrade</span>
+</code></pre></div>
+
+<p>or going to a new distribution:</p>
+<div class="highlight"><pre><span></span><code><span class="err">apt-get dist-upgrade</span>
+</code></pre></div>
+
+<p>Note: as most other tools, you can configure the default configs at /etc/apt/apt.conf and there is a program apt-config for this purpose.</p>
+<h2>reconfiguring packages</h2>
+<p>A program called debconf configures packages after they are installed. you can reconfigure a package (say tzdata) using</p>
+<div class="highlight"><pre><span></span><code><span class="err"> dpkg-reconfigure tzdata</span>
+</code></pre></div>
+
+<h2>package information with dpkg</h2>
+<p>dpkg is a very powerful tool for working with .deb package files. If you want to see what is inside a .deb file:</p>
+<div class="highlight"><pre><span></span><code>$ dpkg --contents bzr_2.6.0+bzr6595-1ubuntu1_all.deb
+drwxr-xr-x root/root         <span class="m">0</span> <span class="m">2014</span>-05-02 <span class="m">18</span>:16 ./
+drwxr-xr-x root/root         <span class="m">0</span> <span class="m">2014</span>-05-02 <span class="m">18</span>:15 ./etc/
+drwxr-xr-x root/root         <span class="m">0</span> <span class="m">2014</span>-05-02 <span class="m">18</span>:15 ./etc/bash_completion.d/
+-rw-r--r-- root/root      <span class="m">1467</span> <span class="m">2010</span>-04-22 <span class="m">11</span>:31 ./etc/bash_completion.d/bzr
+...
+...
+</code></pre></div>
+
+<p>another apt tool is dpkg. dpkg can install, remove, configure and query packages and as always the config is at /etc/dpkg/dpkg.cfg and uses /var/lib/dpkg tree . the most important switch is <strong>-s</strong> for <strong>status</strong>.</p>
+<div class="highlight"><pre><span></span><code>$ dpkg -s bzr
+Package: bzr
+Status: deinstall ok config-files
+Priority: optional
+Section: vcs
+Installed-Size: <span class="m">102</span>
+Maintainer: Ubuntu Developers &lt;ubuntu-devel-discuss@lists.ubuntu.com&gt;
+Architecture: all
+Version: <span class="m">2</span>.6.0+bzr6595-1ubuntu1
+Config-Version: <span class="m">2</span>.6.0+bzr6595-1ubuntu1
+Depends: python-bzrlib <span class="o">(</span>&lt;<span class="o">=</span> <span class="m">2</span>.6.0+bzr6595-1ubuntu1.1~<span class="o">)</span>, python-bzrlib <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">2</span>.6.0+bzr6595-1ubuntu1<span class="o">)</span>, python:any
+Recommends: python-gpgme
+Suggests: bzr-doc, bzrtools, python-bzrlib.tests
+Breaks: bzr-pqm <span class="o">(</span><span class="s">&lt;&lt; 1.4.0~bzr80), bzr-xmloutput (&lt;&lt; 0.8.8+bzr1</span><span class="m">60</span><span class="o">)</span>, python-bzrlib <span class="o">(</span><span class="s">&lt;&lt; 2.4.0~beta3~)</span>
+<span class="s">Conffiles:</span>
+<span class="s"> /etc/bash_completion.d/bzr b8d9ca9552</span>1a7c5f14860e205a854da2
+Description: easy to use distributed version control system
+ Bazaar is a distributed version control system designed to be easy to
+ use and intuitive, able to adapt to many workflows, reliable, and
+ easily extendable.
+ .
+ Publishing of branches can be <span class="k">done</span> over plain HTTP, that is, no special
+ software is needed on the server to host Bazaar branches. Branches can
+ be pushed to the server via sftp <span class="o">(</span>which most SSH installations come
+ with<span class="o">)</span>, FTP, or over a custom and faster protocol <span class="k">if</span> bzr is installed in
+ the remote end.
+ .
+ Merging in Bazaar is easy, as the implementation is able to avoid many
+ spurious conflicts, deals well with repeated merges between branches,
+ and is able to handle modifications to renamed files correctly.
+ .
+ Bazaar is written in Python, and has a flexible plugin interface which
+ can be used to extend its functionality. Many plugins exist, providing
+ useful commands <span class="o">(</span>bzrtools<span class="o">)</span>, graphical interfaces <span class="o">(</span>qbzr<span class="o">)</span>, or native
+ interaction with Subversion branches <span class="o">(</span>bzr-svn<span class="o">)</span>.
+ .
+ Install python-paramiko <span class="k">if</span> you are going to push branches to remote
+ hosts with sftp, and python-pycurl <span class="k">if</span> you<span class="err">&#39;</span>d like <span class="k">for</span> SSL certificates
+ always to be verified.
+Homepage: http://bazaar-vcs.org
+Original-Maintainer: Debian Bazaar Maintainers &lt;pkg-bazaar-maint@lists.alioth.debian.org&gt;
+</code></pre></div>
+
+<p>another command is <strong>purge</strong> which will remove the package and all of its configurations.. the switch is <strong>-P</strong> or <strong>--purge</strong>.</p>
+<p>There is also <strong>-L</strong> to check the files and directories a package installed:</p>
+<div class="highlight"><pre><span></span><code>$ dpkg -L jcal
+/.
+/usr
+/usr/bin
+/usr/bin/jcal
+/usr/share
+/usr/share/doc
+/usr/share/doc/jcal
+/usr/share/doc/jcal/README
+/usr/share/doc/jcal/copyright
+/usr/share/man
+/usr/share/man/man1
+/usr/share/man/man1/jcal.1.gz
+/usr/share/doc/jcal/changelog.Debian.gz
+</code></pre></div>
+
+<p>and <strong>-S</strong> will show which package installed the given file:</p>
+<div class="highlight"><pre><span></span><code>$ dpkg -S /var/lib/mplayer/prefs/mirrors
+mplayer: /var/lib/mplayer/prefs/mirrors
+</code></pre></div>
+
+<p>Note: you can also use <code>which</code> for finding out what file will be used on any given command:</p>
+<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~/w/lpic/101$ which java</span>
+<span class="err">/usr/bin/java</span>
+</code></pre></div>
+
+<h2>aptitude</h2>
+<p>is a newer tool for managing files. It can be used like this:</p>
+<div class="highlight"><pre><span></span><code>$ aptitude install jcal
+$ aptitude remove jcal
+$ aptitude search cal
+$ aptitude show bzr
+</code></pre></div>
+
+<p>or it can also be used as a standalone program:</p>
+<p><img alt="aptitude sample" src="http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-4/fig-102-4-2.gif"></p>
+<h2>other tools</h2>
+<p>there is gui tools like "synaptic" and "update manager". These will Search, Update, Upgrade, Install, Remove via a graphical user interface and are present in many distributions. This is ubuntu software center:</p>
+<p><img alt="Ubuntu Software Center" src="http://screenshots.debian.net/screenshots/s/software-center/10674_large.png"></p>
+<p>and this is a software updater GUI for gnome:</p>
+<p><img alt="Software Updater" src="http://farm5.static.flickr.com/4100/4897220771_4b27362dbc.jpg"></p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.
+.
+.</p>
+<p>..</p>
+<p>.
+.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:08:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#102-ref">102</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

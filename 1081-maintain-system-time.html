@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 108, " />
+
+<meta property="og:title" content="108.1 Maintain system time "/>
+<meta property="og:url" content="/1081-maintain-system-time.html" />
+<meta property="og:description" content="108.1 Maintain system time Weight: 3 Candidates should be able to properly maintain the system time and synchronize the clock via NTP. Key Knowledge Areas Set the system date and time. Set the hardware clock to the correct time in UTC. Configure the correct timezone. Basic NTP configuration. Knowledge …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:32:00+02:00" />
+<meta name="twitter:title" content="108.1 Maintain system time ">
+<meta name="twitter:description" content="108.1 Maintain system time Weight: 3 Candidates should be able to properly maintain the system time and synchronize the clock via NTP. Key Knowledge Areas Set the system date and time. Set the hardware clock to the correct time in UTC. Configure the correct timezone. Basic NTP configuration. Knowledge …">
+
+        <title>108.1 Maintain system time  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1081-maintain-system-time.html">
+                108.1 Maintain system time
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>108.1 Maintain system time</h1>
+<p><em>Weight: 3</em></p>
+<p>Candidates should be able to properly maintain the system time and synchronize the clock via NTP.</p>
+<h2>Key Knowledge Areas</h2>
+<ul>
+<li>Set the system date and time.</li>
+<li>Set the hardware clock to the correct time in UTC.</li>
+<li>Configure the correct timezone.</li>
+<li>Basic NTP configuration.</li>
+<li>Knowledge of using the pool.ntp.org service.</li>
+<li>Awareness of the ntpq command.</li>
+</ul>
+<h2>Terms and Utilities</h2>
+<ul>
+<li>/usr/share/zoneinfo/</li>
+<li>/etc/timezone</li>
+<li>/etc/localtime</li>
+<li>/etc/ntp.conf</li>
+<li>date</li>
+<li>hwclock</li>
+<li>ntpd</li>
+<li>ntpdate</li>
+<li>pool.ntp.org</li>
+</ul>
+<h2>How a computer keeps its time</h2>
+<p>There is a clock in your computer; a hardware clock on your motherboard! It has its own battery and keeps the time even when the computer is off. When the system boots, the OS reads this <strong>hardware time</strong> and it sets its <strong>system time</strong> to the hardware clock and uses it from there on.</p>
+<p>Hardware clock can be the localtime (your computers timezone) or UTC time (standard time). You can check this by /etc/adjtime:</p>
+<div class="highlight"><pre><span></span><code>$ cat /etc/adjtime
+<span class="m">0</span>.000000 <span class="m">1451741899</span> <span class="m">0</span>.000000
+<span class="m">1451741899</span>
+UTC
+</code></pre></div>
+
+<p>As you can see in my computer the time is set on UTC so the computers add my timezone difference each time it boots up to the hardware clock. The <code>hwclock</code> can be used to show the time based on the hwtime. See how it works based on the hardware time even after we DO CHANGE the system time:</p>
+<div class="highlight"><pre><span></span><code><span class="err">root@funlife:~# date</span>
+<span class="err">Mon Jan  4 22:01:18 IRST 2016</span>
+<span class="err"># date -s &quot;Jan 4 22:22:22 2016&quot;</span>
+<span class="err">Mon Jan  4 22:22:22 IRST 2016</span>
+<span class="err">root@funlife:~# date</span>
+<span class="err">Mon Jan  4 22:02:18 IRST 2016</span>
+<span class="err">root@funlife:~# hwclock</span>
+<span class="err">Mon 04 Jan 2016 10:02:21 PM IRST  .108596 seconds</span>
+</code></pre></div>
+
+<blockquote>
+<p>Even when the hardware clock is set on UTC, <code>hwclock</code> date shows the date in the localtime (time after adding the timezone to the UTC time)</p>
+</blockquote>
+<p>Older OSs used to set the hardware clock on localtime zone instead of timezone. This can be achived by:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># hwclock --localtime --set --date=&quot;01/05/2015 22:04:00&quot;</span>
+</code></pre></div>
+
+<p>If you want to fix it, just issue:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># hwclock -u -w</span>
+</code></pre></div>
+
+<p>In this command <code>-u</code> tell the hardware clock that this is a UTC time and <code>-w</code> tells "sync with systemtime".</p>
+<h2>NTP</h2>
+<p>Network Time Protocol is my favorite protocol. It is one of the coolest protocols ever if you dive into its details. But unfortunately for LPIC1 you do not need to go into NTP depths. This protocol uses NTP servers to find out the accurate time shown by best atomic clocks on this planet. One of the most famous severs used by ntp people is <code>pool.ntp.org</code>. If you check that website you will see that it is a <strong>pool</strong> of ntp servers and by giving your NTP server the <code>pool.ntp.org</code>, it will be redirected to one of the many ntp servers available on that pool.</p>
+<h3>ntpdate</h3>
+<p>The most straight forward command to set the systemclock is <code>ntpdate</code> and used like this:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># ntpdate pool.ntp.org</span>
+<span class="err">4 Jan 22:15:02 ntpdate[18708]: adjust time server 194.225.150.25 offset -0.006527 sec</span>
+</code></pre></div>
+
+<p>After this, we need to set the hwclock to the just corrected system time by <code>sudo hwclock -w</code>.</p>
+<h3>ntpd</h3>
+<p>Instead of manually setting the time each time, you can use a linux service called <code>ntp</code> to keep your time using some time servers (the most famous one is pool.ntp.org). Install the <code>ntp</code> and start the server:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># apt install ntp</span>
+<span class="err"># systemctl start ntp</span>
+</code></pre></div>
+
+<p>Fun fact? you can not use both! Look at this:</p>
+<div class="highlight"><pre><span></span><code><span class="err">root@funlife:~# ntpdate pool.ntp.org</span>
+<span class="err"> 4 Jan 22:14:25 ntpdate[18670]: the NTP socket is in use, exiting</span>
+</code></pre></div>
+
+<p>As you can see, now the <code>ntp</code> is using the NTP port and <code>ntpdate</code> has problems starting up.</p>
+<p>Main configuration file of <code>ntp</code> is located at /etc/ntp.conf:</p>
+<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="n">cat</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ntp</span><span class="p">.</span><span class="n">conf</span>
+<span class="o">#</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ntp</span><span class="p">.</span><span class="n">conf</span><span class="p">,</span> <span class="n">configuration</span> <span class="k">for</span> <span class="n">ntpd</span><span class="p">;</span> <span class="n">see</span> <span class="n">ntp</span><span class="p">.</span><span class="n">conf</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="k">for</span> <span class="n">help</span>
+
+<span class="n">driftfile</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ntp</span><span class="o">/</span><span class="n">ntp</span><span class="p">.</span><span class="n">drift</span>
+
+<span class="o">#</span> <span class="n">Enable</span> <span class="n">this</span> <span class="k">if</span> <span class="n">you</span> <span class="n">want</span> <span class="k">statistics</span> <span class="k">to</span> <span class="n">be</span> <span class="n">logged</span><span class="p">.</span>
+<span class="o">#</span><span class="n">statsdir</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">ntpstats</span><span class="o">/</span>
+
+<span class="k">statistics</span> <span class="n">loopstats</span> <span class="n">peerstats</span> <span class="n">clockstats</span>
+<span class="n">filegen</span> <span class="n">loopstats</span> <span class="n">file</span> <span class="n">loopstats</span> <span class="k">type</span> <span class="k">day</span> <span class="n">enable</span>
+<span class="n">filegen</span> <span class="n">peerstats</span> <span class="n">file</span> <span class="n">peerstats</span> <span class="k">type</span> <span class="k">day</span> <span class="n">enable</span>
+<span class="n">filegen</span> <span class="n">clockstats</span> <span class="n">file</span> <span class="n">clockstats</span> <span class="k">type</span> <span class="k">day</span> <span class="n">enable</span>
+
+
+<span class="o">#</span> <span class="n">You</span> <span class="k">do</span> <span class="n">need</span> <span class="k">to</span> <span class="n">talk</span> <span class="k">to</span> <span class="n">an</span> <span class="n">NTP</span> <span class="n">server</span> <span class="k">or</span> <span class="n">two</span> <span class="p">(</span><span class="k">or</span> <span class="n">three</span><span class="p">).</span>
+<span class="o">#</span><span class="n">server</span> <span class="n">ntp</span><span class="p">.</span><span class="n">your</span><span class="o">-</span><span class="n">provider</span><span class="p">.</span><span class="n">example</span>
+
+<span class="o">#</span> <span class="n">pool</span><span class="p">.</span><span class="n">ntp</span><span class="p">.</span><span class="n">org</span> <span class="n">maps</span> <span class="k">to</span> <span class="n">about</span> <span class="mi">1000</span> <span class="n">low</span><span class="o">-</span><span class="n">stratum</span> <span class="n">NTP</span> <span class="n">servers</span><span class="p">.</span>  <span class="n">Your</span> <span class="n">server</span> <span class="n">will</span>
+<span class="o">#</span> <span class="n">pick</span> <span class="n">a</span> <span class="n">different</span> <span class="k">set</span> <span class="k">every</span> <span class="k">time</span> <span class="n">it</span> <span class="n">starts</span> <span class="n">up</span><span class="p">.</span>  <span class="n">Please</span> <span class="n">consider</span> <span class="n">joining</span> <span class="n">the</span>
+<span class="o">#</span> <span class="n">pool</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="p">.</span><span class="n">pool</span><span class="p">.</span><span class="n">ntp</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="k">join</span><span class="p">.</span><span class="n">html</span><span class="o">&gt;</span>
+<span class="n">pool</span> <span class="mi">0</span><span class="p">.</span><span class="n">debian</span><span class="p">.</span><span class="n">pool</span><span class="p">.</span><span class="n">ntp</span><span class="p">.</span><span class="n">org</span> <span class="n">iburst</span>
+<span class="n">pool</span> <span class="mi">1</span><span class="p">.</span><span class="n">debian</span><span class="p">.</span><span class="n">pool</span><span class="p">.</span><span class="n">ntp</span><span class="p">.</span><span class="n">org</span> <span class="n">iburst</span>
+<span class="n">pool</span> <span class="mi">2</span><span class="p">.</span><span class="n">debian</span><span class="p">.</span><span class="n">pool</span><span class="p">.</span><span class="n">ntp</span><span class="p">.</span><span class="n">org</span> <span class="n">iburst</span>
+<span class="n">pool</span> <span class="mi">3</span><span class="p">.</span><span class="n">debian</span><span class="p">.</span><span class="n">pool</span><span class="p">.</span><span class="n">ntp</span><span class="p">.</span><span class="n">org</span> <span class="n">iburst</span>
+
+
+<span class="o">#</span> <span class="k">Access</span> <span class="n">control</span> <span class="n">configuration</span><span class="p">;</span> <span class="n">see</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">doc</span><span class="o">/</span><span class="n">ntp</span><span class="o">-</span><span class="n">doc</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">accopt</span><span class="p">.</span><span class="n">html</span> <span class="k">for</span>
+<span class="o">#</span> <span class="n">details</span><span class="p">.</span>  <span class="n">The</span> <span class="n">web</span> <span class="n">page</span> <span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">support</span><span class="p">.</span><span class="n">ntp</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="k">view</span><span class="o">/</span><span class="n">Support</span><span class="o">/</span><span class="n">AccessRestrictions</span><span class="o">&gt;</span>
+<span class="o">#</span> <span class="n">might</span> <span class="n">also</span> <span class="n">be</span> <span class="n">helpful</span><span class="p">.</span>
+<span class="o">#</span>
+<span class="o">#</span> <span class="n">Note</span> <span class="n">that</span> <span class="ss">&quot;restrict&quot;</span> <span class="n">applies</span> <span class="k">to</span> <span class="k">both</span> <span class="n">servers</span> <span class="k">and</span> <span class="n">clients</span><span class="p">,</span> <span class="n">so</span> <span class="n">a</span> <span class="n">configuration</span>
+<span class="o">#</span> <span class="n">that</span> <span class="n">might</span> <span class="n">be</span> <span class="n">intended</span> <span class="k">to</span> <span class="n">block</span> <span class="n">requests</span> <span class="k">from</span> <span class="n">certain</span> <span class="n">clients</span> <span class="n">could</span> <span class="n">also</span> <span class="k">end</span>
+<span class="o">#</span> <span class="n">up</span> <span class="n">blocking</span> <span class="n">replies</span> <span class="k">from</span> <span class="n">your</span> <span class="n">own</span> <span class="n">upstream</span> <span class="n">servers</span><span class="p">.</span>
+
+<span class="o">#</span> <span class="k">By</span> <span class="k">default</span><span class="p">,</span> <span class="n">exchange</span> <span class="k">time</span> <span class="k">with</span> <span class="n">everybody</span><span class="p">,</span> <span class="n">but</span> <span class="n">don</span><span class="err">&#39;</span><span class="n">t</span> <span class="n">allow</span> <span class="n">configuration</span><span class="p">.</span>
+<span class="k">restrict</span> <span class="o">-</span><span class="mi">4</span> <span class="k">default</span> <span class="n">kod</span> <span class="n">notrap</span> <span class="n">nomodify</span> <span class="n">nopeer</span> <span class="n">noquery</span> <span class="n">limited</span>
+<span class="k">restrict</span> <span class="o">-</span><span class="mi">6</span> <span class="k">default</span> <span class="n">kod</span> <span class="n">notrap</span> <span class="n">nomodify</span> <span class="n">nopeer</span> <span class="n">noquery</span> <span class="n">limited</span>
+
+<span class="o">#</span> <span class="k">Local</span> <span class="n">users</span> <span class="n">may</span> <span class="n">interrogate</span> <span class="n">the</span> <span class="n">ntp</span> <span class="n">server</span> <span class="k">more</span> <span class="n">closely</span><span class="p">.</span>
+<span class="k">restrict</span> <span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span>
+<span class="k">restrict</span> <span class="p">::</span><span class="mi">1</span>
+
+<span class="o">#</span> <span class="n">Needed</span> <span class="k">for</span> <span class="n">adding</span> <span class="n">pool</span> <span class="n">entries</span>
+<span class="k">restrict</span> <span class="k">source</span> <span class="n">notrap</span> <span class="n">nomodify</span> <span class="n">noquery</span>
+
+<span class="o">#</span> <span class="n">Clients</span> <span class="k">from</span> <span class="n">this</span> <span class="p">(</span><span class="n">example</span><span class="o">!</span><span class="p">)</span> <span class="n">subnet</span> <span class="n">have</span> <span class="n">unlimited</span> <span class="k">access</span><span class="p">,</span> <span class="n">but</span> <span class="k">only</span> <span class="k">if</span>
+<span class="o">#</span> <span class="n">cryptographically</span> <span class="n">authenticated</span><span class="p">.</span>
+<span class="o">#</span><span class="k">restrict</span> <span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">123</span><span class="p">.</span><span class="mi">0</span> <span class="n">mask</span> <span class="mi">255</span><span class="p">.</span><span class="mi">255</span><span class="p">.</span><span class="mi">255</span><span class="p">.</span><span class="mi">0</span> <span class="n">notrust</span>
+
+
+<span class="o">#</span> <span class="k">If</span> <span class="n">you</span> <span class="n">want</span> <span class="k">to</span> <span class="n">provide</span> <span class="k">time</span> <span class="k">to</span> <span class="n">your</span> <span class="k">local</span> <span class="n">subnet</span><span class="p">,</span> <span class="n">change</span> <span class="n">the</span> <span class="k">next</span> <span class="n">line</span><span class="p">.</span>
+<span class="o">#</span> <span class="p">(</span><span class="n">Again</span><span class="p">,</span> <span class="n">the</span> <span class="n">address</span> <span class="k">is</span> <span class="n">an</span> <span class="n">example</span> <span class="k">only</span><span class="p">.)</span>
+<span class="o">#</span><span class="n">broadcast</span> <span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">123</span><span class="p">.</span><span class="mi">255</span>
+
+<span class="o">#</span> <span class="k">If</span> <span class="n">you</span> <span class="n">want</span> <span class="k">to</span> <span class="k">listen</span> <span class="k">to</span> <span class="k">time</span> <span class="n">broadcasts</span> <span class="k">on</span> <span class="n">your</span> <span class="k">local</span> <span class="n">subnet</span><span class="p">,</span> <span class="n">de</span><span class="o">-</span><span class="k">comment</span> <span class="n">the</span>
+<span class="o">#</span> <span class="k">next</span> <span class="n">lines</span><span class="p">.</span>  <span class="n">Please</span> <span class="k">do</span> <span class="n">this</span> <span class="k">only</span> <span class="k">if</span> <span class="n">you</span> <span class="n">trust</span> <span class="n">everybody</span> <span class="k">on</span> <span class="n">the</span> <span class="n">network</span><span class="o">!</span>
+<span class="o">#</span><span class="n">disable</span> <span class="n">auth</span>
+<span class="o">#</span><span class="n">broadcastclient</span>
+</code></pre></div>
+
+<p>If needed, you can change the ntp servers to the ntp servers you want to use.</p>
+<p>Review the configuration and you will see cool things like giving the ntp service to other computers although you do not need it for passing LPIC.</p>
+<h3>ntpq</h3>
+<p>The <code>ntpq</code> queries the ntp service. One famous switch is <code>-p</code> (for Print) that shows the pool we are using to sync the clock:</p>
+<div class="highlight"><pre><span></span><code><span class="err"> ntpq -p</span>
+<span class="err">     remote           refid      st t when poll reach   delay   offset  jitter</span>
+<span class="err">==============================================================================</span>
+<span class="err"> 0.debian.pool.n .POOL.          16 p    -   64    0    0.000    0.000   0.000</span>
+<span class="err"> 1.debian.pool.n .POOL.          16 p    -   64    0    0.000    0.000   0.000</span>
+<span class="err"> 2.debian.pool.n .POOL.          16 p    -   64    0    0.000    0.000   0.000</span>
+<span class="err"> 3.debian.pool.n .POOL.          16 p    -   64    0    0.000    0.000   0.000</span>
+<span class="err">+46.209.14.1     192.168.5.2      4 u    7   64    1   58.300  -15.546  14.519</span>
+<span class="err">-ntp.tums.ac.ir  195.161.115.4    4 u    4   64    1   30.636    2.485   4.025</span>
+<span class="err">*194.225.150.25  194.190.168.1    2 u    5   64    1   31.478   -3.870  95.635</span>
+<span class="err">+5.160.24.41     192.168.5.2      4 u    3   64    1   90.000  -28.328  21.643</span>
+</code></pre></div>
+
+<p>In this output a <code>*</code> means that the ntp is using this server as the main reference, <code>+</code> means that this is a good server and <code>-</code> shows an out of range server which will be neglected.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:32:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#108-ref">108</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 103, " />
+
+<meta property="og:title" content="103.3 Perform basic file management "/>
+<meta property="og:url" content="/1033-perform-basic-file-management.html" />
+<meta property="og:description" content="103.3 Perform basic file management Weight: 4 Candidates should be able to use the basic Linux commands to manage files and directories. Objectives Copy, move and remove files and directories individually. Copy multiple files and directories recursively. Remove files and directories recursively. Use simple and advanced wildcard specifications in …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:12:00+02:00" />
+<meta name="twitter:title" content="103.3 Perform basic file management ">
+<meta name="twitter:description" content="103.3 Perform basic file management Weight: 4 Candidates should be able to use the basic Linux commands to manage files and directories. Objectives Copy, move and remove files and directories individually. Copy multiple files and directories recursively. Remove files and directories recursively. Use simple and advanced wildcard specifications in …">
+
+        <title>103.3 Perform basic file management  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1033-perform-basic-file-management.html">
+                103.3 Perform basic file management
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>103.3 Perform basic file management</h1>
+<p><em>Weight: 4</em></p>
+<p>Candidates should be able to use the basic Linux commands to manage files and directories.</p>
+<h2>Objectives</h2>
+<ul>
+<li>Copy, move and remove files and directories individually.</li>
+<li>Copy multiple files and directories recursively.</li>
+<li>Remove files and directories recursively.</li>
+<li>Use simple and advanced wildcard specifications in commands.</li>
+<li>Using find to locate and act on files based on type, size, or time.</li>
+<li>
+<p>Usage of tar, cpio and dd.</p>
+</li>
+<li>
+<p>cp</p>
+</li>
+<li>find</li>
+<li>mkdir</li>
+<li>mv</li>
+<li>ls</li>
+<li>rm</li>
+<li>rmdir</li>
+<li>touch</li>
+<li>tar</li>
+<li>cpio</li>
+<li>dd</li>
+<li>file</li>
+<li>gzip</li>
+<li>gunzip</li>
+<li>bzip2</li>
+<li>file globbing</li>
+</ul>
+<h2>ls</h2>
+<p>Is used to <em>list</em> directories &amp; files. It can use absolute and relative paths</p>
+<div class="highlight"><pre><span></span><code>$ ls -l
+total <span class="m">52</span>
+-rw-rw-r-- <span class="m">1</span> jadi jadi  <span class="m">146</span> Jan  <span class="m">5</span> <span class="m">08</span>:29 alldata
+-rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">30</span> Jan  <span class="m">5</span> <span class="m">09</span>:15 howcool.sort
+-rw-rw-r-- <span class="m">1</span> jadi jadi  <span class="m">204</span> Jan  <span class="m">5</span> <span class="m">08</span>:49 mydata
+-rw-rw-r-- <span class="m">1</span> jadi jadi  <span class="m">121</span> Jan  <span class="m">4</span> <span class="m">22</span>:07 mydata.tab
+drwxrwxr-x <span class="m">2</span> jadi jadi <span class="m">4096</span> Jan  <span class="m">8</span> <span class="m">16</span>:45 mydir
+-rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">70</span> Jan  <span class="m">5</span> <span class="m">08</span>:28 myfiles
+drwxrwxr-x <span class="m">2</span> jadi jadi <span class="m">4096</span> Jan  <span class="m">8</span> <span class="m">16</span>:46 newdir
+-rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">23</span> Jan  <span class="m">5</span> <span class="m">09</span>:06 sorttest.txt
+-rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">58</span> Jan  <span class="m">5</span> <span class="m">09</span>:14 uses
+</code></pre></div>
+
+<blockquote>
+<p>First field indicates if this is a file (-) or directory (d).</p>
+</blockquote>
+<ul>
+<li><code>-l</code> is for <em>long</em> (more info for each file)</li>
+<li><code>-1</code> will print one file per line</li>
+<li><code>-t</code> sorts based on modification date</li>
+<li><code>-r</code> reverses the search (so -tr is reverse time (newer files at the bottom).</li>
+</ul>
+<blockquote>
+<p>you can always mix switches. A famous one is <code>-ltrh</code> (long+human readable sizes+reverse time).</p>
+</blockquote>
+<h2>Copying, Moving &amp; Deleting</h2>
+<h4>cp</h4>
+<p>This will <em>copy</em> files from one place / name to another place / name. If the target is a directory, all sources will be copied there.</p>
+<div class="highlight"><pre><span></span><code><span class="err">cp source destination</span>
+</code></pre></div>
+
+<h4>mv</h4>
+<p>Will <em>move</em> or <em>rename</em> files or directories. It works like <code>cp</code> command. If you are moving a file on the same file system, the <strong>inode</strong> wont change.</p>
+<p>In general:
+- If the target is an existing directory, then all sources are copied into the target
+- If the target is a directory that does not exist, then the (single) source must also be a directory and a copy of the source directory and its contents is made with the target name as the new name
+- If the target is a file, then the (single) source must also be a file and a copy of the source file is made with the target name as the new name, replacing any existing file of the same name.</p>
+<p>But use common sense when answering questions or using <code>cp</code> and <code>mv</code> in real life.</p>
+<h4>rm</h4>
+<p>Removes (Deletes) <strong>files</strong>.</p>
+<h3>General notes</h3>
+<p>Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the <code>mv</code> will not move or rename a file if the target exists. Although this is highly dependent on your systems configuration. But in all cases you can overcome this using the <code>-f</code> switch.</p>
+<ul>
+<li><code>-f</code> (--force) will cause cp to try overwrite the target.</li>
+<li><code>-i</code> (--interactive) will ask Y/N question (deleting / overwriting).</li>
+<li><code>-b</code> (--backup) will make backups of overwritten files</li>
+<li><code>-p</code> will <em>preserve</em> the attributes.</li>
+</ul>
+<h2>Creating and removing directories</h2>
+<p>The <code>mkdir</code> command creates directories.</p>
+<div class="highlight"><pre><span></span><code>$ ls
+howcool.sort  uses.sort
+$ mkdir dirA dirB
+$ ls -ltrh
+total 16K
+-rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">30</span> Jan  <span class="m">8</span> <span class="m">16</span>:45 howcool.sort
+-rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">58</span> Jan  <span class="m">8</span> <span class="m">16</span>:45 uses.sort
+drwxrwxr-x <span class="m">2</span> jadi jadi <span class="m">4</span>.0K Jan  <span class="m">8</span> <span class="m">17</span>:11 dirB
+drwxrwxr-x <span class="m">2</span> jadi jadi <span class="m">4</span>.0K Jan  <span class="m">8</span> <span class="m">17</span>:11 dirA
+</code></pre></div>
+
+<ul>
+<li><code>-p</code> will create nested directories:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ mkdir newDir/insideNew/lastDir
+mkdir: cannot create directory ‘newDir/insideNew/lastDir’: No such file or directory
+$ mkdir -p newDir/insideNew/lastDir
+$ ls newDir/insideNew/ -ltrh
+total <span class="m">4</span>.0K
+drwxrwxr-x <span class="m">2</span> jadi jadi <span class="m">4</span>.0K Jan  <span class="m">8</span> <span class="m">17</span>:13 lastDir
+</code></pre></div>
+
+<p>If you need to delete a directory the command is <code>rmdir</code> and you can also use the -p for nested removing:</p>
+<div class="highlight"><pre><span></span><code>$ tree
+.
+├── dirA
+├── dirB
+├── howcool.sort
+└── uses.sort
+
+<span class="m">2</span> directories, <span class="m">2</span> files
+$ rmdir dirA dirB
+$ mkdir -p newDir/insideNew/lastDir
+$ tree
+.
+├── howcool.sort
+├── newDir
+│   └── insideNew
+│       └── lastDir
+└── uses.sort
+
+<span class="m">3</span> directories, <span class="m">2</span> files
+$ rmdir -p newDir/insideNew/lastDir
+$ tree
+.
+├── howcool.sort
+└── uses.sort
+
+<span class="m">0</span> directories, <span class="m">2</span> files
+</code></pre></div>
+
+<blockquote>
+<p>If you are using <code>rmdir</code> to remove a directory, it MUST BE EMPTY! although later we will see how you can erase directories using <code>rm</code> command.</p>
+</blockquote>
+<h2>Handling multiple files at once</h2>
+<p>Most of the times we need to work with more than one file. This is <em>Linux</em> and there are ways!</p>
+<h4>Recursive commands</h4>
+<p>Recursive means going inside and inside and inside and inside! In many commands -r or -R is dedicated to recursive commands. Say ls. It uses -R :</p>
+<div class="highlight"><pre><span></span><code>$ ls
+howcool.sort  newDir  uses.sort
+$ ls -R
+.:
+howcool.sort  newDir  uses.sort
+
+./newDir:
+insideNew  TestFile
+
+./newDir/insideNew:
+lastDir
+
+./newDir/insideNew/lastDir:
+</code></pre></div>
+
+<p>It is more useful when you are copying or deleting. When using <code>cp</code> or <code>rm</code>, -r (or -R or --recursive) will copy/delete all files inside the given source.</p>
+<div class="highlight"><pre><span></span><code>$ tree mydir
+mydir
+├── howcool.sort
+├── newDir
+│   ├── insideNew
+│   │   └── lastDir
+│   └── TestFile
+└── uses.sort
+
+<span class="m">3</span> directories, <span class="m">3</span> files
+$ mkdir newCopy
+$ cp mydir newCopy
+cp: omitting directory ‘mydir’
+$ cp -r mydir newCopy
+$ tree newCopy/
+newCopy/
+└── mydir
+    ├── howcool.sort
+    ├── newDir
+    │   ├── insideNew
+    │   │   └── lastDir
+    │   └── TestFile
+    └── uses.sort
+
+<span class="m">4</span> directories, <span class="m">3</span> files
+</code></pre></div>
+
+<p>Same works with <code>rm</code>:</p>
+<div class="highlight"><pre><span></span><code>$ rm newCopy
+rm: cannot remove ‘newCopy’: Is a directory
+$ rm -r newCopy
+</code></pre></div>
+
+<p>As you can see we can not <code>rm</code> a folder but if using -r (or -R or --recursive) it works because it deletes the dir and whatever inside it.</p>
+<blockquote>
+<p><code>rm -rf /</code> is EXTREMELY DANGEROUS: force delete whatever in /</p>
+</blockquote>
+<h4>Wildcards and globbing</h4>
+<p>This is a way to say <strong>All files</strong> or <strong>everything which starts with A</strong> or <strong>all files with 3 letter names which end in A or B or C</strong>.</p>
+<p>There are main cases:</p>
+<ul>
+<li><code>*</code> means <strong>any string</strong></li>
+<li><code>?</code> means any single character</li>
+<li><code>[ABC]</code> matches A, B &amp; C</li>
+<li><code>[a-k]</code> matches a, b, c, ..., k (both lower-case and capital)</li>
+<li><code>[0-9a-z]</code> matches all digits and numbers</li>
+<li><code>[!x]</code> means NOT X.</li>
+</ul>
+<p>So... this means that you can use these patterns in your commands to point to these files:</p>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rm *</td>
+<td>delete all files</td>
+</tr>
+<tr>
+<td>ls A*B</td>
+<td>all files starting with A ending with B</td>
+</tr>
+<tr>
+<td>cp ???.* /tmp</td>
+<td>Copy all files with 3 characters, then a dot then whatever (even nothing) to /tmp</td>
+</tr>
+<tr>
+<td>rmdir [a-z]*</td>
+<td>remove all directories which start with a letter</td>
+</tr>
+</tbody>
+</table>
+<h2>touch</h2>
+<p>The <code>touch</code> command with no option will update the <strong>modification</strong> date of a file to the current time (will create a file if it is not exists).</p>
+<div class="highlight"><pre><span></span><code><span class="err">/touch$ ls -l</span>
+<span class="err">total 0</span>
+<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  8 17:47 myfile</span>
+<span class="err">/touch$ touch myfile  #after a minute</span>
+<span class="err">/touch$ ls -l</span>
+<span class="err">total 0</span>
+<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  8 17:48 myfile</span>
+</code></pre></div>
+
+<p>There are also possible:</p>
+<div class="highlight"><pre><span></span><code><span class="err">[ian@echidna lpi103-2]$ touch -t 200908121510.59 f3</span>
+<span class="err">[ian@echidna lpi103-2]$ touch -d 11am f4</span>
+<span class="err">[ian@echidna lpi103-2]$ touch -d &quot;last fortnight&quot; f5</span>
+<span class="err">[ian@echidna lpi103-2]$ touch -d &quot;yesterday 6am&quot; f6</span>
+<span class="err">[ian@echidna lpi103-2]$ touch -d &quot;2 days ago 12:00&quot; f7</span>
+<span class="err">[ian@echidna lpi103-2]$ touch -d &quot;tomorrow 02:00&quot; f8</span>
+<span class="err">[ian@echidna lpi103-2]$ touch -d &quot;5 Nov&quot; f9</span>
+<span class="err">[ian@echidna lpi103-2]$ ls -lrt f*</span>
+<span class="err">-rw-rw-r--. 1 ian ian 0 2009-07-31 18:31 f5</span>
+<span class="err">-rw-rw-r--. 1 ian ian 0 2009-08-12 12:00 f7</span>
+<span class="err">-rw-rw-r--. 1 ian ian 0 2009-08-12 15:10 f3</span>
+<span class="err">-rw-rw-r--. 1 ian ian 0 2009-08-13 06:00 f6</span>
+<span class="err">-rw-rw-r--. 1 ian ian 0 2009-08-14 11:00 f4</span>
+<span class="err">-rw-rw-r--. 1 ian ian 4 2009-08-14 18:25 f1</span>
+<span class="err">-rw-rw-r--. 1 ian ian 0 2009-08-14 18:27 f2</span>
+<span class="err">-rw-rw-r--. 1 ian ian 0 2009-08-15 02:00 f8</span>
+<span class="err">-rw-rw-r--. 1 ian ian 0 2009-11-05 00:00 f9</span>
+</code></pre></div>
+
+<p>and the most advanced way is setting time of a file based on another file:</p>
+<div class="highlight"><pre><span></span><code><span class="err">[ian@echidna lpi103-2]$ date</span>
+<span class="err">Fri Aug 14 18:33:48 EDT 2009</span>
+<span class="err">[ian@echidna lpi103-2]$ date -r f1</span>
+<span class="err">Fri Aug 14 18:25:50 EDT 2009</span>
+<span class="err">[ian@echidna lpi103-2]$ touch -r f1 f1a</span>
+<span class="err">[ian@echidna lpi103-2]$ ls -l f1*</span>
+<span class="err">-rw-rw-r--. 1 ian ian 4 2009-08-14 18:25 f1</span>
+<span class="err">-rw-rw-r--. 1 ian ian 0 2009-08-14 18:25 f1a</span>
+</code></pre></div>
+
+<h2>Finding files</h2>
+<p>The <code>find</code> command helps us to find files based on MANY criteria. Look at this:</p>
+<div class="highlight"><pre><span></span><code>$ find . -iname <span class="s2">&quot;[a-j]*&quot;</span>
+./howcool.sort
+./alldata
+./mydir/howcool.sort
+./mydir/newDir/insideNew
+./howcool
+</code></pre></div>
+
+<ul>
+<li>the first parameter says where should be searched (with subdirectories).</li>
+<li>the <code>-name</code> switch indicates the criteria (here iname: searching for files with this name).</li>
+</ul>
+<p>a common switch is <code>-iname</code> which says "name but case is not important (z is same as Z)". Also <code>-d</code> is commonly used:</p>
+<div class="highlight"><pre><span></span><code>$ find . -iname <span class="s2">&quot;*my*&quot;</span>
+./myfiles
+./mydata.noenter
+./mydata
+./mydir
+./mydir/hereisMYfile.txt
+./touch/myfile
+./mydata.tab
+$ find . -type f -iname <span class="s2">&quot;*my*&quot;</span>
+./myfiles
+./mydata.noenter
+./mydata
+./mydir/hereisMYfile.txt
+./touch/myfile
+./mydata.tab
+</code></pre></div>
+
+<p>These are the most common file types:</p>
+<ul>
+<li><code>-type f</code> will search for a regular file</li>
+<li><code>-type d</code> will search for a directory</li>
+<li><code>-type l</code> will search for a symbolic link</li>
+</ul>
+<p>you can also search for file sizes:</p>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>meanint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-size 100c</td>
+<td>files which are exactly 100 bytes (you can also use <strong>b</strong></td>
+</tr>
+<tr>
+<td>-size +100k</td>
+<td>files which are more than 100 kilobytes</td>
+</tr>
+<tr>
+<td>-size -20M</td>
+<td>files smaller than 20Megabytes</td>
+</tr>
+<tr>
+<td>-size +2G</td>
+<td>files bigger than 2Gigabytes</td>
+</tr>
+</tbody>
+</table>
+<p>So this will find all files ending in <em>tmp</em> with size between 1M and 100M in /var/ directory:</p>
+<div class="highlight"><pre><span></span><code><span class="err">find /var -iname &#39;*tmp* -size +1M -size -100M</span>
+</code></pre></div>
+
+<blockquote>
+<p>you can find all empty files with <code>find . -size 0b</code> or <code>find . -empty</code></p>
+</blockquote>
+<h4>Acting on files</h4>
+<p>We can act on files with various switches:</p>
+<table>
+<thead>
+<tr>
+<th>switch</th>
+<th>meanint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-ls</td>
+<td>will run ls -dils on each file</td>
+</tr>
+<tr>
+<td>-print</td>
+<td>will print the full name of the files on each line</td>
+</tr>
+</tbody>
+</table>
+<p>But the best way to run commands on found files is <code>-exec</code> switch. You can point to the file with <strong>'{}'</strong> or <strong>{}</strong> and finish your command with <strong>\;</strong>.</p>
+<p>This will remove all empty files in this directory and its subdirectories:</p>
+<div class="highlight"><pre><span></span><code><span class="err">find . -empty -exec rm &#39;{}&#39; \;</span>
+</code></pre></div>
+
+<p>or this will rename all htm files to html</p>
+<div class="highlight"><pre><span></span><code><span class="err">find . -name &quot;*.htm&quot; -exec mv &#39;{}&#39; &#39;{}l&#39; \;</span>
+</code></pre></div>
+
+<p>At last you have to know the <code>-mtime</code> switch for finding files based on their time.</p>
+<table>
+<thead>
+<tr>
+<th>switch</th>
+<th>meanint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-atime -6</td>
+<td>file was last accessed less than 6*24 hours ago</td>
+</tr>
+<tr>
+<td>-ctime +6</td>
+<td>file was changed more than 6*24 hours ago</td>
+</tr>
+<tr>
+<td>-mtime -6</td>
+<td>file <em>content</em> moditication less than time is 6*24 ago</td>
+</tr>
+<tr>
+<td>-mmin -90</td>
+<td>file's data was last modified less than 90 minutes ago</td>
+</tr>
+<tr>
+<td>-amin, -cmin</td>
+<td>you guess!</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>if you add <code>-daystart</code> switch to -mtime or -atime it means that we want to consider days as calendar days, starting at midnight.</p>
+</blockquote>
+<h2>Identify a file</h2>
+<p>That is the <code>file</code> command:</p>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="n">mydata</span><span class="p">.</span><span class="n">tab</span><span class="w"></span>
+<span class="n">mydata</span><span class="p">.</span><span class="nl">tab</span><span class="p">:</span><span class="w"> </span><span class="nf">ASCII</span><span class="w"> </span><span class="nc">text</span><span class="w"></span>
+<span class="err">$</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span><span class="w"></span>
+<span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="nl">bash</span><span class="p">:</span><span class="w"> </span><span class="n">ELF</span><span class="w"> </span><span class="mi">64</span><span class="o">-</span><span class="nc">bit</span><span class="w"> </span><span class="n">LSB</span><span class="w"> </span><span class="n">executable</span><span class="p">,</span><span class="w"> </span><span class="n">x86</span><span class="o">-</span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">(</span><span class="n">SYSV</span><span class="p">),</span><span class="w"> </span><span class="n">dynamically</span><span class="w"> </span><span class="n">linked</span><span class="w"> </span><span class="p">(</span><span class="n">uses</span><span class="w"> </span><span class="n">shared</span><span class="w"> </span><span class="n">libs</span><span class="p">),</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">GNU</span><span class="o">/</span><span class="n">Linux</span><span class="w"> </span><span class="mf">2.6.32</span><span class="p">,</span><span class="w"> </span><span class="n">BuildID</span><span class="o">[</span><span class="n">sha1</span><span class="o">]=</span><span class="n">cb63ec0718f2022619814c04a5b6cd8a36752a83</span><span class="p">,</span><span class="w"> </span><span class="n">stripped</span><span class="w"></span>
+<span class="err">$</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="n">mydata</span><span class="p">.</span><span class="n">tab</span><span class="w"></span>
+<span class="n">mydata</span><span class="p">.</span><span class="nl">tab</span><span class="p">:</span><span class="w"> </span><span class="nf">ASCII</span><span class="w"> </span><span class="nc">text</span><span class="w"></span>
+<span class="err">$</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span><span class="w"></span>
+<span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="nl">bash</span><span class="p">:</span><span class="w"> </span><span class="n">ELF</span><span class="w"> </span><span class="mi">64</span><span class="o">-</span><span class="nc">bit</span><span class="w"> </span><span class="n">LSB</span><span class="w"> </span><span class="n">executable</span><span class="p">,</span><span class="w"> </span><span class="n">x86</span><span class="o">-</span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">(</span><span class="n">SYSV</span><span class="p">),</span><span class="w"> </span><span class="n">dynamically</span><span class="w"> </span><span class="n">linked</span><span class="w"> </span><span class="p">(</span><span class="n">uses</span><span class="w"> </span><span class="n">shared</span><span class="w"> </span><span class="n">libs</span><span class="p">),</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">GNU</span><span class="o">/</span><span class="n">Linux</span><span class="w"> </span><span class="mf">2.6.32</span><span class="p">,</span><span class="w"> </span><span class="n">BuildID</span><span class="o">[</span><span class="n">sha1</span><span class="o">]=</span><span class="n">cb63ec0718f2022619814c04a5b6cd8a36752a83</span><span class="p">,</span><span class="w"> </span><span class="n">stripped</span><span class="w"></span>
+<span class="err">$</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">mydir</span><span class="w"></span>
+<span class="nl">mydir</span><span class="p">:</span><span class="w"> </span><span class="n">inode</span><span class="o">/</span><span class="n">directory</span><span class="p">;</span><span class="w"> </span><span class="n">charset</span><span class="o">=</span><span class="nc">binary</span><span class="w"></span>
+</code></pre></div>
+
+<blockquote>
+<p>-i switch prints the complete mime format</p>
+</blockquote>
+<h2>Compressing files</h2>
+<p>Compressing works best on text files.</p>
+<h4>zip</h4>
+<p>we mostly use <code>gzip</code> and <code>gunzip</code> in linux. It is very easy:</p>
+<div class="highlight"><pre><span></span><code>$ ls *  -ltrh
+-rw-r--r-- <span class="m">1</span> jadi jadi  79K Dec <span class="m">22</span> <span class="m">11</span>:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+$ gzip  The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+$ ls *  -ltrh
+-rw-r--r-- <span class="m">1</span> jadi jadi  30K Dec <span class="m">22</span> <span class="m">11</span>:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz
+$ gunzip The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz
+$ ls *  -ltrh
+-rw-r--r-- <span class="m">1</span> jadi jadi  79K Dec <span class="m">22</span> <span class="m">11</span>:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+</code></pre></div>
+
+<ul>
+<li>gzip preserves time</li>
+<li>gzip creates the new compressed file with the same name but with .gz ending</li>
+<li>gzip removes the original files after creating the compressed file</li>
+</ul>
+<h4>bzip2</h4>
+<p>is another compressing tool. Works just the same but with another compression algorithm.</p>
+<div class="highlight"><pre><span></span><code>$ ls *  -ltrh
+-rw-r--r-- <span class="m">1</span> jadi jadi  79K Dec <span class="m">22</span> <span class="m">11</span>:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+$ bzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+$ ls *  -ltrh
+-rw-r--r-- <span class="m">1</span> jadi jadi  22K Dec <span class="m">22</span> <span class="m">11</span>:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2
+$ bunzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2
+$ ls *  -ltrh
+-rw-r--r-- <span class="m">1</span> jadi jadi  79K Dec <span class="m">22</span> <span class="m">11</span>:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+</code></pre></div>
+
+<h2>Archiving files</h2>
+<p>Sometimes we need to create an archive file from many files for easier moving or backing up. This is done with <code>cpio</code> and <code>tar</code>.</p>
+<h4>tar</h4>
+<p>TapeARchive or tar is the most common archiving tool. In automatically create an archive file from a directory and all its subdirs.</p>
+<p>Common switches are</p>
+<table>
+<thead>
+<tr>
+<th>switch</th>
+<th>meanint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-cf myarchive.tar</td>
+<td>create file named myarchive.tar</td>
+</tr>
+<tr>
+<td>-xf myarchive.tar</td>
+<td>extract a file called myarchive.tar</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>compress the archive with gzip after creating it</td>
+</tr>
+<tr>
+<td>-b</td>
+<td>compress the archive with bzip2 after creating it</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>verbose! print a lot of data about what you are doing</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>append new files to the currentyp available archive</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>If you issue absolute paths, tar removes the starting slash (/) for safety reasons when creating an archive. If you want to override, use -p option.</p>
+<p>tar can work with tapes and other storages. Thats why we use <code>-f</code> to tell it that we are working with files.</p>
+</blockquote>
+<h4>cpio</h4>
+<p>Gets a list of files and creates archive (one file) of it which can be opened later.</p>
+<div class="highlight"><pre><span></span><code>$ ls <span class="p">|</span> cpio -o &gt; allfilesls.cpio
+<span class="m">3090354</span> blocks
+</code></pre></div>
+
+<ul>
+<li><code>-o</code> makes cpio to create an output from its input</li>
+<li>cpio does not goes into the folders. So mostly we use it with find:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">find . -name &quot;*&quot; | cpio -o &gt; myarchivefind.cpio</span>
+</code></pre></div>
+
+<p>to decompress it:</p>
+<div class="highlight"><pre><span></span><code><span class="err">mkdir extract</span>
+<span class="err">mv myarchivefind.cpio extract</span>
+<span class="err">cd extract</span>
+<span class="err">cpio -id &lt; myarchivefind.cpio</span>
+</code></pre></div>
+
+<ul>
+<li><code>-d</code> will create the folders</li>
+<li><code>-i</code> is for extract</li>
+</ul>
+<h2>dd</h2>
+<p>The <code>dd</code> command copies data from one location to another. This data comes from files. You can use it just like copy:</p>
+<div class="highlight"><pre><span></span><code>$ cat howcool
+jadi    <span class="m">5</span>
+sina    <span class="m">6</span>
+rubic   <span class="m">2</span>
+you     <span class="m">12</span>
+$ dd <span class="k">if</span><span class="o">=</span>howcool <span class="nv">of</span><span class="o">=</span>newcool
+<span class="m">0</span>+1 records in
+<span class="m">0</span>+1 records out
+<span class="m">30</span> bytes <span class="o">(</span><span class="m">30</span> B<span class="o">)</span> copied, <span class="m">0</span>.0227904 s, <span class="m">1</span>.3 kB/s
+$ cat newcool
+jadi    <span class="m">5</span>
+sina    <span class="m">6</span>
+rubic   <span class="m">2</span>
+you     <span class="m">12</span>
+$
+</code></pre></div>
+
+<ul>
+<li><code>if</code> is In File</li>
+<li><code>of</code> is Out File</li>
+</ul>
+<p>But it is used in many other cases specially writing directly to block devices such as /dev/sdb or changing data to upper/lower case.</p>
+<p>This will backup my whole hard to a file:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># dd if=/dev/sda of=backup.dd bs=4096</span>
+</code></pre></div>
+
+<p>or better:</p>
+<div class="highlight"><pre><span></span><code><span class="err"># dd if=/dev/sda2 |gzip &gt;backup.dd.gzip</span>
+</code></pre></div>
+
+<p>Another common usage is creating files of specific size:</p>
+<div class="highlight"><pre><span></span><code>$ dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>1g.bin <span class="nv">bs</span><span class="o">=</span>1G <span class="nv">count</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div>
+
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:12:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#103-ref">103</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

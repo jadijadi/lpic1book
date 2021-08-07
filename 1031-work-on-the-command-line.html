@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 103, " />
+
+<meta property="og:title" content="103.1 Work on the command line "/>
+<meta property="og:url" content="/1031-work-on-the-command-line.html" />
+<meta property="og:description" content="103.1 Work on the command line Weight: 4 Description: Candidates should be able to interact with shells and commands using the command line. The objective assumes the bash shell. Objectives Use single shell commands and one line command sequences to perform basic tasks on command line. Use and modify …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:10:00+02:00" />
+<meta name="twitter:title" content="103.1 Work on the command line ">
+<meta name="twitter:description" content="103.1 Work on the command line Weight: 4 Description: Candidates should be able to interact with shells and commands using the command line. The objective assumes the bash shell. Objectives Use single shell commands and one line command sequences to perform basic tasks on command line. Use and modify …">
+
+        <title>103.1 Work on the command line  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1031-work-on-the-command-line.html">
+                103.1 Work on the command line
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>103.1 Work on the command line</h1>
+<p><em>Weight: 4</em></p>
+<p>Description: Candidates should be able to interact with shells and commands using the command line. The objective assumes the bash shell.</p>
+<h2>Objectives</h2>
+<ul>
+<li>Use single shell commands and one line command sequences to perform basic tasks on command line.</li>
+<li>Use and modify the shell environment including defining, referencing and exporting environment variables.</li>
+<li>Use and edit command history.</li>
+<li>
+<p>Invoke commands inside and outside the defined path.</p>
+</li>
+<li>
+<p>. and ..</p>
+</li>
+<li>bash</li>
+<li>echo</li>
+<li>env</li>
+<li>exec</li>
+<li>export</li>
+<li>pwd</li>
+<li>set</li>
+<li>unset</li>
+<li>man</li>
+<li>uname</li>
+<li>history</li>
+</ul>
+<h3>Bash</h3>
+<p>As any other thing Linux, you can choose your shell too (by shell I mean the command line interface). <strong>Bash</strong> in the most common one.</p>
+<p>Some commands are build in (cd, break, exec) and it uses streams:</p>
+<ul>
+<li><strong>stdin</strong> is the standard input stream, which provides input to commands.</li>
+<li><strong>stdout</strong> is the standard output stream, which displays output from commands.</li>
+<li><strong>stderr</strong> is the standard error stream, which displays error output from commands.</li>
+</ul>
+<p>User Prompts are like these:</p>
+<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~$</span>
+<span class="err">[jadi@funlife lpic1]$</span>
+<span class="err">$</span>
+</code></pre></div>
+
+<blockquote>
+<p>in most cases, root users prompt uses # instead of $ (say: <code>root@funlife:/etc#</code>).</p>
+</blockquote>
+<p>Global bash configs are stored at /etc/profile and each user has her own config at ~/.profile &amp; ~/.bash_profile &amp; ~/.bash_logout</p>
+<h3>Commands and sequences</h3>
+<p>Most commands have a <em>command name</em> and some <em>parameters</em>. A simple one is the <code>`echo</code> command:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span>
+
+$ <span class="nb">echo</span> Hello lpic
+Hello lpic
+$ <span class="nb">echo</span> Hello lpic <span class="c1">#just a simple hi</span>
+Hello lpic
+</code></pre></div>
+
+<blockquote>
+<p>Note: the # is for <em>comments</em>. Anything after it is comment.</p>
+</blockquote>
+<h4>escaped characters</h4>
+<p>Some special characters need special case in programming and linux world. Say you want to go to the new line during an echo command.</p>
+<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~$ echo -e &quot;hello\nthere&quot;</span>
+<span class="err">hello</span>
+<span class="err">there</span>
+</code></pre></div>
+
+<p>| Escape sequence   Function |
+|---|---|
+| \a |  Alert (bell) |
+| \b |  Backspace |
+| \c |  Suppress trailing newline (same function as -n option) |
+| \f |  Form feed (clear the screen on a video display) |
+| \n |  New line |
+| \r |  Carriage return |
+| \t |  Horizontal tab |</p>
+<blockquote>
+<p>Note: you can use \ to break a command in many lines:</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> but this <span class="se">\</span>
+&gt; is another <span class="se">\</span>
+&gt; usage
+but this is another usage
+</code></pre></div>
+
+<h4>metacharacters and Control operators</h4>
+<p>Also there are characters with special meaning. You need to escape then if you need them in your commands: <strong>| &amp; ; ( ) &lt; &gt;</strong>*</p>
+<p>There is also control operators. They also have special meanings: <strong> || &amp;&amp; &amp; ; ;; | ( )</strong></p>
+<p>The most important ones are ; (do one by one), &amp;&amp; (logical and) and || (logical or).</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> line <span class="m">1</span><span class="p">;</span><span class="nb">echo</span> line <span class="m">2</span><span class="p">;</span> <span class="nb">echo</span> line <span class="m">3</span>
+line <span class="m">1</span>
+line <span class="m">2</span>
+line <span class="m">3</span>
+
+$ <span class="nb">echo</span> line <span class="m">1</span><span class="o">&amp;&amp;</span><span class="nb">echo</span> line <span class="m">2</span><span class="o">&amp;&amp;</span><span class="nb">echo</span> line <span class="m">3</span>
+line <span class="m">1</span>
+line <span class="m">2</span>
+line <span class="m">3</span>
+
+$ <span class="nb">echo</span> line <span class="m">1</span><span class="o">||</span><span class="nb">echo</span> line <span class="m">2</span><span class="p">;</span> <span class="nb">echo</span> line <span class="m">3</span>
+line <span class="m">1</span>
+line <span class="m">3</span>
+</code></pre></div>
+
+<h2>exiting shell</h2>
+<p>the <code>exit</code> command exits the shell. Same as ctrl+d.</p>
+<p>if you run a command inside parentheses that command will be run inside a sub-shell.</p>
+<p>and <code>exec</code> will run a command and closes the current shell.</p>
+<h2>Environment variables</h2>
+<p>Concept of EV.</p>
+<p>Every variable has name and a value. echo the name with a $ in front of it.</p>
+<p>Some common ones are:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USER</td>
+<td>The name of the logged-in user</td>
+</tr>
+<tr>
+<td>UID</td>
+<td>The numeric user id of the logged-in user</td>
+</tr>
+<tr>
+<td>HOME</td>
+<td>The user's home directory</td>
+</tr>
+<tr>
+<td>PWD</td>
+<td>The current working directory</td>
+</tr>
+<tr>
+<td>SHELL</td>
+<td>The name of the shell</td>
+</tr>
+<tr>
+<td>$</td>
+<td>The process id (or PIDof the running bash shell (or other) process</td>
+</tr>
+<tr>
+<td>PPID</td>
+<td>The process id of the process that started this process (that is, the id of the parent process)</td>
+</tr>
+<tr>
+<td>?</td>
+<td>The exit code of the last command</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="nv">$USER</span> <span class="nv">$UID</span>
+jadi <span class="m">1000</span>
+<span class="nv">$SHELL</span> <span class="nv">$HOME</span> <span class="nv">$PWD</span>
+/bin/bash /home/jadi /home/jadi/lpic
+$ <span class="o">(</span><span class="nb">exit</span> <span class="m">0</span><span class="o">)</span><span class="p">;</span><span class="nb">echo</span> <span class="nv">$?</span><span class="p">;</span><span class="o">(</span><span class="nb">exit</span> <span class="m">4</span><span class="o">)</span><span class="p">;</span><span class="nb">echo</span> <span class="nv">$?</span>
+<span class="m">0</span>
+<span class="m">4</span>
+$ <span class="nb">echo</span> <span class="nv">$$</span> <span class="nv">$PPID</span>
+<span class="m">2559</span> <span class="m">2558</span>
+</code></pre></div>
+
+<p>And this is the way to define a EV:</p>
+<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~$ MYMOOD=happy</span>
+<span class="err">jadi@funlife:~$ echo I am $MYMOOD</span>
+<span class="err">I am happy</span>
+</code></pre></div>
+
+<p>if we <code>export</code> a variable, it will be available for other programs starting from that shell.</p>
+<blockquote>
+<p>Note: sometimes you may need to use { and } to describe a variable:</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="s2">&quot;-</span><span class="nv">$HOME</span><span class="s2">/abc-&quot;</span>
+-/home/jadi/abc-
+$ <span class="nb">echo</span> <span class="s2">&quot;-</span><span class="nv">$HOME_abc</span><span class="s2">-&quot;</span>
+--
+$ <span class="nb">echo</span> <span class="s2">&quot;-</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">_abc-&quot;</span>
+-/home/jadi_abc-
+</code></pre></div>
+
+<h3>env, set, unset</h3>
+<p>the <code>env</code> shows current EVs. It can also be used to run a command in a specific environment.</p>
+<p>set is a bit more complicated. it can configure how your bash behaves.
+unset, unsets a variable.</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="nv">$-</span>
+himBH
+$ <span class="nb">echo</span> <span class="nv">$VAR1</span>
+
+$ <span class="nb">set</span> -u<span class="p">;</span><span class="nb">echo</span> <span class="nv">$-</span>
+himuBH
+$ <span class="nb">echo</span> <span class="nv">$VAR1</span>
+-bash: VAR1: unbound variable
+$ <span class="nv">VAR1</span><span class="o">=</span>v1<span class="p">;</span><span class="nb">echo</span> <span class="nv">$VAR1</span>
+v1
+$ <span class="nb">unset</span> VAR1<span class="p">;</span><span class="nb">echo</span> <span class="nv">$VAR1</span>
+-bash: VAR1: unbound variable
+</code></pre></div>
+
+<blockquote>
+<p>Note: if you use <code>set</code> with no parameter, it shows the EVs.</p>
+</blockquote>
+<h2>uname</h2>
+<p>gives you data about the system. Common switches are:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-s</td>
+<td>Print the kernel name. This is the default if no option is specified.</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>Print the nodename or hostname.</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>Print the release of the kernel. This option is often used with module-handling commands.</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>Print the version of the kernel.</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>Print the machine's hardware (CPU) name.</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>Print the operating system name.</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>Print all of the above information.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>$ uname -a
+Linux funlife <span class="m">3</span>.16.0-28-generic <span class="c1">#38-Ubuntu SMP Fri Dec 12 17:37:40 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux</span>
+</code></pre></div>
+
+<h2>history</h2>
+<p>The bash, saves the commands you issue in a file defined in <strong>HISTFILE</strong> ev. the <code>history</code> shows the full command history (500 commands normally but can be changes in HISTSIZE).</p>
+<p>There are also some shortcuts:
+- <code>history 20</code> shows last 20 commands
+- <code>!!</code> last command
+- <code>!string</code> most recent command that starts with string
+- <code>!?string?</code> most recent command that contains string</p>
+<p>when you logout, all these are saved in .bash_history</p>
+<h2>Paths</h2>
+<p>External commands are just files on disks. So where does bash knows where to find commands?</p>
+<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~$ echo $PATH</span>
+<span class="err">/home/jadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games</span>
+</code></pre></div>
+
+<p>and this gives me some more data:</p>
+<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~$ which tar</span>
+<span class="err">/bin/tar</span>
+<span class="err">jadi@funlife:~$ type tar</span>
+<span class="err">tar is /bin/tar</span>
+<span class="err">jadi@funlife:~$ whereis tar</span>
+<span class="c">tar: /usr/lib/tar /bin/tar /usr/include/tar.h /usr/share/man/man1/tar.1.gz</span>
+</code></pre></div>
+
+<h4>running other commands</h4>
+<ul>
+<li>It is possible to add to my path</li>
+<li>give the full path</li>
+<li>give the relative path (. &amp; ..)</li>
+</ul>
+<h2>cd &amp; pwd</h2>
+<p><code>cd``` will change directories (including .. and .) and</code>pwd```` tells where you are at the moment.</p>
+<h2>man pages</h2>
+<p>the best linux help you can find.-</p>
+<div class="highlight"><pre><span></span><code>$ man ping
+PING<span class="o">(</span><span class="m">8</span><span class="o">)</span>                                                            System Manager<span class="s1">&#39;s Manual: iputils                                                           PING(8)</span>
+
+<span class="s1">NAME</span>
+<span class="s1">       ping, ping6 - send ICMP ECHO_REQUEST to network hosts</span>
+
+<span class="s1">SYNOPSIS</span>
+<span class="s1">       ping  [-aAbBdDfhLnOqrRUvV]  [-c  count] [-F flowlabel] [-i interval] [-I interface] [-l preload] [-m mark] [-M pmtudisc_option] [-N nodeinfo_option] [-w dead‐</span>
+<span class="s1">       line] [-W timeout] [-p pattern] [-Q tos] [-s packetsize] [-S sndbuf] [-t ttl] [-T timestamp option] [hop ...] destination</span>
+
+<span class="s1">DESCRIPTION</span>
+<span class="s1">       ping uses the ICMP protocol&#39;</span>s mandatory ECHO_REQUEST datagram to elicit an ICMP ECHO_RESPONSE from a host or gateway.  ECHO_REQUEST datagrams <span class="o">(</span><span class="sb">``</span>pings<span class="s1">&#39;&#39;</span><span class="o">)</span> have
+       an IP and ICMP header, followed by a struct timeval and <span class="k">then</span> an arbitrary number of <span class="sb">``</span>pad<span class="s1">&#39;&#39;</span> bytes used to fill out the packet.
+
+       ping6  is  IPv6  version of ping, and can also send Node Information Queries <span class="o">(</span>RFC4620<span class="o">)</span>.  Intermediate hops may not be allowed, because IPv6 <span class="nb">source</span> routing was
+       deprecated <span class="o">(</span>RFC5095<span class="o">)</span>.
+
+OPTIONS
+       -a     Audible ping.
+
+       -A     Adaptive ping. Interpacket interval adapts to round-trip time, so that effectively not more than one <span class="o">(</span>or more, <span class="k">if</span> preload is <span class="nb">set</span><span class="o">)</span> unanswered  probe  is
+              present in the network. Minimal interval is 200msec <span class="k">for</span> not super-user.  On networks with low rtt this mode is essentially equivalent to flood mode.
+
+       -b     Allow pinging a broadcast address.
+
+       -B     Do not allow ping to change <span class="nb">source</span> address of probes.  The address is bound to one selected when ping starts.
+
+       -c count
+              Stop after sending count ECHO_REQUEST packets. With deadline option, ping waits <span class="k">for</span> count ECHO_REPLY packets, <span class="k">until</span> the timeout expires.
+...
+</code></pre></div>
+
+<p>As you can see, on top:
+- Name of the command and section
+- name and related commands in this section
+- options and formats
+- short description
+- detailed info</p>
+<p>and at the end bug reporting, files, related commands and authors.</p>
+<p>There are 9 man sections:</p>
+<ol>
+<li>User commands (env, ls, echo, mkdir, tty)</li>
+<li>System calls or kernel functions (link, sethostname, mkdir)</li>
+<li>Library routines (acosh, asctime, btree, locale, XML::Parser)</li>
+<li>Device related information (isdn_audio, mouse, tty, zero)</li>
+<li>File format descriptions (keymaps, motd, wvdial.conf)</li>
+<li>Games (note that many games are now graphical and have graphical help outside the man page system)</li>
+<li>Miscellaneous (arp, boot, regex, unix utf8)</li>
+<li>System administration (debugfs, fdisk, fsck, mount, renice, rpm)</li>
+<li>kernel utils</li>
+</ol>
+<p>of course there can be more and one command can be in different places.</p>
+<p>If you are searching, do:</p>
+<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~$ man -f ls</span>
+<span class="err">ls (1)               - list directory contents</span>
+<span class="err">jadi@funlife:~$ man -w ls</span>
+<span class="err">/usr/share/man/man1/ls.1.gz</span>
+<span class="err">jadi@funlife:~$ man -k ls | head</span>
+<span class="err">SSL (3ssl)           - OpenSSL SSL/TLS library</span>
+<span class="err">_llseek (2)          - reposition read/write file offset</span>
+<span class="err">aconnect (1)         - ALSA sequencer connection manager</span>
+<span class="err">add-shell (8)        - add shells to the list of valid login shells</span>
+<span class="err">afs_syscall (2)      - unimplemented system calls</span>
+<span class="err">alsactl (1)          - advanced controls for ALSA soundcard driver</span>
+<span class="err">alsactl_init (7)     - alsa control management - initialization</span>
+<span class="err">alsaloop (1)         - command-line PCM loopback</span>
+<span class="err">alsamixer (1)        - soundcard mixer for ALSA soundcard driver, with ncurses interface</span>
+<span class="err">amidi (1)            - read from and write to ALSA RawMIDI ports</span>
+<span class="err">...</span>
+</code></pre></div>
+
+<p>Or use the <code>apropos</code> command which searches man pages:</p>
+<div class="highlight"><pre><span></span><code>$ apropos route
+ip-mroute <span class="o">(</span><span class="m">8</span><span class="o">)</span>        - multicast routing cache management
+ip-route <span class="o">(</span><span class="m">8</span><span class="o">)</span>         - routing table management
+route <span class="o">(</span><span class="m">8</span><span class="o">)</span>            - show / manipulate the IP routing table
+routef <span class="o">(</span><span class="m">8</span><span class="o">)</span>           - flush routes
+routel <span class="o">(</span><span class="m">8</span><span class="o">)</span>           - list routes with pretty output format
+sensible-mda <span class="o">(</span><span class="m">8</span><span class="o">)</span>     - a generic <span class="nb">local</span> MDA router <span class="k">for</span> Debian systems
+tor <span class="o">(</span><span class="m">1</span><span class="o">)</span>              - The second-generation onion router
+torrc <span class="o">(</span><span class="m">5</span><span class="o">)</span>            - The second-generation onion router
+traceroute6 <span class="o">(</span><span class="m">8</span><span class="o">)</span>      - traces path to a network host
+traceroute6.iputils <span class="o">(</span><span class="m">8</span><span class="o">)</span> - traces path to a network host
+</code></pre></div>
+
+<blockquote>
+<p>Note: A linux master will read as many <code>man pages</code> she can! Start with <code>man man</code></p>
+</blockquote>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>..</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:10:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#103-ref">103</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

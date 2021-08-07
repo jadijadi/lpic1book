@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", 105, " />
+
+<meta property="og:title" content="105.1. Customize and use the shell environment "/>
+<meta property="og:url" content="/1051-customize-and-use-the-shell-environment.html" />
+<meta property="og:description" content="105.1. Customize and use the shell environment Weight: 4 Candidates should be able to customize shell environments to meet users’ needs. Candidates should be able to modify global and user profiles. Key Knowledge Areas Set environment variables (e.g. PATH) at login or when spawning a new shell Write …" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2021-08-03T13:25:00+02:00" />
+<meta name="twitter:title" content="105.1. Customize and use the shell environment ">
+<meta name="twitter:description" content="105.1. Customize and use the shell environment Weight: 4 Candidates should be able to customize shell environments to meet users’ needs. Candidates should be able to modify global and user profiles. Key Knowledge Areas Set environment variables (e.g. PATH) at login or when spawning a new shell Write …">
+
+        <title>105.1. Customize and use the shell environment  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       "/"
+                                    >Home</a>
+                                </li>
+                                <li ><a href="/categories.html">Categories</a></li>
+                                <li ><a href="/tags.html">Tags</a></li>
+                                <li ><a href="/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="/1051-customize-and-use-the-shell-environment.html">
+                105.1. Customize and use the shell environment
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <h1>105.1. Customize and use the shell environment</h1>
+<p><em>Weight: 4</em></p>
+<p>Candidates should be able to customize shell environments to meet users’ needs. Candidates should be able to modify global and user profiles.</p>
+<h3>Key Knowledge Areas</h3>
+<ul>
+<li>Set environment variables (e.g. PATH) at login or when spawning a new shell</li>
+<li>Write Bash functions for frequently used sequences of commands</li>
+<li>Maintain skeleton directories for new user accounts
+Set command search path with the proper directory</li>
+</ul>
+<h3>Terms</h3>
+<ul>
+<li>.</li>
+<li>source</li>
+<li>/etc/bash.bashrc</li>
+<li>/etc/profile</li>
+<li>env</li>
+<li>export</li>
+<li>set</li>
+<li>unset</li>
+<li>~/.bash_profile</li>
+<li>~/.bash_login</li>
+<li>~/.profile</li>
+<li>~/.bashrc</li>
+<li>~/.bash_logout</li>
+<li>function</li>
+<li>alias</li>
+<li>lists</li>
+</ul>
+<h3>Environment variables</h3>
+<p>This is discussed in the past. But how we should set them when we login or change shell. Oh! And what happen when we are not logged in? ;)</p>
+<h3>login vs non-login shell</h3>
+<p>Sometimes you <em>login</em> into the shell, say after a ssh but sometimes you just <em>open</em> a shell; say in GUI.</p>
+<h4>login shell</h4>
+<p>This happens when you give your user and pass to enter a shell. Many steps are involved to setup your variables and settings. These are the steps:</p>
+<p>1- /etc/profile is run</p>
+<p>2- A line in /etc/profile runs whatever is in /etc/profile.d/*</p>
+<p>Now the global profile is loaded and system will go for user specific profiles:</p>
+<p>3- /home/USERNAME/.bash_profile</p>
+<p>4- /home/USERNAME/.bash_login</p>
+<p>5- /home/USERNAME/.profile</p>
+<blockquote>
+<p>Note that only one of the 3, 4 &amp; 5 will be run. The system will go for .bash_profile and IF IT IS NOT THERE will try for .bash_login and IF IT IS NOT THERE will try to run .profile. If any of these exists, the system wont look any furthur. So if you have only 4 &amp; 5, only the 4 will be run.</p>
+</blockquote>
+<p>At the end, the system loads:</p>
+<ol>
+<li>/home/USERNAME/.bashrc</li>
+</ol>
+<p>which is users information (like aliases).</p>
+<blockquote>
+<p>Note: /etc/profile also loads /etc/bashrc or /etc/bash.bashrc</p>
+</blockquote>
+<h4>Interactive (non-login) shell</h4>
+<p>if you run a shell in an interactive mode (non-login) shell say from a GUI, only two things will be run:</p>
+<ol>
+<li>/etc/bash.bashrc (or in some systems /etc/bashrc)</li>
+<li>/home/USERNAME/.bashrc</li>
+</ol>
+<h3>adding global configs for login shell</h3>
+<p>you can add your global new config files int /etc/profile.d/ (with .sh at the end). It is cleaner and better than editing the /etc/profile because an update can overwrite your changes if you do so.</p>
+<h3>adding global configs for interactive/non-login shell</h3>
+<p>you can use /etc/bash.bashrc file (some systems /etc/bashrc). This is good for <em>aliases</em> and other global configs.</p>
+<h3>user specific configs</h3>
+<p>Most of the time PATH and env vars go into the in ~/.bash_profile and aliases go into the ~/.bashrc. Have a look at them!</p>
+<h3>Aliases</h3>
+<p>Most of the time they are defined in <code>~/.bashrc</code> and look like this:</p>
+<div class="highlight"><pre><span></span><code><span class="err">alias ll=&#39;ls -alF&#39;</span>
+<span class="err">alias la=&#39;ls -A&#39;</span>
+<span class="err">alias l=&#39;ls -CF&#39;</span>
+</code></pre></div>
+
+<p>It is kind of a shortcut.</p>
+<h3>/etc/skel</h3>
+<p>This directory contains files which will be used as a starting template for each new user.</p>
+<h3>.bash_logout</h3>
+<p>runs when you logout from a login shell. In many distros it only clears the screen so the next person will not be able to watch what you were doing before you logout.</p>
+<h3>. (and source)</h3>
+<p>Yes only a dot! This is a shortcut for the bash source command. You can find it in files like /etc/profile. It runs the executable in front of it as part of the current environment.</p>
+<blockquote>
+<p>Note: If you just execute a file (without source or dot) bash creates a child, runs the executable there and then closes it.</p>
+</blockquote>
+<h3>functions</h3>
+<p>Like "real" programming languages, Bash has functions, though in a somewhat limited implementation. A function is a subroutine, a code block that implements a set of operations, a "black box" that performs a specified task. Wherever there is repetitive code, when a task repeats with only slight variations in procedure, then consider using a function.</p>
+<div class="highlight"><pre><span></span><code><span class="err">funnyls () {</span>
+<span class="err">    ls -ltrh</span>
+<span class="err">    echo &quot;This is a funny ls&quot;</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<h3>set</h3>
+<p><code>set</code> allows you to change the values of shell options and set the positional parameters, or to display the names and values of shell variables.</p>
+<p>Using <code>set</code> we can configure how bash works. These are some samples:</p>
+<table>
+<thead>
+<tr>
+<th>switch</th>
+<th>result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-b</td>
+<td>Cause the status of terminated background jobs to be reported immediately, rather than before printing the next primary prompt.</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>return in case a pipline, command, ... return non-zero</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>Read commands but do not execute them; this may be used to check a script for syntax errors. This option is ignored by interactive shells.</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>Exit after reading and executing one command.</td>
+</tr>
+<tr>
+<td>-C</td>
+<td>Prevent output redirection using ‘&gt;’, ‘&gt;&amp;’, and ‘&lt;&gt;’ from overwriting existing files.</td>
+</tr>
+</tbody>
+</table>
+<h3>export</h3>
+<p>Set an environment variable. Mark each name to be passed to child processes in the environment.</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">export</span> <span class="nv">name</span><span class="o">=</span>jadi
+$ <span class="nb">echo</span> <span class="nv">$name</span>
+jadi
+</code></pre></div>
+
+<blockquote>
+<p>Note: when exporting, the variable will exists in child processes (commands you run from the current shell). If you only say <code>name=jadi</code> and run a new command in your shell, the name <strong>wont be</strong> jadi in <strong>that</strong> shell.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>$ <span class="nv">name</span><span class="o">=</span>jadi
+$ <span class="nb">echo</span> <span class="nv">$name</span>
+jadi
+$ bash
+$ <span class="nb">echo</span> <span class="nv">$name</span>
+
+$ <span class="nb">exit</span>
+<span class="nb">exit</span>
+$ <span class="nb">echo</span> <span class="nv">$name</span>
+jadi
+$ <span class="nb">export</span> <span class="nv">name</span><span class="o">=</span>jadi
+$ bash
+$ <span class="nb">echo</span> <span class="nv">$name</span>
+jadi
+</code></pre></div>
+
+<h3>unset</h3>
+<p>This command <em>has nothing to do</em> with <code>set</code> command! This can unset the defined variables or functions.</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nv">name</span><span class="o">=</span>jadi
+$ <span class="nb">echo</span> <span class="nv">$name</span>
+jadi
+$ <span class="nb">unset</span> name
+$ <span class="nb">echo</span> <span class="nv">$name</span>
+</code></pre></div>
+
+<p>You can also unset functions.</p>
+<h3>env</h3>
+<p>can set, remove or display variables or even run a command in a modified environment.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Syntax</span><span class="w"></span>
+<span class="w">     </span><span class="n">env</span><span class="w"> </span><span class="o">[</span><span class="n">OPTION</span><span class="o">]</span><span class="p">...</span><span class="w"> </span><span class="o">[</span><span class="n">NAME=VALUE</span><span class="o">]</span><span class="p">...</span><span class="w"> </span><span class="o">[</span><span class="n">COMMAND [ARGS</span><span class="o">]</span><span class="p">...</span><span class="err">]</span><span class="w"></span>
+
+<span class="n">Options</span><span class="w"></span>
+
+<span class="w">  </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">NAME</span><span class="w"></span>
+<span class="w">  </span><span class="c1">--unset=NAME</span>
+<span class="w">       </span><span class="n">Remove</span><span class="w"> </span><span class="k">variable</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">environment</span><span class="p">,</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"></span>
+<span class="w">       </span><span class="n">environment</span><span class="p">.</span><span class="w"></span>
+
+<span class="w">  </span><span class="o">-</span><span class="w"></span>
+<span class="w">  </span><span class="o">-</span><span class="n">i</span><span class="w"></span>
+<span class="w">  </span><span class="c1">--ignore-environment</span>
+<span class="w">       </span><span class="k">Start</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="n">environment</span><span class="p">,</span><span class="w"> </span><span class="n">ignoring</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">inherited</span><span class="w"></span>
+<span class="w">       </span><span class="n">environment</span><span class="p">.</span><span class="w"></span>
+</code></pre></div>
+
+<h3>lists</h3>
+<p>Bash even has arrays! We will see them later when scripting but you can do things like:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nv">list</span><span class="o">=(</span>salam donya man injam<span class="o">)</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">list</span><span class="p">[1]</span><span class="si">}</span>
+donya
+$ <span class="nv">list</span><span class="o">=(</span><span class="s2">&quot;salam donya&quot;</span> <span class="s2">&quot;man injam&quot;</span><span class="o">)</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">list</span><span class="p">[1]</span><span class="si">}</span>
+man injam
+</code></pre></div>
+
+<p>Please pay attention to the syntax.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2021-08-03T13:25:00+02:00">Tue 03 August 2021</time>
+            <h4>Category</h4>
+            <a class="category-link" href="/categories.html#105-ref">105</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>
