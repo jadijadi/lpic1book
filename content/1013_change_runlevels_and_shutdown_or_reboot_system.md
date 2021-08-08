@@ -1,8 +1,9 @@
-Title: 101.3. Change runlevels and shutdown or reboot system
-Date: 2021-08-03 13:04
-Category: 101
+# 1013\_change\_runlevels\_and\_shutdown\_or\_reboot\_system
 
-# 101.3. Change runlevels and shutdown or reboot system
+Title: 101.3. Change runlevels and shutdown or reboot system Date: 2021-08-03 13:04 Category: 101
+
+## 101.3. Change runlevels and shutdown or reboot system
+
 weight: 3
 
 Candidates should be able to manage the runlevel of the system. This objective includes changing to single user mode, shutdown or rebooting the system. Candidates should be able to alert users before switching run level and properly terminate processes. This objective also includes setting the default run level. It also includes basic feature knowledge of potential replacements to init.
@@ -15,7 +16,6 @@ Candidates should be able to manage the runlevel of the system. This objective i
 * Alert users before switching runlevels or other major system event.
 * Properly terminate processes.
 * Knowledge of basic features of systemd and Upstart
-
 * /etc/inittab
 * shutdown
 * init
@@ -23,10 +23,11 @@ Candidates should be able to manage the runlevel of the system. This objective i
 * telinit
 
 ### runlevels
-Runlevels define what tasks can be accomplished in the current state (or runlevel) of a Linux system
+
+Runlevels define what tasks can be accomplished in the current state \(or runlevel\) of a Linux system
 
 * 0- Halt
-* 1- Single user mode (recovery)
+* 1- Single user mode \(recovery\)
 * 2- Debian/Ubuntu default
 * 3- RHEL/Fedora/SUSE text mode
 * 4- free
@@ -35,27 +36,30 @@ Runlevels define what tasks can be accomplished in the current state (or runleve
 
 default run level can be seen in this file which says init what to do, sets default runlevel and.. being phased out!
 
-    grep "^id:" /etc/inittab #on init systems
-    id:5:initdefault:
+```text
+grep "^id:" /etc/inittab #on init systems
+id:5:initdefault:
+```
 
 it can also be done on grub kernel parameters.
 
 or using the runleveland telinit commands:
 
-````
+```text
 # runlevel
 N 3
 # telinit 5
 # runlevel
 3 5
-
-````
+```
 
 **Note:** runlevel 1 is single user mode!
 
 ### /etc/inittab
+
 is being replaced by upstart and systemd but is still part of the exam.
-````
+
+```text
 #
 # inittab       This file describes how the INIT process should set up
 #               the system in a certain run-level.
@@ -109,62 +113,77 @@ pr:12345:powerokwait:/sbin/shutdown -c "Power Restored; Shutdown Cancelled"
 
 # Run xdm in runlevel 5
 x:5:respawn:/etc/X11/prefdm -nodaemon
-````
+```
 
 this is the format:
 
-    id:runlevels:action:process
+```text
+id:runlevels:action:process
+```
 
 * id: 2 or 3 chars
-* runlevels: which runlevel this commands refers to (empty means all)
-* action: respawn, wait, once, initdefault (default run level as seen above), ctrlaltdel (what to do with crrl+alt+delete)
+* runlevels: which runlevel this commands refers to \(empty means all\)
+* action: respawn, wait, once, initdefault \(default run level as seen above\), ctrlaltdel \(what to do with crrl+alt+delete\)
 
 all scripts are here:
 
-    ls -ltrh /etc/init.d
+```text
+ls -ltrh /etc/init.d
+```
 
 and start/stop on runlevels are controlled from these directories:
 
-    root@funlife:~# ls /etc/rc2.d/
+```text
+root@funlife:~# ls /etc/rc2.d/
+```
 
 ### Shutdown
+
 The preferred method to shut down or reboot the system is to use the shutdown command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 5 seconds, or another delay if specified, init sends a SIGKILL signal to forcibly end each remaining process.
 
 * default is 5 seconds delay and then going to runlevel 1
 * -h will halt the system
 * -r will reboot the system
-* time is hh:mm or n (minutes) or now
+* time is hh:mm or n \(minutes\) or now
 * whatever you add, will be broadcasted to logged in users
 * if the command is running, ctrl+c or the "shutdown -c" will cancel it
 
-      shutdown -r 60 Reloading updated kernel
+  ```text
+  shutdown -r 60 Reloading updated kernel
+  ```
 
 for more advance users:
+
 * -t60 will delay 60 seconds between SIGTERM and SIGKILL
 * if you cancel a shutdown, users wont get the news! you can use "wall" command to tell them that the shutdown is canceled
 
 ### Halt, reboot and poweroff
 
-- The halt command halts the system.
-- The poweroff command is a symbolic link to the halt command, which halts the system and then attempts to power it off.
-- The reboot command is another symbolic link to the halt command, which halts the system and then reboots it.
-
+* The halt command halts the system.
+* The poweroff command is a symbolic link to the halt command, which halts the system and then attempts to power it off.
+* The reboot command is another symbolic link to the halt command, which halts the system and then reboots it.
 
 ### upstart
-is not static set of init scripts and understands events. Events are used to trigger tasks or services (jobs). Examples are connecting a usb or starting the Apache server only after having network and filesystem.
+
+is not static set of init scripts and understands events. Events are used to trigger tasks or services \(jobs\). Examples are connecting a usb or starting the Apache server only after having network and filesystem.
 
 jobs are defined in /etc/init and subdirectories.
 
-    initctl list
+```text
+initctl list
+```
 
 being used in ubuntu.
 
 ### systemd
+
 uses sockets and a socket will be open for each daemon process but will start the daemon only when needed. Understands dependencies. Faster and parallel.
 
-    systemctl
+```text
+systemctl
+```
 
-works with units (service, socket, device, mount, automount, target (group of other units), snapshot (save/rollback)). config files has unit type suffix (say cups.service or rpcbind.socket) and are located at /etc/systemd/system
+works with units \(service, socket, device, mount, automount, target \(group of other units\), snapshot \(save/rollback\)\). config files has unit type suffix \(say cups.service or rpcbind.socket\) and are located at /etc/systemd/system
 
 being used in Fedora based systems and SUSE
 
@@ -176,14 +195,11 @@ being used in Fedora based systems and SUSE
 
 .
 
-
 .
 
 .
 
-
 .
 
+. .
 
-.
-.
