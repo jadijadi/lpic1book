@@ -1,16 +1,16 @@
-Title: 105.2 Customize or write simple scripts
-Date: 2021-08-03 13:25
-Category: 105
+# 1052\_customize\_or\_write\_simple\_scripts
 
-# 105.2 Customize or write simple scripts
+Title: 105.2 Customize or write simple scripts Date: 2021-08-03 13:25 Category: 105
+
+## 105.2 Customize or write simple scripts
 
 _Weight: 4_
 
-### Description
+#### Description
 
 Candidates should be able to customize existing scripts, or write simple new Bash scripts.
 
-### Key Knowledge Areas:
+#### Key Knowledge Areas:
 
 * Use standard sh syntax \(loops, tests\)
 * Use command substitution
@@ -19,7 +19,7 @@ Candidates should be able to customize existing scripts, or write simple new Bas
 * Correctly select the script interpreter through the shebang \(\#!\) line
 * Manage the location, ownership, execution and suid-rights of scripts
 
-### Terms and Utilities
+#### Terms and Utilities
 
 * for
 * while
@@ -29,11 +29,11 @@ Candidates should be able to customize existing scripts, or write simple new Bas
 * seq
 * exec
 
-## Shell Scripts
+### Shell Scripts
 
 Are a way of automating tasks.
 
-## Shebang
+### Shebang
 
 If a line starts with `#!` it is called shebang and tells the shell what _interpreter_ to use for running this script.
 
@@ -43,7 +43,7 @@ In many cases we run shells with `#!/bin/bash` or `#!/bin/sh`
 
 We can use the command we already know in our shell scripts. A sample is:
 
-```
+```text
 #!/bin/bash
 
 echo
@@ -51,11 +51,11 @@ echo "We are learning! Wowww..."
 echo
 ```
 
-## Variables
+### Variables
 
 Already seen in some parts. You can define variables like this `VARNAME=VALUE`. A sample:
 
-```
+```text
 #!/bin/bash
 
 NAME=Jadi
@@ -67,15 +67,15 @@ echo
 
 > Note: you can also do NAME="Jadi"
 
-### Command substitution
+#### Command substitution
 
 Sometimes you need to have a variable with the result of something to a variable. In this case you can use $\(\) construct:
 
-```
+```text
 FILES=$(ls -1)
 ```
 
-## executing scripts
+### executing scripts
 
 If the file is executable, we can run them using the ./script\_name.sh if we are in the same directory, or give the complete path or include their directory ine $PATH variable. As you can see they are just normal programs.
 
@@ -83,11 +83,11 @@ Another way is giving our scripts name as a parameter to the `bash` or `sh` comm
 
 > Note: you know that for making a file executable we can do `chmod 755 filename` or `chmod +x fiename`.
 
-## Conditions
+### Conditions
 
 Up to now, we were just running commands one by one. That is not very _programmatic_. If we are going to have some _logic_ in our programs, we need _conditions_ and _loops_. First we will cover conditions, using the `if` command. Its usage is like this:
 
-```
+```text
 if [condition]
 then
    do something
@@ -102,7 +102,7 @@ fi
 
 Conditions can be TRUE or FALSE. A very simple conditions is `if [ "Linux" = "Linux" ]`. Silly? I know but we will change it soon but for now, learn the syntax! Specially the _spaces_ and _=_ for checking if two strings are equal.
 
-```
+```text
 #!/bin/bash
 
 kernel=$(uname -s)
@@ -119,7 +119,7 @@ fi
 The actual checking of the condition is done by `test` command which is writter as `[ some test ]`. There are the other options:
 
 | conditions | what is means |
-| --- | --- |
+| :--- | :--- |
 | "a" = "b" | if two strings are equal \(here it will return False\) |
 | "a" != "b" | string a _is not equal_ to string b |
 | 4 -lt 40 | if 4 is _lower   than_ 40 \(True\) |
@@ -131,11 +131,11 @@ The actual checking of the condition is done by `test` command which is writter 
 | -s FILENAME | if file exists and its size is more than 0 |
 | -x FILENAME | file exists and is executable |
 
-### read
+#### read
 
 Using `read` we can read the user input. Look at this:
 
-```
+```text
 1 #!/bin/sh
   2
   3 echo "what is your name?"
@@ -153,11 +153,11 @@ Using `read` we can read the user input. Look at this:
  15 echo "Bye"
 ```
 
-## for loop
+### for loop
 
 Generaly loops are used to run a specific set of commands more than once. The syntax is like this:
 
-```
+```text
 for VAR in SOME_LIST;
 do
   some stuff with $VAR
@@ -169,7 +169,7 @@ done
 
 On each loop, the VAR will be equal to one of the SOME\_LIST elements. SOME\_LIST can be numbers, name of files, words, ...
 
-```
+```text
 for NUM in 1 2 3 4 5 6;
 do
     echo $NUM
@@ -180,7 +180,7 @@ But what if you needed to go 1 to 42? We have the `seq` command which can be use
 
 Good part is we can use non-numbers too!
 
-```
+```text
 for FILE in $(ls);
 do
     echo $FILE
@@ -188,11 +188,11 @@ do
 done
 ```
 
-## while loop
+### while loop
 
 This is another kind of loop but loops _while_ a conditions is TRUE. This is the syntax:
 
-```
+```text
 while [condition]
 do
     do something
@@ -204,7 +204,7 @@ done
 
 This is sample:
 
-```
+```text
 VAR=52
 
 while [ $VAR -gt 42 ]
@@ -218,11 +218,11 @@ done
 >
 > Note the `let` usage! If you just just say `VAR=1` and then `VAR=$VAR+1`, then VAR will be equal to `1+1` as an string!.
 
-## mailing the root user
+### mailing the root user
 
 For sending mail, you need to install `mailutils`. Then the `mail` command will send emails. You can send the mail to the root user by issuing this command:
 
-```
+```text
 jadi@funlife:~$ mail root
 Cc:
 Subject: Hi there root
@@ -233,8 +233,9 @@ And root will get this email. She can read it using `mail` command.
 
 If you need to send emails in a script, just do:
 
-```
+```text
 $ echo "Body!" | mail -s "Subject" root
 ```
 
 This can be easily embeded as poart of your scripts!
+

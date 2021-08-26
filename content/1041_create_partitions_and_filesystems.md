@@ -1,41 +1,43 @@
-Title: 104.1. Create partitions and filesystems
-Date: 2021-08-03 13:18
-Category: 104
+# 1041\_create\_partitions\_and\_filesystems
 
-# 104.1. Create partitions and filesystems
+Title: 104.1. Create partitions and filesystems Date: 2021-08-03 13:18 Category: 104
 
-*Weight: 2*
+## 104.1. Create partitions and filesystems
+
+_Weight: 2_
 
 Description: Candidates should be able to configure disk partitions and then create filesystems on media such as hard disks. This includes the handling of swap partitions.
 
-## Objective
-- Use various mkfs commands to set up partitions and create various filesystems such as:
-- ext2/ext3/ext4
-- xfs
-- reiserfs v3
-- vfat
+### Objective
 
+* Use various mkfs commands to set up partitions and create various filesystems such as:
+* ext2/ext3/ext4
+* xfs
+* reiserfs v3
+* vfat
+* fdisk
+* mkfs
+* mkswap
 
-- fdisk
-- mkfs
-- mkswap
+### Blocked devices
 
-## Blocked devices
-Is a technical term for any storage device which can be formatted to fixed sized blocks and blocks should be able to be accessed individually. That is Hard disks, USB Memories, CDs,  ..
+Is a technical term for any storage device which can be formatted to fixed sized blocks and blocks should be able to be accessed individually. That is Hard disks, USB Memories, CDs, ..
 
 In long ls format, the first **b** indicates Block Device:
 
-```
+```text
 $ ls -l /dev/loop1  /dev/sd[a-z]
 brw-rw---- 1 root disk 7, 1 Jan  8 10:46 /dev/loop1
 brw-rw---- 1 root disk 8, 0 Jan  8 10:46 /dev/sda
 ```
-Some block devices mostly used as one single filesystem (like CDs & Floppies) and some are divided into **Partitions** (Hard disks).
 
-## fdisk
+Some block devices mostly used as one single filesystem \(like CDs & Floppies\) and some are divided into **Partitions** \(Hard disks\).
+
+### fdisk
+
 `fdisk` is the main command for viewing / changing and creating partitions. `-l` switch is for show:
 
-```
+```text
 root@funlife:~# fdisk -l /dev/sda
 
 Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
@@ -52,14 +54,15 @@ Device     Boot     Start       End   Sectors   Size Id Type
 /dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
 /dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
 ```
-- The **Boot** flag shows which partition starts the boot on DOS PCs and has no importance on LILO & GRUB
-- Start and End shows the where this partition is located on the disk
-- Size is size!
-- ID indicated the partition format (82 is swap, 83 is linux data, ..)
+
+* The **Boot** flag shows which partition starts the boot on DOS PCs and has no importance on LILO & GRUB
+* Start and End shows the where this partition is located on the disk
+* Size is size!
+* ID indicated the partition format \(82 is swap, 83 is linux data, ..\)
 
 It is also possible to run fdisk in interactive mode. `m` will show you the help:
 
-```
+```text
 root@funlife:~# fdisk /dev/sda
 
 Welcome to fdisk (util-linux 2.25.1).
@@ -98,13 +101,11 @@ Help:
    G   create a new empty SGI (IRIX) partition table
    o   create a new empty DOS partition table
    s   create a new empty Sun partition table
-
-
 ```
 
 `p` displays the current partitions:
 
-```
+```text
 Command (m for help): p
 Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
 Units: sectors of 1 * 512 = 512 bytes
@@ -123,7 +124,7 @@ Device     Boot     Start       End   Sectors   Size Id Type
 
 You may remember the disk layouts from other chapters. `fdisk` can create them. Lets first delete my first partition:
 
-```
+```text
 Command (m for help): p
 Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
 Units: sectors of 1 * 512 = 512 bytes
@@ -148,7 +149,7 @@ Partition 1 has been deleted.
 
 I'm brave! Now lets create a smaller one there:
 
-```
+```text
 Command (m for help): n
 Partition type
    p   primary (1 primary, 1 extended, 2 free)
@@ -178,7 +179,7 @@ Device     Boot     Start       End   Sectors   Size Id Type
 
 > This new partitioned is not formatted but still marked 83 for later use. If I needed to use this partition as **swap** I had to set its ID to 82:
 
-```
+```text
 Command (m for help): p
 Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
 Units: sectors of 1 * 512 = 512 bytes
@@ -244,17 +245,18 @@ Device     Boot     Start       End   Sectors   Size Id Type
 /dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
 ```
 
-> b is code for FAT32 (windows 95).
+> b is code for FAT32 \(windows 95\).
 
 But all we done was in memory! We need to write it to the partition table. 'v' will verify the setup:
 
-```
+```text
 Command (m for help): v
 Remaining 11639159 unallocated 512-byte sectors.
 ```
-It tells me that I have unallocated space! I'm waisting my hard but I'm fine with it. So lets save it with `w` command (for write):
 
-```
+It tells me that I have unallocated space! I'm waisting my hard but I'm fine with it. So lets save it with `w` command \(for write\):
+
+```text
 Command (m for help): w
 
 The partition table has been altered.
@@ -264,41 +266,41 @@ Re-reading the partition table failed.: Device or resource busy
 The kernel still uses the old table. The new table will be used at the next reboot or after you run partprobe(8) or kpartx(8).
 ```
 
-## Formatting the partition
+### Formatting the partition
+
 Linux can handle more than 100 kind of partitions but most commons are:
 
-|Format|Description|
-|---|---|
-|ext2|second extended filesystem was developed to address shortcomings in the Minix filesystem used in early versions of Linux. It has been used extensively on Linux for many years. There is no journaling in ext2, and it has largely been replaced by ext3 and more recently ext4.|
-|ext3| ext2 + journaling, total storage can be 1EXAByte and each file can be 16TB, ...|
-|ReiserFS|ReiserFS is a B-tree-based filesystem, great for large numbers of small files, journaling, no longer in active development & does not support SELinux, replaced with Reiser4. |
-|XFS| journaling, caches to RAM, great for uninterruptible power supplies|
-|swap| Swap space must be formatted for use as swap space, but it is not generally considered a filesystem. |
-|vfat|FAT32, no journaling, good for data exchange with windows, does not understand permissions and symbolic links|
-|ext4|newer than ext3|
+| Format | Description |
+| :--- | :--- |
+| ext2 | second extended filesystem was developed to address shortcomings in the Minix filesystem used in early versions of Linux. It has been used extensively on Linux for many years. There is no journaling in ext2, and it has largely been replaced by ext3 and more recently ext4. |
+| ext3 | ext2 + journaling, total storage can be 1EXAByte and each file can be 16TB, ... |
+| ReiserFS | ReiserFS is a B-tree-based filesystem, great for large numbers of small files, journaling, no longer in active development & does not support SELinux, replaced with Reiser4. |
+| XFS | journaling, caches to RAM, great for uninterruptible power supplies |
+| swap | Swap space must be formatted for use as swap space, but it is not generally considered a filesystem. |
+| vfat | FAT32, no journaling, good for data exchange with windows, does not understand permissions and symbolic links |
+| ext4 | newer than ext3 |
 
-You can format your partitions with `mkfs` command (and `mkswap` for swap). This is a front end to commands like  mkfs.ext3 for ext3, mkfs.ext4 for ext4 and mkfs.reiserfs for ReiserFS. full list of installed on your system is here:
+You can format your partitions with `mkfs` command \(and `mkswap` for swap\). This is a front end to commands like mkfs.ext3 for ext3, mkfs.ext4 for ext4 and mkfs.reiserfs for ReiserFS. full list of installed on your system is here:
 
-```
+```text
 root@funlife:~# ls /sbin/mk*
 /sbin/mkdosfs  /sbin/mkfs      /sbin/mkfs.cramfs  /sbin/mkfs.ext3  /sbin/mkfs.ext4dev  /sbin/mkfs.minix  /sbin/mkfs.ntfs  /sbin/mkhomedir_helper  /sbin/mkswap
 /sbin/mke2fs   /sbin/mkfs.bfs  /sbin/mkfs.ext2    /sbin/mkfs.ext4  /sbin/mkfs.fat      /sbin/mkfs.msdos  /sbin/mkfs.vfat  /sbin/mkntfs
-
 ```
 
-The main switch is ``-type`` (or `-t`) to specify the format:
+The main switch is `-type` \(or `-t`\) to specify the format:
 
-```
+```text
 root@funlife:~# mkfs -t ext3 /dev/sda1
 mke2fs 1.42.10 (18-May-2014)
 /dev/sda1 contains a ext4 file system
-	last mounted on /mnt on Mon Dec 22 12:04:22 2014
+    last mounted on /mnt on Mon Dec 22 12:04:22 2014
 Proceed anyway? (y,n) y
 Creating filesystem with 5386496 4k blocks and 1349040 inodes
 Filesystem UUID: 0b5aad86-b507-41b9-a0ff-cf899cb92785
 Superblock backups stored on blocks:
-	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
-	4096000
+    32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+    4096000
 
 Allocating group tables: done                            
 Writing inode tables: done                            
@@ -312,14 +314,16 @@ root@funlife:~#
 
 If you need to assign a lable to the partition, you have to use the `-L lable_name` option. Please note that in recent system, people use UUIDs instead of labels. UUID of a disk can be viewed with:
 
-```
+```text
 $ blkid /dev/sda1
 /dev/sda1: UUID="59d8cbdb-0e78-4605-8aaf-cf02fcb85d2e" SEC_TYPE="ext2" TYPE="ext3"
 ```
-## GPT
-Some systems use GUID Partition Table (GPT) instead of older MBR. In this case you have to use the `gdisk` tool which has more capabilities than `fdisk`.
 
-```
+### GPT
+
+Some systems use GUID Partition Table \(GPT\) instead of older MBR. In this case you have to use the `gdisk` tool which has more capabilities than `fdisk`.
+
+```text
 root@funlife:~# gdisk /dev/sda
 GPT fdisk (gdisk) version 0.8.8
 
@@ -338,25 +342,15 @@ to GPT format!
 ***************************************************************
 ```
 
-### creating different partitions
+#### creating different partitions
 
-|Partition|Format type|Sample Command|Notes|
-|---|---|---|-|
-|/dev/sda3|ext4|`mkfs -t ext4 -L data`/dev/sda3|Named it *dafa*. Or use the `mkfs.ext4` command|
-|/dev/sdb2|xfs|`mkfs -t xfs -i size=512 /dev/sdb2`|telling it to have larger inodes (normal is 256)|
-|/dev/sda8|ReiserFS|`mkfs -t reiserfs /dev/sda8`|Or you can use `mkreiserfs` command.
-|/dev/sdc|FAT32|`mkfs -t vfat /dev/sdc`|Or you can use `mkfs.vfat` command|
-|/dev/sda2|swap|`mkswap /dev/sda2`|will be used as swap space|
-
-
-
-
-
-
-
-
-
-
+| Partition | Format type | Sample Command | Notes |
+| :--- | :--- | :--- | :--- |
+| /dev/sda3 | ext4 | `mkfs -t ext4 -L data`/dev/sda3 | Named it _dafa_. Or use the `mkfs.ext4` command |
+| /dev/sdb2 | xfs | `mkfs -t xfs -i size=512 /dev/sdb2` | telling it to have larger inodes \(normal is 256\) |
+| /dev/sda8 | ReiserFS | `mkfs -t reiserfs /dev/sda8` | Or you can use `mkreiserfs` command. |
+| /dev/sdc | FAT32 | `mkfs -t vfat /dev/sdc` | Or you can use `mkfs.vfat` command |
+| /dev/sda2 | swap | `mkswap /dev/sda2` | will be used as swap space |
 
 .
 
@@ -377,3 +371,4 @@ to GPT format!
 .
 
 .
+

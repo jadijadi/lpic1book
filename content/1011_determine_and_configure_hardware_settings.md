@@ -1,13 +1,14 @@
-Title: 101.1 Determine and configure hardware settings
-Date: 2021-08-03 13:00
-Category: 101
-# 101.1 Determine and configure hardware settings
+# 1011\_determine\_and\_configure\_hardware\_settings
+
+Title: 101.1 Determine and configure hardware settings Date: 2021-08-03 13:00 Category: 101
+
+## 101.1 Determine and configure hardware settings
 
 _Weight: 2_
 
 Candidates should be able to determine and configure fundamental system hardware.
 
-## Objectives
+### Objectives
 
 * Enable and disable integrated peripherals.
 * Configure systems with or without external peripherals such as keyboards.
@@ -18,9 +19,7 @@ Candidates should be able to determine and configure fundamental system hardware
 * Tools and utilities to list various hardware information \(e.g. lsusb, lspci, etc.\)
 * Tools and utilities to manipulate USB devices
 * Conceptual understanding of sysfs, udev, hald, dbus
-
 * /sys
-
 * /proc
 * /dev
 * modprobe
@@ -28,38 +27,38 @@ Candidates should be able to determine and configure fundamental system hardware
 * lspci
 * lsusb
 
-## Find out about the hardware
+### Find out about the hardware
 
-### HAL
+#### HAL
 
 **HAL** is Hardware Abstraction Layer. It abstracts your hardware details from you, say any first network card will be _eth0_. This way Linux will see any hardware as an _standard_ hardware and you will be able to replace the hardware easily.
 
-### dbus
+#### dbus
 
 A line like a bus that connects all parts of the OS to each other. dbus lets different parts of the system to communicate with each other. For example, when you install a USB into your computer, dbus lets GNOME know about it. Using dbus, hardware & software can talk with each other.
 
-#### udev
+**udev**
 
 Supplies the software with the events and access info of devices and can handle rules.
 
 There are a lot of devices in `/dev/` and if you plugin any device, it will have a file in `/dev` \(say /dev/sdb2\). **udev** lets you control what will be what in `/dev`. For example, you can use a rule to force your 8GB flash drive with one specific vendor to be `/dev/mybackup` all the time or you can tell it to copy all photos to your home directory as soon as your camera is connected.
 
-### sysfs
+#### sysfs
 
 The `/sys` directory is where **HAL** keeps its database of everything connected to the system.
 
-```
+```text
 jadi@funlife:~$ ls /sys
 block  bus  class  dev    devices  firmware  fs  hypervisor  kernel  module  power
 ```
 
 All block devices are at the `block` and `bus` directory has all the connected PCI, USB, serial, .. devices. Note that here in `sys` we have the devices based on their technology but `/dev/` is abstracted.
 
-### proc directory
+#### proc directory
 
 This is where kernel keeps its settings and properties. This directory is created on ram and files might have write accessible.
 
-```
+```text
 $ ls /proc/
 1      1249   1451   1565   18069  20346  2426  2765  2926  3175  3317  3537  39    468   4921  53    689   969          filesystems  misc           sysvipc            
 10     13     146    157    18093  20681  2452  2766  2929  3183  3318  354   397   4694  4934  538   7     97           fs           modules        timer_list         
@@ -82,7 +81,7 @@ $ ls /proc/
 
 The numbers are the process IDs! There are also other files like `cpuinfo`, `mounts`, `meminfo`, ...
 
-```
+```text
 $ cat /proc/cpuinfo
 processor    : 0
 vendor_id    : GenuineIntel
@@ -139,14 +138,14 @@ power management:
 
 We can also write here. Since I'm on an IBM Lenovo laptop I can turn my LED on and off by writing here:
 
-```
+```text
 root@funlife:/proc/acpi/ibm# echo on > light
 root@funlife:/proc/acpi/ibm# echo off > light
 ```
 
 One more traditional example is changing the max number of open files per user:
 
-```
+```text
 root@funlife:/proc/sys/fs# cat file-max
 797946
 root@funlife:/proc/sys/fs# echo 1000000 > file-max
@@ -158,24 +157,24 @@ Another very useful directory here, is `/proc/sys/net/ipv4` which controls real 
 
 > All these changes will be reverted after a boot. You have to write into config files in `/etc/` to make these changes permanent
 
-### dev
+#### dev
 
 **udev** controls `/dev/` directory. There are abstracted devices like a hard, is `/dev/sda` or `/dev/hd0` regardless of its brand, model or technology:
 
-```
+```text
 root@funlife:/dev# ls /dev/sda*
 /dev/sda  /dev/sda1  /dev/sda2  /dev/sda3  /dev/sda5  /dev/sda6
 ```
 
-### lsmod, lsusb, lspci
+#### lsmod, lsusb, lspci
 
 These commands show list of modules and hardwares on the system.
 
-#### lsmod
+**lsmod**
 
 Shows kernel modules.
 
-```
+```text
 root@funlife:/dev# lsmod
 Module                  Size  Used by
 pci_stub               12622  1
@@ -226,19 +225,19 @@ These are the kernel modules which are loaded.
 
 If you need to add a module to your kernel \(say a new driver for a hardware\) or remove it \(uninstall a driver\) you can use `rmmod` and `modprobe`.
 
-```
+```text
 # rmmod iwlwifi
 ```
 
 And this is for installing the module:
 
-```
+```text
 # insmod kernel/drivers/net/wireless/lwlwifi.ko
 ```
 
 but nobody uses `insmod` because it does not understand dependencies and you need to give it the whole path to the module file. Instead, use the `modprobe` command:
 
-```
+```text
 # modprobe iwlwifi
 ```
 
@@ -249,11 +248,11 @@ If you need to load some modules every time your system boots, do one of the fol
 1. add their names to this file `/etc/modules`
 2. add their configs files to the `/etc/modprobe.d/`
 
-#### lspci
+**lspci**
 
 Shows PCI devices that are connected to the computer.
 
-```
+```text
 # lspci
 00:00.0 Host bridge: Intel Corporation 2nd Generation Core Processor Family DRAM Controller (rev 09)
 00:02.0 VGA compatible controller: Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller (rev 09)
@@ -272,11 +271,11 @@ Shows PCI devices that are connected to the computer.
 0d:00.0 System peripheral: Ricoh Co Ltd MMC/SD Host Controller (rev 07)
 ```
 
-#### lsusb
+**lsusb**
 
 Shows all the USB devices connected to the system.
 
-```
+```text
 # lsusb
 Bus 002 Device 003: ID 1c4f:0026 SiGma Micro Keyboard
 Bus 002 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
@@ -288,23 +287,23 @@ Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
 Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 ```
 
-#### lspcmcia
+**lspcmcia**
 
 Shows available PCMCIA cards on this computer.
 
-#### lshal
+**lshal**
 
 Shows HAL data.
 
-#### lshw
+**lshw**
 
 Shows hardware. Test it!
 
-## Device UUIDs
+### Device UUIDs
 
 Each device has an ID. If you speak about `/dev/sda`, you are speaking about the "first hard" but if you want a specific drive to be your `/home`, you have to use UUID.
 
-```
+```text
 root@funlife:/dev# cat /proc/mounts
 rootfs / rootfs rw 0 0
 sysfs /sys sysfs rw,nosuid,nodev,noexec,relatime 0 0
@@ -317,6 +316,7 @@ tmpfs /run tmpfs rw,nosuid,noexec,relatime,size=806028k,mode=755 0 0
 
 Every other device has its own ID which can be used to _identify_ it.
 
-## hotplug
+### hotplug
 
 Hotplug is when you insert a hardware into a running computer and coldplug is when you have to turn your computer off to install a hardware. USB devices are hot pluggable while PCI cards should be cold-plugged.
+
