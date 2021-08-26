@@ -1,8 +1,9 @@
-# 1034\_use\_streams,\_pipes\_and\_redirects
-
-Title: 103.4. Use streams, pipes and redirects Date: 2021-08-03 13:13 Category: 103
-
-## 103.4. Use streams, pipes and redirects
+Title: 103.4 Use streams, pipes and redirects
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 
 * Candidates should be able to redirect streams and connect them in order to efficiently process textual data. Tasks include redirecting standard input, standard output and standard error, piping the output of one command to the input of another command, using the output of one command as arguments to another command and sending output to both stdout and a file.
 

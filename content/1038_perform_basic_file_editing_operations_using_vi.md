@@ -1,8 +1,9 @@
-# 1038\_perform\_basic\_file\_editing\_operations\_using\_vi
-
-Title: 103.8 Perform basic file editing operations using vi Date: 2021-08-03 13:17 Category: 103
-
-## 103.8 Perform basic file editing operations using vi
+Title: 103.8 Basic file editing
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 
 _Weight: 3_
 

@@ -1,7 +1,9 @@
-# 1073\_localisation\_and\_internationalisation
-
-Title: 107.3 Localisation and internationalisation Date: 2021-08-03 13:31 Category: 107
-
+Title: 107.3 Localisation and internationalisation
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 ## 107.3 Localisation and internationalisation
 
 _Weight: 3_

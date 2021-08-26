@@ -1,8 +1,9 @@
-# 1043\_control\_mounting\_and\_unmounting\_of\_filesystems
-
-Title: 104.3. Control mounting and unmounting of filesystems Date: 2021-08-03 13:20 Category: 104
-
-## 104.3. Control mounting and unmounting of filesystems
+Title: 104.3 Control mounting and unmounting of filesystems
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 
 weight: 3
 

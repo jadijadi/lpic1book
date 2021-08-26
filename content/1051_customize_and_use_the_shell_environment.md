@@ -1,7 +1,10 @@
-# 1051\_customize\_and\_use\_the\_shell\_environment
-
-Title: 105.1. Customize and use the shell environment Date: 2021-08-03 13:25 Category: 105
-
+Title: 105.1 Customize and use the shell environment
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
+Topic: Shells and Shell Scripting
 ## 105.1. Customize and use the shell environment
 
 _Weight: 4_

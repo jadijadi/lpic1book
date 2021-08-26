@@ -1,7 +1,12 @@
-# 1053\_sql\_data\_management
+Title: 105.3 Removed!
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
+Topic: Shells and Shell Scripting
 
-Title: 105.3 SQL data management Date: 2021-08-03 13:25 Category: 105
-
+How luckY! this is removed. If you insist this used to be the old text:
 ## 105.3 SQL data management
 
 _Weight: 2_

@@ -1,7 +1,9 @@
-# 1047\_find\_system\_files\_and\_place\_files\_in\_the\_correct\_location
-
-Title: 104.7 Find system files and place files in the correct location Date: 2021-08-03 13:24 Category: 104
-
+Title: 104.7 Find system files and place files in the correct location
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 ## 104.7 Find system files and place files in the correct location
 
 _Weight: 2_

@@ -1,8 +1,8 @@
-# 1033\_perform\_basic\_file\_management
-
-Title: 103.3 Perform basic file management Date: 2021-08-03 13:12 Category: 103
-
-## 103.3 Perform basic file management
+Title: 103.3 Perform basic file management
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 
 _Weight: 4_
 

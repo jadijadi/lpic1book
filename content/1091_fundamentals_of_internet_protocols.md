@@ -1,7 +1,9 @@
-# 1091\_fundamentals\_of\_internet\_protocols
-
-Title: 109.1 Fundamentals of internet protocols Date: 2021-08-03 13:36 Category: 109
-
+Title: 109.1 Fundamentals of internet protocols
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 ## 109.1 Fundamentals of internet protocols
 
 _Weight: 4_

@@ -1,7 +1,9 @@
-# 1102\_setup\_host\_security
-
-Title: 110.2 Setup host security Date: 2021-08-03 13:41 Category: 110
-
+Title: 110.2 Setup host security
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 ## 110.2 Setup host security
 
 _Weight: 3_

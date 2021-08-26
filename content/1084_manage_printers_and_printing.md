@@ -1,7 +1,9 @@
-# 1084\_manage\_printers\_and\_printing
-
-Title: 108.4 Manage printers and printing Date: 2021-08-03 13:35 Category: 108
-
+Title: 108.4 Manage printers and printing
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 ## 108.4 Manage printers and printing
 
 _Weight: 2_

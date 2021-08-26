@@ -1,7 +1,9 @@
-# 1045\_manage\_file\_permissions\_and\_ownership
-
-Title: 104.5 Manage file permissions and ownership Date: 2021-08-03 13:22 Category: 104
-
+Title: 104.5 Manage file permissions and ownership
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 ## 104.5 Manage file permissions and ownership
 
 _Weight: 3_

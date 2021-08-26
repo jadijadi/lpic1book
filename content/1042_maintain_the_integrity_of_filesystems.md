@@ -1,8 +1,9 @@
-# 1042\_maintain\_the\_integrity\_of\_filesystems
-
-Title: 104.2 Maintain the integrity of filesystems Date: 2021-08-03 13:19 Category: 104
-
-## 104.2 Maintain the integrity of filesystems
+Title: 104.2 Maintain the integrity of filesystems
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 
 _Weight: 2_
 

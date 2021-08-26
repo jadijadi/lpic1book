@@ -1,8 +1,9 @@
-# 1036\_modify\_process\_execution\_priorities
-
-Title: 103.6. Modify process execution priorities Date: 2021-08-03 13:15 Category: 103
-
-## 103.6. Modify process execution priorities
+Title: 103.6 Modify process execution priorities
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 
 _Weight: 2_
 

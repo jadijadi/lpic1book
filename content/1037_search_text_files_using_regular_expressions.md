@@ -1,8 +1,9 @@
-# 1037\_search\_text\_files\_using\_regular\_expressions
-
-Title: 103.7 Search text files using regular expressions Date: 2021-08-03 13:16 Category: 103
-
-## 103.7 Search text files using regular expressions
+Title: 103.7 Search text files using regular expressions
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 
 _Weight: 2_
 

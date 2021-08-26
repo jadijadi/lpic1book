@@ -1,7 +1,9 @@
-# 1081\_maintain\_system\_time
-
-Title: 108.1 Maintain system time Date: 2021-08-03 13:32 Category: 108
-
+Title: 108.1 Maintain system time
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 ## 108.1 Maintain system time
 
 _Weight: 3_

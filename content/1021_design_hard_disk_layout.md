@@ -1,8 +1,11 @@
-# 1021\_design\_hard\_disk\_layout
+Title: 102.1 Design hard disk layout
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: Linux Installation and Package Management, LPIC1, LPIC1-101-500
+Authors: Jadi
+Summary: 
 
-Title: 102.1. Design hard disk layout Date: 2021-08-03 13:05 Category: 102
 
-## 102.1. Design hard disk layout
 
 _Weight: 2_
 
@@ -184,26 +187,3 @@ As any other system /boot should be local \(a physical disk connected to the mac
 #### Server
 
 On servers /boot is still local and based on usage, /home can be local or network. In many cases we separate the /var because logs and many other files are there and being updated so it is good to separate it or even put it on a more advanced storage \(like RAID disks to prevent data loss\). Some people also separate the /usr and write-protect it \(read only file systems\) or even mount the /usr from network so they can change / update one file on the network storage and all the servers will use the new file \(you remember? /usr contains important executables like Apache web server\).
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-

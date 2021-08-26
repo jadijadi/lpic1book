@@ -1,7 +1,11 @@
-# 1044\_manage\_disk\_quotas
+Title: 104.4 Removed
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 
-Title: 104.4 Manage disk quotas Date: 2021-08-03 13:21 Category: 104
-
+This used to be about disk quotas! but it removed. If you insist in reading it... here it is:
 ## 104.4 Manage disk quotas
 
 _Weight: 1_

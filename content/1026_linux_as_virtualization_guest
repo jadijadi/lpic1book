@@ -1,9 +1,10 @@
-Title: 102.5 Use RPM and YUM package management
+Title: 102.6 Linux as a virtualization guest
 Date: 2010-12-03 10:20
 Category: LPIC1-101
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
-Summary: Candidates should be able to perform package management using RPM, YUM and Zypper.
+Summary: Candidates should understand the implications of virtualization and cloud computing on a Linux guest system.
+
 
 _Weight: 3_
 

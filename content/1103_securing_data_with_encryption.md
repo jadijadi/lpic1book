@@ -1,7 +1,9 @@
-# 1103\_securing\_data\_with\_encryption
-
-Title: 110.3 Securing data with encryption Date: 2021-08-03 13:41 Category: 110
-
+Title: 110.3 Securing data with encryption
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 ## 110.3 Securing data with encryption
 
 _Weight: 3_

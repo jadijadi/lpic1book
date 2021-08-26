@@ -1,7 +1,9 @@
-# 1072\_automate\_system\_administration\_tasks\_by\_scheduling\_jobs
-
-Title: 107.2 Automate system administration tasks by scheduling jobs Date: 2021-08-03 13:30 Category: 107
-
+Title: 107.2 Automate system administration tasks by scheduling jobs
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 ## 107.2 Automate system administration tasks by scheduling jobs
 
 _Weight: 4_

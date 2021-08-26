@@ -1,7 +1,9 @@
-# 1046\_create\_and\_change\_hard\_&\_symbolic\_links
-
-Title: 104.6. Create and change hard & symbolic links Date: 2021-08-03 13:23 Category: 104
-
+Title: 104.6 Create and change hard and symbolic links
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 ## 104.6. Create and change hard & symbolic links
 
 weight: 2

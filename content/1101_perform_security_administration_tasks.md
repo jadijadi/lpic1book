@@ -1,7 +1,9 @@
-# 1101\_perform\_security\_administration\_tasks
-
-Title: 110.1 Perform security administration tasks Date: 2021-08-03 13:40 Category: 110
-
+Title: 110.1 Perform security administration tasks
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 ## 110.1 Perform security administration tasks
 
 _Weight: 3_

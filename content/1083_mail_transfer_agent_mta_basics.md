@@ -1,7 +1,9 @@
-# 1083\_mail\_transfer\_agent\_mta\_basics
-
-Title: 108.3 Mail Transfer Agent \(MTA\) basics Date: 2021-08-03 13:34 Category: 108
-
+Title: 108.3 Mail Transfer Agent (MTA) basics
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 ## 108.3 Mail Transfer Agent \(MTA\) basics
 
 _Weight: 3_

@@ -1,7 +1,9 @@
-# 1094\_configure\_client\_side\_dns
-
-Title: 109.4 Configure client side DNS Date: 2021-08-03 13:39 Category: 109
-
+Title: 109.4 Configure client side DNS
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 ## 109.4 Configure client side DNS
 
 _Weight: 2_

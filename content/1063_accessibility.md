@@ -1,6 +1,10 @@
-# 1063\_accessibility
-
-Title: 106.3 Accessibility Date: 2021-08-03 13:28 Category: 106
+Title: 106.3 Accessibility
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 102, LPIC1-102-500
+Authors: Jadi
+Summary: 106.3 Accessibility Date: 2021-08-03 13:28 Category: 106
+Topic: User Interfaces and Desktops
 
 ## 106.3 Accessibility
 

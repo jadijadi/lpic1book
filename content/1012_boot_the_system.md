@@ -1,8 +1,10 @@
-# 1012\_boot\_the\_system
-
-Title: 101.2. Boot the system Date: 2021-08-03 13:02 Category: 101
-
-## 101.2. Boot the system
+Title: 101.2 Boot the System
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: System Architecture, LPIC1, LPIC1-101-500
+Authors: Jadi
+Summary: Candidates should be able to guide the system through the booting process.
+Topic: System Architecture
 
 weight: 3
 

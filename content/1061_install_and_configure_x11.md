@@ -1,6 +1,11 @@
-# 1061\_install\_and\_configure\_x11
+Title: 106.1 Install and configure X11
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
+Topic: User Interfaces and Desktops
 
-Title: 106.1 Install and configure X11 Date: 2021-08-03 13:26 Category: 106
 
 ## 106.1 Install and configure X11
 

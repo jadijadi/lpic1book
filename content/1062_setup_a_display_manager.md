@@ -1,6 +1,10 @@
-# 1062\_setup\_a\_display\_manager
-
-Title: 106.2 Setup a display manager Date: 2021-08-03 13:27 Category: 106
+Title: 106.2 Graphical Desktops
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
+Topic: User Interfaces and Desktops
 
 ## 106.2 Setup a display manager
 

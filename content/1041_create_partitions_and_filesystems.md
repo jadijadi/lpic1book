@@ -1,8 +1,9 @@
-# 1041\_create\_partitions\_and\_filesystems
-
-Title: 104.1. Create partitions and filesystems Date: 2021-08-03 13:18 Category: 104
-
-## 104.1. Create partitions and filesystems
+Title: 104.1 Create partitions and filesystems
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 
 _Weight: 2_
 

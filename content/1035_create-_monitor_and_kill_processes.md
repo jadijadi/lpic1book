@@ -1,8 +1,9 @@
-# 1035\_create,\_monitor\_and\_kill\_processes
-
-Title: 103.5. Create, monitor and kill processes Date: 2021-08-03 13:14 Category: 103
-
-## 103.5. Create, monitor and kill processes
+Title: 103.5 Create, monitor and kill processes
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 
 _Weight: 4_
 

@@ -1,7 +1,9 @@
-# 1071\_manage\_user\_and\_group\_accounts\_and\_related\_system\_files
-
-Title: 107.1 Manage user and group accounts and related system files Date: 2021-08-03 13:29 Category: 107
-
+Title: 107.1 Manage user and group accounts and related system files
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: 
 ## 107.1 Manage user and group accounts and related system files
 
 _Weight: 5_

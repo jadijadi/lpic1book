@@ -1,8 +1,9 @@
-# 1032\_process\_text\_streams\_using\_filters
-
-Title: 103.2. Process text streams using filters Date: 2021-08-03 13:11 Category: 103
-
-## 103.2. Process text streams using filters
+Title: 103.2 Process text streams using filters
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: Candidates should be able to apply filters to text streams.
 
 _Weight: 3_
 

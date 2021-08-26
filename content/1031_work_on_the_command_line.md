@@ -1,8 +1,9 @@
-# 1031\_work\_on\_the\_command\_line
-
-Title: 103.1 Work on the command line Date: 2021-08-03 13:10 Category: 103
-
-## 103.1 Work on the command line
+Title: 103.1 Work on the command line
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: Candidates should be able to interact with shells and commands using the command line. The objective assumes the Bash shell.
 
 _Weight: 4_
 

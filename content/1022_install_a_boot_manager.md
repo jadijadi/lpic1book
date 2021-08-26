@@ -1,10 +1,17 @@
-# 1022\_install\_a\_boot\_manager
+Title: 102.2 Install a boot manager
+Date: 2010-12-03 10:20
+Category: LPIC1-101
+Tags: LPIC1, 101, LPIC1-101-500
+Authors: Jadi
+Summary: Candidates should be able to select, install and configure a boot manager.
 
-Title: 102.2 Install a boot manager Date: 2021-08-03 13:06 Category: 102
 
-## 102.2 Install a boot manager
 
-_Weight: 2_ Description: Candidates should be able to select, install and configure a boot manager.
+
+
+_Weight: 2_ 
+
+Description: Candidates should be able to select, install and configure a boot manager.
 
 ## Objectives
 
