@@ -34,3 +34,6 @@ SOCIAL = (('You can add links in your config file', '#'),
 #RELATIVE_URLS = True
 THEME = 'theme/elegant'
 AUTHORS = ['jadi','rahim']
+
+STATIC_PATHS = ['images', 'extra/CNAME']
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}, }
