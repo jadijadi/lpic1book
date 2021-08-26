@@ -4,7 +4,6 @@
 .*.swp
 .DS_Store
 *~
-*.html
 *.pyc
 __pycache__
 ._.DS_Store

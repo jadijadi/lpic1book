@@ -1,7 +1,7 @@
 Title: 101.1 Determine and configure hardware settings
 Date: 2010-12-03 10:20
 Category: LPIC1-101
-Tags: System Architecture, LPIC1, 101, LPIC1-101-500, 
+Tags: System Architecture, LPIC1, LPIC1-101-500, 
 Authors: Jadi
 Summary: Candidates should be able to determine and configure fundamental system hardware.
 
