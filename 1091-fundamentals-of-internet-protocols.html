@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 109, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="109.1 Fundamentals of internet protocols "/>
 <meta property="og:url" content="./1091-fundamentals-of-internet-protocols.html" />
-<meta property="og:description" content="109.1 Fundamentals of internet protocols Weight: 4 Candidates should demonstrate a proper understanding of TCP/IP network fundamentals. Key Knowledge Areas Demonstrate an understanding of network masks and CIDR notation. Knowledge of the differences between private and public &#34;dotted quad&#34; IP addresses. Knowledge about common TCP and UDP ports …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:36:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="109.1 Fundamentals of internet protocols ">
-<meta name="twitter:description" content="109.1 Fundamentals of internet protocols Weight: 4 Candidates should demonstrate a proper understanding of TCP/IP network fundamentals. Key Knowledge Areas Demonstrate an understanding of network masks and CIDR notation. Knowledge of the differences between private and public &#34;dotted quad&#34; IP addresses. Knowledge about common TCP and UDP ports …">
+<meta name="twitter:description" content="">
 
         <title>109.1 Fundamentals of internet protocols  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,10 +76,10 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>109.1 Fundamentals of internet protocols</h1>
+            <h2>109.1 Fundamentals of internet protocols</h2>
 <p><em>Weight: 4</em></p>
 <p>Candidates should demonstrate a proper understanding of TCP/IP network fundamentals.</p>
-<h2>Key Knowledge Areas</h2>
+<h3>Key Knowledge Areas</h3>
 <ul>
 <li>Demonstrate an understanding of network masks and CIDR notation.</li>
 <li>Knowledge of the differences between private and public "dotted quad" IP addresses.</li>
@@ -89,176 +88,171 @@
 <li>Knowledge of the major differences between IPv4 and IPv6.</li>
 <li>Knowledge of the basic features of IPv6.</li>
 </ul>
-<h2>Terms and Utilities</h2>
+<h3>Terms and Utilities</h3>
 <ul>
 <li>/etc/services</li>
 <li>IPv4, IPv6</li>
 <li>Subnetting</li>
 <li>TCP, UDP, ICMP</li>
 </ul>
-<h2>IPv4</h2>
+<h3>IPv4</h3>
 <p>Internet Protocol or IP is an address that points to a destination on the Internet. This destination can be a single computer, a server, a switch or even a network (behind that IP). An IP version four is in the form of A.B.C.D where A, B, C &amp; D are between 0-255. The following are all valid IP addresses:</p>
-<p>''''
-1.2.3.4
-1.1.1.1
-100.0.0.100
-192.168.1.4
-''''</p>
+<p>'''' 1.2.3.4 1.1.1.1 100.0.0.100 192.168.1.4 ''''</p>
 <blockquote>
 <p>each part of an IP address is called an Octet since it is constructed of an 8 bit number (0..255)</p>
 </blockquote>
-<p>How many IP addresses are available with IPv4? 256<em>256</em>256<em>256 = 4294967296. That is around 4.3 billion - only! Even from this 4.3B, some are not usable (as you will see later) &amp; the </em>usable* range is around 3.7B.</p>
-<h3>Private IPs</h3>
+<p>How many IP addresses are available with IPv4? 256_256_256_256 = 4294967296. That is around 4.3 billion - only! Even from this 4.3B, some are not usable (as you will see later) &amp; the_ usable* range is around 3.7B.</p>
+<h4>Private IPs</h4>
 <p>Any IP address in the form of following addresses are called a <em>private IP address</em>:</p>
 <table>
 <thead>
 <tr>
-<th>range</th>
-<th>Number of IPs in this range</th>
+<th align="left">range</th>
+<th align="left">Number of IPs in this range</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>192.168.0-255.0-255</td>
-<td>65K IPs</td>
+<td align="left">192.168.0-255.0-255</td>
+<td align="left">65K IPs</td>
 </tr>
 <tr>
-<td>172.16-31.0-255.0-255</td>
-<td>1M IPs</td>
+<td align="left">172.16-31.0-255.0-255</td>
+<td align="left">1M IPs</td>
 </tr>
 <tr>
-<td>10.0-255.0-255.0-255</td>
-<td>16M IPs</td>
+<td align="left">10.0-255.0-255.0-255</td>
+<td align="left">16M IPs</td>
 </tr>
 </tbody>
 </table>
 <p>Any one can use any of these IPs on her devices as long as it is not connected directly to the internet. Have a look at this example:</p>
-<div class="highlight"><pre><span></span><code><span class="err">                                                                                              XXXXXX</span>
-<span class="err">                                                                          XXXXXX   XXXXX    XXX    XX</span>
-<span class="err">                 +--------+                                              X     XXXXX   XXXXXX       XX</span>
-<span class="err">        +--------+172.16. |                                             XX                           X</span>
-<span class="err">        |        |1.1     |                                             X                            X</span>
-<span class="err">   +--------+    |        |                                             X                           XX</span>
-<span class="err">   |192.168.|    +--------+                                           XXX  Internet, Only         XX</span>
-<span class="err">   |2.100   |         |           +-----------------+              XXXXX   consist             XXXX</span>
-<span class="err">   |        |         |           |                 |           XXX        Public IPs        XX</span>
-<span class="err">   +--------+    Private Network  | NAT, Translate  |Public IP XX                              X</span>
-<span class="err">        |             +-----------+ between Public  +---------+X      Devices with Private IPs  XX</span>
-<span class="err">        |             |           | and Private IPs |          XX     reach the intenret via     X</span>
-<span class="err">   +--------+     +--------+      |                 |           XX    the Public IP configured   XX</span>
-<span class="err">   |192.168.|     |        |      |                 |            XXX    on their NAT device.     X</span>
-<span class="err">   |2.200   |     |172.16. |      +-----------------+               XX                          XX</span>
-<span class="err">   |        |     |1.2     |                                      XXX                           X</span>
-<span class="err">   +--------+     |        |                                     XX                             XX</span>
-<span class="err">                  +--------+                                     X                               XX</span>
-<span class="err">                                                                 X                              XXX</span>
-<span class="err">                                                                 XX                           XXX</span>
-<span class="err">                                                                   XX    XXXXXXX     XXXXXXXXXX</span>
-<span class="err">                                                                    XXXXXX     XXXXXXX</span>
+<div class="highlight"><pre><span></span><code>                                                                                              XXXXXX
+                                                                          XXXXXX   XXXXX    XXX    XX
+                 +--------+                                              X     XXXXX   XXXXXX       XX
+        +--------+172.16. |                                             XX                           X
+        |        |1.1     |                                             X                            X
+   +--------+    |        |                                             X                           XX
+   |192.168.|    +--------+                                           XXX  Internet, Only         XX
+   |2.100   |         |           +-----------------+              XXXXX   consist             XXXX
+   |        |         |           |                 |           XXX        Public IPs        XX
+   +--------+    Private Network  | NAT, Translate  |Public IP XX                              X
+        |             +-----------+ between Public  +---------+X      Devices with Private IPs  XX
+        |             |           | and Private IPs |          XX     reach the intenret via     X
+   +--------+     +--------+      |                 |           XX    the Public IP configured   XX
+   |192.168.|     |        |      |                 |            XXX    on their NAT device.     X
+   |2.200   |     |172.16. |      +-----------------+               XX                          XX
+   |        |     |1.2     |                                      XXX                           X
+   +--------+     |        |                                     XX                             XX
+                  +--------+                                     X                               XX
+                                                                 X                              XXX
+                                                                 XX                           XXX
+                                                                   XX    XXXXXXX     XXXXXXXXXX
+                                                                    XXXXXX     XXXXXXX
 </code></pre></div>
 
 <p>In the middle you can see a <code>Network Address Translation</code> or <code>NAT</code> device. It is connected to the Internet using only one public IP (It might be 5.27.1.30). On the left side of the NAT box, there are 4 computers with Private IPs. Each time any of these devices targets an address on the Internet (a public IP), the NAT device will use his own public IP to request that IP and when he gets the data, will provide it to the <em>Natted</em> device - the device behind the NAT. This way we can create huge networks behind a NAT device. In this scenario, all the devices can reach the Internet but no-one from the Intenret can reach any of them, directly.</p>
-<h3>Subnetting</h3>
+<h4>Subnetting</h4>
 <p>OK! We have around 4B addresses in IPv4. But what happens if I send a packet to another IP? Say I try to print a document on the <em>local</em> printer as you learned in previous section? Who should listen for this packet? Does the whole Internet passes it hand to hand? Obviously not! Only my <em>local</em> network will wait for such a packet and only my printer (with its local IP) will receive it. When configuring a network we devince <strong>subnet</strong>s. For example my home network is configured on <code>192.168.1.0-255</code>. This way my WiFi router is 192.168.1.1, my laptop will be 192.168.1.10, my printer 192.168.1.100, my desktop 192.168.1.2 and my tv 192.168.1.200. When my phone connects to my WiFi it might be 192.168.1.33. Any time any packets tries to reach any IP in my <strong>subnet</strong> (that is 192.168.1.0-255), my router does so. If any devices tries to reach anything out of my subnet (say a public IP), my router will use its NAT functionality to send the packets over the Internet.</p>
 <p>This is done using a netmask. But before going there, let me do a fast review on binary representation of number, and specially IP addresses.</p>
-<h4>Binary representation of IPs</h4>
+<p><strong>Binary representation of IPs</strong></p>
 <p>You are probably familiar with binary base - it is the basis of anything related to computers. If not I highly recommend you to do a google search and read if from another source since this book assumes you already know it. In short when writing numbers on binary format (base 2), the only used digits are 0 and 1. An easy way for conversion is using the following table to convert 0 and 1s to our <em>normal</em> decimal format.</p>
 <table>
 <thead>
 <tr>
-<th>128</th>
-<th>64</th>
-<th>32</th>
-<th>16</th>
-<th>8</th>
-<th>4</th>
-<th>2</th>
-<th>1</th>
-<th></th>
+<th align="left">128</th>
+<th align="left">64</th>
+<th align="left">32</th>
+<th align="left">16</th>
+<th align="left">8</th>
+<th align="left">4</th>
+<th align="left">2</th>
+<th align="left">1</th>
+<th align="left"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>equals 0 in decimal</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">equals 0 in decimal</td>
 </tr>
 <tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>equals 128 in decimal</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">equals 128 in decimal</td>
 </tr>
 <tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>equals 129 in decimal</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">equals 129 in decimal</td>
 </tr>
 <tr>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>equals 32 in decimal</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">equals 32 in decimal</td>
 </tr>
 <tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>equals 6 in decimal</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">equals 6 in decimal</td>
 </tr>
 <tr>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>equals 179 in decimal</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">equals 179 in decimal</td>
 </tr>
 <tr>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>equals 255 in decimal</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">equals 255 in decimal</td>
 </tr>
 </tbody>
 </table>
 <p>So <code>11000000.10101000.00000001.00001111</code> equals to <code>192.168.1.15</code>.</p>
-<h3>netmask mask</h3>
+<h4>netmask mask</h4>
 <p>We already saw that subnets are used to create small / local networks. When computers are in one subnet, they can see each other directly without any routing. For any address out of my subnet, a router should handle the packets and send them to their destination. This is done using subnet masks. Lets try an example.</p>
 <p>Say we are going to create a subnet like 192.168.1.0-255. Here the <code>192.168.1</code> part is same among all the devices and the last <em>octet</em> changes. A subnet mask is another string like A.B.C.D which tells the computer what part of the IP in this subnet will remain same among all devices and what parts can be changed. Here, the subnet mask for <code>192.168.1.0-255</code> is <code>255.255.255.0</code>. As you can see any "fixed" octet will have 255 as its subnet mask and the changing (from 0 to 255) octets subnet mask is 0. Can you guess the subnet mask of <code>10.10.0-255.0-255</code>? That is <code>255.255.0.0</code>.</p>
 <blockquote>
@@ -268,76 +262,76 @@
 <table>
 <thead>
 <tr>
-<th></th>
-<th>network (fixed part)</th>
-<th>subnet (who will listen to packets)</th>
+<th align="left"></th>
+<th align="left">network (fixed part)</th>
+<th align="left">subnet (who will listen to packets)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>decimal</td>
-<td>192.168.1.</td>
-<td>0-255</td>
+<td align="left">decimal</td>
+<td align="left">192.168.1.</td>
+<td align="left">0-255</td>
 </tr>
 <tr>
-<td>binary</td>
-<td>11000000.10101000.00000001.</td>
-<td>00000000-11111111</td>
+<td align="left">binary</td>
+<td align="left">11000000.10101000.00000001.</td>
+<td align="left">00000000-11111111</td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr>
-<td>subnet mask (binary)</td>
-<td>11111111.11111111.11111111.</td>
-<td>00000000</td>
+<td align="left">subnet mask (binary)</td>
+<td align="left">11111111.11111111.11111111.</td>
+<td align="left">00000000</td>
 </tr>
 <tr>
-<td>subnet mask (decimal)</td>
-<td>255.255.255.</td>
-<td>0</td>
+<td align="left">subnet mask (decimal)</td>
+<td align="left">255.255.255.</td>
+<td align="left">0</td>
 </tr>
 </tbody>
 </table>
 <p>When talking bout subnet masks, we will put a 1 when that digit can not be changed and a 0 when that digit can be changed.</p>
-<h4>CIDR</h4>
+<p><strong>CIDR</strong></p>
 <p>Classless Inter-Domain Routing or CIDR is another way of talking about subnet masks. Telling someone that "my network is 192.168.1.0 and my subnet mask is 255.255.255.0" is difficult so some people prefer to say "my network is 192.168.1.0/24". This is a shortcut! 24 is the number of 1s in your subnet which is 11111111.11111111.11111111.00000000 in binary and has twenty four 1s. At the beginning this might look difficult but in practice it is more functional to use "my network is 172.16.1.1/16" instead of "my network is 172.16.1.1 with netmask 255.255.0.0".</p>
 <p>Here are some famous samples:</p>
 <table>
 <thead>
 <tr>
-<th>decimal netmask</th>
-<th>binary netmask</th>
-<th>CIDR</th>
+<th align="left">decimal netmask</th>
+<th align="left">binary netmask</th>
+<th align="left">CIDR</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>255.255.255.0</td>
-<td>11111111.11111111.11111111.00000000</td>
-<td>/24</td>
+<td align="left">255.255.255.0</td>
+<td align="left">11111111.11111111.11111111.00000000</td>
+<td align="left">/24</td>
 </tr>
 <tr>
-<td>255.255.0.0</td>
-<td>11111111.11111111.00000000.00000000</td>
-<td>/16</td>
+<td align="left">255.255.0.0</td>
+<td align="left">11111111.11111111.00000000.00000000</td>
+<td align="left">/16</td>
 </tr>
 <tr>
-<td>255.0.0.0</td>
-<td>11111111.00000000.00000000.00000000</td>
-<td>/8</td>
+<td align="left">255.0.0.0</td>
+<td align="left">11111111.00000000.00000000.00000000</td>
+<td align="left">/8</td>
 </tr>
 <tr>
-<td>255.255.255.240</td>
-<td>11111111.11111111.11111111.11110000</td>
-<td>/28</td>
+<td align="left">255.255.255.240</td>
+<td align="left">11111111.11111111.11111111.11110000</td>
+<td align="left">/28</td>
 </tr>
 <tr>
-<td>255.255.255.248</td>
-<td>11111111.11111111.11111111.11111000</td>
-<td>/29</td>
+<td align="left">255.255.255.248</td>
+<td align="left">11111111.11111111.11111111.11111000</td>
+<td align="left">/29</td>
 </tr>
 </tbody>
 </table>
@@ -346,129 +340,129 @@
 <blockquote>
 <p>for a better understanding of subnetting, have a look at <a href="http://www.cisco.com/c/en/us/support/docs/ip/routing-information-protocol-rip/13788-3.html">Cisco document</a></p>
 </blockquote>
-<h2>IPv6</h2>
+<h3>IPv6</h3>
 <p>We saw that there are only around 4B IPv4s available. Just consider that we are around 7B people on the planet earth so there is not even enough IP for every person on IPv4 range. Add to this the latest demands from all the mobile phones, cars, fridges, clocks, TVs, camera, ...! They all want to be on the Internet; this is called Internet Of Things. What should be done? We saw one solution called NAT but the permanent solution is a new version of the IP; IP version 6. In version 6 IPs are not limited to 4 octets anymore.</p>
 <p>A sample IPv6 address looks like <code>2001:0db8:0a0b:12f0:0000:0000:0000:0001</code> and it can be shortened to <code>2001:db8:a0b:12f0::1</code>. Here we have decimal numbers from <strong>0000</strong> to <strong>FFFF</strong> and <strong>8</strong> fields which are separated by <strong>:</strong>. This way we will have around 3.4*(10^38) IPs which is enough for whatever we can imagine at the moment. Just imagine that it can allocate 2^52 addresses for every observable star in the known universe.</p>
 <blockquote>
 <p>Although at the moment there is shortage on IPv4, IPv6 is not adopted much yet and most of the Internet is still working on IPv4.</p>
 </blockquote>
-<h2>Communication Protocols</h2>
+<h3>Communication Protocols</h3>
 <p>When computers communicate, they use Protocols. This protocols are designed to let computers speak in different ways for fulfilling different needs. Here we will have a look at three of the most popular protocols on the Internet: TCP / UDP / ICMP.</p>
-<h3>TCP</h3>
+<h4>TCP</h4>
 <p>Transmission Control Protocol or TCP is designed to make sure that both parties are <em>speaking</em> with each other without loosing any information. In this protocol the receiver will get anything the sender sends, exactly as it is sent. When you are downloading a program from the Internet, TCP is the best option because you need the file exactly as it is stored on the server. This can be a communication like this:</p>
-<div class="highlight"><pre><span></span><code><span class="err">A- Are you ready?</span>
-<span class="err">B- Yes</span>
-<span class="err">A- Please share with me the file XYZ</span>
-<span class="err">B- Ok. Are you ready?</span>
-<span class="err">A- Yes. Start sending</span>
-<span class="err">B- OK. This is the part 1 of XYZ</span>
-<span class="err">A- OK I got it.</span>
-<span class="err">B- Good. Now is it correct?</span>
-<span class="err">A- Yes. Please send the seccond part</span>
-<span class="err">B- OK. Are you ready for the seccond part?</span>
-<span class="err">A- Yes.</span>
-<span class="err">B- Here comes the seccond part</span>
-<span class="err">A- ...</span>
-<span class="err">B- ...</span>
+<div class="highlight"><pre><span></span><code>A- Are you ready?
+B- Yes
+A- Please share with me the file XYZ
+B- Ok. Are you ready?
+A- Yes. Start sending
+B- OK. This is the part 1 of XYZ
+A- OK I got it.
+B- Good. Now is it correct?
+A- Yes. Please send the seccond part
+B- OK. Are you ready for the seccond part?
+A- Yes.
+B- Here comes the seccond part
+A- ...
+B- ...
 </code></pre></div>
 
 <p>As you can see, TCP needs a lot of communications and sometimes it is not even suitable. When you are listening to music or having a video chat, it is better if the computer just skips some packages in case of problems and continues from the new one it gets.</p>
-<h3>UDP</h3>
+<h4>UDP</h4>
 <p>You are video-chatting with a friend and network fluctuates. What is a better choice? A) retransmitting the missing packets and/or reestablishing the connection and continue the whole conversation with a 2s delay or B) just show the newer packets we got and continue the live vide-conference and just forget about that 2 second fluctuation (missed data)? If your choice is B, it is better if you use UDP (User Datagram Protocol) for your chat program. UDP is less reliable: the sender sends packets without communicating much and hearing back from the receiver and receiver listens for packets without negotiating the exact details with the sender. It is much faster than TCP but you can not be sure that 100% of packets will be received by the B party.</p>
-<h3>ICMP</h3>
+<h4>ICMP</h4>
 <p>Internet Control Messaging Protocol or ICMP is a specific purpose protocol used to check the connectivity of the servers by the <code>ping</code> command. The first computer just tells "are you there?" and the second will answer "yes I'm here". Have a look at this practical example:</p>
-<div class="highlight"><pre><span></span><code><span class="err">[jadi@funlife ~]$ ping google.com</span>
-<span class="err">PING google.com (173.194.32.135) 56(84) bytes of data.</span>
-<span class="err">64 bytes from 173.194.32.135: icmp_seq=1 ttl=48 time=239 ms</span>
-<span class="err">64 bytes from 173.194.32.135: icmp_seq=2 ttl=48 time=236 ms</span>
-<span class="err">^C</span>
-<span class="err">--- google.com ping statistics ---</span>
-<span class="err">2 packets transmitted, 2 received, 0% packet loss, time 1001ms</span>
-<span class="err">rtt min/avg/max/mdev = 236.707/238.174/239.642/1.546 ms</span>
+<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ ping google.com
+PING google.com (173.194.32.135) 56(84) bytes of data.
+64 bytes from 173.194.32.135: icmp_seq=1 ttl=48 time=239 ms
+64 bytes from 173.194.32.135: icmp_seq=2 ttl=48 time=236 ms
+^C
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 236.707/238.174/239.642/1.546 ms
 </code></pre></div>
 
 <p>As you can see, we are pinging (send ICMP packets) to a server and it answers are back (replying to our ICMP packets).</p>
 <blockquote>
 <p>ICMP is used for network troubleshooting and DOES NOT transfers user data</p>
 </blockquote>
-<h2>Port</h2>
+<h3>Port</h3>
 <p>Any computer has an address but there are many programs running on that computer. By using an IP address you can tell the Internet the destination of your packets but how can you decide which program on that computer should answer to your packet? We know that a computer with the address of 5.1.23.1 has a webserver and a ftp server on it but how can we reach it and tell it "i want the index.html of your webserver" or "deliver me the XYZ file from your FTP server"? This is done using PORTs. Ports are numbers where a program LISTENS to. For example port 80 is reserved for webservers so if I connect to 5.1.23.1:80 I'm sure that I'm talking with the webserver. In the same way, when the file transport protocol (FTP) starts, it starts listening on port 20 &amp; 21 and if I use a FTP client to reach that computer, I will automatically connect to port 21 which is reserved for FTP.</p>
 <p>Different ports can use different transmission protocols (UDP or TCP). The default port of some protocols are as follow. These are very important and most admins know them.</p>
 <table>
 <thead>
 <tr>
-<th>port</th>
-<th>usage</th>
+<th align="left">port</th>
+<th align="left">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>20, 21</td>
-<td>FTP (one data, one control)</td>
+<td align="left">20, 21</td>
+<td align="left">FTP (one data, one control)</td>
 </tr>
 <tr>
-<td>22</td>
-<td>SSH</td>
+<td align="left">22</td>
+<td align="left">SSH</td>
 </tr>
 <tr>
-<td>23</td>
-<td>Telnet</td>
+<td align="left">23</td>
+<td align="left">Telnet</td>
 </tr>
 <tr>
-<td>25</td>
-<td>SMTP</td>
+<td align="left">25</td>
+<td align="left">SMTP</td>
 </tr>
 <tr>
-<td>53</td>
-<td>DNS</td>
+<td align="left">53</td>
+<td align="left">DNS</td>
 </tr>
 <tr>
-<td>80</td>
-<td>HTTP</td>
+<td align="left">80</td>
+<td align="left">HTTP</td>
 </tr>
 <tr>
-<td>110</td>
-<td>POP3</td>
+<td align="left">110</td>
+<td align="left">POP3</td>
 </tr>
 <tr>
-<td>123</td>
-<td>NTP</td>
+<td align="left">123</td>
+<td align="left">NTP</td>
 </tr>
 <tr>
-<td>139</td>
-<td>NetBIOS</td>
+<td align="left">139</td>
+<td align="left">NetBIOS</td>
 </tr>
 <tr>
-<td>143</td>
-<td>IMAP</td>
+<td align="left">143</td>
+<td align="left">IMAP</td>
 </tr>
 <tr>
-<td>161, 162</td>
-<td>SNMP</td>
+<td align="left">161, 162</td>
+<td align="left">SNMP</td>
 </tr>
 <tr>
-<td>389</td>
-<td>LDAP</td>
+<td align="left">389</td>
+<td align="left">LDAP</td>
 </tr>
 <tr>
-<td>443</td>
-<td>HTTPS</td>
+<td align="left">443</td>
+<td align="left">HTTPS</td>
 </tr>
 <tr>
-<td>465</td>
-<td>SMTPS</td>
+<td align="left">465</td>
+<td align="left">SMTPS</td>
 </tr>
 <tr>
-<td>636</td>
-<td>LDAPS</td>
+<td align="left">636</td>
+<td align="left">LDAPS</td>
 </tr>
 <tr>
-<td>993</td>
-<td>IMAPS</td>
+<td align="left">993</td>
+<td align="left">IMAPS</td>
 </tr>
 <tr>
-<td>995</td>
-<td>POP3S</td>
+<td align="left">995</td>
+<td align="left">POP3S</td>
 </tr>
 </tbody>
 </table>
@@ -505,9 +499,21 @@
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:36:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#109-ref">109</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

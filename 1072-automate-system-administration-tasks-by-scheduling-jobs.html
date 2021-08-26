@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 107, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="107.2 Automate system administration tasks by scheduling jobs "/>
 <meta property="og:url" content="./1072-automate-system-administration-tasks-by-scheduling-jobs.html" />
-<meta property="og:description" content="107.2 Automate system administration tasks by scheduling jobs Weight: 4 Candidates should be able to use cron or anacron to run jobs at regular intervals and to use at to run jobs at a specific time. Key Knowledge Areas Manage cron and at jobs. Configure user access to cron …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:30:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="107.2 Automate system administration tasks by scheduling jobs ">
-<meta name="twitter:description" content="107.2 Automate system administration tasks by scheduling jobs Weight: 4 Candidates should be able to use cron or anacron to run jobs at regular intervals and to use at to run jobs at a specific time. Key Knowledge Areas Manage cron and at jobs. Configure user access to cron …">
+<meta name="twitter:description" content="">
 
         <title>107.2 Automate system administration tasks by scheduling jobs  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,16 +76,16 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>107.2 Automate system administration tasks by scheduling jobs</h1>
+            <h2>107.2 Automate system administration tasks by scheduling jobs</h2>
 <p><em>Weight: 4</em></p>
 <p>Candidates should be able to use cron or anacron to run jobs at regular intervals and to use at to run jobs at a specific time.</p>
-<h2>Key Knowledge Areas</h2>
+<h3>Key Knowledge Areas</h3>
 <ul>
 <li>Manage cron and at jobs.</li>
 <li>Configure user access to cron and at services.</li>
 <li>Configure anacron.</li>
 </ul>
-<h2>Terms and Utilities</h2>
+<h3>Terms and Utilities</h3>
 <ul>
 <li>/etc/cron.{d,daily,hourly,monthly,weekly}/</li>
 <li>/etc/at.deny</li>
@@ -102,58 +101,58 @@
 <li>anacron</li>
 <li>/etc/anacrontab</li>
 </ul>
-<h2>Crontab format</h2>
+<h3>Crontab format</h3>
 <p>Crontab files are responsible to run some commands on specific intervals. Each line has 5 fileds to specify the run time and whatever after it is considered the command to be run.</p>
-<div class="highlight"><pre><span></span><code><span class="err">A   B   C   D   E   command and arguments</span>
+<div class="highlight"><pre><span></span><code>A    B    C    D    E    command and arguments
 </code></pre></div>
 
 <table>
 <thead>
 <tr>
-<th>filed</th>
-<th>Meaning</th>
-<th>values</th>
+<th align="left">filed</th>
+<th align="left">Meaning</th>
+<th align="left">values</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>A</td>
-<td>minute</td>
-<td>0-59</td>
+<td align="left">A</td>
+<td align="left">minute</td>
+<td align="left">0-59</td>
 </tr>
 <tr>
-<td>B</td>
-<td>hour</td>
-<td>0-23</td>
+<td align="left">B</td>
+<td align="left">hour</td>
+<td align="left">0-23</td>
 </tr>
 <tr>
-<td>C</td>
-<td>day of month</td>
-<td>1-31</td>
+<td align="left">C</td>
+<td align="left">day of month</td>
+<td align="left">1-31</td>
 </tr>
 <tr>
-<td>D</td>
-<td>month</td>
-<td>1-12 (or names, see below)</td>
+<td align="left">D</td>
+<td align="left">month</td>
+<td align="left">1-12 (or names, see below)</td>
 </tr>
 <tr>
-<td>E</td>
-<td>day of week</td>
-<td>0-7 (0 or 7 is Sunday, or use names)</td>
+<td align="left">E</td>
+<td align="left">day of week</td>
+<td align="left">0-7 (0 or 7 is Sunday, or use names)</td>
 </tr>
 </tbody>
 </table>
 <p>Each time field can be a <code>*</code> to indicate <em>ANY</em>. Also if you have <code>@reboot</code> or <code>@daily</code> instead of time fields, the command will be run once after the reboot or daily. Lets see some examples:</p>
-<div class="highlight"><pre><span></span><code><span class="err">5 0 * * *       $HOME/bin/daily.job &gt;&gt; $HOME/tmp/out 2&gt;&amp;1</span>
-<span class="err"># run at 2:15pm on the first of every month -- output mailed to paul</span>
-<span class="err">15 14 1 * *     $HOME/bin/monthly</span>
-<span class="err"># run at 10 pm on weekdays, annoy Joe</span>
-<span class="err">0 22 * * 1-5    mail -s &quot;It&#39;s 10pm&quot; joe%Joe,%%Where are your kids?%</span>
-<span class="err">23 0-23/2 * * * echo &quot;run 23 minutes after midn, 2am, 4am ..., everyday&quot;</span>
-<span class="err">5 4 * * sun     echo &quot;run at 5 after 4 every sunday&quot;</span>
-<span class="err">*/5 * * * * echo &quot;each 5 mintues&quot;</span>
-<span class="err">42 8,18 * * 1-5 echo &quot;8:42 and 18:42 and only on weekdays (monday till friday)&quot;</span>
-<span class="err">@reboot     echo &quot;runs after the reboot&quot;</span>
+<div class="highlight"><pre><span></span><code>5 0 * * *       $HOME/bin/daily.job &gt;&gt; $HOME/tmp/out 2&gt;&amp;1
+# run at 2:15pm on the first of every month -- output mailed to paul
+15 14 1 * *     $HOME/bin/monthly
+# run at 10 pm on weekdays, annoy Joe
+0 22 * * 1-5    mail -s &quot;It&#39;s 10pm&quot; joe%Joe,%%Where are your kids?%
+23 0-23/2 * * * echo &quot;run 23 minutes after midn, 2am, 4am ..., everyday&quot;
+5 4 * * sun     echo &quot;run at 5 after 4 every sunday&quot;
+*/5 * * * *    echo &quot;each 5 mintues&quot;
+42 8,18 * * 1-5    echo &quot;8:42 and 18:42 and only on weekdays (monday till friday)&quot;
+@reboot        echo &quot;runs after the reboot&quot;
 </code></pre></div>
 
 <blockquote>
@@ -161,24 +160,24 @@
 <p>Note: Use with care. Something like <code>42 8 1 1 0</code> runs ONLY IF 1st Of Jan is a Monday!</p>
 </blockquote>
 <p>When a cron runs, the output will be emailed to the owner of the cron.</p>
-<h2>user specific crons</h2>
+<h3>user specific crons</h3>
 <p>Cron is a linux service. To see your crons you can use <code>crontab -l</code> (list) and for editing it you can use <code>crontab -e</code> (edit) which will open the cron files with a special editor and will load your inserted crons (if they are correct) after wards.</p>
 <p>The files will be saved at <code>/var/spool/cron/tabs/</code> or `/var/spool/crontabs':</p>
-<div class="highlight"><pre><span></span><code><span class="err"># cat /var/spool/cron/tabs/jadi</span>
-<span class="err"># DO NOT EDIT THIS FILE - edit the master and reinstall.</span>
-<span class="err"># (/tmp/crontab.khObLu installed on Thu Oct 29 22:04:43 2015)</span>
-<span class="err"># (Cronie version 4.2)</span>
-<span class="err">* * * * * date &gt;&gt; /tmp/date.cron.txt</span>
+<div class="highlight"><pre><span></span><code># cat /var/spool/cron/tabs/jadi
+# DO NOT EDIT THIS FILE - edit the master and reinstall.
+# (/tmp/crontab.khObLu installed on Thu Oct 29 22:04:43 2015)
+# (Cronie version 4.2)
+* * * * * date &gt;&gt; /tmp/date.cron.txt
 </code></pre></div>
 
 <p>You should never edit these files directly; Use <code>crontab -e</code> instead.</p>
-<h2>at</h2>
+<h3>at</h3>
 <p>We say that crontab runs commands on specific intervals but what will happen if you needed to run a command only once? Here <code>at</code> is your friend.</p>
-<div class="highlight"><pre><span></span><code>$ at now + <span class="m">1</span> min
+<div class="highlight"><pre><span></span><code>$ at now + 1 min
 warning: commands will be executed using /bin/sh
 at&gt; touch /tmp/at
 at&gt; &lt;EOT&gt;
-job <span class="m">3</span> at Thu Oct <span class="m">29</span> <span class="m">22</span>:12:00 <span class="m">2015</span>
+job 3 at Thu Oct 29 22:12:00 2015
 </code></pre></div>
 
 <blockquote>
@@ -187,53 +186,53 @@ job <span class="m">3</span> at Thu Oct <span class="m">29</span> <span class="m
 <p>If you want to check what is in the queue you can use <code>atq</code> and then try <code>atrm 4</code> to delete job number 4;</p>
 <div class="highlight"><pre><span></span><code>$ at teatime
 warning: commands will be executed using /bin/sh
-at&gt; <span class="nb">echo</span> <span class="s2">&quot;tea time is 4pm&quot;</span>
+at&gt; echo &quot;tea time is 4pm&quot;
 at&gt; &lt;EOT&gt;
-job <span class="m">4</span> at Fri Oct <span class="m">30</span> <span class="m">16</span>:00:00 <span class="m">2015</span>
+job 4 at Fri Oct 30 16:00:00 2015
 jadi@funlife:~$ at tomorrow
 warning: commands will be executed using /bin/sh
-at&gt; <span class="nb">echo</span> <span class="s2">&quot;tomorrow this time&quot;</span>
+at&gt; echo &quot;tomorrow this time&quot;
 at&gt; &lt;EOT&gt;
-job <span class="m">5</span> at Fri Oct <span class="m">30</span> <span class="m">22</span>:15:00 <span class="m">2015</span>
-jadi@funlife:~$ at <span class="m">17</span>:30
+job 5 at Fri Oct 30 22:15:00 2015
+jadi@funlife:~$ at 17:30
 warning: commands will be executed using /bin/sh
-at&gt; <span class="nb">echo</span> <span class="s2">&quot;this is the first 17:30&quot;</span>
+at&gt; echo &quot;this is the first 17:30&quot;
 at&gt; &lt;EOT&gt;
-job <span class="m">6</span> at Fri Oct <span class="m">30</span> <span class="m">17</span>:30:00 <span class="m">2015</span>
+job 6 at Fri Oct 30 17:30:00 2015
 jadi@funlife:~$ atq
-<span class="m">5</span>   Fri Oct <span class="m">30</span> <span class="m">22</span>:15:00 <span class="m">2015</span> a jadi
-<span class="m">4</span>   Fri Oct <span class="m">30</span> <span class="m">16</span>:00:00 <span class="m">2015</span> a jadi
-<span class="m">6</span>   Fri Oct <span class="m">30</span> <span class="m">17</span>:30:00 <span class="m">2015</span> a jadi
-jadi@funlife:~$ atrm <span class="m">4</span>
+5    Fri Oct 30 22:15:00 2015 a jadi
+4    Fri Oct 30 16:00:00 2015 a jadi
+6    Fri Oct 30 17:30:00 2015 a jadi
+jadi@funlife:~$ atrm 4
 jadi@funlife:~$ atq
-<span class="m">5</span>   Fri Oct <span class="m">30</span> <span class="m">22</span>:15:00 <span class="m">2015</span> a jadi
-<span class="m">6</span>   Fri Oct <span class="m">30</span> <span class="m">17</span>:30:00 <span class="m">2015</span> a jadi
+5    Fri Oct 30 22:15:00 2015 a jadi
+6    Fri Oct 30 17:30:00 2015 a jadi
 </code></pre></div>
 
-<h2>system wide cron</h2>
+<h3>system wide cron</h3>
 <p>There is file called <code>/etc/crontab</code>. This looks like a normal user file opened with <code>crontab -e</code> but has one extra filed:</p>
-<div class="highlight"><pre><span></span><code><span class="err">A   B   C   D   E   USER    command and arguments</span>
+<div class="highlight"><pre><span></span><code>A    B    C    D    E    USER    command and arguments
 </code></pre></div>
 
 <p>This file should be edited with an editor directly and we can mention which user runs this commands.</p>
-<div class="highlight"><pre><span></span><code><span class="err"># cat /etc/crontab</span>
-<span class="err">SHELL=/bin/sh</span>
-<span class="err">PATH=/usr/bin:/usr/sbin:/sbin:/bin:/usr/lib/news/bin</span>
-<span class="err">MAILTO=root</span>
-<span class="err">#</span>
-<span class="err"># check scripts in cron.hourly, cron.daily, cron.weekly, and cron.monthly</span>
-<span class="err">#</span>
-<span class="err">-*/15 * * * *   root  test -x /usr/lib/cron/run-crons &amp;&amp; /usr/lib/cron/run-crons &gt;/dev/null 2&gt;&amp;1</span>
+<div class="highlight"><pre><span></span><code># cat /etc/crontab
+SHELL=/bin/sh
+PATH=/usr/bin:/usr/sbin:/sbin:/bin:/usr/lib/news/bin
+MAILTO=root
+#
+# check scripts in cron.hourly, cron.daily, cron.weekly, and cron.monthly
+#
+-*/15 * * * *   root  test -x /usr/lib/cron/run-crons &amp;&amp; /usr/lib/cron/run-crons &gt;/dev/null 2&gt;&amp;1
 </code></pre></div>
 
 <blockquote>
 <p>Note: Have a look at first two line. It configures the shell which will run the commands and the PATH variable plus who will get the output emails.</p>
 </blockquote>
 <p>As you can see this default crontab runs other crons! They are hourly, daily, weekly and monthly crons.</p>
-<h2>System hourly, daliy, weekly, monthly, .. crons</h2>
+<h3>System hourly, daliy, weekly, monthly, .. crons</h3>
 <p>We have some system level crontab files in <code>/etc/cron.d/</code> too. In other words, whatever file which is copied there, will be treated just like <code>/etc/crontab</code> file (a system wide cron file). This make systems much cleaner and lets programs to copy one file there instead of editing the /etc/crontab.</p>
 <div class="highlight"><pre><span></span><code>$ sudo tree /etc/cron*
-root<span class="err">&#39;</span>s password:
+root&#39;s password:
 /etc/cron.d
 └── mdadm
 /etc/cron.daily
@@ -248,30 +247,30 @@ root<span class="err">&#39;</span>s password:
 ├── suse.de-cron-local
 ├── suse.de-snapper
 └── suse-do_mandb
-/etc/cron.deny <span class="o">[</span>error opening dir<span class="o">]</span>
+/etc/cron.deny [error opening dir]
 /etc/cron.hourly
 └── suse.de-snapper
 /etc/cron.monthly
-/etc/crontab <span class="o">[</span>error opening dir<span class="o">]</span>
+/etc/crontab [error opening dir]
 /etc/cron.weekly
 </code></pre></div>
 
 <p>Lets have a look at one of the cron.d files:</p>
 <div class="highlight"><pre><span></span><code>$ cat /etc/cron.d/mdadm
-<span class="c1">#</span>
-<span class="c1"># cron.d/mdadm - regular redundancy checks</span>
-<span class="c1">#</span>
+#
+# cron.d/mdadm - regular redundancy checks
+#
 
-<span class="c1"># Start checking each month early in the morning.</span>
-<span class="c1"># Continue each day until all done</span>
+# Start checking each month early in the morning.
+# Continue each day until all done
 
-<span class="nv">PATH</span><span class="o">=</span>/sbin:/usr/sbin:/bin:/usr/bin
-<span class="m">0</span> <span class="m">1</span> * * <span class="m">0</span> root <span class="nb">source</span> /etc/sysconfig/mdadm<span class="p">;</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$MDADM_CHECK_DURATION</span><span class="s2">&quot;</span> -a -x /usr/share/mdadm/mdcheck -a <span class="k">$(</span>date +<span class="se">\%</span>d<span class="k">)</span> -le <span class="m">7</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> /usr/share/mdadm/mdcheck --duration <span class="s2">&quot;</span><span class="nv">$MDADM_CHECK_DURATION</span><span class="s2">&quot;</span>
-<span class="m">0</span> <span class="m">1</span> * * <span class="m">1</span>-6 root <span class="nb">source</span> /etc/sysconfig/mdadm<span class="p">;</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$MDADM_CHECK_DURATION</span><span class="s2">&quot;</span> -a -x /usr/share/mdadm/mdcheck <span class="o">]</span> <span class="o">&amp;&amp;</span> /usr/share/mdadm/mdcheck --continue --duration <span class="s2">&quot;</span><span class="nv">$MDADM_CHECK_DURATION</span><span class="s2">&quot;</span>
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+0 1 * * 0 root source /etc/sysconfig/mdadm; [ -n &quot;$MDADM_CHECK_DURATION&quot; -a -x /usr/share/mdadm/mdcheck -a $(date +\%d) -le 7 ] &amp;&amp; /usr/share/mdadm/mdcheck --duration &quot;$MDADM_CHECK_DURATION&quot;
+0 1 * * 1-6 root source /etc/sysconfig/mdadm; [ -n &quot;$MDADM_CHECK_DURATION&quot; -a -x /usr/share/mdadm/mdcheck ] &amp;&amp; /usr/share/mdadm/mdcheck --continue --duration &quot;$MDADM_CHECK_DURATION&quot;
 </code></pre></div>
 
 <p>But /etc/cron.hourly, /etc/cron.daily, /etc/cron.weekly, /etc/cron.monthly is <strong>TOTALLY DIFFERENT</strong>. In these directories are actual executable scripts and files. The cron will run these files one a hour, one a day, once a week or once a month based on their directory names.</p>
-<h2>anacron</h2>
+<h3>anacron</h3>
 <p>The difference between cron and anacron, is this:</p>
 <blockquote>
 <p>If the system is down when the cron should run a task, that cron job wont run till the next occurrence! But anacron creates the timestamp each time a <strong>daily</strong>, <strong>weekly</strong> or <strong>monthly</strong> job runs. If the system <strong>boots up</strong> and find outs that one of the anacron jobs are missed, it will run it during the boot!</p>
@@ -280,31 +279,31 @@ root<span class="err">&#39;</span>s password:
 <blockquote>
 <p>Note: anacron checks the timestamps at BOOT TIME and do not handle hourly crons.</p>
 </blockquote>
-<h2>controlling access using files</h2>
+<h3>controlling access using files</h3>
 <p>You have already seen files at /var/spool/cron/tabs/USERNAME. There are also 4 more files to control who can and can not use cron and at. The files are:</p>
-<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cron</span><span class="p">.</span><span class="n">allow</span>
-<span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cron</span><span class="p">.</span><span class="n">deny</span>
+<div class="highlight"><pre><span></span><code>/etc/cron.allow
+/etc/cron.deny
 
-<span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="k">at</span><span class="p">.</span><span class="n">allow</span>
-<span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="k">at</span><span class="p">.</span><span class="n">deny</span>
+/etc/at.allow
+/etc/at.deny
 </code></pre></div>
 
 <p>In most systems none of these files exist but if you create them, they will become active as follow:</p>
 <table>
 <thead>
 <tr>
-<th>file extension</th>
-<th>functionality</th>
+<th align="left">file extension</th>
+<th align="left">functionality</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>.allow</td>
-<td>ONLY users mentioned in this file are allowed to run this service. All other users will be denied</td>
+<td align="left">.allow</td>
+<td align="left">ONLY users mentioned in this file are allowed to run this service. All other users will be denied</td>
 </tr>
 <tr>
-<td>.deny</td>
-<td>Everybody can use the service except the users mentioned in this file</td>
+<td align="left">.deny</td>
+<td align="left">Everybody can use the service except the users mentioned in this file</td>
 </tr>
 </tbody>
 </table>
@@ -336,9 +335,21 @@ root<span class="err">&#39;</span>s password:
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:30:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#107-ref">107</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

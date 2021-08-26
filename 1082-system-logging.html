@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 108, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="108.2 System logging "/>
 <meta property="og:url" content="./1082-system-logging.html" />
-<meta property="og:description" content="108.2 System logging Weight: 3 Candidates should be able to configure the syslog daemon. This objective also includes configuring the logging daemon to send log output to a central log server or accept log output as a central log server. Use of the systemd journal subsystem is covered. Also …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:33:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="108.2 System logging ">
-<meta name="twitter:description" content="108.2 System logging Weight: 3 Candidates should be able to configure the syslog daemon. This objective also includes configuring the logging daemon to send log output to a central log server or accept log output as a central log server. Use of the systemd journal subsystem is covered. Also …">
+<meta name="twitter:description" content="">
 
         <title>108.2 System logging  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,17 +76,17 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>108.2 System logging</h1>
+            <h2>108.2 System logging</h2>
 <p><em>Weight: 3</em></p>
-<p>Candidates should be able to configure the syslog daemon. This objective also includes configuring the logging daemon to send log output to a central log  server or accept log output as a central log server. Use of the systemd journal subsystem is covered. Also, awareness of rsyslog and syslog-ng as alternative logging systems is included.</p>
-<h2>Key Knowledge Areas</h2>
+<p>Candidates should be able to configure the syslog daemon. This objective also includes configuring the logging daemon to send log output to a central log server or accept log output as a central log server. Use of the systemd journal subsystem is covered. Also, awareness of rsyslog and syslog-ng as alternative logging systems is included.</p>
+<h3>Key Knowledge Areas</h3>
 <ul>
 <li>Configuration of the syslog daemon.</li>
 <li>Understanding of standard facilities, priorities and actions.</li>
 <li>Configuration of logrotate.</li>
 <li>Awareness of rsyslog and syslog-ng.</li>
 </ul>
-<h2>Terms and Utilities</h2>
+<h3>Terms and Utilities</h3>
 <ul>
 <li>syslog.conf</li>
 <li>syslogd</li>
@@ -101,7 +100,7 @@
 <li>/etc/systemd/journald.conf</li>
 <li>/var/log/journal/</li>
 </ul>
-<h2>History</h2>
+<h3>History</h3>
 <p>The Linux logging system is under heavy changes. We will cover the <strong>syslog</strong> but most system have replaced it with <strong>rsyslog</strong> and <strong>systemd journal</strong>s. The strange thing is the fact that <strong>systemd journal</strong> uses a binary file format which is not that common in Linux world.</p>
 <p>The logging in linux is orginized based on three concepts: facilities, priorities and actions. When a program generated a log, it tags or labels that log with a facility (like <code>mail</code>) which says what this log is and a priority (like <code>alert</code>). Each tag can have values like the following list:</p>
 <ul>
@@ -113,187 +112,187 @@
 <table>
 <thead>
 <tr>
-<th>action</th>
-<th>sample</th>
-<th>meaning</th>
+<th align="left">action</th>
+<th align="left">sample</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>filename</td>
-<td>/usr/log/logins.log</td>
-<td>will write the log to this file</td>
+<td align="left">filename</td>
+<td align="left">/usr/log/logins.log</td>
+<td align="left">will write the log to this file</td>
 </tr>
 <tr>
-<td>username</td>
-<td>jadi</td>
-<td>will notify that person on the screen</td>
+<td align="left">username</td>
+<td align="left">jadi</td>
+<td align="left">will notify that person on the screen</td>
 </tr>
 <tr>
-<td>@ip</td>
-<td>@192.168.1.100</td>
-<td>will send this log to this log server and that log server will decide what to do with it based on its configs</td>
+<td align="left">@ip</td>
+<td align="left">@192.168.1.100</td>
+<td align="left">will send this log to this log server and that log server will decide what to do with it based on its configs</td>
 </tr>
 </tbody>
 </table>
 <p>So a line like this will show the kernel panics to a remote log server and also will log everything on every level to a log file:</p>
-<div class="highlight"><pre><span></span><code><span class="n">kern</span><span class="p">.</span><span class="n">panic</span>      <span class="mf">@192.168.1.100</span>
-<span class="o">*</span><span class="p">.</span><span class="o">*</span>             <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">messages</span>
+<div class="highlight"><pre><span></span><code>kern.panic      @192.168.1.100
+*.*             /var/log/messages
 </code></pre></div>
 
-<p>If you log some specific priority, all the <strong>more important</strong> things will be logged too! So if you write <code>cron.notice   /var/log/cron/log</code>, you are logging the emerg/panic, alert, critical, error, warning and notice logs of the cron category too.</p>
+<p>If you log some specific priority, all the <strong>more important</strong> things will be logged too! So if you write <code>cron.notice /var/log/cron/log</code>, you are logging the emerg/panic, alert, critical, error, warning and notice logs of the cron category too.</p>
 <blockquote>
-<p>If you need to log ONLY one specific level, add an equal sign (=) before the priority like this <code>local3.=alert    /var/log/user.alert.log</code>.</p>
+<p>If you need to log ONLY one specific level, add an equal sign (=) before the priority like this <code>local3.=alert /var/log/user.alert.log</code>.</p>
 </blockquote>
-<p>It is important to know that the binary which logs the *<em>kern</em> category is a standalone daemon. This daemon is called <code>klogd</code> and uses same configuration files. Why? so even after everything is crashed, klogd can log the kernel crashes ;)</p>
-<h2>syslog and rsyslog</h2>
+<p>It is important to know that the binary which logs the <em>*kern</em> category is a standalone daemon. This daemon is called <code>klogd</code> and uses same configuration files. Why? so even after everything is crashed, klogd can log the kernel crashes ;)</p>
+<h3>syslog and rsyslog</h3>
 <p>Most modern system use <strong>rsyslog</strong> instead of <strong>syslog</strong>. Their functionality is mostly same and here we will only cover the rsyslog.</p>
 <p>The main configuration file in rsyslog, as you should be able to guess is <code>/etc/syslog.conf</code>. It loads some modules on the top and then have lines like this:</p>
-<div class="highlight"><pre><span></span><code><span class="err">auth,authpriv.*         /var/log/auth.log</span>
-<span class="err">*.*;auth,authpriv.none      -/var/log/syslog</span>
-<span class="err">#cron.*             /var/log/cron.log</span>
-<span class="err">daemon.*            -/var/log/daemon.log</span>
-<span class="err">kern.*              -/var/log/kern.log</span>
-<span class="err">lpr.*               -/var/log/lpr.log</span>
-<span class="err">mail.*              -/var/log/mail.log</span>
-<span class="err">user.*              -/var/log/user.log</span>
+<div class="highlight"><pre><span></span><code>auth,authpriv.*            /var/log/auth.log
+*.*;auth,authpriv.none        -/var/log/syslog
+#cron.*                /var/log/cron.log
+daemon.*            -/var/log/daemon.log
+kern.*                -/var/log/kern.log
+lpr.*                -/var/log/lpr.log
+mail.*                -/var/log/mail.log
+user.*                -/var/log/user.log
 </code></pre></div>
 
 <blockquote>
-<p>'auth,authpriv.*' means both auth  and authpriv properties</p>
+<p>'auth,authpriv.*' means both auth and authpriv properties</p>
 </blockquote>
 <p>Note that sometimes on the action we have a <code>-</code>. This means the log will go the memory cache to prevent disk from spinning all the time.</p>
 <p>Again there is a <code>/etc/rsyslog.d/</code> and it is better for different softwares and admins to add their specific configs there, instead of editing the main configuration file.</p>
-<h3>creating rsyslog listener</h3>
-<p>If you need to start a rsylog listener and catch other systems log messages, it is enough to add an <code>-r</code> switch to rsyslog options. Just edit the  <code>/etc/default/rsyslog</code> and change options from <code>""</code> to <code>"-r"</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="err">cat /etc/default/rsyslog</span>
-<span class="err"># Options for rsyslogd</span>
-<span class="err"># -x disables DNS lookups for remote messages</span>
-<span class="err"># See rsyslogd(8) for more details</span>
-<span class="err">RSYSLOGD_OPTIONS=&quot;-r&quot;</span>
+<h4>creating rsyslog listener</h4>
+<p>If you need to start a rsylog listener and catch other systems log messages, it is enough to add an <code>-r</code> switch to rsyslog options. Just edit the <code>/etc/default/rsyslog</code> and change options from <code>""</code> to <code>"-r"</code>.</p>
+<div class="highlight"><pre><span></span><code>cat /etc/default/rsyslog
+# Options for rsyslogd
+# -x disables DNS lookups for remote messages
+# See rsyslogd(8) for more details
+RSYSLOGD_OPTIONS=&quot;-r&quot;
 </code></pre></div>
 
 <p>and restart the daemon:</p>
-<div class="highlight"><pre><span></span><code><span class="err"># systemctl restart rsyslog</span>
+<div class="highlight"><pre><span></span><code># systemctl restart rsyslog
 </code></pre></div>
 
-<h3>journalctl</h3>
+<h4>journalctl</h4>
 <p>The newer distributions are switching to <strong>systemd</strong> and are using <strong>systemd journal</strong> for their logging. As I mentioned earlier the systemd keeps its logs as binary files and the user should use the <code>journalctl</code> to access them.</p>
-<div class="highlight"><pre><span></span><code><span class="err"># journalctl</span>
-<span class="err">-- Logs begin at Sun 2016-01-03 10:35:53 IRST, end at Tue 2016-01-05 22:34:06 IRST. --</span>
-<span class="err">Jan 03 10:35:53 funlife systemd-journald[184]: Runtime journal (/run/log/journal/) is currently using 8.0M.</span>
-<span class="err">                                               Maximum allowed usage is set to 238.1M.</span>
-<span class="err">                                               Leaving at least 357.2M free (of currently available 2.3G of space).</span>
-<span class="err">                                               Enforced usage limit is thus 238.1M, of which 230.1M are still available.</span>
-<span class="err">Jan 03 10:35:53 funlife kernel: Initializing cgroup subsys cpuset</span>
-<span class="err">Jan 03 10:35:53 funlife kernel: Initializing cgroup subsys cpu</span>
-<span class="err">Jan 03 10:35:53 funlife kernel: Initializing cgroup subsys cpuacct</span>
-<span class="err">Jan 03 10:35:53 funlife kernel: Linux version 4.3.0-1-amd64 (debian-kernel@lists.debian.org) (gcc version 5.3.1 20151207 (Debian 5.3.1-3) ) #1 SMP Debian 4.3.3-2 (2015-</span>
-<span class="err">Jan 03 10:35:53 funlife kernel: Command line: BOOT_IMAGE=/boot/vmlinuz-4.3.0-1-amd64 root=UUID=e6b1e8e9-dee3-45cd-b147-44801cc680f0 ro quiet</span>
-<span class="err">Jan 03 10:35:53 funlife kernel: Disabled fast string operations</span>
+<div class="highlight"><pre><span></span><code># journalctl
+-- Logs begin at Sun 2016-01-03 10:35:53 IRST, end at Tue 2016-01-05 22:34:06 IRST. --
+Jan 03 10:35:53 funlife systemd-journald[184]: Runtime journal (/run/log/journal/) is currently using 8.0M.
+                                               Maximum allowed usage is set to 238.1M.
+                                               Leaving at least 357.2M free (of currently available 2.3G of space).
+                                               Enforced usage limit is thus 238.1M, of which 230.1M are still available.
+Jan 03 10:35:53 funlife kernel: Initializing cgroup subsys cpuset
+Jan 03 10:35:53 funlife kernel: Initializing cgroup subsys cpu
+Jan 03 10:35:53 funlife kernel: Initializing cgroup subsys cpuacct
+Jan 03 10:35:53 funlife kernel: Linux version 4.3.0-1-amd64 (debian-kernel@lists.debian.org) (gcc version 5.3.1 20151207 (Debian 5.3.1-3) ) #1 SMP Debian 4.3.3-2 (2015-
+Jan 03 10:35:53 funlife kernel: Command line: BOOT_IMAGE=/boot/vmlinuz-4.3.0-1-amd64 root=UUID=e6b1e8e9-dee3-45cd-b147-44801cc680f0 ro quiet
+Jan 03 10:35:53 funlife kernel: Disabled fast string operations
 </code></pre></div>
 
 <blockquote>
 <p>At the moment, most new systems use <code>systemd</code> and <code>journalctl</code> but also have <code>rsyslog</code> installed and are logging information in both systems.</p>
 </blockquote>
 <p>The config file of journalctl is located at <code>/etc/systemd/journald.conf</code>.</p>
-<h2>logger</h2>
+<h3>logger</h3>
 <p>It is possible to use the <code>logger</code> command to generate some logs:</p>
-<div class="highlight"><pre><span></span><code><span class="err">logger local1.info jadi was here</span>
+<div class="highlight"><pre><span></span><code>logger local1.info jadi was here
 </code></pre></div>
 
 <p>and this will appear at <code>/var/log/syslog</code>.</p>
-<h2>logrotate</h2>
+<h3>logrotate</h3>
 <p>Now we are generating a lot of logs. What should we do with them? How they should be archived? The <code>logrotate</code> utility assists us in this area. Its main config file is <code>/etc/logrotate.conf</code> and as any modern program, other config files can go into <code>/etc/logrotate.d/</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="n">cat</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">logrotate</span><span class="p">.</span><span class="n">conf</span>
-<span class="o">#</span> <span class="n">see</span> <span class="ss">&quot;man logrotate&quot;</span> <span class="k">for</span> <span class="n">details</span>
-<span class="o">#</span> <span class="n">rotate</span> <span class="n">log</span> <span class="n">files</span> <span class="n">weekly</span>
-<span class="n">weekly</span>
+<div class="highlight"><pre><span></span><code># cat /etc/logrotate.conf
+# see &quot;man logrotate&quot; for details
+# rotate log files weekly
+weekly
 
-<span class="o">#</span> <span class="n">keep</span> <span class="mi">4</span> <span class="n">weeks</span> <span class="n">worth</span> <span class="k">of</span> <span class="n">backlogs</span>
-<span class="n">rotate</span> <span class="mi">4</span>
+# keep 4 weeks worth of backlogs
+rotate 4
 
-<span class="o">#</span> <span class="k">create</span> <span class="k">new</span> <span class="p">(</span><span class="n">empty</span><span class="p">)</span> <span class="n">log</span> <span class="n">files</span> <span class="k">after</span> <span class="n">rotating</span> <span class="k">old</span> <span class="n">ones</span>
-<span class="k">create</span>
+# create new (empty) log files after rotating old ones
+create
 
-<span class="o">#</span> <span class="n">uncomment</span> <span class="n">this</span> <span class="k">if</span> <span class="n">you</span> <span class="n">want</span> <span class="n">your</span> <span class="n">log</span> <span class="n">files</span> <span class="n">compressed</span>
-<span class="o">#</span><span class="n">compress</span>
+# uncomment this if you want your log files compressed
+#compress
 
-<span class="o">#</span> <span class="n">packages</span> <span class="k">drop</span> <span class="n">log</span> <span class="n">rotation</span> <span class="n">information</span> <span class="k">into</span> <span class="n">this</span> <span class="n">directory</span>
-<span class="n">include</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">logrotate</span><span class="p">.</span><span class="n">d</span>
+# packages drop log rotation information into this directory
+include /etc/logrotate.d
 
-<span class="o">#</span> <span class="k">no</span> <span class="n">packages</span> <span class="n">own</span> <span class="n">wtmp</span><span class="p">,</span> <span class="k">or</span> <span class="n">btmp</span> <span class="c1">-- we&#39;ll rotate them here</span>
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">wtmp</span> <span class="err">{</span>
-    <span class="n">missingok</span>
-    <span class="n">monthly</span>
-    <span class="k">create</span> <span class="mi">0664</span> <span class="n">root</span> <span class="n">utmp</span>
-    <span class="n">rotate</span> <span class="mi">1</span>
-<span class="err">}</span>
+# no packages own wtmp, or btmp -- we&#39;ll rotate them here
+/var/log/wtmp {
+    missingok
+    monthly
+    create 0664 root utmp
+    rotate 1
+}
 
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">btmp</span> <span class="err">{</span>
-    <span class="n">missingok</span>
-    <span class="n">monthly</span>
-    <span class="k">create</span> <span class="mi">0660</span> <span class="n">root</span> <span class="n">utmp</span>
-    <span class="n">rotate</span> <span class="mi">1</span>
-<span class="err">}</span>
+/var/log/btmp {
+    missingok
+    monthly
+    create 0660 root utmp
+    rotate 1
+}
 
-<span class="o">#</span> <span class="k">system</span><span class="o">-</span><span class="k">specific</span> <span class="n">logs</span> <span class="n">may</span> <span class="n">be</span> <span class="n">configured</span> <span class="n">here</span>
+# system-specific logs may be configured here
 </code></pre></div>
 
 <p>It is very easy to see how it works. Lets check one of them:</p>
-<div class="highlight"><pre><span></span><code><span class="err"># cat /etc/logrotate.d/nginx</span>
-<span class="err">/var/log/nginx/*.log {</span>
-<span class="err">    weekly</span>
-<span class="err">    missingok</span>
-<span class="err">    rotate 52</span>
-<span class="err">    compress</span>
-<span class="err">    delaycompress</span>
-<span class="err">    notifempty</span>
-<span class="err">    create 0640 www-data adm</span>
-<span class="err">    sharedscripts</span>
-<span class="err">    prerotate</span>
-<span class="err">        if [ -d /etc/logrotate.d/httpd-prerotate ]; then \</span>
-<span class="err">            run-parts /etc/logrotate.d/httpd-prerotate; \</span>
-<span class="err">        fi \</span>
-<span class="err">    endscript</span>
-<span class="err">    postrotate</span>
-<span class="err">        invoke-rc.d nginx rotate &gt;/dev/null 2&gt;&amp;1</span>
-<span class="err">    endscript</span>
-<span class="err">}</span>
+<div class="highlight"><pre><span></span><code># cat /etc/logrotate.d/nginx
+/var/log/nginx/*.log {
+    weekly
+    missingok
+    rotate 52
+    compress
+    delaycompress
+    notifempty
+    create 0640 www-data adm
+    sharedscripts
+    prerotate
+        if [ -d /etc/logrotate.d/httpd-prerotate ]; then \
+            run-parts /etc/logrotate.d/httpd-prerotate; \
+        fi \
+    endscript
+    postrotate
+        invoke-rc.d nginx rotate &gt;/dev/null 2&gt;&amp;1
+    endscript
+}
 </code></pre></div>
 
 <p>These are the meaning of some of these parameters:</p>
 <table>
 <thead>
 <tr>
-<th>parameter</th>
-<th>meaning</th>
+<th align="left">parameter</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>weekly</td>
-<td>rotate logs weekly</td>
+<td align="left">weekly</td>
+<td align="left">rotate logs weekly</td>
 </tr>
 <tr>
-<td>missingok</td>
-<td>it is fine if there is no log for this week</td>
+<td align="left">missingok</td>
+<td align="left">it is fine if there is no log for this week</td>
 </tr>
 <tr>
-<td>rotate 52</td>
-<td>keep the latest 52 logs and delete the older ones</td>
+<td align="left">rotate 52</td>
+<td align="left">keep the latest 52 logs and delete the older ones</td>
 </tr>
 <tr>
-<td>compress</td>
-<td>compress the logs</td>
+<td align="left">compress</td>
+<td align="left">compress the logs</td>
 </tr>
 <tr>
-<td>create 0640 www-data adm</td>
-<td>create the files with this access and owners</td>
+<td align="left">create 0640 www-data adm</td>
+<td align="left">create the files with this access and owners</td>
 </tr>
 <tr>
-<td>pre &amp; post rotate</td>
-<td>run these scripts or commands before and after the rotation</td>
+<td align="left">pre &amp; post rotate</td>
+<td align="left">run these scripts or commands before and after the rotation</td>
 </tr>
 </tbody>
 </table>
@@ -316,9 +315,21 @@
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:33:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#108-ref">108</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

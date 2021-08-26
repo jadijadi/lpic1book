@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 104, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="104.7 Find system files and place files in the correct location "/>
 <meta property="og:url" content="./1047-find-system-files-and-place-files-in-the-correct-location.html" />
-<meta property="og:description" content="104.7 Find system files and place files in the correct location Weight: 2 Candidates should be thoroughly familiar with the Filesystem Hierarchy Standard (FHS), including typical file locations and directory classifications. Objectives Understand the correct locations of files under the FHS. Find files and commands on a Linux system …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:24:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="104.7 Find system files and place files in the correct location ">
-<meta name="twitter:description" content="104.7 Find system files and place files in the correct location Weight: 2 Candidates should be thoroughly familiar with the Filesystem Hierarchy Standard (FHS), including typical file locations and directory classifications. Objectives Understand the correct locations of files under the FHS. Find files and commands on a Linux system …">
+<meta name="twitter:description" content="">
 
         <title>104.7 Find system files and place files in the correct location  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,19 +76,15 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>104.7 Find system files and place files in the correct location</h1>
+            <h2>104.7 Find system files and place files in the correct location</h2>
 <p><em>Weight: 2</em></p>
 <p>Candidates should be thoroughly familiar with the <strong>Filesystem Hierarchy Standard (FHS)</strong>, including typical file locations and directory classifications.</p>
-<h2>Objectives</h2>
+<h3>Objectives</h3>
 <ul>
 <li>Understand the correct locations of files under the FHS.</li>
 <li>Find files and commands on a Linux system.</li>
-<li>
-<p>Know the location and purpose of important file and directories as defined in the FHS.</p>
-</li>
-<li>
-<p>find</p>
-</li>
+<li>Know the location and purpose of important file and directories as defined in the FHS.</li>
+<li>find</li>
 <li>locate</li>
 <li>updatedb</li>
 <li>whereis</li>
@@ -97,97 +92,97 @@
 <li>type</li>
 <li>/etc/updatedb.conf</li>
 </ul>
-<h2>FHS</h2>
+<h3>FHS</h3>
 <p>Filesystem Hierarchy Standard (FHS) is a document describing the Linux / Unix file hierarchy. It is very useful to know these because it lets you easily find what you are looking for:</p>
 <table>
 <thead>
 <tr>
-<th>directory</th>
-<th>usage</th>
+<th align="left">directory</th>
+<th align="left">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>bin</td>
-<td>Essential command binaries</td>
+<td align="left">bin</td>
+<td align="left">Essential command binaries</td>
 </tr>
 <tr>
-<td>boot</td>
-<td>Static files of the boot loader</td>
+<td align="left">boot</td>
+<td align="left">Static files of the boot loader</td>
 </tr>
 <tr>
-<td>dev</td>
-<td>Device files</td>
+<td align="left">dev</td>
+<td align="left">Device files</td>
 </tr>
 <tr>
-<td>etc</td>
-<td>Host-specific system configuration</td>
+<td align="left">etc</td>
+<td align="left">Host-specific system configuration</td>
 </tr>
 <tr>
-<td>lib</td>
-<td>Essential shared libraries and kernel modules</td>
+<td align="left">lib</td>
+<td align="left">Essential shared libraries and kernel modules</td>
 </tr>
 <tr>
-<td>media</td>
-<td>Mount point for removable media</td>
+<td align="left">media</td>
+<td align="left">Mount point for removable media</td>
 </tr>
 <tr>
-<td>mnt</td>
-<td>Mount point for mounting a filesystem temporarily</td>
+<td align="left">mnt</td>
+<td align="left">Mount point for mounting a filesystem temporarily</td>
 </tr>
 <tr>
-<td>opt</td>
-<td>Add-on application software packages</td>
+<td align="left">opt</td>
+<td align="left">Add-on application software packages</td>
 </tr>
 <tr>
-<td>sbin</td>
-<td>Essential system binaries</td>
+<td align="left">sbin</td>
+<td align="left">Essential system binaries</td>
 </tr>
 <tr>
-<td>srv</td>
-<td>Data for services provided by this system</td>
+<td align="left">srv</td>
+<td align="left">Data for services provided by this system</td>
 </tr>
 <tr>
-<td>tmp</td>
-<td>Temporary files</td>
+<td align="left">tmp</td>
+<td align="left">Temporary files</td>
 </tr>
 <tr>
-<td>usr</td>
-<td>Secondary hierarchy</td>
+<td align="left">usr</td>
+<td align="left">Secondary hierarchy</td>
 </tr>
 <tr>
-<td>var</td>
-<td>Variable data</td>
+<td align="left">var</td>
+<td align="left">Variable data</td>
 </tr>
 <tr>
-<td>home</td>
-<td>User home directories (optional)</td>
+<td align="left">home</td>
+<td align="left">User home directories (optional)</td>
 </tr>
 <tr>
-<td>lib<qual></td>
-<td>Alternate format essential shared libraries (optional)</td>
+<td align="left">lib</td>
+<td align="left">Alternate format essential shared libraries (optional)</td>
 </tr>
 <tr>
-<td>root</td>
-<td>Home directory for the root user (optional)</td>
+<td align="left">root</td>
+<td align="left">Home directory for the root user (optional)</td>
 </tr>
 </tbody>
 </table>
 <p>The <code>/usr</code> filesystem is the second major section of the filesystem, containing shareable, read-only data. It can be shared between systems, although present practice does not often do this.</p>
 <p>The <code>/var</code> filesystem contains variable data files, including spool directories and files, administrative and logging data, and transient and temporary files. Some portions of /var are not shareable between different systems, but others, such as /var/mail, /var/cache/man, /var/cache/fonts, and /var/spool/news, may be shared.</p>
-<h2>Path</h2>
+<h3>Path</h3>
 <p>A general linux install has a lot of files; 741341 files in my case. So how it find out where to look when you type a command? This is done by a variable called PATH:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="nv">$PATH</span>
-/home/jadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games<span class="p">;</span>/home/jadi/bin/
+<div class="highlight"><pre><span></span><code>$ echo $PATH
+/home/jadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games;/home/jadi/bin/
 </code></pre></div>
 
 <p>And for root user:</p>
-<div class="highlight"><pre><span></span><code><span class="err"># echo $PATH</span>
-<span class="err">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span>
+<div class="highlight"><pre><span></span><code># echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 </code></pre></div>
 
 <p>As you can see, this is the list of directories separated with a colon. Obviously you can change your path with <code>export PATH=$PATH:/usr/new/dir</code> or put this in <code>.bashrc</code> to make it permanent.</p>
-<h2>which, type and whereis</h2>
+<h3>which, type and whereis</h3>
 <p>The <code>which</code> command shows the first appearance of the command given in path:</p>
 <div class="highlight"><pre><span></span><code>$ which mkfd
 $ which mkfs
@@ -198,19 +193,19 @@ $ which mkfs
 <p>use the <code>-a</code> switch to show all appearance in the path and not only the first one.</p>
 </blockquote>
 <p>But what happens if you <code>which for</code> ?</p>
-<div class="highlight"><pre><span></span><code>$ which <span class="k">for</span>
-$ <span class="nb">type</span> <span class="k">for</span>
-<span class="k">for</span> is a shell keyword
+<div class="highlight"><pre><span></span><code>$ which for
+$ type for
+for is a shell keyword
 </code></pre></div>
 
 <p>As you can see, <code>which</code> did not found anything for <code>for</code> and we used <code>type</code>.</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">type</span> <span class="nb">type</span>
-<span class="nb">type</span> is a shell <span class="nb">builtin</span>
-$ <span class="nb">type</span> <span class="k">for</span>
-<span class="k">for</span> is a shell keyword
-$ <span class="nb">type</span> mkfs
+<div class="highlight"><pre><span></span><code>$ type type
+type is a shell builtin
+$ type for
+for is a shell keyword
+$ type mkfs
 mkfs is /sbin/mkfs
-$ <span class="nb">type</span> mkfd
+$ type mkfd
 bash: type: mkfd: not found
 </code></pre></div>
 
@@ -225,14 +220,14 @@ chert:
 $
 </code></pre></div>
 
-<h2>find</h2>
+<h3>find</h3>
 <p>We have already seen this command in detail but lets see a couple of new switches.</p>
 <ul>
 <li>The <code>-user</code> and <code>-group</code> specifies a specific user &amp; group</li>
 <li>The <code>-maxdepth</code> tells the find how deep it should go into the directories.</li>
 </ul>
-<div class="highlight"><pre><span></span><code>$ find /tmp/ -maxdepth <span class="m">1</span> -user jadi <span class="p">|</span> head
-$ find /tmp/ -maxdepth <span class="m">1</span> -user jadi <span class="p">|</span> head
+<div class="highlight"><pre><span></span><code>$ find /tmp/ -maxdepth 1 -user jadi | head
+$ find /tmp/ -maxdepth 1 -user jadi | head
 /tmp/asheghloo.png
 /tmp/tmpAN6Drb
 /tmp/wrapper-24115-2-out
@@ -248,7 +243,7 @@ $ find /tmp/ -maxdepth <span class="m">1</span> -user jadi <span class="p">|</sp
 <blockquote>
 <p>Like other <em>tests</em>, you can add a <code>!</code> just before any phrase to negate it. So this will find files <strong>not belonging</strong> to jadi: <code>find . ! -user jadi</code></p>
 </blockquote>
-<h2>locate &amp; updatedb</h2>
+<h3>locate &amp; updatedb</h3>
 <p>You tries <code>find</code> and know that it is slowwwww... It searches the file system on each run but lets see the fastest command:</p>
 <div class="highlight"><pre><span></span><code>$ locate happy
 /home/jadi/.Spark/xtra/emoticons/Default.adiumemoticonset/happy.png
@@ -265,32 +260,33 @@ $ find /tmp/ -maxdepth <span class="m">1</span> -user jadi <span class="p">|</sp
 </code></pre></div>
 
 <p>And it is fast:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">time</span> locate kernel <span class="p">|</span> wc -l
-<span class="m">11235</span>
+<div class="highlight"><pre><span></span><code>$ time locate kernel | wc -l
+11235
 
 real    0m0.341s
 user    0m0.322s
-sys 0m0.015s
+sys    0m0.015s
 </code></pre></div>
 
 <p>This is fast because its data comes from a database created with <code>updatedb</code> command which is usually run on a daily basis with a cron job. Its configuration file is <code>/etc/updatedb.conf</code> or <code>/etc/sysconfig/locate</code>:</p>
 <div class="highlight"><pre><span></span><code>$ cat /etc/updatedb.conf
-<span class="nv">PRUNE_BIND_MOUNTS</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span>
-<span class="c1"># PRUNENAMES=&quot;.git .bzr .hg .svn&quot;</span>
-<span class="nv">PRUNEPATHS</span><span class="o">=</span><span class="s2">&quot;/tmp /var/spool /media /home/.ecryptfs&quot;</span>
-<span class="nv">PRUNEFS</span><span class="o">=</span><span class="s2">&quot;NFS nfs nfs4 rpc_pipefs afs binfmt_misc proc smbfs autofs iso9660 ncpfs coda devpts ftpfs devfs mfs shfs sysfs cifs lustre tmpfs usbfs udf fuse.glusterfs fuse.sshfs curlftpfs ecryptfs fusesmb devtmpfs&quot;</span>
+PRUNE_BIND_MOUNTS=&quot;yes&quot;
+# PRUNENAMES=&quot;.git .bzr .hg .svn&quot;
+PRUNEPATHS=&quot;/tmp /var/spool /media /home/.ecryptfs&quot;
+PRUNEFS=&quot;NFS nfs nfs4 rpc_pipefs afs binfmt_misc proc smbfs autofs iso9660 ncpfs coda devpts ftpfs devfs mfs shfs sysfs cifs lustre tmpfs usbfs udf fuse.glusterfs fuse.sshfs curlftpfs ecryptfs fusesmb devtmpfs&quot;
 </code></pre></div>
 
 <p>Please note that you can update the db by running <code>updatedb</code> as root and get some info about it by <code>-S</code> switch of <code>locate</code> command:</p>
-<p><code>`
-$ locate -S
+<div class="highlight"><pre><span></span><code>$ locate -S
 Database /var/lib/mlocate/mlocate.db:
     73,602 directories
     711,894 files
     46,160,154 bytes in file names
-    18,912,999 bytes used to store database</code></p>
-<h1>And... the LPIC1 exam 101 is DONE! Congrats.</h1>
-<p>http://j.mp/jadilpic1</p>
+    18,912,999 bytes used to store database
+</code></pre></div>
+
+<h2>And... the LPIC1 exam 101 is DONE! Congrats.</h2>
+<p><a href="http://j.mp/jadilpic1">http://j.mp/jadilpic1</a></p>
 <p>.</p>
 <p>.</p>
 <p>.</p>
@@ -317,9 +313,21 @@ Database /var/lib/mlocate/mlocate.db:
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:24:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#104-ref">104</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

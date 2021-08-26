@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 106, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="106.1 Install and configure X11 "/>
 <meta property="og:url" content="./1061-install-and-configure-x11.html" />
-<meta property="og:description" content="106.1 Install and configure X11 Weight: 2 Candidates should be able to install and configure X11. Key Knowledge Areas Verify that the video card and monitor are supported by an X server Awareness of the X font server Basic understanding and knowledge of the X Window configuration file Terms …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:26:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="106.1 Install and configure X11 ">
-<meta name="twitter:description" content="106.1 Install and configure X11 Weight: 2 Candidates should be able to install and configure X11. Key Knowledge Areas Verify that the video card and monitor are supported by an X server Awareness of the X font server Basic understanding and knowledge of the X Window configuration file Terms …">
+<meta name="twitter:description" content="">
 
         <title>106.1 Install and configure X11  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,16 +76,16 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>106.1 Install and configure X11</h1>
+            <h2>106.1 Install and configure X11</h2>
 <p><em>Weight: 2</em></p>
 <p>Candidates should be able to install and configure X11.</p>
-<h3>Key Knowledge Areas</h3>
+<h4>Key Knowledge Areas</h4>
 <ul>
 <li>Verify that the video card and monitor are supported by an X server</li>
 <li>Awareness of the X font server</li>
 <li>Basic understanding and knowledge of the X Window configuration file</li>
 </ul>
-<h3>Terms and Utilities:</h3>
+<h4>Terms and Utilities:</h4>
 <ul>
 <li>/etc/X11/xorg.conf</li>
 <li>xhost</li>
@@ -95,159 +94,159 @@
 <li>xdpyinfo</li>
 <li>X</li>
 </ul>
-<h2>Hisotry</h2>
+<h3>Hisotry</h3>
 <p>This lesson is useless in modern life! Very strange but practically nothing in this lesson is used in real life because xorg.conf, xhost, ... is not used in any modern linux system anymore. Maybe they are here so you wont be shocked if you see an older linux.</p>
-<h2>X</h2>
+<h3>X</h3>
 <p>The X Window System is a network transparent window system which runs on a wide range of computing and graphics machines; including practically ALL linux systems with graphical interfaces. It is also called X11 because of its version, X window system, X server, ...</p>
-<h2>/etc/X11/xorg.conf</h2>
+<h3>/etc/X11/xorg.conf</h3>
 <p>This is file X used to use for its configuration. In most cases this is automatically generated and works. Newer systems do not have this file so lets have a look at a xorg.conf I found on the Internet.</p>
-<div class="highlight"><pre><span></span><code><span class="err">Section &quot;Files&quot;</span>
-<span class="err">    FontPath    &quot;/usr/share/X11/fonts/misc&quot;</span>
-<span class="err">    FontPath    &quot;/usr/share/X11/fonts/100dpi/:unscaled&quot;</span>
-<span class="err">    FontPath    &quot;/usr/share/X11/fonts/75dpi/:unscaled&quot;</span>
-<span class="err">    FontPath    &quot;/usr/share/X11/fonts/Type1&quot;</span>
-<span class="err">    FontPath    &quot;/usr/share/X11/fonts/100dpi&quot;</span>
-<span class="err">    FontPath    &quot;/usr/share/X11/fonts/75dpi&quot;</span>
-<span class="err">    FontPath    &quot;/var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType&quot;</span>
-<span class="err">EndSection</span>
+<div class="highlight"><pre><span></span><code>Section &quot;Files&quot;
+    FontPath    &quot;/usr/share/X11/fonts/misc&quot;
+    FontPath    &quot;/usr/share/X11/fonts/100dpi/:unscaled&quot;
+    FontPath    &quot;/usr/share/X11/fonts/75dpi/:unscaled&quot;
+    FontPath    &quot;/usr/share/X11/fonts/Type1&quot;
+    FontPath    &quot;/usr/share/X11/fonts/100dpi&quot;
+    FontPath    &quot;/usr/share/X11/fonts/75dpi&quot;
+    FontPath    &quot;/var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType&quot;
+EndSection
 </code></pre></div>
 
 <p>This part is about Fonts. When X-Server is running it needs these files. FontPaths tell X11 where fonts are. It also can refer to an IP running a font-server which is not common these days. Font servers used to be responsible of rendering fonts to be shown on clients but nowadays computers are fast and can render their own fonts. Font servers are going out of fashion!</p>
-<div class="highlight"><pre><span></span><code><span class="err">Section &quot;Module&quot;</span>
-<span class="err">    Load    &quot;bitmap&quot;</span>
-<span class="err">    Load    &quot;ddc&quot;</span>
-<span class="err">    Load    &quot;dri&quot;</span>
-<span class="err">    Load    &quot;extmod&quot;</span>
-<span class="err">    Load    &quot;freetype&quot;</span>
-<span class="err">    Load    &quot;glx&quot;</span>
-<span class="err">    Load    &quot;int10&quot;</span>
-<span class="err">    Load    &quot;type1&quot;</span>
-<span class="err">    Load    &quot;vbe&quot;</span>
-<span class="err">    Load    &quot;dbe&quot;</span>
-<span class="err">EndSection</span>
+<div class="highlight"><pre><span></span><code>Section &quot;Module&quot;
+    Load    &quot;bitmap&quot;
+    Load    &quot;ddc&quot;
+    Load    &quot;dri&quot;
+    Load    &quot;extmod&quot;
+    Load    &quot;freetype&quot;
+    Load    &quot;glx&quot;
+    Load    &quot;int10&quot;
+    Load    &quot;type1&quot;
+    Load    &quot;vbe&quot;
+    Load    &quot;dbe&quot;
+EndSection
 </code></pre></div>
 
 <p>These are modules. For example <code>glx</code> takes care of 3d graphical effects. We are asking X server to load so called modules.</p>
 <p>Next we have to define our <code>InputDevice</code>s:</p>
-<div class="highlight"><pre><span></span><code><span class="n">Section</span> <span class="ss">&quot;InputDevice&quot;</span>
-    <span class="n">Identifier</span>  <span class="ss">&quot;Generic Keyboard&quot;</span>
-    <span class="n">Driver</span>      <span class="ss">&quot;kbd&quot;</span>
-    <span class="k">Option</span>      <span class="ss">&quot;CoreKeyboard&quot;</span>
-    <span class="k">Option</span>      <span class="ss">&quot;XkbRules&quot;</span>  <span class="ss">&quot;xorg&quot;</span>
-    <span class="k">Option</span>      <span class="ss">&quot;XkbModel&quot;</span>  <span class="ss">&quot;pc105&quot;</span>
-    <span class="k">Option</span>      <span class="ss">&quot;XkbLayout&quot;</span> <span class="ss">&quot;us&quot;</span>
-<span class="n">EndSection</span>
+<div class="highlight"><pre><span></span><code>Section &quot;InputDevice&quot;
+    Identifier    &quot;Generic Keyboard&quot;
+    Driver        &quot;kbd&quot;
+    Option        &quot;CoreKeyboard&quot;
+    Option        &quot;XkbRules&quot;    &quot;xorg&quot;
+    Option        &quot;XkbModel&quot;    &quot;pc105&quot;
+    Option        &quot;XkbLayout&quot;    &quot;us&quot;
+EndSection
 
-<span class="n">Section</span> <span class="ss">&quot;InputDevice&quot;</span>
-    <span class="n">Identifier</span>  <span class="ss">&quot;Configured Mouse&quot;</span>
-    <span class="n">Driver</span>      <span class="ss">&quot;mouse&quot;</span>
-    <span class="k">Option</span>      <span class="ss">&quot;CorePointer&quot;</span>
-    <span class="k">Option</span>      <span class="ss">&quot;Device&quot;</span>        <span class="ss">&quot;/dev/input/mice&quot;</span>
-    <span class="k">Option</span>      <span class="ss">&quot;Protocol&quot;</span>      <span class="ss">&quot;ImPS/2&quot;</span>
-    <span class="k">Option</span>      <span class="ss">&quot;Emulate3Buttons&quot;</span>   <span class="ss">&quot;true&quot;</span>
-    <span class="k">Option</span>      <span class="ss">&quot;ZAxisMapping&quot;</span>      <span class="ss">&quot;4 5&quot;</span>
-<span class="n">EndSection</span>
+Section &quot;InputDevice&quot;
+    Identifier    &quot;Configured Mouse&quot;
+    Driver        &quot;mouse&quot;
+    Option        &quot;CorePointer&quot;
+    Option        &quot;Device&quot;        &quot;/dev/input/mice&quot;
+    Option        &quot;Protocol&quot;        &quot;ImPS/2&quot;
+    Option        &quot;Emulate3Buttons&quot;    &quot;true&quot;
+    Option        &quot;ZAxisMapping&quot;        &quot;4 5&quot;
+EndSection
 
-<span class="n">Section</span> <span class="ss">&quot;InputDevice&quot;</span>
-        <span class="n">Identifier</span>      <span class="ss">&quot;Synaptics Touchpad&quot;</span>
-        <span class="n">Driver</span>          <span class="ss">&quot;synaptics&quot;</span>
-        <span class="k">Option</span>          <span class="ss">&quot;SendCoreEvents&quot;</span>        <span class="ss">&quot;true&quot;</span>
-        <span class="k">Option</span>          <span class="ss">&quot;Device&quot;</span>                <span class="ss">&quot;/dev/psaux&quot;</span>
-        <span class="k">Option</span>          <span class="ss">&quot;Protocol&quot;</span>              <span class="ss">&quot;auto-dev&quot;</span>
-        <span class="k">Option</span>      <span class="ss">&quot;RightEdge&quot;</span>     <span class="ss">&quot;5000&quot;</span>
-<span class="n">EndSection</span>
+Section &quot;InputDevice&quot;
+        Identifier      &quot;Synaptics Touchpad&quot;
+        Driver          &quot;synaptics&quot;
+        Option          &quot;SendCoreEvents&quot;        &quot;true&quot;
+        Option          &quot;Device&quot;                &quot;/dev/psaux&quot;
+        Option          &quot;Protocol&quot;              &quot;auto-dev&quot;
+        Option        &quot;RightEdge&quot;        &quot;5000&quot;
+EndSection
 </code></pre></div>
 
 <p>As you can see each device has an <code>Identifier</code>, <code>Driver</code> and some options. We just defined a mouse, a keyboard and a touchpad and gave them some names.</p>
-<div class="highlight"><pre><span></span><code><span class="err">Section &quot;Device&quot;</span>
-<span class="err">    Identifier  &quot;ATI Technologies, Inc. Radeon Mobility 7500 (M7 LW)&quot;</span>
-<span class="err">    Driver      &quot;radeon&quot;</span>
-<span class="err">    BusID       &quot;PCI:1:0:0&quot;</span>
-<span class="err">    Option      &quot;DynamicClocks&quot; &quot;on&quot;</span>
-<span class="err">    Option      &quot;CRT2HSync&quot; &quot;30-80&quot;</span>
-<span class="err">    Option      &quot;CRT2VRefresh&quot;  &quot;59-75&quot;</span>
-<span class="err">    Option      &quot;MetaModes&quot; &quot;1024x768 800x600 640x480 1024x768+1280x1024&quot;</span>
-<span class="err">EndSection</span>
+<div class="highlight"><pre><span></span><code>Section &quot;Device&quot;
+    Identifier    &quot;ATI Technologies, Inc. Radeon Mobility 7500 (M7 LW)&quot;
+    Driver        &quot;radeon&quot;
+    BusID        &quot;PCI:1:0:0&quot;
+    Option        &quot;DynamicClocks&quot;    &quot;on&quot;
+    Option        &quot;CRT2HSync&quot;    &quot;30-80&quot;
+    Option        &quot;CRT2VRefresh&quot;    &quot;59-75&quot;
+      Option        &quot;MetaModes&quot;    &quot;1024x768 800x600 640x480 1024x768+1280x1024&quot;
+EndSection
 </code></pre></div>
 
 <p>A graphic card is defined above. Again it has its identifies (name), its drivers and some options (like support resolutions, refresh rates, ...). This device needs a screen and a monitor:</p>
 <blockquote>
 <p>Note: The <code>vesa</code> points to a low resolution, always working driver. It is used for troubleshooting.</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code><span class="n">Section</span> <span class="ss">&quot;Monitor&quot;</span>
-    <span class="n">Identifier</span>  <span class="ss">&quot;Generic Monitor&quot;</span>
-    <span class="k">Option</span>      <span class="ss">&quot;DPMS&quot;</span>
-<span class="n">EndSection</span>
+<div class="highlight"><pre><span></span><code>Section &quot;Monitor&quot;
+    Identifier    &quot;Generic Monitor&quot;
+    Option        &quot;DPMS&quot;
+EndSection
 
-<span class="n">Section</span> <span class="ss">&quot;Screen&quot;</span>
-    <span class="n">Identifier</span>  <span class="ss">&quot;Screen0&quot;</span>
-    <span class="n">Device</span>      <span class="ss">&quot;Screen0 ATI Technologies, Inc. Radeon Mobility 7500 (M7 LW)&quot;</span>
-    <span class="n">Monitor</span>     <span class="ss">&quot;Generic Monitor&quot;</span>
-    <span class="n">DefaultDepth</span>    <span class="mi">24</span>
-    <span class="n">SubSection</span> <span class="ss">&quot;Display&quot;</span>
-        <span class="n">Depth</span>       <span class="mi">1</span>
-        <span class="n">Modes</span>       <span class="ss">&quot;1024x768&quot;</span>
-    <span class="n">EndSubSection</span>
-    <span class="n">SubSection</span> <span class="ss">&quot;Display&quot;</span>
-        <span class="n">Depth</span>       <span class="mi">4</span>
-        <span class="n">Modes</span>       <span class="ss">&quot;1024x768&quot;</span>
-    <span class="n">EndSubSection</span>
-    <span class="n">SubSection</span> <span class="ss">&quot;Display&quot;</span>
-        <span class="n">Depth</span>       <span class="mi">8</span>
-        <span class="n">Modes</span>       <span class="ss">&quot;1024x768&quot;</span>
-    <span class="n">EndSubSection</span>
-    <span class="n">SubSection</span> <span class="ss">&quot;Display&quot;</span>
-        <span class="n">Depth</span>       <span class="mi">15</span>
-        <span class="n">Modes</span>       <span class="ss">&quot;1024x768&quot;</span>
-    <span class="n">EndSubSection</span>
-    <span class="n">SubSection</span> <span class="ss">&quot;Display&quot;</span>
-        <span class="n">Depth</span>       <span class="mi">16</span>
-        <span class="n">Modes</span>       <span class="ss">&quot;1024x768&quot;</span>
-    <span class="n">EndSubSection</span>
-    <span class="n">SubSection</span> <span class="ss">&quot;Display&quot;</span>
-        <span class="n">Depth</span>       <span class="mi">24</span>
-        <span class="n">Modes</span>       <span class="ss">&quot;1024x768&quot;</span>
-    <span class="n">EndSubSection</span>
-<span class="n">EndSection</span>
+Section &quot;Screen&quot;
+    Identifier    &quot;Screen0&quot;
+    Device        &quot;Screen0 ATI Technologies, Inc. Radeon Mobility 7500 (M7 LW)&quot;
+    Monitor        &quot;Generic Monitor&quot;
+    DefaultDepth    24
+    SubSection &quot;Display&quot;
+        Depth        1
+        Modes        &quot;1024x768&quot;
+    EndSubSection
+    SubSection &quot;Display&quot;
+        Depth        4
+        Modes        &quot;1024x768&quot;
+    EndSubSection
+    SubSection &quot;Display&quot;
+        Depth        8
+        Modes        &quot;1024x768&quot;
+    EndSubSection
+    SubSection &quot;Display&quot;
+        Depth        15
+        Modes        &quot;1024x768&quot;
+    EndSubSection
+    SubSection &quot;Display&quot;
+        Depth        16
+        Modes        &quot;1024x768&quot;
+    EndSubSection
+    SubSection &quot;Display&quot;
+        Depth        24
+        Modes        &quot;1024x768&quot;
+    EndSubSection
+EndSection
 </code></pre></div>
 
 <p>Note how the screen uses the defined monitor (using its identifier "Generic Monitor") and defined graphic card. Also note the different color modes (say 24bit 1024x768).</p>
 <p>At the end we have to glue all of the above in one place as <code>ServerLayout</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="err">Section &quot;ServerLayout&quot;</span>
-<span class="err">    Identifier  &quot;DefaultLayout&quot;</span>
-<span class="err">    Screen      &quot;Default Screen&quot;</span>
-<span class="err">    InputDevice &quot;Generic Keyboard&quot;</span>
-<span class="err">    InputDevice &quot;Configured Mouse&quot;</span>
-<span class="err">    InputDevice &quot;Synaptics Touchpad&quot;</span>
-<span class="err">EndSection</span>
+<div class="highlight"><pre><span></span><code>Section &quot;ServerLayout&quot;
+    Identifier    &quot;DefaultLayout&quot;
+    Screen        &quot;Default Screen&quot;
+    InputDevice    &quot;Generic Keyboard&quot;
+    InputDevice    &quot;Configured Mouse&quot;
+    InputDevice    &quot;Synaptics Touchpad&quot;
+EndSection
 </code></pre></div>
 
 <p>We have a layout with a screen and 3 input devices :)</p>
 <blockquote>
 <p>Note: Do not panic. It is enough for you to understand the <code>Section</code> and <code>EndSection</code> and a general understanding of the xorg.conf</p>
 </blockquote>
-<h2>xwininfo</h2>
+<h3>xwininfo</h3>
 <p>The <code>xwininfo</code> command is a window information utility for X. Run it and it waits for you to click on any window and gives you some information about that <em>window</em> like its size, position, color depth, ...</p>
 <div class="highlight"><pre><span></span><code>$ xwininfo
 
-xwininfo: Please <span class="k">select</span> the window about which you
+xwininfo: Please select the window about which you
           would like information by clicking the
           mouse in that window.
 
-xwininfo: Window id: 0x5400004 <span class="s2">&quot;jadi@funlife: ~/w/lpic/lpic1book&quot;</span>
+xwininfo: Window id: 0x5400004 &quot;jadi@funlife: ~/w/lpic/lpic1book&quot;
 
-  Absolute upper-left X:  <span class="m">629</span>
-  Absolute upper-left Y:  <span class="m">245</span>
-  Relative upper-left X:  <span class="m">10</span>
-  Relative upper-left Y:  <span class="m">36</span>
-  Width: <span class="m">655</span>
-  Height: <span class="m">426</span>
-  Depth: <span class="m">32</span>
+  Absolute upper-left X:  629
+  Absolute upper-left Y:  245
+  Relative upper-left X:  10
+  Relative upper-left Y:  36
+  Width: 655
+  Height: 426
+  Depth: 32
   Visual: 0x71
   Visual Class: TrueColor
-  Border width: <span class="m">0</span>
+  Border width: 0
   Class: InputOutput
-  Colormap: 0x5400003 <span class="o">(</span>not installed<span class="o">)</span>
+  Colormap: 0x5400003 (not installed)
   Bit Gravity State: NorthWestGravity
   Window Gravity State: NorthWestGravity
   Backing Store State: NotUseful
@@ -258,37 +257,37 @@ xwininfo: Window id: 0x5400004 <span class="s2">&quot;jadi@funlife: ~/w/lpic/lpi
   -geometry 80x24-72-87
 </code></pre></div>
 
-<h2>xdpyinfo</h2>
+<h3>xdpyinfo</h3>
 <p>This give you information about the running X session. Things like screens, color depth, version, name, ...</p>
-<div class="highlight"><pre><span></span><code><span class="err">name of display:    :0</span>
-<span class="err">version number:    11.0</span>
-<span class="err">vendor string:    The X.Org Foundation</span>
-<span class="err">vendor release number:    11701000</span>
-<span class="err">X.Org version: 1.17.1</span>
-<span class="err">maximum request size:  16777212 bytes</span>
-<span class="err">motion buffer size:  256</span>
-<span class="err">bitmap unit, bit order, padding:    32, LSBFirst, 32</span>
-<span class="err">image byte order:    LSBFirst</span>
-<span class="err">number of supported pixmap formats:    7</span>
-<span class="err">supported pixmap formats:</span>
-<span class="err">    depth 1, bits_per_pixel 1, scanline_pad 32</span>
-<span class="err">    depth 4, bits_per_pixel 8, scanline_pad 32</span>
-<span class="err">    depth 8, bits_per_pixel 8, scanline_pad 32</span>
-<span class="err">    depth 15, bits_per_pixel 16, scanline_pad 32</span>
-<span class="err">    depth 16, bits_per_pixel 16, scanline_pad 32</span>
-<span class="err">    depth 24, bits_per_pixel 32, scanline_pad 32</span>
-<span class="err">    depth 32, bits_per_pixel 32, scanline_pad 32</span>
-<span class="err">keycode range:    minimum 8, maximum 255</span>
-<span class="c">focus:  window 0x5400005, revert to Parent</span>
-<span class="err">number of extensions:    28</span>
-<span class="err">    BIG-REQUESTS</span>
-<span class="err">    Composite</span>
-<span class="err">    DAMAGE</span>
-<span class="err">...</span>
-<span class="err">...</span>
+<div class="highlight"><pre><span></span><code>name of display:    :0
+version number:    11.0
+vendor string:    The X.Org Foundation
+vendor release number:    11701000
+X.Org version: 1.17.1
+maximum request size:  16777212 bytes
+motion buffer size:  256
+bitmap unit, bit order, padding:    32, LSBFirst, 32
+image byte order:    LSBFirst
+number of supported pixmap formats:    7
+supported pixmap formats:
+    depth 1, bits_per_pixel 1, scanline_pad 32
+    depth 4, bits_per_pixel 8, scanline_pad 32
+    depth 8, bits_per_pixel 8, scanline_pad 32
+    depth 15, bits_per_pixel 16, scanline_pad 32
+    depth 16, bits_per_pixel 16, scanline_pad 32
+    depth 24, bits_per_pixel 32, scanline_pad 32
+    depth 32, bits_per_pixel 32, scanline_pad 32
+keycode range:    minimum 8, maximum 255
+focus:  window 0x5400005, revert to Parent
+number of extensions:    28
+    BIG-REQUESTS
+    Composite
+    DAMAGE
+...
+...
 </code></pre></div>
 
-<h2>xhost</h2>
+<h3>xhost</h3>
 <p>This command used to control the access to the X server. If you are on a X server and run <code>xhost</code> it tells you the access status.</p>
 <div class="highlight"><pre><span></span><code>$ xhost
 access control enabled, only authorized clients can connect
@@ -296,33 +295,33 @@ SI:localuser:jadi
 </code></pre></div>
 
 <p>As you can see only authorized clients can connect. To open it for all:</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~$ xhost +</span>
-<span class="err">access control disabled, clients can connect from any host</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~$ xhost +
+access control disabled, clients can connect from any host
 </code></pre></div>
 
 <p>And for closing it again:</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~$ xhost -</span>
-<span class="err">access control enabled, only authorized clients can connect</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~$ xhost -
+access control enabled, only authorized clients can connect
 </code></pre></div>
 
 <p>Or open it for only one specific IP:</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~$ xhost +192.168.42.85</span>
-<span class="err">192.168.42.85 being added to access control list</span>
-<span class="err">jadi@funlife:~$ xhost</span>
-<span class="err">access control enabled, only authorized clients can connect</span>
-<span class="c">INET:192.168.42.85  (no nameserver response within 5 seconds)</span>
-<span class="c">SI:localuser:jadi</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~$ xhost +192.168.42.85
+192.168.42.85 being added to access control list
+jadi@funlife:~$ xhost
+access control enabled, only authorized clients can connect
+INET:192.168.42.85    (no nameserver response within 5 seconds)
+SI:localuser:jadi
 </code></pre></div>
 
-<h3>DISPLAY</h3>
+<h4>DISPLAY</h4>
 <p>This variable tell graphical program where to show their graphical output (where to draw their inputs). In normal cases this is set on my own machine:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="nv">$DISPLAY</span>
+<div class="highlight"><pre><span></span><code>$ echo $DISPLAY
 :0
 </code></pre></div>
 
 <p>but if another X is listening to all IPs (after <code>xhost +</code>) or listening to my machine (after <code>xhost 192.168.42.85</code>) I can change the DISPLAY environment and connect my graphical output to that machine. In this case if I run a graphical program, its output (windows) will be shown on another machine:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">export</span> <span class="nv">DISPLAY</span><span class="o">=</span><span class="m">192</span>.168.42.85:0
-$ xeyes <span class="c1"># the eyes will be shown on 192.168.42.85 machine</span>
+<div class="highlight"><pre><span></span><code>$ export DISPLAY=192.168.42.85:0
+$ xeyes # the eyes will be shown on 192.168.42.85 machine
 </code></pre></div>
 
 <blockquote>
@@ -355,9 +354,21 @@ $ xeyes <span class="c1"># the eyes will be shown on 192.168.42.85 machine</span
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:26:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#106-ref">106</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

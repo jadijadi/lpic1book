@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 110, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="110.1 Perform security administration tasks "/>
 <meta property="og:url" content="./1101-perform-security-administration-tasks.html" />
-<meta property="og:description" content="110.1 Perform security administration tasks Weight: 3 Candidates should know how to review system configuration to ensure host security in accordance with local security policies. Key Knowledge Areas Audit a system to find files with the suid/sgid bit set. Set or change user passwords and password aging information …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:40:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="110.1 Perform security administration tasks ">
-<meta name="twitter:description" content="110.1 Perform security administration tasks Weight: 3 Candidates should know how to review system configuration to ensure host security in accordance with local security policies. Key Knowledge Areas Audit a system to find files with the suid/sgid bit set. Set or change user passwords and password aging information …">
+<meta name="twitter:description" content="">
 
         <title>110.1 Perform security administration tasks  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,10 +76,10 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>110.1 Perform security administration tasks</h1>
+            <h2>110.1 Perform security administration tasks</h2>
 <p><em>Weight: 3</em></p>
 <p>Candidates should know how to review system configuration to ensure host security in accordance with local security policies.</p>
-<h2>Key Knowledge Areas</h2>
+<h3>Key Knowledge Areas</h3>
 <ul>
 <li>Audit a system to find files with the suid/sgid bit set.</li>
 <li>Set or change user passwords and password aging information.</li>
@@ -89,7 +88,7 @@
 <li>Determine which users have logged in to the system or are currently logged in.</li>
 <li>Basic sudo configuration and usage.</li>
 </ul>
-<h2>Terms and Utilities</h2>
+<h3>Terms and Utilities</h3>
 <ul>
 <li>find</li>
 <li>passwd</li>
@@ -105,160 +104,160 @@
 <li>ulimit</li>
 <li>who, w, last</li>
 </ul>
-<h3>suid and guid</h3>
+<h4>suid and guid</h4>
 <p>We've already covered <code>suid</code>. When the suid bit is set on an executable file, whoever runs the file, is running the file with the access of the owner of the file. Have a look at the <code>ping</code> command:</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife ~$ type ping</span>
-<span class="err">ping is hashed (/bin/ping)</span>
-<span class="err">jadi@funlife ~$ ls -ltrh /bin/ping</span>
-<span class="err">-rwsr-xr-x 1 root root 44K May  8  2014 /bin/ping</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife ~$ type ping
+ping is hashed (/bin/ping)
+jadi@funlife ~$ ls -ltrh /bin/ping
+-rwsr-xr-x 1 root root 44K May  8  2014 /bin/ping
 </code></pre></div>
 
 <p>The <code>s</code> on the access rights part, tells us that whoever runs the ping command, the ping command will be run with root access. This is neede by root and is OK on my distro but what happens if someone changes the suid of the vi command? lets see who own vi:</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife ~$ type vi</span>
-<span class="err">vi is /usr/bin/vi</span>
-<span class="err">jadi@funlife ~$ ls -ltrh /usr/bin/vi</span>
-<span class="err">lrwxrwxrwx 1 root root 20 Jun  1 12:52 /usr/bin/vi -&gt; /etc/alternatives/vi</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife ~$ type vi
+vi is /usr/bin/vi
+jadi@funlife ~$ ls -ltrh /usr/bin/vi
+lrwxrwxrwx 1 root root 20 Jun  1 12:52 /usr/bin/vi -&gt; /etc/alternatives/vi
 </code></pre></div>
 
-<p>at the moment, the <code>vi</code> is owned by root,  so if the suid bit is set, vi will always be run as root! In that case anybody will be able to edit any file! You can see why it is important to check for suid files on your system:</p>
-<div class="highlight"><pre><span></span><code><span class="err">$sudo find / -perm -u+s</span>
+<p>at the moment, the <code>vi</code> is owned by root, so if the suid bit is set, vi will always be run as root! In that case anybody will be able to edit any file! You can see why it is important to check for suid files on your system:</p>
+<div class="highlight"><pre><span></span><code>$sudo find / -perm -u+s
 </code></pre></div>
 
 <blockquote>
 <p>same applies for guid. if the guid is set, the file will be run with access of its group</p>
 </blockquote>
-<h3>Open Ports</h3>
-<h4>netstat, fuser and lsof</h4>
+<h4>Open Ports</h4>
+<p><strong>netstat, fuser and lsof</strong></p>
 <p>On module 109.1 we talked about ports, ports are like wholes in our systems used by servers to listen to the outside world. If I'm running a web server on my computer I should have a port open so people can ask that server "please show me your index.html". Many malwares open ports to let the attacker to communicate with them. It is important to check your computer for open ports time to time. The main command for this task is <code>netstat</code> using the <code>-na</code> or <code>-ap</code> or <code>-tuna</code> switch.. I'm sure tuna is easy to remember if you have the tuna fish in mind!</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife ~$ netstat -tuna</span>
-<span class="err">Active Internet connections (servers and established)</span>
-<span class="err">Proto Recv-Q Send-Q Local Address           Foreign Address         State      </span>
-<span class="err">tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN     </span>
-<span class="err">tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN     </span>
-<span class="err">tcp        0      0 127.0.1.1:53            0.0.0.0:*               LISTEN     </span>
-<span class="err">tcp        0      0 127.0.0.1:9050          0.0.0.0:*               LISTEN     </span>
-<span class="err">tcp       25      0 192.168.59.9:49934      192.168.59.192:139      CLOSE_WAIT</span>
-<span class="err">tcp        0      0 127.0.0.1:60228         127.0.0.1:1080          ESTABLISHED</span>
-<span class="err">tcp        0      0 192.168.1.35:55324      159.203.148.169:8385    ESTABLISHED</span>
-<span class="err">tcp        0      0 127.0.0.1:59590         127.0.0.1:1080          ESTABLISHED</span>
-<span class="err">tcp        0      0 127.0.0.1:60212         127.0.0.1:1080          ESTABLISHED</span>
-<span class="err">tcp        0      0 192.168.1.35:54220      159.203.148.169:8385    ESTABLISHED</span>
-<span class="err">tcp        0      0 127.0.0.1:57186         127.0.0.1:1080          ESTABLISHED</span>
-<span class="err">tcp        0      0 192.168.1.35:49574      173.194.122.231:443     ESTABLISHED</span>
-<span class="err">tcp        0      0 127.0.0.1:59002         127.0.0.1:1080          ESTABLISHED</span>
-<span class="err">udp        0      0 0.0.0.0:54502           0.0.0.0:*                          </span>
-<span class="err">udp        0      0 0.0.0.0:5353            0.0.0.0:*                          </span>
-<span class="err">udp        0      0 0.0.0.0:5353            0.0.0.0:*         </span>
+<div class="highlight"><pre><span></span><code>jadi@funlife ~$ netstat -tuna
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN     
+tcp        0      0 127.0.1.1:53            0.0.0.0:*               LISTEN     
+tcp        0      0 127.0.0.1:9050          0.0.0.0:*               LISTEN     
+tcp       25      0 192.168.59.9:49934      192.168.59.192:139      CLOSE_WAIT
+tcp        0      0 127.0.0.1:60228         127.0.0.1:1080          ESTABLISHED
+tcp        0      0 192.168.1.35:55324      159.203.148.169:8385    ESTABLISHED
+tcp        0      0 127.0.0.1:59590         127.0.0.1:1080          ESTABLISHED
+tcp        0      0 127.0.0.1:60212         127.0.0.1:1080          ESTABLISHED
+tcp        0      0 192.168.1.35:54220      159.203.148.169:8385    ESTABLISHED
+tcp        0      0 127.0.0.1:57186         127.0.0.1:1080          ESTABLISHED
+tcp        0      0 192.168.1.35:49574      173.194.122.231:443     ESTABLISHED
+tcp        0      0 127.0.0.1:59002         127.0.0.1:1080          ESTABLISHED
+udp        0      0 0.0.0.0:54502           0.0.0.0:*                          
+udp        0      0 0.0.0.0:5353            0.0.0.0:*                          
+udp        0      0 0.0.0.0:5353            0.0.0.0:*
 </code></pre></div>
 
 <p>All the <code>LISTEN</code> ports are servers; they are LISTENING for new incoming connections. The <code>ESTABLISHED</code> connections are the active connections between your computer and another computer. In these tables <code>0.0.0.0</code> dictates <em>any address</em> or <em>any interface</em>.</p>
 <p>Another useful tool here is <code>lsof</code> and <code>fuser</code>. The former is already discussed in previous sections. <code>lsof</code> shows the open files on the system and having in mind that <em>everything in Linux is a file or a process</em> you can conclude that this command should be able to display open connections too; and you are right:</p>
-<div class="highlight"><pre><span></span><code><span class="err"># lsof -i</span>
-<span class="err">COMMAND     PID       USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME</span>
-<span class="err">privoxy     806    privoxy    4u  IPv4   16130      0t0  TCP funlife:8118 (LISTEN)</span>
-<span class="err">cups-brow   903       root    8u  IPv4   17477      0t0  UDP *:ipp</span>
-<span class="err">mysqld      971      mysql   19u  IPv4   20875      0t0  TCP funlife:mysql (LISTEN)</span>
-<span class="err">tor        1038 debian-tor    6u  IPv4   19155      0t0  TCP funlife:9050 (LISTEN)</span>
-<span class="err">dnsmasq    1260     nobody   11u  IPv4 1910037      0t0  UDP *:18666</span>
-<span class="err">adb        1278       jadi    5u  IPv4  579541      0t0  TCP funlife:5037 (LISTEN)</span>
-<span class="err">chromium-  2891       jadi   88u  IPv4  813611      0t0  TCP 192.168.1.35:45702-&gt;do-13.lastpass.com:https (ESTABLISHED)</span>
-<span class="err">chromium-  2891       jadi  126u  IPv4 1907389      0t0  TCP 192.168.1.35:50642-&gt;ntt-2.lastpass.com:https (ESTABLISHED)</span>
-<span class="err">chromium-  2891       jadi  133u  IPv4 1909733      0t0  TCP 192.168.1.35:50644-&gt;ntt-2.lastpass.com:https (ESTABLISHED)</span>
-<span class="err">chromium-  2891       jadi  268u  IPv4  785289      0t0  TCP 192.168.1.35:60736-&gt;lf-in-f188.1e100.net:5228 (ESTABLISHED)</span>
-<span class="err">python     4925       jadi    4u  IPv4  658287      0t0  TCP funlife:8000 (LISTEN)</span>
-<span class="err">Telegram   4943       jadi   39u  IPv4  773463      0t0  TCP 192.168.1.35:44732-&gt;149.154.175.50:https (ESTABLISHED)</span>
-<span class="err">dhclient   9984       root    6u  IPv4  787885      0t0  UDP *:bootpc</span>
-<span class="err">nginx     11095       root    6u  IPv4   17998      0t0  TCP *:http (LISTEN)</span>
-<span class="err">nginx     11099   www-data    7u  IPv6   17999      0t0  TCP *:http (LISTEN)</span>
-<span class="err">chrome    14264       jadi  114u  IPv4  788089      0t0  UDP *:mdns</span>
-<span class="err">chrome    14264       jadi  126u  IPv4 1872872      0t0  TCP funlife:60370-&gt;funlife:socks (ESTABLISHED)</span>
-<span class="err">chrome    14264       jadi  138u  IPv4 1908382      0t0  TCP funlife:60408-&gt;funlife:socks (ESTABLISHED)</span>
+<div class="highlight"><pre><span></span><code># lsof -i
+COMMAND     PID       USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
+privoxy     806    privoxy    4u  IPv4   16130      0t0  TCP funlife:8118 (LISTEN)
+cups-brow   903       root    8u  IPv4   17477      0t0  UDP *:ipp
+mysqld      971      mysql   19u  IPv4   20875      0t0  TCP funlife:mysql (LISTEN)
+tor        1038 debian-tor    6u  IPv4   19155      0t0  TCP funlife:9050 (LISTEN)
+dnsmasq    1260     nobody   11u  IPv4 1910037      0t0  UDP *:18666
+adb        1278       jadi    5u  IPv4  579541      0t0  TCP funlife:5037 (LISTEN)
+chromium-  2891       jadi   88u  IPv4  813611      0t0  TCP 192.168.1.35:45702-&gt;do-13.lastpass.com:https (ESTABLISHED)
+chromium-  2891       jadi  126u  IPv4 1907389      0t0  TCP 192.168.1.35:50642-&gt;ntt-2.lastpass.com:https (ESTABLISHED)
+chromium-  2891       jadi  133u  IPv4 1909733      0t0  TCP 192.168.1.35:50644-&gt;ntt-2.lastpass.com:https (ESTABLISHED)
+chromium-  2891       jadi  268u  IPv4  785289      0t0  TCP 192.168.1.35:60736-&gt;lf-in-f188.1e100.net:5228 (ESTABLISHED)
+python     4925       jadi    4u  IPv4  658287      0t0  TCP funlife:8000 (LISTEN)
+Telegram   4943       jadi   39u  IPv4  773463      0t0  TCP 192.168.1.35:44732-&gt;149.154.175.50:https (ESTABLISHED)
+dhclient   9984       root    6u  IPv4  787885      0t0  UDP *:bootpc
+nginx     11095       root    6u  IPv4   17998      0t0  TCP *:http (LISTEN)
+nginx     11099   www-data    7u  IPv6   17999      0t0  TCP *:http (LISTEN)
+chrome    14264       jadi  114u  IPv4  788089      0t0  UDP *:mdns
+chrome    14264       jadi  126u  IPv4 1872872      0t0  TCP funlife:60370-&gt;funlife:socks (ESTABLISHED)
+chrome    14264       jadi  138u  IPv4 1908382      0t0  TCP funlife:60408-&gt;funlife:socks (ESTABLISHED)
 </code></pre></div>
 
 <p>Wow! this command shows the command, PID, user running it and source and destination IP and tells of if this is a LISTENING or STABLISHED connection.</p>
 <p>If you want to check which process is using port 80, you can grep the output of any above commands or simply use the <code>fuser</code> command to find all the PIDs related to that specific port:</p>
-<div class="highlight"><pre><span></span><code><span class="err">root@funlife:/bin# fuser 80/tcp</span>
-<span class="err">80/tcp:              11095 11096 11097 11098 11099</span>
+<div class="highlight"><pre><span></span><code>root@funlife:/bin# fuser 80/tcp
+80/tcp:              11095 11096 11097 11098 11099
 </code></pre></div>
 
-<h4>nmap</h4>
+<p><strong>nmap</strong></p>
 <p><code>nmap</code> is the toolbox of hackers! You can nmap a server to find out about a lot of data about that server:</p>
-<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">nmap</span><span class="w"> </span><span class="n">localhost</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code># nmap localhost
 
-<span class="n">Starting</span><span class="w"> </span><span class="n">Nmap</span><span class="w"> </span><span class="mf">7.01</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">nmap</span><span class="p">.</span><span class="n">org</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="mi">2016</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">04</span><span class="w"> </span><span class="mi">21</span><span class="err">:</span><span class="mi">32</span><span class="w"> </span><span class="n">IRDT</span><span class="w"></span>
-<span class="n">Nmap</span><span class="w"> </span><span class="n">scan</span><span class="w"> </span><span class="n">report</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">localhost</span><span class="w"> </span><span class="p">(</span><span class="mf">127.0.0.1</span><span class="p">)</span><span class="w"></span>
-<span class="k">Host</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="p">(</span><span class="mf">0.0000070</span><span class="n">s</span><span class="w"> </span><span class="n">latency</span><span class="p">).</span><span class="w"></span>
-<span class="n">rDNS</span><span class="w"> </span><span class="n">record</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mf">127.0.0.1</span><span class="err">:</span><span class="w"> </span><span class="n">funlife</span><span class="w"></span>
-<span class="ow">Not</span><span class="w"> </span><span class="nl">shown</span><span class="p">:</span><span class="w"> </span><span class="mi">995</span><span class="w"> </span><span class="n">closed</span><span class="w"> </span><span class="n">ports</span><span class="w"></span>
-<span class="n">PORT</span><span class="w">     </span><span class="k">STATE</span><span class="w"> </span><span class="n">SERVICE</span><span class="w"></span>
-<span class="mi">80</span><span class="o">/</span><span class="n">tcp</span><span class="w">   </span><span class="k">open</span><span class="w">  </span><span class="n">http</span><span class="w"></span>
-<span class="mi">1080</span><span class="o">/</span><span class="n">tcp</span><span class="w"> </span><span class="k">open</span><span class="w">  </span><span class="n">socks</span><span class="w"></span>
-<span class="mi">3306</span><span class="o">/</span><span class="n">tcp</span><span class="w"> </span><span class="k">open</span><span class="w">  </span><span class="n">mysql</span><span class="w"></span>
-<span class="mi">8000</span><span class="o">/</span><span class="n">tcp</span><span class="w"> </span><span class="k">open</span><span class="w">  </span><span class="n">http</span><span class="o">-</span><span class="n">alt</span><span class="w"></span>
-<span class="mi">9050</span><span class="o">/</span><span class="n">tcp</span><span class="w"> </span><span class="k">open</span><span class="w">  </span><span class="n">tor</span><span class="o">-</span><span class="n">socks</span><span class="w"></span>
+Starting Nmap 7.01 ( https://nmap.org ) at 2016-06-04 21:32 IRDT
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.0000070s latency).
+rDNS record for 127.0.0.1: funlife
+Not shown: 995 closed ports
+PORT     STATE SERVICE
+80/tcp   open  http
+1080/tcp open  socks
+3306/tcp open  mysql
+8000/tcp open  http-alt
+9050/tcp open  tor-socks
 
-<span class="n">Nmap</span><span class="w"> </span><span class="nl">done</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="k">host</span><span class="w"> </span><span class="n">up</span><span class="p">)</span><span class="w"> </span><span class="n">scanned</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="mf">1.66</span><span class="w"> </span><span class="n">seconds</span><span class="w"></span>
-<span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"></span>
+Nmap done: 1 IP address (1 host up) scanned in 1.66 seconds
+root@funlife:~#
 </code></pre></div>
 
 <p>In the most basic form, nmap checks all the open ports from 1 to 1000 and prints the results. There are a lot of switches to find other information about the hosts and they are used by every single hacker who wants to examine a servers status.</p>
-<h3>sudo vs su</h3>
+<h4>sudo vs su</h4>
 <p>We've used sudo and su in all the chapters and this is time to have a closer look at them! <code>su</code> changes your account to something else. You get a new prompt with the new user account after successfully <code>su</code>ing to that account:</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife ~$ whoami</span>
-<span class="err">jadi</span>
-<span class="err">jadi@funlife ~$ su -</span>
-<span class="c">Password:</span>
-<span class="err">root@funlife:~# whoami</span>
-<span class="err">root</span>
-<span class="err">root@funlife:~# su jadi -</span>
-<span class="c">bash: cannot set terminal process group (-1): Inappropriate ioctl for device</span>
-<span class="c">bash: no job control in this shell</span>
-<span class="err">jadi@funlife /root$ whoami</span>
-<span class="err">jadi</span>
-<span class="err">jadi@funlife /root$ exit</span>
-<span class="err">exit</span>
-<span class="err">root@funlife:~# whoami</span>
-<span class="err">root</span>
-<span class="err">root@funlife:~# exit</span>
-<span class="err">logout</span>
-<span class="err">jadi@funlife ~$ whoami</span>
-<span class="err">jadi</span>
-<span class="err">jadi@funlife ~$</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife ~$ whoami
+jadi
+jadi@funlife ~$ su -
+Password:
+root@funlife:~# whoami
+root
+root@funlife:~# su jadi -
+bash: cannot set terminal process group (-1): Inappropriate ioctl for device
+bash: no job control in this shell
+jadi@funlife /root$ whoami
+jadi
+jadi@funlife /root$ exit
+exit
+root@funlife:~# whoami
+root
+root@funlife:~# exit
+logout
+jadi@funlife ~$ whoami
+jadi
+jadi@funlife ~$
 </code></pre></div>
 
 <p>Note that when running <code>su</code> you have to <strong>provide the root password</strong> to become root; or any other users password to become that user!</p>
-<p>On the other hand, sudo asks for your own password and runs the command you gave it, with the root privileges. So <code>sudo ls</code> runs the ls command with the root privileges after asking for <strong>your passowrd</strong>.  Obviously you should have the <em>sudo right</em> to issue sudo. This is defined in /etc/sudoers file:</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span> <span class="n">sudo</span> <span class="n">cat</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">sudoers</span>
-<span class="cp">#</span>
-<span class="cp"># This file MUST be edited with the &#39;visudo&#39; command as root.</span>
-<span class="cp">#</span>
-<span class="cp"># Please consider adding local content in /etc/sudoers.d/ instead of</span>
-<span class="cp"># directly modifying this file.</span>
-<span class="cp">#</span>
-<span class="cp"># See the man page for details on how to write a sudoers file.</span>
-<span class="cp">#</span>
-<span class="n">Defaults</span>    <span class="n">env_reset</span>
-<span class="n">Defaults</span>    <span class="n">mail_badpass</span>
-<span class="n">Defaults</span>    <span class="n">secure_path</span><span class="o">=</span><span class="s">&quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;</span>
+<p>On the other hand, sudo asks for your own password and runs the command you gave it, with the root privileges. So <code>sudo ls</code> runs the ls command with the root privileges after asking for <strong>your passowrd</strong>. Obviously you should have the <em>sudo right</em> to issue sudo. This is defined in /etc/sudoers file:</p>
+<div class="highlight"><pre><span></span><code>$ sudo cat /etc/sudoers
+#
+# This file MUST be edited with the &#39;visudo&#39; command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults    env_reset
+Defaults    mail_badpass
+Defaults    secure_path=&quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;
 
-<span class="cp"># Host alias specification</span>
+# Host alias specification
 
-<span class="cp"># User alias specification</span>
+# User alias specification
 
-<span class="cp"># Cmnd alias specification</span>
+# Cmnd alias specification
 
-<span class="cp"># User privilege specification</span>
-<span class="n">root</span>    <span class="n">ALL</span><span class="o">=</span><span class="p">(</span><span class="nl">ALL</span><span class="p">:</span><span class="n">ALL</span><span class="p">)</span> <span class="n">ALL</span>
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
 
-<span class="cp"># Members of the admin group may gain root privileges</span>
-<span class="nf">%admin</span> <span class="n">ALL</span><span class="o">=</span><span class="p">(</span><span class="n">ALL</span><span class="p">)</span> <span class="n">ALL</span>
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
 
-<span class="cp"># Allow members of group sudo to execute any command</span>
-<span class="nf">%sudo</span>   <span class="n">ALL</span><span class="o">=</span><span class="p">(</span><span class="nl">ALL</span><span class="p">:</span><span class="n">ALL</span><span class="p">)</span> <span class="n">ALL</span>
+# Allow members of group sudo to execute any command
+%sudo    ALL=(ALL:ALL) ALL
 
-<span class="cp"># See sudoers(5) for more information on &quot;#include&quot; directives:</span>
+# See sudoers(5) for more information on &quot;#include&quot; directives:
 
-<span class="cp">#include</span><span class="cpf">dir /etc/sudoers.d</span><span class="cp"></span>
+#includedir /etc/sudoers.d
 </code></pre></div>
 
 <p>note the 2 important lines: how root gets the right to run all the commands and how the sudo and admin groups get rights to run commands as root. The <code>ALL:ALL</code> means these users can run as any user and any group. The last ALL tells the sudo that these users / groups can run ALL commands. It is possible to put /bin/ping in the last part to tell sudo that this user can run only ping as root.</p>
@@ -266,146 +265,146 @@
 <p>The /etc/sudoers file is very important and breaking it will make major problems. to prevent you from adding un-interpretable lines in that file, the <code>visudo</code> command should be used instead of <code>vi /etc/sudoers</code>. This tool will check your edits to make sure that sudo command can understand them.</p>
 </blockquote>
 <p>Now we know what <code>sudo su -</code> means. The sudo tells the system to run the <code>su -</code> command with the root access. It asks your password and runs the <code>su -</code> as the root if you have sudo access. The <code>su</code> commands changes your user to root and <code>-</code> switch load the root environment variables. This way you can become root using your own password via running <code>su</code> with <code>sudo</code>.</p>
-<h3>user limits</h3>
+<h4>user limits</h4>
 <p>The resources on a Linux machine can be manages for users by the <code>ulimit</code> command. It is part of the PAM system. If you want to check the limits on the system run:</p>
-<div class="highlight"><pre><span></span><code><span class="err">~$ ulimit -a</span>
-<span class="err">core file size          (blocks, -c) 0</span>
-<span class="err">data seg size           (kbytes, -d) unlimited</span>
-<span class="err">scheduling priority             (-e) 0</span>
-<span class="err">file size               (blocks, -f) unlimited</span>
-<span class="err">pending signals                 (-i) 47457</span>
-<span class="err">max locked memory       (kbytes, -l) 64</span>
-<span class="err">max memory size         (kbytes, -m) unlimited</span>
-<span class="err">open files                      (-n) 1024</span>
-<span class="err">pipe size            (512 bytes, -p) 8</span>
-<span class="err">POSIX message queues     (bytes, -q) 819200</span>
-<span class="err">real-time priority              (-r) 0</span>
-<span class="err">stack size              (kbytes, -s) 8192</span>
-<span class="err">cpu time               (seconds, -t) unlimited</span>
-<span class="err">max user processes              (-u) 47457</span>
-<span class="err">virtual memory          (kbytes, -v) unlimited</span>
-<span class="err">file locks                      (-x) unlimited</span>
+<div class="highlight"><pre><span></span><code>~$ ulimit -a
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 47457
+max locked memory       (kbytes, -l) 64
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 1024
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 47457
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
 </code></pre></div>
 
 <p>and you can change them like this:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">ulimit</span> -t <span class="m">1</span>
+<div class="highlight"><pre><span></span><code>$ ulimit -t 1
 </code></pre></div>
 
 <p>This will limit the CPU TIME of any process to 1 seconds. If you use more than that, the process will be killed automatically (by PAM module). Please note that clock time is different than CPU time. To see how much CPU time a process uses run it like this:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">time</span> firefox
+<div class="highlight"><pre><span></span><code>$ time firefox
 </code></pre></div>
 
 <p>Changing the ulimit as we did is a temporary thing. It only persists in that specific shell.</p>
 <p>To change the ulimits system-wide:</p>
 <div class="highlight"><pre><span></span><code>$ cat /etc/security/limits.conf
-<span class="c1"># /etc/security/limits.conf</span>
-<span class="c1">#</span>
-<span class="c1">#Each line describes a limit for a user in the form:</span>
-<span class="c1">#</span>
-<span class="c1">#&lt;domain&gt;        &lt;type&gt;  &lt;item&gt;  &lt;value&gt;</span>
-<span class="c1">#</span>
-<span class="c1">#Where:</span>
-<span class="c1">#&lt;domain&gt; can be:</span>
-<span class="c1">#        - a user name</span>
-<span class="c1">#        - a group name, with @group syntax</span>
-<span class="c1">#        - the wildcard *, for default entry</span>
-<span class="c1">#        - the wildcard %, can be also used with %group syntax,</span>
-<span class="c1">#                 for maxlogin limit</span>
-<span class="c1">#        - NOTE: group and wildcard limits are not applied to root.</span>
-<span class="c1">#          To apply a limit to the root user, &lt;domain&gt; must be</span>
-<span class="c1">#          the literal username root.</span>
-<span class="c1">#</span>
-<span class="c1">#&lt;type&gt; can have the two values:</span>
-<span class="c1">#        - &quot;soft&quot; for enforcing the soft limits</span>
-<span class="c1">#        - &quot;hard&quot; for enforcing hard limits</span>
-<span class="c1">#</span>
-<span class="c1">#&lt;item&gt; can be one of the following:</span>
-<span class="c1">#        - core - limits the core file size (KB)</span>
-<span class="c1">#        - data - max data size (KB)</span>
-<span class="c1">#        - fsize - maximum filesize (KB)</span>
-<span class="c1">#        - memlock - max locked-in-memory address space (KB)</span>
-<span class="c1">#        - nofile - max number of open files</span>
-<span class="c1">#        - rss - max resident set size (KB)</span>
-<span class="c1">#        - stack - max stack size (KB)</span>
-<span class="c1">#        - cpu - max CPU time (MIN)</span>
-<span class="c1">#        - nproc - max number of processes</span>
-<span class="c1">#        - as - address space limit (KB)</span>
-<span class="c1">#        - maxlogins - max number of logins for this user</span>
-<span class="c1">#        - maxsyslogins - max number of logins on the system</span>
-<span class="c1">#        - priority - the priority to run user process with</span>
-<span class="c1">#        - locks - max number of file locks the user can hold</span>
-<span class="c1">#        - sigpending - max number of pending signals</span>
-<span class="c1">#        - msgqueue - max memory used by POSIX message queues (bytes)</span>
-<span class="c1">#        - nice - max nice priority allowed to raise to values: [-20, 19]</span>
-<span class="c1">#        - rtprio - max realtime priority</span>
-<span class="c1">#        - chroot - change root to directory (Debian-specific)</span>
-<span class="c1">#</span>
-<span class="c1">#&lt;domain&gt;      &lt;type&gt;  &lt;item&gt;         &lt;value&gt;</span>
-<span class="c1">#</span>
+# /etc/security/limits.conf
+#
+#Each line describes a limit for a user in the form:
+#
+#&lt;domain&gt;        &lt;type&gt;  &lt;item&gt;  &lt;value&gt;
+#
+#Where:
+#&lt;domain&gt; can be:
+#        - a user name
+#        - a group name, with @group syntax
+#        - the wildcard *, for default entry
+#        - the wildcard %, can be also used with %group syntax,
+#                 for maxlogin limit
+#        - NOTE: group and wildcard limits are not applied to root.
+#          To apply a limit to the root user, &lt;domain&gt; must be
+#          the literal username root.
+#
+#&lt;type&gt; can have the two values:
+#        - &quot;soft&quot; for enforcing the soft limits
+#        - &quot;hard&quot; for enforcing hard limits
+#
+#&lt;item&gt; can be one of the following:
+#        - core - limits the core file size (KB)
+#        - data - max data size (KB)
+#        - fsize - maximum filesize (KB)
+#        - memlock - max locked-in-memory address space (KB)
+#        - nofile - max number of open files
+#        - rss - max resident set size (KB)
+#        - stack - max stack size (KB)
+#        - cpu - max CPU time (MIN)
+#        - nproc - max number of processes
+#        - as - address space limit (KB)
+#        - maxlogins - max number of logins for this user
+#        - maxsyslogins - max number of logins on the system
+#        - priority - the priority to run user process with
+#        - locks - max number of file locks the user can hold
+#        - sigpending - max number of pending signals
+#        - msgqueue - max memory used by POSIX message queues (bytes)
+#        - nice - max nice priority allowed to raise to values: [-20, 19]
+#        - rtprio - max realtime priority
+#        - chroot - change root to directory (Debian-specific)
+#
+#&lt;domain&gt;      &lt;type&gt;  &lt;item&gt;         &lt;value&gt;
+#
 
-<span class="c1">#*               soft    core            0</span>
-<span class="c1">#root            hard    core            100000</span>
-<span class="c1">#*               hard    rss             10000</span>
-<span class="c1">#@student        hard    nproc           20</span>
-<span class="c1">#@faculty        soft    nproc           20</span>
-<span class="c1">#@faculty        hard    nproc           50</span>
-<span class="c1">#ftp             hard    nproc           0</span>
-<span class="c1">#ftp             -       chroot          /ftp</span>
-<span class="c1">#@student        -       maxlogins       4</span>
+#*               soft    core            0
+#root            hard    core            100000
+#*               hard    rss             10000
+#@student        hard    nproc           20
+#@faculty        soft    nproc           20
+#@faculty        hard    nproc           50
+#ftp             hard    nproc           0
+#ftp             -       chroot          /ftp
+#@student        -       maxlogins       4
 
-<span class="c1"># End of file</span>
+# End of file
 </code></pre></div>
 
 <blockquote>
 <p>soft limits can be changed by the user but hard limits are the real stop points.</p>
 </blockquote>
-<h3>checking the users in the system</h3>
+<h4>checking the users in the system</h4>
 <p>If you need to check who is in your system (and to some extend what they are doing) you can use these commands:</p>
 <div class="highlight"><pre><span></span><code>$  w
- <span class="m">22</span>:03:37 up <span class="m">3</span> days,  <span class="m">5</span>:33, <span class="m">13</span> users,  load average: <span class="m">1</span>.48, <span class="m">1</span>.12, <span class="m">1</span>.19
+ 22:03:37 up 3 days,  5:33, 13 users,  load average: 1.48, 1.12, 1.19
 USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
-jadi     tty7     :0               Wed16    3days  <span class="m">2</span>:30m  <span class="m">1</span>.96s /sbin/upstart --user
-jadi     pts/18   :0               Wed16    <span class="m">3</span>:04m  <span class="m">1</span>:02   <span class="m">1</span>:02  /usr/bin/python manage.py runserver <span class="m">0</span>.0.0.0:8000
-jadi     pts/19   :0               Wed16    <span class="m">1</span>:11m  <span class="m">0</span>.35s  <span class="m">0</span>.35s /bin/bash
-root     tty2                      Wed16    3days  <span class="m">0</span>.07s  <span class="m">0</span>.03s -bash
-jadi     pts/21   :0               <span class="m">08</span>:41   <span class="m">45</span>:37   <span class="m">0</span>.06s  <span class="m">0</span>.06s /bin/bash
-jadi     pts/23   :0               Thu11   <span class="m">46</span>:49   <span class="m">0</span>.25s  <span class="m">0</span>.23s ssh startups
-jadi     pts/21   funlife          Fri22   <span class="m">45</span>:37   <span class="m">0</span>.06s  <span class="m">0</span>.06s /bin/bash
-jadi     pts/25   :0               <span class="m">10</span>:17   <span class="m">31</span>:37   <span class="m">0</span>.07s  <span class="m">5</span>.81s /usr/bin/python /usr/bin/x-terminal-emulator
-jadi     pts/26   :0               <span class="m">21</span>:39    <span class="m">0</span>.00s  <span class="m">0</span>.07s  <span class="m">0</span>.00s w
-jadi     pts/27   :0               <span class="m">21</span>:55    <span class="m">8</span>:09   <span class="m">0</span>.01s  <span class="m">0</span>.01s /bin/bash
+jadi     tty7     :0               Wed16    3days  2:30m  1.96s /sbin/upstart --user
+jadi     pts/18   :0               Wed16    3:04m  1:02   1:02  /usr/bin/python manage.py runserver 0.0.0.0:8000
+jadi     pts/19   :0               Wed16    1:11m  0.35s  0.35s /bin/bash
+root     tty2                      Wed16    3days  0.07s  0.03s -bash
+jadi     pts/21   :0               08:41   45:37   0.06s  0.06s /bin/bash
+jadi     pts/23   :0               Thu11   46:49   0.25s  0.23s ssh startups
+jadi     pts/21   funlife          Fri22   45:37   0.06s  0.06s /bin/bash
+jadi     pts/25   :0               10:17   31:37   0.07s  5.81s /usr/bin/python /usr/bin/x-terminal-emulator
+jadi     pts/26   :0               21:39    0.00s  0.07s  0.00s w
+jadi     pts/27   :0               21:55    8:09   0.01s  0.01s /bin/bash
 </code></pre></div>
 
 <p>You have a line for each logged in users (every single shell window is a seperated login).</p>
 <p>Another userul command is <code>who</code>. Lets check it:</p>
 <div class="highlight"><pre><span></span><code>$ who
-jadi     tty7         <span class="m">2016</span>-06-01 <span class="m">16</span>:30 <span class="o">(</span>:0<span class="o">)</span>
-jadi     pts/17       <span class="m">2016</span>-06-01 <span class="m">16</span>:30 <span class="o">(</span>funlife<span class="o">)</span>
-jadi     pts/2        <span class="m">2016</span>-06-01 <span class="m">16</span>:32 <span class="o">(</span>:0<span class="o">)</span>
-jadi     pts/18       <span class="m">2016</span>-06-01 <span class="m">16</span>:32 <span class="o">(</span>:0<span class="o">)</span>
-jadi     pts/19       <span class="m">2016</span>-06-01 <span class="m">16</span>:33 <span class="o">(</span>:0<span class="o">)</span>
-root     tty2         <span class="m">2016</span>-06-01 <span class="m">16</span>:36
-jadi     pts/21       <span class="m">2016</span>-06-04 <span class="m">08</span>:41 <span class="o">(</span>:0<span class="o">)</span>
-jadi     pts/22       <span class="m">2016</span>-06-01 <span class="m">18</span>:37 <span class="o">(</span>funlife<span class="o">)</span>
-jadi     pts/23       <span class="m">2016</span>-06-02 <span class="m">11</span>:41 <span class="o">(</span>:0<span class="o">)</span>
-jadi     pts/21       <span class="m">2016</span>-06-03 <span class="m">22</span>:22 <span class="o">(</span>funlife<span class="o">)</span>
-jadi     pts/25       <span class="m">2016</span>-06-04 <span class="m">10</span>:17 <span class="o">(</span>:0<span class="o">)</span>
-jadi     pts/26       <span class="m">2016</span>-06-04 <span class="m">21</span>:39 <span class="o">(</span>:0<span class="o">)</span>
-jadi     pts/27       <span class="m">2016</span>-06-04 <span class="m">21</span>:55 <span class="o">(</span>:0<span class="o">)</span>
+jadi     tty7         2016-06-01 16:30 (:0)
+jadi     pts/17       2016-06-01 16:30 (funlife)
+jadi     pts/2        2016-06-01 16:32 (:0)
+jadi     pts/18       2016-06-01 16:32 (:0)
+jadi     pts/19       2016-06-01 16:33 (:0)
+root     tty2         2016-06-01 16:36
+jadi     pts/21       2016-06-04 08:41 (:0)
+jadi     pts/22       2016-06-01 18:37 (funlife)
+jadi     pts/23       2016-06-02 11:41 (:0)
+jadi     pts/21       2016-06-03 22:22 (funlife)
+jadi     pts/25       2016-06-04 10:17 (:0)
+jadi     pts/26       2016-06-04 21:39 (:0)
+jadi     pts/27       2016-06-04 21:55 (:0)
 </code></pre></div>
 
 <p>As you can see both these commands tell you when was the time that the user logged into the system but does not show the logged out people (because they are not on the system anymore!). If you need that data use the <code>last</code> command:</p>
-<div class="highlight"><pre><span></span><code><span class="err">~$ last | head</span>
-<span class="err">jadi     pts/27       :0               Sat Jun  4 21:55    gone - no logout</span>
-<span class="err">jadi     pts/26       :0               Sat Jun  4 21:39    gone - no logout</span>
-<span class="err">jadi     pts/26       :0               Sat Jun  4 18:55 - 19:42  (00:46)</span>
-<span class="err">jadi     pts/25       :0               Sat Jun  4 10:17    gone - no logout</span>
-<span class="err">jadi     pts/26       :0               Sat Jun  4 09:25 - 09:26  (00:00)</span>
-<span class="err">jadi     pts/26       :0               Sat Jun  4 09:25 - 09:25  (00:00)</span>
-<span class="err">jadi     pts/25       :0               Sat Jun  4 08:52 - 09:27  (00:35)</span>
-<span class="err">jadi     pts/21       :0               Sat Jun  4 08:41    gone - no logout</span>
-<span class="err">jadi     pts/21       funlife          Fri Jun  3 22:22 - 08:41  (10:18)</span>
-<span class="err">jadi     pts/21       :0               Fri Jun  3 18:44 - 19:47  (01:03)</span>
+<div class="highlight"><pre><span></span><code>~$ last | head
+jadi     pts/27       :0               Sat Jun  4 21:55    gone - no logout
+jadi     pts/26       :0               Sat Jun  4 21:39    gone - no logout
+jadi     pts/26       :0               Sat Jun  4 18:55 - 19:42  (00:46)
+jadi     pts/25       :0               Sat Jun  4 10:17    gone - no logout
+jadi     pts/26       :0               Sat Jun  4 09:25 - 09:26  (00:00)
+jadi     pts/26       :0               Sat Jun  4 09:25 - 09:25  (00:00)
+jadi     pts/25       :0               Sat Jun  4 08:52 - 09:27  (00:35)
+jadi     pts/21       :0               Sat Jun  4 08:41    gone - no logout
+jadi     pts/21       funlife          Fri Jun  3 22:22 - 08:41  (10:18)
+jadi     pts/21       :0               Fri Jun  3 18:44 - 19:47  (01:03)
 </code></pre></div>
 
 <blockquote>
@@ -441,9 +440,21 @@ jadi     pts/27       <span class="m">2016</span>-06-04 <span class="m">21</span
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:40:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#110-ref">110</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

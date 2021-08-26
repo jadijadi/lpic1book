@@ -15,18 +15,18 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 103, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
-<meta property="og:title" content="103.4. Use streams, pipes and redirects "/>
+<meta property="og:title" content="103.4 Use streams, pipes and redirects "/>
 <meta property="og:url" content="./1034-use-streams-pipes-and-redirects.html" />
-<meta property="og:description" content="103.4. Use streams, pipes and redirects Candidates should be able to redirect streams and connect them in order to efficiently process textual data. Tasks include redirecting standard input, standard output and standard error, piping the output of one command to the input of another command, using the output of …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:13:00+02:00" />
-<meta name="twitter:title" content="103.4. Use streams, pipes and redirects ">
-<meta name="twitter:description" content="103.4. Use streams, pipes and redirects Candidates should be able to redirect streams and connect them in order to efficiently process textual data. Tasks include redirecting standard input, standard output and standard error, piping the output of one command to the input of another command, using the output of …">
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
+<meta name="twitter:title" content="103.4 Use streams, pipes and redirects ">
+<meta name="twitter:description" content="">
 
-        <title>103.4. Use streams, pipes and redirects  · lpic1book
+        <title>103.4 Use streams, pipes and redirects  · lpic1book
 </title>
 
 
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -68,7 +67,7 @@
     <header class="page-header span10 offset2">
         <h1>
             <a href="./1034-use-streams-pipes-and-redirects.html">
-                103.4. Use streams, pipes and redirects
+                103.4 Use streams, pipes and redirects
             </a>
         </h1>
     </header>
@@ -77,42 +76,37 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>103.4. Use streams, pipes and redirects</h1>
-<ul>
+            <ul>
 <li>Candidates should be able to redirect streams and connect them in order to efficiently process textual data. Tasks include redirecting standard input, standard output and standard error, piping the output of one command to the input of another command, using the output of one command as arguments to another command and sending output to both stdout and a file.</li>
 </ul>
-<h2>Objectives</h2>
+<h3>Objectives</h3>
 <ul>
 <li>Redirecting standard input, standard output and standard error.</li>
 <li>Pipe the output of one command to the input of another command.</li>
 <li>Use the output of one command as arguments to another command.</li>
-<li>
-<p>Send output to both stdout and a file.</p>
-</li>
-<li>
-<p>tee</p>
-</li>
+<li>Send output to both stdout and a file.</li>
+<li>tee</li>
 <li>xargs</li>
 </ul>
 <p>We've already talked about basics of piping and redirects in previous sections. Here you will get a deeper understanding of these concepts.</p>
-<h2>Redirecting standard IO</h2>
-<p>On a linux system most shells use streams for input and output (a list of characters).
-.
-These streams can be from (and toward) various things including keyboard, block devices (hards, usb stick, ..), window of a program, fiels, ...</p>
+<h3>Redirecting standard IO</h3>
+<p>On a linux system most shells use streams for input and output (a list of characters). . These streams can be from (and toward) various things including keyboard, block devices (hards, usb stick, ..), window of a program, fiels, ...</p>
 <ol>
 <li><em>stdout</em> is the standard output stream, which displays output from commands (file descriptor 1)</li>
 <li><em>stderr</em> is the standard error stream, which displays error output from commands (file descriptor 2)</li>
 <li><em>stdin</em> is the standard input stream, which provides input to commands (file descriptor 0)</li>
 </ol>
-<p>What are these <strong>file descriptions</strong>? There are used to control the output. If you need to control where your output goes, you can add <code>n&gt;</code> or <code>n&gt;&gt;</code>.
-* <strong>n&gt;</strong> redirects <strong>file description n</strong> to a file or device. If the file already exists it is <strong>overwritten</strong> and if it does not exists, it will be created.
-* <strong>n&gt;&gt;</strong> redirects file description n to a file or device. If the file already exists the stream will be appended to the end of it and if it does not exists, it will be created.</p>
+<p>What are these <strong>file descriptions</strong>? There are used to control the output. If you need to control where your output goes, you can add <code>n&gt;</code> or <code>n&gt;&gt;</code>.</p>
+<ul>
+<li><strong>n&gt;</strong> redirects <strong>file description n</strong> to a file or device. If the file already exists it is <strong>overwritten</strong> and if it does not exists, it will be created.</li>
+<li><strong>n&gt;&gt;</strong> redirects file description n to a file or device. If the file already exists the stream will be appended to the end of it and if it does not exists, it will be created.</li>
+</ul>
 <blockquote>
-<p>if the <strong>n</strong> is not given, the  default is <em>standard output</em></p>
+<p>if the <strong>n</strong> is not given, the default is <em>standard output</em></p>
 <p>The user who runs the command should have write access to the file.</p>
 </blockquote>
 <div class="highlight"><pre><span></span><code>$ ls
-fiona  habib  mahmoodrm  minoo  mojtaba  sina
+fiona  habib  mahmoodrm  minoo    mojtaba  sina
 $ ls j*
 ls: cannot access j*: No such file or directory
 $ ls m*
@@ -120,7 +114,7 @@ mahmoodrm  minoo  mojtaba
 $ ls j* m*
 ls: cannot access j*: No such file or directory
 mahmoodrm  minoo  mojtaba
-$ ls j* m* &gt; output <span class="m">2</span>&gt; errors
+$ ls j* m* &gt; output 2&gt; errors
 $ cat output
 mahmoodrm
 minoo
@@ -130,17 +124,17 @@ ls: cannot access j*: No such file or directory
 $
 </code></pre></div>
 
-<h4>Redirecting both stdout and stderr to one location</h4>
+<p><strong>Redirecting both stdout and stderr to one location</strong></p>
 <p>Sometimes (say during automated tasks) we prefer to send both standard output and standard error to same place, Use <code>&amp;&gt;</code> and <code>&amp;&gt;&gt;</code> to say <em>both stderr and stdout</em>.</p>
-<p>It is also possible to use <code>&amp;1</code> and <code>&amp;2</code> and <code>&amp;0</code> to refer to <strong>current place</strong> of stdout, stderr &amp; stdin.  In this case <code>ls &gt; file1 2&gt;&amp;1</code> means <em>redirect output to file1 and output stderr to same place as stdout (file1)</em></p>
+<p>It is also possible to use <code>&amp;1</code> and <code>&amp;2</code> and <code>&amp;0</code> to refer to <strong>current place</strong> of stdout, stderr &amp; stdin. In this case <code>ls &gt; file1 2&gt;&amp;1</code> means <em>redirect output to file1 and output stderr to same place as stdout (file1)</em></p>
 <blockquote>
 <p>Be careful! <code>ls 2&gt;&amp;1 &gt; file1</code> means <em>print stderr to current location of stdout (screen) and then change the stdout to file1</em></p>
 </blockquote>
-<h4>sending to null</h4>
+<p><strong>sending to null</strong></p>
 <p>In linux, <strong>/dev/null</strong> is like a trash-can. You can send anything there and it disappears. So it is normal to say:</p>
 <div class="highlight"><pre><span></span><code>$ ls j* m* &gt; file1
 ls: cannot access j*: No such file or directory
-$ ls j* m* &gt; file1 <span class="m">2</span>&gt;/dev/null
+$ ls j* m* &gt; file1 2&gt;/dev/null
 $ cat file1
 mahmoodrm
 minoo
@@ -148,7 +142,7 @@ mojtaba
 $
 </code></pre></div>
 
-<h2>redirecting input</h2>
+<h3>redirecting input</h3>
 <p>The <strong>&lt;</strong> operand redirects the input.</p>
 <div class="highlight"><pre><span></span><code>$ cat uses
 you fedora
@@ -156,7 +150,7 @@ jadi ubuntu
 rubic windows
 neda mac
 narsin arch
-$ tr <span class="s1">&#39; &#39;</span> <span class="s1">&#39;,&#39;</span> &lt; uses
+$ tr &#39; &#39; &#39;,&#39; &lt; uses
 you,fedora
 jadi,ubuntu
 rubic,windows
@@ -164,28 +158,28 @@ neda,mac
 narsin,arch
 </code></pre></div>
 
-<h3>here-documents</h3>
+<h4>here-documents</h4>
 <p>Many shells, have here-documents (also called here-docs) as a way of input. You use <code>&lt;&lt;</code> and a <code>WORD</code> and then whatever you input is considered stdin till you give only the WORD in one line.</p>
-<div class="highlight"><pre><span></span><code>$ tr <span class="s1">&#39; &#39;</span> <span class="s1">&#39;.&#39;</span> <span class="s">&lt;&lt; END_OF_DATA</span>
-<span class="s">&gt; this is a line</span>
-<span class="s">&gt; and then this</span>
-<span class="s">&gt;</span>
-<span class="s">&gt; we&#39;ll still type</span>
-<span class="s">&gt; and,</span>
-<span class="s">&gt; done!</span>
-<span class="s">&gt; END_OF_DATA</span>
+<div class="highlight"><pre><span></span><code>$ tr &#39; &#39; &#39;.&#39; &lt;&lt; END_OF_DATA
+&gt; this is a line
+&gt; and then this
+&gt;
+&gt; we&#39;ll still type
+&gt; and,
+&gt; done!
+&gt; END_OF_DATA
 this.is.a.line
 and.then.this
 
-we<span class="err">&#39;</span>ll.still.type
+we&#39;ll.still.type
 and,
-<span class="k">done</span>!
+done!
 </code></pre></div>
 
 <blockquote>
 <p>Here-Documnts are very useful if you are writing scripts and automated tasks.</p>
 </blockquote>
-<h2>Pipes</h2>
+<h3>Pipes</h3>
 <p>Piping is sending one commands output to another commands input (Piping the stdout to stdin). You use <code>|</code> for this task.</p>
 <blockquote>
 <p>As previously seen, many commands use a hyphen <code>-</code> in place of a filename as an argument to indicate when the input should come from stdin rather than a file.</p>
@@ -197,20 +191,20 @@ tshirt
 ball
 socks
 glasses
-$ cut -f1 -d<span class="s1">&#39; &#39;</span> what_i_have.txt <span class="p">|</span> sort <span class="p">|</span> uniq -c <span class="p">|</span> sort -nr
-      <span class="m">2</span> socks
-      <span class="m">1</span> tshirt
-      <span class="m">1</span> laptop
-      <span class="m">1</span> glasses
-      <span class="m">1</span> ball
+$ cut -f1 -d&#39; &#39; what_i_have.txt | sort | uniq -c | sort -nr
+      2 socks
+      1 tshirt
+      1 laptop
+      1 glasses
+      1 ball
 </code></pre></div>
 
 <blockquote>
 <p>If you need to start your pipeline with the contents of a file, start with <code>cat filename | ...</code> or use a <code>&lt;</code> stdin redirect.</p>
 </blockquote>
-<h2>xargs</h2>
+<h3>xargs</h3>
 <p>This command reads input from <em>stdin</em> and uses them as arguments.</p>
-<div class="highlight"><pre><span></span><code>$ ls <span class="p">|</span> xargs <span class="nb">echo</span> these are files:
+<div class="highlight"><pre><span></span><code>$ ls | xargs echo these are files:
 these are files: errors f file1 fiona habib mahmoodrm minoo mojtaba output output.txt sina uses what_i_have.txt
 </code></pre></div>
 
@@ -226,7 +220,7 @@ tshirt
 ball
 socks
 glasses
-$ cat what_i_have.txt <span class="p">|</span> xargs -I DATA <span class="nb">echo</span> I have DATA and I love it.
+$ cat what_i_have.txt | xargs -I DATA echo I have DATA and I love it.
 I have laptop and I love it.
 I have socks and I love it.
 I have tshirt and I love it.
@@ -238,9 +232,9 @@ I have glasses and I love it.
 <blockquote>
 <p>If you use -L, the input will break by line and not by blanks.</p>
 </blockquote>
-<h2>tee</h2>
+<h3>tee</h3>
 <p>What if you need to see the output on screen and also save it to a file? Ugly way is redirecting to the file and using <code>tail -f file</code> in another window. Nice way is using <code>tee</code> and giving it one or more filenames for standard output (if you need to save <em>stderr</em>, first redirect it to <em>stdout</em>). This will write the output to those files and also writes them to the screen:</p>
-<div class="highlight"><pre><span></span><code>$ ls -1 <span class="p">|</span> tee allfiles myfiles
+<div class="highlight"><pre><span></span><code>$ ls -1 | tee allfiles myfiles
 allfiles
 f
 fiona
@@ -273,9 +267,21 @@ sina
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:13:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#103-ref">103</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

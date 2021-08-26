@@ -15,18 +15,18 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 103, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
-<meta property="og:title" content="103.2. Process text streams using filters "/>
+<meta property="og:title" content="103.2 Process text streams using filters "/>
 <meta property="og:url" content="./1032-process-text-streams-using-filters.html" />
-<meta property="og:description" content="103.2. Process text streams using filters Weight: 3 Description: Candidates should be able to apply filters to text streams. Objectives Send text files and output streams through text utility filters to modify the output using standard UNIX commands found in the GNU textutils package. cat cut expand fmt head …" />
+<meta property="og:description" content="Candidates should be able to apply filters to text streams." />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:11:00+02:00" />
-<meta name="twitter:title" content="103.2. Process text streams using filters ">
-<meta name="twitter:description" content="103.2. Process text streams using filters Weight: 3 Description: Candidates should be able to apply filters to text streams. Objectives Send text files and output streams through text utility filters to modify the output using standard UNIX commands found in the GNU textutils package. cat cut expand fmt head …">
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
+<meta name="twitter:title" content="103.2 Process text streams using filters ">
+<meta name="twitter:description" content="Candidates should be able to apply filters to text streams.">
 
-        <title>103.2. Process text streams using filters  · lpic1book
+        <title>103.2 Process text streams using filters  · lpic1book
 </title>
 
 
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -68,7 +67,7 @@
     <header class="page-header span10 offset2">
         <h1>
             <a href="./1032-process-text-streams-using-filters.html">
-                103.2. Process text streams using filters
+                103.2 Process text streams using filters
             </a>
         </h1>
     </header>
@@ -77,17 +76,12 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>103.2. Process text streams using filters</h1>
-<p><em>Weight: 3</em></p>
+            <p><em>Weight: 3</em></p>
 <p>Description: Candidates should be able to apply filters to text streams.</p>
-<h2>Objectives</h2>
+<h3>Objectives</h3>
 <ul>
-<li>
-<p>Send text files and output streams through text utility filters to modify the output using standard UNIX commands found in the GNU textutils package.</p>
-</li>
-<li>
-<p>cat</p>
-</li>
+<li>Send text files and output streams through text utility filters to modify the output using standard UNIX commands found in the GNU textutils package.</li>
+<li>cat</li>
 <li>cut</li>
 <li>expand</li>
 <li>fmt</li>
@@ -106,8 +100,8 @@
 <li>uniq</li>
 <li>wc</li>
 </ul>
-<h2>Streams</h2>
-<p>In <strong>UNIX</strong> world a lot of data is in TEXT form. Log files, configurations, user inputs,  list of files, ... . <strong>Filtering</strong> this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a <strong>streams</strong> is nothing more than <em>"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"</em>.</p>
+<h3>Streams</h3>
+<p>In <strong>UNIX</strong> world a lot of data is in TEXT form. Log files, configurations, user inputs, list of files, ... . <strong>Filtering</strong> this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a <strong>streams</strong> is nothing more than <em>"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"</em>.</p>
 <p>In simple words, a text stream is an input of text from keyboard, a file, a network device, .. and filtering it is automatically changing it.</p>
 <p>As you saw in previous section, modern programming environments and shells (including bash) use three standard I/O streams:</p>
 <ul>
@@ -115,117 +109,119 @@
 <li><strong>stdout</strong> is the standard output stream, which displays output from commands.</li>
 <li><strong>stderr</strong> is the standard error stream, which displays error output from commands</li>
 </ul>
-<h2>Piping ( | )</h2>
+<h3>Piping ( | )</h3>
 <p>In <em>normal</em> cases, you give input from keyboard and output to the monitor. But in real life of a system admin, most inputs come from another commands. If you want to give the output of <code>command1</code> as the input of <code>command2</code>, you should <strong>PIPE</strong> them as <code>command1 | command2</code>.</p>
 <blockquote>
 <p>this | looks like a pipe!</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~/w/lpic/101$ ls -1 | sort</span>
-<span class="err">12</span>
-<span class="err">62</span>
-<span class="err">amir</span>
-<span class="err">jadi</span>
-<span class="err">neda</span>
-<span class="err">you</span>
-<span class="err">jadi@funlife:~/w/lpic/101$ ls -1 | sort -r</span>
-<span class="err">you</span>
-<span class="err">neda</span>
-<span class="err">jadi</span>
-<span class="err">amir</span>
-<span class="err">62</span>
-<span class="err">12</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ ls -1 | sort
+12
+62
+amir
+jadi
+neda
+you
+jadi@funlife:~/w/lpic/101$ ls -1 | sort -r
+you
+neda
+jadi
+amir
+62
+12
 </code></pre></div>
 
 <blockquote>
 <p>UNIX philosophy is building small, strong tools and combine them</p>
 </blockquote>
-<h2>Redirection ( &gt; )</h2>
+<h3>Redirection ( &gt; )</h3>
 <p>Another useful way of controlling the streams is <code>&gt;</code>. This help you to redirect your output (mostly to a file).</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~/w/lpic/101$ ls -ltrh</span>
-<span class="err">total 0</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 12</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 62</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 neda</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 jadi</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 you</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:34 amir</span>
-<span class="err">jadi@funlife:~/w/lpic/101$ ls -ltrh &gt; directory_data</span>
-<span class="err">jadi@funlife:~/w/lpic/101$ cat directory_data</span>
-<span class="err">total 0</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 12</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 62</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 neda</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 jadi</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 you</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:34 amir</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:37 directory_data</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ ls -ltrh
+total 0
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 12
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 62
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 neda
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 jadi
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 you
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:34 amir
+jadi@funlife:~/w/lpic/101$ ls -ltrh &gt; directory_data
+jadi@funlife:~/w/lpic/101$ cat directory_data
+total 0
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 12
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 62
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 neda
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 jadi
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 you
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:34 amir
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:37 directory_data
 </code></pre></div>
 
-<h2>cat</h2>
+<h3>cat</h3>
 <p>this command simply outputs its input stream (or the filename you give it). As you saw in previous section. As most commands, if you do not give an input to it, it will read the data from the keyboard.</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~/w/lpic/101$ cat &gt; mydata</span>
-<span class="err">test</span>
-<span class="err">this is the second line</span>
-<span class="err">bye</span>
-<span class="err">jadi@funlife:~/w/lpic/101$ cat mydata</span>
-<span class="err">test</span>
-<span class="err">this is the second line</span>
-<span class="err">bye</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat &gt; mydata
+test
+this is the second line
+bye
+jadi@funlife:~/w/lpic/101$ cat mydata
+test
+this is the second line
+bye
 </code></pre></div>
 
 <blockquote>
 <p>When inputting data, <code>ctrl+d</code> will end the stream.</p>
 </blockquote>
 <p>it is also possible to add files to each other using cat:</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~/w/lpic/101$ cat mydata directory_data</span>
-<span class="err">test</span>
-<span class="err">this is the second line</span>
-<span class="err">bye</span>
-<span class="err">total 0</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 12</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 62</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 neda</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 jadi</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 you</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:34 amir</span>
-<span class="err">-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:37 directory_data</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat mydata directory_data
+test
+this is the second line
+bye
+total 0
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 12
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 62
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 neda
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 jadi
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 you
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:34 amir
+-rw-rw-r-- 1 jadi jadi 0 Jan  4 17:37 directory_data
 </code></pre></div>
 
-<h2>od</h2>
-<p>This command <em>dump</em>s files (shows files in formats other than text). Normal behaviour is OctalDump (base 8):</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~/w/lpic/101$ od mydata</span>
-<span class="err">0000000 062564 072163 072012 064550 020163 071551 072040 062550</span>
-<span class="err">0000020 071440 061545 067543 062156 066040 067151 005145 074542</span>
-<span class="err">0000040 005145</span>
-<span class="err">0000042</span>
+<h3>od</h3>
+<p>This command _dump_s files (shows files in formats other than text). Normal behaviour is OctalDump (base 8):</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ od mydata
+0000000 062564 072163 072012 064550 020163 071551 072040 062550
+0000020 071440 061545 067543 062156 066040 067151 005145 074542
+0000040 005145
+0000042
 </code></pre></div>
 
-<p>Not good.. lets use two switches:
-- -t will tell what format to print (<code>-t a</code> for showing only named characters or <code>-t c</code> for showing escaped chars)
-- -A for choosing how to show offsets (<code>-A```</code>D<code>ecimal,</code>O<code>ctal,</code>H<code>ex or</code>N````one)</p>
+<p>Not good.. lets use two switches:</p>
+<ul>
+<li>-t will tell what format to print (<code>-t a</code> for showing only named characters or <code>-t c</code> for showing escaped chars)</li>
+<li>-A for choosing how to show offsets (<code>```-A``````` D</code>ecimal,<code>O</code>ctal,<code>H</code>ex or<code>N\</code>```one)</li>
+</ul>
 <blockquote>
 <p><code>od</code> is very useful to find problems in your text files - say finding out if you are using tabs or correct line endings</p>
 </blockquote>
-<h2>split</h2>
+<h3>split</h3>
 <p>Will split files. It is very useful for transferring HUGE files on smaller media (say splitting a 3TB file to 8GB parts and moving them to another machine with a USB Disk).</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~/w/lpic/101$ cat mydata</span>
-<span class="err">hello</span>
-<span class="err">this is second line</span>
-<span class="err">but as you can see we are</span>
-<span class="err">still writing</span>
-<span class="err">and this is getting longer</span>
-<span class="err">.</span>
-<span class="err">.</span>
-<span class="err">and longer</span>
-<span class="err">and longer!</span>
-<span class="err">jadi@funlife:~/w/lpic/101$ ls</span>
-<span class="err">mydata</span>
-<span class="err">jadi@funlife:~/w/lpic/101$ split -l 2 mydata</span>
-<span class="err">jadi@funlife:~/w/lpic/101$ ls</span>
-<span class="err">mydata  xaa  xab  xac  xad  xae</span>
-<span class="err">jadi@funlife:~/w/lpic/101$ cat xab</span>
-<span class="err">but as you can see we are</span>
-<span class="err">still writing</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat mydata
+hello
+this is second line
+but as you can see we are
+still writing
+and this is getting longer
+.
+.
+and longer
+and longer!
+jadi@funlife:~/w/lpic/101$ ls
+mydata
+jadi@funlife:~/w/lpic/101$ split -l 2 mydata
+jadi@funlife:~/w/lpic/101$ ls
+mydata    xaa  xab  xac  xad  xae
+jadi@funlife:~/w/lpic/101$ cat xab
+but as you can see we are
+still writing
 </code></pre></div>
 
 <ul>
@@ -236,36 +232,36 @@
 <blockquote>
 <p>need to join these files? <code>cat</code> them with <code>cat x* &gt; originalfile</code>.</p>
 </blockquote>
-<h2>wc</h2>
+<h3>wc</h3>
 <p>wc is <em>word count</em>. It counts the lines, words and bytes in the input stream.</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~/w/lpic/101$ wc mydata</span>
-<span class="err">  9  25 121 mydata</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ wc mydata
+  9  25 121 mydata
 </code></pre></div>
 
 <blockquote>
 <p>It is very normal to count the line numbers with <code>-l</code> switch.</p>
 </blockquote>
-<h2>head &amp; tail</h2>
+<h3>head &amp; tail</h3>
 <p>Shows the <em>head</em> (top) of a file or its <em>tail</em> (bottom). The default lines to show is 10 but you can specify with <code>-n20</code> or <code>-20</code>.</p>
 <blockquote>
 <p><code>tali -f</code> will continue showing the new lines which are being written at the eng of the file. Very useful.</p>
 </blockquote>
-<h2>expand &amp; unexpand &amp; tr</h2>
+<h3>expand &amp; unexpand &amp; tr</h3>
 <p>Expand will replace the tabs in a stream with spaces (normally 8 but can be defined with -n12 for 12):</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~/w/lpic/101$ cat howcool</span>
-<span class="err">jadi    5</span>
-<span class="err">sina    6</span>
-<span class="err">rubic   2</span>
-<span class="err">you     12</span>
-<span class="err">jadi@funlife:~/w/lpic/101$ od -tc howcool</span>
-<span class="err">0000000   j   a   d   i  \t   5  \n   s   i   n   a  \t   6  \n   r   u</span>
-<span class="err">0000020   b   i   c  \t   2  \n   y   o   u      \t   1   2  \n</span>
-<span class="err">0000036</span>
-<span class="err">jadi@funlife:~/w/lpic/101$ expand howcool | od -tc</span>
-<span class="err">0000000   j   a   d   i                   5  \n   s   i   n   a        </span>
-<span class="err">0000020           6  \n   r   u   b   i   c               2  \n   y   o</span>
-<span class="err">0000040   u                       1   2  \n</span>
-<span class="err">0000051</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat howcool
+jadi    5
+sina    6
+rubic    2
+you     12
+jadi@funlife:~/w/lpic/101$ od -tc howcool
+0000000   j   a   d   i  \t   5  \n   s   i   n   a  \t   6  \n   r   u
+0000020   b   i   c  \t   2  \n   y   o   u      \t   1   2  \n
+0000036
+jadi@funlife:~/w/lpic/101$ expand howcool | od -tc
+0000000   j   a   d   i                   5  \n   s   i   n   a        
+0000020           6  \n   r   u   b   i   c               2  \n   y   o
+0000040   u                       1   2  \n
+0000051
 </code></pre></div>
 
 <p>Unexpand will do the reverse. The default is converting only the initial blanks but his can be overrided by using <code>-a</code>.</p>
@@ -273,8 +269,7 @@
 <p>unexpand needs at least two spaces.</p>
 </blockquote>
 <p>The <code>tr</code> command <em>translates</em> A to 1, B to 2 and C to 3 in a stream you have to <code>tr 'ABC' '123'</code>. It is a pure filter so if you need to give it file to work on, you have to use cat:</p>
-<p>````
-jadi@funlife:~/w/lpic/101$ cat mydata
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat mydata
 hello
 this is second line
 but as you can see we are
@@ -284,7 +279,7 @@ and this is getting longer
 .
 and longer
 and longer!
-jadi@funlife:~/w/lpic/101$ cat mydata | tr 'and' 'AND'
+jadi@funlife:~/w/lpic/101$ cat mydata | tr &#39;and&#39; &#39;AND&#39;
 hello
 this is second liNe
 but As you cAN see we Are
@@ -293,14 +288,15 @@ AND this is gettiNg loNger
 .
 .
 AND loNger
-AND loNger!</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span><span class="n">Note</span><span class="p">:</span> <span class="k">all</span> <span class="o">**</span><span class="n">a</span><span class="o">**</span><span class="n">s</span> <span class="k">are</span> <span class="n">replaced</span> <span class="k">with</span> <span class="o">**</span><span class="n">A</span><span class="o">**</span><span class="p">.</span>
-
-<span class="o">##</span> <span class="o">-</span>
-<span class="n">You</span> <span class="n">should</span> <span class="n">know</span> <span class="n">that</span> <span class="k">if</span> <span class="n">you</span> <span class="n">put</span> <span class="o">````-````</span> <span class="k">instead</span> <span class="k">of</span> <span class="n">a</span> <span class="n">filename</span><span class="p">,</span> <span class="n">the</span> <span class="k">data</span> <span class="n">will</span> <span class="n">be</span> <span class="n">replaced</span> <span class="k">from</span> <span class="n">the</span> <span class="n">pipe</span> <span class="p">(</span><span class="k">or</span> <span class="n">keyboard</span> <span class="k">stdin</span><span class="p">).</span>
+AND loNger!
 </code></pre></div>
 
-<p>jadi@funlife:~/w/lpic/101$ wc -l mydata | cat mydata - mydata<br>
+<blockquote>
+<p>Note: all <strong>a</strong>s are replaced with <strong>A</strong>.</p>
+</blockquote>
+<h3>-</h3>
+<p>You should know that if you put <code>-</code> instead of a filename, the data will be replaced from the pipe (or keyboard stdin).</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ wc -l mydata | cat mydata - mydata  
 hello
 this is second line
 but as you can see we are
@@ -319,14 +315,18 @@ and this is getting longer
 .
 .
 and longer
-and longer!</p>
-<div class="highlight"><pre><span></span><code><span class="err">## pr</span>
-<span class="err">this formats text for classic *printers*. The default header includes the filename and file creation date and time, along with a page number and two lines of blank footer.</span>
+and longer!
 </code></pre></div>
 
-<p>pr mydata</p>
-<p>2015-01-04 17:58                      mydata                      Page 1</p>
-<p>hello
+<h3>pr</h3>
+<p>this formats text for classic <em>printers</em>. The default header includes the filename and file creation date and time, along with a page number and two lines of blank footer.</p>
+<div class="highlight"><pre><span></span><code>pr mydata
+
+
+2015-01-04 17:58                      mydata                      Page 1
+
+
+hello
 this is second line
 but as you can see we are
 still writing
@@ -334,33 +334,34 @@ and this is getting longer
 .
 .
 and longer
-and longer!</p>
-<div class="highlight"><pre><span></span><code><span class="n">It</span> <span class="k">is</span> <span class="n">possible</span> <span class="k">to</span> <span class="n">print</span> <span class="k">in</span> <span class="n">two</span> <span class="k">or</span> <span class="k">more</span> <span class="n">columns</span> <span class="k">and</span> <span class="n">other</span> <span class="n">outdated</span> <span class="n">fun</span> <span class="n">stuff</span><span class="p">.</span>
-
-<span class="o">&gt;</span> <span class="k">When</span> <span class="k">output</span> <span class="k">is</span> <span class="n">created</span> <span class="k">from</span> <span class="n">multiple</span> <span class="n">files</span> <span class="k">or</span> <span class="n">the</span> <span class="n">standard</span> <span class="k">input</span> <span class="n">stream</span><span class="p">,</span> <span class="n">the</span> <span class="k">current</span> <span class="nb">date</span> <span class="k">and</span> <span class="k">time</span> <span class="k">are</span> <span class="n">used</span> <span class="k">instead</span> <span class="k">of</span> <span class="n">the</span> <span class="n">filename</span> <span class="k">and</span> <span class="n">creation</span> <span class="nb">date</span><span class="p">.</span>
-
-<span class="o">##</span> <span class="n">nl</span>
-<span class="n">Simply</span> <span class="n">numbers</span> <span class="n">lines</span><span class="p">.</span>
+and longer!
 </code></pre></div>
 
-<p>jadi@funlife:~/w/lpic/101$ nl mydata  | head -3
-     1  hello
-     2  this is second line
-     3  but as you can see we are</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="n">cat</span> <span class="o">-</span><span class="n">n</span> <span class="n">will</span> <span class="n">also</span> <span class="nb">number</span> <span class="n">lines</span><span class="p">.</span>
-
-<span class="o">##</span> <span class="n">fmt</span>
-<span class="n">Will</span> <span class="n">reformat</span> <span class="n">a</span> <span class="nb">text</span> <span class="n">file</span> <span class="n">within</span> <span class="n">margins</span> <span class="p">(</span><span class="n">say</span> <span class="mi">80</span> <span class="n">columns</span> <span class="n">width</span> <span class="k">or</span> <span class="mi">60</span> <span class="k">if</span> <span class="n">you</span> <span class="n">use</span> <span class="o">-</span><span class="n">w60</span><span class="p">).</span>
+<p>It is possible to print in two or more columns and other outdated fun stuff.</p>
+<blockquote>
+<p>When output is created from multiple files or the standard input stream, the current date and time are used instead of the filename and creation date.</p>
+</blockquote>
+<h3>nl</h3>
+<p>Simply numbers lines.</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ nl mydata  | head -3
+     1    hello
+     2    this is second line
+     3    but as you can see we are
 </code></pre></div>
 
-<p>jadi@funlife:~/w/lpic/101$ fmt mydata
+<blockquote>
+<p>cat -n will also number lines.</p>
+</blockquote>
+<h3>fmt</h3>
+<p>Will reformat a text file within margins (say 80 columns width or 60 if you use -w60).</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ fmt mydata
 hello this is second line but as you can see we are still writing and
-this is getting longer .  .  and longer and longer!</p>
-<div class="highlight"><pre><span></span><code><span class="err">## sort &amp; uniq</span>
-<span class="err">Will sorts its input(s).</span>
+this is getting longer .  .  and longer and longer!
 </code></pre></div>
 
-<p>jadi@funlife:~/w/lpic/101$ cat uses
+<h3>sort &amp; uniq</h3>
+<p>Will sorts its input(s).</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat uses
 you fedora
 jadi ubuntu
 rubic windows
@@ -368,23 +369,23 @@ neda mac
 jadi@funlife:~/w/lpic/101$ cat howcool
 jadi    5
 sina    6
-rubic   2
+rubic    2
 you     12
 jadi@funlife:~/w/lpic/101$ sort howcool uses
 jadi    5
 jadi ubuntu
 neda mac
-rubic   2
+rubic    2
 rubic windows
 sina    6
-you     12</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="k">if</span> <span class="n">you</span> <span class="n">want</span> <span class="k">to</span> <span class="n">sort</span> <span class="nf">NUMERICALLY</span> <span class="p">(</span><span class="n">so</span> <span class="mi">9</span> <span class="k">is</span> <span class="n">lower</span> <span class="n">than</span> <span class="mi">19</span><span class="p">),</span> <span class="k">use</span> <span class="ss">````</span><span class="o">-</span><span class="n">n</span><span class="ss">````</span>
-<span class="o">&gt;</span> <span class="o">-</span><span class="n">r</span> <span class="n">will</span> <span class="n">reverse</span> <span class="n">the</span> <span class="n">search</span>
-
-<span class="k">and</span> <span class="n">the</span> <span class="ss">````</span><span class="n">uniq</span><span class="ss">````</span> <span class="n">removes</span> <span class="n">duplicate</span> <span class="n">entries</span> <span class="k">from</span> <span class="n">its</span> <span class="n">input</span><span class="p">.</span> <span class="n">Normal</span> <span class="n">behaviour</span> <span class="k">is</span> <span class="n">removing</span> <span class="n">only</span> <span class="n">the</span> <span class="n">duplicated</span> <span class="k">lines</span> <span class="n">but</span> <span class="n">you</span> <span class="n">can</span> <span class="k">change</span> <span class="n">the</span> <span class="n">behaviour</span> <span class="k">for</span> <span class="n">example</span> <span class="k">by</span> <span class="n">giving</span> <span class="ss">````</span><span class="o">-</span><span class="n">f1</span><span class="ss">````</span> <span class="k">to</span> <span class="k">force</span> <span class="n">it</span> <span class="k">to</span> <span class="k">not</span> <span class="k">check</span> <span class="n">fist</span> <span class="n">field</span><span class="p">.</span>
+you     12
 </code></pre></div>
 
-<p>jadi@funlife:~/w/lpic/101$ uniq what_i_have.txt
+<blockquote>
+<p>if you want to sort NUMERICALLY (so 9 is lower than 19), use <code>-n</code> -r will reverse the search</p>
+</blockquote>
+<p>and the <code>uniq</code> removes duplicate entries from its input. Normal behaviour is removing only the duplicated lines but you can change the behaviour for example by giving <code>-f1</code> to force it to not check fist field.</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ uniq what_i_have.txt
 laptop
 socks
 tshirt
@@ -397,13 +398,14 @@ glasses
 laptop
 socks
 tshirt
-jadi@funlife:~/w/lpic/101$</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="k">As</span> <span class="n">you</span> <span class="n">can</span> <span class="n">see</span><span class="p">,</span> <span class="n">the</span> <span class="k">input</span> <span class="n">HAVE</span> <span class="k">TO</span> <span class="n">BE</span> <span class="n">sorted</span> <span class="k">for</span> <span class="n">uniq</span> <span class="k">to</span> <span class="k">work</span>
-
-<span class="n">uniq</span> <span class="n">has</span> <span class="n">great</span> <span class="n">switches</span><span class="p">:</span>
+jadi@funlife:~/w/lpic/101$
 </code></pre></div>
 
-<p>jadi@funlife:~/w/lpic/101$ cat what_i_have.txt
+<blockquote>
+<p>As you can see, the input HAVE TO BE sorted for uniq to work</p>
+</blockquote>
+<p>uniq has great switches:</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat what_i_have.txt
 laptop
 socks
 tshirt
@@ -422,38 +424,37 @@ glasses
 laptop
 tshirt
 jadi@funlife:~/w/lpic/101$ sort what_i_have.txt  | uniq -d #show only repeated items
-socks</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="n">how</span> <span class="n">many</span> <span class="n">things</span> <span class="n">I</span> <span class="n">have</span><span class="o">?</span> <span class="o">````</span><span class="n">wc</span> <span class="o">-</span><span class="n">l</span> <span class="n">what_i_have</span><span class="p">.</span><span class="n">txt</span><span class="o">````</span> <span class="p">:)</span>
-
-<span class="o">##</span> <span class="n">cut</span>
-<span class="n">cut</span> <span class="n">command</span> <span class="n">will</span> <span class="o">*</span><span class="n">cut</span><span class="o">*</span> <span class="n">a</span> <span class="k">column</span> <span class="k">of</span> <span class="n">one</span> <span class="n">file</span><span class="p">.</span> <span class="n">Good</span> <span class="k">for</span> <span class="n">separating</span> <span class="n">fields</span><span class="p">:</span>
-
-<span class="n">Lets</span> <span class="n">cut</span> <span class="n">the</span> <span class="o">*</span><span class="k">first</span> <span class="n">field</span><span class="o">*</span> <span class="k">of</span> <span class="n">a</span> <span class="n">file</span><span class="p">.</span>
+socks
 </code></pre></div>
 
-<p>jadi@funlife:~/w/lpic/101$ cat howcool
+<blockquote>
+<p>how many things I have? <code>wc -l what_i_have.txt</code> :)</p>
+</blockquote>
+<h3>cut</h3>
+<p>cut command will <em>cut</em> a column of one file. Good for separating fields:</p>
+<p>Lets cut the <em>first field</em> of a file.</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat howcool
 jadi    5
 sina    6
-rubic   2
+rubic    2
 you     12
 jadi@funlife:~/w/lpic/101$ cut -f1 howcool
 jadi
 sina
 rubic
-you</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span><span class="n">normal</span> <span class="k">delimiter</span> <span class="k">is</span> <span class="n">TAB</span><span class="p">.</span> <span class="n">use</span> <span class="o">-</span><span class="n">dx</span> <span class="k">to</span> <span class="n">change</span> <span class="n">it</span> <span class="k">to</span> <span class="ss">&quot;x&quot;</span> <span class="k">or</span> <span class="n">use</span> <span class="o">````</span> <span class="o">|</span> <span class="n">tr</span> <span class="s1">&#39; &#39;</span> <span class="s1">&#39;\t&#39;</span> <span class="o">|</span> <span class="o">````</span> <span class="k">to</span> <span class="k">convert</span> <span class="n">spaces</span> <span class="k">in</span> <span class="n">your</span> <span class="n">stream</span> <span class="k">to</span> <span class="n">TABs</span><span class="p">.</span>
-
-<span class="n">It</span> <span class="k">is</span> <span class="n">also</span> <span class="n">possible</span> <span class="k">to</span> <span class="o">*</span><span class="n">cut</span><span class="o">*</span> <span class="n">fields</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="k">with</span> <span class="o">````-</span><span class="n">f1</span><span class="o">-</span><span class="mi">3</span><span class="o">````</span> <span class="k">or</span> <span class="k">only</span> <span class="n">characters</span> <span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span> <span class="k">with</span> <span class="o">````-</span><span class="n">c4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="o">````</span><span class="p">.</span>
-
-
-<span class="o">#</span><span class="n">paste</span>
-<span class="n">The</span> <span class="n">paste</span> <span class="n">command</span> <span class="n">pastes</span> <span class="n">lines</span> <span class="k">from</span> <span class="n">two</span> <span class="k">or</span> <span class="k">more</span> <span class="n">files</span> <span class="n">side</span><span class="o">-</span><span class="k">by</span><span class="o">-</span><span class="n">side</span><span class="o">!</span> <span class="n">You</span> <span class="n">can</span> <span class="k">not</span> <span class="k">do</span> <span class="n">this</span> <span class="k">in</span> <span class="n">a</span> <span class="n">normal</span> <span class="nb">text</span> <span class="n">editor</span><span class="p">.</span>
+you
 </code></pre></div>
 
-<p>jadi@funlife:~/w/lpic/101$ cat howcool
+<blockquote>
+<p>normal delimiter is TAB. use -dx to change it to "x" or use <code>| tr ' ' '\t' |</code> to convert spaces in your stream to TABs.</p>
+</blockquote>
+<p>It is also possible to <em>cut</em> fields 1, 2, 3 with <code>-f1-3</code> or only characters 4,5,7,8 with <code>-c4,5,7,8</code>.</p>
+<h2>paste</h2>
+<p>The paste command pastes lines from two or more files side-by-side! You can not do this in a normal text editor.</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat howcool
 jadi    5
 sina    6
-rubic   2
+rubic    2
 you     12
 jadi@funlife:~/w/lpic/101$ cat uses
 you fedora
@@ -461,18 +462,18 @@ jadi ubuntu
 rubic windows
 neda mac
 jadi@funlife:~/w/lpic/101$ paste howcool uses
-jadi    5   you fedora
-sina    6   jadi ubuntu
-rubic   2   rubic windows
-you     12  neda mac</p>
-<div class="highlight"><pre><span></span><code><span class="err">## join</span>
-<span class="err">Our final field-manipulating command is join, which joins files based on a matching field. **The files should be sorted on the join field.**</span>
+jadi    5    you fedora
+sina    6    jadi ubuntu
+rubic    2    rubic windows
+you     12    neda mac
 </code></pre></div>
 
-<p>jadi@funlife:~/w/lpic/101$ cat howcool
+<h3>join</h3>
+<p>Our final field-manipulating command is join, which joins files based on a matching field. <strong>The files should be sorted on the join field.</strong></p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat howcool
 jadi    5
 sina    6
-rubic   2
+rubic    2
 you     12
 jadi@funlife:~/w/lpic/101$ cat uses
 you fedora
@@ -484,30 +485,30 @@ jadi@funlife:~/w/lpic/101$ sort uses  &gt; uses.sorted
 jadi@funlife:~/w/lpic/101$ join howcool.sorted uses.sorted
 jadi 5 ubuntu
 rubic 2 windows
-you 12 fedora</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span><span class="k">join</span> <span class="n">does</span> <span class="k">not</span> <span class="k">work</span> <span class="k">on</span> <span class="nb">numeric</span> <span class="n">fields</span> <span class="n">unless</span> <span class="n">the</span> <span class="n">fields</span> <span class="k">are</span> <span class="k">all</span> <span class="n">the</span> <span class="n">same</span> <span class="k">length</span><span class="p">.</span> <span class="n">It</span> <span class="k">default</span> <span class="k">delimiter</span> <span class="k">is</span> <span class="k">any</span> <span class="n">white</span> <span class="k">space</span> <span class="p">(</span><span class="n">TAB</span><span class="p">,</span> <span class="k">space</span><span class="p">)</span> <span class="k">and</span> <span class="n">it</span> <span class="n">joins</span> <span class="k">on</span> <span class="k">first</span> <span class="n">field</span><span class="p">.</span> <span class="k">check</span> <span class="o">````</span><span class="n">man</span> <span class="k">join</span><span class="o">````</span> <span class="k">for</span> <span class="k">more</span> <span class="n">info</span><span class="p">.</span>
-
-<span class="o">##</span> <span class="n">sed</span>
-<span class="n">sed</span> <span class="k">is</span> <span class="o">**</span><span class="n">s</span><span class="o">**</span><span class="n">tream</span> <span class="o">**</span><span class="n">ed</span><span class="o">**</span><span class="n">itor</span><span class="p">.</span> <span class="n">It</span> <span class="k">is</span> <span class="n">POWERFUL</span> <span class="k">and</span> <span class="n">can</span> <span class="k">do</span> <span class="n">magic</span><span class="o">!</span> <span class="n">Just</span> <span class="k">like</span> <span class="n">most</span> <span class="k">of</span> <span class="n">the</span> <span class="n">tools</span> <span class="n">we</span> <span class="n">saw</span><span class="p">,</span> <span class="n">sed</span> <span class="n">can</span> <span class="k">work</span> <span class="k">as</span> <span class="n">a</span> <span class="n">filter</span> <span class="k">or</span> <span class="n">take</span> <span class="n">its</span> <span class="k">input</span> <span class="k">from</span> <span class="n">a</span> <span class="n">file</span><span class="p">.</span> <span class="n">It</span> <span class="n">uses</span> <span class="o">**</span><span class="n">regular</span> <span class="n">expressions</span><span class="o">**</span> <span class="k">and</span> <span class="k">is</span> <span class="n">a</span> <span class="n">great</span> <span class="n">tool</span> <span class="k">for</span> <span class="n">replacing</span> <span class="nb">text</span><span class="p">.</span> <span class="k">If</span> <span class="n">you</span> <span class="n">need</span> <span class="k">to</span> <span class="k">replace</span> <span class="n">A</span> <span class="k">with</span> <span class="n">B</span> <span class="k">only</span> <span class="n">once</span> <span class="k">in</span> <span class="k">each</span> <span class="n">line</span> <span class="k">in</span> <span class="n">a</span> <span class="n">stream</span> <span class="n">you</span> <span class="n">have</span> <span class="k">to</span> <span class="n">say</span> <span class="o">````</span><span class="n">sed</span> <span class="s1">&#39;s/A/B/&#39;</span><span class="o">````</span><span class="p">:</span>
+you 12 fedora
 </code></pre></div>
 
-<p>jadi@funlife:~/w/lpic/101$ cat uses
+<blockquote>
+<p>join does not work on numeric fields unless the fields are all the same length. It default delimiter is any white space (TAB, space) and it joins on first field. check <code>man join</code> for more info.</p>
+</blockquote>
+<h3>sed</h3>
+<p>sed is <strong>s</strong>tream <strong>ed</strong>itor. It is POWERFUL and can do magic! Just like most of the tools we saw, sed can work as a filter or take its input from a file. It uses <strong>regular expressions</strong> and is a great tool for replacing text. If you need to replace A with B only once in each line in a stream you have to say <code>sed 's/A/B/'</code>:</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat uses
 you fedora
 jadi ubuntu
 rubic windows
 neda mac
-jadi@funlife:~/w/lpic/101$ sed 's/ubuntu/debian/' uses
+jadi@funlife:~/w/lpic/101$ sed &#39;s/ubuntu/debian/&#39; uses
 you fedora
 jadi debian
 rubic windows
 neda mac
-jadi@funlife:~/w/lpic/101$</p>
-<div class="highlight"><pre><span></span><code><span class="n">the</span> <span class="n">pattern</span> <span class="k">for</span> <span class="n">changing</span> <span class="k">EVERY</span> <span class="n">occurrence</span> <span class="k">of</span> <span class="n">A</span> <span class="k">to</span> <span class="n">B</span> <span class="k">in</span> <span class="n">a</span> <span class="n">line</span> <span class="k">is</span> <span class="o">````</span><span class="n">sed</span> <span class="s1">&#39;s/A/B/g&#39;</span><span class="o">````</span><span class="p">.</span>
-
-<span class="n">Remember</span> <span class="k">escape</span> <span class="n">characters</span><span class="o">?</span> <span class="n">They</span> <span class="n">also</span> <span class="k">work</span> <span class="n">here</span> <span class="k">and</span> <span class="n">this</span> <span class="n">will</span> <span class="n">remove</span> <span class="k">every</span> <span class="o">*</span><span class="k">new</span> <span class="n">line</span><span class="o">*</span> <span class="k">from</span> <span class="n">a</span> <span class="n">file</span> <span class="k">and</span> <span class="n">will</span> <span class="k">replace</span> <span class="n">it</span> <span class="k">with</span> <span class="n">a</span> <span class="k">space</span><span class="p">:</span>
+jadi@funlife:~/w/lpic/101$
 </code></pre></div>
 
-<p>jadi@funlife:~/w/lpic/101$ cat mydata
+<p>the pattern for changing EVERY occurrence of A to B in a line is <code>sed 's/A/B/g'</code>.</p>
+<p>Remember escape characters? They also work here and this will remove every <em>new line</em> from a file and will replace it with a space:</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat mydata
 hello
 this is second line
 but as you can see we are
@@ -517,18 +518,18 @@ and this is getting longer
 .
 and longer
 and longer!
-jadi@funlife:~/w/lpic/101$ sed 's/ /\t/g' mydata &gt; mydata.tab
+jadi@funlife:~/w/lpic/101$ sed &#39;s/ /\t/g&#39; mydata &gt; mydata.tab
 jadi@funlife:~/w/lpic/101$ cat mydata.tab
 hello
-this    is  second  line
-but as  you can see we  are
-still   writing
-and this    is  getting longer
+this    is    second    line
+but    as    you    can    see    we    are
+still    writing
+and    this    is    getting    longer
 .
 .
-and longer
-and longer!
-````</p>
+and    longer
+and    longer!
+</code></pre></div>
 
 
              
@@ -547,9 +548,21 @@ and longer!
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:11:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#103-ref">103</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

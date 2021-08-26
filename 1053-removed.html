@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="./theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="./theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
+
+<meta property="og:title" content="105.3 Removed! "/>
+<meta property="og:url" content="./1053-removed.html" />
+<meta property="og:description" content="" />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
+<meta name="twitter:title" content="105.3 Removed! ">
+<meta name="twitter:description" content="">
+
+        <title>105.3 Removed!  · lpic1book
+</title>
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="./"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                </li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
+                                <li ><a href="./tags.html">Tags</a></li>
+
+                                <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="./1053-removed.html">
+                105.3 Removed!
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>How luckY! this is removed. If you insist this used to be the old text:</p>
+<h2>105.3 SQL data management</h2>
+<p><em>Weight: 2</em></p>
+<p>Candidates should be able to query databases and manipulate data using basic SQL commands. This objective includes performing queries involving joining of 2 tables and/or subselects.</p>
+<h4>Key Knowledge Areas</h4>
+<ul>
+<li>Use of basic SQL commands</li>
+<li>Perform basic data manipulation</li>
+</ul>
+<h4>Terms and Utilities</h4>
+<ul>
+<li>insert</li>
+<li>update</li>
+<li>select</li>
+<li>delete</li>
+<li>from</li>
+<li>where</li>
+<li>group by</li>
+<li>order by</li>
+<li>join</li>
+</ul>
+<h3>Databases</h3>
+<p>This module is about SQL language and MySQL is one of the many SQL databases. For this lesson, a database consists of some <strong>table</strong>s and each table has some <strong>row</strong>s and <strong>filed</strong>s. Lets have a look. In this lesson we are not going to <em>create</em> or <em>design</em> databases. You only need to have a general understanding of databases (SQL databases) and know some command to use (read query or update or add to them). The database I'm going to use in this lesson is called <code>lpic</code> and has two tables <code>contact</code> and <code>info</code>.</p>
+<h3>mysql command line</h3>
+<p>As I said, we are not goint to learn the <code>mysql</code> here, we only need to focus on <code>SQL</code> as a query language. You only need to know that <code>mysql</code> is a command line program to ineteractivly connect to a <code>mysql-server</code>. I use it like this:</p>
+<div class="highlight"><pre><span></span><code>$ mysql -u root -p
+</code></pre></div>
+
+<p>which means I'm going to use <code>u</code>ser root and will provide a password. It was also possible to say:</p>
+<div class="highlight"><pre><span></span><code>$ mysql -u root -p mypass lpic
+</code></pre></div>
+
+<p>to provide the pass on command line (not a good idea for security reasons!) and tell mysql program to connect to <code>lpic</code> database when it starts.</p>
+<h4>using a database</h4>
+<p>When you connect to a database, you have to use the <code>use</code> command to select which database you are going to issue commands on. Normally a database server (say mysql) can have 100s of different databases in it, each for one user or program.</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~$ mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 5.6.25-0ubuntu0.15.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2015, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+
+mysql&gt; SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| bad                |
+| good               |
+| lpic               |
+| mysql              |
+| performance_schema |
+| ugly               |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql&gt; USE LPIC;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql&gt; SHOW TABLES;
++----------------+
+| Tables_in_lpic |
++----------------+
+| info           |
+| phonebook      |
++----------------+
+2 rows in set (0.00 sec)
+</code></pre></div>
+
+<p>As you can see <code>mysql</code> is friendly and shows lovely tables! I've told her to <code>use lpic</code> and then <code>show tables</code> and now I know that I have two tables: info &amp; phonebook.</p>
+<blockquote>
+<p>Note: it is common to type MYSQL commands in CAPITAL LETTERS and names and values and .. in lower case.</p>
+</blockquote>
+<h3>SELECT</h3>
+<p><code>SELECt</code> is obvious! It selects from a table. When we are not sure what field we are looking for, we can select <code>*</code> to get all fields.</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT * FROM phonebook;
++--------+------------------+----------------+
+| name   | email            | phone          |
++--------+------------------+----------------+
+| jadi   | jadi@jadi.net    | +9890something |
+| nasrin | nasrin@lpic.test | +9898989898    |
+| sina   | far@from.here    | +687randomnum  |
+| haale  |                  | 0935secret     |
++--------+------------------+----------------+
+4 rows in set (0.00 sec)
+</code></pre></div>
+
+<p>or ask for a specific field:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT name FROM phonebook;
++--------+
+| name   |
++--------+
+| jadi   |
+| nasrin |
+| sina   |
+| haale  |
++--------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+
+<h3>WHERE</h3>
+<p>You can add <em>conditions</em> to your SQL queries using <code>WHERE</code>. Lets have a look at the other table we have:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT * FROM info;
++--------+--------+--------+-------+
+| name   | height | weight | mood  |
++--------+--------+--------+-------+
+| jadi   |    180 |     74 | happy |
+| sina   |    175 |     81 | happy |
+| nasrin |    174 |     68 | happy |
+| mina   |    171 |     59 | sad   |
++--------+--------+--------+-------+
+4 rows in set (0.00 sec)
+</code></pre></div>
+
+<p>What if we only wanted to see our <em>happy</em> friends?</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT * FROM info WHERE mood = &#39;happy&#39;;
++--------+--------+--------+-------+
+| name   | height | weight | mood  |
++--------+--------+--------+-------+
+| jadi   |    180 |     74 | happy |
+| sina   |    175 |     81 | happy |
+| nasrin |    174 |     68 | happy |
++--------+--------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql&gt;
+</code></pre></div>
+
+<p>Dont be afraid for <em>mina</em>, we will make her happy later but for now we need to see the friends who are happy and more than 80Kg.</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT * FROM info WHERE mood = &#39;happy&#39; AND weight &gt;= 80;
++--------+--------+--------+-------+
+| name   | height | weight | mood  |
++--------+--------+--------+-------+
+| sina   |    175 |     81 | happy |
++--------+--------+--------+-------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+
+<p>Or if I only needed the name:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT name FROM info WHERE mood = &#39;happy&#39; AND weight &gt;= 80;
++------+
+| name |
++------+
+| sina |
++------+
+1 row in set (0.00 sec)
+</code></pre></div>
+
+<h3>ORDER BY</h3>
+<p>This is used if you want to <strong>sort</strong> the data based on one field. Here I'm checking my phone book based on peoples names:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT * FROM phonebook ORDER BY name;
++--------+------------------+----------------+
+| name   | email            | phone          |
++--------+------------------+----------------+
+| haale  |                  | 0935secret     |
+| jadi   | jadi@jadi.net    | +9890something |
+| nasrin | nasrin@lpic.test | +9898989898    |
+| sina   | far@from.here    | +687randomnum  |
++--------+------------------+----------------+
+4 rows in set (0.00 sec)
+</code></pre></div>
+
+<p>This order can be done on any field, including numbers:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT * FROM info ORDER BY height;
++--------+--------+--------+-------+
+| name   | height | weight | mood  |
++--------+--------+--------+-------+
+| mina   |    171 |     59 | sad   |
+| nasrin |    174 |     68 | happy |
+| sina   |    175 |     81 | happy |
+| jadi   |    180 |     74 | happy |
++--------+--------+--------+-------+
+4 rows in set (0.00 sec)
+</code></pre></div>
+
+<h3>GROUP BY</h3>
+<p>This will <em>group</em> the output. Unfortunately this is not very clear. Lets see the first example:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT * FROM info GROUP BY mood;
++------+--------+--------+-------+
+| name | height | weight | mood  |
++------+--------+--------+-------+
+| jadi |    180 |     74 | happy |
+| mina |    171 |     59 | sad   |
++------+--------+--------+-------+
+2 rows in set (0.00 sec)
+</code></pre></div>
+
+<p>We've seen that we have only two <code>mood</code>s in our table: sad &amp; happy. When <code>SELECT</code>ing all fields (that is <code>*</code>) from this table <code>GROUP BY</code> mood, SQL will check all the moods, shows us only ONE from each. This can be used like the <code>uniq</code> command you leaned from LPIC101:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT mood FROM info GROUP BY mood;
++-------+
+| mood  |
++-------+
+| happy |
+| sad   |
++-------+
+2 rows in set (0.00 sec)
+</code></pre></div>
+
+<p>Which gives you all available moods in the table. In real life this is not very useful and most of the times it is combined with <code>count</code>. Have a look:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT count(mood), mood FROM info GROUP BY mood;
++-------------+-------+
+| count(mood) | mood  |
++-------------+-------+
+|           3 | happy |
+|           1 | sad   |
++-------------+-------+
+2 rows in set (0.00 sec)
+</code></pre></div>
+
+<p>Whic counts home many rows have that specific mood. So I have 3 happy friends and one sad friend.</p>
+<blockquote>
+<p>Note: <code>count</code> is not part of LPIC 105.3</p>
+</blockquote>
+<h3>INSERT</h3>
+<p>Another clear command. It adds a new row to a talbe. Say I want to add some data to phonebook:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt;  INSERT INTO phonebook (name, phone, email) VALUES (&#39;ghasem&#39;, &#39;+982112345678&#39;, &#39;&#39;);
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; SELECT * FROM phonebook;
++--------+------------------+----------------+
+| name   | email            | phone          |
++--------+------------------+----------------+
+| jadi   | jadi@jadi.net    | +9890something |
+| nasrin | nasrin@lpic.test | +9898989898    |
+| sina   | far@from.here    | +687randomnum  |
+| haale  |                  | 0935secret     |
+| ghasem |                  | +982112345678  |
++--------+------------------+----------------+
+5 rows in set (0.00 sec)
+</code></pre></div>
+
+<h3>DELETE</h3>
+<p>You know it! This will DELETE from a table. But be careful of what you delete... WHERE is your fiend here:</p>
+<p>mysql&gt; DELETE FROM phonebook WHERE name = 'ghasem'; Query OK, 1 row affected (0.01 sec)</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT * FROM phonebook;
++--------+------------------+----------------+
+| name   | email            | phone          |
++--------+------------------+----------------+
+| jadi   | jadi@jadi.net    | +9890something |
+| nasrin | nasrin@lpic.test | +9898989898    |
+| sina   | far@from.here    | +687randomnum  |
+| haale  |                  | 0935secret     |
++--------+------------------+----------------+
+4 rows in set (0.00 sec)
+</code></pre></div>
+
+<h3>UPDATE</h3>
+<p>Did I tell you that SQL looks like plain English? I was right because you know what <code>UPDATE</code> does! It updates (changes) row and again <code>WHERE</code> is your friend:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT * FROM phonebook;
++--------+------------------+----------------+
+| name   | email            | phone          |
++--------+------------------+----------------+
+| jadi   | jadi@jadi.net    | +9890something |
+| nasrin | nasrin@lpic.test | +9898989898    |
+| sina   | far@from.here    | +687randomnum  |
+| haale  |                  | 0935secret     |
++--------+------------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql&gt; UPDATE phonebook SET  email=&#39;haale@lpic.fake&#39; WHERE name = &#39;haale&#39;;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql&gt; SELECT * FROM phonebook;
++--------+------------------+----------------+
+| name   | email            | phone          |
++--------+------------------+----------------+
+| jadi   | jadi@jadi.net    | +9890something |
+| nasrin | nasrin@lpic.test | +9898989898    |
+| sina   | far@from.here    | +687randomnum  |
+| haale  | haale@lpic.fake  | 0935secret     |
++--------+------------------+----------------+
+4 rows in set (0.00 sec)
+</code></pre></div>
+
+<h3>JOIN</h3>
+<p>The JOIN command can be complicated but luckily we are on LPIC1-Exam 102 and we do not need to learn much ;) Join will join/mix two tables. Just check this:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt;  SELECT * FROM phonebook JOIN info;
++--------+------------------+----------------+--------+--------+--------+-------+
+| name   | email            | phone          | name   | height | weight | mood  |
++--------+------------------+----------------+--------+--------+--------+-------+
+| jadi   | jadi@jadi.net    | +9890something | jadi   |    180 |     74 | happy |
+| nasrin | nasrin@lpic.test | +9898989898    | jadi   |    180 |     74 | happy |
+| sina   | far@from.here    | +687randomnum  | jadi   |    180 |     74 | happy |
+| haale  | haale@lpic.fake  | 0935secret     | jadi   |    180 |     74 | happy |
+| jadi   | jadi@jadi.net    | +9890something | sina   |    175 |     81 | happy |
+| nasrin | nasrin@lpic.test | +9898989898    | sina   |    175 |     81 | happy |
+| sina   | far@from.here    | +687randomnum  | sina   |    175 |     81 | happy |
+| haale  | haale@lpic.fake  | 0935secret     | sina   |    175 |     81 | happy |
+| jadi   | jadi@jadi.net    | +9890something | nasrin |    174 |     68 | happy |
+| nasrin | nasrin@lpic.test | +9898989898    | nasrin |    174 |     68 | happy |
+| sina   | far@from.here    | +687randomnum  | nasrin |    174 |     68 | happy |
+| haale  | haale@lpic.fake  | 0935secret     | nasrin |    174 |     68 | happy |
+| jadi   | jadi@jadi.net    | +9890something | mina   |    171 |     59 | sad   |
+| nasrin | nasrin@lpic.test | +9898989898    | mina   |    171 |     59 | sad   |
+| sina   | far@from.here    | +687randomnum  | mina   |    171 |     59 | sad   |
+| haale  | haale@lpic.fake  | 0935secret     | mina   |    171 |     59 | sad   |
++--------+------------------+----------------+--------+--------+--------+-------+
+16 rows in set (0.00 sec)
+</code></pre></div>
+
+<p>Every single row from first table (phonebook) is copied in front of the second table (info). Not very useful <em>yet</em>. It becomes useful when you give a <em>common field</em> or tell it to JOIN tables based on a criteria; using <code>WHERE</code>. Here is the magic:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT * FROM phonebook JOIN info ON phonebook.name = info.name;
++--------+------------------+----------------+--------+--------+--------+-------+
+| name   | email            | phone          | name   | height | weight | mood  |
++--------+------------------+----------------+--------+--------+--------+-------+
+| jadi   | jadi@jadi.net    | +9890something | jadi   |    180 |     74 | happy |
+| sina   | far@from.here    | +687randomnum  | sina   |    175 |     81 | happy |
+| nasrin | nasrin@lpic.test | +9898989898    | nasrin |    174 |     68 | happy |
++--------+------------------+----------------+--------+--------+--------+-------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+
+<p>Great! Now I have my firneds list, their moods and their phone numbers! Say I'm bored and I need to phone a cool friend:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT phonebook.name, phone, mood FROM phonebook JOIN info ON phonebook.name = info.name WHERE mood = &#39;happy&#39;;
++--------+----------------+-------+
+| name   | phone          | mood  |
++--------+----------------+-------+
+| jadi   | +9890something | happy |
+| sina   | +687randomnum  | happy |
+| nasrin | +9898989898    | happy |
++--------+----------------+-------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+
+<blockquote>
+<p>Note: both tables have a field called <code>name</code> so I needed to use phonebook.name to tell SQL which name I want to show.</p>
+</blockquote>
+<p>Obviously we can add more criteria and go out with a person shorter than 175cm:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT phonebook.name, phone, mood FROM phonebook JOIN info ON phonebook.name = info.name AND height &lt; 175;
++--------+-------------+-------+
+| name   | phone       | mood  |
++--------+-------------+-------+
+| nasrin | +9898989898 | happy |
++--------+-------------+-------+
+1 row in set (0.00 sec)
+</code></pre></div>
+
+<p>cool? but we are not finished yet. I do not like having sad friends and I have one, lets make her happy too!</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SELECT * FROM info WHERE mood = &#39;sad&#39;;
++------+--------+--------+------+
+| name | height | weight | mood |
++------+--------+--------+------+
+| mina |    171 |     59 | sad  |
++------+--------+--------+------+
+1 row in set (0.01 sec)
+
+mysql&gt; UPDATE info SET mood = &#39;happy&#39; WHERE name = &#39;mina&#39;;
+Query OK, 0 rows affected (0.02 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql&gt; SELECT * FROM info WHERE mood = &#39;sad&#39;;                                   
+Empty set (0.00 sec)
+
+mysql&gt; SELECT * FROM info;
++--------+--------+--------+-------+
+| name   | height | weight | mood  |
++--------+--------+--------+-------+
+| jadi   |    180 |     74 | happy |
+| sina   |    175 |     81 | happy |
+| nasrin |    174 |     68 | happy |
+| mina   |    171 |     59 | happy |
++--------+--------+--------+-------+
+4 rows in set (0.00 sec)
+</code></pre></div>
+
+<p>Easy. The last command is even easier:</p>
+<h3>quit</h3>
+<div class="highlight"><pre><span></span><code>mysql&gt; quit
+Bye
+jadi@funlife:~$
+</code></pre></div>
+
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
+            <h4>Category</h4>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="./theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

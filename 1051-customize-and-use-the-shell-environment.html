@@ -15,18 +15,18 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 105, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
-<meta property="og:title" content="105.1. Customize and use the shell environment "/>
+<meta property="og:title" content="105.1 Customize and use the shell environment "/>
 <meta property="og:url" content="./1051-customize-and-use-the-shell-environment.html" />
-<meta property="og:description" content="105.1. Customize and use the shell environment Weight: 4 Candidates should be able to customize shell environments to meet users’ needs. Candidates should be able to modify global and user profiles. Key Knowledge Areas Set environment variables (e.g. PATH) at login or when spawning a new shell Write …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:25:00+02:00" />
-<meta name="twitter:title" content="105.1. Customize and use the shell environment ">
-<meta name="twitter:description" content="105.1. Customize and use the shell environment Weight: 4 Candidates should be able to customize shell environments to meet users’ needs. Candidates should be able to modify global and user profiles. Key Knowledge Areas Set environment variables (e.g. PATH) at login or when spawning a new shell Write …">
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
+<meta name="twitter:title" content="105.1 Customize and use the shell environment ">
+<meta name="twitter:description" content="">
 
-        <title>105.1. Customize and use the shell environment  · lpic1book
+        <title>105.1 Customize and use the shell environment  · lpic1book
 </title>
 
 
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -68,7 +67,7 @@
     <header class="page-header span10 offset2">
         <h1>
             <a href="./1051-customize-and-use-the-shell-environment.html">
-                105.1. Customize and use the shell environment
+                105.1 Customize and use the shell environment
             </a>
         </h1>
     </header>
@@ -77,16 +76,16 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>105.1. Customize and use the shell environment</h1>
+            <h2>105.1. Customize and use the shell environment</h2>
 <p><em>Weight: 4</em></p>
 <p>Candidates should be able to customize shell environments to meet users’ needs. Candidates should be able to modify global and user profiles.</p>
 <h3>Key Knowledge Areas</h3>
 <ul>
 <li>Set environment variables (e.g. PATH) at login or when spawning a new shell</li>
 <li>Write Bash functions for frequently used sequences of commands</li>
-<li>Maintain skeleton directories for new user accounts
-Set command search path with the proper directory</li>
+<li>Maintain skeleton directories for new user accounts</li>
 </ul>
+<p>Set command search path with the proper directory</p>
 <h3>Terms</h3>
 <ul>
 <li>.</li>
@@ -143,9 +142,9 @@ Set command search path with the proper directory</li>
 <p>Most of the time PATH and env vars go into the in ~/.bash_profile and aliases go into the ~/.bashrc. Have a look at them!</p>
 <h3>Aliases</h3>
 <p>Most of the time they are defined in <code>~/.bashrc</code> and look like this:</p>
-<div class="highlight"><pre><span></span><code><span class="err">alias ll=&#39;ls -alF&#39;</span>
-<span class="err">alias la=&#39;ls -A&#39;</span>
-<span class="err">alias l=&#39;ls -CF&#39;</span>
+<div class="highlight"><pre><span></span><code>alias ll=&#39;ls -alF&#39;
+alias la=&#39;ls -A&#39;
+alias l=&#39;ls -CF&#39;
 </code></pre></div>
 
 <p>It is kind of a shortcut.</p>
@@ -160,10 +159,10 @@ Set command search path with the proper directory</li>
 </blockquote>
 <h3>functions</h3>
 <p>Like "real" programming languages, Bash has functions, though in a somewhat limited implementation. A function is a subroutine, a code block that implements a set of operations, a "black box" that performs a specified task. Wherever there is repetitive code, when a task repeats with only slight variations in procedure, then consider using a function.</p>
-<div class="highlight"><pre><span></span><code><span class="err">funnyls () {</span>
-<span class="err">    ls -ltrh</span>
-<span class="err">    echo &quot;This is a funny ls&quot;</span>
-<span class="err">}</span>
+<div class="highlight"><pre><span></span><code>funnyls () {
+    ls -ltrh
+    echo &quot;This is a funny ls&quot;
+}
 </code></pre></div>
 
 <h3>set</h3>
@@ -172,95 +171,95 @@ Set command search path with the proper directory</li>
 <table>
 <thead>
 <tr>
-<th>switch</th>
-<th>result</th>
+<th align="left">switch</th>
+<th align="left">result</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>-b</td>
-<td>Cause the status of terminated background jobs to be reported immediately, rather than before printing the next primary prompt.</td>
+<td align="left">-b</td>
+<td align="left">Cause the status of terminated background jobs to be reported immediately, rather than before printing the next primary prompt.</td>
 </tr>
 <tr>
-<td>-e</td>
-<td>return in case a pipline, command, ... return non-zero</td>
+<td align="left">-e</td>
+<td align="left">return in case a pipline, command, ... return non-zero</td>
 </tr>
 <tr>
-<td>-n</td>
-<td>Read commands but do not execute them; this may be used to check a script for syntax errors. This option is ignored by interactive shells.</td>
+<td align="left">-n</td>
+<td align="left">Read commands but do not execute them; this may be used to check a script for syntax errors. This option is ignored by interactive shells.</td>
 </tr>
 <tr>
-<td>-t</td>
-<td>Exit after reading and executing one command.</td>
+<td align="left">-t</td>
+<td align="left">Exit after reading and executing one command.</td>
 </tr>
 <tr>
-<td>-C</td>
-<td>Prevent output redirection using ‘&gt;’, ‘&gt;&amp;’, and ‘&lt;&gt;’ from overwriting existing files.</td>
+<td align="left">-C</td>
+<td align="left">Prevent output redirection using ‘&gt;’, ‘&gt;&amp;’, and ‘&lt;&gt;’ from overwriting existing files.</td>
 </tr>
 </tbody>
 </table>
 <h3>export</h3>
 <p>Set an environment variable. Mark each name to be passed to child processes in the environment.</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">export</span> <span class="nv">name</span><span class="o">=</span>jadi
-$ <span class="nb">echo</span> <span class="nv">$name</span>
+<div class="highlight"><pre><span></span><code>$ export name=jadi
+$ echo $name
 jadi
 </code></pre></div>
 
 <blockquote>
 <p>Note: when exporting, the variable will exists in child processes (commands you run from the current shell). If you only say <code>name=jadi</code> and run a new command in your shell, the name <strong>wont be</strong> jadi in <strong>that</strong> shell.</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>$ <span class="nv">name</span><span class="o">=</span>jadi
-$ <span class="nb">echo</span> <span class="nv">$name</span>
+<div class="highlight"><pre><span></span><code>$ name=jadi
+$ echo $name
 jadi
 $ bash
-$ <span class="nb">echo</span> <span class="nv">$name</span>
+$ echo $name
 
-$ <span class="nb">exit</span>
-<span class="nb">exit</span>
-$ <span class="nb">echo</span> <span class="nv">$name</span>
+$ exit
+exit
+$ echo $name
 jadi
-$ <span class="nb">export</span> <span class="nv">name</span><span class="o">=</span>jadi
+$ export name=jadi
 $ bash
-$ <span class="nb">echo</span> <span class="nv">$name</span>
+$ echo $name
 jadi
 </code></pre></div>
 
 <h3>unset</h3>
 <p>This command <em>has nothing to do</em> with <code>set</code> command! This can unset the defined variables or functions.</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nv">name</span><span class="o">=</span>jadi
-$ <span class="nb">echo</span> <span class="nv">$name</span>
+<div class="highlight"><pre><span></span><code>$ name=jadi
+$ echo $name
 jadi
-$ <span class="nb">unset</span> name
-$ <span class="nb">echo</span> <span class="nv">$name</span>
+$ unset name
+$ echo $name
 </code></pre></div>
 
 <p>You can also unset functions.</p>
 <h3>env</h3>
 <p>can set, remove or display variables or even run a command in a modified environment.</p>
-<div class="highlight"><pre><span></span><code><span class="n">Syntax</span><span class="w"></span>
-<span class="w">     </span><span class="n">env</span><span class="w"> </span><span class="o">[</span><span class="n">OPTION</span><span class="o">]</span><span class="p">...</span><span class="w"> </span><span class="o">[</span><span class="n">NAME=VALUE</span><span class="o">]</span><span class="p">...</span><span class="w"> </span><span class="o">[</span><span class="n">COMMAND [ARGS</span><span class="o">]</span><span class="p">...</span><span class="err">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>Syntax
+     env [OPTION]... [NAME=VALUE]... [COMMAND [ARGS]...]
 
-<span class="n">Options</span><span class="w"></span>
+Options
 
-<span class="w">  </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">NAME</span><span class="w"></span>
-<span class="w">  </span><span class="c1">--unset=NAME</span>
-<span class="w">       </span><span class="n">Remove</span><span class="w"> </span><span class="k">variable</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">environment</span><span class="p">,</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"></span>
-<span class="w">       </span><span class="n">environment</span><span class="p">.</span><span class="w"></span>
+  -u NAME
+  --unset=NAME
+       Remove variable NAME from the environment, if it was in the
+       environment.
 
-<span class="w">  </span><span class="o">-</span><span class="w"></span>
-<span class="w">  </span><span class="o">-</span><span class="n">i</span><span class="w"></span>
-<span class="w">  </span><span class="c1">--ignore-environment</span>
-<span class="w">       </span><span class="k">Start</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="n">environment</span><span class="p">,</span><span class="w"> </span><span class="n">ignoring</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">inherited</span><span class="w"></span>
-<span class="w">       </span><span class="n">environment</span><span class="p">.</span><span class="w"></span>
+  -
+  -i
+  --ignore-environment
+       Start with an empty environment, ignoring the inherited
+       environment.
 </code></pre></div>
 
 <h3>lists</h3>
 <p>Bash even has arrays! We will see them later when scripting but you can do things like:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nv">list</span><span class="o">=(</span>salam donya man injam<span class="o">)</span>
-$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">list</span><span class="p">[1]</span><span class="si">}</span>
+<div class="highlight"><pre><span></span><code>$ list=(salam donya man injam)
+$ echo ${list[1]}
 donya
-$ <span class="nv">list</span><span class="o">=(</span><span class="s2">&quot;salam donya&quot;</span> <span class="s2">&quot;man injam&quot;</span><span class="o">)</span>
-$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">list</span><span class="p">[1]</span><span class="si">}</span>
+$ list=(&quot;salam donya&quot; &quot;man injam&quot;)
+$ echo ${list[1]}
 man injam
 </code></pre></div>
 
@@ -283,9 +282,21 @@ man injam
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:25:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#105-ref">105</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

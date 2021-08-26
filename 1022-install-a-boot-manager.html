@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 102, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="102.2 Install a boot manager "/>
 <meta property="og:url" content="./1022-install-a-boot-manager.html" />
-<meta property="og:description" content="102.2 Install a boot manager Weight: 2 Description: Candidates should be able to select, install and configure a boot manager. Objectives Providing alternative boot locations and backup boot options. Install and configure a boot loader such as GRUB Legacy. Perform basic configuration changes for GRUB 2. Interact with the …" />
+<meta property="og:description" content="Candidates should be able to select, install and configure a boot manager." />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:06:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="102.2 Install a boot manager ">
-<meta name="twitter:description" content="102.2 Install a boot manager Weight: 2 Description: Candidates should be able to select, install and configure a boot manager. Objectives Providing alternative boot locations and backup boot options. Install and configure a boot loader such as GRUB Legacy. Perform basic configuration changes for GRUB 2. Interact with the …">
+<meta name="twitter:description" content="Candidates should be able to select, install and configure a boot manager.">
 
         <title>102.2 Install a boot manager  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,10 +76,9 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>102.2 Install a boot manager</h1>
-<p><em>Weight: 2</em>
-    Description: Candidates should be able to select, install and configure a boot manager.</p>
-<h1>Objectives</h1>
+            <p><em>Weight: 2</em> </p>
+<p>Description: Candidates should be able to select, install and configure a boot manager.</p>
+<h2>Objectives</h2>
 <ul>
 <li>Providing alternative boot locations and backup boot options.</li>
 <li>Install and configure a boot loader such as GRUB Legacy.</li>
@@ -94,7 +92,7 @@
 <li>MBR</li>
 <li>superblock</li>
 </ul>
-<h2>Boot overview</h2>
+<h3>Boot overview</h3>
 <p>System starts from BIOS and will do a self test called POST. Then it will hand over the boot process to the first sector of master boot record (MBR).</p>
 <blockquote>
 <p>MBR is on track (Cylinder) 0, side (Head) 0 and Sector 1 of the first disk which defines CHS.</p>
@@ -103,187 +101,187 @@
 <blockquote>
 <p>Chain Loading is when a boot loaders, loads another boot loader. This is done when a linux bootloader needs to start a Windows system.</p>
 </blockquote>
-<h2>LILO</h2>
-<p><strong>LILO</strong>  (<strong>LI</strong>nux <strong>LO</strong>ader) is the older of three main linux boot loaders and in new distributions it is not installed by default. Its configuration is in <code>/etc/lilo.conf</code>.</p>
+<h3>LILO</h3>
+<p><strong>LILO</strong> (<strong>LI</strong>nux <strong>LO</strong>ader) is the older of three main linux boot loaders and in new distributions it is not installed by default. Its configuration is in <code>/etc/lilo.conf</code>.</p>
 <p>There is a command to generate an initial config: <code>/usr/sbin/liloconfig</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">Originally</span><span class="w"> </span><span class="n">generated</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">liloconfig</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">modified</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">Ian</span><span class="w"> </span><span class="n">Shields</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code># Originally generated by liloconfig - modified by Ian Shields
 
-<span class="err">#</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">allows</span><span class="w"> </span><span class="n">booting</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="ow">any</span><span class="w"> </span><span class="k">partition</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">disks</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="k">than</span><span class="w"> </span><span class="mi">1024</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">cylinders</span><span class="p">.</span><span class="w"></span>
-<span class="n">lba32</span><span class="w"></span>
+# This allows booting from any partition on disks with more than 1024
+# cylinders.
+lba32
 
-<span class="err">#</span><span class="w"> </span><span class="n">Specifies</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">boot</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="p">(</span><span class="n">floppy</span><span class="p">)</span><span class="w"></span>
-<span class="n">boot</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">fd0</span><span class="w"></span>
+# Specifies the boot device (floppy)
+boot=/dev/fd0
 
-<span class="err">#</span><span class="w"> </span><span class="n">Specifies</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">mounted</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">root</span><span class="p">.</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">special</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">CURRENT</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">used</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">currently</span><span class="w"> </span><span class="n">mounted</span><span class="p">.</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">root</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">changed</span><span class="w"> </span><span class="k">with</span><span class="w">  </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">respective</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">used</span><span class="p">.</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">the</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="k">variable</span><span class="w"> </span><span class="n">ROOT</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">omitted</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="n">setting</span><span class="w"> </span><span class="n">contained</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">kernel</span><span class="w"> </span><span class="nc">image</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">used</span><span class="p">.</span><span class="w"> </span><span class="n">It</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">changed</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">rdev</span><span class="w"> </span><span class="n">program</span><span class="p">.</span><span class="w"></span>
-<span class="n">root</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda7</span><span class="w"></span>
+# Specifies the device that should be mounted as root.
+# If the special name CURRENT is used, the root device is set to the
+# device on which the root file system is currently mounted. If the root
+# has been changed with  -r , the respective device is used. If the
+# variable ROOT is omitted, the root device setting contained in the
+# kernel image is used. It can be changed with the rdev program.
+root=/dev/sda7
 
-<span class="err">#</span><span class="w"> </span><span class="n">Bitmap</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">coffee</span><span class="p">.</span><span class="n">bmp</span><span class="w"></span>
-<span class="n">bitmap</span><span class="o">=/</span><span class="n">boot</span><span class="o">/</span><span class="n">coffee</span><span class="p">.</span><span class="n">bmp</span><span class="w"></span>
-<span class="n">bmp</span><span class="o">-</span><span class="n">colors</span><span class="o">=</span><span class="mi">12</span><span class="p">,,</span><span class="mi">11</span><span class="p">,</span><span class="mi">15</span><span class="p">,,</span><span class="mi">8</span><span class="w"></span>
-<span class="n">bmp</span><span class="o">-</span><span class="nc">table</span><span class="o">=</span><span class="mi">385</span><span class="n">p</span><span class="p">,</span><span class="mi">100</span><span class="n">p</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="w"></span>
-<span class="n">bmp</span><span class="o">-</span><span class="n">timer</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">1</span><span class="w"></span>
+# Bitmap configuration for /boot/coffee.bmp
+bitmap=/boot/coffee.bmp
+bmp-colors=12,,11,15,,8
+bmp-table=385p,100p,1,10
+bmp-timer=38,2,13,1
 
-<span class="err">#</span><span class="w"> </span><span class="n">Enables</span><span class="w"> </span><span class="k">map</span><span class="w"> </span><span class="nl">compaction</span><span class="p">:</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">Tries</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">merge</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="n">requests</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">adjacent</span><span class="w"> </span><span class="n">sectors</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">single</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">drastically</span><span class="w"> </span><span class="n">reduces</span><span class="w"> </span><span class="k">load</span><span class="w"> </span><span class="nc">time</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">keeps</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">map</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">smaller</span><span class="p">.</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="n">COMPACT</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">especially</span><span class="w"> </span><span class="n">recommended</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">booting</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">a</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">floppy</span><span class="w"> </span><span class="k">disk</span><span class="p">.</span><span class="w"></span>
-<span class="n">compact</span><span class="w"></span>
+# Enables map compaction:
+# Tries to merge read requests for adjacent sectors into a single
+# read request. This drastically reduces load time and keeps the map
+# smaller. Using COMPACT is especially recommended when booting from a
+# floppy disk.
+compact
 
-<span class="err">#</span><span class="w"> </span><span class="n">Install</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">specified</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">boot</span><span class="w"> </span><span class="n">sector</span><span class="p">.</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">LILO</span><span class="w"> </span><span class="n">supports</span><span class="w"> </span><span class="n">built</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">boot</span><span class="w"> </span><span class="n">sectors</span><span class="p">,</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">need</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">specify</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="nf">choose</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="s1">&#39;text&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;menu&#39;</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;bitmap&#39;</span><span class="p">.</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="k">new</span><span class="err">:</span><span class="w"> </span><span class="n">install</span><span class="o">=</span><span class="n">bmp</span><span class="w">      </span><span class="k">old</span><span class="err">:</span><span class="w"> </span><span class="n">install</span><span class="o">=/</span><span class="n">boot</span><span class="o">/</span><span class="n">boot</span><span class="o">-</span><span class="n">bmp</span><span class="p">.</span><span class="n">b</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="k">new</span><span class="err">:</span><span class="w"> </span><span class="n">install</span><span class="o">=</span><span class="nc">text</span><span class="w">     </span><span class="k">old</span><span class="err">:</span><span class="w"> </span><span class="n">install</span><span class="o">=/</span><span class="n">boot</span><span class="o">/</span><span class="n">boot</span><span class="o">-</span><span class="nc">text</span><span class="p">.</span><span class="n">b</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="k">new</span><span class="err">:</span><span class="w"> </span><span class="n">install</span><span class="o">=</span><span class="n">menu</span><span class="w">     </span><span class="k">old</span><span class="err">:</span><span class="w"> </span><span class="n">install</span><span class="o">=/</span><span class="n">boot</span><span class="o">/</span><span class="n">boot</span><span class="o">-</span><span class="n">menu</span><span class="p">.</span><span class="n">b</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">boot</span><span class="p">.</span><span class="n">b</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="err">:</span><span class="w"> </span><span class="s1">&#39;menu&#39;</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">default</span><span class="p">,</span><span class="w"> </span><span class="n">unless</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">bitmap</span><span class="o">=</span><span class="w"> </span><span class="n">line</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="nl">Note</span><span class="p">:</span><span class="w"> </span><span class="n">install</span><span class="o">=</span><span class="n">bmp</span><span class="w"> </span><span class="n">must</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">see</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">bitmap</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">install</span><span class="o">=</span><span class="n">menu</span><span class="w"></span>
-<span class="n">install</span><span class="o">=</span><span class="n">bmp</span><span class="w"></span>
+# Install the specified file as the new boot sector.
+# LILO supports built in boot sectors, you only need
+# to specify the type, choose one from &#39;text&#39;, &#39;menu&#39; or &#39;bitmap&#39;.
+# new: install=bmp      old: install=/boot/boot-bmp.b
+# new: install=text     old: install=/boot/boot-text.b
+# new: install=menu     old: install=/boot/boot-menu.b or boot.b
+# default: &#39;menu&#39; is default, unless you have a bitmap= line
+# Note: install=bmp must be used to see the bitmap menu.
+# install=menu
+install=bmp
 
-<span class="err">#</span><span class="w"> </span><span class="n">Specifies</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">_tenths_</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">second</span><span class="w"> </span><span class="n">LILO</span><span class="w"> </span><span class="n">should</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">wait</span><span class="w"> </span><span class="k">before</span><span class="w"> </span><span class="n">booting</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">first</span><span class="w"> </span><span class="nc">image</span><span class="p">.</span><span class="w">  </span><span class="n">LILO</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">doesn</span><span class="err">&#39;</span><span class="n">t</span><span class="w"> </span><span class="n">wait</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">DELAY</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">omitted</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">DELAY</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">zero</span><span class="p">.</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">delay</span><span class="o">=</span><span class="mi">20</span><span class="w"></span>
+# Specifies the number of _tenths_ of a second LILO should
+# wait before booting the first image.  LILO
+# doesn&#39;t wait if DELAY is omitted or if DELAY is set to zero.
+# delay=20
 
-<span class="err">#</span><span class="w"> </span><span class="n">Prompt</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">certain</span><span class="w"> </span><span class="nc">image</span><span class="p">.</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">prompt</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">specified</span><span class="w"> </span><span class="k">without</span><span class="w"> </span><span class="n">timeout</span><span class="p">,</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">boot</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">take</span><span class="w"> </span><span class="n">place</span><span class="w"> </span><span class="n">unless</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">hit</span><span class="w"> </span><span class="k">RETURN</span><span class="p">.</span><span class="w"> </span><span class="n">Timeout</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">tenths</span><span class="w"> </span><span class="k">of</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">second</span><span class="p">.</span><span class="w"></span>
-<span class="n">prompt</span><span class="w"></span>
-<span class="n">timeout</span><span class="o">=</span><span class="mi">200</span><span class="w"></span>
+# Prompt to use certain image. If prompt is specified without timeout,
+# boot will not take place unless you hit RETURN. Timeout is in tenths of
+# a second.
+prompt
+timeout=200
 
-<span class="err">#</span><span class="w"> </span><span class="n">Enable</span><span class="w"> </span><span class="k">large</span><span class="w"> </span><span class="n">memory</span><span class="w"> </span><span class="n">mode</span><span class="p">.</span><span class="w"></span>
-<span class="k">large</span><span class="o">-</span><span class="n">memory</span><span class="w"></span>
+# Enable large memory mode.
+large-memory
 
-<span class="err">#</span><span class="w"> </span><span class="n">Specifies</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">location</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">map</span><span class="w"> </span><span class="k">file</span><span class="p">.</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="k">MAP</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">omitted</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="k">map</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">used</span><span class="p">.</span><span class="w"></span>
-<span class="k">map</span><span class="o">=/</span><span class="n">boot</span><span class="o">/</span><span class="k">map</span><span class="w"></span>
+# Specifies the location of the map file. If MAP is
+# omitted, a file /boot/map is used.
+map=/boot/map
 
-<span class="err">#</span><span class="w"> </span><span class="n">Specifies</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">VGA</span><span class="w"> </span><span class="nc">text</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">selected</span><span class="w"> </span><span class="k">when</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">booting</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="n">recognized</span><span class="w"> </span><span class="p">(</span><span class="k">case</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">ignored</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
-<span class="err">#</span><span class="w">   </span><span class="n">NORMAL</span><span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="n">normal</span><span class="w"> </span><span class="mi">80</span><span class="n">x25</span><span class="w"> </span><span class="nc">text</span><span class="w"> </span><span class="n">mode</span><span class="p">.</span><span class="w"></span>
-<span class="err">#</span><span class="w">   </span><span class="n">EXTENDED</span><span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="mi">80</span><span class="n">x50</span><span class="w"> </span><span class="nc">text</span><span class="w"> </span><span class="n">mode</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">word</span><span class="w"> </span><span class="n">EXTENDED</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span><span class="w"></span>
-<span class="err">#</span><span class="w">     </span><span class="n">abbreviated</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">EXT</span><span class="p">.</span><span class="w"></span>
-<span class="err">#</span><span class="w">   </span><span class="n">ASK</span><span class="w">  </span><span class="n">stop</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">ask</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="k">input</span><span class="w"> </span><span class="p">(</span><span class="k">at</span><span class="w"> </span><span class="n">boot</span><span class="w"> </span><span class="nc">time</span><span class="p">).</span><span class="w"></span>
-<span class="err">#</span><span class="w">   </span><span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span><span class="w">  </span><span class="k">use</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">corresponding</span><span class="w"> </span><span class="nc">text</span><span class="w"> </span><span class="n">mode</span><span class="p">.</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">available</span><span class="w"> </span><span class="n">modes</span><span class="w"></span>
-<span class="err">#</span><span class="w">     </span><span class="n">can</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">obtained</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">booting</span><span class="w"> </span><span class="k">with</span><span class="w">  </span><span class="n">vga</span><span class="o">=</span><span class="n">ask</span><span class="w">  </span><span class="ow">and</span><span class="w"> </span><span class="n">pressing</span><span class="w"> </span><span class="o">[</span><span class="n">Enter</span><span class="o">]</span><span class="p">.</span><span class="w"></span>
-<span class="n">vga</span><span class="o">=</span><span class="n">normal</span><span class="w"></span>
+# Specifies the VGA text mode that should be selected when
+# booting. The following values are recognized (case is ignored):
+#   NORMAL  select normal 80x25 text mode.
+#   EXTENDED  select 80x50 text mode. The word EXTENDED can be
+#     abbreviated to EXT.
+#   ASK  stop and ask for user input (at boot time).
+#   &lt;number&gt;  use the corresponding text mode. A list of available modes
+#     can be obtained by booting with  vga=ask  and pressing [Enter].
+vga=normal
 
-<span class="err">#</span><span class="w"> </span><span class="n">Defines</span><span class="w"> </span><span class="n">non</span><span class="o">-</span><span class="n">standard</span><span class="w"> </span><span class="k">parameters</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">specified</span><span class="w"> </span><span class="k">disk</span><span class="p">.</span><span class="w"></span>
-<span class="n">#disk</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="w"></span>
-<span class="err">#</span><span class="w">   </span><span class="n">bios</span><span class="o">=</span><span class="mh">0x80</span><span class="w"></span>
+# Defines non-standard parameters for the specified disk.
+#disk=/dev/sda
+#    bios=0x80
 
-<span class="err">#</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">removable</span><span class="w"> </span><span class="n">USB</span><span class="w"> </span><span class="n">drivers</span><span class="w"> </span><span class="p">(</span><span class="k">with</span><span class="w"> </span><span class="n">mass</span><span class="o">-</span><span class="n">storage</span><span class="p">)</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">tell</span><span class="w"> </span><span class="n">LILO</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">devices</span><span class="w"> </span><span class="n">even</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">defined</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">fstab</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">referenced</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="o">/</span><span class="k">proc</span><span class="o">/</span><span class="n">partitions</span><span class="p">.</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">Adjust</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">lines</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="nl">devices</span><span class="p">:</span><span class="w"></span>
-<span class="err">#</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="k">disk</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="w"> </span><span class="n">inaccessible</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="k">disk</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb</span><span class="w"> </span><span class="n">inaccessible</span><span class="w"></span>
+# If you are using removable USB drivers (with mass-storage)
+# you will need to tell LILO to not use these devices even
+# if defined in /etc/fstab and referenced in /proc/partitions.
+# Adjust these lines to your devices:
+#
+# disk=/dev/sda inaccessible
+# disk=/dev/sdb inaccessible
 
-<span class="err">#</span><span class="w"> </span><span class="n">These</span><span class="w"> </span><span class="n">images</span><span class="w"> </span><span class="n">were</span><span class="w"> </span><span class="n">automagically</span><span class="w"> </span><span class="n">added</span><span class="p">.</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">may</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">edit</span><span class="w"> </span><span class="n">something</span><span class="p">.</span><span class="w"></span>
+# These images were automagically added. You may need to edit something.
 
-<span class="nc">image</span><span class="o">=/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">2.6.31</span><span class="o">-</span><span class="mi">14</span><span class="o">-</span><span class="n">generic</span><span class="w"></span>
-<span class="w">    </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Lin 2.6.31-14&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">initrd</span><span class="o">=/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="p">.</span><span class="n">img</span><span class="o">-</span><span class="mf">2.6.31</span><span class="o">-</span><span class="mi">14</span><span class="o">-</span><span class="n">generic</span><span class="w"></span>
-<span class="w">    </span><span class="k">read</span><span class="o">-</span><span class="k">only</span><span class="w"></span>
+image=/boot/vmlinuz-2.6.31-14-generic
+    label=&quot;Lin 2.6.31-14&quot;
+    initrd=/boot/initrd.img-2.6.31-14-generic
+    read-only
 
-<span class="nc">image</span><span class="o">=/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">2.6.31</span><span class="o">-</span><span class="mi">20</span><span class="o">-</span><span class="n">generic</span><span class="w"></span>
-<span class="w">    </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Lin 2.6.31-20&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">initrd</span><span class="o">=/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="p">.</span><span class="n">img</span><span class="o">-</span><span class="mf">2.6.31</span><span class="o">-</span><span class="mi">20</span><span class="o">-</span><span class="n">generic</span><span class="w"></span>
-<span class="w">    </span><span class="k">read</span><span class="o">-</span><span class="k">only</span><span class="w"></span>
+image=/boot/vmlinuz-2.6.31-20-generic
+    label=&quot;Lin 2.6.31-20&quot;
+    initrd=/boot/initrd.img-2.6.31-20-generic
+    read-only
 
-<span class="nc">image</span><span class="o">=/</span><span class="n">boot</span><span class="o">/</span><span class="n">memtest86</span><span class="o">+</span><span class="p">.</span><span class="n">bin</span><span class="w"></span>
-<span class="w">    </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Memory Test+&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="k">read</span><span class="o">-</span><span class="k">only</span><span class="w"></span>
+image=/boot/memtest86+.bin
+    label=&quot;Memory Test+&quot;
+    read-only
 
-<span class="err">#</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">another</span><span class="w"> </span><span class="n">OS</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">machine</span><span class="w"> </span><span class="p">(</span><span class="n">say</span><span class="w"> </span><span class="n">DOS</span><span class="p">),</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">boot</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">uncommenting</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="n">lines</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="p">(</span><span class="k">Of</span><span class="w"> </span><span class="n">course</span><span class="p">,</span><span class="w"> </span><span class="n">change</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">wherever</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">DOS</span><span class="w"> </span><span class="k">partition</span><span class="w"> </span><span class="k">is</span><span class="p">.)</span><span class="w"></span>
-<span class="n">other</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span><span class="w"></span>
-<span class="w">        </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Fedora 8&quot;</span><span class="w"></span>
+# If you have another OS on this machine (say DOS),
+# you can boot if by uncommenting the following lines
+# (Of course, change /dev/sda1 to wherever your DOS partition is.)
+other=/dev/sda6
+        label=&quot;Fedora 8&quot;
 
-<span class="w"> </span><span class="n">other</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span><span class="w"></span>
-<span class="w">   </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Windows XP&quot;</span><span class="w"></span>
+ other=/dev/sda1
+   label=&quot;Windows XP&quot;
 </code></pre></div>
 
 <p>When this config file is created, we have to issue the <code>lilo</code> command to make the disk bootable:</p>
-<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="n">lilo</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">v</span>
-<span class="n">LILO</span> <span class="k">version</span> <span class="mi">22</span><span class="p">.</span><span class="mi">8</span><span class="p">,</span> <span class="n">Copyright</span> <span class="p">(</span><span class="k">C</span><span class="p">)</span> <span class="mi">1992</span><span class="o">-</span><span class="mi">1998</span> <span class="n">Werner</span> <span class="n">Almesberger</span>
-<span class="n">Development</span> <span class="n">beyond</span> <span class="k">version</span> <span class="mi">21</span> <span class="n">Copyright</span> <span class="p">(</span><span class="k">C</span><span class="p">)</span> <span class="mi">1999</span><span class="o">-</span><span class="mi">2006</span> <span class="n">John</span> <span class="n">Coffman</span>
-<span class="n">Released</span> <span class="mi">19</span><span class="o">-</span><span class="n">Feb</span><span class="o">-</span><span class="mi">2007</span><span class="p">,</span> <span class="k">and</span> <span class="n">compiled</span> <span class="k">at</span> <span class="mi">10</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">38</span> <span class="k">on</span> <span class="n">Aug</span> <span class="mi">25</span> <span class="mi">2009</span>
-<span class="n">Running</span> <span class="n">Linux</span> <span class="n">kernel</span> <span class="mi">2</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">31</span><span class="o">-</span><span class="mi">14</span><span class="o">-</span><span class="n">generic</span> <span class="k">on</span> <span class="n">i686</span>
-<span class="n">Ubuntu</span>
+<div class="highlight"><pre><span></span><code># lilo -v -v
+LILO version 22.8, Copyright (C) 1992-1998 Werner Almesberger
+Development beyond version 21 Copyright (C) 1999-2006 John Coffman
+Released 19-Feb-2007, and compiled at 10:52:38 on Aug 25 2009
+Running Linux kernel 2.6.31-14-generic on i686
+Ubuntu
 
-<span class="n">raid_setup</span> <span class="k">returns</span> <span class="k">offset</span> <span class="o">=</span> <span class="mi">00000000</span>  <span class="n">ndisk</span> <span class="o">=</span> <span class="mi">0</span>
- <span class="n">BIOS</span>   <span class="n">VolumeID</span>   <span class="n">Device</span>
-<span class="n">Reading</span> <span class="n">boot</span> <span class="n">sector</span> <span class="k">from</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">fd0</span>
-<span class="n">pf_hard_disk_scan</span><span class="p">:</span> <span class="n">ndevs</span><span class="o">=</span><span class="mi">1</span>
-  <span class="mi">0800</span>  <span class="mi">54085408</span>  <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span>
-<span class="n">device</span> <span class="n">codes</span> <span class="p">(</span><span class="k">user</span> <span class="n">assigned</span> <span class="n">pf</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">device</span> <span class="n">codes</span> <span class="p">(</span><span class="k">user</span> <span class="n">assigned</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">device</span> <span class="n">codes</span> <span class="p">(</span><span class="n">BIOS</span> <span class="n">assigned</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">device</span> <span class="n">codes</span> <span class="p">(</span><span class="n">canonical</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="k">mode</span> <span class="o">=</span> <span class="mi">0</span><span class="n">x03</span><span class="p">,</span>  <span class="n">columns</span> <span class="o">=</span> <span class="mi">80</span><span class="p">,</span>  <span class="k">rows</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span>  <span class="n">page</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">Using</span> <span class="n">BITMAP</span> <span class="n">secondary</span> <span class="n">loader</span>
-<span class="n">Calling</span> <span class="n">map_insert_data</span>
-<span class="n">Secondary</span> <span class="n">loader</span><span class="p">:</span> <span class="mi">19</span> <span class="n">sectors</span> <span class="p">(</span><span class="mi">0</span><span class="n">x3800</span> <span class="n">dataend</span><span class="p">).</span>
-<span class="n">Warning</span><span class="p">:</span> <span class="n">The</span> <span class="n">boot</span> <span class="n">sector</span> <span class="k">and</span> <span class="k">map</span> <span class="n">file</span> <span class="k">are</span> <span class="k">on</span> <span class="n">different</span> <span class="n">disks</span><span class="p">.</span>
-<span class="n">bios_boot</span> <span class="o">=</span> <span class="mi">0</span><span class="n">x00</span>  <span class="n">bios_map</span> <span class="o">=</span> <span class="mi">0</span><span class="n">x80</span>  <span class="k">map</span><span class="o">==</span><span class="n">boot</span> <span class="o">=</span> <span class="mi">0</span>  <span class="k">map</span> <span class="n">S</span><span class="o">/</span><span class="n">N</span><span class="p">:</span> <span class="mi">54085408</span>
-<span class="n">Mapping</span> <span class="n">bitmap</span> <span class="n">file</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">coffee</span><span class="p">.</span><span class="n">bmp</span>
-<span class="n">Calling</span> <span class="n">map_insert_file</span>
-<span class="n">Compaction</span> <span class="n">removed</span> <span class="mi">592</span> <span class="n">BIOS</span> <span class="n">calls</span><span class="p">.</span>
-<span class="n">Bitmap</span><span class="p">:</span> <span class="mi">603</span> <span class="n">sectors</span><span class="p">.</span>
-<span class="n">BIOS</span> <span class="k">data</span> <span class="k">check</span> <span class="n">was</span> <span class="n">okay</span> <span class="k">on</span> <span class="n">the</span> <span class="k">last</span> <span class="n">boot</span>
+raid_setup returns offset = 00000000  ndisk = 0
+ BIOS   VolumeID   Device
+Reading boot sector from /dev/fd0
+pf_hard_disk_scan: ndevs=1
+  0800  54085408  /dev/sda
+device codes (user assigned pf) = 0
+device codes (user assigned) = 0
+device codes (BIOS assigned) = 1
+device codes (canonical) = 1
+mode = 0x03,  columns = 80,  rows = 25,  page = 0
+Using BITMAP secondary loader
+Calling map_insert_data
+Secondary loader: 19 sectors (0x3800 dataend).
+Warning: The boot sector and map file are on different disks.
+bios_boot = 0x00  bios_map = 0x80  map==boot = 0  map S/N: 54085408
+Mapping bitmap file /boot/coffee.bmp
+Calling map_insert_file
+Compaction removed 592 BIOS calls.
+Bitmap: 603 sectors.
+BIOS data check was okay on the last boot
 
-<span class="n">Boot</span> <span class="n">image</span><span class="p">:</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mi">2</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">31</span><span class="o">-</span><span class="mi">14</span><span class="o">-</span><span class="n">generic</span>
-<span class="n">Setup</span> <span class="k">length</span> <span class="k">is</span> <span class="mi">26</span> <span class="n">sectors</span><span class="p">.</span>
-<span class="n">Compaction</span> <span class="n">removed</span> <span class="mi">7452</span> <span class="n">BIOS</span> <span class="n">calls</span><span class="p">.</span>
-<span class="n">Mapped</span> <span class="mi">7601</span> <span class="n">sectors</span><span class="p">.</span>
-<span class="n">Mapping</span> <span class="n">RAM</span> <span class="n">disk</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="p">.</span><span class="n">img</span><span class="o">-</span><span class="mi">2</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">31</span><span class="o">-</span><span class="mi">14</span><span class="o">-</span><span class="n">generic</span>
-<span class="n">Compaction</span> <span class="n">removed</span> <span class="mi">14696</span> <span class="n">BIOS</span> <span class="n">calls</span><span class="p">.</span>
-<span class="n">RAM</span> <span class="n">disk</span><span class="p">:</span> <span class="mi">14930</span> <span class="n">sectors</span><span class="p">.</span>
-<span class="n">Added</span> <span class="n">Lin_2</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">31</span><span class="o">-</span><span class="mi">14</span> <span class="o">*</span>
+Boot image: /boot/vmlinuz-2.6.31-14-generic
+Setup length is 26 sectors.
+Compaction removed 7452 BIOS calls.
+Mapped 7601 sectors.
+Mapping RAM disk /boot/initrd.img-2.6.31-14-generic
+Compaction removed 14696 BIOS calls.
+RAM disk: 14930 sectors.
+Added Lin_2.6.31-14 *
 
-<span class="n">Boot</span> <span class="n">image</span><span class="p">:</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mi">2</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">31</span><span class="o">-</span><span class="mi">20</span><span class="o">-</span><span class="n">generic</span>
-<span class="n">Setup</span> <span class="k">length</span> <span class="k">is</span> <span class="mi">26</span> <span class="n">sectors</span><span class="p">.</span>
-<span class="n">Compaction</span> <span class="n">removed</span> <span class="mi">7468</span> <span class="n">BIOS</span> <span class="n">calls</span><span class="p">.</span>
-<span class="n">Mapped</span> <span class="mi">7617</span> <span class="n">sectors</span><span class="p">.</span>
-<span class="n">Mapping</span> <span class="n">RAM</span> <span class="n">disk</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="p">.</span><span class="n">img</span><span class="o">-</span><span class="mi">2</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">31</span><span class="o">-</span><span class="mi">20</span><span class="o">-</span><span class="n">generic</span>
-<span class="n">Compaction</span> <span class="n">removed</span> <span class="mi">14704</span> <span class="n">BIOS</span> <span class="n">calls</span><span class="p">.</span>
-<span class="n">RAM</span> <span class="n">disk</span><span class="p">:</span> <span class="mi">14938</span> <span class="n">sectors</span><span class="p">.</span>
-<span class="n">Added</span> <span class="n">Lin_2</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">31</span><span class="o">-</span><span class="mi">20</span>
+Boot image: /boot/vmlinuz-2.6.31-20-generic
+Setup length is 26 sectors.
+Compaction removed 7468 BIOS calls.
+Mapped 7617 sectors.
+Mapping RAM disk /boot/initrd.img-2.6.31-20-generic
+Compaction removed 14704 BIOS calls.
+RAM disk: 14938 sectors.
+Added Lin_2.6.31-20
 
-<span class="n">Boot</span> <span class="n">image</span><span class="p">:</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">memtest86</span><span class="o">+</span><span class="p">.</span><span class="n">bin</span>
-<span class="n">Setup</span> <span class="k">length</span> <span class="k">is</span> <span class="mi">4</span> <span class="n">sectors</span><span class="p">.</span>
-<span class="n">Compaction</span> <span class="n">removed</span> <span class="mi">243</span> <span class="n">BIOS</span> <span class="n">calls</span><span class="p">.</span>
-<span class="n">Mapped</span> <span class="mi">254</span> <span class="n">sectors</span><span class="p">.</span>
-<span class="n">Added</span> <span class="n">Memory_Test</span><span class="o">+</span>
+Boot image: /boot/memtest86+.bin
+Setup length is 4 sectors.
+Compaction removed 243 BIOS calls.
+Mapped 254 sectors.
+Added Memory_Test+
 
-<span class="n">Boot</span> <span class="n">other</span><span class="p">:</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span><span class="p">,</span> <span class="n">loader</span> <span class="k">CHAIN</span>
-<span class="n">Pseudo</span> <span class="n">partition</span> <span class="k">start</span><span class="p">:</span> <span class="mi">43198848</span>
-<span class="n">Compaction</span> <span class="n">removed</span> <span class="mi">0</span> <span class="n">BIOS</span> <span class="n">calls</span><span class="p">.</span>
-<span class="n">Mapped</span> <span class="mi">6</span> <span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="n">sectors</span><span class="p">.</span>
-<span class="n">Added</span> <span class="n">Fedora_8</span>
+Boot other: /dev/sda6, loader CHAIN
+Pseudo partition start: 43198848
+Compaction removed 0 BIOS calls.
+Mapped 6 (4+1+1) sectors.
+Added Fedora_8
 
-<span class="n">Boot</span> <span class="n">other</span><span class="p">:</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span><span class="p">,</span> <span class="k">on</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="p">,</span> <span class="n">loader</span> <span class="k">CHAIN</span>
-<span class="n">Compaction</span> <span class="n">removed</span> <span class="mi">0</span> <span class="n">BIOS</span> <span class="n">calls</span><span class="p">.</span>
-<span class="n">Mapped</span> <span class="mi">6</span> <span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="n">sectors</span><span class="p">.</span>
-<span class="n">Added</span> <span class="n">Windows_XP</span>
+Boot other: /dev/sda1, on /dev/sda, loader CHAIN
+Compaction removed 0 BIOS calls.
+Mapped 6 (4+1+1) sectors.
+Added Windows_XP
 
- <span class="n">BIOS</span>   <span class="n">VolumeID</span>   <span class="n">Device</span>
-  <span class="mi">80</span>    <span class="mi">54085408</span>    <span class="mi">0800</span>
-<span class="n">Writing</span> <span class="n">boot</span> <span class="n">sector</span><span class="p">.</span>
-<span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">boot</span><span class="p">.</span><span class="mi">0200</span> <span class="k">exists</span> <span class="o">-</span> <span class="k">no</span> <span class="n">boot</span> <span class="n">sector</span> <span class="n">backup</span> <span class="k">copy</span> <span class="n">made</span><span class="p">.</span>
-<span class="k">Map</span> <span class="n">file</span> <span class="k">size</span><span class="p">:</span> <span class="mi">336896</span> <span class="n">bytes</span><span class="p">.</span>
-<span class="n">RAID</span> <span class="n">device</span> <span class="n">mask</span> <span class="mi">0</span><span class="n">x0000</span>
-<span class="n">One</span> <span class="n">warning</span> <span class="n">was</span> <span class="n">issued</span><span class="p">.</span>
+ BIOS   VolumeID   Device
+  80    54085408    0800
+Writing boot sector.
+/boot/boot.0200 exists - no boot sector backup copy made.
+Map file size: 336896 bytes.
+RAID device mask 0x0000
+One warning was issued.
 </code></pre></div>
 
 <blockquote>
@@ -294,68 +292,68 @@
 <table>
 <thead>
 <tr>
-<th>switch</th>
-<th>meaning</th>
+<th align="left">switch</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>-q</td>
-<td>show information about the map file. map file is located at /boot/map and contains the boot configs</td>
+<td align="left">-q</td>
+<td align="left">show information about the map file. map file is located at /boot/map and contains the boot configs</td>
 </tr>
 <tr>
-<td>-R</td>
-<td>boot the system on the next reboot only. Used for remote systems</td>
+<td align="left">-R</td>
+<td align="left">boot the system on the next reboot only. Used for remote systems</td>
 </tr>
 <tr>
-<td>-l</td>
-<td>list information about the Kernel</td>
+<td align="left">-l</td>
+<td align="left">list information about the Kernel</td>
 </tr>
 <tr>
-<td>-u</td>
-<td>uninstall lilo and restore previous boot record</td>
+<td align="left">-u</td>
+<td align="left">uninstall lilo and restore previous boot record</td>
 </tr>
 </tbody>
 </table>
 <p>Please note that pressing <strong>TAB</strong> when choosing an item in LILO menu, will let you edit that item.</p>
-<h2>GRUB (version 1 or the Legacy grub)</h2>
+<h3>GRUB (version 1 or the Legacy grub)</h3>
 <p><strong>GRUB</strong> (<strong>GR</strong>and <strong>U</strong>nified <strong>B</strong>ootloader) is a newer bootloader than LILO.</p>
 <p>The GRUBv1 (actually 0.9) config file is in <code>/boot/grub/grub.conf</code> and most of the times <code>/boot/grub/menu.lst</code> is a symbolic link to it.</p>
 <p>A sample grub.conf file for GRUB legacy is shown below.</p>
-<div class="highlight"><pre><span></span><code><span class="err"># grub.conf generated by anaconda</span>
-<span class="err">#</span>
-<span class="err"># Note that you do not have to rerun grub after making changes to this file</span>
-<span class="err"># NOTICE:  You do not have a /boot partition.  This means that</span>
-<span class="err">#          all kernel and initrd paths are relative to /, eg.</span>
-<span class="err">#          root (hd0,5)</span>
-<span class="err">#          kernel /boot/vmlinuz-version ro root=/dev/sda6</span>
-<span class="err">#          initrd /boot/initrd-version.img</span>
-<span class="err">#boot=/dev/sda6</span>
-<span class="err">default=1</span>
-<span class="err">timeout=10</span>
-<span class="err">splashimage=(hd0,5)/boot/grub/splash.xpm.gz</span>
-<span class="err">#hiddenmenu</span>
-<span class="err">password --md5 $1$RW1VW/$4XGAklxB7/GJk0uO47Srx1</span>
-<span class="err">title Upgrade to Fedora 11 (Leonidas)</span>
-<span class="err">    kernel /boot/upgrade/vmlinuz preupgrade \</span>
-<span class="err">      repo=hd::/var/cache/yum/preupgrade stage2=\</span>
-<span class="err">      hd:UUID=8b4c62e7-2022-4288-8995-5eda92cd149b:/boot/upgrade/install.img \</span>
-<span class="err">      ks=hd:UUID=8b4c62e7-2022-4288-8995-5eda92cd149b:/boot/upgrade/ks.cfg</span>
-<span class="err">    initrd /boot/upgrade/initrd.img</span>
-<span class="err">title Fedora (2.6.26.8-57.fc8)</span>
-<span class="err">    root (hd0,5)</span>
-<span class="err">    kernel /boot/vmlinuz-2.6.26.8-57.fc8 ro root=LABEL=FEDORA8 rhgb quiet</span>
-<span class="err">    initrd /boot/initrd-2.6.26.8-57.fc8.img</span>
-<span class="err">title Fedora (2.6.26.6-49.fc8)</span>
-<span class="err">    root (hd0,5)</span>
-<span class="err">    kernel /boot/vmlinuz-2.6.26.6-49.fc8 ro root=LABEL=FEDORA8 rhgb quiet</span>
-<span class="err">    initrd /boot/initrd-2.6.26.6-49.fc8.img</span>
-<span class="err">title GRUB Menu</span>
-<span class="err">    rootnoverify (hd0,1)</span>
-<span class="err">    chainloader +1</span>
-<span class="err">title Windows</span>
-<span class="err">    rootnoverify (hd0,0)</span>
-<span class="err">    chainloader +1</span>
+<div class="highlight"><pre><span></span><code># grub.conf generated by anaconda
+#
+# Note that you do not have to rerun grub after making changes to this file
+# NOTICE:  You do not have a /boot partition.  This means that
+#          all kernel and initrd paths are relative to /, eg.
+#          root (hd0,5)
+#          kernel /boot/vmlinuz-version ro root=/dev/sda6
+#          initrd /boot/initrd-version.img
+#boot=/dev/sda6
+default=1
+timeout=10
+splashimage=(hd0,5)/boot/grub/splash.xpm.gz
+#hiddenmenu
+password --md5 $1$RW1VW/$4XGAklxB7/GJk0uO47Srx1
+title Upgrade to Fedora 11 (Leonidas)
+    kernel /boot/upgrade/vmlinuz preupgrade \
+      repo=hd::/var/cache/yum/preupgrade stage2=\
+      hd:UUID=8b4c62e7-2022-4288-8995-5eda92cd149b:/boot/upgrade/install.img \
+      ks=hd:UUID=8b4c62e7-2022-4288-8995-5eda92cd149b:/boot/upgrade/ks.cfg
+    initrd /boot/upgrade/initrd.img
+title Fedora (2.6.26.8-57.fc8)
+    root (hd0,5)
+    kernel /boot/vmlinuz-2.6.26.8-57.fc8 ro root=LABEL=FEDORA8 rhgb quiet
+    initrd /boot/initrd-2.6.26.8-57.fc8.img
+title Fedora (2.6.26.6-49.fc8)
+    root (hd0,5)
+    kernel /boot/vmlinuz-2.6.26.6-49.fc8 ro root=LABEL=FEDORA8 rhgb quiet
+    initrd /boot/initrd-2.6.26.6-49.fc8.img
+title GRUB Menu
+    rootnoverify (hd0,1)
+    chainloader +1
+title Windows
+    rootnoverify (hd0,0)
+    chainloader +1
 </code></pre></div>
 
 <p>As you can see the first part tells grub how it should behave and the second part is describing boot options (OSs).</p>
@@ -363,96 +361,96 @@
 <table>
 <thead>
 <tr>
-<th>command</th>
-<th>meaning</th>
+<th align="left">command</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>#</td>
-<td>comment</td>
+<td align="left">#</td>
+<td align="left">comment</td>
 </tr>
 <tr>
-<td>default</td>
-<td>the default system to boot; starts from 0</td>
+<td align="left">default</td>
+<td align="left">the default system to boot; starts from 0</td>
 </tr>
 <tr>
-<td>timeout</td>
-<td>how long to wait before autobooting</td>
+<td align="left">timeout</td>
+<td align="left">how long to wait before autobooting</td>
 </tr>
 <tr>
-<td>splashimage</td>
-<td>background image</td>
+<td align="left">splashimage</td>
+<td align="left">background image</td>
 </tr>
 <tr>
-<td>password</td>
-<td>Security is important! will ask this password</td>
+<td align="left">password</td>
+<td align="left">Security is important! will ask this password</td>
 </tr>
 <tr>
-<td>title</td>
-<td>Name of the entery</td>
+<td align="left">title</td>
+<td align="left">Name of the entery</td>
 </tr>
 <tr>
-<td>root</td>
-<td>The partion to boot. Counting starts from 0. <code>root(hd0,2)</code> is the 3rd partion on the first disk</td>
+<td align="left">root</td>
+<td align="left">The partion to boot. Counting starts from 0. <code>root(hd0,2)</code> is the 3rd partion on the first disk</td>
 </tr>
 <tr>
-<td>kernel</td>
-<td>which kernel image should be loaded</td>
+<td align="left">kernel</td>
+<td align="left">which kernel image should be loaded</td>
 </tr>
 <tr>
-<td>initrd</td>
-<td>the name of the initial RAM disk. Modules needed by the kernel before the file system is mounted</td>
+<td align="left">initrd</td>
+<td align="left">the name of the initial RAM disk. Modules needed by the kernel before the file system is mounted</td>
 </tr>
 <tr>
-<td>savedefault</td>
-<td>remember the last booted item</td>
+<td align="left">savedefault</td>
+<td align="left">remember the last booted item</td>
 </tr>
 <tr>
-<td>chainloader</td>
-<td>another file will act as stage 1 loader. Used for booting Windows systems</td>
+<td align="left">chainloader</td>
+<td align="left">another file will act as stage 1 loader. Used for booting Windows systems</td>
 </tr>
 </tbody>
 </table>
-<h3>GRUB (legacy) commands</h3>
+<h4>GRUB (legacy) commands</h4>
 <p>After creating the configuration, you need to install the grub on a disk do this with one of these command forms:</p>
-<div class="highlight"><pre><span></span><code><span class="err"># grub-install /dev/fd0</span>
-<span class="err"># grub-install &#39;(fd0)&#39;</span>
+<div class="highlight"><pre><span></span><code># grub-install /dev/fd0
+# grub-install &#39;(fd0)&#39;
 </code></pre></div>
 
 <blockquote>
 <p>As other boot managers, you can install grub on a CD, floppy, MBR (/dev/sda, /dev/sdb, ..) or a partition (/dev/sdb2, /dev/sda6, ..).</p>
 </blockquote>
 <p>If you needed to change or reconfigure anything during the startup, just press the <code>e</code> on that item and you'll get an interactive editing environment. Press <strong>Enter</strong> when done and <code>b</code> for boot.</p>
-<h2>GRUB2</h2>
+<h3>GRUB2</h3>
 <p>This is the most common boot loader these days. Its main config file is <code>/boot/grub/grub.cfg</code> and can be created by <code>grub-mkconfig &gt; /boot/grub/grub.cfg</code>. Grub also is highly dependent on a core.img file in /boot/grub.</p>
 <p>When you run <code>grub-install /dev/sda</code>, grub2 builds a core image, build a configuration file and install GRUB 2 in your MBR.</p>
 <p>These steps can be done separately:</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="n">grub</span><span class="o">-</span><span class="n">install</span><span class="w"> </span><span class="c1">--help</span>
-<span class="k">Usage</span><span class="err">:</span><span class="w"> </span><span class="n">grub</span><span class="o">-</span><span class="n">install</span><span class="w"> </span><span class="o">[</span><span class="n">OPTION</span><span class="o">]</span><span class="w"> </span><span class="n">install_device</span><span class="w"></span>
-<span class="n">Install</span><span class="w"> </span><span class="n">GRUB</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">drive</span><span class="p">.</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>$ grub-install --help
+Usage: grub-install [OPTION] install_device
+Install GRUB on your drive.
 
-<span class="w">  </span><span class="o">-</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="c1">--help              print this message and exit</span>
-<span class="w">  </span><span class="o">-</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="c1">--version           print the version information and exit</span>
-<span class="w">  </span><span class="c1">--modules=MODULES       pre-load specified modules MODULES</span>
-<span class="w">  </span><span class="c1">--root-directory=DIR    install GRUB images under the directory DIR</span>
-<span class="w">                          </span><span class="n">instead</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="n">directory</span><span class="w"></span>
-<span class="w">  </span><span class="c1">--grub-setup=FILE       use FILE as grub-setup</span>
-<span class="w">  </span><span class="c1">--grub-mkimage=FILE     use FILE as grub-mkimage</span>
-<span class="w">  </span><span class="c1">--grub-mkdevicemap=FILE use FILE as grub-mkdevicemap</span>
-<span class="w">  </span><span class="c1">--grub-probe=FILE       use FILE as grub-probe</span>
-<span class="w">  </span><span class="c1">--no-floppy             do not probe any floppy drive</span>
-<span class="w">  </span><span class="c1">--recheck               probe a device map even if it already exists</span>
-<span class="w">  </span><span class="c1">--force                 install even if problems are detected</span>
-<span class="w">  </span><span class="c1">--disk-module=MODULE    disk module to use</span>
+  -h, --help              print this message and exit
+  -v, --version           print the version information and exit
+  --modules=MODULES       pre-load specified modules MODULES
+  --root-directory=DIR    install GRUB images under the directory DIR
+                          instead of the root directory
+  --grub-setup=FILE       use FILE as grub-setup
+  --grub-mkimage=FILE     use FILE as grub-mkimage
+  --grub-mkdevicemap=FILE use FILE as grub-mkdevicemap
+  --grub-probe=FILE       use FILE as grub-probe
+  --no-floppy             do not probe any floppy drive
+  --recheck               probe a device map even if it already exists
+  --force                 install even if problems are detected
+  --disk-module=MODULE    disk module to use
 
-<span class="n">INSTALL_DEVICE</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">GRUB</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="n">filename</span><span class="p">.</span><span class="w"></span>
+INSTALL_DEVICE can be a GRUB device name or a system device filename.
 
-<span class="n">grub</span><span class="o">-</span><span class="n">install</span><span class="w"> </span><span class="n">copies</span><span class="w"> </span><span class="n">GRUB</span><span class="w"> </span><span class="n">images</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">DIR</span><span class="o">/</span><span class="n">boot</span><span class="w"> </span><span class="n">directory</span><span class="w"> </span><span class="n">specified</span><span class="w"> </span><span class="k">by</span><span class="w"></span>
-<span class="c1">--root-directory, and uses grub-setup to install grub into the boot</span>
-<span class="n">sector</span><span class="p">.</span><span class="w"></span>
+grub-install copies GRUB images into the DIR/boot directory specified by
+--root-directory, and uses grub-setup to install grub into the boot
+sector.
 
-<span class="n">Report</span><span class="w"> </span><span class="n">bugs</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="o">&lt;</span><span class="n">bug</span><span class="o">-</span><span class="n">grub</span><span class="nv">@gnu</span><span class="p">.</span><span class="n">org</span><span class="o">&gt;</span><span class="p">.</span><span class="w"></span>
+Report bugs to &lt;bug-grub@gnu.org&gt;.
 </code></pre></div>
 
 <blockquote>
@@ -467,7 +465,7 @@ set menu_color_highlight=black/white
 ### BEGIN /etc/grub.d/10_linux ###                                      
 menuentry &quot;Ubuntu, Linux 2.6.31-20-generic&quot; {
         recordfail=1
-        if [ -n <span class="cp">${</span><span class="n">have_grubenv</span><span class="cp">}</span> ]; then save_env recordfail; fi
+        if [ -n ${have_grubenv} ]; then save_env recordfail; fi
         set quiet=1
         insmod ext2
         set root=(hd0,7)
@@ -478,7 +476,7 @@ menuentry &quot;Ubuntu, Linux 2.6.31-20-generic&quot; {
 }
 menuentry &quot;Ubuntu, Linux 2.6.31-20-generic (recovery mode)&quot; {
         recordfail=1
-        if [ -n <span class="cp">${</span><span class="n">have_grubenv</span><span class="cp">}</span> ]; then save_env recordfail; fi
+        if [ -n ${have_grubenv} ]; then save_env recordfail; fi
         insmod ext2
         set root=(hd0,7)
         search --no-floppy --fs-uuid --set 8954fa66-e11f-42dc-91f0-b4aa480fa103
@@ -516,9 +514,21 @@ menuentry &quot;Ubuntu, Linux 2.6.31-20-generic (recovery mode)&quot; {
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:06:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#102-ref">102</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

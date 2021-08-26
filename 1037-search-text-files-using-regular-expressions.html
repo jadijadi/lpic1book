@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 103, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="103.7 Search text files using regular expressions "/>
 <meta property="og:url" content="./1037-search-text-files-using-regular-expressions.html" />
-<meta property="og:description" content="103.7 Search text files using regular expressions Weight: 2 Candidates should be able to manipulate files and text data using regular expressions. This objective includes creating simple regular expressions containing several notational elements. It also includes using regular expression tools to perform searches through a filesystem or file content …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:16:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="103.7 Search text files using regular expressions ">
-<meta name="twitter:description" content="103.7 Search text files using regular expressions Weight: 2 Candidates should be able to manipulate files and text data using regular expressions. This objective includes creating simple regular expressions containing several notational elements. It also includes using regular expression tools to perform searches through a filesystem or file content …">
+<meta name="twitter:description" content="">
 
         <title>103.7 Search text files using regular expressions  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,50 +76,45 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>103.7 Search text files using regular expressions</h1>
-<p><em>Weight: 2</em></p>
+            <p><em>Weight: 2</em></p>
 <p>Candidates should be able to manipulate files and text data using regular expressions. This objective includes creating simple regular expressions containing several notational elements. It also includes using regular expression tools to perform searches through a filesystem or file content.</p>
-<h1>Objectives</h1>
+<h2>Objectives</h2>
 <ul>
 <li>Create simple regular expressions containing several notational elements.</li>
-<li>
-<p>Use regular expression tools to perform searches through a filesystem or file content.</p>
-</li>
-<li>
-<p>grep</p>
-</li>
+<li>Use regular expression tools to perform searches through a filesystem or file content.</li>
+<li>grep</li>
 <li>egrep</li>
 <li>fgrep</li>
 <li>sed</li>
 <li>regex</li>
 </ul>
-<h2>Regex</h2>
+<h3>Regex</h3>
 <p>Regular expression, Regex, regexp is a pattern to describe what we want to <em>match</em> from a text. Here will discuss the form of regex which is used with the <strong>grep</strong> (generalised regular expression processor) command.</p>
 <blockquote>
 <p>There is two kind of regex in GNU grep: Basic an Extended.</p>
 </blockquote>
-<h3>Basic blocks</h3>
-<h4>Adding two expressions</h4>
+<h4>Basic blocks</h4>
+<p><strong>Adding two expressions</strong></p>
 <p>If you need to add (concat) two expressions, just write them after each other.</p>
 <table>
 <thead>
 <tr>
-<th>Regex</th>
-<th>Will match</th>
+<th align="left">Regex</th>
+<th align="left">Will match</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>a</td>
-<td>ali, mina, hamid, jadi</td>
+<td align="left">a</td>
+<td align="left">ali, mina, hamid, jadi</td>
 </tr>
 <tr>
-<td>na</td>
-<td>nasim, mina, nananana batman, mona</td>
+<td align="left">na</td>
+<td align="left">nasim, mina, nananana batman, mona</td>
 </tr>
 </tbody>
 </table>
-<h4>Repeating</h4>
+<p><strong>Repeating</strong></p>
 <ul>
 <li>The <strong>*</strong> means repeating the previous character for 0 or more</li>
 <li>The <strong>+</strong> means repeating the previous character for 1 or more</li>
@@ -130,80 +124,80 @@
 <table>
 <thead>
 <tr>
-<th>Regex</th>
-<th>Will match</th>
-<th>Note</th>
+<th align="left">Regex</th>
+<th align="left">Will match</th>
+<th align="left">Note</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>a*b</td>
-<td>ab, aaab, aaaaab, aaabthis</td>
-<td></td>
+<td align="left">a*b</td>
+<td align="left">ab, aaab, aaaaab, aaabthis</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td>a*b</td>
-<td>b, mobser</td>
-<td>Because there is a b here with zero <strong>a</strong> before it</td>
+<td align="left">a*b</td>
+<td align="left">b, mobser</td>
+<td align="left">Because there is a b here with zero <strong>a</strong> before it</td>
 </tr>
 <tr>
-<td>a+b</td>
-<td>ab, aab, aaabenz</td>
-<td>wont match <strong>sober</strong> or <strong>b</strong> because there needs to be at lear one <strong>a</strong></td>
+<td align="left">a+b</td>
+<td align="left">ab, aab, aaabenz</td>
+<td align="left">wont match <strong>sober</strong> or <strong>b</strong> because there needs to be at lear one <strong>a</strong></td>
 </tr>
 <tr>
-<td>a?b</td>
-<td>ab, a<strong>ab</strong>, b, batman (zero a then b), ...</td>
-<td>.</td>
+<td align="left">a?b</td>
+<td align="left">ab, a<strong>ab</strong>, b, batman (zero a then b), ...</td>
+<td align="left">.</td>
 </tr>
 </tbody>
 </table>
-<h4>Alternation (|)</h4>
+<p><strong>Alternation (|)</strong></p>
 <p>If you say <code>a\|b</code> it will match a or b.</p>
-<h4>Character Classes</h4>
+<p><strong>Character Classes</strong></p>
 <p>The dot (<strong>.</strong>) means any character. So <strong>..</strong> will match anything with at least two character in it. You can also create your own classes with [abc] which will match a or b or c and [a-z] which match a to z.</p>
 <p>You can also refer to digits with \d and</p>
-<h4>Ranges</h4>
-<p>There are easy ways to  commonly used classes. Named classes open with [: and close with :]</p>
+<p><strong>Ranges</strong></p>
+<p>There are easy ways to commonly used classes. Named classes open with [: and close with :]</p>
 <table>
 <thead>
 <tr>
-<th>Range</th>
-<th>Meaning</th>
+<th align="left">Range</th>
+<th align="left">Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>[:alnum:]</td>
-<td>Alphanumeric characters</td>
+<td align="left">[:alnum:]</td>
+<td align="left">Alphanumeric characters</td>
 </tr>
 <tr>
-<td>[:blank:]</td>
-<td>Space and tab characters</td>
+<td align="left">[:blank:]</td>
+<td align="left">Space and tab characters</td>
 </tr>
 <tr>
-<td>[:digit:]</td>
-<td>The digits 0 through 9 (equivalent to 0-9)</td>
+<td align="left">[:digit:]</td>
+<td align="left">The digits 0 through 9 (equivalent to 0-9)</td>
 </tr>
 <tr>
-<td>[:upper:] and [:lower:]</td>
-<td>Upper and lower case letters, respectively.</td>
+<td align="left">[:upper:] and [:lower:]</td>
+<td align="left">Upper and lower case letters, respectively.</td>
 </tr>
 <tr>
-<td>^ (negation)</td>
-<td>As the first character after [ in a character class negates the sense of the remaining characters</td>
+<td align="left">^ (negation)</td>
+<td align="left">As the first character after [ in a character class negates the sense of the remaining characters</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
 <p>A common form is .* which matches any character (zero or any length).</p>
 </blockquote>
-<h4>Matching specific locations</h4>
+<p><strong>Matching specific locations</strong></p>
 <ul>
 <li>The caret <strong>^</strong> means beginning of the string</li>
 <li>The dollar <strong>$</strong> means the end of the string</li>
 </ul>
-<h3>Samples</h3>
+<h4>Samples</h4>
 <ul>
 <li><code>^a.*</code> Matches anything that starts with a</li>
 <li><code>^a.*b$</code> Matches anything that starts with a and ends with b</li>
@@ -211,7 +205,7 @@
 <li><code>^(l|b)oo</code> Matches anything starts with l or b and then have oo</li>
 <li><code>[f-h]|[A-K]$</code> The last character should be f to h (capital or small)</li>
 </ul>
-<h2>grep</h2>
+<h3>grep</h3>
 <p>The <code>grep</code> command can search inside the files.</p>
 <div class="highlight"><pre><span></span><code>$ grep p friends
 payam
@@ -223,45 +217,45 @@ $
 <table>
 <thead>
 <tr>
-<th>switch</th>
-<th>meaning</th>
+<th align="left">switch</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>-c</td>
-<td>just show the count</td>
+<td align="left">-c</td>
+<td align="left">just show the count</td>
 </tr>
 <tr>
-<td>-v</td>
-<td>reverse the search</td>
+<td align="left">-v</td>
+<td align="left">reverse the search</td>
 </tr>
 <tr>
-<td>-n</td>
-<td>show line numbers</td>
+<td align="left">-n</td>
+<td align="left">show line numbers</td>
 </tr>
 <tr>
-<td>-l</td>
-<td>show only file names</td>
+<td align="left">-l</td>
+<td align="left">show only file names</td>
 </tr>
 <tr>
-<td>-i</td>
-<td>case insensitive</td>
+<td align="left">-i</td>
+<td align="left">case insensitive</td>
 </tr>
 </tbody>
 </table>
 <div class="highlight"><pre><span></span><code>$ grep p *
 friends:payam
 friends:pedram
-what_I_have.txt:laptop  <span class="m">2</span>
-what_I_have.txt:pillow  <span class="m">5</span>
-what_I_have.txt:apple   <span class="m">2</span>
+what_I_have.txt:laptop    2
+what_I_have.txt:pillow    5
+what_I_have.txt:apple    2
 $ grep p * -n
 friends:12:payam
 friends:15:pedram
-what_I_have.txt:2:laptop    <span class="m">2</span>
-what_I_have.txt:3:pillow    <span class="m">5</span>
-what_I_have.txt:4:apple <span class="m">2</span>
+what_I_have.txt:2:laptop    2
+what_I_have.txt:3:pillow    5
+what_I_have.txt:4:apple    2
 $ grep p * -l
 friends
 what_I_have.txt
@@ -274,13 +268,13 @@ $
 <blockquote>
 <p>If is very common to combine grep and find: <code>find . -type f -print0 | xargs -0 grep -c a | grep -v ali</code> # find all files with <strong>a</strong> in them but not <strong>ali</strong>`</p>
 </blockquote>
-<h2>extended grep</h2>
+<h3>extended grep</h3>
 <p>Extended grep is a GNU extension. It does not need the escaping and much easier. It can be used with -E option or <strong>egrep</strong> command which equals to <code>grep -E</code>.</p>
-<h2>Fixed grep</h2>
+<h3>Fixed grep</h3>
 <p>If you need to search the exact string (and not interpret it as a regex), use <code>grep -F</code> or <code>fgrep</code> so the <code>fgrep this$</code> wont go for the end of the line and will find <em>this$that</em> too.</p>
-<h2>sed</h2>
+<h3>sed</h3>
 <p>In previous lessons we saw simple <code>sed</code> usage. Here I have great news for you: <strong>sed understands regex</strong>! If is good to use <code>-r</code> switch to tell sed that we are using them.</p>
-<div class="highlight"><pre><span></span><code>$ sed -r <span class="s2">&quot;s/^(a|b)/STARTS WITH A OR B/&quot;</span> friends
+<div class="highlight"><pre><span></span><code>$ sed -r &quot;s/^(a|b)/STARTS WITH A OR B/&quot; friends
 STARTS WITH A OR Bmir
 mina
 jadi
@@ -293,22 +287,22 @@ hassan
 <table>
 <thead>
 <tr>
-<th>switch</th>
-<th>meaning</th>
+<th align="left">switch</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>-r</td>
-<td>use advanced regex</td>
+<td align="left">-r</td>
+<td align="left">use advanced regex</td>
 </tr>
 <tr>
-<td>-n</td>
-<td>suppress output, you can use p at the end of your regex ( /something/p ) to print the output</td>
+<td align="left">-n</td>
+<td align="left">suppress output, you can use p at the end of your regex ( /something/p ) to print the output</td>
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code>$ sed -rn <span class="s2">&quot;/^(a|b)/p&quot;</span> friends
+<div class="highlight"><pre><span></span><code>$ sed -rn &quot;/^(a|b)/p&quot; friends
 amir
 bita
 ali
@@ -316,8 +310,7 @@ ali
 
 <p>.</p>
 <p>.</p>
-<p>.
-.</p>
+<p>. .</p>
 <p>.</p>
 <p>.</p>
 <p>.</p>
@@ -345,9 +338,21 @@ ali
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:16:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#103-ref">103</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

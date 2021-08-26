@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 102, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="102.5 Use RPM and YUM package management "/>
 <meta property="og:url" content="./1025-use-rpm-and-yum-package-management.html" />
-<meta property="og:description" content="102.5 Use RPM and YUM package management Weight: 3 Candidates should be able to perform package management using RPM and YUM tools. Goals Install, re-install, upgrade and remove packages using RPM and YUM. Obtain information on RPM packages such as version, status, dependencies, integrity and signatures. Determine what files …" />
+<meta property="og:description" content="Candidates should be able to perform package management using RPM, YUM and Zypper." />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:09:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="102.5 Use RPM and YUM package management ">
-<meta name="twitter:description" content="102.5 Use RPM and YUM package management Weight: 3 Candidates should be able to perform package management using RPM and YUM tools. Goals Install, re-install, upgrade and remove packages using RPM and YUM. Obtain information on RPM packages such as version, status, dependencies, integrity and signatures. Determine what files …">
+<meta name="twitter:description" content="Candidates should be able to perform package management using RPM, YUM and Zypper.">
 
         <title>102.5 Use RPM and YUM package management  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,10 +76,9 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>102.5 Use RPM and YUM package management</h1>
-<p><em>Weight: 3</em></p>
+            <p><em>Weight: 3</em></p>
 <p>Candidates should be able to perform package management using RPM and YUM tools.</p>
-<h2>Goals</h2>
+<h3>Goals</h3>
 <ul>
 <li>Install, re-install, upgrade and remove packages using RPM and YUM.</li>
 <li>Obtain information on RPM packages such as version, status, dependencies, integrity and signatures.</li>
@@ -92,140 +90,142 @@
 <li>yum</li>
 <li>yumdownloader</li>
 </ul>
-<h3>Introduction</h3>
+<h4>Introduction</h4>
 <p><strong>RedHat Package Manager (RPM)</strong> and <strong>Yellowdog Updater Modified (YUM)</strong> are fedora / redhat / rhel / centos / .. tools to manage packages. There are also gui tools for installing and updating. As you saw on 102.4, all package managers can do standard functions like installing, updating and removing packages.</p>
 <p>YUM adds extra features likes automatic updates, dependency management and works with repositories (collection on packages accessed over network or on a CD).</p>
-<h3>Installing</h3>
+<h4>Installing</h4>
 <p>Say you want to install "bzr" and you don't have it:</p>
-<div class="highlight"><pre><span></span><code><span class="c">bzr:[jadi@localhost ~]$ bzr</span>
-<span class="c">bash: bzr: command not found</span>
-<span class="err">[jadi@localhost ~]$ which bzr</span>
-<span class="err">/usr/bin/which: no bzr in (/usr/libexec/lightdm:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/home/jadi/.local/bin:/home/jadi/bin)</span>
-<span class="err">[jadi@localhost ~]$ whatis bzr</span>
-<span class="c">bzr: nothing appropriate.</span>
-<span class="err">[jadi@localhost ~]$ whereis bzr</span>
-<span class="c">bzr:[jadi@localhost ~]$</span>
+<div class="highlight"><pre><span></span><code>bzr:[jadi@localhost ~]$ bzr
+bash: bzr: command not found
+[jadi@localhost ~]$ which bzr
+/usr/bin/which: no bzr in (/usr/libexec/lightdm:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/home/jadi/.local/bin:/home/jadi/bin)
+[jadi@localhost ~]$ whatis bzr
+bzr: nothing appropriate.
+[jadi@localhost ~]$ whereis bzr
+bzr:[jadi@localhost ~]$
 </code></pre></div>
 
 <p>we can obtain the bzr RPM package and try to install it:</p>
-<div class="highlight"><pre><span></span><code><span class="err">[root@localhost ~]# rpm -i bzr-2.6.0-2.fc20.x86_64.rpm</span>
-<span class="c">error: Failed dependencies:</span>
-<span class="c">    python-paramiko is needed by bzr-2.6.0-2.fc20.x86_64</span>
+<div class="highlight"><pre><span></span><code>[root@localhost ~]# rpm -i bzr-2.6.0-2.fc20.x86_64.rpm
+error: Failed dependencies:
+    python-paramiko is needed by bzr-2.6.0-2.fc20.x86_64
 </code></pre></div>
 
 <p>Failed because of dependencies. RPM understands the dependencies but does not installs it itself. We need YUM:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">root@localhost ~</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">yum</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">bzr</span><span class="w"></span>
-<span class="n">Loaded</span><span class="w"> </span><span class="nl">plugins</span><span class="p">:</span><span class="w"> </span><span class="n">langpacks</span><span class="w"></span>
-<span class="n">Resolving</span><span class="w"> </span><span class="n">Dependencies</span><span class="w"></span>
-<span class="c1">--&gt; Running transaction check</span>
-<span class="c1">---&gt; Package bzr.x86_64 0:2.6.0-2.fc20 will be installed</span>
-<span class="c1">--&gt; Processing Dependency: python-paramiko for package: bzr-2.6.0-2.fc20.x86_64</span>
-<span class="c1">--&gt; Running transaction check</span>
-<span class="c1">---&gt; Package python-paramiko.noarch 0:1.15.1-1.fc20 will be installed</span>
-<span class="c1">--&gt; Processing Dependency: python-crypto &gt;= 2.1 for package: python-paramiko-1.15.1-1.fc20.noarch</span>
-<span class="c1">--&gt; Running transaction check</span>
-<span class="c1">---&gt; Package python-crypto.x86_64 0:2.6.1-1.fc20 will be installed</span>
-<span class="c1">--&gt; Finished Dependency Resolution</span>
+<div class="highlight"><pre><span></span><code>[root@localhost ~]# yum install bzr
+Loaded plugins: langpacks
+Resolving Dependencies
+--&gt; Running transaction check
+---&gt; Package bzr.x86_64 0:2.6.0-2.fc20 will be installed
+--&gt; Processing Dependency: python-paramiko for package: bzr-2.6.0-2.fc20.x86_64
+--&gt; Running transaction check
+---&gt; Package python-paramiko.noarch 0:1.15.1-1.fc20 will be installed
+--&gt; Processing Dependency: python-crypto &gt;= 2.1 for package: python-paramiko-1.15.1-1.fc20.noarch
+--&gt; Running transaction check
+---&gt; Package python-crypto.x86_64 0:2.6.1-1.fc20 will be installed
+--&gt; Finished Dependency Resolution
 
-<span class="n">Dependencies</span><span class="w"> </span><span class="n">Resolved</span><span class="w"></span>
+Dependencies Resolved
 
-<span class="o">=========================================================================================================================</span><span class="w"></span>
-<span class="w"> </span><span class="n">Package</span><span class="w">                          </span><span class="n">Arch</span><span class="w">                    </span><span class="n">Version</span><span class="w">                         </span><span class="n">Repository</span><span class="w">                </span><span class="k">Size</span><span class="w"></span>
-<span class="o">=========================================================================================================================</span><span class="w"></span>
-<span class="nl">Installing</span><span class="p">:</span><span class="w"></span>
-<span class="w"> </span><span class="n">bzr</span><span class="w">                              </span><span class="n">x86_64</span><span class="w">                  </span><span class="mf">2.6.0</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc20</span><span class="w">                    </span><span class="n">fedora</span><span class="w">                   </span><span class="mf">6.3</span><span class="w"> </span><span class="n">M</span><span class="w"></span>
-<span class="n">Installing</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nl">dependencies</span><span class="p">:</span><span class="w"></span>
-<span class="w"> </span><span class="n">python</span><span class="o">-</span><span class="n">crypto</span><span class="w">                    </span><span class="n">x86_64</span><span class="w">                  </span><span class="mf">2.6.1</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc20</span><span class="w">                    </span><span class="n">fedora</span><span class="w">                   </span><span class="mi">470</span><span class="w"> </span><span class="n">k</span><span class="w"></span>
-<span class="w"> </span><span class="n">python</span><span class="o">-</span><span class="n">paramiko</span><span class="w">                  </span><span class="n">noarch</span><span class="w">                  </span><span class="mf">1.15.1</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc20</span><span class="w">                   </span><span class="n">updates</span><span class="w">                  </span><span class="mi">998</span><span class="w"> </span><span class="n">k</span><span class="w"></span>
+=========================================================================================================================
+ Package                          Arch                    Version                         Repository                Size
+=========================================================================================================================
+Installing:
+ bzr                              x86_64                  2.6.0-2.fc20                    fedora                   6.3 M
+Installing for dependencies:
+ python-crypto                    x86_64                  2.6.1-1.fc20                    fedora                   470 k
+ python-paramiko                  noarch                  1.15.1-1.fc20                   updates                  998 k
 
-<span class="k">Transaction</span><span class="w"> </span><span class="n">Summary</span><span class="w"></span>
-<span class="o">=========================================================================================================================</span><span class="w"></span>
-<span class="n">Install</span><span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="n">Package</span><span class="w"> </span><span class="p">(</span><span class="o">+</span><span class="mi">2</span><span class="w"> </span><span class="n">Dependent</span><span class="w"> </span><span class="n">packages</span><span class="p">)</span><span class="w"></span>
+Transaction Summary
+=========================================================================================================================
+Install  1 Package (+2 Dependent packages)
 
-<span class="n">Total</span><span class="w"> </span><span class="k">size</span><span class="err">:</span><span class="w"> </span><span class="mf">7.7</span><span class="w"> </span><span class="n">M</span><span class="w"></span>
-<span class="n">Total</span><span class="w"> </span><span class="n">download</span><span class="w"> </span><span class="k">size</span><span class="err">:</span><span class="w"> </span><span class="mi">998</span><span class="w"> </span><span class="n">k</span><span class="w"></span>
-<span class="n">Installed</span><span class="w"> </span><span class="k">size</span><span class="err">:</span><span class="w"> </span><span class="mi">36</span><span class="w"> </span><span class="n">M</span><span class="w"></span>
-<span class="k">Is</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">[</span><span class="n">y/d/N</span><span class="o">]</span><span class="err">:</span><span class="w"> </span><span class="n">y</span><span class="w"></span>
-<span class="n">Downloading</span><span class="w"> </span><span class="nl">packages</span><span class="p">:</span><span class="w"></span>
-<span class="ow">Not</span><span class="w"> </span><span class="n">downloading</span><span class="w"> </span><span class="n">Presto</span><span class="w"> </span><span class="n">metadata</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">updates</span><span class="w"></span>
-<span class="n">python</span><span class="o">-</span><span class="n">paramiko</span><span class="o">-</span><span class="mf">1.15.1</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc20</span><span class="p">.</span><span class="n">noarch</span><span class="p">.</span><span class="n">rpm</span><span class="w">                                                          </span><span class="o">|</span><span class="w"> </span><span class="mi">998</span><span class="w"> </span><span class="n">kB</span><span class="w">  </span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="err">:</span><span class="mi">32</span><span class="w">     </span>
-<span class="n">Running</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">check</span><span class="w"></span>
-<span class="n">Running</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="n">test</span><span class="w"></span>
-<span class="k">Transaction</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="n">succeeded</span><span class="w"></span>
-<span class="n">Running</span><span class="w"> </span><span class="k">transaction</span><span class="w"></span>
-<span class="w">  </span><span class="n">Installing</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="n">python</span><span class="o">-</span><span class="n">crypto</span><span class="o">-</span><span class="mf">2.6.1</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc20</span><span class="p">.</span><span class="n">x86_64</span><span class="w">                                                                     </span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="w"></span>
-<span class="w">  </span><span class="n">Installing</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="n">python</span><span class="o">-</span><span class="n">paramiko</span><span class="o">-</span><span class="mf">1.15.1</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc20</span><span class="p">.</span><span class="n">noarch</span><span class="w">                                                                  </span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="w"></span>
-<span class="w">  </span><span class="n">Installing</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="n">bzr</span><span class="o">-</span><span class="mf">2.6.0</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc20</span><span class="p">.</span><span class="n">x86_64</span><span class="w">                                                                               </span><span class="mi">3</span><span class="o">/</span><span class="mi">3</span><span class="w"></span>
-<span class="w">  </span><span class="n">Verifying</span><span class="w">  </span><span class="err">:</span><span class="w"> </span><span class="n">python</span><span class="o">-</span><span class="n">crypto</span><span class="o">-</span><span class="mf">2.6.1</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc20</span><span class="p">.</span><span class="n">x86_64</span><span class="w">                                                                     </span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="w"></span>
-<span class="w">  </span><span class="n">Verifying</span><span class="w">  </span><span class="err">:</span><span class="w"> </span><span class="n">python</span><span class="o">-</span><span class="n">paramiko</span><span class="o">-</span><span class="mf">1.15.1</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc20</span><span class="p">.</span><span class="n">noarch</span><span class="w">                                                                  </span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="w"></span>
-<span class="w">  </span><span class="n">Verifying</span><span class="w">  </span><span class="err">:</span><span class="w"> </span><span class="n">bzr</span><span class="o">-</span><span class="mf">2.6.0</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc20</span><span class="p">.</span><span class="n">x86_64</span><span class="w">                                                                               </span><span class="mi">3</span><span class="o">/</span><span class="mi">3</span><span class="w"></span>
+Total size: 7.7 M
+Total download size: 998 k
+Installed size: 36 M
+Is this ok [y/d/N]: y
+Downloading packages:
+Not downloading Presto metadata for updates
+python-paramiko-1.15.1-1.fc20.noarch.rpm                                                          | 998 kB  00:00:32     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : python-crypto-2.6.1-1.fc20.x86_64                                                                     1/3
+  Installing : python-paramiko-1.15.1-1.fc20.noarch                                                                  2/3
+  Installing : bzr-2.6.0-2.fc20.x86_64                                                                               3/3
+  Verifying  : python-crypto-2.6.1-1.fc20.x86_64                                                                     1/3
+  Verifying  : python-paramiko-1.15.1-1.fc20.noarch                                                                  2/3
+  Verifying  : bzr-2.6.0-2.fc20.x86_64                                                                               3/3
 
-<span class="nl">Installed</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="n">bzr</span><span class="p">.</span><span class="n">x86_64</span><span class="w"> </span><span class="mi">0</span><span class="err">:</span><span class="mf">2.6.0</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc20</span><span class="w">                                                                                              </span>
+Installed:
+  bzr.x86_64 0:2.6.0-2.fc20                                                                                              
 
-<span class="n">Dependency</span><span class="w"> </span><span class="nl">Installed</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="n">python</span><span class="o">-</span><span class="n">crypto</span><span class="p">.</span><span class="n">x86_64</span><span class="w"> </span><span class="mi">0</span><span class="err">:</span><span class="mf">2.6.1</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc20</span><span class="w">                       </span><span class="n">python</span><span class="o">-</span><span class="n">paramiko</span><span class="p">.</span><span class="n">noarch</span><span class="w"> </span><span class="mi">0</span><span class="err">:</span><span class="mf">1.15.1</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc20</span><span class="w">                      </span>
+Dependency Installed:
+  python-crypto.x86_64 0:2.6.1-1.fc20                       python-paramiko.noarch 0:1.15.1-1.fc20                      
 
-<span class="n">Complete</span><span class="err">!</span><span class="w"></span>
+Complete!
 </code></pre></div>
 
 <blockquote>
 <p>it is possible to use -y switch to prevent yum from asking <em>Is this ok [y/d/N]</em></p>
 </blockquote>
 <p>but where does YUM find these dependencies to install? it starts from /etc/yum.repos.d/</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">yum</span><span class="p">.</span><span class="n">repos</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">fedora</span><span class="o">-</span><span class="n">updates</span><span class="p">.</span><span class="n">repo</span><span class="w"></span>
-<span class="o">[</span><span class="n">updates</span><span class="o">]</span><span class="w"></span>
-<span class="n">name</span><span class="o">=</span><span class="n">Fedora</span><span class="w"> </span><span class="err">$</span><span class="n">releasever</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="err">$</span><span class="n">basearch</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Updates</span><span class="w"></span>
-<span class="n">failovermethod</span><span class="o">=</span><span class="n">priority</span><span class="w"></span>
-<span class="n">#baseurl</span><span class="o">=</span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="p">.</span><span class="n">fedoraproject</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">fedora</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">updates</span><span class="o">/</span><span class="err">$</span><span class="n">releasever</span><span class="o">/</span><span class="err">$</span><span class="n">basearch</span><span class="o">/</span><span class="w"></span>
-<span class="n">metalink</span><span class="o">=</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="p">.</span><span class="n">fedoraproject</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">metalink</span><span class="vm">?</span><span class="n">repo</span><span class="o">=</span><span class="n">updates</span><span class="o">-</span><span class="n">released</span><span class="o">-</span><span class="n">f</span><span class="err">$</span><span class="n">releasever</span><span class="o">&amp;</span><span class="n">arch</span><span class="o">=</span><span class="err">$</span><span class="n">basearch</span><span class="w"></span>
-<span class="n">enabled</span><span class="o">=</span><span class="mi">1</span><span class="w"></span>
-<span class="n">gpgcheck</span><span class="o">=</span><span class="mi">1</span><span class="w"></span>
-<span class="n">gpgkey</span><span class="o">=</span><span class="k">file</span><span class="err">:</span><span class="o">///</span><span class="n">etc</span><span class="o">/</span><span class="n">pki</span><span class="o">/</span><span class="n">rpm</span><span class="o">-</span><span class="n">gpg</span><span class="o">/</span><span class="n">RPM</span><span class="o">-</span><span class="n">GPG</span><span class="o">-</span><span class="k">KEY</span><span class="o">-</span><span class="n">fedora</span><span class="o">-</span><span class="err">$</span><span class="n">releasever</span><span class="o">-</span><span class="err">$</span><span class="n">basearch</span><span class="w"></span>
-<span class="n">skip_if_unavailable</span><span class="o">=</span><span class="k">False</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>$ cat /etc/yum.repos.d/fedora-updates.repo
+[updates]
+name=Fedora $releasever - $basearch - Updates
+failovermethod=priority
+#baseurl=http://download.fedoraproject.org/pub/fedora/linux/updates/$releasever/$basearch/
+metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-f$releasever&amp;arch=$basearch
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+skip_if_unavailable=False
 
-<span class="o">[</span><span class="n">updates-debuginfo</span><span class="o">]</span><span class="w"></span>
-<span class="n">name</span><span class="o">=</span><span class="n">Fedora</span><span class="w"> </span><span class="err">$</span><span class="n">releasever</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="err">$</span><span class="n">basearch</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Updates</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Debug</span><span class="w"></span>
-<span class="n">failovermethod</span><span class="o">=</span><span class="n">priority</span><span class="w"></span>
-<span class="n">#baseurl</span><span class="o">=</span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="p">.</span><span class="n">fedoraproject</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">fedora</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">updates</span><span class="o">/</span><span class="err">$</span><span class="n">releasever</span><span class="o">/</span><span class="err">$</span><span class="n">basearch</span><span class="o">/</span><span class="n">debug</span><span class="o">/</span><span class="w"></span>
-<span class="n">metalink</span><span class="o">=</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="p">.</span><span class="n">fedoraproject</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">metalink</span><span class="vm">?</span><span class="n">repo</span><span class="o">=</span><span class="n">updates</span><span class="o">-</span><span class="n">released</span><span class="o">-</span><span class="n">debug</span><span class="o">-</span><span class="n">f</span><span class="err">$</span><span class="n">releasever</span><span class="o">&amp;</span><span class="n">arch</span><span class="o">=</span><span class="err">$</span><span class="n">basearch</span><span class="w"></span>
-<span class="n">enabled</span><span class="o">=</span><span class="mi">0</span><span class="w"></span>
-<span class="n">gpgcheck</span><span class="o">=</span><span class="mi">1</span><span class="w"></span>
-<span class="n">gpgkey</span><span class="o">=</span><span class="k">file</span><span class="err">:</span><span class="o">///</span><span class="n">etc</span><span class="o">/</span><span class="n">pki</span><span class="o">/</span><span class="n">rpm</span><span class="o">-</span><span class="n">gpg</span><span class="o">/</span><span class="n">RPM</span><span class="o">-</span><span class="n">GPG</span><span class="o">-</span><span class="k">KEY</span><span class="o">-</span><span class="n">fedora</span><span class="o">-</span><span class="err">$</span><span class="n">releasever</span><span class="o">-</span><span class="err">$</span><span class="n">basearch</span><span class="w"></span>
-<span class="n">skip_if_unavailable</span><span class="o">=</span><span class="k">False</span><span class="w"></span>
+[updates-debuginfo]
+name=Fedora $releasever - $basearch - Updates - Debug
+failovermethod=priority
+#baseurl=http://download.fedoraproject.org/pub/fedora/linux/updates/$releasever/$basearch/debug/
+metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-debug-f$releasever&amp;arch=$basearch
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+skip_if_unavailable=False
 
-<span class="o">[</span><span class="n">updates-source</span><span class="o">]</span><span class="w"></span>
-<span class="n">name</span><span class="o">=</span><span class="n">Fedora</span><span class="w"> </span><span class="err">$</span><span class="n">releasever</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Updates</span><span class="w"> </span><span class="n">Source</span><span class="w"></span>
-<span class="n">failovermethod</span><span class="o">=</span><span class="n">priority</span><span class="w"></span>
-<span class="n">#baseurl</span><span class="o">=</span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="p">.</span><span class="n">fedoraproject</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">fedora</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">updates</span><span class="o">/</span><span class="err">$</span><span class="n">releasever</span><span class="o">/</span><span class="n">SRPMS</span><span class="o">/</span><span class="w"></span>
-<span class="n">metalink</span><span class="o">=</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="p">.</span><span class="n">fedoraproject</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">metalink</span><span class="vm">?</span><span class="n">repo</span><span class="o">=</span><span class="n">updates</span><span class="o">-</span><span class="n">released</span><span class="o">-</span><span class="n">source</span><span class="o">-</span><span class="n">f</span><span class="err">$</span><span class="n">releasever</span><span class="o">&amp;</span><span class="n">arch</span><span class="o">=</span><span class="err">$</span><span class="n">basearch</span><span class="w"></span>
-<span class="n">enabled</span><span class="o">=</span><span class="mi">0</span><span class="w"></span>
-<span class="n">gpgcheck</span><span class="o">=</span><span class="mi">1</span><span class="w"></span>
-<span class="n">gpgkey</span><span class="o">=</span><span class="k">file</span><span class="err">:</span><span class="o">///</span><span class="n">etc</span><span class="o">/</span><span class="n">pki</span><span class="o">/</span><span class="n">rpm</span><span class="o">-</span><span class="n">gpg</span><span class="o">/</span><span class="n">RPM</span><span class="o">-</span><span class="n">GPG</span><span class="o">-</span><span class="k">KEY</span><span class="o">-</span><span class="n">fedora</span><span class="o">-</span><span class="err">$</span><span class="n">releasever</span><span class="o">-</span><span class="err">$</span><span class="n">basearch</span><span class="w"></span>
-<span class="n">skip_if_unavailable</span><span class="o">=</span><span class="k">False</span><span class="w"></span>
+[updates-source]
+name=Fedora $releasever - Updates Source
+failovermethod=priority
+#baseurl=http://download.fedoraproject.org/pub/fedora/linux/updates/$releasever/SRPMS/
+metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-source-f$releasever&amp;arch=$basearch
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+skip_if_unavailable=False
 </code></pre></div>
 
-<h3>Removing</h3>
+<h4>Removing</h4>
 <p>For removing a package we have to use -e option of rpm (e for erase) or use the <em>remove</em> option of yum.</p>
-<div class="highlight"><pre><span></span><code><span class="err">[root@localhost ~]# rpm -e bzr</span>
-<span class="err">[root@localhost ~]# bzr</span>
-<span class="c">bash: bzr: command not found</span>
+<div class="highlight"><pre><span></span><code>[root@localhost ~]# rpm -e bzr
+[root@localhost ~]# bzr
+bash: bzr: command not found
 </code></pre></div>
 
-<p>notes:
-- rpm does not have a database of automatic package installation so it can not remove dependencies which are installed automatically.
-- rpm removes package without asking!
-- rpm wont remove a package which is needed by another package</p>
+<p>notes:</p>
+<ul>
+<li>rpm does not have a database of automatic package installation so it can not remove dependencies which are installed automatically.</li>
+<li>rpm removes package without asking!</li>
+<li>rpm wont remove a package which is needed by another package</li>
+</ul>
 <p>but if you remove with yum, it will tell what other packages should be removed because of dependencies:</p>
-<div class="highlight"><pre><span></span><code><span class="err"># yum install bzr</span>
-<span class="err"># rpm -e python-crypto</span>
-<span class="c">error: Failed dependencies:</span>
-<span class="c">    python-crypto &gt;= 2.1 is needed by (installed) python-paramiko-1.15.1-1.fc20.noarch</span>
+<div class="highlight"><pre><span></span><code># yum install bzr
+# rpm -e python-crypto
+error: Failed dependencies:
+    python-crypto &gt;= 2.1 is needed by (installed) python-paramiko-1.15.1-1.fc20.noarch
 </code></pre></div>
 
-<h3>Upgrading</h3>
+<h4>Upgrading</h4>
 <p>the most common command is <code>yum update</code>. This will update the repository data and then will ask user to confirm and then will upgrade the system. It is also possible to give a single package name or use a wildcard (*) to upgrade specific packages.</p>
-<div class="highlight"><pre><span></span><code><span class="err"># yum upgrade &#39;cal*&#39;</span>
+<div class="highlight"><pre><span></span><code># yum upgrade &#39;cal*&#39;
 </code></pre></div>
 
 <p>will upgrade all packages starting with cal (sal calendarj, calibre, ...).</p>
@@ -235,89 +235,89 @@
 <p>please note that in many cases, we also us -v (verbose = print a lot of info) and -h (show a progress bar with hash signs (#) ).</p>
 </blockquote>
 <p>Last thing you should now is if installing or updating using <code>rpm</code> and you have many files which are dependent to each other, you can copy all your rpm files into one directory and do a <code>rpm -Uvh *.rpm</code> and rpm will install/upgrade all the packages based on their dependencies to each other.</p>
-<h3>Querying info</h3>
+<h4>Querying info</h4>
 <p>You saw that rpm needed a full file name and yum needed only the package name. How can we find these info?</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">root@localhost ~</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">yum</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">bzr</span><span class="w"></span>
-<span class="n">Loaded</span><span class="w"> </span><span class="nl">plugins</span><span class="p">:</span><span class="w"> </span><span class="n">langpacks</span><span class="w"></span>
-<span class="n">Installed</span><span class="w"> </span><span class="n">Packages</span><span class="w"></span>
-<span class="n">bzr</span><span class="p">.</span><span class="n">x86_64</span><span class="w">                                              </span><span class="mf">2.6.0</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc20</span><span class="w">                                              </span><span class="nv">@fedora</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>[root@localhost ~]# yum list bzr
+Loaded plugins: langpacks
+Installed Packages
+bzr.x86_64                                              2.6.0-2.fc20                                              @fedora
 
-<span class="o">[</span><span class="n">root@localhost ~</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">yum</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">emacs</span><span class="w"></span>
-<span class="n">Loaded</span><span class="w"> </span><span class="nl">plugins</span><span class="p">:</span><span class="w"> </span><span class="n">langpacks</span><span class="w"></span>
-<span class="n">Available</span><span class="w"> </span><span class="n">Packages</span><span class="w"></span>
-<span class="n">emacs</span><span class="p">.</span><span class="n">x86_64</span><span class="w">                                            </span><span class="mi">1</span><span class="err">:</span><span class="mf">24.3</span><span class="o">-</span><span class="mf">25.</span><span class="n">fc20</span><span class="w">                                            </span><span class="n">updates</span><span class="w"></span>
+[root@localhost ~]# yum list emacs
+Loaded plugins: langpacks
+Available Packages
+emacs.x86_64                                            1:24.3-25.fc20                                            updates
 
-<span class="o">[</span><span class="n">root@localhost ~</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">-</span><span class="n">q</span><span class="w"> </span><span class="n">bzr</span><span class="w"></span>
-<span class="n">bzr</span><span class="o">-</span><span class="mf">2.6.0</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc20</span><span class="p">.</span><span class="n">x86_64</span><span class="w"></span>
+[root@localhost ~]# rpm -q bzr
+bzr-2.6.0-2.fc20.x86_64
 
-<span class="o">[</span><span class="n">root@localhost ~</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">-</span><span class="n">q</span><span class="w"> </span><span class="n">emacs</span><span class="w"></span>
-<span class="n">package</span><span class="w"> </span><span class="n">emacs</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">installed</span><span class="w"></span>
+[root@localhost ~]# rpm -q emacs
+package emacs is not installed
 
-<span class="o">[</span><span class="n">root@localhost ~</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">yum</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="n">bzr</span><span class="w"></span>
-<span class="n">Loaded</span><span class="w"> </span><span class="nl">plugins</span><span class="p">:</span><span class="w"> </span><span class="n">langpacks</span><span class="w"></span>
-<span class="n">Installed</span><span class="w"> </span><span class="n">Packages</span><span class="w"></span>
-<span class="n">Name</span><span class="w">        </span><span class="err">:</span><span class="w"> </span><span class="n">bzr</span><span class="w"></span>
-<span class="n">Arch</span><span class="w">        </span><span class="err">:</span><span class="w"> </span><span class="n">x86_64</span><span class="w"></span>
-<span class="n">Version</span><span class="w">     </span><span class="err">:</span><span class="w"> </span><span class="mf">2.6.0</span><span class="w"></span>
-<span class="k">Release</span><span class="w">     </span><span class="err">:</span><span class="w"> </span><span class="mf">2.</span><span class="n">fc20</span><span class="w"></span>
-<span class="k">Size</span><span class="w">        </span><span class="err">:</span><span class="w"> </span><span class="mi">29</span><span class="w"> </span><span class="n">M</span><span class="w"></span>
-<span class="n">Repo</span><span class="w">        </span><span class="err">:</span><span class="w"> </span><span class="n">installed</span><span class="w"></span>
-<span class="k">From</span><span class="w"> </span><span class="n">repo</span><span class="w">   </span><span class="err">:</span><span class="w"> </span><span class="n">fedora</span><span class="w"></span>
-<span class="n">Summary</span><span class="w">     </span><span class="err">:</span><span class="w"> </span><span class="n">Friendly</span><span class="w"> </span><span class="k">distributed</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="k">system</span><span class="w"></span>
-<span class="n">URL</span><span class="w">         </span><span class="err">:</span><span class="w"> </span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="p">.</span><span class="n">bazaar</span><span class="o">-</span><span class="n">vcs</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="w"></span>
-<span class="n">License</span><span class="w">     </span><span class="err">:</span><span class="w"> </span><span class="n">GPLv2</span><span class="o">+</span><span class="w"></span>
-<span class="n">Description</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="n">Bazaar</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">distributed</span><span class="w"> </span><span class="n">revision</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">powerful</span><span class="p">,</span><span class="w"> </span><span class="n">friendly</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="err">:</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">scalable</span><span class="p">.</span><span class="w">  </span><span class="n">It</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">successor</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">Baz</span><span class="o">-</span><span class="mf">1.</span><span class="n">x</span><span class="w"> </span><span class="n">which</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">turn</span><span class="p">,</span><span class="w"> </span><span class="n">was</span><span class="w"></span>
-<span class="w">            </span><span class="err">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">user</span><span class="o">-</span><span class="n">friendly</span><span class="w"> </span><span class="n">reimplementation</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">GNU</span><span class="w"> </span><span class="n">Arch</span><span class="p">.</span><span class="w"></span>
+[root@localhost ~]# yum info bzr
+Loaded plugins: langpacks
+Installed Packages
+Name        : bzr
+Arch        : x86_64
+Version     : 2.6.0
+Release     : 2.fc20
+Size        : 29 M
+Repo        : installed
+From repo   : fedora
+Summary     : Friendly distributed version control system
+URL         : http://www.bazaar-vcs.org/
+License     : GPLv2+
+Description : Bazaar is a distributed revision control system that is powerful, friendly,
+            : and scalable.  It is the successor of Baz-1.x which, in turn, was
+            : a user-friendly reimplementation of GNU Arch.
 
-<span class="o">[</span><span class="n">root@localhost ~</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">yum</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="n">emacs</span><span class="w"></span>
-<span class="n">Loaded</span><span class="w"> </span><span class="nl">plugins</span><span class="p">:</span><span class="w"> </span><span class="n">langpacks</span><span class="w"></span>
-<span class="n">Available</span><span class="w"> </span><span class="n">Packages</span><span class="w"></span>
-<span class="n">Name</span><span class="w">        </span><span class="err">:</span><span class="w"> </span><span class="n">emacs</span><span class="w"></span>
-<span class="n">Arch</span><span class="w">        </span><span class="err">:</span><span class="w"> </span><span class="n">x86_64</span><span class="w"></span>
-<span class="n">Epoch</span><span class="w">       </span><span class="err">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="n">Version</span><span class="w">     </span><span class="err">:</span><span class="w"> </span><span class="mf">24.3</span><span class="w"></span>
-<span class="k">Release</span><span class="w">     </span><span class="err">:</span><span class="w"> </span><span class="mf">25.</span><span class="n">fc20</span><span class="w"></span>
-<span class="k">Size</span><span class="w">        </span><span class="err">:</span><span class="w"> </span><span class="mf">2.9</span><span class="w"> </span><span class="n">M</span><span class="w"></span>
-<span class="n">Repo</span><span class="w">        </span><span class="err">:</span><span class="w"> </span><span class="n">updates</span><span class="o">/</span><span class="mi">20</span><span class="o">/</span><span class="n">x86_64</span><span class="w"></span>
-<span class="n">Summary</span><span class="w">     </span><span class="err">:</span><span class="w"> </span><span class="n">GNU</span><span class="w"> </span><span class="n">Emacs</span><span class="w"> </span><span class="nc">text</span><span class="w"> </span><span class="n">editor</span><span class="w"></span>
-<span class="n">URL</span><span class="w">         </span><span class="err">:</span><span class="w"> </span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="p">.</span><span class="n">gnu</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">software</span><span class="o">/</span><span class="n">emacs</span><span class="o">/</span><span class="w"></span>
-<span class="n">License</span><span class="w">     </span><span class="err">:</span><span class="w"> </span><span class="n">GPLv3</span><span class="o">+</span><span class="w"></span>
-<span class="n">Description</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="n">Emacs</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">powerful</span><span class="p">,</span><span class="w"> </span><span class="n">customizable</span><span class="p">,</span><span class="w"> </span><span class="n">self</span><span class="o">-</span><span class="n">documenting</span><span class="p">,</span><span class="w"> </span><span class="n">modeless</span><span class="w"> </span><span class="nc">text</span><span class="w"></span>
-<span class="w">            </span><span class="err">:</span><span class="w"> </span><span class="n">editor</span><span class="p">.</span><span class="w"> </span><span class="n">Emacs</span><span class="w"> </span><span class="k">contains</span><span class="w"> </span><span class="n">special</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="n">editing</span><span class="w"> </span><span class="n">features</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">scripting</span><span class="w"></span>
-<span class="w">            </span><span class="err">:</span><span class="w"> </span><span class="k">language</span><span class="w"> </span><span class="p">(</span><span class="n">elisp</span><span class="p">),</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">capability</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="n">mail</span><span class="p">,</span><span class="w"> </span><span class="n">news</span><span class="p">,</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">more</span><span class="w"></span>
-<span class="w">            </span><span class="err">:</span><span class="w"> </span><span class="k">without</span><span class="w"> </span><span class="n">leaving</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">editor</span><span class="p">.</span><span class="w"></span>
-<span class="w">            </span><span class="err">:</span><span class="w"></span>
-<span class="w">            </span><span class="err">:</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">provides</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">emacs</span><span class="w"> </span><span class="nc">binary</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">support</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="n">windows</span><span class="p">.</span><span class="w"></span>
+[root@localhost ~]# yum info emacs
+Loaded plugins: langpacks
+Available Packages
+Name        : emacs
+Arch        : x86_64
+Epoch       : 1
+Version     : 24.3
+Release     : 25.fc20
+Size        : 2.9 M
+Repo        : updates/20/x86_64
+Summary     : GNU Emacs text editor
+URL         : http://www.gnu.org/software/emacs/
+License     : GPLv3+
+Description : Emacs is a powerful, customizable, self-documenting, modeless text
+            : editor. Emacs contains special code editing features, a scripting
+            : language (elisp), and the capability to read mail, news, and more
+            : without leaving the editor.
+            :
+            : This package provides an emacs binary with support for X windows.
 </code></pre></div>
 
 <p>It is also possible to search for packages:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">root@localhost ~</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">yum</span><span class="w"> </span><span class="k">search</span><span class="w"> </span><span class="n">hack</span><span class="w"></span>
-<span class="n">Loaded</span><span class="w"> </span><span class="nl">plugins</span><span class="p">:</span><span class="w"> </span><span class="n">langpacks</span><span class="w"></span>
-<span class="o">===================================================</span><span class="w"> </span><span class="n">N</span><span class="o">/</span><span class="n">S</span><span class="w"> </span><span class="nl">matched</span><span class="p">:</span><span class="w"> </span><span class="n">hack</span><span class="w"> </span><span class="o">===================================================</span><span class="w"></span>
-<span class="n">nethack</span><span class="o">-</span><span class="n">vultures</span><span class="p">.</span><span class="n">x86_64</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="n">NetHack</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Vulture</span><span class="s1">&#39;s Eye and Vulture&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">Claw</span><span class="w"></span>
-<span class="n">python</span><span class="o">-</span><span class="n">hacking</span><span class="p">.</span><span class="n">noarch</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="n">OpenStack</span><span class="w"> </span><span class="n">Hacking</span><span class="w"> </span><span class="n">Guideline</span><span class="w"> </span><span class="n">Enforcement</span><span class="w"></span>
-<span class="p">...</span><span class="w"></span>
-<span class="p">...</span><span class="w"></span>
-<span class="n">wmMatrix</span><span class="p">.</span><span class="n">x86_64</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="n">DockApp</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">Jamie</span><span class="w"> </span><span class="n">Zawinski</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">xmatrix</span><span class="w"> </span><span class="n">screensaver</span><span class="w"> </span><span class="n">hack</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>[root@localhost ~]# yum search hack
+Loaded plugins: langpacks
+=================================================== N/S matched: hack ===================================================
+nethack-vultures.x86_64 : NetHack - Vulture&#39;s Eye and Vulture&#39;s Claw
+python-hacking.noarch : OpenStack Hacking Guideline Enforcement
+...
+...
+wmMatrix.x86_64 : DockApp version of Jamie Zawinski&#39;s xmatrix screensaver hack
 
-<span class="w">  </span><span class="n">Name</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">summary</span><span class="w"> </span><span class="n">matches</span><span class="w"> </span><span class="k">only</span><span class="p">,</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="ss">&quot;search all&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">everything</span><span class="p">.</span><span class="w"></span>
+  Name and summary matches only, use &quot;search all&quot; for everything.
 </code></pre></div>
 
 <p>it is also possible to find <strong>all installed</strong> packages with <code>rpm -qa</code> (query all). In most cases we pipe this with <code>sort</code> or <code>grep</code> and <code>`less</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="err">[root@localhost ~]# rpm -qa | grep vim</span>
-<span class="err">vim-minimal-7.4.027-2.fc20.x86_64</span>
+<div class="highlight"><pre><span></span><code>[root@localhost ~]# rpm -qa | grep vim
+vim-minimal-7.4.027-2.fc20.x86_64
 </code></pre></div>
 
 <p>If you need to find files in a installed package:</p>
-<div class="highlight"><pre><span></span><code><span class="err">[root@localhost ~]# rpm -ql bzr | head</span>
-<span class="err">/etc/bash_completion.d</span>
-<span class="err">/etc/bash_completion.d/bzr</span>
-<span class="err">/usr/bin/bzr</span>
-<span class="err">/usr/lib64/python2.7/site-packages/bzr-2.6.0-py2.7.egg-info</span>
-<span class="err">/usr/lib64/python2.7/site-packages/bzrlib</span>
-<span class="err">...</span>
-<span class="err">...</span>
+<div class="highlight"><pre><span></span><code>[root@localhost ~]# rpm -ql bzr | head
+/etc/bash_completion.d
+/etc/bash_completion.d/bzr
+/usr/bin/bzr
+/usr/lib64/python2.7/site-packages/bzr-2.6.0-py2.7.egg-info
+/usr/lib64/python2.7/site-packages/bzrlib
+...
+...
 </code></pre></div>
 
 <blockquote>
@@ -325,77 +325,77 @@
 <p>if you need same info for a downloaded package, just add the -p switch to your rpm command.</p>
 </blockquote>
 <p>Another important task is checking which package, own a specific file. Lets see what package gave us the <code>cal</code> command:</p>
-<div class="highlight"><pre><span></span><code><span class="err">[jadi@localhost ~]$ which cal</span>
-<span class="err">/usr/bin/cal</span>
-<span class="err">[jadi@localhost ~]$ rpm -qf /usr/bin/cal</span>
-<span class="err">util-linux-2.24-2.fc20.x86_64</span>
+<div class="highlight"><pre><span></span><code>[jadi@localhost ~]$ which cal
+/usr/bin/cal
+[jadi@localhost ~]$ rpm -qf /usr/bin/cal
+util-linux-2.24-2.fc20.x86_64
 </code></pre></div>
 
-<h4>Dependencies</h4>
+<p><strong>Dependencies</strong></p>
 <p>if you need to check what a packages is dependent on, use the <code>--requires</code> or <code>-R</code> switch:</p>
-<div class="highlight"><pre><span></span><code><span class="err">[root@localhost ~]# rpm -qR bzr</span>
-<span class="err">/usr/bin/python</span>
-<span class="err">libc.so.6()(64bit)</span>
-<span class="err">libc.so.6(GLIBC_2.14)(64bit)</span>
-<span class="err">libc.so.6(GLIBC_2.2.5)(64bit)</span>
-<span class="err">libc.so.6(GLIBC_2.3.4)(64bit)</span>
-<span class="err">...</span>
-<span class="err">...</span>
+<div class="highlight"><pre><span></span><code>[root@localhost ~]# rpm -qR bzr
+/usr/bin/python
+libc.so.6()(64bit)
+libc.so.6(GLIBC_2.14)(64bit)
+libc.so.6(GLIBC_2.2.5)(64bit)
+libc.so.6(GLIBC_2.3.4)(64bit)
+...
+...
 </code></pre></div>
 
 <p>or use <code>yum deplist bzr</code> instead.</p>
 <p>Poof.. I know this part was long so here comes the last important RPM querying command: <strong>whatprovides</strong>.</p>
 <p>If you need to use bzr, you need to check what provides it! if installed you can go with <code>rpm -q --whatprovides bzr</code> and if not :</p>
-<div class="highlight"><pre><span></span><code><span class="err">yum whatprovides bzr</span>
-<span class="err">Loaded plugins: langpacks</span>
-<span class="err">bzr-2.6.0-2.fc20.x86_64 : Friendly distributed version control system</span>
-<span class="err">Repo        : fedora</span>
+<div class="highlight"><pre><span></span><code>yum whatprovides bzr
+Loaded plugins: langpacks
+bzr-2.6.0-2.fc20.x86_64 : Friendly distributed version control system
+Repo        : fedora
 </code></pre></div>
 
-<h3>File Integrity</h3>
+<h4>File Integrity</h4>
 <p>Security is important! So RPM can check the MD5 or SHA1 of files. The option is --checksig (-K) and it is a good idea to use it with -v option (verbose):</p>
-<div class="highlight"><pre><span></span><code><span class="err">[root@localhost ~]# rpm -vK bzr-2.6.0-2.fc20.x86_64.rpm</span>
-<span class="err">bzr-2.6.0-2.fc20.x86_64.rpm:</span>
-<span class="err">    Header V3 RSA/SHA256 Signature, key ID 246110c1: OK</span>
-<span class="err">    Header SHA1 digest: OK (171c91fbd14416ac44c0f6d396826d583c3840ce)</span>
-<span class="err">    V3 RSA/SHA256 Signature, key ID 246110c1: OK</span>
-<span class="err">    MD5 digest: OK (c4478d64f009d07cb17d018b377677ab)</span>
+<div class="highlight"><pre><span></span><code>[root@localhost ~]# rpm -vK bzr-2.6.0-2.fc20.x86_64.rpm
+bzr-2.6.0-2.fc20.x86_64.rpm:
+    Header V3 RSA/SHA256 Signature, key ID 246110c1: OK
+    Header SHA1 digest: OK (171c91fbd14416ac44c0f6d396826d583c3840ce)
+    V3 RSA/SHA256 Signature, key ID 246110c1: OK
+    MD5 digest: OK (c4478d64f009d07cb17d018b377677ab)
 </code></pre></div>
 
 <p>The above output shows that this file is a valid file.</p>
 <p>it is also possible to check if the installed FILES by a packages is OK:</p>
-<div class="highlight"><pre><span></span><code><span class="err">[root@localhost ~]# rpm -V bzr</span>
-<span class="err">[root@localhost ~]# rm /etc/bash_completion.d/bzr</span>
-<span class="c">rm: remove regular file ‘/etc/bash_completion.d/bzr’? y</span>
-<span class="err">[root@localhost ~]# rpm -V bzr</span>
-<span class="err">missing     /etc/bash_completion.d/bzr</span>
+<div class="highlight"><pre><span></span><code>[root@localhost ~]# rpm -V bzr
+[root@localhost ~]# rm /etc/bash_completion.d/bzr
+rm: remove regular file ‘/etc/bash_completion.d/bzr’? y
+[root@localhost ~]# rpm -V bzr
+missing     /etc/bash_completion.d/bzr
 </code></pre></div>
 
 <p>if anything goes wrong, we can always reinstall a package:</p>
-<div class="highlight"><pre><span></span><code><span class="err">yum reinstall bzr</span>
+<div class="highlight"><pre><span></span><code>yum reinstall bzr
 </code></pre></div>
 
-<h3>yumdownloader</h3>
+<h4>yumdownloader</h4>
 <p>this tool will download rpms from repositories but wont install them. If you need to download all the dependencies too, use the --resolve switch:</p>
-<div class="highlight"><pre><span></span><code><span class="err">yumdownloader --resolve bzr</span>
+<div class="highlight"><pre><span></span><code>yumdownloader --resolve bzr
 </code></pre></div>
 
-<h3>rpm2cpio</h3>
-<p>The <strong>cpio</strong> is kind of an archive, just like zip or rar or tar. the rpm2cpio can convert rpm files to cpio archives so you can <em>open</em> them using cpio command.  </p>
-<div class="highlight"><pre><span></span><code><span class="err"># rpm2cpio bzr-2.6.0-2.fc20.x86_64.rpm | cpio -idv</span>
-<span class="err">./etc/bash_completion.d</span>
-<span class="err">./etc/bash_completion.d/bzr</span>
-<span class="err">./usr/bin/bzr</span>
-<span class="err">./usr/lib64/python2.7/site-packages/bzr-2.6.0-py2.7.egg-info</span>
-<span class="err">./usr/lib64/python2.7/site-packages/bzrlib</span>
-<span class="err">./usr/lib64/python2.7/site-packages/bzrlib/__init__.py</span>
-<span class="err">./usr/lib64/python2.7/site-packages/bzrlib/_annotator_py.py</span>
-<span class="err">./usr/lib64/python2.7/site-packages/bzrlib/_annotator_pyx.so</span>
-<span class="err">...</span>
-<span class="err">...</span>
+<h4>rpm2cpio</h4>
+<p>The <strong>cpio</strong> is kind of an archive, just like zip or rar or tar. the rpm2cpio can convert rpm files to cpio archives so you can <em>open</em> them using cpio command.</p>
+<div class="highlight"><pre><span></span><code># rpm2cpio bzr-2.6.0-2.fc20.x86_64.rpm | cpio -idv
+./etc/bash_completion.d
+./etc/bash_completion.d/bzr
+./usr/bin/bzr
+./usr/lib64/python2.7/site-packages/bzr-2.6.0-py2.7.egg-info
+./usr/lib64/python2.7/site-packages/bzrlib
+./usr/lib64/python2.7/site-packages/bzrlib/__init__.py
+./usr/lib64/python2.7/site-packages/bzrlib/_annotator_py.py
+./usr/lib64/python2.7/site-packages/bzrlib/_annotator_pyx.so
+...
+...
 </code></pre></div>
 
-<h3>Other tools</h3>
+<h4>Other tools</h4>
 <p>YUM and RPM are the main package manager tools on Fedora, RHEL &amp; Centos. but other system are available. The SUSE uses YaST and many modern desktops (KDE &amp; Gnome) use PackageKit. Package Kit installs and updates packages on graphical interfaces on most linux systems (Debian, Fedora, Arch, ...).</p>
 <p>.</p>
 <p>.</p>
@@ -424,9 +424,21 @@
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:09:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#102-ref">102</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

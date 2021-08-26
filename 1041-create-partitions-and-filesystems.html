@@ -15,18 +15,18 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 104, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
-<meta property="og:title" content="104.1. Create partitions and filesystems "/>
+<meta property="og:title" content="104.1 Create partitions and filesystems "/>
 <meta property="og:url" content="./1041-create-partitions-and-filesystems.html" />
-<meta property="og:description" content="104.1. Create partitions and filesystems Weight: 2 Description: Candidates should be able to configure disk partitions and then create filesystems on media such as hard disks. This includes the handling of swap partitions. Objective Use various mkfs commands to set up partitions and create various filesystems such as: ext2 …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:18:00+02:00" />
-<meta name="twitter:title" content="104.1. Create partitions and filesystems ">
-<meta name="twitter:description" content="104.1. Create partitions and filesystems Weight: 2 Description: Candidates should be able to configure disk partitions and then create filesystems on media such as hard disks. This includes the handling of swap partitions. Objective Use various mkfs commands to set up partitions and create various filesystems such as: ext2 …">
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
+<meta name="twitter:title" content="104.1 Create partitions and filesystems ">
+<meta name="twitter:description" content="">
 
-        <title>104.1. Create partitions and filesystems  · lpic1book
+        <title>104.1 Create partitions and filesystems  · lpic1book
 </title>
 
 
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -68,7 +67,7 @@
     <header class="page-header span10 offset2">
         <h1>
             <a href="./1041-create-partitions-and-filesystems.html">
-                104.1. Create partitions and filesystems
+                104.1 Create partitions and filesystems
             </a>
         </h1>
     </header>
@@ -77,50 +76,45 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>104.1. Create partitions and filesystems</h1>
-<p><em>Weight: 2</em></p>
+            <p><em>Weight: 2</em></p>
 <p>Description: Candidates should be able to configure disk partitions and then create filesystems on media such as hard disks. This includes the handling of swap partitions.</p>
-<h2>Objective</h2>
+<h3>Objective</h3>
 <ul>
 <li>Use various mkfs commands to set up partitions and create various filesystems such as:</li>
 <li>ext2/ext3/ext4</li>
 <li>xfs</li>
 <li>reiserfs v3</li>
-<li>
-<p>vfat</p>
-</li>
-<li>
-<p>fdisk</p>
-</li>
+<li>vfat</li>
+<li>fdisk</li>
 <li>mkfs</li>
 <li>mkswap</li>
 </ul>
-<h2>Blocked devices</h2>
-<p>Is a technical term for any storage device which can be formatted to fixed sized blocks and blocks should be able to be accessed individually. That is Hard disks, USB Memories, CDs,  ..</p>
+<h3>Blocked devices</h3>
+<p>Is a technical term for any storage device which can be formatted to fixed sized blocks and blocks should be able to be accessed individually. That is Hard disks, USB Memories, CDs, ..</p>
 <p>In long ls format, the first <strong>b</strong> indicates Block Device:</p>
-<div class="highlight"><pre><span></span><code>$ ls -l /dev/loop1  /dev/sd<span class="o">[</span>a-z<span class="o">]</span>
-brw-rw---- <span class="m">1</span> root disk <span class="m">7</span>, <span class="m">1</span> Jan  <span class="m">8</span> <span class="m">10</span>:46 /dev/loop1
-brw-rw---- <span class="m">1</span> root disk <span class="m">8</span>, <span class="m">0</span> Jan  <span class="m">8</span> <span class="m">10</span>:46 /dev/sda
+<div class="highlight"><pre><span></span><code>$ ls -l /dev/loop1  /dev/sd[a-z]
+brw-rw---- 1 root disk 7, 1 Jan  8 10:46 /dev/loop1
+brw-rw---- 1 root disk 8, 0 Jan  8 10:46 /dev/sda
 </code></pre></div>
 
 <p>Some block devices mostly used as one single filesystem (like CDs &amp; Floppies) and some are divided into <strong>Partitions</strong> (Hard disks).</p>
-<h2>fdisk</h2>
+<h3>fdisk</h3>
 <p><code>fdisk</code> is the main command for viewing / changing and creating partitions. <code>-l</code> switch is for show:</p>
-<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">fdisk</span><span class="w"> </span><span class="o">-</span><span class="n">l</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>root@funlife:~# fdisk -l /dev/sda
 
-<span class="k">Disk</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nl">sda</span><span class="p">:</span><span class="w"> </span><span class="mf">298.1</span><span class="w"> </span><span class="n">GiB</span><span class="p">,</span><span class="w"> </span><span class="mi">320072933376</span><span class="w"> </span><span class="n">bytes</span><span class="p">,</span><span class="w"> </span><span class="mi">625142448</span><span class="w"> </span><span class="n">sectors</span><span class="w"></span>
-<span class="nl">Units</span><span class="p">:</span><span class="w"> </span><span class="n">sectors</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="n">bytes</span><span class="w"></span>
-<span class="n">Sector</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="p">(</span><span class="n">logical</span><span class="o">/</span><span class="n">physical</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="n">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="n">bytes</span><span class="w"></span>
-<span class="n">I</span><span class="o">/</span><span class="n">O</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="p">(</span><span class="n">minimum</span><span class="o">/</span><span class="n">optimal</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="n">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="n">bytes</span><span class="w"></span>
-<span class="n">Disklabel</span><span class="w"> </span><span class="nl">type</span><span class="p">:</span><span class="w"> </span><span class="n">dos</span><span class="w"></span>
-<span class="k">Disk</span><span class="w"> </span><span class="nl">identifier</span><span class="p">:</span><span class="w"> </span><span class="mh">0x000beca1</span><span class="w"></span>
+Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x000beca1
 
-<span class="n">Device</span><span class="w">     </span><span class="n">Boot</span><span class="w">     </span><span class="k">Start</span><span class="w">       </span><span class="k">End</span><span class="w">   </span><span class="n">Sectors</span><span class="w">   </span><span class="k">Size</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="n">Type</span><span class="w"></span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span><span class="w">  </span><span class="o">*</span><span class="w">         </span><span class="mi">2048</span><span class="w">  </span><span class="mi">43094015</span><span class="w">  </span><span class="mi">43091968</span><span class="w">  </span><span class="mf">20.6</span><span class="n">G</span><span class="w"> </span><span class="mi">83</span><span class="w"> </span><span class="n">Linux</span><span class="w"></span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda2</span><span class="w">        </span><span class="mi">43094016</span><span class="w">  </span><span class="mi">92078390</span><span class="w">  </span><span class="mi">48984375</span><span class="w">  </span><span class="mf">23.4</span><span class="n">G</span><span class="w"> </span><span class="mi">83</span><span class="w"> </span><span class="n">Linux</span><span class="w"></span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span><span class="w">        </span><span class="mi">92080126</span><span class="w"> </span><span class="mi">625141759</span><span class="w"> </span><span class="mi">533061634</span><span class="w"> </span><span class="mf">254.2</span><span class="n">G</span><span class="w">  </span><span class="mi">5</span><span class="w"> </span><span class="n">Extended</span><span class="w"></span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda5</span><span class="w">        </span><span class="mi">92080128</span><span class="w"> </span><span class="mi">107702271</span><span class="w">  </span><span class="mi">15622144</span><span class="w">   </span><span class="mf">7.5</span><span class="n">G</span><span class="w"> </span><span class="mi">82</span><span class="w"> </span><span class="n">Linux</span><span class="w"> </span><span class="n">swap</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Solaris</span><span class="w"></span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span><span class="w">       </span><span class="mi">107704320</span><span class="w"> </span><span class="mi">625141759</span><span class="w"> </span><span class="mi">517437440</span><span class="w"> </span><span class="mf">246.8</span><span class="n">G</span><span class="w"> </span><span class="mi">83</span><span class="w"> </span><span class="n">Linux</span><span class="w"></span>
+Device     Boot     Start       End   Sectors   Size Id Type
+/dev/sda1  *         2048  43094015  43091968  20.6G 83 Linux
+/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
+/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
+/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
+/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
 </code></pre></div>
 
 <ul>
@@ -130,264 +124,264 @@ brw-rw---- <span class="m">1</span> root disk <span class="m">8</span>, <span cl
 <li>ID indicated the partition format (82 is swap, 83 is linux data, ..)</li>
 </ul>
 <p>It is also possible to run fdisk in interactive mode. <code>m</code> will show you the help:</p>
-<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">fdisk</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>root@funlife:~# fdisk /dev/sda
 
-<span class="n">Welcome</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">fdisk</span><span class="w"> </span><span class="p">(</span><span class="n">util</span><span class="o">-</span><span class="n">linux</span><span class="w"> </span><span class="mf">2.25.1</span><span class="p">).</span><span class="w"></span>
-<span class="n">Changes</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">remain</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">memory</span><span class="w"> </span><span class="k">only</span><span class="p">,</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">decide</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">write</span><span class="w"> </span><span class="n">them</span><span class="p">.</span><span class="w"></span>
-<span class="n">Be</span><span class="w"> </span><span class="n">careful</span><span class="w"> </span><span class="k">before</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">write</span><span class="w"> </span><span class="n">command</span><span class="p">.</span><span class="w"></span>
+Welcome to fdisk (util-linux 2.25.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
 
 
-<span class="n">Command</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">help</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="n">m</span><span class="w"></span>
+Command (m for help): m
 
-<span class="nl">Help</span><span class="p">:</span><span class="w"></span>
+Help:
 
-<span class="w">  </span><span class="n">DOS</span><span class="w"> </span><span class="p">(</span><span class="n">MBR</span><span class="p">)</span><span class="w"></span>
-<span class="w">   </span><span class="n">a</span><span class="w">   </span><span class="n">toggle</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">bootable</span><span class="w"> </span><span class="n">flag</span><span class="w"></span>
-<span class="w">   </span><span class="n">b</span><span class="w">   </span><span class="n">edit</span><span class="w"> </span><span class="n">nested</span><span class="w"> </span><span class="n">BSD</span><span class="w"> </span><span class="n">disklabel</span><span class="w"></span>
-<span class="w">   </span><span class="n">c</span><span class="w">   </span><span class="n">toggle</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">dos</span><span class="w"> </span><span class="n">compatibility</span><span class="w"> </span><span class="n">flag</span><span class="w"></span>
+  DOS (MBR)
+   a   toggle a bootable flag
+   b   edit nested BSD disklabel
+   c   toggle the dos compatibility flag
 
-<span class="w">  </span><span class="n">Generic</span><span class="w"></span>
-<span class="w">   </span><span class="n">d</span><span class="w">   </span><span class="k">delete</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">partition</span><span class="w"></span>
-<span class="w">   </span><span class="n">l</span><span class="w">   </span><span class="n">list</span><span class="w"> </span><span class="n">known</span><span class="w"> </span><span class="k">partition</span><span class="w"> </span><span class="n">types</span><span class="w"></span>
-<span class="w">   </span><span class="n">n</span><span class="w">   </span><span class="k">add</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="k">partition</span><span class="w"></span>
-<span class="w">   </span><span class="n">p</span><span class="w">   </span><span class="k">print</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">partition</span><span class="w"> </span><span class="nc">table</span><span class="w"></span>
-<span class="w">   </span><span class="n">t</span><span class="w">   </span><span class="n">change</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">partition</span><span class="w"> </span><span class="n">type</span><span class="w"></span>
-<span class="w">   </span><span class="n">v</span><span class="w">   </span><span class="n">verify</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">partition</span><span class="w"> </span><span class="nc">table</span><span class="w"></span>
+  Generic
+   d   delete a partition
+   l   list known partition types
+   n   add a new partition
+   p   print the partition table
+   t   change a partition type
+   v   verify the partition table
 
-<span class="w">  </span><span class="n">Misc</span><span class="w"></span>
-<span class="w">   </span><span class="n">m</span><span class="w">   </span><span class="k">print</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">menu</span><span class="w"></span>
-<span class="w">   </span><span class="n">u</span><span class="w">   </span><span class="n">change</span><span class="w"> </span><span class="n">display</span><span class="o">/</span><span class="n">entry</span><span class="w"> </span><span class="n">units</span><span class="w"></span>
-<span class="w">   </span><span class="n">x</span><span class="w">   </span><span class="n">extra</span><span class="w"> </span><span class="n">functionality</span><span class="w"> </span><span class="p">(</span><span class="n">experts</span><span class="w"> </span><span class="k">only</span><span class="p">)</span><span class="w"></span>
+  Misc
+   m   print this menu
+   u   change display/entry units
+   x   extra functionality (experts only)
 
-<span class="w">  </span><span class="k">Save</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="k">Exit</span><span class="w"></span>
-<span class="w">   </span><span class="n">w</span><span class="w">   </span><span class="k">write</span><span class="w"> </span><span class="nc">table</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">disk</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">exit</span><span class="w"></span>
-<span class="w">   </span><span class="n">q</span><span class="w">   </span><span class="n">quit</span><span class="w"> </span><span class="k">without</span><span class="w"> </span><span class="n">saving</span><span class="w"> </span><span class="n">changes</span><span class="w"></span>
+  Save &amp; Exit
+   w   write table to disk and exit
+   q   quit without saving changes
 
-<span class="w">  </span><span class="k">Create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">label</span><span class="w"></span>
-<span class="w">   </span><span class="n">g</span><span class="w">   </span><span class="k">create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="n">GPT</span><span class="w"> </span><span class="k">partition</span><span class="w"> </span><span class="nc">table</span><span class="w"></span>
-<span class="w">   </span><span class="n">G</span><span class="w">   </span><span class="k">create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="n">SGI</span><span class="w"> </span><span class="p">(</span><span class="n">IRIX</span><span class="p">)</span><span class="w"> </span><span class="k">partition</span><span class="w"> </span><span class="nc">table</span><span class="w"></span>
-<span class="w">   </span><span class="n">o</span><span class="w">   </span><span class="k">create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="n">DOS</span><span class="w"> </span><span class="k">partition</span><span class="w"> </span><span class="nc">table</span><span class="w"></span>
-<span class="w">   </span><span class="n">s</span><span class="w">   </span><span class="k">create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="n">Sun</span><span class="w"> </span><span class="k">partition</span><span class="w"> </span><span class="nc">table</span><span class="w"></span>
+  Create a new label
+   g   create a new empty GPT partition table
+   G   create a new empty SGI (IRIX) partition table
+   o   create a new empty DOS partition table
+   s   create a new empty Sun partition table
 </code></pre></div>
 
 <p><code>p</code> displays the current partitions:</p>
-<div class="highlight"><pre><span></span><code><span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">p</span>
-<span class="n">Disk</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="p">:</span> <span class="mi">298</span><span class="p">.</span><span class="mi">1</span> <span class="n">GiB</span><span class="p">,</span> <span class="mi">320072933376</span> <span class="n">bytes</span><span class="p">,</span> <span class="mi">625142448</span> <span class="n">sectors</span>
-<span class="n">Units</span><span class="p">:</span> <span class="n">sectors</span> <span class="k">of</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">512</span> <span class="o">=</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">Sector</span> <span class="k">size</span> <span class="p">(</span><span class="n">logical</span><span class="o">/</span><span class="n">physical</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="k">size</span> <span class="p">(</span><span class="n">minimum</span><span class="o">/</span><span class="n">optimal</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">Disklabel</span> <span class="k">type</span><span class="p">:</span> <span class="n">dos</span>
-<span class="n">Disk</span> <span class="n">identifier</span><span class="p">:</span> <span class="mi">0</span><span class="n">x000beca1</span>
+<div class="highlight"><pre><span></span><code>Command (m for help): p
+Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x000beca1
 
-<span class="n">Device</span>     <span class="n">Boot</span>     <span class="k">Start</span>       <span class="k">End</span>   <span class="n">Sectors</span>   <span class="k">Size</span> <span class="n">Id</span> <span class="k">Type</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span>  <span class="o">*</span>         <span class="mi">2048</span>  <span class="mi">43094015</span>  <span class="mi">43091968</span>  <span class="mi">20</span><span class="p">.</span><span class="mi">6</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda2</span>        <span class="mi">43094016</span>  <span class="mi">92078390</span>  <span class="mi">48984375</span>  <span class="mi">23</span><span class="p">.</span><span class="mi">4</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span>        <span class="mi">92080126</span> <span class="mi">625141759</span> <span class="mi">533061634</span> <span class="mi">254</span><span class="p">.</span><span class="mi">2</span><span class="k">G</span>  <span class="mi">5</span> <span class="n">Extended</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda5</span>        <span class="mi">92080128</span> <span class="mi">107702271</span>  <span class="mi">15622144</span>   <span class="mi">7</span><span class="p">.</span><span class="mi">5</span><span class="k">G</span> <span class="mi">82</span> <span class="n">Linux</span> <span class="n">swap</span> <span class="o">/</span> <span class="n">Solaris</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span>       <span class="mi">107704320</span> <span class="mi">625141759</span> <span class="mi">517437440</span> <span class="mi">246</span><span class="p">.</span><span class="mi">8</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
+Device     Boot     Start       End   Sectors   Size Id Type
+/dev/sda1  *         2048  43094015  43091968  20.6G 83 Linux
+/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
+/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
+/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
+/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
 </code></pre></div>
 
 <p>You may remember the disk layouts from other chapters. <code>fdisk</code> can create them. Lets first delete my first partition:</p>
-<div class="highlight"><pre><span></span><code><span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">p</span>
-<span class="n">Disk</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="p">:</span> <span class="mi">298</span><span class="p">.</span><span class="mi">1</span> <span class="n">GiB</span><span class="p">,</span> <span class="mi">320072933376</span> <span class="n">bytes</span><span class="p">,</span> <span class="mi">625142448</span> <span class="n">sectors</span>
-<span class="n">Units</span><span class="p">:</span> <span class="n">sectors</span> <span class="k">of</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">512</span> <span class="o">=</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">Sector</span> <span class="k">size</span> <span class="p">(</span><span class="n">logical</span><span class="o">/</span><span class="n">physical</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="k">size</span> <span class="p">(</span><span class="n">minimum</span><span class="o">/</span><span class="n">optimal</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">Disklabel</span> <span class="k">type</span><span class="p">:</span> <span class="n">dos</span>
-<span class="n">Disk</span> <span class="n">identifier</span><span class="p">:</span> <span class="mi">0</span><span class="n">x000beca1</span>
+<div class="highlight"><pre><span></span><code>Command (m for help): p
+Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x000beca1
 
-<span class="n">Device</span>     <span class="n">Boot</span>     <span class="k">Start</span>       <span class="k">End</span>   <span class="n">Sectors</span>   <span class="k">Size</span> <span class="n">Id</span> <span class="k">Type</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span>  <span class="o">*</span>         <span class="mi">2048</span>  <span class="mi">43094015</span>  <span class="mi">43091968</span>  <span class="mi">20</span><span class="p">.</span><span class="mi">6</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda2</span>        <span class="mi">43094016</span>  <span class="mi">92078390</span>  <span class="mi">48984375</span>  <span class="mi">23</span><span class="p">.</span><span class="mi">4</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span>        <span class="mi">92080126</span> <span class="mi">625141759</span> <span class="mi">533061634</span> <span class="mi">254</span><span class="p">.</span><span class="mi">2</span><span class="k">G</span>  <span class="mi">5</span> <span class="n">Extended</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda5</span>        <span class="mi">92080128</span> <span class="mi">107702271</span>  <span class="mi">15622144</span>   <span class="mi">7</span><span class="p">.</span><span class="mi">5</span><span class="k">G</span> <span class="mi">82</span> <span class="n">Linux</span> <span class="n">swap</span> <span class="o">/</span> <span class="n">Solaris</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span>       <span class="mi">107704320</span> <span class="mi">625141759</span> <span class="mi">517437440</span> <span class="mi">246</span><span class="p">.</span><span class="mi">8</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
+Device     Boot     Start       End   Sectors   Size Id Type
+/dev/sda1  *         2048  43094015  43091968  20.6G 83 Linux
+/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
+/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
+/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
+/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
 
 
-<span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">d</span>
-<span class="n">Partition</span> <span class="nb">number</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span> <span class="k">default</span> <span class="mi">6</span><span class="p">):</span> <span class="mi">1</span>
+Command (m for help): d
+Partition number (1-3,5,6, default 6): 1
 
-<span class="n">Partition</span> <span class="mi">1</span> <span class="n">has</span> <span class="n">been</span> <span class="n">deleted</span><span class="p">.</span>
+Partition 1 has been deleted.
 </code></pre></div>
 
 <p>I'm brave! Now lets create a smaller one there:</p>
-<div class="highlight"><pre><span></span><code><span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">n</span>
-<span class="n">Partition</span> <span class="k">type</span>
-   <span class="n">p</span>   <span class="k">primary</span> <span class="p">(</span><span class="mi">1</span> <span class="k">primary</span><span class="p">,</span> <span class="mi">1</span> <span class="n">extended</span><span class="p">,</span> <span class="mi">2</span> <span class="k">free</span><span class="p">)</span>
-   <span class="n">l</span>   <span class="n">logical</span> <span class="p">(</span><span class="n">numbered</span> <span class="k">from</span> <span class="mi">5</span><span class="p">)</span>
-<span class="k">Select</span> <span class="p">(</span><span class="k">default</span> <span class="n">p</span><span class="p">):</span> <span class="n">p</span>
-<span class="n">Partition</span> <span class="nb">number</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="k">default</span> <span class="mi">1</span><span class="p">):</span> <span class="mi">1</span>
-<span class="k">First</span> <span class="n">sector</span> <span class="p">(</span><span class="mi">2048</span><span class="o">-</span><span class="mi">625142447</span><span class="p">,</span> <span class="k">default</span> <span class="mi">2048</span><span class="p">):</span>
-<span class="k">Last</span> <span class="n">sector</span><span class="p">,</span> <span class="o">+</span><span class="n">sectors</span> <span class="k">or</span> <span class="o">+</span><span class="k">size</span><span class="err">{</span><span class="n">K</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="k">G</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">P</span><span class="err">}</span> <span class="p">(</span><span class="mi">2048</span><span class="o">-</span><span class="mi">43094015</span><span class="p">,</span> <span class="k">default</span> <span class="mi">43094015</span><span class="p">):</span> <span class="o">+</span><span class="mi">15</span><span class="k">G</span>
+<div class="highlight"><pre><span></span><code>Command (m for help): n
+Partition type
+   p   primary (1 primary, 1 extended, 2 free)
+   l   logical (numbered from 5)
+Select (default p): p
+Partition number (1,4, default 1): 1
+First sector (2048-625142447, default 2048):
+Last sector, +sectors or +size{K,M,G,T,P} (2048-43094015, default 43094015): +15G
 
-<span class="n">Created</span> <span class="n">a</span> <span class="k">new</span> <span class="n">partition</span> <span class="mi">1</span> <span class="k">of</span> <span class="k">type</span> <span class="s1">&#39;Linux&#39;</span> <span class="k">and</span> <span class="k">of</span> <span class="k">size</span> <span class="mi">15</span> <span class="n">GiB</span><span class="p">.</span>
+Created a new partition 1 of type &#39;Linux&#39; and of size 15 GiB.
 
-<span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">p</span>
-<span class="n">Disk</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="p">:</span> <span class="mi">298</span><span class="p">.</span><span class="mi">1</span> <span class="n">GiB</span><span class="p">,</span> <span class="mi">320072933376</span> <span class="n">bytes</span><span class="p">,</span> <span class="mi">625142448</span> <span class="n">sectors</span>
-<span class="n">Units</span><span class="p">:</span> <span class="n">sectors</span> <span class="k">of</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">512</span> <span class="o">=</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">Sector</span> <span class="k">size</span> <span class="p">(</span><span class="n">logical</span><span class="o">/</span><span class="n">physical</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="k">size</span> <span class="p">(</span><span class="n">minimum</span><span class="o">/</span><span class="n">optimal</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">Disklabel</span> <span class="k">type</span><span class="p">:</span> <span class="n">dos</span>
-<span class="n">Disk</span> <span class="n">identifier</span><span class="p">:</span> <span class="mi">0</span><span class="n">x000beca1</span>
+Command (m for help): p
+Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x000beca1
 
-<span class="n">Device</span>     <span class="n">Boot</span>     <span class="k">Start</span>       <span class="k">End</span>   <span class="n">Sectors</span>   <span class="k">Size</span> <span class="n">Id</span> <span class="k">Type</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span>            <span class="mi">2048</span>  <span class="mi">31459327</span>  <span class="mi">31457280</span>    <span class="mi">15</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda2</span>        <span class="mi">43094016</span>  <span class="mi">92078390</span>  <span class="mi">48984375</span>  <span class="mi">23</span><span class="p">.</span><span class="mi">4</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span>        <span class="mi">92080126</span> <span class="mi">625141759</span> <span class="mi">533061634</span> <span class="mi">254</span><span class="p">.</span><span class="mi">2</span><span class="k">G</span>  <span class="mi">5</span> <span class="n">Extended</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda5</span>        <span class="mi">92080128</span> <span class="mi">107702271</span>  <span class="mi">15622144</span>   <span class="mi">7</span><span class="p">.</span><span class="mi">5</span><span class="k">G</span> <span class="mi">82</span> <span class="n">Linux</span> <span class="n">swap</span> <span class="o">/</span> <span class="n">Solaris</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span>       <span class="mi">107704320</span> <span class="mi">625141759</span> <span class="mi">517437440</span> <span class="mi">246</span><span class="p">.</span><span class="mi">8</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
+Device     Boot     Start       End   Sectors   Size Id Type
+/dev/sda1            2048  31459327  31457280    15G 83 Linux
+/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
+/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
+/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
+/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
 </code></pre></div>
 
 <blockquote>
 <p>This new partitioned is not formatted but still marked 83 for later use. If I needed to use this partition as <strong>swap</strong> I had to set its ID to 82:</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code><span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">p</span>
-<span class="n">Disk</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="p">:</span> <span class="mi">298</span><span class="p">.</span><span class="mi">1</span> <span class="n">GiB</span><span class="p">,</span> <span class="mi">320072933376</span> <span class="n">bytes</span><span class="p">,</span> <span class="mi">625142448</span> <span class="n">sectors</span>
-<span class="n">Units</span><span class="p">:</span> <span class="n">sectors</span> <span class="k">of</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">512</span> <span class="o">=</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">Sector</span> <span class="k">size</span> <span class="p">(</span><span class="n">logical</span><span class="o">/</span><span class="n">physical</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="k">size</span> <span class="p">(</span><span class="n">minimum</span><span class="o">/</span><span class="n">optimal</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">Disklabel</span> <span class="k">type</span><span class="p">:</span> <span class="n">dos</span>
-<span class="n">Disk</span> <span class="n">identifier</span><span class="p">:</span> <span class="mi">0</span><span class="n">x000beca1</span>
+<div class="highlight"><pre><span></span><code>Command (m for help): p
+Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x000beca1
 
-<span class="n">Device</span>     <span class="n">Boot</span>     <span class="k">Start</span>       <span class="k">End</span>   <span class="n">Sectors</span>   <span class="k">Size</span> <span class="n">Id</span> <span class="k">Type</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span>            <span class="mi">2048</span>  <span class="mi">31459327</span>  <span class="mi">31457280</span>    <span class="mi">15</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda2</span>        <span class="mi">43094016</span>  <span class="mi">92078390</span>  <span class="mi">48984375</span>  <span class="mi">23</span><span class="p">.</span><span class="mi">4</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span>        <span class="mi">92080126</span> <span class="mi">625141759</span> <span class="mi">533061634</span> <span class="mi">254</span><span class="p">.</span><span class="mi">2</span><span class="k">G</span>  <span class="mi">5</span> <span class="n">Extended</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda5</span>        <span class="mi">92080128</span> <span class="mi">107702271</span>  <span class="mi">15622144</span>   <span class="mi">7</span><span class="p">.</span><span class="mi">5</span><span class="k">G</span> <span class="mi">82</span> <span class="n">Linux</span> <span class="n">swap</span> <span class="o">/</span> <span class="n">Solaris</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span>       <span class="mi">107704320</span> <span class="mi">625141759</span> <span class="mi">517437440</span> <span class="mi">246</span><span class="p">.</span><span class="mi">8</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
+Device     Boot     Start       End   Sectors   Size Id Type
+/dev/sda1            2048  31459327  31457280    15G 83 Linux
+/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
+/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
+/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
+/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
 
 
-<span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">t</span>
-<span class="n">Partition</span> <span class="nb">number</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span> <span class="k">default</span> <span class="mi">6</span><span class="p">):</span> <span class="mi">1</span>
-<span class="n">Hex</span> <span class="n">code</span> <span class="p">(</span><span class="k">type</span> <span class="n">L</span> <span class="k">to</span> <span class="n">list</span> <span class="k">all</span> <span class="n">codes</span><span class="p">):</span> <span class="n">L</span>
+Command (m for help): t
+Partition number (1-3,5,6, default 6): 1
+Hex code (type L to list all codes): L
 
- <span class="mi">0</span>  <span class="n">Empty</span>           <span class="mi">24</span>  <span class="n">NEC</span> <span class="n">DOS</span>         <span class="mi">81</span>  <span class="n">Minix</span> <span class="o">/</span> <span class="k">old</span> <span class="n">Lin</span> <span class="n">bf</span>  <span class="n">Solaris</span>        
- <span class="mi">1</span>  <span class="n">FAT12</span>           <span class="mi">27</span>  <span class="n">Hidden</span> <span class="n">NTFS</span> <span class="n">Win</span> <span class="mi">82</span>  <span class="n">Linux</span> <span class="n">swap</span> <span class="o">/</span> <span class="n">So</span> <span class="n">c1</span>  <span class="n">DRDOS</span><span class="o">/</span><span class="n">sec</span> <span class="p">(</span><span class="n">FAT</span><span class="o">-</span>
- <span class="mi">2</span>  <span class="n">XENIX</span> <span class="n">root</span>      <span class="mi">39</span>  <span class="n">Plan</span> <span class="mi">9</span>          <span class="mi">83</span>  <span class="n">Linux</span>           <span class="n">c4</span>  <span class="n">DRDOS</span><span class="o">/</span><span class="n">sec</span> <span class="p">(</span><span class="n">FAT</span><span class="o">-</span>
- <span class="mi">3</span>  <span class="n">XENIX</span> <span class="n">usr</span>       <span class="mi">3</span><span class="k">c</span>  <span class="n">PartitionMagic</span>  <span class="mi">84</span>  <span class="n">OS</span><span class="o">/</span><span class="mi">2</span> <span class="n">hidden</span> <span class="k">C</span><span class="p">:</span>  <span class="n">c6</span>  <span class="n">DRDOS</span><span class="o">/</span><span class="n">sec</span> <span class="p">(</span><span class="n">FAT</span><span class="o">-</span>
- <span class="mi">4</span>  <span class="n">FAT16</span> <span class="o">&lt;</span><span class="mi">32</span><span class="n">M</span>      <span class="mi">40</span>  <span class="n">Venix</span> <span class="mi">80286</span>     <span class="mi">85</span>  <span class="n">Linux</span> <span class="n">extended</span>  <span class="n">c7</span>  <span class="n">Syrinx</span>         
- <span class="mi">5</span>  <span class="n">Extended</span>        <span class="mi">41</span>  <span class="n">PPC</span> <span class="n">PReP</span> <span class="n">Boot</span>   <span class="mi">86</span>  <span class="n">NTFS</span> <span class="n">volume</span> <span class="k">set</span> <span class="n">da</span>  <span class="n">Non</span><span class="o">-</span><span class="n">FS</span> <span class="k">data</span>    
- <span class="mi">6</span>  <span class="n">FAT16</span>           <span class="mi">42</span>  <span class="n">SFS</span>             <span class="mi">87</span>  <span class="n">NTFS</span> <span class="n">volume</span> <span class="k">set</span> <span class="n">db</span>  <span class="n">CP</span><span class="o">/</span><span class="n">M</span> <span class="o">/</span> <span class="n">CTOS</span> <span class="o">/</span> <span class="p">.</span>
- <span class="mi">7</span>  <span class="n">HPFS</span><span class="o">/</span><span class="n">NTFS</span><span class="o">/</span><span class="n">exFAT</span> <span class="mi">4</span><span class="n">d</span>  <span class="n">QNX4</span><span class="p">.</span><span class="n">x</span>          <span class="mi">88</span>  <span class="n">Linux</span> <span class="n">plaintext</span> <span class="n">de</span>  <span class="n">Dell</span> <span class="n">Utility</span>   
- <span class="mi">8</span>  <span class="n">AIX</span>             <span class="mi">4</span><span class="n">e</span>  <span class="n">QNX4</span><span class="p">.</span><span class="n">x</span> <span class="mi">2</span><span class="n">nd</span> <span class="n">part</span> <span class="mi">8</span><span class="n">e</span>  <span class="n">Linux</span> <span class="n">LVM</span>       <span class="n">df</span>  <span class="n">BootIt</span>         
- <span class="mi">9</span>  <span class="n">AIX</span> <span class="n">bootable</span>    <span class="mi">4</span><span class="n">f</span>  <span class="n">QNX4</span><span class="p">.</span><span class="n">x</span> <span class="mi">3</span><span class="n">rd</span> <span class="n">part</span> <span class="mi">93</span>  <span class="n">Amoeba</span>          <span class="n">e1</span>  <span class="n">DOS</span> <span class="k">access</span>     
- <span class="n">a</span>  <span class="n">OS</span><span class="o">/</span><span class="mi">2</span> <span class="n">Boot</span> <span class="n">Manag</span> <span class="mi">50</span>  <span class="n">OnTrack</span> <span class="n">DM</span>      <span class="mi">94</span>  <span class="n">Amoeba</span> <span class="n">BBT</span>      <span class="n">e3</span>  <span class="n">DOS</span> <span class="n">R</span><span class="o">/</span><span class="n">O</span>        
- <span class="n">b</span>  <span class="n">W95</span> <span class="n">FAT32</span>       <span class="mi">51</span>  <span class="n">OnTrack</span> <span class="n">DM6</span> <span class="n">Aux</span> <span class="mi">9</span><span class="n">f</span>  <span class="n">BSD</span><span class="o">/</span><span class="n">OS</span>          <span class="n">e4</span>  <span class="n">SpeedStor</span>      
- <span class="k">c</span>  <span class="n">W95</span> <span class="n">FAT32</span> <span class="p">(</span><span class="n">LBA</span><span class="p">)</span> <span class="mi">52</span>  <span class="n">CP</span><span class="o">/</span><span class="n">M</span>            <span class="n">a0</span>  <span class="n">IBM</span> <span class="n">Thinkpad</span> <span class="n">hi</span> <span class="n">eb</span>  <span class="n">BeOS</span> <span class="n">fs</span>        
- <span class="n">e</span>  <span class="n">W95</span> <span class="n">FAT16</span> <span class="p">(</span><span class="n">LBA</span><span class="p">)</span> <span class="mi">53</span>  <span class="n">OnTrack</span> <span class="n">DM6</span> <span class="n">Aux</span> <span class="n">a5</span>  <span class="n">FreeBSD</span>         <span class="n">ee</span>  <span class="n">GPT</span>            
- <span class="n">f</span>  <span class="n">W95</span> <span class="n">Ext</span><span class="s1">&#39;d (LBA) 54  OnTrackDM6      a6  OpenBSD         ef  EFI (FAT-12/16/</span>
-<span class="s1">10  OPUS            55  EZ-Drive        a7  NeXTSTEP        f0  Linux/PA-RISC b</span>
-<span class="s1">11  Hidden FAT12    56  Golden Bow      a8  Darwin UFS      f1  SpeedStor      </span>
-<span class="s1">12  Compaq diagnost 5c  Priam Edisk     a9  NetBSD          f4  SpeedStor      </span>
-<span class="s1">14  Hidden FAT16 &lt;3 61  SpeedStor       ab  Darwin boot     f2  DOS secondary  </span>
-<span class="s1">16  Hidden FAT16    63  GNU HURD or Sys af  HFS / HFS+      fb  VMware VMFS    </span>
-<span class="s1">17  Hidden HPFS/NTF 64  Novell Netware  b7  BSDI fs         fc  VMware VMKCORE</span>
-<span class="s1">18  AST SmartSleep  65  Novell Netware  b8  BSDI swap       fd  Linux raid auto</span>
-<span class="s1">1b  Hidden W95 FAT3 70  DiskSecure Mult bb  Boot Wizard hid fe  LANstep        </span>
-<span class="s1">1c  Hidden W95 FAT3 75  PC/IX           be  Solaris boot    ff  BBT            </span>
-<span class="s1">1e  Hidden W95 FAT1 80  Old Minix      </span>
-<span class="s1">Hex code (type L to list all codes): 82</span>
+ 0  Empty           24  NEC DOS         81  Minix / old Lin bf  Solaris        
+ 1  FAT12           27  Hidden NTFS Win 82  Linux swap / So c1  DRDOS/sec (FAT-
+ 2  XENIX root      39  Plan 9          83  Linux           c4  DRDOS/sec (FAT-
+ 3  XENIX usr       3c  PartitionMagic  84  OS/2 hidden C:  c6  DRDOS/sec (FAT-
+ 4  FAT16 &lt;32M      40  Venix 80286     85  Linux extended  c7  Syrinx         
+ 5  Extended        41  PPC PReP Boot   86  NTFS volume set da  Non-FS data    
+ 6  FAT16           42  SFS             87  NTFS volume set db  CP/M / CTOS / .
+ 7  HPFS/NTFS/exFAT 4d  QNX4.x          88  Linux plaintext de  Dell Utility   
+ 8  AIX             4e  QNX4.x 2nd part 8e  Linux LVM       df  BootIt         
+ 9  AIX bootable    4f  QNX4.x 3rd part 93  Amoeba          e1  DOS access     
+ a  OS/2 Boot Manag 50  OnTrack DM      94  Amoeba BBT      e3  DOS R/O        
+ b  W95 FAT32       51  OnTrack DM6 Aux 9f  BSD/OS          e4  SpeedStor      
+ c  W95 FAT32 (LBA) 52  CP/M            a0  IBM Thinkpad hi eb  BeOS fs        
+ e  W95 FAT16 (LBA) 53  OnTrack DM6 Aux a5  FreeBSD         ee  GPT            
+ f  W95 Ext&#39;d (LBA) 54  OnTrackDM6      a6  OpenBSD         ef  EFI (FAT-12/16/
+10  OPUS            55  EZ-Drive        a7  NeXTSTEP        f0  Linux/PA-RISC b
+11  Hidden FAT12    56  Golden Bow      a8  Darwin UFS      f1  SpeedStor      
+12  Compaq diagnost 5c  Priam Edisk     a9  NetBSD          f4  SpeedStor      
+14  Hidden FAT16 &lt;3 61  SpeedStor       ab  Darwin boot     f2  DOS secondary  
+16  Hidden FAT16    63  GNU HURD or Sys af  HFS / HFS+      fb  VMware VMFS    
+17  Hidden HPFS/NTF 64  Novell Netware  b7  BSDI fs         fc  VMware VMKCORE
+18  AST SmartSleep  65  Novell Netware  b8  BSDI swap       fd  Linux raid auto
+1b  Hidden W95 FAT3 70  DiskSecure Mult bb  Boot Wizard hid fe  LANstep        
+1c  Hidden W95 FAT3 75  PC/IX           be  Solaris boot    ff  BBT            
+1e  Hidden W95 FAT1 80  Old Minix      
+Hex code (type L to list all codes): 82
 
-<span class="s1">Changed type of partition &#39;</span><span class="n">Linux</span><span class="s1">&#39; to &#39;</span><span class="n">Linux</span> <span class="n">swap</span> <span class="o">/</span> <span class="n">Solaris</span><span class="err">&#39;</span><span class="p">.</span>
+Changed type of partition &#39;Linux&#39; to &#39;Linux swap / Solaris&#39;.
 
-<span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">p</span>
-<span class="n">Disk</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="p">:</span> <span class="mi">298</span><span class="p">.</span><span class="mi">1</span> <span class="n">GiB</span><span class="p">,</span> <span class="mi">320072933376</span> <span class="n">bytes</span><span class="p">,</span> <span class="mi">625142448</span> <span class="n">sectors</span>
-<span class="n">Units</span><span class="p">:</span> <span class="n">sectors</span> <span class="k">of</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">512</span> <span class="o">=</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">Sector</span> <span class="k">size</span> <span class="p">(</span><span class="n">logical</span><span class="o">/</span><span class="n">physical</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="k">size</span> <span class="p">(</span><span class="n">minimum</span><span class="o">/</span><span class="n">optimal</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
-<span class="n">Disklabel</span> <span class="k">type</span><span class="p">:</span> <span class="n">dos</span>
-<span class="n">Disk</span> <span class="n">identifier</span><span class="p">:</span> <span class="mi">0</span><span class="n">x000beca1</span>
+Command (m for help): p
+Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x000beca1
 
-<span class="n">Device</span>     <span class="n">Boot</span>     <span class="k">Start</span>       <span class="k">End</span>   <span class="n">Sectors</span>   <span class="k">Size</span> <span class="n">Id</span> <span class="k">Type</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span>            <span class="mi">2048</span>  <span class="mi">31459327</span>  <span class="mi">31457280</span>    <span class="mi">15</span><span class="k">G</span> <span class="mi">82</span> <span class="n">Linux</span> <span class="n">swap</span> <span class="o">/</span> <span class="n">Solaris</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda2</span>        <span class="mi">43094016</span>  <span class="mi">92078390</span>  <span class="mi">48984375</span>  <span class="mi">23</span><span class="p">.</span><span class="mi">4</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span>        <span class="mi">92080126</span> <span class="mi">625141759</span> <span class="mi">533061634</span> <span class="mi">254</span><span class="p">.</span><span class="mi">2</span><span class="k">G</span>  <span class="mi">5</span> <span class="n">Extended</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda5</span>        <span class="mi">92080128</span> <span class="mi">107702271</span>  <span class="mi">15622144</span>   <span class="mi">7</span><span class="p">.</span><span class="mi">5</span><span class="k">G</span> <span class="mi">82</span> <span class="n">Linux</span> <span class="n">swap</span> <span class="o">/</span> <span class="n">Solaris</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span>       <span class="mi">107704320</span> <span class="mi">625141759</span> <span class="mi">517437440</span> <span class="mi">246</span><span class="p">.</span><span class="mi">8</span><span class="k">G</span> <span class="mi">83</span> <span class="n">Linux</span>
+Device     Boot     Start       End   Sectors   Size Id Type
+/dev/sda1            2048  31459327  31457280    15G 82 Linux swap / Solaris
+/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
+/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
+/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
+/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
 </code></pre></div>
 
 <blockquote>
 <p>b is code for FAT32 (windows 95).</p>
 </blockquote>
 <p>But all we done was in memory! We need to write it to the partition table. 'v' will verify the setup:</p>
-<div class="highlight"><pre><span></span><code><span class="err">Command (m for help): v</span>
-<span class="err">Remaining 11639159 unallocated 512-byte sectors.</span>
+<div class="highlight"><pre><span></span><code>Command (m for help): v
+Remaining 11639159 unallocated 512-byte sectors.
 </code></pre></div>
 
 <p>It tells me that I have unallocated space! I'm waisting my hard but I'm fine with it. So lets save it with <code>w</code> command (for write):</p>
-<div class="highlight"><pre><span></span><code><span class="n">Command</span> <span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">help</span><span class="p">):</span> <span class="n">w</span>
+<div class="highlight"><pre><span></span><code>Command (m for help): w
 
-<span class="n">The</span> <span class="n">partition</span> <span class="k">table</span> <span class="n">has</span> <span class="n">been</span> <span class="n">altered</span><span class="p">.</span>
-<span class="n">Calling</span> <span class="n">ioctl</span><span class="p">()</span> <span class="k">to</span> <span class="n">re</span><span class="o">-</span><span class="k">read</span> <span class="n">partition</span> <span class="k">table</span><span class="p">.</span>
-<span class="n">Re</span><span class="o">-</span><span class="n">reading</span> <span class="n">the</span> <span class="n">partition</span> <span class="k">table</span> <span class="n">failed</span><span class="p">.:</span> <span class="n">Device</span> <span class="k">or</span> <span class="n">resource</span> <span class="n">busy</span>
+The partition table has been altered.
+Calling ioctl() to re-read partition table.
+Re-reading the partition table failed.: Device or resource busy
 
-<span class="n">The</span> <span class="n">kernel</span> <span class="n">still</span> <span class="n">uses</span> <span class="n">the</span> <span class="k">old</span> <span class="k">table</span><span class="p">.</span> <span class="n">The</span> <span class="k">new</span> <span class="k">table</span> <span class="n">will</span> <span class="n">be</span> <span class="n">used</span> <span class="k">at</span> <span class="n">the</span> <span class="k">next</span> <span class="n">reboot</span> <span class="k">or</span> <span class="k">after</span> <span class="n">you</span> <span class="n">run</span> <span class="n">partprobe</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="k">or</span> <span class="n">kpartx</span><span class="p">(</span><span class="mi">8</span><span class="p">).</span>
+The kernel still uses the old table. The new table will be used at the next reboot or after you run partprobe(8) or kpartx(8).
 </code></pre></div>
 
-<h2>Formatting the partition</h2>
+<h3>Formatting the partition</h3>
 <p>Linux can handle more than 100 kind of partitions but most commons are:</p>
 <table>
 <thead>
 <tr>
-<th>Format</th>
-<th>Description</th>
+<th align="left">Format</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>ext2</td>
-<td>second extended filesystem was developed to address shortcomings in the Minix filesystem used in early versions of Linux. It has been used extensively on Linux for many years. There is no journaling in ext2, and it has largely been replaced by ext3 and more recently ext4.</td>
+<td align="left">ext2</td>
+<td align="left">second extended filesystem was developed to address shortcomings in the Minix filesystem used in early versions of Linux. It has been used extensively on Linux for many years. There is no journaling in ext2, and it has largely been replaced by ext3 and more recently ext4.</td>
 </tr>
 <tr>
-<td>ext3</td>
-<td>ext2 + journaling, total storage can be 1EXAByte and each file can be 16TB, ...</td>
+<td align="left">ext3</td>
+<td align="left">ext2 + journaling, total storage can be 1EXAByte and each file can be 16TB, ...</td>
 </tr>
 <tr>
-<td>ReiserFS</td>
-<td>ReiserFS is a B-tree-based filesystem, great for large numbers of small files, journaling, no longer in active development &amp; does not support SELinux, replaced with Reiser4.</td>
+<td align="left">ReiserFS</td>
+<td align="left">ReiserFS is a B-tree-based filesystem, great for large numbers of small files, journaling, no longer in active development &amp; does not support SELinux, replaced with Reiser4.</td>
 </tr>
 <tr>
-<td>XFS</td>
-<td>journaling, caches to RAM, great for uninterruptible power supplies</td>
+<td align="left">XFS</td>
+<td align="left">journaling, caches to RAM, great for uninterruptible power supplies</td>
 </tr>
 <tr>
-<td>swap</td>
-<td>Swap space must be formatted for use as swap space, but it is not generally considered a filesystem.</td>
+<td align="left">swap</td>
+<td align="left">Swap space must be formatted for use as swap space, but it is not generally considered a filesystem.</td>
 </tr>
 <tr>
-<td>vfat</td>
-<td>FAT32, no journaling, good for data exchange with windows, does not understand permissions and symbolic links</td>
+<td align="left">vfat</td>
+<td align="left">FAT32, no journaling, good for data exchange with windows, does not understand permissions and symbolic links</td>
 </tr>
 <tr>
-<td>ext4</td>
-<td>newer than ext3</td>
+<td align="left">ext4</td>
+<td align="left">newer than ext3</td>
 </tr>
 </tbody>
 </table>
-<p>You can format your partitions with <code>mkfs</code> command (and <code>mkswap</code> for swap). This is a front end to commands like  mkfs.ext3 for ext3, mkfs.ext4 for ext4 and mkfs.reiserfs for ReiserFS. full list of installed on your system is here:</p>
-<div class="highlight"><pre><span></span><code><span class="err">root@funlife:~# ls /sbin/mk*</span>
-<span class="err">/sbin/mkdosfs  /sbin/mkfs      /sbin/mkfs.cramfs  /sbin/mkfs.ext3  /sbin/mkfs.ext4dev  /sbin/mkfs.minix  /sbin/mkfs.ntfs  /sbin/mkhomedir_helper  /sbin/mkswap</span>
-<span class="err">/sbin/mke2fs   /sbin/mkfs.bfs  /sbin/mkfs.ext2    /sbin/mkfs.ext4  /sbin/mkfs.fat      /sbin/mkfs.msdos  /sbin/mkfs.vfat  /sbin/mkntfs</span>
+<p>You can format your partitions with <code>mkfs</code> command (and <code>mkswap</code> for swap). This is a front end to commands like mkfs.ext3 for ext3, mkfs.ext4 for ext4 and mkfs.reiserfs for ReiserFS. full list of installed on your system is here:</p>
+<div class="highlight"><pre><span></span><code>root@funlife:~# ls /sbin/mk*
+/sbin/mkdosfs  /sbin/mkfs      /sbin/mkfs.cramfs  /sbin/mkfs.ext3  /sbin/mkfs.ext4dev  /sbin/mkfs.minix  /sbin/mkfs.ntfs  /sbin/mkhomedir_helper  /sbin/mkswap
+/sbin/mke2fs   /sbin/mkfs.bfs  /sbin/mkfs.ext2    /sbin/mkfs.ext4  /sbin/mkfs.fat      /sbin/mkfs.msdos  /sbin/mkfs.vfat  /sbin/mkntfs
 </code></pre></div>
 
 <p>The main switch is <code>-type</code> (or <code>-t</code>) to specify the format:</p>
-<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">mkfs</span><span class="w"> </span><span class="o">-</span><span class="n">t</span><span class="w"> </span><span class="n">ext3</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span><span class="w"></span>
-<span class="n">mke2fs</span><span class="w"> </span><span class="mf">1.42.10</span><span class="w"> </span><span class="p">(</span><span class="mi">18</span><span class="o">-</span><span class="n">May</span><span class="o">-</span><span class="mi">2014</span><span class="p">)</span><span class="w"></span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span><span class="w"> </span><span class="k">contains</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">ext4</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="k">system</span><span class="w"></span>
-<span class="w">    </span><span class="k">last</span><span class="w"> </span><span class="n">mounted</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="o">/</span><span class="n">mnt</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">Mon</span><span class="w"> </span><span class="k">Dec</span><span class="w"> </span><span class="mi">22</span><span class="w"> </span><span class="mi">12</span><span class="err">:</span><span class="mi">04</span><span class="err">:</span><span class="mi">22</span><span class="w"> </span><span class="mi">2014</span><span class="w"></span>
-<span class="n">Proceed</span><span class="w"> </span><span class="n">anyway</span><span class="vm">?</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="n">y</span><span class="w"></span>
-<span class="n">Creating</span><span class="w"> </span><span class="n">filesystem</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="mi">5386496</span><span class="w"> </span><span class="mi">4</span><span class="n">k</span><span class="w"> </span><span class="n">blocks</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="mi">1349040</span><span class="w"> </span><span class="n">inodes</span><span class="w"></span>
-<span class="n">Filesystem</span><span class="w"> </span><span class="nl">UUID</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="n">b5aad86</span><span class="o">-</span><span class="n">b507</span><span class="o">-</span><span class="mi">41</span><span class="n">b9</span><span class="o">-</span><span class="n">a0ff</span><span class="o">-</span><span class="n">cf899cb92785</span><span class="w"></span>
-<span class="n">Superblock</span><span class="w"> </span><span class="n">backups</span><span class="w"> </span><span class="n">stored</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="nl">blocks</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="mi">32768</span><span class="p">,</span><span class="w"> </span><span class="mi">98304</span><span class="p">,</span><span class="w"> </span><span class="mi">163840</span><span class="p">,</span><span class="w"> </span><span class="mi">229376</span><span class="p">,</span><span class="w"> </span><span class="mi">294912</span><span class="p">,</span><span class="w"> </span><span class="mi">819200</span><span class="p">,</span><span class="w"> </span><span class="mi">884736</span><span class="p">,</span><span class="w"> </span><span class="mi">1605632</span><span class="p">,</span><span class="w"> </span><span class="mi">2654208</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="mi">4096000</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>root@funlife:~# mkfs -t ext3 /dev/sda1
+mke2fs 1.42.10 (18-May-2014)
+/dev/sda1 contains a ext4 file system
+    last mounted on /mnt on Mon Dec 22 12:04:22 2014
+Proceed anyway? (y,n) y
+Creating filesystem with 5386496 4k blocks and 1349040 inodes
+Filesystem UUID: 0b5aad86-b507-41b9-a0ff-cf899cb92785
+Superblock backups stored on blocks:
+    32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+    4096000
 
-<span class="n">Allocating</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="nl">tables</span><span class="p">:</span><span class="w"> </span><span class="n">done</span><span class="w">                            </span>
-<span class="n">Writing</span><span class="w"> </span><span class="n">inode</span><span class="w"> </span><span class="nl">tables</span><span class="p">:</span><span class="w"> </span><span class="n">done</span><span class="w">                            </span>
-<span class="n">Creating</span><span class="w"> </span><span class="n">journal</span><span class="w"> </span><span class="p">(</span><span class="mi">32768</span><span class="w"> </span><span class="n">blocks</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="n">done</span><span class="w"></span>
-<span class="n">Writing</span><span class="w"> </span><span class="n">superblocks</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">filesystem</span><span class="w"> </span><span class="n">accounting</span><span class="w"> </span><span class="nl">information</span><span class="p">:</span><span class="w"> </span><span class="n">done</span><span class="w">   </span>
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (32768 blocks): done
+Writing superblocks and filesystem accounting information: done   
 
-<span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"></span>
+root@funlife:~#
 </code></pre></div>
 
 <blockquote>
@@ -395,69 +389,69 @@ brw-rw---- <span class="m">1</span> root disk <span class="m">8</span>, <span cl
 </blockquote>
 <p>If you need to assign a lable to the partition, you have to use the <code>-L lable_name</code> option. Please note that in recent system, people use UUIDs instead of labels. UUID of a disk can be viewed with:</p>
 <div class="highlight"><pre><span></span><code>$ blkid /dev/sda1
-/dev/sda1: <span class="nv">UUID</span><span class="o">=</span><span class="s2">&quot;59d8cbdb-0e78-4605-8aaf-cf02fcb85d2e&quot;</span> <span class="nv">SEC_TYPE</span><span class="o">=</span><span class="s2">&quot;ext2&quot;</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">&quot;ext3&quot;</span>
+/dev/sda1: UUID=&quot;59d8cbdb-0e78-4605-8aaf-cf02fcb85d2e&quot; SEC_TYPE=&quot;ext2&quot; TYPE=&quot;ext3&quot;
 </code></pre></div>
 
-<h2>GPT</h2>
+<h3>GPT</h3>
 <p>Some systems use GUID Partition Table (GPT) instead of older MBR. In this case you have to use the <code>gdisk</code> tool which has more capabilities than <code>fdisk</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">gdisk</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="w"></span>
-<span class="n">GPT</span><span class="w"> </span><span class="n">fdisk</span><span class="w"> </span><span class="p">(</span><span class="n">gdisk</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="mf">0.8.8</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>root@funlife:~# gdisk /dev/sda
+GPT fdisk (gdisk) version 0.8.8
 
-<span class="k">Partition</span><span class="w"> </span><span class="nc">table</span><span class="w"> </span><span class="nl">scan</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nl">MBR</span><span class="p">:</span><span class="w"> </span><span class="n">MBR</span><span class="w"> </span><span class="k">only</span><span class="w"></span>
-<span class="w">  </span><span class="nl">BSD</span><span class="p">:</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">present</span><span class="w"></span>
-<span class="w">  </span><span class="nl">APM</span><span class="p">:</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">present</span><span class="w"></span>
-<span class="w">  </span><span class="nl">GPT</span><span class="p">:</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">present</span><span class="w"></span>
+Partition table scan:
+  MBR: MBR only
+  BSD: not present
+  APM: not present
+  GPT: not present
 
 
-<span class="o">***************************************************************</span><span class="w"></span>
-<span class="k">Found</span><span class="w"> </span><span class="n">invalid</span><span class="w"> </span><span class="n">GPT</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="n">MBR</span><span class="p">;</span><span class="w"> </span><span class="n">converting</span><span class="w"> </span><span class="n">MBR</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">GPT</span><span class="w"> </span><span class="nf">format</span><span class="w"></span>
-<span class="ow">in</span><span class="w"> </span><span class="n">memory</span><span class="p">.</span><span class="w"> </span><span class="n">THIS</span><span class="w"> </span><span class="k">OPERATION</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="n">POTENTIALLY</span><span class="w"> </span><span class="n">DESTRUCTIVE</span><span class="err">!</span><span class="w"> </span><span class="k">Exit</span><span class="w"> </span><span class="k">by</span><span class="w"></span>
-<span class="n">typing</span><span class="w"> </span><span class="s1">&#39;q&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">don</span><span class="err">&#39;</span><span class="n">t</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nf">convert</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">MBR</span><span class="w"> </span><span class="n">partitions</span><span class="w"></span>
-<span class="k">to</span><span class="w"> </span><span class="n">GPT</span><span class="w"> </span><span class="nf">format</span><span class="err">!</span><span class="w"></span>
-<span class="o">***************************************************************</span><span class="w"></span>
+***************************************************************
+Found invalid GPT and valid MBR; converting MBR to GPT format
+in memory. THIS OPERATION IS POTENTIALLY DESTRUCTIVE! Exit by
+typing &#39;q&#39; if you don&#39;t want to convert your MBR partitions
+to GPT format!
+***************************************************************
 </code></pre></div>
 
-<h3>creating different partitions</h3>
+<h4>creating different partitions</h4>
 <table>
 <thead>
 <tr>
-<th>Partition</th>
-<th>Format type</th>
-<th>Sample Command</th>
-<th>Notes</th>
+<th align="left">Partition</th>
+<th align="left">Format type</th>
+<th align="left">Sample Command</th>
+<th align="left">Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>/dev/sda3</td>
-<td>ext4</td>
-<td><code>mkfs -t ext4 -L data</code>/dev/sda3</td>
-<td>Named it <em>dafa</em>. Or use the <code>mkfs.ext4</code> command</td>
+<td align="left">/dev/sda3</td>
+<td align="left">ext4</td>
+<td align="left"><code>mkfs -t ext4 -L data</code>/dev/sda3</td>
+<td align="left">Named it <em>dafa</em>. Or use the <code>mkfs.ext4</code> command</td>
 </tr>
 <tr>
-<td>/dev/sdb2</td>
-<td>xfs</td>
-<td><code>mkfs -t xfs -i size=512 /dev/sdb2</code></td>
-<td>telling it to have larger inodes (normal is 256)</td>
+<td align="left">/dev/sdb2</td>
+<td align="left">xfs</td>
+<td align="left"><code>mkfs -t xfs -i size=512 /dev/sdb2</code></td>
+<td align="left">telling it to have larger inodes (normal is 256)</td>
 </tr>
 <tr>
-<td>/dev/sda8</td>
-<td>ReiserFS</td>
-<td><code>mkfs -t reiserfs /dev/sda8</code></td>
-<td>Or you can use <code>mkreiserfs</code> command.</td>
+<td align="left">/dev/sda8</td>
+<td align="left">ReiserFS</td>
+<td align="left"><code>mkfs -t reiserfs /dev/sda8</code></td>
+<td align="left">Or you can use <code>mkreiserfs</code> command.</td>
 </tr>
 <tr>
-<td>/dev/sdc</td>
-<td>FAT32</td>
-<td><code>mkfs -t vfat /dev/sdc</code></td>
-<td>Or you can use <code>mkfs.vfat</code> command</td>
+<td align="left">/dev/sdc</td>
+<td align="left">FAT32</td>
+<td align="left"><code>mkfs -t vfat /dev/sdc</code></td>
+<td align="left">Or you can use <code>mkfs.vfat</code> command</td>
 </tr>
 <tr>
-<td>/dev/sda2</td>
-<td>swap</td>
-<td><code>mkswap /dev/sda2</code></td>
-<td>will be used as swap space</td>
+<td align="left">/dev/sda2</td>
+<td align="left">swap</td>
+<td align="left"><code>mkswap /dev/sda2</code></td>
+<td align="left">will be used as swap space</td>
 </tr>
 </tbody>
 </table>
@@ -489,9 +483,21 @@ brw-rw---- <span class="m">1</span> root disk <span class="m">8</span>, <span cl
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:18:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#104-ref">104</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

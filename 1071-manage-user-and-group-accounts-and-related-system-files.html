@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 107, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="107.1 Manage user and group accounts and related system files "/>
 <meta property="og:url" content="./1071-manage-user-and-group-accounts-and-related-system-files.html" />
-<meta property="og:description" content="107.1 Manage user and group accounts and related system files Weight: 5 Candidates should be able to add, remove, suspend and change user accounts. Key Knowledge Areas Add, modify and remove users and groups. Manage user/group info in password/group databases. Create and manage special purpose and limited …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:29:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="107.1 Manage user and group accounts and related system files ">
-<meta name="twitter:description" content="107.1 Manage user and group accounts and related system files Weight: 5 Candidates should be able to add, remove, suspend and change user accounts. Key Knowledge Areas Add, modify and remove users and groups. Manage user/group info in password/group databases. Create and manage special purpose and limited …">
+<meta name="twitter:description" content="">
 
         <title>107.1 Manage user and group accounts and related system files  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,16 +76,16 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>107.1 Manage user and group accounts and related system files</h1>
+            <h2>107.1 Manage user and group accounts and related system files</h2>
 <p><em>Weight: 5</em></p>
 <p>Candidates should be able to add, remove, suspend and change user accounts.</p>
-<h2>Key Knowledge Areas</h2>
+<h3>Key Knowledge Areas</h3>
 <ul>
 <li>Add, modify and remove users and groups.</li>
 <li>Manage user/group info in password/group databases.</li>
 <li>Create and manage special purpose and limited accounts.</li>
 </ul>
-<h2>Terms and Utilities</h2>
+<h3>Terms and Utilities</h3>
 <ul>
 <li>/etc/passwd</li>
 <li>/etc/shadow</li>
@@ -102,11 +101,11 @@
 <li>userdel</li>
 <li>usermod</li>
 </ul>
-<h3>Changing password</h3>
+<h4>Changing password</h4>
 <p>Each user can change her password using the <code>passwd</code> command:</p>
 <div class="highlight"><pre><span></span><code>$ passwd
-Changing password <span class="k">for</span> jadi.
-<span class="o">(</span>current<span class="o">)</span> UNIX password:
+Changing password for jadi.
+(current) UNIX password:
 New password:
 Retype new password:
 passwd: password updated successfully
@@ -114,26 +113,26 @@ passwd: password updated successfully
 
 <p>If the password is too short or too similar to the previous one or even a dictionary word, the <code>passwd</code> command may refuse to change it. Also note that the commands asks for the <em>current password</em> first to make sure that some one is not using your computer to change your password.</p>
 <p>The root user can change any users password to anything (weak passwords) without providing their current password:</p>
-<div class="highlight"><pre><span></span><code><span class="err"># passwd jadi</span>
-<span class="err">New password:</span>
-<span class="err">BAD PASSWORD: it does not contain enough DIFFERENT characters</span>
-<span class="err">BAD PASSWORD: is too simple</span>
-<span class="err">Retype new password:</span>
-<span class="c">passwd: password updated successfully</span>
+<div class="highlight"><pre><span></span><code># passwd jadi
+New password:
+BAD PASSWORD: it does not contain enough DIFFERENT characters
+BAD PASSWORD: is too simple
+Retype new password:
+passwd: password updated successfully
 </code></pre></div>
 
-<h2>Users and groups</h2>
+<h3>Users and groups</h3>
 <p>Linux is a multi-user system so you should be able to manage these users. You should be able to <strong>add</strong>, <strong>remove</strong> and <strong>modify</strong> users.</p>
 <p>Linux also has the concept of <strong>groups</strong>. You can define groups, give privileges to them and make users members of these groups. For example there can be a "printer" group who has access to printings and you can add user "jadi" to this group.</p>
 <ul>
 <li>Each user can be a member of many different groups</li>
 <li>Each file belongs to one user and one group</li>
 </ul>
-<h3>Changing password</h3>
+<h4>Changing password</h4>
 <p>Each user can change her password using the <code>passwd</code> command:</p>
 <div class="highlight"><pre><span></span><code>$ passwd
-Changing password <span class="k">for</span> jadi.
-<span class="o">(</span>current<span class="o">)</span> UNIX password:
+Changing password for jadi.
+(current) UNIX password:
 New password:
 Retype new password:
 passwd: password updated successfully
@@ -141,108 +140,108 @@ passwd: password updated successfully
 
 <p>If the password is too short or too similar to the previous one or even a dictionary word, the <code>passwd</code> command may refuse to change it. Also note that the commands asks for the <em>current password</em> first to make sure that some one is not using your computer to change your password.</p>
 <p>The root user can change any users password to anything (weak passwords) without providing their current passwrd:</p>
-<div class="highlight"><pre><span></span><code><span class="err"># passwd jadi</span>
-<span class="err">New password:</span>
-<span class="err">BAD PASSWORD: it does not contain enough DIFFERENT characters</span>
-<span class="err">BAD PASSWORD: is too simple</span>
-<span class="err">Retype new password:</span>
-<span class="c">passwd: password updated successfully</span>
+<div class="highlight"><pre><span></span><code># passwd jadi
+New password:
+BAD PASSWORD: it does not contain enough DIFFERENT characters
+BAD PASSWORD: is too simple
+Retype new password:
+passwd: password updated successfully
 </code></pre></div>
 
-<h2>Managing Users</h2>
-<h3>Adding users</h3>
+<h3>Managing Users</h3>
+<h4>Adding users</h4>
 <p>Adding a user is done using the <code>useradd</code> command. Easy to remember! These are the main switches:</p>
 <table>
 <thead>
 <tr>
-<th>switch</th>
-<th>meaning</th>
+<th align="left">switch</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>-d</td>
-<td>home directory (-d /home/user)</td>
+<td align="left">-d</td>
+<td align="left">home directory (-d /home/user)</td>
 </tr>
 <tr>
-<td>-m</td>
-<td>create home directory</td>
+<td align="left">-m</td>
+<td align="left">create home directory</td>
 </tr>
 <tr>
-<td>-s</td>
-<td>specify shell</td>
+<td align="left">-s</td>
+<td align="left">specify shell</td>
 </tr>
 <tr>
-<td>-G</td>
-<td>add to additional groups</td>
+<td align="left">-G</td>
+<td align="left">add to additional groups</td>
 </tr>
 <tr>
-<td>-c</td>
-<td>comment. most of the time, users actual name. Use quotes if comments has spaces or special characters in them</td>
+<td align="left">-c</td>
+<td align="left">comment. most of the time, users actual name. Use quotes if comments has spaces or special characters in them</td>
 </tr>
 </tbody>
 </table>
 <p>On some systems <code>useradd</code> creates the home directory and on some, you have to specify the <code>-m</code> switch yourself. It is good to use it all the time.</p>
 <p>When a new user directory is being created, the system will copy the contents of <code>/etc/skel</code> to their home dir. <code>/etc/skel</code> is used as a template for the home of users.</p>
-<h3>Modifying users</h3>
+<h4>Modifying users</h4>
 <p>It supports most of the <code>useradd</code> switches. For example you can change <em>jadi</em>'s login shell by issuing <code>usermod -s /bin/csh jadi</code>. But there are 3 more switches:</p>
 <table>
 <thead>
 <tr>
-<th>switch</th>
-<th>meaning</th>
+<th align="left">switch</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>-L</td>
-<td>lock this account</td>
+<td align="left">-L</td>
+<td align="left">lock this account</td>
 </tr>
 <tr>
-<td>-U</td>
-<td>Unlock the account</td>
+<td align="left">-U</td>
+<td align="left">Unlock the account</td>
 </tr>
 <tr>
-<td>-aG</td>
-<td>add to more groups (say <code>usermod -aG wheel jadi</code>)</td>
+<td align="left">-aG</td>
+<td align="left">add to more groups (say <code>usermod -aG wheel jadi</code>)</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
 <p>Note: If you do <code>usermod -G wheel,users jadi</code>, jadi will be ONLY the member of these two groups. That is why we use <code>-aG newgoup</code> to ADD a new group to what jadi is a member of. <code>-G</code> is like saying "jadis groups are ..." and <code>-aG</code> is like "add this group to whatever groups jadi is a member of".</p>
 </blockquote>
-<h3>Deleting users</h3>
+<h4>Deleting users</h4>
 <p>If you want to remove a user, use <code>userdel</code> as easy as:</p>
-<div class="highlight"><pre><span></span><code><span class="err">userdel jadi</span>
+<div class="highlight"><pre><span></span><code>userdel jadi
 </code></pre></div>
 
 <p>If you add the <code>-r</code> swtich, the home direcoty and mail spool will be erased too!</p>
-<h2>Managing Groups</h2>
+<h3>Managing Groups</h3>
 <p>It is kind of same as users, you can do <code>groupadd</code>, <code>groupdel</code> and <code>groupmod</code>. Each group as an id an a name.</p>
-<div class="highlight"><pre><span></span><code><span class="err"># groupadd -g 1200 newgroup</span>
+<div class="highlight"><pre><span></span><code># groupadd -g 1200 newgroup
 </code></pre></div>
 
 <p>adds a group called <em>newgroup</em> with id 1200. If needed, the root user can change a groups ID (to 2000) by issuing <code>groupmod -g 2000 newgroup</code> or deleting the group by <code>groupdel newgroup</code>.</p>
 <blockquote>
 <p>Note: If root deletes a group with members, people wont be deleted! They will just wont be the members of that group anymore.</p>
 </blockquote>
-<h2>Important files</h2>
-<h3>/etc/passwd</h3>
+<h3>Important files</h3>
+<h4>/etc/passwd</h4>
 <p>This is the file which contains all the user names and their shells, etc, ..</p>
-<div class="highlight"><pre><span></span><code><span class="err">tail /etc/passwd</span>
-<span class="c">scard:x:491:489:Smart Card Reader:/var/run/pcscd:/usr/sbin/nologin</span>
-<span class="c">sshd:x:493:491:SSH daemon:/var/lib/sshd:/bin/false</span>
-<span class="c">statd:x:488:65534:NFS statd daemon:/var/lib/nfs:/sbin/nologin</span>
-<span class="c">tftp:x:496:493:TFTP account:/srv/tftpboot:/bin/false</span>
-<span class="c">lightdm:x:10:14:Light Display Manager:/var/lib/lightdm:/bin/false</span>
-<span class="c">wwwrun:x:30:8:WWW daemon apache:/var/lib/wwwrun:/bin/false</span>
-<span class="c">jadi:x:1000:100:jadi:/home/jadi:/bin/bash</span>
-<span class="c">svn:x:485:482:user for Apache Subversion svnserve:/srv/svn:/sbin/nologin</span>
-<span class="c">privoxy:x:484:480:Daemon user for privoxy:/var/lib/privoxy:/bin/false</span>
+<div class="highlight"><pre><span></span><code>tail /etc/passwd
+scard:x:491:489:Smart Card Reader:/var/run/pcscd:/usr/sbin/nologin
+sshd:x:493:491:SSH daemon:/var/lib/sshd:/bin/false
+statd:x:488:65534:NFS statd daemon:/var/lib/nfs:/sbin/nologin
+tftp:x:496:493:TFTP account:/srv/tftpboot:/bin/false
+lightdm:x:10:14:Light Display Manager:/var/lib/lightdm:/bin/false
+wwwrun:x:30:8:WWW daemon apache:/var/lib/wwwrun:/bin/false
+jadi:x:1000:100:jadi:/home/jadi:/bin/bash
+svn:x:485:482:user for Apache Subversion svnserve:/srv/svn:/sbin/nologin
+privoxy:x:484:480:Daemon user for privoxy:/var/lib/privoxy:/bin/false
 </code></pre></div>
 
 <p>As you can see the format is:</p>
-<div class="highlight"><pre><span></span><code><span class="n">username</span><span class="o">:</span><span class="n">password</span><span class="o">:</span><span class="n">userid</span><span class="o">:</span><span class="n">primary</span> <span class="n">group</span> <span class="n">id</span><span class="o">:</span><span class="n">Name</span> <span class="n">and</span> <span class="n">comments</span><span class="o">:</span><span class="n">home</span> <span class="n">dir</span><span class="o">:</span><span class="n">shell</span>
+<div class="highlight"><pre><span></span><code>username:password:userid:primary group id:Name and comments:home dir:shell
 </code></pre></div>
 
 <p>In old days the password or the hashed password was actually shown in this file but nowadays that is moved to the /etc/shadow file.</p>
@@ -250,24 +249,24 @@ passwd: password updated successfully
 <p>Note: /etc/passwd should be readable to all users so it is not a good place for password! These days if there is a <code>x</code> instead of password, it means <em>go look at the /etc/shadow</em> file.</p>
 </blockquote>
 <p>Note how <em>special users</em> like lightdm are having /bin/false as their shell; this prevents them from logging into the system for real.</p>
-<h3>/etc/shadow</h3>
+<h4>/etc/shadow</h4>
 <p>This file contains password (hashed passwords) of the users. See how the /etc/passwd is readable for all but /etc/shadow is only readable for root and members of the <code>shadow</code> group:</p>
-<div class="highlight"><pre><span></span><code><span class="err"># ls -ltrh /etc/passwd /etc/shadow</span>
-<span class="err">-rw-r--r-- 1 root root   1.9K Oct 28 15:47 /etc/passwd</span>
-<span class="err">-rw-r----- 1 root shadow  851 Oct 29 19:06 /etc/shadow</span>
+<div class="highlight"><pre><span></span><code># ls -ltrh /etc/passwd /etc/shadow
+-rw-r--r-- 1 root root   1.9K Oct 28 15:47 /etc/passwd
+-rw-r----- 1 root shadow  851 Oct 29 19:06 /etc/shadow
 </code></pre></div>
 
 <p>But what is in it?</p>
-<div class="highlight"><pre><span></span><code><span class="err"># tail /etc/shadow</span>
-<span class="c">scard:!:16369::::::</span>
-<span class="c">sshd:!:16369::::::</span>
-<span class="c">statd:!:16369::::::</span>
-<span class="c">tftp:!:16369::::::</span>
-<span class="c">uucp:*:16369::::::</span>
-<span class="c">lightdm:*:16369::::::</span>
-<span class="c">jadi:$6$enk5I3bv$uSQrRpen7m9xDapYLgwgh3P/71OLZUgj31n8AwzgIM2lA5Hc/BmRVAMC0eswdBGkseuXSvmaz0lsYFtduvuqUo:16737:0:99999:7:::</span>
-<span class="c">svn:!:16736::::::</span>
-<span class="c">privoxy:!:16736::::::</span>
+<div class="highlight"><pre><span></span><code># tail /etc/shadow
+scard:!:16369::::::
+sshd:!:16369::::::
+statd:!:16369::::::
+tftp:!:16369::::::
+uucp:*:16369::::::
+lightdm:*:16369::::::
+jadi:$6$enk5I3bv$uSQrRpen7m9xDapYLgwgh3P/71OLZUgj31n8AwzgIM2lA5Hc/BmRVAMC0eswdBGkseuXSvmaz0lsYFtduvuqUo:16737:0:99999:7:::
+svn:!:16736::::::
+privoxy:!:16736::::::
 </code></pre></div>
 
 <blockquote>
@@ -277,26 +276,26 @@ passwd: password updated successfully
 <table>
 <thead>
 <tr>
-<th>filed</th>
-<th>meaning</th>
+<th align="left">filed</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>16737</td>
-<td>When was the last time this password changes</td>
+<td align="left">16737</td>
+<td align="left">When was the last time this password changes</td>
 </tr>
 <tr>
-<td>0</td>
-<td>User wont be able to change the password 0 days after each change</td>
+<td align="left">0</td>
+<td align="left">User wont be able to change the password 0 days after each change</td>
 </tr>
 <tr>
-<td>99999</td>
-<td>After this many days, the user HAVE to change his password</td>
+<td align="left">99999</td>
+<td align="left">After this many days, the user HAVE to change his password</td>
 </tr>
 <tr>
-<td>7</td>
-<td>...and the user will be informed 7 days before the expiration to change his password</td>
+<td align="left">7</td>
+<td align="left">...and the user will be informed 7 days before the expiration to change his password</td>
 </tr>
 </tbody>
 </table>
@@ -307,61 +306,61 @@ passwd: password updated successfully
 <table>
 <thead>
 <tr>
-<th>switch</th>
-<th>meaning</th>
+<th align="left">switch</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>-l</td>
-<td>list information</td>
+<td align="left">-l</td>
+<td align="left">list information</td>
 </tr>
 <tr>
-<td>-E</td>
-<td>Set the expiration date. Date can be a number, in YYYY-MM-DD format or -1 which will mean <em>never</em></td>
+<td align="left">-E</td>
+<td align="left">Set the expiration date. Date can be a number, in YYYY-MM-DD format or -1 which will mean <em>never</em></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code><span class="err"># chage -l jadi</span>
-<span class="err">Last password change                    : Oct 29, 2015</span>
-<span class="err">Password expires                    : never</span>
-<span class="err">Password inactive                   : never</span>
-<span class="err">Account expires                     : never</span>
-<span class="err">Minimum number of days between password change      : 0</span>
-<span class="err">Maximum number of days between password change      : 99999</span>
-<span class="err">Number of days of warning before password expires   : 7</span>
+<div class="highlight"><pre><span></span><code># chage -l jadi
+Last password change                    : Oct 29, 2015
+Password expires                    : never
+Password inactive                    : never
+Account expires                        : never
+Minimum number of days between password change        : 0
+Maximum number of days between password change        : 99999
+Number of days of warning before password expires    : 7
 </code></pre></div>
 
-<h3>/etc/group</h3>
+<h4>/etc/group</h4>
 <p>This file contains the groups and their IDs.</p>
-<div class="highlight"><pre><span></span><code><span class="err"># tail /etc/group</span>
-<span class="c">avahi:x:486:</span>
-<span class="c">kdm:!:485:</span>
-<span class="c">mysql:x:484:</span>
-<span class="c">winbind:x:483:</span>
-<span class="c">at:x:25:</span>
-<span class="c">svn:x:482:</span>
-<span class="c">vboxusers:x:481:</span>
-<span class="c">input:x:1000:jadi</span>
-<span class="c">privoxy:x:480:</span>
+<div class="highlight"><pre><span></span><code># tail /etc/group
+avahi:x:486:
+kdm:!:485:
+mysql:x:484:
+winbind:x:483:
+at:x:25:
+svn:x:482:
+vboxusers:x:481:
+input:x:1000:jadi
+privoxy:x:480:
 </code></pre></div>
 
 <blockquote>
 <p>Note: See that <code>x</code> there? Theoretically groups can have passwords but it is never used in any distro! The file is /etc/gshadow</p>
 </blockquote>
-<h2>checking user info</h2>
+<h3>checking user info</h3>
 <p>Previously you saw the <code>chage -l jadi</code> but there are more commands for checking user status. One is <code>id</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="err"># id jadi</span>
-<span class="err">uid=1000(jadi) gid=100(users) groups=1000(input),100(users)</span>
+<div class="highlight"><pre><span></span><code># id jadi
+uid=1000(jadi) gid=100(users) groups=1000(input),100(users)
 </code></pre></div>
 
 <p>Another solution is <code>getent</code> (for <strong>get entry</strong>). It can query important <em>databases</em> for specific entries. These databases include /etc/passwd, /etc/hosts, /etc/shadow, /etc/group, ...</p>
-<div class="highlight"><pre><span></span><code><span class="c">funlife:~ # getent group tor</span>
-<span class="c">tor:x:479:</span>
-<span class="c">funlife:~ # getent passwd jadi</span>
-<span class="c">jadi:x:1000:100:jadi:/home/jadi:/bin/bash</span>
-<span class="c">funlife:~ # getent shadow jadi</span>
-<span class="c">jadi:$6$enk5I3bv$uSQrRpen7m9xDapYLgwgh3P/71OLZUgj31n8AwzgIM2lA5Hc/BmRVAMC0eswdBGkseuXSvmaz0lsYFtduvuqUo:16737:0:99999:7:::</span>
+<div class="highlight"><pre><span></span><code>funlife:~ # getent group tor
+tor:x:479:
+funlife:~ # getent passwd jadi
+jadi:x:1000:100:jadi:/home/jadi:/bin/bash
+funlife:~ # getent shadow jadi
+jadi:$6$enk5I3bv$uSQrRpen7m9xDapYLgwgh3P/71OLZUgj31n8AwzgIM2lA5Hc/BmRVAMC0eswdBGkseuXSvmaz0lsYFtduvuqUo:16737:0:99999:7:::
 </code></pre></div>
 
 <p>.</p>
@@ -393,9 +392,21 @@ passwd: password updated successfully
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:29:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#107-ref">107</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 108, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="108.3 Mail Transfer Agent (MTA) basics "/>
 <meta property="og:url" content="./1083-mail-transfer-agent-mta-basics.html" />
-<meta property="og:description" content="108.3 Mail Transfer Agent (MTA) basics Weight: 3 Candidates should be aware of the commonly available MTA programs and be able to perform basic forward and alias configuration on a client host. Other configuration files are not covered. Key Knowledge Areas Create e-mail aliases. Configure e-mail forwarding. Knowledge of …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:34:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="108.3 Mail Transfer Agent (MTA) basics ">
-<meta name="twitter:description" content="108.3 Mail Transfer Agent (MTA) basics Weight: 3 Candidates should be aware of the commonly available MTA programs and be able to perform basic forward and alias configuration on a client host. Other configuration files are not covered. Key Knowledge Areas Create e-mail aliases. Configure e-mail forwarding. Knowledge of …">
+<meta name="twitter:description" content="">
 
         <title>108.3 Mail Transfer Agent (MTA) basics  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,16 +76,16 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>108.3 Mail Transfer Agent (MTA) basics</h1>
+            <h2>108.3 Mail Transfer Agent (MTA) basics</h2>
 <p><em>Weight: 3</em></p>
 <p>Candidates should be aware of the commonly available MTA programs and be able to perform basic forward and alias configuration on a client host. Other configuration files are not covered.</p>
-<h2>Key Knowledge Areas</h2>
+<h3>Key Knowledge Areas</h3>
 <ul>
 <li>Create e-mail aliases.</li>
 <li>Configure e-mail forwarding.</li>
 <li>Knowledge of commonly available MTA programs (postfix, sendmail, qmail, exim) (no configuration)</li>
 </ul>
-<h2>Terms and Utilities</h2>
+<h3>Terms and Utilities</h3>
 <ul>
 <li>~/.forward</li>
 <li>sendmail emulation layer commands</li>
@@ -98,30 +97,30 @@
 <li>exim</li>
 <li>qmail</li>
 </ul>
-<h2>MTAs</h2>
+<h3>MTAs</h3>
 <p>Mai Transfer Agents or MTAs are programs which handle emails in your operating system. There are lot of MTAs available and each distro or sysadmin uses the one she likes more.</p>
-<h3>sendmail</h3>
+<h4>sendmail</h4>
 <p>Is one of the oldest options available. It is big and difficult to configure and keep safe and secure so very few systems use it as default MTA.</p>
-<h3>qmail</h3>
+<h4>qmail</h4>
 <p>qmail is an attempt to provide an ultra secure MTA while keeping the MTA compatible with sendmail ideas. It is modular and claims to be free of any security bug. It also claim to be the 2nd popular mail agent on the Internet.</p>
 <blockquote>
 <p>qmail is not a GPL software. It is Public Domain.</p>
 </blockquote>
-<h3>exim</h3>
+<h4>exim</h4>
 <p>It aims to be a general and flexible mailer with extensive facilities for checking incoming e-mail. It is feature rich with ACLs, authentication, ...</p>
-<h3>postfix</h3>
+<h4>postfix</h4>
 <p>This is a new alternative to sendmail and uses easy to understand configuration files. It supports multiple domains, encryption, etc. Postfix is what you may find on most distros as default.</p>
-<h2>sendmail emulation layer</h2>
+<h3>sendmail emulation layer</h3>
 <p>As I already said, <code>sendmail</code> is the oldest MTA which is still active. Other MTAs respect his age and provide a <em>sendmail emulation layer</em> to keep themselves backward compatible with it. In other words you can type <code>sendmail</code> or <code>mailq</code> on your command line regardless of what MTA you've installed.</p>
-<h2>aliases</h2>
+<h3>aliases</h3>
 <p>There are some mail aliases on the system. Defined in <code>/etc/aliases</code>.</p>
 <div class="highlight"><pre><span></span><code>$ cat /etc/aliases
-<span class="c1"># /etc/aliases</span>
+# /etc/aliases
 mailer-daemon: postmaster
 postmaster: root
 nobody: root
 hostmaster: root
-usenet: root    <span class="c1"># &lt;--- I&#39;m using this sample</span>
+usenet: root    # &lt;--- I&#39;m using this sample
 news: root
 webmaster: root
 www: root
@@ -132,75 +131,74 @@ security: root
 root: jadi
 </code></pre></div>
 
-<p>This tells the system if there is a message for 'usenet' it will sent to the <code>root</code> user. Note that in the last line, <code>jadi</code> is reading the <code>root</code> emails. This line lets me read emails sent to root without needing
-to login with root.</p>
+<p>This tells the system if there is a message for 'usenet' it will sent to the <code>root</code> user. Note that in the last line, <code>jadi</code> is reading the <code>root</code> emails. This line lets me read emails sent to root without needing to login with root.</p>
 <blockquote>
 <p>when this file is update, the <code>newaliases</code> should be run!</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code><span class="err">root@funlife:~# newaliases</span>
-<span class="err">root@funlife:~#</span>
+<div class="highlight"><pre><span></span><code>root@funlife:~# newaliases
+root@funlife:~#
 </code></pre></div>
 
-<h2>sending mail</h2>
+<h3>sending mail</h3>
 <p>It is possible to send an email from the command line using the <code>mail</code> command:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@funlife ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">mail</span><span class="w"> </span><span class="n">news</span><span class="w"></span>
-<span class="nl">Subject</span><span class="p">:</span><span class="w"> </span><span class="n">Email</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">news</span><span class="w"> </span><span class="k">user</span><span class="w"></span>
-<span class="n">hahah</span><span class="p">..</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">know</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">go</span><span class="p">.</span><span class="w"></span>
-<span class="n">this</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">go</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">jadi</span><span class="err">!</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ mail news
+Subject: Email to news user
+hahah.. we know where this will go.
+this will go to root and then to jadi!
 
-<span class="n">Hi</span><span class="w"> </span><span class="n">Jadi</span><span class="err">!</span><span class="w"></span>
+Hi Jadi!
 
-<span class="nl">Cc</span><span class="p">:</span><span class="w"></span>
-<span class="o">[</span><span class="n">jadi@funlife ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">mail</span><span class="w"></span>
-<span class="n">Mail</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="mf">8.1.2</span><span class="w"> </span><span class="mi">01</span><span class="o">/</span><span class="mi">15</span><span class="o">/</span><span class="mf">2001.</span><span class="w">  </span><span class="n">Type</span><span class="w"> </span><span class="vm">?</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">help</span><span class="p">.</span><span class="w"></span>
-<span class="ss">&quot;/var/mail/jadi&quot;</span><span class="err">:</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="n">messages</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="k">new</span><span class="w"></span>
-<span class="o">&gt;</span><span class="n">N</span><span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Sat</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">02</span><span class="w"> </span><span class="mi">08</span><span class="err">:</span><span class="mi">50</span><span class="w">   </span><span class="mi">39</span><span class="o">/</span><span class="mi">1373</span><span class="w">  </span><span class="n">apt</span><span class="o">-</span><span class="nl">listchanges</span><span class="p">:</span><span class="w"> </span><span class="n">news</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">f</span><span class="w"></span>
-<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">2</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Sat</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">02</span><span class="w"> </span><span class="mi">09</span><span class="err">:</span><span class="mi">01</span><span class="w">  </span><span class="mi">165</span><span class="o">/</span><span class="mi">7438</span><span class="w">  </span><span class="n">apt</span><span class="o">-</span><span class="nl">listchanges</span><span class="p">:</span><span class="w"> </span><span class="n">news</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">f</span><span class="w"></span>
-<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">3</span><span class="w"> </span><span class="n">jadi</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Sat</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">02</span><span class="w"> </span><span class="mi">19</span><span class="err">:</span><span class="mi">58</span><span class="w">   </span><span class="mi">18</span><span class="o">/</span><span class="mi">640</span><span class="w">   </span><span class="o">***</span><span class="w"> </span><span class="n">SECURITY</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="n">fo</span><span class="w"></span>
-<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">4</span><span class="w"> </span><span class="n">jadi</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Sat</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">02</span><span class="w"> </span><span class="mi">20</span><span class="err">:</span><span class="mi">04</span><span class="w">   </span><span class="mi">18</span><span class="o">/</span><span class="mi">631</span><span class="w">   </span><span class="o">***</span><span class="w"> </span><span class="n">SECURITY</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="n">fo</span><span class="w"></span>
-<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">5</span><span class="w"> </span><span class="n">jadi</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Sun</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">03</span><span class="w"> </span><span class="mi">10</span><span class="err">:</span><span class="mi">15</span><span class="w">   </span><span class="mi">18</span><span class="o">/</span><span class="mi">664</span><span class="w">   </span><span class="o">***</span><span class="w"> </span><span class="n">SECURITY</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="n">fo</span><span class="w"></span>
-<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">6</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Mon</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">04</span><span class="w"> </span><span class="mi">12</span><span class="err">:</span><span class="mi">42</span><span class="w">   </span><span class="mi">27</span><span class="o">/</span><span class="mi">941</span><span class="w">   </span><span class="n">Cron</span><span class="w"> </span><span class="o">&lt;</span><span class="n">jadi</span><span class="nv">@funlife</span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">j</span><span class="w"></span>
-<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">7</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Mon</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">04</span><span class="w"> </span><span class="mi">17</span><span class="err">:</span><span class="mi">11</span><span class="w">   </span><span class="mi">26</span><span class="o">/</span><span class="mi">845</span><span class="w">   </span><span class="n">apt</span><span class="o">-</span><span class="nl">listchanges</span><span class="p">:</span><span class="w"> </span><span class="n">news</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">f</span><span class="w"></span>
-<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">8</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Tue</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">05</span><span class="w"> </span><span class="mi">18</span><span class="err">:</span><span class="mi">42</span><span class="w">   </span><span class="mi">27</span><span class="o">/</span><span class="mi">945</span><span class="w">   </span><span class="n">Cron</span><span class="w"> </span><span class="o">&lt;</span><span class="n">jadi</span><span class="nv">@funlife</span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">j</span><span class="w"></span>
-<span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="mi">9</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Wed</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">06</span><span class="w"> </span><span class="mi">09</span><span class="err">:</span><span class="mi">17</span><span class="w">   </span><span class="mi">46</span><span class="o">/</span><span class="mi">1788</span><span class="w">  </span><span class="n">apt</span><span class="o">-</span><span class="nl">listchanges</span><span class="p">:</span><span class="w"> </span><span class="n">news</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">f</span><span class="w"></span>
-<span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Thu</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">07</span><span class="w"> </span><span class="mi">12</span><span class="err">:</span><span class="mi">42</span><span class="w">   </span><span class="mi">27</span><span class="o">/</span><span class="mi">945</span><span class="w">   </span><span class="n">Cron</span><span class="w"> </span><span class="o">&lt;</span><span class="n">jadi</span><span class="nv">@funlife</span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">j</span><span class="w"></span>
-<span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="n">root</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Thu</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">07</span><span class="w"> </span><span class="mi">18</span><span class="err">:</span><span class="mi">42</span><span class="w">   </span><span class="mi">27</span><span class="o">/</span><span class="mi">943</span><span class="w">   </span><span class="n">Cron</span><span class="w"> </span><span class="o">&lt;</span><span class="n">jadi</span><span class="nv">@funlife</span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">j</span><span class="w"></span>
-<span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="n">jadi</span><span class="nv">@funlife</span><span class="w">       </span><span class="n">Thu</span><span class="w"> </span><span class="n">Jan</span><span class="w">  </span><span class="mi">7</span><span class="w"> </span><span class="mi">19</span><span class="err">:</span><span class="mi">53</span><span class="w">   </span><span class="mi">17</span><span class="o">/</span><span class="mi">478</span><span class="w">   </span><span class="n">Email</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">news</span><span class="w"> </span><span class="k">user</span><span class="w"></span>
-<span class="o">&amp;</span><span class="w"> </span><span class="mi">12</span><span class="w"></span>
-<span class="n">Message</span><span class="w"> </span><span class="mi">12</span><span class="err">:</span><span class="w"></span>
-<span class="k">From</span><span class="w"> </span><span class="n">jadi</span><span class="nv">@funlife</span><span class="w">  </span><span class="n">Thu</span><span class="w"> </span><span class="n">Jan</span><span class="w">  </span><span class="mi">7</span><span class="w"> </span><span class="mi">19</span><span class="err">:</span><span class="mi">53</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="mi">2016</span><span class="w"></span>
-<span class="n">X</span><span class="o">-</span><span class="n">Original</span><span class="o">-</span><span class="k">To</span><span class="err">:</span><span class="w"> </span><span class="n">news</span><span class="w"></span>
-<span class="k">To</span><span class="err">:</span><span class="w"> </span><span class="n">news</span><span class="nv">@funlife</span><span class="w"></span>
-<span class="nl">Subject</span><span class="p">:</span><span class="w"> </span><span class="n">Email</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">news</span><span class="w"> </span><span class="k">user</span><span class="w"></span>
-<span class="nc">Date</span><span class="err">:</span><span class="w"> </span><span class="n">Thu</span><span class="p">,</span><span class="w">  </span><span class="mi">7</span><span class="w"> </span><span class="n">Jan</span><span class="w"> </span><span class="mi">2016</span><span class="w"> </span><span class="mi">19</span><span class="err">:</span><span class="mi">53</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="o">+</span><span class="mi">0330</span><span class="w"> </span><span class="p">(</span><span class="n">IRST</span><span class="p">)</span><span class="w"></span>
-<span class="k">From</span><span class="err">:</span><span class="w"> </span><span class="n">jadi</span><span class="nv">@funlife</span><span class="w"> </span><span class="p">(</span><span class="n">jadi</span><span class="p">)</span><span class="w"></span>
+Cc:
+[jadi@funlife ~]$ mail
+Mail version 8.1.2 01/15/2001.  Type ? for help.
+&quot;/var/mail/jadi&quot;: 12 messages 12 new
+&gt;N  1 root@funlife       Sat Jan 02 08:50   39/1373  apt-listchanges: news for f
+ N  2 root@funlife       Sat Jan 02 09:01  165/7438  apt-listchanges: news for f
+ N  3 jadi@funlife       Sat Jan 02 19:58   18/640   *** SECURITY information fo
+ N  4 jadi@funlife       Sat Jan 02 20:04   18/631   *** SECURITY information fo
+ N  5 jadi@funlife       Sun Jan 03 10:15   18/664   *** SECURITY information fo
+ N  6 root@funlife       Mon Jan 04 12:42   27/941   Cron &lt;jadi@funlife&gt; /home/j
+ N  7 root@funlife       Mon Jan 04 17:11   26/845   apt-listchanges: news for f
+ N  8 root@funlife       Tue Jan 05 18:42   27/945   Cron &lt;jadi@funlife&gt; /home/j
+ N  9 root@funlife       Wed Jan 06 09:17   46/1788  apt-listchanges: news for f
+ N 10 root@funlife       Thu Jan 07 12:42   27/945   Cron &lt;jadi@funlife&gt; /home/j
+ N 11 root@funlife       Thu Jan 07 18:42   27/943   Cron &lt;jadi@funlife&gt; /home/j
+ N 12 jadi@funlife       Thu Jan  7 19:53   17/478   Email to news user
+&amp; 12
+Message 12:
+From jadi@funlife  Thu Jan  7 19:53:08 2016
+X-Original-To: news
+To: news@funlife
+Subject: Email to news user
+Date: Thu,  7 Jan 2016 19:53:08 +0330 (IRST)
+From: jadi@funlife (jadi)
 
-<span class="n">hahah</span><span class="p">..</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">know</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">go</span><span class="p">.</span><span class="w"></span>
-<span class="n">this</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">go</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">jadi</span><span class="err">!</span><span class="w"></span>
+hahah.. we know where this will go.
+this will go to root and then to jadi!
 
-<span class="n">Hi</span><span class="w"> </span><span class="n">Jadi</span><span class="err">!</span><span class="w"></span>
+Hi Jadi!
 
-<span class="o">&amp;</span><span class="w"> </span><span class="n">d</span><span class="w"></span>
-<span class="o">&amp;</span><span class="w"> </span><span class="n">q</span><span class="w"></span>
-<span class="n">Held</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="n">messages</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="o">/</span><span class="nf">var</span><span class="o">/</span><span class="n">mail</span><span class="o">/</span><span class="n">jadi</span><span class="w"></span>
+&amp; d
+&amp; q
+Held 11 messages in /var/mail/jadi
 </code></pre></div>
 
-<h2>local forwards</h2>
+<h3>local forwards</h3>
 <p>We saw that it is possible to forward emails using the <code>/etc/aliases</code>. That file is not writable by normal users so what a normal user like <em>jadi</em> should do?</p>
 <p>Each user can create a <code>.forward</code> file in her own directory and all mail targeted to that user will be forwarded to that address.</p>
 <blockquote>
 <p>You can even put a complete email address like <code>jadijadi@gmail.com</code> in your <code>.forward</code> file.</p>
 <p><code>mail</code> command is not part of LPIC102 but it is good if you play and learn it to some extent. It also can send email from within the scripts like 'echo -e "email content" | mail -s "email subject" "example@example.com"'</p>
 </blockquote>
-<h2>mailq</h2>
+<h3>mailq</h3>
 <p>This command lists the mail queue. Each entry shows the queue file ID, message size, arrival time, sender, and the recipients that still need to be delivered. If mail could not be delivered upon the last attempt, the reason for failure is shown. The sysadmin can use this command to check the status of emails still in the queues.</p>
 <div class="highlight"><pre><span></span><code>$ mailq
 -Queue ID- --Size-- ----Arrival Time---- -Sender/Recipient-------
-AA52C228E6B      <span class="m">468</span> Thu Jan  <span class="m">7</span> <span class="m">19</span>:59:41  jadi@funlife
-<span class="o">(</span>connect to alt2.gmail-smtp-in.l.google.com<span class="o">[</span><span class="m">2404</span>:6800:4003:c01::1a<span class="o">]</span>:25: Network is unreachable<span class="o">)</span>
+AA52C228E6B      468 Thu Jan  7 19:59:41  jadi@funlife
+(connect to alt2.gmail-smtp-in.l.google.com[2404:6800:4003:c01::1a]:25: Network is unreachable)
                                          jadijadi@gmail.com
 
--- <span class="m">0</span> Kbytes in <span class="m">1</span> Request.
+-- 0 Kbytes in 1 Request.
 </code></pre></div>
 
 
@@ -220,9 +218,21 @@ AA52C228E6B      <span class="m">468</span> Thu Jan  <span class="m">7</span> <s
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:34:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#108-ref">108</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

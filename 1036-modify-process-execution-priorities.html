@@ -15,18 +15,18 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 103, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
-<meta property="og:title" content="103.6. Modify process execution priorities "/>
+<meta property="og:title" content="103.6 Modify process execution priorities "/>
 <meta property="og:url" content="./1036-modify-process-execution-priorities.html" />
-<meta property="og:description" content="103.6. Modify process execution priorities Weight: 2 Candidates should be able to manage process execution priorities. Objectives Know the default priority of a job that is created. Run a program with higher or lower priority than the default.. Change the priority of a running process. nice ps renice top …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:15:00+02:00" />
-<meta name="twitter:title" content="103.6. Modify process execution priorities ">
-<meta name="twitter:description" content="103.6. Modify process execution priorities Weight: 2 Candidates should be able to manage process execution priorities. Objectives Know the default priority of a job that is created. Run a program with higher or lower priority than the default.. Change the priority of a running process. nice ps renice top …">
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
+<meta name="twitter:title" content="103.6 Modify process execution priorities ">
+<meta name="twitter:description" content="">
 
-        <title>103.6. Modify process execution priorities  · lpic1book
+        <title>103.6 Modify process execution priorities  · lpic1book
 </title>
 
 
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -68,7 +67,7 @@
     <header class="page-header span10 offset2">
         <h1>
             <a href="./1036-modify-process-execution-priorities.html">
-                103.6. Modify process execution priorities
+                103.6 Modify process execution priorities
             </a>
         </h1>
     </header>
@@ -77,19 +76,14 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>103.6. Modify process execution priorities</h1>
-<p><em>Weight: 2</em></p>
+            <p><em>Weight: 2</em></p>
 <p>Candidates should be able to manage process execution priorities.</p>
-<h2>Objectives</h2>
+<h3>Objectives</h3>
 <ul>
 <li>Know the default priority of a job that is created.</li>
 <li>Run a program with higher or lower priority than the default..</li>
-<li>
-<p>Change the priority of a running process.</p>
-</li>
-<li>
-<p>nice</p>
-</li>
+<li>Change the priority of a running process.</li>
+<li>nice</li>
 <li>ps</li>
 <li>renice</li>
 <li>top</li>
@@ -97,74 +91,71 @@
 <p>On a Linux system, we are running a lot of processes and programs on a few CPUs. So you need a way to tell your OS to give more priority to some tasks or give less resources to some others. In last section you saw the <code>top</code> command to check the CPU usage of each process:</p>
 <div class="highlight"><pre><span></span><code>$ top
 
-top - <span class="m">08</span>:44:51 up <span class="m">13</span>:00,  <span class="m">5</span> users,  load average: <span class="m">0</span>.57, <span class="m">1</span>.50, <span class="m">1</span>.50
-Tasks: <span class="m">290</span> total,   <span class="m">2</span> running, <span class="m">288</span> sleeping,   <span class="m">0</span> stopped,   <span class="m">0</span> zombie
-%Cpu<span class="o">(</span>s<span class="o">)</span>: <span class="m">38</span>.4 us,  <span class="m">9</span>.4 sy,  <span class="m">0</span>.0 ni, <span class="m">49</span>.3 id,  <span class="m">2</span>.8 wa,  <span class="m">0</span>.0 hi,  <span class="m">0</span>.0 si,  <span class="m">0</span>.0 st
-KiB Mem:   <span class="m">8060264</span> total,  <span class="m">7858348</span> used,   <span class="m">201916</span> free,   <span class="m">360144</span> buffers
-KiB Swap:  <span class="m">7811068</span> total,        <span class="m">0</span> used,  <span class="m">7811068</span> free.  <span class="m">2842344</span> cached Mem
+top - 08:44:51 up 13:00,  5 users,  load average: 0.57, 1.50, 1.50
+Tasks: 290 total,   2 running, 288 sleeping,   0 stopped,   0 zombie
+%Cpu(s): 38.4 us,  9.4 sy,  0.0 ni, 49.3 id,  2.8 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem:   8060264 total,  7858348 used,   201916 free,   360144 buffers
+KiB Swap:  7811068 total,        0 used,  7811068 free.  2842344 cached Mem
 
   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND                                                                                                      
-<span class="m">13605</span> jadi      <span class="m">25</span>   <span class="m">5</span> <span class="m">1473652</span> <span class="m">530700</span>  <span class="m">91128</span> R  <span class="m">54</span>.5  <span class="m">6</span>.6   <span class="m">3</span>:25.50 firefox                                                                                                      
-<span class="m">11157</span> root      <span class="m">20</span>   <span class="m">0</span>  <span class="m">572004</span> <span class="m">112652</span>  <span class="m">94484</span> S   <span class="m">6</span>.1  <span class="m">1</span>.4   <span class="m">3</span>:26.18 Xorg                                                                                                         
-<span class="m">12265</span> jadi      <span class="m">20</span>   <span class="m">0</span> <span class="m">1210484</span>  <span class="m">75848</span>  <span class="m">42264</span> S   <span class="m">6</span>.1  <span class="m">0</span>.9   <span class="m">0</span>:32.06 Telegram                                                                                                     
-<span class="m">12671</span> jadi      <span class="m">20</span>   <span class="m">0</span> <span class="m">1800508</span> <span class="m">274564</span>  <span class="m">80300</span> S   <span class="m">6</span>.1  <span class="m">3</span>.4   <span class="m">1</span>:27.35 compiz                                                                                                       
-<span class="m">15035</span> jadi      <span class="m">20</span>   <span class="m">0</span>  <span class="m">768688</span>  <span class="m">54920</span>  <span class="m">34228</span> S   <span class="m">6</span>.1  <span class="m">0</span>.7   <span class="m">0</span>:00.93 /usr/bin/termin                                                                                              
-<span class="m">15066</span> jadi      <span class="m">20</span>   <span class="m">0</span>   <span class="m">33796</span>   <span class="m">3076</span>   <span class="m">2448</span> R   <span class="m">6</span>.1  <span class="m">0</span>.0   <span class="m">0</span>:00.02 top                                                                                                          
-    <span class="m">1</span> root      <span class="m">20</span>   <span class="m">0</span>   <span class="m">29528</span>   <span class="m">4320</span>   <span class="m">2584</span> S   <span class="m">0</span>.0  <span class="m">0</span>.1   <span class="m">0</span>:02.27 init                                                                                                         
-    <span class="m">2</span> root      <span class="m">20</span>   <span class="m">0</span>       <span class="m">0</span>      <span class="m">0</span>      <span class="m">0</span> S   <span class="m">0</span>.0  <span class="m">0</span>.0   <span class="m">0</span>:00.00 kthreadd                                                                                                     
-    <span class="m">3</span> root      <span class="m">20</span>   <span class="m">0</span>       <span class="m">0</span>      <span class="m">0</span>      <span class="m">0</span> S   <span class="m">0</span>.0  <span class="m">0</span>.0   <span class="m">0</span>:00.27 ksoftirqd/0                                                                                                  
-    <span class="m">5</span> root       <span class="m">0</span> -20       <span class="m">0</span>      <span class="m">0</span>      <span class="m">0</span> S   <span class="m">0</span>.0  <span class="m">0</span>.0   <span class="m">0</span>:00.00 kworker/0:0H    <span class="sb">```</span>
+13605 jadi      25   5 1473652 530700  91128 R  54.5  6.6   3:25.50 firefox                                                                                                      
+11157 root      20   0  572004 112652  94484 S   6.1  1.4   3:26.18 Xorg                                                                                                         
+12265 jadi      20   0 1210484  75848  42264 S   6.1  0.9   0:32.06 Telegram                                                                                                     
+12671 jadi      20   0 1800508 274564  80300 S   6.1  3.4   1:27.35 compiz                                                                                                       
+15035 jadi      20   0  768688  54920  34228 S   6.1  0.7   0:00.93 /usr/bin/termin                                                                                              
+15066 jadi      20   0   33796   3076   2448 R   6.1  0.0   0:00.02 top                                                                                                          
+    1 root      20   0   29528   4320   2584 S   0.0  0.1   0:02.27 init                                                                                                         
+    2 root      20   0       0      0      0 S   0.0  0.0   0:00.00 kthreadd                                                                                                     
+    3 root      20   0       0      0      0 S   0.0  0.0   0:00.27 ksoftirqd/0                                                                                                  
+    5 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kworker/0:0H    ```
 
     Chkecn th
 </code></pre></div>
 
-<p>There is <strong>NI</strong> column, it shows how <strong>nice</strong> the process is.  The nicer the process, the less CPU it asks. Nice can be from -20 to 19 (a process with nice = <strong>-20</strong> is ANGRY and asking for a lot of CPU while a process with nice = <strong>19</strong> is SUPER NICE and lets <strong>other</strong> processes use most of the CPU).</p>
+<p>There is <strong>NI</strong> column, it shows how <strong>nice</strong> the process is. The nicer the process, the less CPU it asks. Nice can be from -20 to 19 (a process with nice = <strong>-20</strong> is ANGRY and asking for a lot of CPU while a process with nice = <strong>19</strong> is SUPER NICE and lets <strong>other</strong> processes use most of the CPU).</p>
 <blockquote>
 <p>If you do not use nice command, processes will have nice level of 0. This can be checked with <code>nice</code> command:</p>
+<p><code>text
+$ nice
+0</code></p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>$ nice
-<span class="m">0</span>
-</code></pre></div>
-
 <p>It is also possible to tell <code>ps</code> command to write the nice parameter of processes:</p>
 <div class="highlight"><pre><span></span><code>$ ps -l
 F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
-<span class="m">0</span> S  <span class="m">1000</span> <span class="m">15044</span> <span class="m">15035</span>  <span class="m">0</span>  <span class="m">80</span>   <span class="m">0</span> -  <span class="m">7453</span> <span class="nb">wait</span>   pts/29   <span class="m">00</span>:00:00 bash
-<span class="m">0</span> S  <span class="m">1000</span> <span class="m">15052</span> <span class="m">15044</span>  <span class="m">0</span>  <span class="m">60</span> -20 -  <span class="m">3976</span> hrtime pts/29   <span class="m">00</span>:00:00 sleep
-<span class="m">0</span> R  <span class="m">1000</span> <span class="m">15080</span> <span class="m">15044</span>  <span class="m">0</span>  <span class="m">80</span>   <span class="m">0</span> -  <span class="m">4680</span> -      pts/29   <span class="m">00</span>:00:00 ps
+0 S  1000 15044 15035  0  80   0 -  7453 wait   pts/29   00:00:00 bash
+0 S  1000 15052 15044  0  60 -20 -  3976 hrtime pts/29   00:00:00 sleep
+0 R  1000 15080 15044  0  80   0 -  4680 -      pts/29   00:00:00 ps
 </code></pre></div>
 
-<h2>Setting priorities when running commands</h2>
+<h3>Setting priorities when running commands</h3>
 <p>If you need to change the niceness level of a program you can running it with <code>nice</code> command and <code>-n</code> switch (for nice):</p>
-<div class="highlight"><pre><span></span><code>$ nice -n -20 <span class="nb">echo</span> <span class="s2">&quot;I am running!&quot;</span>
-nice: cannot <span class="nb">set</span> niceness: Permission denied
+<div class="highlight"><pre><span></span><code>$ nice -n -20 echo &quot;I am running!&quot;
+nice: cannot set niceness: Permission denied
 I am running!
-$ sudo nice -n -20 <span class="nb">echo</span> <span class="s2">&quot;I am running!&quot;</span>
+$ sudo nice -n -20 echo &quot;I am running!&quot;
 I am running!
-$ sudo nice -n <span class="m">19</span> <span class="nb">echo</span> <span class="s2">&quot;I am running!&quot;</span>
+$ sudo nice -n 19 echo &quot;I am running!&quot;
 I am running!
 </code></pre></div>
 
-<p>Please note to two points:
-1. Give high priorities (less than 0) needs root access
-2. If you are not root and asking for nice level lower than 0 you'll get an error message but the process will run with normal nice level (0).</p>
+<p>Please note to two points: 1. Give high priorities (less than 0) needs root access 2. If you are not root and asking for nice level lower than 0 you'll get an error message but the process will run with normal nice level (0).</p>
 <p>If you run a command with <code>nice</code> without any parameters, the nice value will be 10:</p>
-<div class="highlight"><pre><span></span><code>$ nice xeyes <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">1</span><span class="o">]</span> <span class="m">15217</span>
+<div class="highlight"><pre><span></span><code>$ nice xeyes &amp;
+[1] 15217
 $ ps -l
 F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
-<span class="m">0</span> S  <span class="m">1000</span> <span class="m">15044</span> <span class="m">15035</span>  <span class="m">0</span>  <span class="m">80</span>   <span class="m">0</span> -  <span class="m">7455</span> <span class="nb">wait</span>   pts/29   <span class="m">00</span>:00:00 bash
-<span class="m">0</span> S  <span class="m">1000</span> <span class="m">15217</span> <span class="m">15044</span>  <span class="m">0</span>  <span class="m">90</span>  <span class="m">10</span> - <span class="m">12522</span> poll_s pts/29   <span class="m">00</span>:00:00 xeyes
-<span class="m">0</span> R  <span class="m">1000</span> <span class="m">15218</span> <span class="m">15044</span>  <span class="m">0</span>  <span class="m">80</span>   <span class="m">0</span> -  <span class="m">4680</span> -      pts/29   <span class="m">00</span>:00:00 ps
+0 S  1000 15044 15035  0  80   0 -  7455 wait   pts/29   00:00:00 bash
+0 S  1000 15217 15044  0  90  10 - 12522 poll_s pts/29   00:00:00 xeyes
+0 R  1000 15218 15044  0  80   0 -  4680 -      pts/29   00:00:00 ps
 </code></pre></div>
 
-<h2>Changing priorities</h2>
+<h3>Changing priorities</h3>
 <p>The <code>renice</code> command can change the <em>niceness</em> of running processes:</p>
-<div class="highlight"><pre><span></span><code>$ ps -ef <span class="p">|</span> grep firefox
-jadi     <span class="m">13605</span> <span class="m">11226</span> <span class="m">30</span> <span class="m">08</span>:28 ?        <span class="m">00</span>:10:13 /usr/lib/firefox/firefox
-jadi     <span class="m">15192</span> <span class="m">15044</span>  <span class="m">0</span> <span class="m">09</span>:01 pts/29   <span class="m">00</span>:00:00 grep firefox
-$ sudo renice -n -10 <span class="m">13605</span>
-<span class="m">13605</span> <span class="o">(</span>process ID<span class="o">)</span> old priority <span class="m">5</span>, new priority -10
+<div class="highlight"><pre><span></span><code>$ ps -ef | grep firefox
+jadi     13605 11226 30 08:28 ?        00:10:13 /usr/lib/firefox/firefox
+jadi     15192 15044  0 09:01 pts/29   00:00:00 grep firefox
+$ sudo renice -n -10 13605
+13605 (process ID) old priority 5, new priority -10
 </code></pre></div>
 
 <p>.</p>
@@ -178,8 +169,7 @@ $ sudo renice -n -10 <span class="m">13605</span>
 <p>.</p>
 <p>.</p>
 <p>.</p>
-<p>.
-.</p>
+<p>. .</p>
 <p>.</p>
 
 
@@ -199,9 +189,21 @@ $ sudo renice -n -10 <span class="m">13605</span>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:15:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#103-ref">103</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

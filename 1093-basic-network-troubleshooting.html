@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 109, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="109.3 Basic network troubleshooting "/>
 <meta property="og:url" content="./1093-basic-network-troubleshooting.html" />
-<meta property="og:description" content="109.3 Basic network troubleshooting Weight: 4 Candidates should be able to troubleshoot networking issues on client hosts. Key Knowledge Areas Manually and automatically configure network interfaces and routing tables to include adding, starting, stopping, restarting, deleting or reconfiguring network interfaces. Change, view, or configure the routing table and correct …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:38:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="109.3 Basic network troubleshooting ">
-<meta name="twitter:description" content="109.3 Basic network troubleshooting Weight: 4 Candidates should be able to troubleshoot networking issues on client hosts. Key Knowledge Areas Manually and automatically configure network interfaces and routing tables to include adding, starting, stopping, restarting, deleting or reconfiguring network interfaces. Change, view, or configure the routing table and correct …">
+<meta name="twitter:description" content="">
 
         <title>109.3 Basic network troubleshooting  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,16 +76,16 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>109.3 Basic network troubleshooting</h1>
+            <h2>109.3 Basic network troubleshooting</h2>
 <p><em>Weight: 4</em></p>
 <p>Candidates should be able to troubleshoot networking issues on client hosts.</p>
-<h2>Key Knowledge Areas</h2>
+<h3>Key Knowledge Areas</h3>
 <ul>
 <li>Manually and automatically configure network interfaces and routing tables to include adding, starting, stopping, restarting, deleting or reconfiguring network interfaces.</li>
 <li>Change, view, or configure the routing table and correct an improperly set default route manually.</li>
 <li>Debug problems associated with the network configuration.</li>
 </ul>
-<h2>Terms and Utilities</h2>
+<h3>Terms and Utilities</h3>
 <ul>
 <li>ifconfig</li>
 <li>ip</li>
@@ -105,103 +104,103 @@
 <li>tracepath6</li>
 <li>netcat</li>
 </ul>
-<h2>Troubleshooting network problems</h2>
+<h3>Troubleshooting network problems</h3>
 <p>When a network related problem is reported to you, you have to take a lot of steps to find out where the root cause of the problem is. For example if the report says "I can not open webpages", you have to start from checking if the network interface has an ip, it it is up, it the routing is OK and if the DNS works fine and if everything is OK, you have to try reaching a server on the Internet via <code>ping</code> command and if you see any problems, you have to use <code>traceroute</code> to see where your traffic is going wrong. In this lesson, we will review these basic steps.</p>
-<h3>ifconfig &amp; ip</h3>
+<h4>ifconfig &amp; ip</h4>
 <p>As you already know, <code>ifconfig</code> and <code>ip</code> commands can be used to check the IP address of your interfaces. If a network card is going to work, it needs an correct IP address and netmask. Let me check my own computer to see it has an IP address:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@funlife ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">ip</span><span class="w"> </span><span class="n">addr</span><span class="w"> </span><span class="n">show</span><span class="w"></span>
-<span class="mi">1</span><span class="err">:</span><span class="w"> </span><span class="nl">lo</span><span class="p">:</span><span class="w"> </span><span class="o">&lt;</span><span class="n">LOOPBACK</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mtu</span><span class="w"> </span><span class="mi">65536</span><span class="w"> </span><span class="n">qdisc</span><span class="w"> </span><span class="n">noqueue</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="k">UNKNOWN</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">default</span><span class="w"></span>
-<span class="w">    </span><span class="n">link</span><span class="o">/</span><span class="n">loopback</span><span class="w"> </span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="w"> </span><span class="n">brd</span><span class="w"> </span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="err">:</span><span class="mi">00</span><span class="w"></span>
-<span class="w">    </span><span class="n">inet</span><span class="w"> </span><span class="mf">127.0.0.1</span><span class="o">/</span><span class="mi">8</span><span class="w"> </span><span class="k">scope</span><span class="w"> </span><span class="k">host</span><span class="w"> </span><span class="n">lo</span><span class="w"></span>
-<span class="w">       </span><span class="n">valid_lft</span><span class="w"> </span><span class="n">forever</span><span class="w"> </span><span class="n">preferred_lft</span><span class="w"> </span><span class="n">forever</span><span class="w"></span>
-<span class="w">    </span><span class="n">inet6</span><span class="w"> </span><span class="o">::</span><span class="mi">1</span><span class="o">/</span><span class="mi">128</span><span class="w"> </span><span class="k">scope</span><span class="w"> </span><span class="k">host</span><span class="w"></span>
-<span class="w">       </span><span class="n">valid_lft</span><span class="w"> </span><span class="n">forever</span><span class="w"> </span><span class="n">preferred_lft</span><span class="w"> </span><span class="n">forever</span><span class="w"></span>
-<span class="mi">2</span><span class="err">:</span><span class="w"> </span><span class="nl">wlp3s0</span><span class="p">:</span><span class="w"> </span><span class="o">&lt;</span><span class="k">NO</span><span class="o">-</span><span class="n">CARRIER</span><span class="p">,</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mtu</span><span class="w"> </span><span class="mi">1500</span><span class="w"> </span><span class="n">qdisc</span><span class="w"> </span><span class="n">pfifo_fast</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">DOWN</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">qlen</span><span class="w"> </span><span class="mi">1000</span><span class="w"></span>
-<span class="w">    </span><span class="n">link</span><span class="o">/</span><span class="n">ether</span><span class="w"> </span><span class="nl">f0</span><span class="p">:</span><span class="nl">de</span><span class="p">:</span><span class="nl">f1</span><span class="p">:</span><span class="mi">62</span><span class="err">:</span><span class="nl">c5</span><span class="p">:</span><span class="mi">73</span><span class="w"> </span><span class="n">brd</span><span class="w"> </span><span class="nl">ff</span><span class="p">:</span><span class="nl">ff</span><span class="p">:</span><span class="nl">ff</span><span class="p">:</span><span class="nl">ff</span><span class="p">:</span><span class="nl">ff</span><span class="p">:</span><span class="n">ff</span><span class="w"></span>
-<span class="mi">3</span><span class="err">:</span><span class="w"> </span><span class="nl">enp0s25</span><span class="p">:</span><span class="w"> </span><span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mtu</span><span class="w"> </span><span class="mi">1500</span><span class="w"> </span><span class="n">qdisc</span><span class="w"> </span><span class="n">mq</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">UP</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">qlen</span><span class="w"> </span><span class="mi">1000</span><span class="w"></span>
-<span class="w">    </span><span class="n">link</span><span class="o">/</span><span class="n">ether</span><span class="w"> </span><span class="mi">8</span><span class="nl">c</span><span class="p">:</span><span class="nl">a9</span><span class="p">:</span><span class="mi">82</span><span class="err">:</span><span class="mi">7</span><span class="nl">b</span><span class="p">:</span><span class="mi">89</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="n">brd</span><span class="w"> </span><span class="nl">ff</span><span class="p">:</span><span class="nl">ff</span><span class="p">:</span><span class="nl">ff</span><span class="p">:</span><span class="nl">ff</span><span class="p">:</span><span class="nl">ff</span><span class="p">:</span><span class="n">ff</span><span class="w"></span>
-<span class="w">    </span><span class="n">inet</span><span class="w"> </span><span class="mf">192.168.1.35</span><span class="o">/</span><span class="mi">24</span><span class="w"> </span><span class="n">brd</span><span class="w"> </span><span class="mf">192.168.1.255</span><span class="w"> </span><span class="k">scope</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="k">dynamic</span><span class="w"> </span><span class="n">wlp3s0</span><span class="w"></span>
-<span class="w">       </span><span class="n">valid_lft</span><span class="w"> </span><span class="mi">254836</span><span class="n">sec</span><span class="w"> </span><span class="n">preferred_lft</span><span class="w"> </span><span class="mi">254836</span><span class="n">sec</span><span class="w"></span>
-<span class="w">    </span><span class="n">inet6</span><span class="w"> </span><span class="nl">fe80</span><span class="p">:</span><span class="err">:</span><span class="mi">8</span><span class="nl">ea9</span><span class="p">:</span><span class="mi">82</span><span class="nl">ff</span><span class="p">:</span><span class="nl">fe7b</span><span class="p">:</span><span class="mi">8906</span><span class="o">/</span><span class="mi">64</span><span class="w"> </span><span class="k">scope</span><span class="w"> </span><span class="n">link</span><span class="w"></span>
-<span class="w">       </span><span class="n">valid_lft</span><span class="w"> </span><span class="n">forever</span><span class="w"> </span><span class="n">preferred_lft</span><span class="w"> </span><span class="n">forever</span><span class="w"></span>
-<span class="o">[</span><span class="n">jadi@funlife ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">ifconfig</span><span class="w"></span>
-<span class="n">enp0s25</span><span class="w">   </span><span class="n">Link</span><span class="w"> </span><span class="nl">encap</span><span class="p">:</span><span class="n">Ethernet</span><span class="w">  </span><span class="n">HWaddr</span><span class="w"> </span><span class="nl">f0</span><span class="p">:</span><span class="nl">de</span><span class="p">:</span><span class="nl">f1</span><span class="p">:</span><span class="mi">62</span><span class="err">:</span><span class="nl">c5</span><span class="p">:</span><span class="mi">73</span><span class="w">  </span>
-<span class="w">          </span><span class="n">inet</span><span class="w"> </span><span class="nl">addr</span><span class="p">:</span><span class="mf">192.168.1.35</span><span class="w">  </span><span class="nl">Bcast</span><span class="p">:</span><span class="mf">192.168.1.255</span><span class="w">  </span><span class="nl">Mask</span><span class="p">:</span><span class="mf">255.255.255.0</span><span class="w"></span>
-<span class="w">          </span><span class="n">inet6</span><span class="w"> </span><span class="nl">addr</span><span class="p">:</span><span class="w"> </span><span class="nl">fe80</span><span class="p">:</span><span class="err">:</span><span class="mi">8</span><span class="nl">ea9</span><span class="p">:</span><span class="mi">82</span><span class="nl">ff</span><span class="p">:</span><span class="nl">fe7b</span><span class="p">:</span><span class="mi">8906</span><span class="o">/</span><span class="mi">64</span><span class="w"> </span><span class="k">Scope</span><span class="err">:</span><span class="n">Link</span><span class="w"></span>
-<span class="w">          </span><span class="n">UP</span><span class="w"> </span><span class="n">BROADCAST</span><span class="w"> </span><span class="n">RUNNING</span><span class="w"> </span><span class="n">MULTICAST</span><span class="w">  </span><span class="nl">MTU</span><span class="p">:</span><span class="mi">1500</span><span class="w">  </span><span class="nl">Metric</span><span class="p">:</span><span class="mi">1</span><span class="w"></span>
-<span class="w">          </span><span class="n">RX</span><span class="w"> </span><span class="nl">packets</span><span class="p">:</span><span class="mi">231586</span><span class="w"> </span><span class="nl">errors</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="nl">dropped</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="nl">overruns</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="nl">frame</span><span class="p">:</span><span class="mi">0</span><span class="w"></span>
-<span class="w">          </span><span class="n">TX</span><span class="w"> </span><span class="nl">packets</span><span class="p">:</span><span class="mi">200220</span><span class="w"> </span><span class="nl">errors</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="nl">dropped</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="nl">overruns</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="nl">carrier</span><span class="p">:</span><span class="mi">0</span><span class="w"></span>
-<span class="w">          </span><span class="nl">collisions</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="nl">txqueuelen</span><span class="p">:</span><span class="mi">1000</span><span class="w"></span>
-<span class="w">          </span><span class="n">RX</span><span class="w"> </span><span class="nl">bytes</span><span class="p">:</span><span class="mi">198053888</span><span class="w"> </span><span class="p">(</span><span class="mf">198.0</span><span class="w"> </span><span class="n">MB</span><span class="p">)</span><span class="w">  </span><span class="n">TX</span><span class="w"> </span><span class="nl">bytes</span><span class="p">:</span><span class="mi">51583154</span><span class="w"> </span><span class="p">(</span><span class="mf">51.5</span><span class="w"> </span><span class="n">MB</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ ip addr show
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: wlp3s0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc pfifo_fast state DOWN group default qlen 1000
+    link/ether f0:de:f1:62:c5:73 brd ff:ff:ff:ff:ff:ff
+3: enp0s25: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 8c:a9:82:7b:89:06 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.35/24 brd 192.168.1.255 scope global dynamic wlp3s0
+       valid_lft 254836sec preferred_lft 254836sec
+    inet6 fe80::8ea9:82ff:fe7b:8906/64 scope link
+       valid_lft forever preferred_lft forever
+[jadi@funlife ~]$ ifconfig
+enp0s25   Link encap:Ethernet  HWaddr f0:de:f1:62:c5:73  
+          inet addr:192.168.1.35  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::8ea9:82ff:fe7b:8906/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:231586 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:200220 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:198053888 (198.0 MB)  TX bytes:51583154 (51.5 MB)
 
-<span class="n">lo</span><span class="w">        </span><span class="n">Link</span><span class="w"> </span><span class="nl">encap</span><span class="p">:</span><span class="k">Local</span><span class="w"> </span><span class="n">Loopback</span><span class="w">  </span>
-<span class="w">          </span><span class="n">inet</span><span class="w"> </span><span class="nl">addr</span><span class="p">:</span><span class="mf">127.0.0.1</span><span class="w">  </span><span class="nl">Mask</span><span class="p">:</span><span class="mf">255.0.0.0</span><span class="w"></span>
-<span class="w">          </span><span class="n">inet6</span><span class="w"> </span><span class="nl">addr</span><span class="p">:</span><span class="w"> </span><span class="o">::</span><span class="mi">1</span><span class="o">/</span><span class="mi">128</span><span class="w"> </span><span class="k">Scope</span><span class="err">:</span><span class="k">Host</span><span class="w"></span>
-<span class="w">          </span><span class="n">UP</span><span class="w"> </span><span class="n">LOOPBACK</span><span class="w"> </span><span class="n">RUNNING</span><span class="w">  </span><span class="nl">MTU</span><span class="p">:</span><span class="mi">65536</span><span class="w">  </span><span class="nl">Metric</span><span class="p">:</span><span class="mi">1</span><span class="w"></span>
-<span class="w">          </span><span class="n">RX</span><span class="w"> </span><span class="nl">packets</span><span class="p">:</span><span class="mi">221752</span><span class="w"> </span><span class="nl">errors</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="nl">dropped</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="nl">overruns</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="nl">frame</span><span class="p">:</span><span class="mi">0</span><span class="w"></span>
-<span class="w">          </span><span class="n">TX</span><span class="w"> </span><span class="nl">packets</span><span class="p">:</span><span class="mi">221752</span><span class="w"> </span><span class="nl">errors</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="nl">dropped</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="nl">overruns</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="nl">carrier</span><span class="p">:</span><span class="mi">0</span><span class="w"></span>
-<span class="w">          </span><span class="nl">collisions</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="nl">txqueuelen</span><span class="p">:</span><span class="mi">0</span><span class="w"></span>
-<span class="w">          </span><span class="n">RX</span><span class="w"> </span><span class="nl">bytes</span><span class="p">:</span><span class="mi">150859909</span><span class="w"> </span><span class="p">(</span><span class="mf">150.8</span><span class="w"> </span><span class="n">MB</span><span class="p">)</span><span class="w">  </span><span class="n">TX</span><span class="w"> </span><span class="nl">bytes</span><span class="p">:</span><span class="mi">150859909</span><span class="w"> </span><span class="p">(</span><span class="mf">150.8</span><span class="w"> </span><span class="n">MB</span><span class="p">)</span><span class="w"></span>
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:221752 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:221752 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:150859909 (150.8 MB)  TX bytes:150859909 (150.8 MB)
 
 
-<span class="o">[</span><span class="n">jadi@funlife ~</span><span class="o">]</span><span class="err">$</span><span class="w"></span>
+[jadi@funlife ~]$
 </code></pre></div>
 
 <p>Both commands show that my IP address is OK. This is assigned to my be the WiFi modem and <em>192.168.1.35</em> as IP and <em>255.255.255.0</em> looks reasonable.</p>
-<h4>ping</h4>
+<p><strong>ping</strong></p>
 <p>This is the most common tool when troubleshooting a network problem. Lets see if I can see my network gateway first.</p>
-<div class="highlight"><pre><span></span><code><span class="err">[jadi@funlife ~]$ route</span>
-<span class="err">Kernel IP routing table</span>
-<span class="err">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span>
-<span class="err">default         192.168.1.1     0.0.0.0         UG    600    0        0 wlp3s0</span>
-<span class="err">link-local      *               255.255.0.0     U     1000   0        0 wlp3s0</span>
-<span class="err">192.168.1.0     *               255.255.255.0   U     600    0        0 wlp3s0</span>
-<span class="err">[jadi@funlife ~]$ ping 192.168.1.1</span>
-<span class="err">PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.</span>
-<span class="err">64 bytes from 192.168.1.1: icmp_seq=1 ttl=254 time=3.02 ms</span>
-<span class="err">64 bytes from 192.168.1.1: icmp_seq=2 ttl=254 time=3.08 ms</span>
-<span class="err">^C</span>
-<span class="err">--- 192.168.1.1 ping statistics ---</span>
-<span class="err">2 packets transmitted, 2 received, 0% packet loss, time 1001ms</span>
-<span class="err">rtt min/avg/max/mdev = 3.023/3.052/3.082/0.062 ms</span>
+<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         192.168.1.1     0.0.0.0         UG    600    0        0 wlp3s0
+link-local      *               255.255.0.0     U     1000   0        0 wlp3s0
+192.168.1.0     *               255.255.255.0   U     600    0        0 wlp3s0
+[jadi@funlife ~]$ ping 192.168.1.1
+PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
+64 bytes from 192.168.1.1: icmp_seq=1 ttl=254 time=3.02 ms
+64 bytes from 192.168.1.1: icmp_seq=2 ttl=254 time=3.08 ms
+^C
+--- 192.168.1.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 3.023/3.052/3.082/0.062 ms
 </code></pre></div>
 
 <p>I can ping my gateway but is it possible to reach a server on the Internet using its IP address. Lets ping 4.2.2.4; it is very well known server on the Internet and many people use it to check their connectivity.</p>
-<div class="highlight"><pre><span></span><code><span class="err">[jadi@funlife ~]$ ping 4.2.2.4</span>
-<span class="err">PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.</span>
-<span class="err">64 bytes from 4.2.2.4: icmp_seq=1 ttl=50 time=108 ms</span>
-<span class="err">64 bytes from 4.2.2.4: icmp_seq=2 ttl=50 time=111 ms</span>
-<span class="err">64 bytes from 4.2.2.4: icmp_seq=3 ttl=50 time=113 ms</span>
-<span class="err">^C</span>
-<span class="err">--- 4.2.2.4 ping statistics ---</span>
-<span class="err">3 packets transmitted, 3 received, 0% packet loss, time 2003ms</span>
-<span class="err">rtt min/avg/max/mdev = 108.160/111.233/113.717/2.338 ms</span>
+<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ ping 4.2.2.4
+PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.
+64 bytes from 4.2.2.4: icmp_seq=1 ttl=50 time=108 ms
+64 bytes from 4.2.2.4: icmp_seq=2 ttl=50 time=111 ms
+64 bytes from 4.2.2.4: icmp_seq=3 ttl=50 time=113 ms
+^C
+--- 4.2.2.4 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 108.160/111.233/113.717/2.338 ms
 </code></pre></div>
 
 <p>This is working fine. Bud can I ping google.com too?</p>
-<div class="highlight"><pre><span></span><code><span class="err">[jadi@funlife ~]$ ping google.com</span>
-<span class="c">ping: unknown host google.com</span>
+<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ ping google.com
+ping: unknown host google.com
 </code></pre></div>
 
 <p>Aha! We found the problem. In this case I have a correct IP address, I can ping 4.2.2.4 but I can not ping google.com with the error message "unknown host". This means my computer can not translate google.com to its IP address; this is a DNS issue:</p>
-<div class="highlight"><pre><span></span><code><span class="err">[jadi@funlife ~]$ cat /etc/resolv.conf</span>
-<span class="err"># Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)</span>
-<span class="err">#     DO NOT EDIT THIS FILE BY HAND -- YOUR CHANGES WILL BE OVERWRITTEN</span>
+<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ cat /etc/resolv.conf
+# Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)
+#     DO NOT EDIT THIS FILE BY HAND -- YOUR CHANGES WILL BE OVERWRITTEN
 </code></pre></div>
 
 <p>No wonder we had problems with surfing the WWW. There is no active DNS in my computer so no one will be able to reach sites by their domain names! This should be fixed by adding a DNS to my configuration files and then use <code>ifdown eth0</code> and then <code>ifup eth0</code> to load it.</p>
-<h4>routing problems</h4>
+<p><strong>routing problems</strong></p>
 <p>In some situations you can not reach the Internet (say 4.2.2.4 or 8.8.8.8) but you can ping your gateway. Have a look:</p>
-<div class="highlight"><pre><span></span><code><span class="err">[jadi@funlife ~]$ ping 8.8.8.8</span>
-<span class="c">connect: Network is unreachable</span>
-<span class="err">[jadi@funlife ~]$ ping 192.168.1.1</span>
-<span class="err">PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.</span>
-<span class="err">64 bytes from 192.168.1.1: icmp_seq=1 ttl=254 time=3.03 ms</span>
-<span class="err">64 bytes from 192.168.1.1: icmp_seq=2 ttl=254 time=3.31 ms</span>
-<span class="err">^C</span>
-<span class="err">--- 192.168.1.1 ping statistics ---</span>
-<span class="err">2 packets transmitted, 2 received, 0% packet loss, time 1001ms</span>
-<span class="err">rtt min/avg/max/mdev = 3.039/3.174/3.310/0.146 ms</span>
+<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ ping 8.8.8.8
+connect: Network is unreachable
+[jadi@funlife ~]$ ping 192.168.1.1
+PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
+64 bytes from 192.168.1.1: icmp_seq=1 ttl=254 time=3.03 ms
+64 bytes from 192.168.1.1: icmp_seq=2 ttl=254 time=3.31 ms
+^C
+--- 192.168.1.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 3.039/3.174/3.310/0.146 ms
 </code></pre></div>
 
 <p>What is going on here? Lets see what clues do I have: 1) I can reach the gateway 2) when asking for the Internet, my computer does not know what to do. In this case the <strong>default gateway</strong> is missing: the computer does not know what to do if a packet is outside its network mask. You know that we can set the default gateway using the /etc/network/interfaces config file but there is also a <code>route</code> command to show and change the routing configurations on the fly.</p>
@@ -209,108 +208,108 @@
 <p>routes added or changed via <code>route</code> command will be lost after a reboot! Permanent configurations should come from configuration files.</p>
 </blockquote>
 <p>Lets check our current routing state using <code>route</code> command as root.</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@funlife ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">route</span><span class="w"></span>
-<span class="o">[</span><span class="n">sudo</span><span class="o">]</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nl">jadi</span><span class="p">:</span><span class="w"></span>
-<span class="n">Kernel</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="n">routing</span><span class="w"> </span><span class="nc">table</span><span class="w"></span>
-<span class="n">Destination</span><span class="w">     </span><span class="n">Gateway</span><span class="w">         </span><span class="n">Genmask</span><span class="w">         </span><span class="n">Flags</span><span class="w"> </span><span class="n">Metric</span><span class="w"> </span><span class="k">Ref</span><span class="w">    </span><span class="k">Use</span><span class="w"> </span><span class="n">Iface</span><span class="w"></span>
-<span class="n">link</span><span class="o">-</span><span class="k">local</span><span class="w">      </span><span class="o">*</span><span class="w">               </span><span class="mf">255.255.0.0</span><span class="w">     </span><span class="n">U</span><span class="w">     </span><span class="mi">1000</span><span class="w">   </span><span class="mi">0</span><span class="w">        </span><span class="mi">0</span><span class="w"> </span><span class="n">wlp3s0</span><span class="w"></span>
-<span class="mf">192.168.1.0</span><span class="w">     </span><span class="o">*</span><span class="w">               </span><span class="mf">255.255.255.0</span><span class="w">   </span><span class="n">U</span><span class="w">     </span><span class="mi">600</span><span class="w">    </span><span class="mi">0</span><span class="w">        </span><span class="mi">0</span><span class="w"> </span><span class="n">wlp3s0</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ sudo route
+[sudo] password for jadi:
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+link-local      *               255.255.0.0     U     1000   0        0 wlp3s0
+192.168.1.0     *               255.255.255.0   U     600    0        0 wlp3s0
 </code></pre></div>
 
 <p>It is stated that "there is no gateway for the network 192.168.1.0 netmask 255.255.255.0". This means that if you ping a server in this network (say 192.168.1.100), it does not needs any routing. But what happens if you ping 8.8.8.8? Nothing stated in our <em>routing table</em> above! No wonder that we are getting <code>Network is unreachable</code> when <code>ping 4.2.2.4</code>. Lets add a default route:</p>
-<div class="highlight"><pre><span></span><code><span class="err">[jadi@funlife ~]$ sudo route add default gw 192.168.1.1</span>
-<span class="err">[jadi@funlife ~]$ ping 4.2.2.4</span>
-<span class="err">PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.</span>
-<span class="err">64 bytes from 4.2.2.4: icmp_seq=1 ttl=50 time=109 ms</span>
-<span class="err">64 bytes from 4.2.2.4: icmp_seq=2 ttl=50 time=111 ms</span>
-<span class="err">64 bytes from 4.2.2.4: icmp_seq=3 ttl=49 time=199 ms</span>
-<span class="err">^C</span>
-<span class="err">--- 4.2.2.4 ping statistics ---</span>
-<span class="err">3 packets transmitted, 3 received, 0% packet loss, time 2002ms</span>
-<span class="err">rtt min/avg/max/mdev = 109.493/140.344/199.612/41.922 ms</span>
-<span class="err">[jadi@funlife ~]$ sudo route</span>
-<span class="err">Kernel IP routing table</span>
-<span class="err">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span>
-<span class="err">default         192.168.1.1     0.0.0.0         UG    0      0        0 wlp3s0</span>
-<span class="err">link-local      *               255.255.0.0     U     1000   0        0 wlp3s0</span>
-<span class="err">192.168.1.0     *               255.255.255.0   U     600    0        0 wlp3s0</span>
+<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ sudo route add default gw 192.168.1.1
+[jadi@funlife ~]$ ping 4.2.2.4
+PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.
+64 bytes from 4.2.2.4: icmp_seq=1 ttl=50 time=109 ms
+64 bytes from 4.2.2.4: icmp_seq=2 ttl=50 time=111 ms
+64 bytes from 4.2.2.4: icmp_seq=3 ttl=49 time=199 ms
+^C
+--- 4.2.2.4 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 109.493/140.344/199.612/41.922 ms
+[jadi@funlife ~]$ sudo route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         192.168.1.1     0.0.0.0         UG    0      0        0 wlp3s0
+link-local      *               255.255.0.0     U     1000   0        0 wlp3s0
+192.168.1.0     *               255.255.255.0   U     600    0        0 wlp3s0
 </code></pre></div>
 
 <p>We were able to ping the Internet after adding a default gateway using <code>route</code> command. It is important to know that we can define even more routes and control exactly where our packets should go based on their destinations.</p>
-<h4>netstat</h4>
+<p><strong>netstat</strong></p>
 <p>This command can show many different information about our network. The two main functionalities are showing the routing table and checking the listening ports. Lets check our routing table using it.</p>
-<div class="highlight"><pre><span></span><code><span class="err">[jadi@funlife ~]$ netstat -nr</span>
-<span class="err">Kernel IP routing table</span>
-<span class="err">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span>
-<span class="err">0.0.0.0         192.168.1.1     0.0.0.0         UG        0 0          0 wlp3s0</span>
-<span class="err">169.254.0.0     0.0.0.0         255.255.0.0     U         0 0          0 wlp3s0</span>
-<span class="err">192.168.1.0     0.0.0.0         255.255.255.0   U         0 0          0 wlp3s0</span>
+<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ netstat -nr
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+0.0.0.0         192.168.1.1     0.0.0.0         UG        0 0          0 wlp3s0
+169.254.0.0     0.0.0.0         255.255.0.0     U         0 0          0 wlp3s0
+192.168.1.0     0.0.0.0         255.255.255.0   U         0 0          0 wlp3s0
 </code></pre></div>
 
 <p>It is also very useful to the see what ports are in listening state in our server:</p>
-<div class="highlight"><pre><span></span><code><span class="err">[jadi@funlife ~]$ netstat -na | grep 80</span>
-<span class="err">tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN</span>
+<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ netstat -na | grep 80
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN
 </code></pre></div>
 
 <p>The <code>-na</code> switch will show all the open ports and here I'm checking if port 80 (web) is active on my server. It is and listening to any connection from <code>0.0.0.0</code> which means "anywhere": Any one can connect to my computers web server and request pages.</p>
 <blockquote>
 <p>in these switches, <code>-n</code> stands for <em>numeric</em>, <code>-a</code> stands for <em>all ports</em> and <code>-r</code> stands for <em>routes</em>.</p>
 </blockquote>
-<h4>traceroute</h4>
+<p><strong>traceroute</strong></p>
 <p>This is a more advanced troubleshooting tool. It is like pinging all the servers between you and your destination one by one and see where our packets go wrong. Lets check how I reach google.com.</p>
-<div class="highlight"><pre><span></span><code><span class="err">[jadi@funlife ~]$ traceroute google.com</span>
-<span class="err">traceroute to google.com (173.194.32.160), 30 hops max, 60 byte packets</span>
-<span class="err"> 1  192.168.1.1 (192.168.1.1)  3.090 ms  3.113 ms  3.115 ms</span>
-<span class="err"> 2  85-15-16-103.shatel.ir (85.15.16.103)  29.904 ms  34.851 ms  34.885 ms</span>
-<span class="err"> 3  85-15-0-193.shatel.ir (85.15.0.193)  34.880 ms  39.454 ms  39.459 ms</span>
-<span class="err"> 4  85-15-0-1.shatel.ir (85.15.0.1)  39.451 ms  39.444 ms  43.865 ms</span>
-<span class="err"> 5  172.18.196.17 (172.18.196.17)  43.887 ms  46.506 ms  51.990 ms</span>
-<span class="err"> 6  172.18.196.22 (172.18.196.22)  51.943 ms  29.418 ms  29.430 ms</span>
-<span class="err"> 7  10.10.53.229 (10.10.53.229)  32.421 ms  32.344 ms  34.705 ms</span>
-<span class="err"> 8  10.10.53.222 (10.10.53.222)  39.814 ms  39.773 ms  39.808 ms</span>
-<span class="err"> 9  xe-0-3-3-xcr2.fri.cw.net (62.208.252.109)  126.654 ms  131.411 ms  131.363 ms</span>
-<span class="err">10  ae29-xcr1.fri.cw.net (195.2.24.221)  126.570 ms  129.053 ms  129.073 ms</span>
-<span class="err">11  195.2.19.6 (195.2.19.6)  173.273 ms  173.284 ms  178.795 ms</span>
-<span class="err">12  216.239.56.106 (216.239.56.106)  143.786 ms  145.279 ms 216.239.57.143 (216.239.57.143)  115.669 ms</span>
-<span class="err">13  209.85.143.25 (209.85.143.25)  111.427 ms  113.970 ms  113.989 ms</span>
-<span class="err">14  74.125.37.88 (74.125.37.88)  127.402 ms  125.199 ms 74.125.37.92 (74.125.37.92)  122.175 ms</span>
-<span class="err">15  209.85.247.72 (209.85.247.72)  137.551 ms  137.564 ms  140.535 ms</span>
-<span class="err">16  72.14.236.249 (72.14.236.249)  161.583 ms  170.447 ms  170.407 ms</span>
-<span class="err">17  173.194.32.160 (173.194.32.160)  170.375 ms 72.14.235.231 (72.14.235.231)  159.352 ms  161.666 ms</span>
+<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ traceroute google.com
+traceroute to google.com (173.194.32.160), 30 hops max, 60 byte packets
+ 1  192.168.1.1 (192.168.1.1)  3.090 ms  3.113 ms  3.115 ms
+ 2  85-15-16-103.shatel.ir (85.15.16.103)  29.904 ms  34.851 ms  34.885 ms
+ 3  85-15-0-193.shatel.ir (85.15.0.193)  34.880 ms  39.454 ms  39.459 ms
+ 4  85-15-0-1.shatel.ir (85.15.0.1)  39.451 ms  39.444 ms  43.865 ms
+ 5  172.18.196.17 (172.18.196.17)  43.887 ms  46.506 ms  51.990 ms
+ 6  172.18.196.22 (172.18.196.22)  51.943 ms  29.418 ms  29.430 ms
+ 7  10.10.53.229 (10.10.53.229)  32.421 ms  32.344 ms  34.705 ms
+ 8  10.10.53.222 (10.10.53.222)  39.814 ms  39.773 ms  39.808 ms
+ 9  xe-0-3-3-xcr2.fri.cw.net (62.208.252.109)  126.654 ms  131.411 ms  131.363 ms
+10  ae29-xcr1.fri.cw.net (195.2.24.221)  126.570 ms  129.053 ms  129.073 ms
+11  195.2.19.6 (195.2.19.6)  173.273 ms  173.284 ms  178.795 ms
+12  216.239.56.106 (216.239.56.106)  143.786 ms  145.279 ms 216.239.57.143 (216.239.57.143)  115.669 ms
+13  209.85.143.25 (209.85.143.25)  111.427 ms  113.970 ms  113.989 ms
+14  74.125.37.88 (74.125.37.88)  127.402 ms  125.199 ms 74.125.37.92 (74.125.37.92)  122.175 ms
+15  209.85.247.72 (209.85.247.72)  137.551 ms  137.564 ms  140.535 ms
+16  72.14.236.249 (72.14.236.249)  161.583 ms  170.447 ms  170.407 ms
+17  173.194.32.160 (173.194.32.160)  170.375 ms 72.14.235.231 (72.14.235.231)  159.352 ms  161.666 ms
 </code></pre></div>
 
 <p>On the first step (1) I reach my own router. On the 2nd step, I'm at my ISP which is shutel. I'm still on shatel on 3rd and 4th steps and so on. After a long path, on the 17th step, I reach my destination. This is used to troubleshoot routing problems.</p>
 <blockquote>
-<p>In some routers, the ping trafic is blocked and you will see <code>*  *  *</code> at some steps because those servers are blocking ICMP traffic.</p>
+<p>In some routers, the ping trafic is blocked and you will see <code>* * *</code> at some steps because those servers are blocking ICMP traffic.</p>
 </blockquote>
 <p>There is another command called <code>tracepath</code> which is very similar to <code>traceroute</code>. For the LPIC1 level, they are essentially the same!</p>
-<h4>IPv6</h4>
+<p><strong>IPv6</strong></p>
 <p>If you are on an IPv6 network you have to use <code>traceroute6</code> and <code>ping6</code> instead of <code>traceroute</code> and <code>ping</code>. As easy as that.</p>
-<h4>dig</h4>
+<p><strong>dig</strong></p>
 <p>The <code>dig</code> command is a DNS lookup tool. If you are having problem with a domain name, you can check how it is being resolved to IPs; and by whom.</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@funlife ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">dig</span><span class="w"> </span><span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ dig google.com
 
-<span class="p">;</span><span class="w"> </span><span class="o">&lt;&lt;&gt;&gt;</span><span class="w"> </span><span class="n">DiG</span><span class="w"> </span><span class="mf">9.9.5</span><span class="o">-</span><span class="mi">11</span><span class="n">ubuntu1</span><span class="mf">.3</span><span class="o">-</span><span class="n">Ubuntu</span><span class="w"> </span><span class="o">&lt;&lt;&gt;&gt;</span><span class="w"> </span><span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
-<span class="p">;;</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="nl">options</span><span class="p">:</span><span class="w"> </span><span class="o">+</span><span class="n">cmd</span><span class="w"></span>
-<span class="p">;;</span><span class="w"> </span><span class="n">Got</span><span class="w"> </span><span class="nl">answer</span><span class="p">:</span><span class="w"></span>
-<span class="p">;;</span><span class="w"> </span><span class="o">-&gt;&gt;</span><span class="n">HEADER</span><span class="o">&lt;&lt;-</span><span class="w"> </span><span class="nl">opcode</span><span class="p">:</span><span class="w"> </span><span class="n">QUERY</span><span class="p">,</span><span class="w"> </span><span class="nl">status</span><span class="p">:</span><span class="w"> </span><span class="n">NOERROR</span><span class="p">,</span><span class="w"> </span><span class="nl">id</span><span class="p">:</span><span class="w"> </span><span class="mi">50032</span><span class="w"></span>
-<span class="p">;;</span><span class="w"> </span><span class="nl">flags</span><span class="p">:</span><span class="w"> </span><span class="n">qr</span><span class="w"> </span><span class="n">rd</span><span class="w"> </span><span class="n">ra</span><span class="p">;</span><span class="w"> </span><span class="nl">QUERY</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">ANSWER</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">AUTHORITY</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">ADDITIONAL</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+; &lt;&lt;&gt;&gt; DiG 9.9.5-11ubuntu1.3-Ubuntu &lt;&lt;&gt;&gt; google.com
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 50032
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
 
-<span class="p">;;</span><span class="w"> </span><span class="n">QUESTION</span><span class="w"> </span><span class="k">SECTION</span><span class="err">:</span><span class="w"></span>
-<span class="p">;</span><span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="w">            </span><span class="ow">IN</span><span class="w">    </span><span class="n">A</span><span class="w"></span>
+;; QUESTION SECTION:
+;google.com.            IN    A
 
-<span class="p">;;</span><span class="w"> </span><span class="n">ANSWER</span><span class="w"> </span><span class="k">SECTION</span><span class="err">:</span><span class="w"></span>
-<span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="w">        </span><span class="mi">293</span><span class="w">    </span><span class="ow">IN</span><span class="w">    </span><span class="n">A</span><span class="w">    </span><span class="mf">216.58.214.46</span><span class="w"></span>
+;; ANSWER SECTION:
+google.com.        293    IN    A    216.58.214.46
 
-<span class="p">;;</span><span class="w"> </span><span class="n">Query</span><span class="w"> </span><span class="nc">time</span><span class="err">:</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="n">msec</span><span class="w"></span>
-<span class="p">;;</span><span class="w"> </span><span class="nl">SERVER</span><span class="p">:</span><span class="w"> </span><span class="mf">4.2.2.4</span><span class="n">#53</span><span class="p">(</span><span class="mf">4.2.2.4</span><span class="p">)</span><span class="w"></span>
-<span class="p">;;</span><span class="w"> </span><span class="k">WHEN</span><span class="err">:</span><span class="w"> </span><span class="n">Fri</span><span class="w"> </span><span class="n">Apr</span><span class="w"> </span><span class="mi">01</span><span class="w"> </span><span class="mi">22</span><span class="err">:</span><span class="mi">00</span><span class="err">:</span><span class="mi">05</span><span class="w"> </span><span class="n">IRDT</span><span class="w"> </span><span class="mi">2016</span><span class="w"></span>
-<span class="p">;;</span><span class="w"> </span><span class="n">MSG</span><span class="w"> </span><span class="k">SIZE</span><span class="w">  </span><span class="nl">rcvd</span><span class="p">:</span><span class="w"> </span><span class="mi">44</span><span class="w"></span>
+;; Query time: 120 msec
+;; SERVER: 4.2.2.4#53(4.2.2.4)
+;; WHEN: Fri Apr 01 22:00:05 IRDT 2016
+;; MSG SIZE  rcvd: 44
 </code></pre></div>
 
 <p>You can see that SERVER 4.2.2.4 is resolving google.com to 216.58.214.46.</p>
-<h4>netcat</h4>
-<p>The nc (or netcat) utility is used for just about anything under the sun involving TCP, UDP, or UNIX-domain sockets.  It can open TCP connections, send UDP packets, listen on arbitrary TCP and UDP ports, do port scanning, and deal with both IPv4 and IPv6.  Unlike telnet, nc scripts nicely, and separates error messages onto standard error instead of sending them to standard output, as telnet does with some. This is a very capable command and it is enough for you to be familier with its general concept.</p>
+<p><strong>netcat</strong></p>
+<p>The nc (or netcat) utility is used for just about anything under the sun involving TCP, UDP, or UNIX-domain sockets. It can open TCP connections, send UDP packets, listen on arbitrary TCP and UDP ports, do port scanning, and deal with both IPv4 and IPv6. Unlike telnet, nc scripts nicely, and separates error messages onto standard error instead of sending them to standard output, as telnet does with some. This is a very capable command and it is enough for you to be familier with its general concept.</p>
 <p>.</p>
 <p>.</p>
 <p>.</p>
@@ -338,9 +337,21 @@
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:38:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#109-ref">109</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

@@ -15,18 +15,18 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 103, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
-<meta property="og:title" content="103.5. Create, monitor and kill processes "/>
+<meta property="og:title" content="103.5 Create, monitor and kill processes "/>
 <meta property="og:url" content="./1035-create-monitor-and-kill-processes.html" />
-<meta property="og:description" content="103.5. Create, monitor and kill processes Weight: 4 Candidates should be able to perform basic process management. Objectives Run jobs in the foreground and background. Signal a program to continue running after logout. Monitor active processes. Select and sort processes for display. Send signals to processes. &amp; bg fg jobs …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:14:00+02:00" />
-<meta name="twitter:title" content="103.5. Create, monitor and kill processes ">
-<meta name="twitter:description" content="103.5. Create, monitor and kill processes Weight: 4 Candidates should be able to perform basic process management. Objectives Run jobs in the foreground and background. Signal a program to continue running after logout. Monitor active processes. Select and sort processes for display. Send signals to processes. &amp; bg fg jobs …">
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
+<meta name="twitter:title" content="103.5 Create, monitor and kill processes ">
+<meta name="twitter:description" content="">
 
-        <title>103.5. Create, monitor and kill processes  · lpic1book
+        <title>103.5 Create, monitor and kill processes  · lpic1book
 </title>
 
 
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -68,7 +67,7 @@
     <header class="page-header span10 offset2">
         <h1>
             <a href="./1035-create-monitor-and-kill-processes.html">
-                103.5. Create, monitor and kill processes
+                103.5 Create, monitor and kill processes
             </a>
         </h1>
     </header>
@@ -77,21 +76,16 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>103.5. Create, monitor and kill processes</h1>
-<p><em>Weight: 4</em></p>
+            <p><em>Weight: 4</em></p>
 <p>Candidates should be able to perform basic process management.</p>
-<h2>Objectives</h2>
+<h3>Objectives</h3>
 <ul>
 <li>Run jobs in the foreground and background.</li>
 <li>Signal a program to continue running after logout.</li>
 <li>Monitor active processes.</li>
 <li>Select and sort processes for display.</li>
-<li>
-<p>Send signals to processes.</p>
-</li>
-<li>
-<p>&amp;</p>
-</li>
+<li>Send signals to processes.</li>
+<li>&amp;</li>
 <li>bg</li>
 <li>fg</li>
 <li>jobs</li>
@@ -103,15 +97,14 @@
 <li>uptime</li>
 <li>killall</li>
 </ul>
-<h2>foreground and background jobs</h2>
+<h3>foreground and background jobs</h3>
 <p>One of the great points of linux on its beginning days, was the ability to run many programs at the same time. This is done with sending programs to the background.</p>
 <p>Normally if you run a program on the terminal, it <em>blocks</em> your terminal but sending a command to the background will prevent this:</p>
-<div class="highlight"><pre><span></span><code><span class="err">xeyes &amp;</span>
+<div class="highlight"><pre><span></span><code>xeyes &amp;
 </code></pre></div>
 
 <p>But what if we started it normally? We can break / cancel it with <code>Ctrl+c</code> or <em>suspend</em> it using <code>Ctrl+z</code>.</p>
-<p>```
-$ xeyes
+<div class="highlight"><pre><span></span><code>$ xeyes
 ^Z
 [1]+  Stopped                 xeyes
 $ jobs
@@ -136,30 +129,33 @@ $ bg sle
 [2]+ sleep 1000 &amp;
 $ jobs
 [1]-  Running                 xeyes &amp;
-[2]+  Running                 sleep 1000 &amp;</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="o">-</span><span class="n">l</span> <span class="n">switch</span> <span class="n">of</span> <span class="ss">`jobs`</span> <span class="n">will</span> <span class="n">also</span> <span class="k">show</span> <span class="n">the</span> <span class="n">process</span> <span class="n">ID</span>
-
-<span class="c1">## nohup</span>
-
-<span class="n">The</span> <span class="ss">`nohup`</span> <span class="n">command</span> <span class="n">lets</span> <span class="n">you</span> <span class="n">run</span> <span class="n">your</span> <span class="n">commands</span> <span class="n">even</span> <span class="n">after</span> <span class="n">you</span> <span class="n">logged</span> <span class="k">out</span> <span class="k">and</span> <span class="n">writes</span> <span class="n">its</span> <span class="n">output</span> <span class="k">to</span> <span class="o">**</span><span class="n">nohup</span><span class="p">.</span><span class="k">out</span><span class="o">**</span><span class="p">:</span>
+[2]+  Running                 sleep 1000 &amp;
+`
 </code></pre></div>
 
-<p>$ nohup ping 4.2.2.4
+<blockquote>
+<p>-l switch of <code>jobs</code> will also show the process ID</p>
+</blockquote>
+<h3>nohup</h3>
+<p>The <code>nohup</code> command lets you run your commands even after you logged out and writes its output to <strong>nohup.out</strong>:</p>
+<div class="highlight"><pre><span></span><code>$ nohup ping 4.2.2.4
 nohup: ignoring input and appending output to ‘nohup.out’
 ^C$ cat nohup.out
 PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.
 64 bytes from 4.2.2.4: icmp_seq=1 ttl=51 time=225 ms
-64 bytes from 4.2.2.4: icmp_seq=3 ttl=51 time=223 ms</p>
-<p>--- 4.2.2.4 ping statistics ---
-4 packets transmitted, 2 received, 50% packet loss, time 3010ms
-rtt min/avg/max/mdev = 223.584/224.767/225.950/1.183 ms</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="n">It</span> <span class="k">is</span> <span class="n">common</span> <span class="k">to</span> <span class="n">use</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="k">to</span> <span class="n">redirect</span> <span class="n">the</span> <span class="n">nohup</span> <span class="n">errors</span> <span class="k">to</span> <span class="n">a</span> <span class="n">file</span><span class="p">:</span> <span class="o">`</span><span class="n">nohup</span> <span class="n">script</span><span class="p">.</span><span class="n">sh</span> <span class="o">&gt;</span> <span class="n">mynohup</span><span class="p">.</span><span class="k">out</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span> <span class="o">&amp;`</span>
+64 bytes from 4.2.2.4: icmp_seq=3 ttl=51 time=223 ms
 
-<span class="o">##</span> <span class="n">kill</span>
-<span class="n">You</span> <span class="n">can</span> <span class="n">control</span> <span class="n">processes</span> <span class="k">by</span> <span class="o">**</span><span class="n">signals</span><span class="o">**</span><span class="p">.</span> <span class="n">Actually</span> <span class="n">pressing</span> <span class="o">`</span><span class="n">Ctrl</span><span class="o">+</span><span class="k">c</span><span class="o">`</span> <span class="k">and</span> <span class="o">`</span><span class="n">Ctrl</span><span class="o">+</span><span class="n">z</span><span class="o">`</span> <span class="k">is</span> <span class="n">also</span> <span class="n">sending</span> <span class="n">signals</span><span class="p">.</span> <span class="n">Another</span> <span class="n">way</span> <span class="k">for</span> <span class="n">this</span> <span class="k">is</span> <span class="k">using</span> <span class="n">the</span> <span class="n">kill</span> <span class="n">command</span><span class="p">:</span>
+--- 4.2.2.4 ping statistics ---
+4 packets transmitted, 2 received, 50% packet loss, time 3010ms
+rtt min/avg/max/mdev = 223.584/224.767/225.950/1.183 ms
 </code></pre></div>
 
-<p>$ jobs
+<blockquote>
+<p>It is common to use 2&gt; to redirect the nohup errors to a file: <code>nohup script.sh &gt; mynohup.out 2&gt;&amp;1 &amp;</code></p>
+</blockquote>
+<h3>kill</h3>
+<p>You can control processes by <strong>signals</strong>. Actually pressing <code>Ctrl+c</code> and <code>Ctrl+z</code> is also sending signals. Another way for this is using the kill command:</p>
+<div class="highlight"><pre><span></span><code>$ jobs
 [3]   Running                 xeyes &amp;
 [4]   Running                 sleep 1000 &amp;
 [5]-  Running                 sleep 2000 &amp;
@@ -173,24 +169,43 @@ $ jobs
 $ jobs
 [3]   Running                 xeyes &amp;
 [5]-  Running                 sleep 2000 &amp;
-[6]+  Running                 sleep 3000 &amp;</p>
-<div class="highlight"><pre><span></span><code><span class="k">If</span> <span class="k">is</span> <span class="n">also</span> <span class="n">possible</span> <span class="k">to</span> <span class="k">use</span> <span class="n">PIDs</span> <span class="k">in</span> <span class="k">from</span> <span class="n">of</span> <span class="n">the</span> <span class="k">kill</span> <span class="k">or</span> <span class="n">send</span> <span class="n">other</span> <span class="n">signals</span><span class="p">:</span>
-
-<span class="o">|</span><span class="n">signal</span> <span class="n">number</span><span class="o">|</span><span class="n">signal</span> <span class="n">name</span><span class="o">|</span><span class="n">meaning</span><span class="o">|</span>
-<span class="o">|---|---|---|</span>
-<span class="o">|</span><span class="mi">1</span><span class="o">|</span><span class="n">SIGHUP</span><span class="o">|</span><span class="n">Informing</span> <span class="n">the</span> <span class="n">process</span> <span class="n">that</span> <span class="n">its</span> <span class="n">controlling</span> <span class="nf">terminal</span> <span class="p">(</span><span class="k">like</span> <span class="n">an</span> <span class="n">ssh</span> <span class="n">connection</span><span class="p">)</span> <span class="k">is</span> <span class="k">terminated</span><span class="o">|</span>
-<span class="o">|</span><span class="mi">15</span><span class="o">|</span><span class="n">SIGTERM</span><span class="o">|</span><span class="n">normal</span> <span class="n">termination</span> <span class="n">request</span><span class="o">|</span>
-<span class="o">|</span><span class="mi">9</span><span class="o">|</span><span class="n">SIGKILL</span><span class="o">|</span><span class="n">forcefully</span> <span class="n">kills</span> <span class="n">the</span> <span class="n">proccess</span><span class="o">|</span>
-
-<span class="n">So</span> <span class="n">you</span> <span class="n">can</span> <span class="n">do</span> <span class="n">a</span> <span class="ss">`kill -9 8733`</span> <span class="k">to</span> <span class="k">force</span> <span class="n">process</span> <span class="n">ID</span> <span class="mi">8733</span> <span class="k">to</span> <span class="n">close</span><span class="p">.</span>
-
-<span class="o">&gt;</span> <span class="n">Now</span> <span class="n">you</span> <span class="n">can</span> <span class="n">understand</span> <span class="n">what</span> <span class="ss">`nohup`</span> <span class="n">means</span><span class="p">:</span> <span class="n">go</span> <span class="k">not</span> <span class="n">answer</span> <span class="k">to</span> <span class="n">the</span> <span class="n">SIGHUP</span><span class="p">.</span>
-
-<span class="c1">## killall</span>
-<span class="n">Will</span> <span class="n">send</span> <span class="n">the</span> <span class="n">given</span> <span class="nf">signal</span> <span class="p">(</span><span class="k">or</span> <span class="mi">15</span><span class="p">)</span> <span class="k">to</span> <span class="k">all</span> <span class="n">the</span> <span class="n">processes</span> <span class="k">with</span> <span class="n">the</span> <span class="n">given</span> <span class="n">name</span><span class="p">:</span>
+[6]+  Running                 sleep 3000 &amp;
 </code></pre></div>
 
-<p>$ jobs
+<p>If is also possible to use PIDs in from of the kill or send other signals:</p>
+<table>
+<thead>
+<tr>
+<th align="left">signal number</th>
+<th align="left">signal name</th>
+<th align="left">meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">1</td>
+<td align="left">SIGHUP</td>
+<td align="left">Informing the process that its controlling terminal (like an ssh connection) is terminated</td>
+</tr>
+<tr>
+<td align="left">15</td>
+<td align="left">SIGTERM</td>
+<td align="left">normal termination request</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">SIGKILL</td>
+<td align="left">forcefully kills the proccess</td>
+</tr>
+</tbody>
+</table>
+<p>So you can do a <code>kill -9 8733</code> to force process ID 8733 to close.</p>
+<blockquote>
+<p>Now you can understand what <code>nohup</code> means: go not answer to the SIGHUP.</p>
+</blockquote>
+<h3>killall</h3>
+<p>Will send the given signal (or 15) to all the processes with the given name:</p>
+<div class="highlight"><pre><span></span><code>$ jobs
 [3]   Running                 xeyes &amp;
 [5]-  Running                 sleep 2000 &amp;
 [6]+  Running                 sleep 3000 &amp;
@@ -204,13 +219,13 @@ $ killall sleep
 $ jobs
 [3]+  Running                 xeyes &amp;
 $ ps -ef | grep sleep
-jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep</p>
-<div class="highlight"><pre><span></span><code><span class="c1">## Monitoring Processes</span>
-<span class="c1">### ps</span>
-<span class="n">The</span> <span class="ss">`ps`</span> <span class="n">command</span> <span class="n">shows</span> <span class="n">running</span> <span class="n">processes</span> <span class="k">on</span> <span class="n">your</span> <span class="n">computer</span><span class="p">.</span>
+jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep
 </code></pre></div>
 
-<p>$ sleep 1000 &amp;
+<h3>Monitoring Processes</h3>
+<h4>ps</h4>
+<p>The <code>ps</code> command shows running processes on your computer.</p>
+<div class="highlight"><pre><span></span><code>$ sleep 1000 &amp;
 [1] 7678
 $ sleep 1001 &amp;
 [2] 7679
@@ -222,31 +237,32 @@ $ ps
  7678 pts/1    00:00:00 sleep
  7679 pts/1    00:00:00 sleep
  7680 pts/1    00:00:00 xeyes
- 7681 pts/1    00:00:00 ps</p>
-<div class="highlight"><pre><span></span><code><span class="err">But using ```ps aux``` (= `-aux`) or  `ps -ef` is also common &amp; shows ALL processes on this system:</span>
+ 7681 pts/1    00:00:00 ps
 </code></pre></div>
 
-<p>$ ps -aux | wc -l
-293</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="n">Every</span> <span class="n">process</span> <span class="n">has</span> <span class="n">a</span> <span class="nf">ProcessID</span> <span class="p">(</span><span class="n">PID</span><span class="p">)</span> <span class="k">and</span> <span class="n">a</span> <span class="nf">PPID</span> <span class="p">(</span><span class="n">Parent</span> <span class="n">Process</span> <span class="n">ID</span><span class="p">).</span>
-
-<span class="c1">#### finding processes</span>
-<span class="n">You</span><span class="err">&#39;</span><span class="n">ve</span> <span class="n">seen</span> <span class="n">that</span> <span class="ss">`ps -ef`</span> <span class="n">shows</span> <span class="n">processes</span> <span class="k">from</span> <span class="k">all</span> <span class="n">users</span><span class="p">.</span> <span class="n">We</span> <span class="n">can</span> <span class="ss">`grep`</span> <span class="k">on</span> <span class="n">that</span> <span class="k">and</span> <span class="n">see</span> <span class="n">who</span> <span class="k">is</span> <span class="n">running</span> <span class="ss">`gedit`</span> <span class="k">and</span> <span class="n">what</span> <span class="k">is</span> <span class="n">its</span> <span class="n">process</span> <span class="n">ID</span><span class="p">:</span>
+<p>But using <code>ps aux</code> (= <code>-aux</code>) or <code>ps -ef</code> is also common &amp; shows ALL processes on this system:</p>
+<div class="highlight"><pre><span></span><code>$ ps -aux | wc -l
+293
 </code></pre></div>
 
-<p>$ ps -ef | grep gedit
+<blockquote>
+<p>Every process has a ProcessID (PID) and a PPID (Parent Process ID).</p>
+</blockquote>
+<p><strong>finding processes</strong></p>
+<p>You've seen that <code>ps -ef</code> shows processes from all users. We can <code>grep</code> on that and see who is running <code>gedit</code> and what is its process ID:</p>
+<div class="highlight"><pre><span></span><code>$ ps -ef | grep gedit
 jadi      6213  4604  9 20:06 ?        00:04:43 gedit
-jadi      7725  7651  0 20:55 pts/1    00:00:00 grep gedit</p>
-<div class="highlight"><pre><span></span><code><span class="err">but there is also a more direct way:</span>
+jadi      7725  7651  0 20:55 pts/1    00:00:00 grep gedit
 </code></pre></div>
 
-<p>$ ps -C gedit -o user,pid,tty,time,comm
+<p>but there is also a more direct way:</p>
+<div class="highlight"><pre><span></span><code>$ ps -C gedit -o user,pid,tty,time,comm
 USER       PID TT           TIME COMMAND
-jadi      6213 ?        00:04:49 gedit</p>
-<div class="highlight"><pre><span></span><code><span class="err">It is also possible to use the `--sort` switch to sort output based on different fields (+ for ascending &amp; - for descending).</span>
+jadi      6213 ?        00:04:49 gedit
 </code></pre></div>
 
-<p>$ ps -af --sort +comm,-sid
+<p>It is also possible to use the <code>--sort</code> switch to sort output based on different fields (+ for ascending &amp; - for descending).</p>
+<div class="highlight"><pre><span></span><code>$ ps -af --sort +comm,-sid
 UID        PID  PPID  C STIME TTY          TIME CMD
 root      5486  5478  0 19:59 pts/12   00:00:00 -su
 root      4444  1169  0 19:56 tty4     00:00:00 -bash
@@ -259,55 +275,80 @@ jadi      7776  7651  0 20:58 pts/1    00:00:00 sleep 1000
 jadi      7777  7651  0 20:58 pts/1    00:00:00 sleep 1000
 root      5478  5477  0 19:59 pts/12   00:00:00 su -
 root      5477  5008  0 19:59 pts/12   00:00:00 sudo su -
-jadi      7680  7651  0 20:48 pts/1    00:00:01 xeyes</p>
-<div class="highlight"><pre><span></span><code><span class="c1">### top</span>
-<span class="n">Processes</span> <span class="n">are</span> <span class="n">changing</span> <span class="k">and</span> <span class="n">sometimes</span> <span class="n">you</span> <span class="n">need</span> <span class="k">to</span> <span class="k">check</span> <span class="n">them</span> <span class="n">live</span><span class="p">.</span> <span class="ss">`top`</span> <span class="n">command</span> <span class="n">will</span> <span class="n">help</span> <span class="n">you</span><span class="p">:</span>
+jadi      7680  7651  0 20:48 pts/1    00:00:01 xeyes
 </code></pre></div>
 
-<p>$top</p>
-<p>top - 21:00:44 up  1:16,  5 users,  load average: 1.51, 1.65, 1.78
+<h4>top</h4>
+<p>Processes are changing and sometimes you need to check them live. <code>top</code> command will help you:</p>
+<div class="highlight"><pre><span></span><code>$top
+
+top - 21:00:44 up  1:16,  5 users,  load average: 1.51, 1.65, 1.78
 Tasks: 293 total,   1 running, 292 sleeping,   0 stopped,   0 zombie
 %Cpu(s): 19.0 us,  5.0 sy,  0.0 ni, 70.9 id,  5.1 wa,  0.0 hi,  0.0 si,  0.0 st
 KiB Mem:   8060264 total,  5359812 used,  2700452 free,   169240 buffers
-KiB Swap:  7811068 total,        0 used,  7811068 free.  2250692 cached Mem</p>
-<p>PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND                                                                                                              <br>
- 6570 jadi      20   0 1437752 546064  88312 S  18.4  6.8  12:00.96 firefox                                                                                                              <br>
- 4870 jadi      20   0 1762516 299120  75664 S  12.2  3.7   7:37.05 compiz                                                                                                               <br>
- 4492 jadi       9 -11  455152  11516   8940 S   6.1  0.1   1:06.81 pulseaudio                                                                                                           <br>
- 4532 root      20   0  389028  77116  60192 S   6.1  1.0  12:16.63 Xorg                                                                                                                 <br>
- 4723 jadi      20   0  358936   8288   5512 S   6.1  0.1   9:51.52 ibus-daemon                                                                                                          <br>
- 5648 jadi      20   0 1641556 203676 102840 S   6.1  2.5   3:20.88 chrome                                                                                                               <br>
- 7082 jadi      20   0 1210748  73136  42528 S   6.1  0.9   0:36.51 Telegram                                                                                                             <br>
- 7806 jadi      20   0   33796   3004   2500 R   6.1  0.0   0:00.02 top                                                                                                                  <br>
-    1 root      20   0   29528   4320   2584 S   0.0  0.1   0:01.71 init              </p>
-<div class="highlight"><pre><span></span><code><span class="n">You</span> <span class="n">can</span> <span class="n">see</span> <span class="n">the</span> <span class="n">processes</span><span class="p">,</span> <span class="n">system</span> <span class="k">load</span><span class="p">,</span> <span class="n">uptime</span><span class="p">,</span> <span class="n">CPU</span> <span class="n">status</span><span class="p">,</span> <span class="n">memory</span><span class="p">,</span> <span class="p">...</span> <span class="k">and</span> <span class="n">do</span> <span class="n">some</span> <span class="n">stuff</span><span class="p">:</span>
+KiB Swap:  7811068 total,        0 used,  7811068 free.  2250692 cached Mem
 
-<span class="o">|</span><span class="k">key</span> <span class="n">during</span> <span class="n">top</span><span class="o">|</span><span class="n">functionality</span><span class="o">|</span>
-<span class="o">|---|---|</span>
-<span class="o">|</span><span class="n">h</span><span class="o">|</span><span class="n">help</span><span class="o">|</span>
-<span class="o">|</span><span class="n">q</span><span class="o">|</span><span class="n">quit</span><span class="o">|</span>
-<span class="o">|</span><span class="n">M</span><span class="o">|</span><span class="n">sort</span> <span class="n">based</span> <span class="k">on</span> <span class="n">memory</span> <span class="k">usage</span><span class="err">&quot;</span>
-<span class="o">|</span><span class="n">c</span><span class="o">|</span><span class="k">show</span> <span class="n">full</span> <span class="n">commands</span><span class="o">|</span>
-<span class="o">|</span><span class="n">k</span><span class="o">|</span><span class="k">kill</span> <span class="n">after</span> <span class="n">asking</span> <span class="n">pid</span> <span class="k">and</span> <span class="n">signal</span><span class="o">|</span>
-
-<span class="c1">## free</span>
-<span class="n">The</span> <span class="ss">`free`</span> <span class="n">command</span> <span class="n">will</span> <span class="k">show</span> <span class="n">you</span> <span class="n">info</span> <span class="n">about</span> <span class="n">the</span> <span class="n">system</span> <span class="n">memory</span><span class="p">.</span> <span class="n">The</span> <span class="k">default</span> <span class="k">is</span> <span class="o">*</span><span class="n">kilobytes</span><span class="o">*</span> <span class="n">but</span> <span class="n">you</span> <span class="n">can</span> <span class="k">change</span> <span class="n">it</span> <span class="k">with</span> <span class="ss">`-m`</span> <span class="k">for</span> <span class="n">megabytes</span><span class="p">,</span> <span class="ss">`-g`</span> <span class="k">for</span> <span class="o">*</span><span class="n">gigabytes</span><span class="o">*</span> <span class="k">or</span> <span class="n">even</span> <span class="ss">`-b`</span> <span class="k">for</span> <span class="n">bytes</span><span class="p">:</span>
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND                                                                                                                
+ 6570 jadi      20   0 1437752 546064  88312 S  18.4  6.8  12:00.96 firefox                                                                                                                
+ 4870 jadi      20   0 1762516 299120  75664 S  12.2  3.7   7:37.05 compiz                                                                                                                 
+ 4492 jadi       9 -11  455152  11516   8940 S   6.1  0.1   1:06.81 pulseaudio                                                                                                             
+ 4532 root      20   0  389028  77116  60192 S   6.1  1.0  12:16.63 Xorg                                                                                                                   
+ 4723 jadi      20   0  358936   8288   5512 S   6.1  0.1   9:51.52 ibus-daemon                                                                                                            
+ 5648 jadi      20   0 1641556 203676 102840 S   6.1  2.5   3:20.88 chrome                                                                                                                 
+ 7082 jadi      20   0 1210748  73136  42528 S   6.1  0.9   0:36.51 Telegram                                                                                                               
+ 7806 jadi      20   0   33796   3004   2500 R   6.1  0.0   0:00.02 top                                                                                                                    
+    1 root      20   0   29528   4320   2584 S   0.0  0.1   0:01.71 init
 </code></pre></div>
 
-<p>$ free -m
+<p>You can see the processes, system load, uptime, CPU status, memory, ... and do some stuff:</p>
+<table>
+<thead>
+<tr>
+<th align="left">key during top</th>
+<th align="left">functionality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">h</td>
+<td align="left">help</td>
+</tr>
+<tr>
+<td align="left">q</td>
+<td align="left">quit</td>
+</tr>
+<tr>
+<td align="left">M</td>
+<td align="left">sort based on memory usage"</td>
+</tr>
+<tr>
+<td align="left">c</td>
+<td align="left">show full commands</td>
+</tr>
+<tr>
+<td align="left">k</td>
+<td align="left">kill after asking pid and signal</td>
+</tr>
+</tbody>
+</table>
+<h3>free</h3>
+<p>The <code>free</code> command will show you info about the system memory. The default is <em>kilobytes</em> but you can change it with <code>-m</code> for megabytes, <code>-g</code> for <em>gigabytes</em> or even <code>-b</code> for bytes:</p>
+<div class="highlight"><pre><span></span><code>$ free -m
              total       used       free     shared    buffers     cached
 Mem:          7871       5231       2640        332        169       2195
 -/+ buffers/cache:       2866       5005
-Swap:         7627          0       7627</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="n">The</span> <span class="n">system</span> <span class="n">should</span> <span class="k">not</span> <span class="k">use</span> <span class="n">swap</span> <span class="k">in</span> <span class="k">long</span> <span class="n">term</span>
-
-<span class="c1">## uptime</span>
-<span class="n">The</span> <span class="ss">`uptime`</span> <span class="n">command</span> <span class="n">shows</span> <span class="n">the</span> <span class="kt">time</span><span class="p">,</span> <span class="n">how</span> <span class="k">long</span> <span class="n">the</span> <span class="n">system</span> <span class="k">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">how</span> <span class="n">may</span> <span class="n">users</span> <span class="n">are</span> <span class="n">logged</span> <span class="k">in</span> <span class="k">and</span> <span class="n">the</span> <span class="k">load</span> <span class="n">average</span> <span class="n">of</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span> <span class="o">&amp;</span> <span class="mi">15</span> <span class="n">minutes</span><span class="p">:</span>
+Swap:         7627          0       7627
 </code></pre></div>
 
-<p>$ uptime
+<blockquote>
+<p>The system should not use swap in long term</p>
+</blockquote>
+<h3>uptime</h3>
+<p>The <code>uptime</code> command shows the time, how long the system is up, how may users are logged in and the load average of 1, 5 &amp; 15 minutes:</p>
+<div class="highlight"><pre><span></span><code>$ uptime
  21:18:52 up  1:34,  5 users,  load average: 2.38, 2.64, 2.41
-````</p>
+</code></pre></div>
+
 <p>.</p>
 <p>.</p>
 <p>.</p>
@@ -336,9 +377,21 @@ Swap:         7627          0       7627</p>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:14:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#103-ref">103</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

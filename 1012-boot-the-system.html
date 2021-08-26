@@ -15,18 +15,18 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 101, " />
+<meta name="keywords" content="System Architecture, LPIC1, LPIC1-101-500, LPIC1-101, " />
 
-<meta property="og:title" content="101.2. Boot the system "/>
+<meta property="og:title" content="101.2 Boot the System "/>
 <meta property="og:url" content="./1012-boot-the-system.html" />
-<meta property="og:description" content="101.2. Boot the system weight: 3 Candidates should be able to guide the system through the booting process. Key Knowledge Areas Provide common commands to the boot loader and options to the kernel at boot time. Demonstrate knowledge of the boot sequence from BIOS to boot completion. Check boot …" />
+<meta property="og:description" content="Candidates should be able to guide the system through the booting process." />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:02:00+02:00" />
-<meta name="twitter:title" content="101.2. Boot the system ">
-<meta name="twitter:description" content="101.2. Boot the system weight: 3 Candidates should be able to guide the system through the booting process. Key Knowledge Areas Provide common commands to the boot loader and options to the kernel at boot time. Demonstrate knowledge of the boot sequence from BIOS to boot completion. Check boot …">
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
+<meta name="twitter:title" content="101.2 Boot the System ">
+<meta name="twitter:description" content="Candidates should be able to guide the system through the booting process.">
 
-        <title>101.2. Boot the system  · lpic1book
+        <title>101.2 Boot the System  · lpic1book
 </title>
 
 
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -68,7 +67,7 @@
     <header class="page-header span10 offset2">
         <h1>
             <a href="./1012-boot-the-system.html">
-                101.2. Boot the system
+                101.2 Boot the System
             </a>
         </h1>
     </header>
@@ -77,16 +76,15 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>101.2. Boot the system</h1>
-<p>weight: 3</p>
+            <p>weight: 3</p>
 <p>Candidates should be able to guide the system through the booting process.</p>
-<h2>Key Knowledge Areas</h2>
+<h3>Key Knowledge Areas</h3>
 <ul>
 <li>Provide common commands to the boot loader and options to the kernel at boot time.</li>
 <li>Demonstrate knowledge of the boot sequence from BIOS to boot completion.</li>
 <li>Check boot events in the log files.</li>
 </ul>
-<h2>Terms</h2>
+<h3>Terms</h3>
 <ul>
 <li>BIOS</li>
 <li>bootloader</li>
@@ -95,32 +93,32 @@
 <li>/var/log/messages</li>
 <li>dmesg</li>
 </ul>
-<h3>BIOS</h3>
+<h4>BIOS</h4>
 <p>BIOS is Basic Input Output System and does the first steps of the PC bootup. For example is does a POST (Power On Self Test) and decides which hardware should boot the system.</p>
-<h3>bootloader</h3>
+<h4>bootloader</h4>
 <p>Bootloader can be GRUB (1&amp;2) or LILO which are great for disks less than 2TB.</p>
-<div class="highlight"><pre><span></span><code><span class="err">/etc/lilo.conf</span>
-<span class="err">/boot/grub/grub.cfg</span>
-<span class="err">/boot/grub/menu.lst</span>
+<div class="highlight"><pre><span></span><code>/etc/lilo.conf
+/boot/grub/grub.cfg
+/boot/grub/menu.lst
 </code></pre></div>
 
-<h3>Kernel</h3>
+<h4>Kernel</h4>
 <p>Kernel parameters (sometimes called boot parameters) supply the kernel with information about hardware parameters that it might not determine on its own - say single user mod boot (S)</p>
-<h3>init</h3>
+<h4>init</h4>
 <p>When the kernel finishes loading, it usually starts /sbin/init. This program remains running until the system is shut down. It is always assigned process ID 1.</p>
 <p>first process, process in charge, a big family tree of commands:</p>
-<div class="highlight"><pre><span></span><code><span class="err">pstree</span>
+<div class="highlight"><pre><span></span><code>pstree
 </code></pre></div>
 
 <p>init is being replaced in many distros (say ubuntu with upstart) but still is in exam and has its own section.</p>
-<h3>dmesg</h3>
+<h4>dmesg</h4>
 <p><strong>Funny fact:</strong> During the bootup, only The Kernel is running so it should record and keep its own logs!</p>
-<p>dmesg command will show the full data from  <strong>kernel ring buffer</strong> up to now. But</p>
-<div class="highlight"><pre><span></span><code><span class="err">cat /var/log/dmesg</span>
+<p>dmesg command will show the full data from <strong>kernel ring buffer</strong> up to now. But</p>
+<div class="highlight"><pre><span></span><code>cat /var/log/dmesg
 </code></pre></div>
 
 <p>will show <strong>only</strong> the data during the boot</p>
-<h3>/var/log/messages</h3>
+<h4>/var/log/messages</h4>
 <p>After the init process comes up, syslog daemon will log messages. It has timestamps and will persist during restarts.</p>
 <ul>
 <li>Kernel is still logging its own messages in dmesg</li>
@@ -145,9 +143,21 @@
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:02:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#101-ref">101</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+                <li><a href="./tags.html#system-architecture-ref">System Architecture
+                    <span class="superscript">3</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

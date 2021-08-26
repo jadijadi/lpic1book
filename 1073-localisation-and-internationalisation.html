@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 107, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="107.3 Localisation and internationalisation "/>
 <meta property="og:url" content="./1073-localisation-and-internationalisation.html" />
-<meta property="og:description" content="107.3 Localisation and internationalisation Weight: 3 Candidates should be able to localise a system in a different language than English. As well, an understanding of why LANG=C is useful when scripting. Key Knowledge Areas Configure locale settings and environment variables. Configure timezone settings and environment variables. Terms and …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:31:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="107.3 Localisation and internationalisation ">
-<meta name="twitter:description" content="107.3 Localisation and internationalisation Weight: 3 Candidates should be able to localise a system in a different language than English. As well, an understanding of why LANG=C is useful when scripting. Key Knowledge Areas Configure locale settings and environment variables. Configure timezone settings and environment variables. Terms and …">
+<meta name="twitter:description" content="">
 
         <title>107.3 Localisation and internationalisation  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,15 +76,15 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>107.3 Localisation and internationalisation</h1>
+            <h2>107.3 Localisation and internationalisation</h2>
 <p><em>Weight: 3</em></p>
 <p>Candidates should be able to localise a system in a different language than English. As well, an understanding of why LANG=C is useful when scripting.</p>
-<h2>Key Knowledge Areas</h2>
+<h3>Key Knowledge Areas</h3>
 <ul>
 <li>Configure locale settings and environment variables.</li>
 <li>Configure timezone settings and environment variables.</li>
 </ul>
-<h2>Terms and Utilities</h2>
+<h3>Terms and Utilities</h3>
 <ul>
 <li>/etc/timezone</li>
 <li>/etc/localtime</li>
@@ -104,68 +103,68 @@
 <li>ASCII</li>
 <li>Unicode</li>
 </ul>
-<h2>timezone</h2>
+<h3>timezone</h3>
 <p>On linux systems you can use <code>date</code> and <code>cal</code> commands to check the date and the calendar. It is possible to print a custom date using <code>+</code> formatter:</p>
-<div class="highlight"><pre><span></span><code><span class="err">[jadi@funlife ~]$ date +&#39;%Y%m%d-%M&#39;</span>
-<span class="err">20160103-39</span>
-<span class="err">[jadi@funlife ~]$ date +&#39;%Y%m%d-%H%M&#39;</span>
-<span class="err">20160103-2239</span>
+<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ date +&#39;%Y%m%d-%M&#39;
+20160103-39
+[jadi@funlife ~]$ date +&#39;%Y%m%d-%H%M&#39;
+20160103-2239
 </code></pre></div>
 
 <p>Timezone determines what is your time difference comparing with a reference timezone. This way you can talk about times regardless from your location. In another words, I can tell you "start the change request at 02:30 UTC" we both know when the change will be started in our own timezone (mine is 02:30 minus 3:30).</p>
 <p>You can configure your timezone while installing the system or by using a GUI in the system settings. It is even possible to set the timezone by clicking or right-clicking on the date and time on your panel. But as always there is a command line way. The old one used to be <code>tzconfig</code> but it is not used anymore.</p>
 <p>Different distros do have their own configuration commands, a general one is:</p>
-<div class="highlight"><pre><span></span><code><span class="err">tzselect</span>
-<span class="err">Please identify a location so that time zone rules can be set correctly.</span>
-<span class="err">Please select a continent, ocean, &quot;coord&quot;, or &quot;TZ&quot;.</span>
-<span class="err"> 1) Africa</span>
-<span class="err"> 2) Americas</span>
-<span class="err"> 3) Antarctica</span>
-<span class="err"> 4) Arctic Ocean</span>
-<span class="err"> 5) Asia</span>
-<span class="err"> 6) Atlantic Ocean</span>
-<span class="err"> 7) Australia</span>
-<span class="err"> 8) Europe</span>
-<span class="err"> 9) Indian Ocean</span>
-<span class="err">10) Pacific Ocean</span>
-<span class="err">11) coord - I want to use geographical coordinates.</span>
-<span class="err">12) TZ - I want to specify the time zone using the Posix TZ format.</span>
+<div class="highlight"><pre><span></span><code>tzselect
+Please identify a location so that time zone rules can be set correctly.
+Please select a continent, ocean, &quot;coord&quot;, or &quot;TZ&quot;.
+ 1) Africa
+ 2) Americas
+ 3) Antarctica
+ 4) Arctic Ocean
+ 5) Asia
+ 6) Atlantic Ocean
+ 7) Australia
+ 8) Europe
+ 9) Indian Ocean
+10) Pacific Ocean
+11) coord - I want to use geographical coordinates.
+12) TZ - I want to specify the time zone using the Posix TZ format.
 </code></pre></div>
 
 <p>This process will suggest you to set a variable called <code>TZ</code> as follow to set <em>your own</em> time zone, but not the systems:</p>
-<div class="highlight"><pre><span></span><code><span class="err">TZ=&#39;Asia/Tehran&#39;; export TZ</span>
+<div class="highlight"><pre><span></span><code>TZ=&#39;Asia/Tehran&#39;; export TZ
 </code></pre></div>
 
-<h2>Configuring timezone</h2>
+<h3>Configuring timezone</h3>
 <p>There is a directory at <code>/usr/share/zoneinfo/</code> containing all the timezone info. These are binary files. If you need to change your systems timezone you need to change 2 files:</p>
-<div class="highlight"><pre><span></span><code><span class="err">cat /etc/timezone</span>
-<span class="err">Asia/Tehran</span>
+<div class="highlight"><pre><span></span><code>cat /etc/timezone
+Asia/Tehran
 </code></pre></div>
 
 <p>and there is a short link at this place:</p>
-<div class="highlight"><pre><span></span><code><span class="err"># ls -ltrh /etc/localtime</span>
-<span class="err">-rw-r--r-- 1 root root 1.7K Jan  2 18:10 /etc/localtime</span>
+<div class="highlight"><pre><span></span><code># ls -ltrh /etc/localtime
+-rw-r--r-- 1 root root 1.7K Jan  2 18:10 /etc/localtime
 </code></pre></div>
 
 <p>This file should be replaced by the correct file from <code>/usr/share/zoneinfo/</code>. It is nicer to make a symbolic link rather than copying the actual file. This will prevent the conflicts during next upgrades.</p>
-<h2>Configuring Languages</h2>
+<h3>Configuring Languages</h3>
 <p>You can check the status of current selected system language by issuing <code>locale</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="err">$locale</span>
-<span class="err">LANG=en_US.UTF-8</span>
-<span class="err">LANGUAGE=</span>
-<span class="err">LC_CTYPE=&quot;en_US.UTF-8&quot;</span>
-<span class="err">LC_NUMERIC=&quot;en_US.UTF-8&quot;</span>
-<span class="err">LC_TIME=&quot;en_US.UTF-8&quot;</span>
-<span class="err">LC_COLLATE=&quot;en_US.UTF-8&quot;</span>
-<span class="err">LC_MONETARY=&quot;en_US.UTF-8&quot;</span>
-<span class="err">LC_MESSAGES=&quot;en_US.UTF-8&quot;</span>
-<span class="err">LC_PAPER=&quot;en_US.UTF-8&quot;</span>
-<span class="err">LC_NAME=&quot;en_US.UTF-8&quot;</span>
-<span class="err">LC_ADDRESS=&quot;en_US.UTF-8&quot;</span>
-<span class="err">LC_TELEPHONE=&quot;en_US.UTF-8&quot;</span>
-<span class="err">LC_MEASUREMENT=&quot;en_US.UTF-8&quot;</span>
-<span class="err">LC_IDENTIFICATION=&quot;en_US.UTF-8&quot;</span>
-<span class="err">LC_ALL=</span>
+<div class="highlight"><pre><span></span><code>$locale
+LANG=en_US.UTF-8
+LANGUAGE=
+LC_CTYPE=&quot;en_US.UTF-8&quot;
+LC_NUMERIC=&quot;en_US.UTF-8&quot;
+LC_TIME=&quot;en_US.UTF-8&quot;
+LC_COLLATE=&quot;en_US.UTF-8&quot;
+LC_MONETARY=&quot;en_US.UTF-8&quot;
+LC_MESSAGES=&quot;en_US.UTF-8&quot;
+LC_PAPER=&quot;en_US.UTF-8&quot;
+LC_NAME=&quot;en_US.UTF-8&quot;
+LC_ADDRESS=&quot;en_US.UTF-8&quot;
+LC_TELEPHONE=&quot;en_US.UTF-8&quot;
+LC_MEASUREMENT=&quot;en_US.UTF-8&quot;
+LC_IDENTIFICATION=&quot;en_US.UTF-8&quot;
+LC_ALL=
 </code></pre></div>
 
 <p>These are all environment variables telling system what languages to use. Here I'm using <code>LANG=en_US.UTF-8</code> which means I'm using English with US variant and UTF-8 encoding.</p>
@@ -174,27 +173,27 @@
 </blockquote>
 <p>Other variables tell the system how to show different things based on localisation systems. For example if we change the LC_TIME to "en_GB.UTF-8" the time will be printed in Great Britain format from that moment on.</p>
 <p>Another important settings is <code>LC_ALL</code>. It can be used to change <strong>ALL</strong> settings. If you do a <code>export LC_ALL=fa_IR.UTF-8</code>, all the settings will be set to that one, with no exception. It is always possible to <code>unset LC_ALL</code>.</p>
-<h3>LANG=C</h3>
+<h4>LANG=C</h4>
 <p>Another important point to know is the <code>LANG=C</code> settings. This indicates two things:</p>
 <ol>
 <li>All language settings will be default (en.US)</li>
 <li>Binary sort order</li>
 </ol>
 <p>It is also possible to do a LC_ALL=C.</p>
-<h3>changing or adding locales</h3>
+<h4>changing or adding locales</h4>
 <p>This is not a part of LPIC exam but it is good to know that on a debian based machine, you can change, add or set your default <em>locales</em> using <code>dpkg-reconfigure locales</code>.</p>
-<h2>Character Encoding</h2>
-<h3>ACSII</h3>
+<h3>Character Encoding</h3>
+<h4>ACSII</h4>
 <p>Computers used to work with 7bit characters encoding. That would give us 128 characters which was enough for numbers, punctuation and digits!</p>
-<h3>ISO-8859</h3>
+<h4>ISO-8859</h4>
 <p>It had more characters and a lots of sets for Thai, Arabic and other languages but still had ASCII character sets.</p>
-<h3>UTF-8</h3>
-<p>The <code>Unicode Transformation Format</code> is the newest encoding method. It is  a real universal encoding with characters not only for all written languages but also for fun characters like  ¾, ♠, π and ⚤. It is backward compatible with the ASCII and uses 8 bit code units (<strong>not 8 bit coding!</strong>). In most cases it is a good idea to use UTF-8 and be sure that your system will work in practically all cases.</p>
-<p><img alt="" src="UnicodeGrow.png"></p>
+<h4>UTF-8</h4>
+<p>The <code>Unicode Transformation Format</code> is the newest encoding method. It is a real universal encoding with characters not only for all written languages but also for fun characters like ¾, ♠, π and ⚤. It is backward compatible with the ASCII and uses 8 bit code units (<strong>not 8 bit coding!</strong>). In most cases it is a good idea to use UTF-8 and be sure that your system will work in practically all cases.</p>
+<p><img alt="" src="../.gitbook/assets/UnicodeGrow.png"></p>
 <p>Above table shows how UTF8 is the leader compared with ASCII and ISO-8859.</p>
-<h2>iconv</h2>
+<h3>iconv</h3>
 <p>If you needed to convert coding to each other, the command is <code>iconv</code>. The <code>-l</code> switch will show you all the available codings:</p>
-<div class="highlight"><pre><span></span><code><span class="err">iconv -f WINDOWS-1258 -t UTF-8 /tmp/myfile.txt</span>
+<div class="highlight"><pre><span></span><code>iconv -f WINDOWS-1258 -t UTF-8 /tmp/myfile.txt
 </code></pre></div>
 
 <blockquote>
@@ -219,9 +218,21 @@
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:31:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#107-ref">107</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

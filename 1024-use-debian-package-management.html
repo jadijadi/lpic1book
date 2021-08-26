@@ -15,18 +15,18 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 102, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
-<meta property="og:title" content="102.4. Use Debian package management "/>
+<meta property="og:title" content="102.4 Use Debian package management "/>
 <meta property="og:url" content="./1024-use-debian-package-management.html" />
-<meta property="og:description" content="102.4. Use Debian package management weight: 3 Candidates should be able to perform package management using the Debian package tools. Install, upgrade and uninstall Debian binary packages. Find packages containing specific files or libraries which may or may not be installed. Obtain package information like version, content, dependencies, package …" />
+<meta property="og:description" content="Candidates should be able to perform package management using the Debian package tools." />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:08:00+02:00" />
-<meta name="twitter:title" content="102.4. Use Debian package management ">
-<meta name="twitter:description" content="102.4. Use Debian package management weight: 3 Candidates should be able to perform package management using the Debian package tools. Install, upgrade and uninstall Debian binary packages. Find packages containing specific files or libraries which may or may not be installed. Obtain package information like version, content, dependencies, package …">
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
+<meta name="twitter:title" content="102.4 Use Debian package management ">
+<meta name="twitter:description" content="Candidates should be able to perform package management using the Debian package tools.">
 
-        <title>102.4. Use Debian package management  · lpic1book
+        <title>102.4 Use Debian package management  · lpic1book
 </title>
 
 
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -68,7 +67,7 @@
     <header class="page-header span10 offset2">
         <h1>
             <a href="./1024-use-debian-package-management.html">
-                102.4. Use Debian package management
+                102.4 Use Debian package management
             </a>
         </h1>
     </header>
@@ -77,80 +76,75 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>102.4. Use Debian package management</h1>
-<p><em>weight: 3</em></p>
+            <p><em>weight: 3</em></p>
 <p>Candidates should be able to perform package management using the Debian package tools.</p>
 <ul>
 <li>Install, upgrade and uninstall Debian binary packages.</li>
 <li>Find packages containing specific files or libraries which may or may not be installed.</li>
-<li>
-<p>Obtain package information like version, content, dependencies, package integrity and installation status (whether or not the package is installed).</p>
-</li>
-<li>
-<p>/etc/apt/sources.list</p>
-</li>
+<li>Obtain package information like version, content, dependencies, package integrity and installation status (whether or not the package is installed).</li>
+<li>/etc/apt/sources.list</li>
 <li>dpkg</li>
 <li>dpkg-reconfigure</li>
 <li>apt-get</li>
 <li>apt-cache</li>
 <li>aptitude</li>
 </ul>
-<h2>Concept of the package management system</h2>
+<h3>Concept of the package management system</h3>
 <p>Linux used to be based on compiling source code but then Distributions arrived. Most distributions have their own Package Manager for installing pre-build programs from defined <em>repositories</em>. Debian based distros use .deb files with apt, dpkg, aptitude and Fedora, RedHat, RHEL, SUSE, .. use RPM and Yum package managers.</p>
-<h2>Installing packages</h2>
+<h3>Installing packages</h3>
 <p>We do not have "bzr" installed.</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~/w/lpic/101$ bzr</span>
-<span class="err">The program &#39;bzr&#39; is currently not installed. You can install it by typing:</span>
-<span class="err">sudo apt-get install bzr</span>
-<span class="err">jadi@funlife:~/w/lpic/101$ which bzr</span>
-<span class="err">jadi@funlife:~/w/lpic/101$ type bzr</span>
-<span class="c">bash: type: bzr: not found</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ bzr
+The program &#39;bzr&#39; is currently not installed. You can install it by typing:
+sudo apt-get install bzr
+jadi@funlife:~/w/lpic/101$ which bzr
+jadi@funlife:~/w/lpic/101$ type bzr
+bash: type: bzr: not found
 </code></pre></div>
 
 <p>so lets install it. If we have the .deb file:</p>
-<div class="highlight"><pre><span></span><code><span class="err"> apt-get install bzr</span>
+<div class="highlight"><pre><span></span><code> apt-get install bzr
 </code></pre></div>
 
-<p>note that
-- apt-get install asked for confirmation (Y)
-- apt-get resolved <em>dependencies</em>, it know what is needed to install this package and installs them
-- debian packages are something.deb</p>
-<div class="highlight"><pre><span></span><code><span class="err">bzr</span>
-</code></pre></div>
-
+<p>note that</p>
+<ul>
+<li>apt-get install asked for confirmation (Y)</li>
+<li>apt-get resolved <em>dependencies</em>, it know what is needed to install this package and installs them</li>
+<li>debian packages are something.deb</li>
+</ul>
+<p>bzr</p>
 <p>if you only want a dry-run / simulation:</p>
-<div class="highlight"><pre><span></span><code><span class="err">apt-get install -s bzr</span>
+<div class="highlight"><pre><span></span><code>apt-get install -s bzr
 </code></pre></div>
 
 <p>and this will only download the files without installing them:</p>
-<div class="highlight"><pre><span></span><code><span class="err">apt-get install --download-only bzr</span>
+<div class="highlight"><pre><span></span><code>apt-get install --download-only bzr
 </code></pre></div>
 
 <p>which only Downloaded files are stored them at /var/cache/apt/archive/ (or use the -d switch instead)</p>
-<h2>Package location</h2>
+<h3>Package location</h3>
 <p>where these packages come from? from a <strong>Repository</strong> of different <strong>Repositories</strong> which are defined at /etc/apt/sources.list file and files located at /etc/apt/sources.list.d/ in the form of:</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span> <span class="err">cat</span> <span class="err">/etc/apt/sources.list</span>
+<div class="highlight"><pre><span></span><code>$ cat /etc/apt/sources.list
 
-<span class="k">deb</span> <span class="s">http://ir.archive.ubuntu.com/ubuntu/</span> <span class="kp">utopic-updates</span> <span class="kp">multiverse</span>
+deb http://ir.archive.ubuntu.com/ubuntu/ utopic-updates multiverse
 
-<span class="c">## N.B. software from this repository may not have been tested as</span>
-<span class="c">## extensively as that contained in the main release, although it includes</span>
-<span class="c">## newer versions of some applications which may provide useful features.</span>
-<span class="c">## Also, please note that software in backports WILL NOT receive any review</span>
-<span class="c">## or updates from the Ubuntu security team.</span>
-<span class="k">deb</span> <span class="s">http://ir.archive.ubuntu.com/ubuntu/</span> <span class="kp">utopic-backports</span> <span class="kp">main</span> <span class="kp">restricted</span> <span class="kp">universe</span> <span class="kp">multiverse</span>
+## N.B. software from this repository may not have been tested as
+## extensively as that contained in the main release, although it includes
+## newer versions of some applications which may provide useful features.
+## Also, please note that software in backports WILL NOT receive any review
+## or updates from the Ubuntu security team.
+deb http://ir.archive.ubuntu.com/ubuntu/ utopic-backports main restricted universe multiverse
 
-<span class="k">deb</span> <span class="s">http://security.ubuntu.com/ubuntu</span> <span class="kp">utopic-security</span> <span class="kp">main</span> <span class="kp">restricted</span>
-<span class="k">deb</span> <span class="s">http://security.ubuntu.com/ubuntu</span> <span class="kp">utopic-security</span> <span class="kp">universe</span>
-<span class="k">deb</span> <span class="s">http://security.ubuntu.com/ubuntu</span> <span class="kp">utopic-security</span> <span class="kp">multiverse</span>
+deb http://security.ubuntu.com/ubuntu utopic-security main restricted
+deb http://security.ubuntu.com/ubuntu utopic-security universe
+deb http://security.ubuntu.com/ubuntu utopic-security multiverse
 </code></pre></div>
 
 <p>Updating sources information:</p>
-<div class="highlight"><pre><span></span><code><span class="err">apt-get update</span>
+<div class="highlight"><pre><span></span><code>apt-get update
 </code></pre></div>
 
-<h2>Removing debian packages</h2>
-<div class="highlight"><pre><span></span><code><span class="err">apt-get remove bzr</span>
+<h3>Removing debian packages</h3>
+<div class="highlight"><pre><span></span><code>apt-get remove bzr
 </code></pre></div>
 
 <p>and if you want to remove automatically installed dependencies:</p>
@@ -164,45 +158,47 @@ Building dependency tree
 Reading state information... Done
 The following packages will be REMOVED:
   linux-image-3.16.0-25-generic linux-image-extra-3.16.0-25-generic
-<span class="m">0</span> upgraded, <span class="m">0</span> newly installed, <span class="m">2</span> to remove and <span class="m">0</span> not upgraded.
-After this operation, <span class="m">203</span> MB disk space will be freed.
-Do you want to <span class="k">continue</span>? <span class="o">[</span>Y/n<span class="o">]</span> y
+0 upgraded, 0 newly installed, 2 to remove and 0 not upgraded.
+After this operation, 203 MB disk space will be freed.
+Do you want to continue? [Y/n] y
 </code></pre></div>
 
-<p>Notes:
-- removing a package will not remove its dependencies
-- if removing a dependency, you'll get a warning about what will be removed alongside this package</p>
-<h2>searching for packages</h2>
-<div class="highlight"><pre><span></span><code>$ apt-cache search <span class="s2">&quot;tiny window&quot;</span>
+<p>Notes:</p>
+<ul>
+<li>removing a package will not remove its dependencies</li>
+<li>if removing a dependency, you'll get a warning about what will be removed alongside this package</li>
+</ul>
+<h3>searching for packages</h3>
+<div class="highlight"><pre><span></span><code>$ apt-cache search &quot;tiny window&quot;
 $ aptitude search grub2
 </code></pre></div>
 
-<h2>Updating</h2>
+<h3>Updating</h3>
 <p>for updating a single package</p>
-<div class="highlight"><pre><span></span><code><span class="err">apt-get install tzdata</span>
+<div class="highlight"><pre><span></span><code>apt-get install tzdata
 </code></pre></div>
 
 <p>and for upgrading whatever installed:</p>
-<div class="highlight"><pre><span></span><code><span class="err">apt-get upgrade</span>
+<div class="highlight"><pre><span></span><code>apt-get upgrade
 </code></pre></div>
 
 <p>or going to a new distribution:</p>
-<div class="highlight"><pre><span></span><code><span class="err">apt-get dist-upgrade</span>
+<div class="highlight"><pre><span></span><code>apt-get dist-upgrade
 </code></pre></div>
 
 <p>Note: as most other tools, you can configure the default configs at /etc/apt/apt.conf and there is a program apt-config for this purpose.</p>
-<h2>reconfiguring packages</h2>
+<h3>reconfiguring packages</h3>
 <p>A program called debconf configures packages after they are installed. you can reconfigure a package (say tzdata) using</p>
-<div class="highlight"><pre><span></span><code><span class="err"> dpkg-reconfigure tzdata</span>
+<div class="highlight"><pre><span></span><code> dpkg-reconfigure tzdata
 </code></pre></div>
 
-<h2>package information with dpkg</h2>
+<h3>package information with dpkg</h3>
 <p>dpkg is a very powerful tool for working with .deb package files. If you want to see what is inside a .deb file:</p>
 <div class="highlight"><pre><span></span><code>$ dpkg --contents bzr_2.6.0+bzr6595-1ubuntu1_all.deb
-drwxr-xr-x root/root         <span class="m">0</span> <span class="m">2014</span>-05-02 <span class="m">18</span>:16 ./
-drwxr-xr-x root/root         <span class="m">0</span> <span class="m">2014</span>-05-02 <span class="m">18</span>:15 ./etc/
-drwxr-xr-x root/root         <span class="m">0</span> <span class="m">2014</span>-05-02 <span class="m">18</span>:15 ./etc/bash_completion.d/
--rw-r--r-- root/root      <span class="m">1467</span> <span class="m">2010</span>-04-22 <span class="m">11</span>:31 ./etc/bash_completion.d/bzr
+drwxr-xr-x root/root         0 2014-05-02 18:16 ./
+drwxr-xr-x root/root         0 2014-05-02 18:15 ./etc/
+drwxr-xr-x root/root         0 2014-05-02 18:15 ./etc/bash_completion.d/
+-rw-r--r-- root/root      1467 2010-04-22 11:31 ./etc/bash_completion.d/bzr
 ...
 ...
 </code></pre></div>
@@ -213,26 +209,26 @@ Package: bzr
 Status: deinstall ok config-files
 Priority: optional
 Section: vcs
-Installed-Size: <span class="m">102</span>
+Installed-Size: 102
 Maintainer: Ubuntu Developers &lt;ubuntu-devel-discuss@lists.ubuntu.com&gt;
 Architecture: all
-Version: <span class="m">2</span>.6.0+bzr6595-1ubuntu1
-Config-Version: <span class="m">2</span>.6.0+bzr6595-1ubuntu1
-Depends: python-bzrlib <span class="o">(</span>&lt;<span class="o">=</span> <span class="m">2</span>.6.0+bzr6595-1ubuntu1.1~<span class="o">)</span>, python-bzrlib <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">2</span>.6.0+bzr6595-1ubuntu1<span class="o">)</span>, python:any
+Version: 2.6.0+bzr6595-1ubuntu1
+Config-Version: 2.6.0+bzr6595-1ubuntu1
+Depends: python-bzrlib (&lt;= 2.6.0+bzr6595-1ubuntu1.1~), python-bzrlib (&gt;= 2.6.0+bzr6595-1ubuntu1), python:any
 Recommends: python-gpgme
 Suggests: bzr-doc, bzrtools, python-bzrlib.tests
-Breaks: bzr-pqm <span class="o">(</span><span class="s">&lt;&lt; 1.4.0~bzr80), bzr-xmloutput (&lt;&lt; 0.8.8+bzr1</span><span class="m">60</span><span class="o">)</span>, python-bzrlib <span class="o">(</span><span class="s">&lt;&lt; 2.4.0~beta3~)</span>
-<span class="s">Conffiles:</span>
-<span class="s"> /etc/bash_completion.d/bzr b8d9ca9552</span>1a7c5f14860e205a854da2
+Breaks: bzr-pqm (&lt;&lt; 1.4.0~bzr80), bzr-xmloutput (&lt;&lt; 0.8.8+bzr160), python-bzrlib (&lt;&lt; 2.4.0~beta3~)
+Conffiles:
+ /etc/bash_completion.d/bzr b8d9ca95521a7c5f14860e205a854da2
 Description: easy to use distributed version control system
  Bazaar is a distributed version control system designed to be easy to
  use and intuitive, able to adapt to many workflows, reliable, and
  easily extendable.
  .
- Publishing of branches can be <span class="k">done</span> over plain HTTP, that is, no special
+ Publishing of branches can be done over plain HTTP, that is, no special
  software is needed on the server to host Bazaar branches. Branches can
- be pushed to the server via sftp <span class="o">(</span>which most SSH installations come
- with<span class="o">)</span>, FTP, or over a custom and faster protocol <span class="k">if</span> bzr is installed in
+ be pushed to the server via sftp (which most SSH installations come
+ with), FTP, or over a custom and faster protocol if bzr is installed in
  the remote end.
  .
  Merging in Bazaar is easy, as the implementation is able to avoid many
@@ -241,11 +237,11 @@ Description: easy to use distributed version control system
  .
  Bazaar is written in Python, and has a flexible plugin interface which
  can be used to extend its functionality. Many plugins exist, providing
- useful commands <span class="o">(</span>bzrtools<span class="o">)</span>, graphical interfaces <span class="o">(</span>qbzr<span class="o">)</span>, or native
- interaction with Subversion branches <span class="o">(</span>bzr-svn<span class="o">)</span>.
+ useful commands (bzrtools), graphical interfaces (qbzr), or native
+ interaction with Subversion branches (bzr-svn).
  .
- Install python-paramiko <span class="k">if</span> you are going to push branches to remote
- hosts with sftp, and python-pycurl <span class="k">if</span> you<span class="err">&#39;</span>d like <span class="k">for</span> SSL certificates
+ Install python-paramiko if you are going to push branches to remote
+ hosts with sftp, and python-pycurl if you&#39;d like for SSL certificates
  always to be verified.
 Homepage: http://bazaar-vcs.org
 Original-Maintainer: Debian Bazaar Maintainers &lt;pkg-bazaar-maint@lists.alioth.debian.org&gt;
@@ -275,11 +271,11 @@ mplayer: /var/lib/mplayer/prefs/mirrors
 </code></pre></div>
 
 <p>Note: you can also use <code>which</code> for finding out what file will be used on any given command:</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~/w/lpic/101$ which java</span>
-<span class="err">/usr/bin/java</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ which java
+/usr/bin/java
 </code></pre></div>
 
-<h2>aptitude</h2>
+<h3>aptitude</h3>
 <p>is a newer tool for managing files. It can be used like this:</p>
 <div class="highlight"><pre><span></span><code>$ aptitude install jcal
 $ aptitude remove jcal
@@ -289,7 +285,7 @@ $ aptitude show bzr
 
 <p>or it can also be used as a standalone program:</p>
 <p><img alt="aptitude sample" src="http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-4/fig-102-4-2.gif"></p>
-<h2>other tools</h2>
+<h3>other tools</h3>
 <p>there is gui tools like "synaptic" and "update manager". These will Search, Update, Upgrade, Install, Remove via a graphical user interface and are present in many distributions. This is ubuntu software center:</p>
 <p><img alt="Ubuntu Software Center" src="http://screenshots.debian.net/screenshots/s/software-center/10674_large.png"></p>
 <p>and this is a software updater GUI for gnome:</p>
@@ -299,12 +295,9 @@ $ aptitude show bzr
 <p>.</p>
 <p>.</p>
 <p>.</p>
-<p>.
-.
-.</p>
+<p>. . .</p>
 <p>..</p>
-<p>.
-.</p>
+<p>. .</p>
 <p>.</p>
 <p>.</p>
 <p>.</p>
@@ -331,9 +324,21 @@ $ aptitude show bzr
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:08:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#102-ref">102</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

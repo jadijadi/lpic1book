@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 110, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="110.3 Securing data with encryption "/>
 <meta property="og:url" content="./1103-securing-data-with-encryption.html" />
-<meta property="og:description" content="110.3 Securing data with encryption Weight: 3 The candidate should be able to use public key techniques to secure data and communication. Key Knowledge Areas Perform basic OpenSSH 2 client configuration and usage. Understand the role of OpenSSH 2 server host keys. Perform basic GnuPG configuration, usage and revocation …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:41:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="110.3 Securing data with encryption ">
-<meta name="twitter:description" content="110.3 Securing data with encryption Weight: 3 The candidate should be able to use public key techniques to secure data and communication. Key Knowledge Areas Perform basic OpenSSH 2 client configuration and usage. Understand the role of OpenSSH 2 server host keys. Perform basic GnuPG configuration, usage and revocation …">
+<meta name="twitter:description" content="">
 
         <title>110.3 Securing data with encryption  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,17 +76,17 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>110.3 Securing data with encryption</h1>
+            <h2>110.3 Securing data with encryption</h2>
 <p><em>Weight: 3</em></p>
 <p>The candidate should be able to use public key techniques to secure data and communication.</p>
-<h2>Key Knowledge Areas</h2>
+<h3>Key Knowledge Areas</h3>
 <ul>
 <li>Perform basic OpenSSH 2 client configuration and usage.</li>
 <li>Understand the role of OpenSSH 2 server host keys.</li>
 <li>Perform basic GnuPG configuration, usage and revocation.</li>
 <li>Understand SSH port tunnels (including X11 tunnels).</li>
 </ul>
-<h2>Terms and Utilities</h2>
+<h3>Terms and Utilities</h3>
 <ul>
 <li>ssh</li>
 <li>ssh-keygen</li>
@@ -102,34 +101,34 @@
 <li>gpg</li>
 <li>~/.gnupg/</li>
 </ul>
-<h3>Key Pairs</h3>
+<h4>Key Pairs</h4>
 <p>In traditional cryptography the symetric keys were used: both parties had a shared password; the files were encrypted with that password and then decrypted using the same password. These years the KeyPairs are becomming more and more common. When generating a key pair, we generate two keys using a computer algorithm in the way that any message which is encrypted using one, can be opened only using the other key. These are called Public &amp; Private key. You publish the public key to your friends and even the strangers and if they need to send an ecrypted message to you, scramble it using YOUR public key and send it to you. After receiving it, you open the file using your PRIVATE key.</p>
 <blockquote>
 <p>great point about Public / Private key is that the data can be transmitted over the internet with no fear of hackers or governments. You are publishing your key to the world, some one picks it and uses it to encrypt some data and sent the result to you. People can see that you are receiving "some data" but they can not encrypt it because they do not have the private key needed to decrypt it.</p>
 </blockquote>
-<h3>ssh key pairs</h3>
+<h4>ssh key pairs</h4>
 <p>Before using keys, we have to generate them. This task is as simple as running one command:</p>
 <div class="highlight"><pre><span></span><code>$ ssh-keygen
 Generating public/private rsa key pair.
-Enter file in which to save the key <span class="o">(</span>/home/jadi/.ssh/id_rsa<span class="o">)</span>:
-Created directory <span class="s1">&#39;/home/jadi/.ssh&#39;</span>.
-Enter passphrase <span class="o">(</span>empty <span class="k">for</span> no passphrase<span class="o">)</span>:
+Enter file in which to save the key (/home/jadi/.ssh/id_rsa):
+Created directory &#39;/home/jadi/.ssh&#39;.
+Enter passphrase (empty for no passphrase):
 Enter same passphrase again:
 Your identification has been saved in /home/jadi/.ssh/id_rsa.
 Your public key has been saved in /home/jadi/.ssh/id_rsa.pub.
 The key fingerprint is:
 bc:1c:1a:da:0b:8b:22:56:da:1f:68:14:5b:da:7e:2e jadi@localhost.localdomain
-The key<span class="err">&#39;</span>s randomart image is:
-+--<span class="o">[</span> RSA <span class="m">2048</span><span class="o">]</span>----+
-<span class="p">|</span>                 <span class="p">|</span>
-<span class="p">|</span>                 <span class="p">|</span>
-<span class="p">|</span>   . .           <span class="p">|</span>
-<span class="p">|</span>    *  .         <span class="p">|</span>
-<span class="p">|</span>   + .. S        <span class="p">|</span>
-<span class="p">|</span>  ..oo + o       <span class="p">|</span>
-<span class="p">|</span>  +oooo.o        <span class="p">|</span>
-<span class="p">|</span>oo.o E+.         <span class="p">|</span>
-<span class="p">|</span>o.. o.o.         <span class="p">|</span>
+The key&#39;s randomart image is:
++--[ RSA 2048]----+
+|                 |
+|                 |
+|   . .           |
+|    *  .         |
+|   + .. S        |
+|  ..oo + o       |
+|  +oooo.o        |
+|oo.o E+.         |
+|o.. o.o.         |
 +-----------------+
 </code></pre></div>
 
@@ -137,68 +136,68 @@ The key<span class="err">&#39;</span>s randomart image is:
 <p>The above process asked for a prassphrase. It is used to secure our key. You can create a password and it will be asked each time you want to use this key.</p>
 </blockquote>
 <p>We have the option to generate keys using different algorithsm, here I used the default RSA and these two keys are created in <code>~/.ssh/</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="err">[jadi@localhost ~]$ ls .ssh -ltrh</span>
-<span class="err">total 8.0K</span>
-<span class="err">-rw-r--r--. 1 jadi jadi  408 Jun 15 13:58 id_rsa.pubss</span>
-<span class="err">-rw-------. 1 jadi jadi 1.7K Jun 15 13:58 id_rsa</span>
+<div class="highlight"><pre><span></span><code>[jadi@localhost ~]$ ls .ssh -ltrh
+total 8.0K
+-rw-r--r--. 1 jadi jadi  408 Jun 15 13:58 id_rsa.pubss
+-rw-------. 1 jadi jadi 1.7K Jun 15 13:58 id_rsa
 </code></pre></div>
 
 <p>As soon as we ssh to any server, a file called <code>known_hosts</code> will save that sites public keys. The next step is copying our public key there. For this task there is command called <code>ssh-copyid</code>. It works like this:</p>
-<div class="highlight"><pre><span></span><code> <span class="n">ssh</span><span class="o">-</span><span class="k">copy</span><span class="o">-</span><span class="kt">id</span> <span class="mf">10.0.2.15</span>
-<span class="n">jadi</span><span class="mf">@10.0.2.15</span><span class="err">&#39;</span><span class="n">s</span> <span class="nl">password</span><span class="p">:</span>
-<span class="n">Now</span> <span class="n">try</span> <span class="n">logging</span> <span class="n">into</span> <span class="n">the</span> <span class="n">machine</span><span class="p">,</span> <span class="n">with</span> <span class="s">&quot;ssh &#39;10.0.2.15&#39;&quot;</span><span class="p">,</span> <span class="n">and</span> <span class="n">check</span> <span class="k">in</span><span class="o">:</span>
+<div class="highlight"><pre><span></span><code> ssh-copy-id 10.0.2.15
+jadi@10.0.2.15&#39;s password:
+Now try logging into the machine, with &quot;ssh &#39;10.0.2.15&#39;&quot;, and check in:
 
-  <span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">authorized_keys</span>
+  .ssh/authorized_keys
 
-<span class="n">to</span> <span class="n">make</span> <span class="n">sure</span> <span class="n">we</span> <span class="n">haven</span><span class="err">&#39;</span><span class="n">t</span> <span class="n">added</span> <span class="n">extra</span> <span class="n">keys</span> <span class="n">that</span> <span class="n">you</span> <span class="n">weren</span><span class="err">&#39;</span><span class="n">t</span> <span class="n">expecting</span><span class="p">.</span>
+to make sure we haven&#39;t added extra keys that you weren&#39;t expecting.
 </code></pre></div>
 
 <p>Now we will be able to login into that server without providing our password.</p>
 <p>There is a keypair called <code>/etc/ssh_host_rsa_key</code> and <code>/etc/ssh_host_rsa_key.pub</code> on any server. These keys are used to verify the security of the connectivity. Server provides me its public key and uses its private key to keep the connection secure. This is the public key the client saved in its ~/.ssh/known_hosts.</p>
-<h3>ssh tunnels</h3>
+<h4>ssh tunnels</h4>
 <p>We have already discussed X forwarding.</p>
-<h3>encryption using gpg</h3>
+<h4>encryption using gpg</h4>
 <p>A software called <code>gpg</code> lets us use public and private keys to encrypt our data. At the beginning we have to create a key pair:</p>
-<div class="highlight"><pre><span></span><code><span class="err">gpg --gen-key</span>
+<div class="highlight"><pre><span></span><code>gpg --gen-key
 </code></pre></div>
 
 <p>Then we need to share our public key to other people. To export our public key file we need to run:</p>
-<div class="highlight"><pre><span></span><code><span class="err">gpg --export name &gt; gpg.pub</span>
+<div class="highlight"><pre><span></span><code>gpg --export name &gt; gpg.pub
 </code></pre></div>
 
 <p>and the other party can import our public key into his gpg database by:</p>
-<div class="highlight"><pre><span></span><code><span class="n">gpg</span> <span class="o">--</span><span class="kn">import</span> <span class="nn">gpg.pub</span>
+<div class="highlight"><pre><span></span><code>gpg --import gpg.pub
 </code></pre></div>
 
 <p>At this stage, if he wants to encrypt some data to us (say the file file.txt) he should run:</p>
-<div class="highlight"><pre><span></span><code><span class="err">gpg --out file.txt.encrypted --recipient jadijdai@gmail.com --encrypt file.txt</span>
+<div class="highlight"><pre><span></span><code>gpg --out file.txt.encrypted --recipient jadijdai@gmail.com --encrypt file.txt
 </code></pre></div>
 
 <p>and give the <code>file.txt.encrypted</code> to us. For openning it, we just need to:</p>
-<div class="highlight"><pre><span></span><code><span class="err">gpg --out out.txt --decrypt file.txt.encrypted</span>
+<div class="highlight"><pre><span></span><code>gpg --out out.txt --decrypt file.txt.encrypted
 </code></pre></div>
 
 <p>and Done!</p>
 <blockquote>
 <p>As you saw, the public keys should be shared. The B party uses A parties public key to encrypt a data and A party uses his Private key to open it.</p>
 </blockquote>
-<h3>revoking keys</h3>
+<h4>revoking keys</h4>
 <p>What happens if you forget your key password or someone hacked your computer and acquired your private key? In this case you have to announce to the world that "I'm hacked! Do not use that public key of mine anymore!". This is called revoking. To create a revoke key, run:</p>
-<div class="highlight"><pre><span></span><code><span class="err">gpg --output revoke.asc --gen-revoke jadijadi@gmail.com</span>
+<div class="highlight"><pre><span></span><code>gpg --output revoke.asc --gen-revoke jadijadi@gmail.com
 </code></pre></div>
 
 <p>This tells gpg to create a revoke file called revoke.asc for the identity jadijadi@gmail.com. If jadijadi@gmail.com needs to invalidate his public key, he have to publish this file to the intenet or key servers.</p>
-<h3>signing</h3>
+<h4>signing</h4>
 <p>In the previous section we used gpg to ecrypt the data. We used someones Public key to sign and she used her own Private key to decrypt the text. What happens if we do this in the reverse? I mean what happens if I encrypt something with my Private key, send it on the internet and everyone on the internet will be able to decrypt it using my Public key which is shared with everyone - since it is Public. This is signing!</p>
 <p>By encrypting a document using your private key, you let everyone to try to open it using your public key and if they succeed, they will be sure that you have signed it using YOUR private key! <code>gpg</code> has a specific command to sign documents:</p>
-<div class="highlight"><pre><span></span><code><span class="err">gpg --clearsign originalfile</span>
+<div class="highlight"><pre><span></span><code>gpg --clearsign originalfile
 </code></pre></div>
 
 <blockquote>
 <p>here the --clearsign tells the gpg to include the clear text message in the output file too. The output file will be originalfile.asc</p>
 </blockquote>
 <p>and another one to verify that a document is singed correctly:</p>
-<div class="highlight"><pre><span></span><code><span class="err">gpg --verify recievedfile</span>
+<div class="highlight"><pre><span></span><code>gpg --verify recievedfile
 </code></pre></div>
 
 
@@ -218,9 +217,21 @@ The key<span class="err">&#39;</span>s randomart image is:
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:41:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#110-ref">110</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

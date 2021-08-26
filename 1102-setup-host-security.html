@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 110, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="110.2 Setup host security "/>
 <meta property="og:url" content="./1102-setup-host-security.html" />
-<meta property="og:description" content="110.2 Setup host security Weight: 3 Candidates should know how to set up a basic level of host security. Key Knowledge Areas Awareness of shadow passwords and how they work. Turn off network services not in use. Understand the role of TCP wrappers. Terms and Utilities /etc/nologin /etc …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:41:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="110.2 Setup host security ">
-<meta name="twitter:description" content="110.2 Setup host security Weight: 3 Candidates should know how to set up a basic level of host security. Key Knowledge Areas Awareness of shadow passwords and how they work. Turn off network services not in use. Understand the role of TCP wrappers. Terms and Utilities /etc/nologin /etc …">
+<meta name="twitter:description" content="">
 
         <title>110.2 Setup host security  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,16 +76,16 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>110.2 Setup host security</h1>
+            <h2>110.2 Setup host security</h2>
 <p><em>Weight: 3</em></p>
 <p>Candidates should know how to set up a basic level of host security.</p>
-<h2>Key Knowledge Areas</h2>
+<h3>Key Knowledge Areas</h3>
 <ul>
 <li>Awareness of shadow passwords and how they work.</li>
 <li>Turn off network services not in use.</li>
 <li>Understand the role of TCP wrappers.</li>
 </ul>
-<h2>Terms and Utilities</h2>
+<h3>Terms and Utilities</h3>
 <ul>
 <li>/etc/nologin</li>
 <li>/etc/passwd</li>
@@ -100,99 +99,99 @@
 <li>/etc/hosts.allow</li>
 <li>/etc/hosts.deny</li>
 </ul>
-<h3>shadow passwords</h3>
+<h4>shadow passwords</h4>
 <p>The <code>/dev/passwd</code> is already discussed. It contains the passwords of the users but there is a logical problem: if a user should be able to change her own password, he should have access to this file and if this is the case, he can see other peoples passwords. This is not interesting even when the passwords are hashed (shown as a more complex form using a one way function).</p>
 <div class="highlight"><pre><span></span><code>$ ls -ltrh /etc/passwd
--rw-r--r-- <span class="m">1</span> root root <span class="m">2</span>.5K Jun  <span class="m">5</span> <span class="m">19</span>:14 /etc/passwd
+-rw-r--r-- 1 root root 2.5K Jun  5 19:14 /etc/passwd
 </code></pre></div>
 
 <p>To prevent this the <code>/etc/shadow</code> file is introduces. In modern systems, we only show a <code>*</code> at the location of the password in /etc/passwd and store the real password in <code>/etc/shadow</code> which has a very limited file access:</p>
-<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@funlife</span><span class="w"> </span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">grep</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">passwd</span><span class="w"></span>
-<span class="nl">jadi</span><span class="p">:</span><span class="nl">x</span><span class="p">:</span><span class="mi">1000</span><span class="err">:</span><span class="mi">1000</span><span class="err">:</span><span class="n">jadi</span><span class="p">,,,</span><span class="err">:</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="nl">jadi</span><span class="p">:</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span><span class="w"></span>
-<span class="n">jadi</span><span class="nv">@funlife</span><span class="w"> </span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">grep</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">shadow</span><span class="w"></span>
-<span class="nl">grep</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="nl">shadow</span><span class="p">:</span><span class="w"> </span><span class="n">Permission</span><span class="w"> </span><span class="n">denied</span><span class="w"></span>
-<span class="n">jadi</span><span class="nv">@funlife</span><span class="w"> </span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">grep</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">shadow</span><span class="w"></span>
-<span class="o">[</span><span class="n">sudo</span><span class="o">]</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nl">jadi</span><span class="p">:</span><span class="w"></span>
-<span class="nl">jadi</span><span class="p">:</span><span class="err">$</span><span class="mi">6</span><span class="err">$</span><span class="n">bp01DBX</span><span class="p">.</span><span class="err">$</span><span class="n">I6dt4pz8GeXJl6asgPeKhSdepf40bgepTz8zwB3HFmN56SdcsxjTETdZAmRt17biwMYOI7SoGFOXssHqeNFgw</span><span class="o">/</span><span class="err">:</span><span class="mi">16963</span><span class="err">:</span><span class="mi">0</span><span class="err">:</span><span class="mi">99999</span><span class="err">:</span><span class="mi">7</span><span class="o">::</span><span class="err">:</span><span class="w"></span>
-<span class="n">jadi</span><span class="nv">@funlife</span><span class="w"> </span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">ltrh</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">shadow</span><span class="w"></span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="c1">----- 1 root shadow 1.5K Jun 11 17:36 /etc/shadow</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife ~$ grep jadi /etc/passwd
+jadi:x:1000:1000:jadi,,,:/home/jadi:/bin/bash
+jadi@funlife ~$ grep jadi /etc/shadow
+grep: /etc/shadow: Permission denied
+jadi@funlife ~$ sudo grep jadi /etc/shadow
+[sudo] password for jadi:
+jadi:$6$bp01DBX.$I6dt4pz8GeXJl6asgPeKhSdepf40bgepTz8zwB3HFmN56SdcsxjTETdZAmRt17biwMYOI7SoGFOXssHqeNFgw/:16963:0:99999:7:::
+jadi@funlife ~$ sudo ls -ltrh /etc/shadow
+-rw-r----- 1 root shadow 1.5K Jun 11 17:36 /etc/shadow
 </code></pre></div>
 
-<h3>/etc/nologin</h3>
+<h4>/etc/nologin</h4>
 <p>This is a cool file! If you create and write something in it, the content will be shown to any person who tries to login into the system and the login attempt will fail. It is useful for maintenance time. Delete this file and the users will be able to login again.</p>
 <blockquote>
 <p>admin users will be able to login even in the presence of /etc/nologin</p>
 </blockquote>
-<h3>turn off network services</h3>
+<h4>turn off network services</h4>
 <p>In the previous module, we learned how to find the running services on the server. Turning them off is easy but a bit different on different systems. In case you want to turn the <code>httpd</code> service off, you can do:</p>
 <table>
 <thead>
 <tr>
-<th>system</th>
-<th>service manager</th>
-<th>command</th>
+<th align="left">system</th>
+<th align="left">service manager</th>
+<th align="left">command</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>older linux systems</td>
-<td>SysV</td>
-<td>chkconfig httpd off<br>sysv-rc-conf httpd off</td>
+<td align="left">older linux systems</td>
+<td align="left">SysV</td>
+<td align="left">chkconfig httpd off sysv-rc-conf httpd off</td>
 </tr>
 <tr>
-<td>Ubuntu</td>
-<td>Upstart</td>
-<td>update-rc.d httpd remove</td>
+<td align="left">Ubuntu</td>
+<td align="left">Upstart</td>
+<td align="left">update-rc.d httpd remove</td>
 </tr>
 <tr>
-<td>newer linux distros</td>
-<td>systemd</td>
-<td>systemctl disable httpd</td>
+<td align="left">newer linux distros</td>
+<td align="left">systemd</td>
+<td align="left">systemctl disable httpd</td>
 </tr>
 </tbody>
 </table>
 <p>Please note that these commands prevent the service from starting on system boot. The <code>http</code> is still installed on the machine and you can run it if you need.</p>
-<h3>super-servers</h3>
+<h4>super-servers</h4>
 <p>A super-server or sometimes called a service dispatcher is a type of daemon run generally on Unix-like systems for security reasons. It starts other servers when needed, normally with access to them checked by a TCP wrapper.</p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Super-server.png/420px-Super-server.png"></p>
+<p><img alt="" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Super-server.png/420px-Super-server.png"></p>
 <p>Practically no new linux is using a super server anymore but some traces of <code>xinetd</code> is still there in some systems in <code>/etc/xinet.d/</code>. This is a sample xinetd configuration:</p>
-<div class="highlight"><pre><span></span><code><span class="err">service telnet</span>
-<span class="err">{</span>
-<span class="err">        disable         = no</span>
-<span class="err">        flags           = REUSE</span>
-<span class="err">        socket_type     = stream</span>
-<span class="err">        wait            = no</span>
-<span class="err">        user            = root</span>
-<span class="err">        server          = /usr/sbin/in.telnetd</span>
-<span class="err">        log_on_failure  += USERID</span>
-<span class="err">        no_access       = 10.0.1.0/24</span>
-<span class="err">        log_on_success  += PID HOST EXIT</span>
-<span class="err">        access_times    = 09:45-16:15</span>
-<span class="err">}</span>
+<div class="highlight"><pre><span></span><code>service telnet
+{
+        disable         = no
+        flags           = REUSE
+        socket_type     = stream
+        wait            = no
+        user            = root
+        server          = /usr/sbin/in.telnetd
+        log_on_failure  += USERID
+        no_access       = 10.0.1.0/24
+        log_on_success  += PID HOST EXIT
+        access_times    = 09:45-16:15
+}
 </code></pre></div>
 
 <p>If we change the <code>disable</code> to <code>yes</code> and restart the xinetd, the telnet daemon will start running. There are a few files to control to xinetd related files.</p>
-<h4>/etc/hosts.allow &amp; /etc/hosts.deny</h4>
+<p><strong>/etc/hosts.allow &amp; /etc/hosts.deny</strong></p>
 <p>These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowd, everything else is denied but if you add something to the /etc/hosts.deny, only that specific thing is denied (and every other thing is allowed).</p>
-<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@funlife</span><span class="w"> </span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">hosts</span><span class="p">.</span><span class="n">allow</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">hosts</span><span class="p">.</span><span class="nl">allow</span><span class="p">:</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">hosts</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="n">allowed</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">access</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">system</span><span class="p">.</span><span class="w"></span>
-<span class="err">#</span><span class="w">                   </span><span class="n">See</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">manual</span><span class="w"> </span><span class="n">pages</span><span class="w"> </span><span class="n">hosts_access</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">hosts_options</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="w"></span>
-<span class="err">#</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="nl">Example</span><span class="p">:</span><span class="w">    </span><span class="ow">ALL</span><span class="err">:</span><span class="w"> </span><span class="k">LOCAL</span><span class="w"> </span><span class="nv">@some_netgroup</span><span class="w"></span>
-<span class="err">#</span><span class="w">             </span><span class="ow">ALL</span><span class="err">:</span><span class="w"> </span><span class="p">.</span><span class="n">foobar</span><span class="p">.</span><span class="n">edu</span><span class="w"> </span><span class="ow">EXCEPT</span><span class="w"> </span><span class="n">terminalserver</span><span class="p">.</span><span class="n">foobar</span><span class="p">.</span><span class="n">edu</span><span class="w"></span>
-<span class="err">#</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">you</span><span class="err">&#39;</span><span class="n">re</span><span class="w"> </span><span class="n">going</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">protect</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">portmapper</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="ss">&quot;rpcbind&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="n">daemon</span><span class="w"> </span><span class="n">name</span><span class="p">.</span><span class="w"> </span><span class="n">See</span><span class="w"> </span><span class="n">rpcbind</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">rpc</span><span class="p">.</span><span class="n">mountd</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">further</span><span class="w"> </span><span class="n">information</span><span class="p">.</span><span class="w"></span>
-<span class="err">#</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>jadi@funlife ~$ cat /etc/hosts.allow
+# /etc/hosts.allow: list of hosts that are allowed to access the system.
+#                   See the manual pages hosts_access(5) and hosts_options(5).
+#
+# Example:    ALL: LOCAL @some_netgroup
+#             ALL: .foobar.edu EXCEPT terminalserver.foobar.edu
+#
+# If you&#39;re going to protect the portmapper use the name &quot;rpcbind&quot; for the
+# daemon name. See rpcbind(8) and rpc.mountd(8) for further information.
+#
 
-<span class="nl">telnet</span><span class="p">:</span><span class="w"> </span><span class="mf">10.10.100</span><span class="p">.</span><span class="w"></span>
+telnet: 10.10.100.
 </code></pre></div>
 
 <p>Here the <code>telnet</code> service is only allowed from 10.10.100.* . It is possible to use <code>ALL</code> as the service name to allow or deny ALL services.</p>
 <blockquote>
 <p>after changing this file, xinetd should be restarted</p>
 </blockquote>
-<p>As mentioned, super servers are not being used anymore and most distributions use standalone services running on them.  This is also called tcp wrapping since the tcp connections are being passwd from xinetd and xinetd decides what to do with them.</p>
+<p>As mentioned, super servers are not being used anymore and most distributions use standalone services running on them. This is also called tcp wrapping since the tcp connections are being passwd from xinetd and xinetd decides what to do with them.</p>
 
 
              
@@ -211,9 +210,21 @@
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:41:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#110-ref">110</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 108, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="108.4 Manage printers and printing "/>
 <meta property="og:url" content="./1084-manage-printers-and-printing.html" />
-<meta property="og:description" content="108.4 Manage printers and printing Weight: 2 Candidates should be able to manage print queues and user print jobs using CUPS and the LPD compatibility interface. Key Knowledge Areas Basic CUPS configuration (for local and remote printers). Manage user print queues. Troubleshoot general printing problems. Add and remove jobs …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:35:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="108.4 Manage printers and printing ">
-<meta name="twitter:description" content="108.4 Manage printers and printing Weight: 2 Candidates should be able to manage print queues and user print jobs using CUPS and the LPD compatibility interface. Key Knowledge Areas Basic CUPS configuration (for local and remote printers). Manage user print queues. Troubleshoot general printing problems. Add and remove jobs …">
+<meta name="twitter:description" content="">
 
         <title>108.4 Manage printers and printing  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,27 +76,27 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>108.4 Manage printers and printing</h1>
+            <h2>108.4 Manage printers and printing</h2>
 <p><em>Weight: 2</em></p>
 <p>Candidates should be able to manage print queues and user print jobs using CUPS and the LPD compatibility interface.</p>
-<h2>Key Knowledge Areas</h2>
+<h3>Key Knowledge Areas</h3>
 <ul>
 <li>Basic CUPS configuration (for local and remote printers).</li>
 <li>Manage user print queues.</li>
 <li>Troubleshoot general printing problems.</li>
 <li>Add and remove jobs from configured printer queues.</li>
 </ul>
-<h2>Terms and Utilities</h2>
+<h3>Terms and Utilities</h3>
 <ul>
 <li>CUPS configuration files, tools and utilities</li>
 <li>/etc/cups/</li>
 <li>lpd legacy interface (lpr, lprm, lpq)</li>
 </ul>
-<h2>CUPS</h2>
-<p>Most Linux distros use CUPS for printing. CUPS stands for Common Unix Printing System.  There are different interfaces for CUPS link command line tools, web based interface and GUIs. CUPS is designed to simplify the printing on various printers from different manufactures.</p>
-<h3>CUPS web interface</h3>
+<h3>CUPS</h3>
+<p>Most Linux distros use CUPS for printing. CUPS stands for Common Unix Printing System. There are different interfaces for CUPS link command line tools, web based interface and GUIs. CUPS is designed to simplify the printing on various printers from different manufactures.</p>
+<h4>CUPS web interface</h4>
 <p>The general way to access the CUPS configuration and info page is going to the servers IP on port <strong>631</strong> from a browser. That will be <strong>localhost:631</strong> or <strong>127.0.0.1:631</strong> from your browser.</p>
-<p><img alt="" src="cups.png"></p>
+<p><img alt="" src="../.gitbook/assets/cups.png"></p>
 <p>Important parts on this webpage are:</p>
 <p>|Jobs tab|to check the jobs the CUPS is handling|<br>
 |Administration|For adding printers, managing jobs and configuring the CUPS server|<br>
@@ -107,12 +106,12 @@
 </blockquote>
 <p>Suggested Activity: Visit your CUPS web interface and add a printer</p>
 <p>Good news is that the CUPS has most of the common printer drivers installed. You just need to choose the printer from the dropdown menu.</p>
-<h3>configuration files</h3>
+<h4>configuration files</h4>
 <p>As any other linux program, CUPS saves its configuration at <code>/etc</code> directory.</p>
-<div class="highlight"><pre><span></span><code><span class="err"># ls /etc/cups</span>
-<span class="err">cups-browsed.conf  interfaces  raw.types  subscriptions.conf</span>
-<span class="err">cupsd.conf         ppd         snmp.conf  subscriptions.conf.O</span>
-<span class="err">cups-files.conf    raw.convs   ssl</span>
+<div class="highlight"><pre><span></span><code># ls /etc/cups
+cups-browsed.conf  interfaces  raw.types  subscriptions.conf
+cupsd.conf         ppd         snmp.conf  subscriptions.conf.O
+cups-files.conf    raw.convs   ssl
 </code></pre></div>
 
 <p>One important file is <code>cupsd.conf</code>. Have a look at it; it is very easy to understand. For example the <code>Listen localhost:631</code> line tells the CUPS to listen on localhost port 631.</p>
@@ -120,7 +119,7 @@
 <div class="highlight"><pre><span></span><code># Printer configuration file for CUPS v2.1.0
 # Written by cupsd
 # DO NOT EDIT THIS FILE WHEN CUPSD IS RUNNING
-<span class="nt">&lt;DefaultPrinter</span> <span class="err">Apple-Dot-Matrix</span><span class="nt">&gt;</span>
+&lt;DefaultPrinter Apple-Dot-Matrix&gt;
 UUID urn:uuid:0f6c2f2b-6338-388a-76de-09f2ef1994d5
 Info Apple Dot Matrix
 Location Fake Location
@@ -138,77 +137,77 @@ PageLimit 0
 KLimit 0
 OpPolicy default
 ErrorPolicy retry-job
-<span class="nt">&lt;/DefaultPrinter&gt;</span>
+&lt;/DefaultPrinter&gt;
 </code></pre></div>
 
-<h3>legacy tools</h3>
+<h4>legacy tools</h4>
 <p>Just like the MTA programs, CUPS support all the legacy command line programs too.</p>
 <table>
 <thead>
 <tr>
-<th>command</th>
-<th>usage</th>
+<th align="left">command</th>
+<th align="left">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>lpr</td>
-<td>print a file</td>
+<td align="left">lpr</td>
+<td align="left">print a file</td>
 </tr>
 <tr>
-<td>lpq</td>
-<td>show print queue/jobs</td>
+<td align="left">lpq</td>
+<td align="left">show print queue/jobs</td>
 </tr>
 <tr>
-<td>lprm</td>
-<td>rm/remove a file from priner queue</td>
+<td align="left">lprm</td>
+<td align="left">rm/remove a file from priner queue</td>
 </tr>
 <tr>
-<td>lpc</td>
-<td>printer control / troubleshooting program</td>
+<td align="left">lpc</td>
+<td align="left">printer control / troubleshooting program</td>
 </tr>
 </tbody>
 </table>
-<h4>lpq</h4>
-<p>The <strong>q</strong> is for <strong>queue</strong> therefor <code>lpq</code> shows the printer queue and is used when you want to see the jobs. If you use the <code>-a</code> switch,  the lpq will show the jobs of <strong>all</strong> printers. Alternatively you can use the <code>-P</code> switch to show the jobs of a specific printer. So the following command will show the jobs of a printer called Apple-Dot-Matrix:</p>
-<div class="highlight"><pre><span></span><code><span class="err"># lpq -PApple-Dot-Matrix</span>
-<span class="err">Apple-Dot-Matrix is ready and printing</span>
-<span class="err">Rank    Owner   Job     File(s)                         Total Size</span>
-<span class="err">active  unknown 1       unknown                         7168 bytes</span>
-<span class="err">1st     unknown 2       unknown                         2048 bytes</span>
+<p><strong>lpq</strong></p>
+<p>The <strong>q</strong> is for <strong>queue</strong> therefor <code>lpq</code> shows the printer queue and is used when you want to see the jobs. If you use the <code>-a</code> switch, the lpq will show the jobs of <strong>all</strong> printers. Alternatively you can use the <code>-P</code> switch to show the jobs of a specific printer. So the following command will show the jobs of a printer called Apple-Dot-Matrix:</p>
+<div class="highlight"><pre><span></span><code># lpq -PApple-Dot-Matrix
+Apple-Dot-Matrix is ready and printing
+Rank    Owner   Job     File(s)                         Total Size
+active  unknown 1       unknown                         7168 bytes
+1st     unknown 2       unknown                         2048 bytes
 </code></pre></div>
 
 <blockquote>
 <p>It is strange but there should not be ANY space between <code>-P</code> and the printers name</p>
 </blockquote>
-<h4>lpr</h4>
+<p><strong>lpr</strong></p>
 <p>This command is used to send a job to a printer. Again the printer is specified by <code>-P</code>.</p>
 <div class="highlight"><pre><span></span><code>$ lpr -PApple-Dot-Matrix for_print.txt
  lpq
 Apple-Dot-Matrix is ready and printing
-Rank    Owner   Job     File<span class="o">(</span>s<span class="o">)</span>                         Total Size
-active  jadi    <span class="m">1</span>       Untitled Document <span class="m">1</span>             <span class="m">7168</span> bytes
-1st     jadi    <span class="m">2</span>       Untitled1                       <span class="m">2048</span> bytes
-2nd     jadi    <span class="m">3</span>       for_print.txt                   <span class="m">1024</span> bytes
+Rank    Owner   Job     File(s)                         Total Size
+active  jadi    1       Untitled Document 1             7168 bytes
+1st     jadi    2       Untitled1                       2048 bytes
+2nd     jadi    3       for_print.txt                   1024 bytes
 </code></pre></div>
 
 <blockquote>
 <p>If no printer is specified, the default printer will be used</p>
 </blockquote>
-<h4>lprm</h4>
+<p><strong>lprm</strong></p>
 <p>The <em>rm</em> is for <em>remove</em> so the <code>lprm</code> will remove jobs from the queue. You need to provide the <strong>Job ID</strong> to this command.</p>
 <div class="highlight"><pre><span></span><code>$ lpq
 Apple-Dot-Matrix is ready and printing
-Rank    Owner   Job     File<span class="o">(</span>s<span class="o">)</span>                         Total Size
-active  jadi    <span class="m">1</span>       Untitled Document <span class="m">1</span>             <span class="m">7168</span> bytes
-1st     jadi    <span class="m">2</span>       Untitled1                       <span class="m">2048</span> bytes
-2nd     jadi    <span class="m">3</span>       for_print.txt                   <span class="m">1024</span> bytes
-jadi@funlife:/tmp$ lprm <span class="m">2</span>
+Rank    Owner   Job     File(s)                         Total Size
+active  jadi    1       Untitled Document 1             7168 bytes
+1st     jadi    2       Untitled1                       2048 bytes
+2nd     jadi    3       for_print.txt                   1024 bytes
+jadi@funlife:/tmp$ lprm 2
 jadi@funlife:/tmp$ lpq
 Apple-Dot-Matrix is ready and printing
-Rank    Owner   Job     File<span class="o">(</span>s<span class="o">)</span>                         Total Size
-active  jadi    <span class="m">1</span>       Untitled Document <span class="m">1</span>             <span class="m">7168</span> bytes
-1st     jadi    <span class="m">3</span>       for_print.txt                   <span class="m">1024</span> bytes
+Rank    Owner   Job     File(s)                         Total Size
+active  jadi    1       Untitled Document 1             7168 bytes
+1st     jadi    3       for_print.txt                   1024 bytes
 </code></pre></div>
 
 <blockquote>
@@ -218,14 +217,14 @@ active  jadi    <span class="m">1</span>       Untitled Document <span class="m"
 <blockquote>
 <p>the <code>lprm -</code> will remove all the print jobs</p>
 </blockquote>
-<h4>lpc</h4>
+<p><strong>lpc</strong></p>
 <p>Here, the <strong>c</strong> is for <strong>control</strong>. <code>lpc</code> lets you check the status (via <code>lpc status</code>) and troubleshoot your printers.</p>
 <div class="highlight"><pre><span></span><code>$ lpc status
 Apple-Dot-Matrix:
-    printer is on device <span class="s1">&#39;ipp&#39;</span> speed -1
+    printer is on device &#39;ipp&#39; speed -1
     queuing is enabled
     printing is enabled
-    <span class="m">2</span> entries
+    2 entries
     daemon present
 </code></pre></div>
 
@@ -238,39 +237,39 @@ Apple-Dot-Matrix:
 <table>
 <thead>
 <tr>
-<th>command</th>
-<th>usage</th>
+<th align="left">command</th>
+<th align="left">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>cupsaccept</td>
-<td>tells the printer queue to accept new jobs</td>
+<td align="left">cupsaccept</td>
+<td align="left">tells the printer queue to accept new jobs</td>
 </tr>
 <tr>
-<td>cupsreject</td>
-<td>tells the printer to reject any new job</td>
+<td align="left">cupsreject</td>
+<td align="left">tells the printer to reject any new job</td>
 </tr>
 <tr>
-<td>cupsenable</td>
-<td>enables the actual/physical printing of the jobs</td>
+<td align="left">cupsenable</td>
+<td align="left">enables the actual/physical printing of the jobs</td>
 </tr>
 <tr>
-<td>cupsdisable</td>
-<td>disables the physical printing of the jobs</td>
+<td align="left">cupsdisable</td>
+<td align="left">disables the physical printing of the jobs</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
 <p>In all cases you have to provide the printer name of the printer. it is also possible to provide a reason using <code>-r</code> switch.</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>$ cupsdisable Apple-Dot-Matrix -r <span class="s2">&quot;need more paper&quot;</span>
+<div class="highlight"><pre><span></span><code>$ cupsdisable Apple-Dot-Matrix -r &quot;need more paper&quot;
 $ lpc status
 Apple-Dot-Matrix:
-    printer is on device <span class="s1">&#39;ipp&#39;</span> speed -1
+    printer is on device &#39;ipp&#39; speed -1
     queuing is enabled
     printing is disabled
-    <span class="m">2</span> entries
+    2 entries
     daemon present
 </code></pre></div>
 
@@ -291,9 +290,21 @@ Apple-Dot-Matrix:
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:35:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#108-ref">108</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>

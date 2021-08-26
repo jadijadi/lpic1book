@@ -15,16 +15,16 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content=", 105, " />
+<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1-101, " />
 
 <meta property="og:title" content="105.2 Customize or write simple scripts "/>
 <meta property="og:url" content="./1052-customize-or-write-simple-scripts.html" />
-<meta property="og:description" content="105.2 Customize or write simple scripts Weight: 4 Description Candidates should be able to customize existing scripts, or write simple new Bash scripts. Key Knowledge Areas: Use standard sh syntax (loops, tests) Use command substitution Test return values for success or failure or other information provided by a command …" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
-<meta property="og:article:published_time" content="2021-08-03T13:25:00+02:00" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="105.2 Customize or write simple scripts ">
-<meta name="twitter:description" content="105.2 Customize or write simple scripts Weight: 4 Description Candidates should be able to customize existing scripts, or write simple new Bash scripts. Key Knowledge Areas: Use standard sh syntax (loops, tests) Use command substitution Test return values for success or failure or other information provided by a command …">
+<meta name="twitter:description" content="">
 
         <title>105.2 Customize or write simple scripts  · lpic1book
 </title>
@@ -46,13 +46,12 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
-                                    <a href=
-                                       .
-                                    >Home</a>
                                 </li>
-                                <li ><a href="./categories.html">Categories</a></li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
-                                <li ><a href="./archives.html">Archives</a></li>
+
                                 <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
@@ -77,11 +76,11 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>105.2 Customize or write simple scripts</h1>
+            <h2>105.2 Customize or write simple scripts</h2>
 <p><em>Weight: 4</em></p>
-<h3>Description</h3>
+<h4>Description</h4>
 <p>Candidates should be able to customize existing scripts, or write simple new Bash scripts.</p>
-<h3>Key Knowledge Areas:</h3>
+<h4>Key Knowledge Areas:</h4>
 <ul>
 <li>Use standard sh syntax (loops, tests)</li>
 <li>Use command substitution</li>
@@ -90,7 +89,7 @@
 <li>Correctly select the script interpreter through the shebang (#!) line</li>
 <li>Manage the location, ownership, execution and suid-rights of scripts</li>
 </ul>
-<h3>Terms and Utilities</h3>
+<h4>Terms and Utilities</h4>
 <ul>
 <li>for</li>
 <li>while</li>
@@ -100,92 +99,74 @@
 <li>seq</li>
 <li>exec</li>
 </ul>
-<h2>Shell Scripts</h2>
+<h3>Shell Scripts</h3>
 <p>Are a way of automating tasks.</p>
-<h2>Shebang</h2>
+<h3>Shebang</h3>
 <p>If a line starts with <code>#!</code> it is called shebang and tells the shell what <em>interpreter</em> to use for running this script.</p>
 <blockquote>
 <p>Note: Normally a <code>#</code> at the beginning of a script is for showing <em>comments</em>. Do not confuse it with <em>Shebang</em> (#!)</p>
 </blockquote>
 <p>In many cases we run shells with <code>#!/bin/bash</code> or <code>#!/bin/sh</code></p>
 <p>We can use the command we already know in our shell scripts. A sample is:</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="highlight"><pre><span></span><code>#!/bin/bash
 
-<span class="nb">echo</span>
-<span class="nb">echo</span> <span class="s2">&quot;We are learning! Wowww...&quot;</span>
-<span class="nb">echo</span>
+echo
+echo &quot;We are learning! Wowww...&quot;
+echo
 </code></pre></div>
-</td></tr></table>
-<h2>Variables</h2>
+
+<h3>Variables</h3>
 <p>Already seen in some parts. You can define variables like this <code>VARNAME=VALUE</code>. A sample:</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="highlight"><pre><span></span><code>#!/bin/bash
 
-<span class="nv">NAME</span><span class="o">=</span>Jadi
+NAME=Jadi
 
-<span class="nb">echo</span>
-<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$NAME</span><span class="s2"> is learning! Wowww...&quot;</span>
-<span class="nb">echo</span>
+echo
+echo &quot;$NAME is learning! Wowww...&quot;
+echo
 </code></pre></div>
-</td></tr></table>
+
 <blockquote>
 <p>Note: you can also do NAME="Jadi"</p>
 </blockquote>
-<h3>Command substitution</h3>
+<h4>Command substitution</h4>
 <p>Sometimes you need to have a variable with the result of something to a variable. In this case you can use $() construct:</p>
-<div class="highlight"><pre><span></span><code><span class="err">FILES=$(ls -1)</span>
+<div class="highlight"><pre><span></span><code>FILES=$(ls -1)
 </code></pre></div>
 
-<h2>executing scripts</h2>
+<h3>executing scripts</h3>
 <p>If the file is executable, we can run them using the ./script_name.sh if we are in the same directory, or give the complete path or include their directory ine $PATH variable. As you can see they are just normal programs.</p>
 <p>Another way is giving our scripts name as a parameter to the <code>bash</code> or <code>sh</code> commands.</p>
 <blockquote>
 <p>Note: you know that for making a file executable we can do <code>chmod 755 filename</code> or <code>chmod +x fiename</code>.</p>
 </blockquote>
-<h2>Conditions</h2>
+<h3>Conditions</h3>
 <p>Up to now, we were just running commands one by one. That is not very <em>programmatic</em>. If we are going to have some <em>logic</em> in our programs, we need <em>conditions</em> and <em>loops</em>. First we will cover conditions, using the <code>if</code> command. Its usage is like this:</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="n">condition</span><span class="o">]</span><span class="w"></span>
-<span class="k">then</span><span class="w"></span>
-<span class="w">   </span><span class="n">do</span><span class="w"> </span><span class="n">something</span><span class="w"></span>
-<span class="w">   </span><span class="n">do</span><span class="w"> </span><span class="n">another</span><span class="w"> </span><span class="n">thing</span><span class="w"></span>
-<span class="k">else</span><span class="w"></span>
-<span class="w">   </span><span class="n">do</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">things</span><span class="w"></span>
-<span class="w">   </span><span class="n">even</span><span class="w"> </span><span class="n">funnier</span><span class="w"> </span><span class="n">things</span><span class="w"></span>
-<span class="n">fi</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>if [condition]
+then
+   do something
+   do another thing
+else
+   do new things
+   even funnier things
+fi
 </code></pre></div>
 
 <blockquote>
 <p>Note: else part is optional, <code>if</code>, <code>then</code>, <code>fi</code> is enough.</p>
 </blockquote>
 <p>Conditions can be TRUE or FALSE. A very simple conditions is <code>if [ "Linux" = "Linux" ]</code>. Silly? I know but we will change it soon but for now, learn the syntax! Specially the <em>spaces</em> and <em>=</em> for checking if two strings are equal.</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="highlight"><pre><span></span><code>#!/bin/bash
 
-<span class="nv">kernel</span><span class="o">=</span><span class="k">$(</span>uname -s<span class="k">)</span>
-<span class="k">if</span> <span class="o">[</span> <span class="nv">$kernel</span> <span class="o">=</span> <span class="s2">&quot;Linux&quot;</span> <span class="o">]</span>
-<span class="k">then</span>
-    <span class="nb">echo</span> YES. You are using a Linux
-<span class="k">else</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Not a linux :(&quot;</span>
-<span class="k">fi</span>
+kernel=$(uname -s)
+if [ $kernel = &quot;Linux&quot; ]
+then
+    echo YES. You are using a Linux
+else
+    echo &quot;Not a linux :(&quot;
+fi
 </code></pre></div>
-</td></tr></table>
+
 <blockquote>
 <p>Note spaces and using doublequotes (") on seccond echo because it has <code>(</code> character which will be interpreted by bash if we do not enclose the string in a doublequote.</p>
 </blockquote>
@@ -193,137 +174,137 @@
 <table>
 <thead>
 <tr>
-<th>conditions</th>
-<th>what is means</th>
+<th align="left">conditions</th>
+<th align="left">what is means</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>"a" = "b"</td>
-<td>if two strings are equal (here it will return False)</td>
+<td align="left">"a" = "b"</td>
+<td align="left">if two strings are equal (here it will return False)</td>
 </tr>
 <tr>
-<td>"a" != "b"</td>
-<td>string a <em>is not equal</em> to string b</td>
+<td align="left">"a" != "b"</td>
+<td align="left">string a <em>is not equal</em> to string b</td>
 </tr>
 <tr>
-<td>4 -lt 40</td>
-<td>if 4 is <em>lower   than</em> 40 (True)</td>
+<td align="left">4 -lt 40</td>
+<td align="left">if 4 is <em>lower   than</em> 40 (True)</td>
 </tr>
 <tr>
-<td>5 -gt 15</td>
-<td>if 5 is <em>greater than</em> 15 (False)</td>
+<td align="left">5 -gt 15</td>
+<td align="left">if 5 is <em>greater than</em> 15 (False)</td>
 </tr>
 <tr>
-<td>5 -ge 5</td>
-<td>if 5 is <em>greater or equal</em> 5</td>
+<td align="left">5 -ge 5</td>
+<td align="left">if 5 is <em>greater or equal</em> 5</td>
 </tr>
 <tr>
-<td>5 -le 3</td>
-<td>if 5 is <em>lower or equal</em> to 3</td>
+<td align="left">5 -le 3</td>
+<td align="left">if 5 is <em>lower or equal</em> to 3</td>
 </tr>
 <tr>
-<td>9 -ne 2</td>
-<td>9 is <em>not equal</em> with 2 (True)</td>
+<td align="left">9 -ne 2</td>
+<td align="left">9 is <em>not equal</em> with 2 (True)</td>
 </tr>
 <tr>
-<td>-f FILENAME</td>
-<td>if file FILENAME exists</td>
+<td align="left">-f FILENAME</td>
+<td align="left">if file FILENAME exists</td>
 </tr>
 <tr>
-<td>-s FILENAME</td>
-<td>if file exists and its size is more than 0</td>
+<td align="left">-s FILENAME</td>
+<td align="left">if file exists and its size is more than 0</td>
 </tr>
 <tr>
-<td>-x FILENAME</td>
-<td>file exists and is executable</td>
+<td align="left">-x FILENAME</td>
+<td align="left">file exists and is executable</td>
 </tr>
 </tbody>
 </table>
-<h3>read</h3>
+<h4>read</h4>
 <p>Using <code>read</code> we can read the user input. Look at this:</p>
-<div class="highlight"><pre><span></span><code><span class="err">1 #!/bin/sh</span>
-<span class="err">  2</span>
-<span class="err">  3 echo &quot;what is your name?&quot;</span>
-<span class="err">  4 read NAME</span>
-<span class="err">  5</span>
-<span class="err">  6 echo &quot;Hello $NAME&quot;</span>
-<span class="err">  7</span>
-<span class="err">  8 if [ $NAME = &quot;Jadi&quot; ]</span>
-<span class="err">  9 then</span>
-<span class="err"> 10      echo &quot;Oh I know you!&quot;</span>
-<span class="err"> 11  else</span>
-<span class="err"> 12      echo &quot;I wish I knew you&quot;</span>
-<span class="err"> 13 fi</span>
-<span class="err"> 14</span>
-<span class="err"> 15 echo &quot;Bye&quot;</span>
+<div class="highlight"><pre><span></span><code>1 #!/bin/sh
+  2
+  3 echo &quot;what is your name?&quot;
+  4 read NAME
+  5
+  6 echo &quot;Hello $NAME&quot;
+  7
+  8 if [ $NAME = &quot;Jadi&quot; ]
+  9 then
+ 10      echo &quot;Oh I know you!&quot;
+ 11  else
+ 12      echo &quot;I wish I knew you&quot;
+ 13 fi
+ 14
+ 15 echo &quot;Bye&quot;
 </code></pre></div>
 
-<h2>for loop</h2>
+<h3>for loop</h3>
 <p>Generaly loops are used to run a specific set of commands more than once. The syntax is like this:</p>
-<div class="highlight"><pre><span></span><code><span class="err">for VAR in SOME_LIST;</span>
-<span class="err">do</span>
-<span class="err">  some stuff with $VAR</span>
-<span class="err">  some other stuff</span>
-<span class="err">done</span>
+<div class="highlight"><pre><span></span><code>for VAR in SOME_LIST;
+do
+  some stuff with $VAR
+  some other stuff
+done
 </code></pre></div>
 
 <blockquote>
 <p>Note the <code>in</code>, <code>;</code>, <code>do</code> and <code>done</code>.</p>
 </blockquote>
 <p>On each loop, the VAR will be equal to one of the SOME_LIST elements. SOME_LIST can be numbers, name of files, words, ...</p>
-<div class="highlight"><pre><span></span><code><span class="err">for NUM in 1 2 3 4 5 6;</span>
-<span class="err">do</span>
-<span class="err">    echo $NUM</span>
-<span class="err">done</span>
+<div class="highlight"><pre><span></span><code>for NUM in 1 2 3 4 5 6;
+do
+    echo $NUM
+done
 </code></pre></div>
 
 <p>But what if you needed to go 1 to 42? We have the <code>seq</code> command which can be used like <code>seq 1 42</code> or a shorthand like <code>{1..42}</code>.</p>
 <p>Good part is we can use non-numbers too!</p>
-<div class="highlight"><pre><span></span><code><span class="err">for FILE in $(ls);</span>
-<span class="err">do</span>
-<span class="err">    echo $FILE</span>
-<span class="err">    wc $FILE</span>
-<span class="err">done</span>
+<div class="highlight"><pre><span></span><code>for FILE in $(ls);
+do
+    echo $FILE
+    wc $FILE
+done
 </code></pre></div>
 
-<h2>while loop</h2>
+<h3>while loop</h3>
 <p>This is another kind of loop but loops <em>while</em> a conditions is TRUE. This is the syntax:</p>
-<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="o">[</span><span class="n">condition</span><span class="o">]</span><span class="w"></span>
-<span class="n">do</span><span class="w"></span>
-<span class="w">    </span><span class="n">do</span><span class="w"> </span><span class="n">something</span><span class="w"></span>
-<span class="w">    </span><span class="n">do</span><span class="w"> </span><span class="n">anohter</span><span class="w"> </span><span class="n">thing</span><span class="w"></span>
-<span class="n">done</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>while [condition]
+do
+    do something
+    do anohter thing
+done
 </code></pre></div>
 
 <blockquote>
 <p>Note: If your condition will remains true all the time, the while loop will run <em>forever</em>. This is called an <em>infinite loop</em></p>
 </blockquote>
 <p>This is sample:</p>
-<div class="highlight"><pre><span></span><code><span class="n">VAR</span><span class="o">=</span><span class="mi">52</span>
+<div class="highlight"><pre><span></span><code>VAR=52
 
-<span class="n">while</span> <span class="p">[</span> <span class="err">$</span><span class="n">VAR</span> <span class="o">-</span><span class="n">gt</span> <span class="mi">42</span> <span class="p">]</span>
-<span class="k">do</span>
-    <span class="n">echo</span> <span class="n">VAR</span> <span class="k">is</span> <span class="err">$</span><span class="n">VAR</span> <span class="k">and</span> <span class="n">it</span> <span class="k">is</span> <span class="n">still</span> <span class="n">greater</span> <span class="k">than</span> <span class="mi">42</span>
-    <span class="n">let</span> <span class="n">VAR</span><span class="o">=</span><span class="n">VAR</span><span class="o">-</span><span class="mi">1</span>
-<span class="n">done</span>
+while [ $VAR -gt 42 ]
+do
+    echo VAR is $VAR and it is still greater than 42
+    let VAR=VAR-1
+done
 </code></pre></div>
 
 <blockquote>
 <p>we will have an infinite loop if we use <code>let VAR=VAR+1</code>. Ctrl+C will help us to <em>break</em> the loop.</p>
 <p>Note the <code>let</code> usage! If you just just say <code>VAR=1</code> and then <code>VAR=$VAR+1</code>, then VAR will be equal to <code>1+1</code> as an string!.</p>
 </blockquote>
-<h2>mailing the root user</h2>
+<h3>mailing the root user</h3>
 <p>For sending mail, you need to install <code>mailutils</code>. Then the <code>mail</code> command will send emails. You can send the mail to the root user by issuing this command:</p>
-<div class="highlight"><pre><span></span><code><span class="err">jadi@funlife:~$ mail root</span>
-<span class="c">Cc:</span>
-<span class="c">Subject: Hi there root</span>
-<span class="err">hello there. This is my mail</span>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~$ mail root
+Cc:
+Subject: Hi there root
+hello there. This is my mail
 </code></pre></div>
 
 <p>And root will get this email. She can read it using <code>mail</code> command.</p>
 <p>If you need to send emails in a script, just do:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="s2">&quot;Body!&quot;</span> <span class="p">|</span> mail -s <span class="s2">&quot;Subject&quot;</span> root
+<div class="highlight"><pre><span></span><code>$ echo &quot;Body!&quot; | mail -s &quot;Subject&quot; root
 </code></pre></div>
 
 <p>This can be easily embeded as poart of your scripts!</p>
@@ -345,9 +326,21 @@
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2021-08-03T13:25:00+02:00">Tue 03 August 2021</time>
+            <time itemprop="dateCreated" datetime="2010-12-03T10:20:00+01:00">Fri 03 December 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="./categories.html#105-ref">105</a>
+            <a class="category-link" href="./categories.html#lpic1-101-ref">LPIC1-101</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#101-ref">101
+                    <span class="superscript">37</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+            </ul>
 <h4>Contact</h4>
 <div id="sidebar-social-link">
 </div>
