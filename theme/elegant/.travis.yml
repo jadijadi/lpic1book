@@ -1,0 +1,47 @@
+language: python
+dist: trusty
+
+python:
+- '3.6'
+
+env:
+- NODE_VERSION="12.13.1"
+
+branches:
+  only:
+  - master
+  - next
+
+addons:
+ apt:
+  packages:
+    - openjdk-8-jre  # install Java8 as required by vnu.jar
+
+cache:
+- pip
+- yarn
+- directories:
+  - $HOME/.cache/pre-commit
+
+before_install:
+- nvm install $NODE_VERSION
+
+install:
+- pip install -r documentation/requirements.txt
+- pip install -U html5validator
+- yarn install
+
+before_script:
+- cd documentation
+- invoke plugins-sync
+
+script:
+- invoke publish
+- html5validator --root output/
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: yarn semantic-release
+  on:
+    branch: master

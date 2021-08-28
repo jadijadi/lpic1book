@@ -1,0 +1,12 @@
+{% if CATEGORY_FEED_ATOM %}
+    {% for category in categories %}
+    {% set cat_name = category[0].slug %}
+        <link href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_ATOM.format(slug=cat_name) }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME|striptags|e }} - {{ category[0] }} Category Atom Feed" />
+    {% endfor %}
+{% endif %}
+{% if CATEGORY_FEED_RSS %}
+    {% for category in categories %}
+    {% set cat_name = category[0].slug %}
+        <link href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_RSS.format(slug=cat_name) }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME|striptags|e }} - {{ category[0] }} Category RSS Feed" />
+    {% endfor %}
+{% endif %}

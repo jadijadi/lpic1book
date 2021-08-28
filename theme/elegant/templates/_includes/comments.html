@@ -1,0 +1,97 @@
+{% macro comments_section(article) %}
+
+{% from '_includes/_defaults.html' import DISQUS_FILTER, UTTERANCES_FILTER, COMMENTBOX_FILTER with context %}
+
+{% set use_disqus = (not DISQUS_FILTER or article.disqus_filter == "off") and DISQUS_SITENAME and article.disqus_filter != "on" %}
+
+{% set use_utterances = (not UTTERANCES_FILTER or article.utterances_filter == "off") and UTTERANCES_REPO and article.utterances_filter != "on" %}
+
+{% set use_commentbox = (not COMMENTBOX_FILTER or article.commentbox_filter == "off") and COMMENTBOX_PROJECT and article.commentbox_filter != "on" %}
+
+{% set url = SITEURL+ '/' + article.url %}
+{% set identifier = SITEURL+ '/' + article.url %}
+{% if article.comment_id %}
+{% set identifier = article.comment_id %}
+{% elif article.disqus_identifier %}
+{% set identifier = article.disqus_identifier %}
+{% endif %}
+
+{% from '_includes/_defaults.html' import COMMENTS_INTRO with context %}
+{% set intro = COMMENTS_INTRO %}
+{% if article.comments_intro %}
+{% set intro = article.comments_intro %}
+{% endif %}
+
+{% if article.status != 'draft' and article.comments != 'False' and (use_disqus or use_utterances or use_commentbox) %}
+
+<section>
+    <h6 style="display:none;">Comments</h6>
+    <p id="comment-message">{{ intro }} </p>
+
+    <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle disqus-comment-count comment-count collapsed"
+                   data-toggle="collapse"
+                   data-parent="#accordion2"
+                   {% if use_disqus %}
+                   data-disqus-identifier="{{ identifier }}"
+                   {% endif %}
+                   href="{{ url }}#comment_thread"
+                   id="comment-accordion-toggle">
+                    Comments
+                </a>
+            </div>
+            <div id="comment_thread" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <div class="comments">
+                        {% if use_disqus %}
+                        <div id="disqus_thread"></div>
+                        {% from '_includes/disqus_scripts.html' import comments_script_disqus with context %}
+                        {{ comments_script_disqus(DISQUS_SITENAME, identifier , url) }}
+                        {% endif %}
+
+                        {% if use_utterances %}
+                        {% from '_includes/utterances_scripts.html' import comments_script_utterances with context %}
+                        {{ comments_script_utterances(UTTERANCES_REPO, identifier, UTTERANCES_LABEL, UTTERANCES_THEME) }}
+                        {% endif %}
+
+
+                        {% if use_commentbox %}
+                        {% from '_includes/commentbox_scripts.html' import comments_script_commentbox with context %}
+                        {{ comments_script_commentbox(COMMENTBOX_PROJECT, identifier) }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endmacro %}
+
+{% macro comments_script() %}
+<script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+{% endmacro %}

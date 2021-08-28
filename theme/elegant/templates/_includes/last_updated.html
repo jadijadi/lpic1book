@@ -1,0 +1,16 @@
+{#  Check which version of Pelican user is using.
+If it is <=3.3  than modified is a string
+If it is >3.3 than modified is a datetime object
+#}
+{% if article.locale_modified and article.modified %}
+{% set delta = (article.modified - article.date).days %}
+{% if delta > 0 %}
+<h4>Last Updated</h4>
+<time datetime="{{ article.modified.isoformat() }}">{{ article.locale_modified }}</time>
+{% endif %}
+
+{% elif article.modified %}
+<h4>Last Updated</h4>
+<div class="last-updated">{{ article.modified }}</div>
+
+{% endif %}

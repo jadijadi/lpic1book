@@ -1,0 +1,20 @@
+{% if article.series %}
+    {% if SERIES_TITLE %}
+        <h4>{{ SERIES_TITLE }}</h4>
+    {% elif article.series.name %}
+        <h4>{{ article.series.name }}</h4>
+    {% else %}
+        <h4>{{ article.series.index }}</h4>
+    {% endif %}
+    <ul class="multi-parts-list">
+         {% for part_article in article.series.all %}
+            <li {% if part_article == article %} class="active-part"{% endif %}>
+            {% if part_article != article %}
+            <a href="{{ SITEURL }}/{{ part_article.url }}" title="{{ part_article.title }}">Part {{ article.series.all.index(part_article)+1 }}: {{ part_article.title }}</a>
+            {% else %}
+            Part {{ article.series.index }}: {{ part_article.title }}
+            {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

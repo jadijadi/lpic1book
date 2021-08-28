@@ -1,0 +1,18 @@
+{% from '_includes/_defaults.html' import USE_SHORTCUT_ICONS with context %}
+{% if USE_SHORTCUT_ICONS == True %}
+        <link rel="shortcut icon" href="{{ SITEURL }}/theme/images/favicon.ico" type="image/x-icon" />
+        {# Opera Speed Dial Icon #}
+        {# See https://github.com/operasoftware/devopera-static-backup/blob/master/http/dev.opera.com/articles/view/opera-speed-dial-enhancements/index.html #}
+        <link rel="icon" href="{{ SITEURL }}/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        {# Safari on iOS #}
+        {# See https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html #}
+        <link rel="apple-touch-icon" href="{{ SITEURL }}/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="{{ SITEURL }}/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="{{ SITEURL }}/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="{{ SITEURL }}/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="{{ SITEURL }}/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="{{ SITEURL }}/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="{{ SITEURL }}/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="{{ SITEURL }}/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="{{ SITEURL }}/theme/images/apple-touch-icon-180x180.png" type="image/png" />
+{% endif %}

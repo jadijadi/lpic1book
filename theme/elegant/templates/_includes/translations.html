@@ -1,0 +1,10 @@
+{% macro translations_for(article) %}
+{% if article.translations %}
+<p id="list-of-translations">
+This post is also available in:
+    {% for translation in article.translations|sort(attribute = 'lang') %}
+    <a href="{{ SITEURL }}/{{ translation.url }}">{{ translation.lang }}</a>{% if loop.index0 + 2 == loop.length %} and{% elif not loop.last %}, {% endif %}
+    {% endfor %}
+</p>
+{% endif %}
+{% endmacro %}

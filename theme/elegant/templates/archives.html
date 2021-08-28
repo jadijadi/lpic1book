@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}
+All Posts · {{ super() }}
+{% endblock title %}
+
+{% block head_description %}
+Full archives of {{ SITENAME|striptags|e }} blog.
+{% endblock head_description %}
+
+{% block meta_tags_in_head %}
+{{ super() }}
+{% from '_includes/_defaults.html' import FEATURED_IMAGE, ARCHIVES_URL with context %}
+<meta property="og:title" content="All Posts · {{ SITENAME|striptags|e }}"/>
+<meta name="twitter:title" content="All Posts · {{ SITENAME|striptags|e }}">
+<meta property="og:url" content="{{ SITEURL }}/{{ ARCHIVES_URL }}" />
+<meta property="og:description" content="Full archives of {{ SITENAME|striptags|e }} blog" />
+<meta name="twitter:description" content="Full archives of {{ SITENAME|striptags|e }} blog">
+<meta property="og:site_name" content="{{ SITENAME|striptags|e }}" />
+<meta property="og:article:author" content="{{ AUTHOR }}" />
+{% if FEATURED_IMAGE %}
+<meta property="og:image" content="{{ FEATURED_IMAGE }}" />
+<meta name="twitter:image" content="{{ FEATURED_IMAGE }}" >
+{% endif %}
+{% endblock meta_tags_in_head %}
+
+{% block content %}
+{% from '_includes/_defaults.html' import ARCHIVES_URL with context %}
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+    <h1><a href="{{ SITEURL }}/{{ ARCHIVES_URL }}">All Pages</a></h1>
+    </header>
+</div>
+<div class="row-fluid">
+    <div class="span10 offset2">
+        <div class="blog-archives">
+            {% for article in dates %}
+                {# {% set year = article.date.strftime('%Y') %} #}
+                {% if loop.first %}
+                    <h2 id="{{ year }}"><a href="#{{ year }}">{{ year }}</a></h2>
+                {% else %}
+                    {% set prevyear = loop.previtem.date.strftime('%Y') %}
+                    {% if prevyear != year %}
+                        <h2 id="{{ year }}"><a href="#{{ year }}">{{ year }}</a></h2>
+                    {% endif %}
+                {% endif %}
+
+                {% if loop.last %}
+                    <div itemscope class="last-entry-of-year">
+                {% else %}
+                {% set next_year = loop.nextitem.date.strftime('%Y') %}
+
+                    {% if next_year != year %}
+                        <div itemscope class="last-entry-of-year">
+                    {% else %}
+                        <div itemscope>
+                    {% endif %}
+                {% endif %}
+
+                <a href="{{ SITEURL }}/{{ article.url }}">
+                    {{ article.title }}
+                    {% if article.subtitle %}
+                    <small class="subtitle">
+                        {{ article.subtitle }}
+                    </small>
+                    {% endif %}
+                </a>
+                {# <time itemprop="dateCreated" datetime="{{ article.date.isoformat() }}">
+                    {{ article.locale_date }}
+                </time> #}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

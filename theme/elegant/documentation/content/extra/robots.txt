@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://elegant.oncrashreboot.com/sitemap.xml

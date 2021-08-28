@@ -1,0 +1,34 @@
+.codecopy {
+  position: relative;
+  overflow: visible;
+
+  & button.codecopy-btn {
+    font-size: rfs(0.9rem);
+    box-shadow: none;
+    min-height: initial;
+
+    position: absolute;
+    z-index: 1;
+
+    right: 0;
+    top: 0;
+    background-color: #fe8019;
+    padding: rfs(0.2rem);
+    border: none;
+    border-top-right-radius: var(--borderRadius);
+    border-bottom-left-radius: var(--borderRadius);
+
+    &:hover,
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+/* Remove radus when inside liquid_tags.include_code */
+figure.code
+  > div.highlight:not(:first-child)
+  > div.codecopy
+  > button.codecopy-btn {
+  border-top-right-radius: 0;
+}

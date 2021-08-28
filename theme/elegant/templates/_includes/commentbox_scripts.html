@@ -1,0 +1,14 @@
+{% macro comments_script_commentbox(project, identifier) %}
+<div class="commentbox" id="{{ identifier }}"></div>
+<script src="https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script>
+<script>
+    commentBox("{{ project }}", {
+        onCommentCount(count) {
+            const ele = document.querySelector("#comment-accordion-toggle")
+            if (ele && count > 0) {
+                ele.innerText = `${count} Comment${count > 1 ? 's' : ''}`
+            }
+        }
+    });
+</script>
+{% endmacro %}

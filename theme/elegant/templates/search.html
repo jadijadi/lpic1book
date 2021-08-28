@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Search · {{ super() }}
+{% endblock title %}
+
+{% block head_description %}
+Search results for {{ SITENAME|striptags|e }} blog.
+{% endblock head_description %}
+
+{% block meta_tags_in_head %}
+{{ super() }}
+{% from '_includes/_defaults.html' import FEATURED_IMAGE, SEARCH_URL with context %}
+<meta property="og:title" content="Search · {{ SITENAME|striptags|e }}"/>
+<meta name="twitter:title" content="Search · {{ SITENAME|striptags|e }}">
+<meta property="og:url" content="{{ SITEURL }}/{{ SEARCH_URL }}" />
+<meta property="og:description" content="Search results for {{ SITENAME|striptags|e }} blog" />
+<meta name="twitter:description" content="Search results for {{ SITENAME|striptags|e }} blog">
+<meta property="og:site_name" content="{{ SITENAME|striptags|e }}" />
+<meta property="og:article:author" content="{{ AUTHOR }}" />
+{% if FEATURED_IMAGE %}
+<meta property="og:image" content="{{ FEATURED_IMAGE }}" />
+<meta name="twitter:image" content="{{ FEATURED_IMAGE }}" >
+{% endif %}
+{% endblock meta_tags_in_head %}
+
+{% block content %}
+<div class="row-fluid">
+    <header id="lunr-search-result-heading" class="page-header span10 offset2">
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span8 offset2">
+        <div id="lunr-search-result" >
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block script %}
+    {% if PLUGINS and 'tipue_search' in PLUGINS %}
+        <script src="{{ SITEURL }}/tipuesearch_content.js"></script>
+    {% endif %}
+{{ super() }}
+{% endblock script %}

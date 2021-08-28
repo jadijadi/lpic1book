@@ -1,0 +1,5 @@
+{% from '_includes/_defaults.html' import READING_TIME_LOWER_LIMIT with context %}
+{% if article.stats and article.stats['read_mins'] and article.stats['read_mins'] > READING_TIME_LOWER_LIMIT %}
+    <h4>Reading Time</h4>
+    <p>~{{ article.stats['read_mins'] }} min read</p>
+{% endif %}

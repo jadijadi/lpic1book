@@ -1,0 +1,4 @@
+[build]
+  base = "./documentation"
+  publish = "./documentation/output"
+  command = "invoke plugins-sync publish"

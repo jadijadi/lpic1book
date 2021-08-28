@@ -1,0 +1,48 @@
+exclude: '^static/(css|js)/elegant\.prod\.\w+\.(css|js)|^THANKS.md'
+fail_fast: true
+repos:
+- repo: meta
+  hooks:
+  - id: check-useless-excludes
+- repo: https://github.com/pre-commit/mirrors-prettier
+  rev: v2.2.1
+  hooks:
+  - id: prettier
+    files: \.(css|js|md|markdown|json)
+- repo: https://github.com/python/black
+  rev: 21.4b2
+  hooks:
+  - id: black
+- repo: https://github.com/asottile/blacken-docs
+  rev: v1.10.0
+  hooks:
+  - id: blacken-docs
+- repo: https://github.com/hcodes/yaspeller.git
+  rev: v7.0.0
+  hooks:
+  - id: yaspeller
+    files: ^documentation/content/.*
+    types:
+      - markdown
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v3.4.0
+  hooks:
+  - id: check-added-large-files
+  - id: check-ast
+  - id: check-case-conflict
+  - id: check-executables-have-shebangs
+  - id: check-json
+  - id: check-merge-conflict
+  - id: check-symlinks
+  - id: check-vcs-permalinks
+  - id: check-xml
+  - id: check-yaml
+    args: [--unsafe]
+  - id: end-of-file-fixer
+  - id: fix-encoding-pragma
+  - id: forbid-new-submodules
+  - id: requirements-txt-fixer
+  - id: sort-simple-yaml
+  - id: trailing-whitespace
+  - id: no-commit-to-branch
+    args: [--branch, next, --branch, master]

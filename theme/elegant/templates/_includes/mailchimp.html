@@ -1,0 +1,27 @@
+{% macro mailchimp(article) %}
+
+{% from '_includes/_defaults.html' import MAILCHIMP_FORM_ACTION with context %}
+{% from '_includes/_defaults.html' import MAILCHIMP_FILTER with context %}
+
+{% if (not MAILCHIMP_FILTER or article.mailchimp_filter == "off") and article.mailchimp_filter != "on" %}
+
+{% if MAILCHIMP_FORM_ACTION %}
+
+{% from '_includes/_defaults.html' import EMAIL_SUBSCRIPTION_LABEL with context %}
+{% from '_includes/_defaults.html' import EMAIL_FIELD_PLACEHOLDER with context %}
+{% from '_includes/_defaults.html' import SUBSCRIBE_BUTTON_TITLE with context %}
+<!-- Begin MailChimp Signup Form -->
+<div id="mc-embed-signup">
+<form action="{{ MAILCHIMP_FORM_ACTION }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+<h4>{{ EMAIL_SUBSCRIPTION_LABEL }}</h4>
+<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="{{ EMAIL_FIELD_PLACEHOLDER }}" required>
+<div class="clear"><input type="submit" value="{{ SUBSCRIBE_BUTTON_TITLE }}" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+
+{% endif %}
+
+{% endif %}
+
+{% endmacro %}

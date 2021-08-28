@@ -1,0 +1,5 @@
+{% from '_includes/_defaults.html' import PHOTOS_LIGHTBOX with context %}
+{% if PHOTOS_LIGHTBOX and article and article.photo_gallery %}
+<!-- Gallery css -->
+<link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/magnific/magnific-popup.css">
+{% endif %}

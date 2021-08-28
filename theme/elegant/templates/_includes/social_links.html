@@ -1,0 +1,114 @@
+{% if SOCIAL %}
+{% from '_includes/_defaults.html' import SOCIAL_PROFILE_LABEL with context %}
+<h4>{{ SOCIAL_PROFILE_LABEL }}</h4>
+<div id="sidebar-social-link">
+    {% for entry in SOCIAL %}
+    {% if entry[0]|lower == 'email' %}
+    <a href="mailto:{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Mail" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#328cff"/><path d="m250 186c-46 0-69 35-69 74 0 44 29 72 68 72 43 0 73-32 73-75 0-44-34-71-72-71zm-1-37c30 0 57 13 77 33 0-22 35-22 35 1v150c-1 10 10 16 16 9 25-25 54-128-14-187-64-56-149-47-195-15-48 33-79 107-49 175 33 76 126 99 182 76 28-12 41 26 12 39-45 19-168 17-225-82-38-68-36-185 67-248 78-46 182-33 244 32 66 69 62 197-2 246-28 23-71 1-71-32v-11c-20 20-47 32-77 32-57 0-108-51-108-108 0-58 51-110 108-110" fill="#fff"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'github' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'rss' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="RSS" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#f80"/><circle cx="145" cy="367" r="35" fill="#fff"/><path fill="none" stroke="#fff" stroke-width="60" d="M109 241c89 0 162 73 162 162M109 127c152 0 276 124 276 276"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'facebook' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Facebook" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1877f2"/><path d="M355.6 330l11.4-74h-71v-48c0-20.2 9.9-40 41.7-40H370v-63s-29.3-5-57.3-5c-58.5 0-96.7 35.4-96.7 99.6V256h-65v74h65v182h80V330h59.6z" fill="#fff"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'twitter' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'linkedin' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="LinkedIn" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%" fill="#0077b5"/><circle cx="142" cy="138" r="37"/><path stroke="#fff" stroke-width="66" d="M244 194v198M142 194v198"/><path d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'instagram' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Instagram" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#d43377"/><g fill="none" stroke="#fff" stroke-width="29"><rect height="296" rx="78" width="296" x="108" y="108"/><circle cx="256" cy="256" r="69"/></g><circle cx="343" cy="169" fill="#fff" r="19"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'reddit' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Reddit" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#f40"/><g fill="#fff"><ellipse cx="256" cy="307" rx="166" ry="117"/><circle cx="106" cy="256" r="42"/><circle cx="407" cy="256" r="42"/><circle cx="375" cy="114" r="32"/></g><g stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="m256 196 23-101 73 15" stroke="#fff" stroke-width="16"/><path d="m191 359c33 25 97 26 130 0" stroke="#f40" stroke-width="13"/></g><g fill="#f40"><circle cx="191" cy="287" r="31"/><circle cx="321" cy="287" r="31"/></g></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'youtube' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="YouTube" role="img" viewBox="0 0 512 512" fill="#ed1d24"><rect width="512" height="512" rx="15%"/><path d="m427 169c-4-15-17-27-32-31-34-9-239-10-278 0-15 4-28 16-32 31-9 38-10 135 0 174 4 15 17 27 32 31 36 10 241 10 278 0 15-4 28-16 32-31 9-36 9-137 0-174" fill="#fff"/><path d="m220 203v106l93-53"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'gmail' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Gmail" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#fff"/><rect width="362" height="272" x="75" y="120" fill="#f2f2f2" rx="8%"/><path fill="#d54c3f" d="M120 392H97c-12 0-22-10-22-23V143h45z"/><path fill="#b63524" d="M392 392h23c12 0 22-10 22-23V143h-45z"/><path fill-opacity=".05" d="M256 286L120 392V187z"/><path fill-opacity=".08" d="M82 159l235 233h75V159z"/><path stroke-linecap="round" fill="none" stroke="#de5145" stroke-width="45" d="M97 143l159 115 159-115"/><path fill="#f2f2f2" d="M415 120c-5 0-10 2-13 4L256 230 110 124c-3-2-8-4-13-4z"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'stackoverflow' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Stack Overflow" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#f58025"/><path stroke="#fff" stroke-width="30" fill="none" d="M293 89l90 120zm-53 50l115 97zm-41 65l136 64zm-23 69l148 31zm-6 68h150zm-45-44v105h241V297"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'hackernews' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Hacker News" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#f60"/><path fill="#fff" d="M124 91h51l81 162 81-164h51L276 293v136h-40V293z"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'gitlab' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitLab" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#30353e"/><path fill="#e24329" d="M84 215l43-133c2-7 12-7 14 0l115 353L371 82c2-7 12-7 14 0l43 133"/><path fill="#fc6d26" d="M256 435L84 215h100.4zm71.7-220H428L256 435l71.6-220z"/><path fill="#fca326" d="M84 215l-22 67c-2 6 0 13 6 16l188 137zm344 0l22 67c2 6 0 13-6 16L256 435z"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'calendar' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg onload="w()" xmlns="http://www.w3.org/2000/svg" aria-label="Calendar" role="img" viewBox="0 0 512 512" font-family="monospace" text-anchor="middle" fill="#667777"><script type="text/ecmascript"><![CDATA[w=()=>{c=0;for (i in e={weekday:"long",month:"short",day:'numeric'}) document.getElementsByTagName('text')[c++].textContent=(new Date).toLocaleString(undefined,{[i]:e[i]})}]]></script><defs><clipPath id="c"><rect width="512" height="512" rx="15%"/></clipPath></defs><g clip-path="url(#c)"><rect width="512" height="512" fill="#dee"/><rect width="512" height="180" fill="#d34"/></g><g id="b"><circle fill="#eab" cx="384" cy="100" r="14" id="a"/><use x="43"/><use x="86"/></g><use y="43"/><text font-size="64" x="256" y="480" id="w">Sunday</text><text fill="#fff" font-size="140" x="140" y="164" id="m">FEB</text><text font-size="256" x="256" y="400" id="d">29</text></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'wire' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Wire" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#fff"/><path fill="none" stroke="#000" stroke-width="19" d="M99 127v163a1 1 0 0 0 186 0V157a1 1 0 0 0-58 0v133a1 1 0 0 0 186 0V127"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'telegram' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Telegram" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#37aee2"/><path fill="#c8daea" d="M199 404c-11 0-10-4-13-14l-32-105 245-144"/><path fill="#a9c9dd" d="M199 404c7 0 11-4 16-8l45-43-56-34"/><path fill="#f6fbfe" d="M204 319l135 99c14 9 26 4 30-14l55-258c5-22-9-32-24-25L79 245c-21 8-21 21-4 26l83 26 190-121c9-5 17-3 11 4"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'spotify' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Spotify" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%"
+fill="#3bd75f"/><circle cx="256" cy="256" fill="#fff" r="192"/><g fill="none" stroke="#3bd75f" stroke-linecap="round"><path d="m141 195c75-20 164-15 238 24" stroke-width="36"/><path d="m152 257c61-17 144-13 203 24" stroke-width="31"/><path d="m156 315c54-12 116-17 178 20" stroke-width="24"/></g></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'twitch' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitch" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#fff"/><path d="m115 101-22 56v228h78v42h44l41-42h63l85-85v-199zm260 185-48 48h-78l-42 42v-42h-65v-204h233zm-48-100v85h-30v-85zm-78 0v85h-29v-85z" fill="#6441a4"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'mastodon' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Mastodon" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%"/><path d="m409 290c-5 24-43 50-85 56-86 11-137-6-137-6 3 13-4 54 70 52 31 0 58-7 58-7l2 27c-51 24-107 15-140 6-67-17-79-90-81-162v-59c0-74 49-96 49-96 50-24 180-22 222 0 0 0 49 22 49 96 0 0 1 55-7 93" fill="#3088d4"/><path d="m358 202v91h-35v-88c0-18-8-27-23-27-18 0-27 11-27 33v47h-34v-47c0-22-9-33-27-33-15 0-23 9-23 27v88h-35v-91c0-18 5-60 52-60 39 0 50 37 50 37s10-37 50-37c45 0 52 42 52 60"/></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'keybase' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Keybase" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#fff"/><g fill="#282828"><path d="m201 80 22-31 18 10c-9 18-8 24-8 26 8-3 81 10 59 80 0 0 44 12 76 57 29 39 11 104-57 84-58-17-111-13-177 40l32-81-79 102c-3-99 10-140 79-190-23-1-41-18-40-38l2-27c1-19 17-35 37-34 1-1 36 1 36 2zm36 96c-5-6-15 1-9 7l21 25-10 8c-2 2-3 5-1 7l2 3c3 3 6 0 6 0l10-9 10 10-22 17c-2 2-2 5-1 7l9 11c2 2 5 2 7 1l22-17 6 7c5 6 14-1 9-7zm-50-70-21-2c-5 0-10 4-11 9l-1 27c0 6 4 10 9 10l16 1c-1-6 4-36 8-45z"/><circle cx="215" cy="348" r="14"/><circle cx="298" cy="348" r="14"/></g></svg>
+    </a>
+    {% endif %}
+    {% if entry[0]|lower == 'goodreads' %}
+    <a href="{{ entry[1] }}" title="{{ entry[2] }}" target="_blank" rel="nofollow noopener noreferrer">
+        <svg height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><rect fill="#EAE6CF" height="512" rx="64" width="512"/><path d="m254.92444 336.92444c43.2889-.36 74.07112-22.01333 92.33334-64.95111h.95556v65.48889c0 4.88-.32 12.44889-.95556 22.73333-1.30222 10.64445-4.78222 22.10223-10.42666 34.36889-5.65778 11.54667-14.79112 21.38667-27.37778 29.49778-12.44889 8.84-29.81778 13.44-52.12001 13.80444-21.48444 0-39.65333-5.59555-54.52444-16.77777-15.2-11.00889-24.08001-28.87111-26.65778-53.58667h-18.89778c1.93778 32.11111 12.18667 55.02667 30.76444 68.74222 18.08889 13.16445 41.04001 19.75556 68.83556 19.75556 27.45778 0 48.87112-5.14223 64.21778-15.43111 15.18223-9.92 26.08445-22.28445 32.71556-37.08 6.62222-14.79111 10.58222-28.86667 11.86667-42.21334.98222-13.35555 1.45778-22.91555 1.45778-28.68889v-270.088875h-18.90667v59.537775h-.95556c-7.27555-21.82667-19.30666-38.333335-36.12-49.524445-16.96-11.00445-35.70222-16.51111-56.21333-16.51111-35.72001.72444-62.85779 14.52444-81.43112 41.40889-19.07111 26.697775-28.59556 59.631105-28.59556 98.782195 0 40.23557 9.04445 73.52001 27.13334 99.86224 18.27555 26.88889 45.89778 40.51111 82.90222 40.87111zm-68.34222-224.89777c14.85333-24.359995 37.63111-36.986665 68.34222-37.888885 31.50223.90666 54.83556 13.17333 70.03556 36.808885 15.18223 23.64 22.77778 52.05331 22.77778 85.25331s-7.59555 61.43112-22.77778 84.70668c-15.2 24.72444-38.53333 37.34667-70.03556 37.88889-29.72889-.54667-52.36-12.81778-67.86222-36.80889-15.67556-23.27556-23.50667-51.87112-23.50667-85.79112-.004-31.75556 7.67111-59.81332 23.02667-84.16887z" fill="#743901"/></svg>
+    </a>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endif %}

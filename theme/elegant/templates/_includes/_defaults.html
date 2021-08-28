@@ -1,0 +1,238 @@
+{# Label for the list of related posts #}
+{% if not RELATED_POSTS_LABEL %}
+{% set RELATED_POSTS_LABEL = 'Related Posts' %}
+{% else %}
+{% set RELATED_POSTS_LABEL = RELATED_POSTS_LABEL %}
+{% endif %}
+
+{# Label for the list of social profiles #}
+{% if not SOCIAL_PROFILE_LABEL %}
+{% set SOCIAL_PROFILE_LABEL = 'Contact' %}
+{% else %}
+{% set SOCIAL_PROFILE_LABEL = SOCIAL_PROFILE_LABEL %}
+{% endif %}
+
+{# Label for My Projects #}
+{% if not PROJECTS_TITLE %}
+{% set PROJECTS_TITLE = 'My Projects' %}
+{% else %}
+{% set PROJECTS_TITLE = PROJECTS_TITLE %}
+{% endif %}
+
+{# Label for the Email subscription form #}
+{% if not EMAIL_SUBSCRIPTION_LABEL %}
+{% set EMAIL_SUBSCRIPTION_LABEL = 'Email Newsletter' %}
+{% else %}
+{% set EMAIL_SUBSCRIPTION_LABEL = EMAIL_SUBSCRIPTION_LABEL %}
+{% endif %}
+
+{# Placeholder text for Email field #}
+{% if not EMAIL_FIELD_PLACEHOLDER %}
+{% set EMAIL_FIELD_PLACEHOLDER  = 'Enter your email...' %}
+{% else %}
+{% set EMAIL_FIELD_PLACEHOLDER  = EMAIL_FIELD_PLACEHOLDER %}
+{% endif %}
+
+{# Subscribe button title #}
+{% if not SUBSCRIBE_BUTTON_TITLE %}
+{% set SUBSCRIBE_BUTTON_TITLE  = 'Subscribe' %}
+{% else %}
+{% set SUBSCRIBE_BUTTON_TITLE  = SUBSCRIBE_BUTTON_TITLE %}
+{% endif %}
+
+{# Count of recent articles to be shown on the home page #}
+{% if not RECENT_ARTICLES_COUNT %}
+{% set RECENT_ARTICLES_COUNT  = 10 %}
+{% else %}
+{% set RECENT_ARTICLES_COUNT  = RECENT_ARTICLES_COUNT %}
+{% endif %}
+
+{# Label to show before Share Post links #}
+{% if not SHARE_POST_INTRO %}
+{% set SHARE_POST_INTRO = 'Share on:' %}
+{% else %}
+{% set SHARE_POST_INTRO = SHARE_POST_INTRO %}
+{% endif %}
+
+{# Label to show before comments #}
+{% if not COMMENTS_INTRO %}
+{% set COMMENTS_INTRO = '' %}
+{% else %}
+{% set COMMENTS_INTRO = COMMENTS_INTRO %}
+{% endif %}
+
+{% if not DISQUS_FILTER %}
+{% set DISQUS_FILTER = False %}
+{% else %}
+{% set DISQUS_FILTER = DISQUS_FILTER %}
+{% endif %}
+
+{% if not UTTERANCES_FILTER %}
+{% set UTTERANCES_FILTER = False %}
+{% else %}
+{% set UTTERANCES_FILTER = UTTERANCES_FILTER %}
+{% endif %}
+
+{% if not UTTERANCES_THEME %}
+{% set UTTERANCES_THEME = 'github-light' %}
+{% else %}
+{% set UTTERANCES_THEME = UTTERANCES_THEME %}
+{% endif %}
+
+{% if not UTTERANCES_LABEL %}
+{% set UTTERANCES_LABEL = '' %}
+{% else %}
+{% set UTTERANCES_LABEL = UTTERANCES_LABEL %}
+{% endif %}
+
+{% if not COMMENTBOX_FILTER %}
+{% set COMMENTBOX_FILTER = False %}
+{% else %}
+{% set COMMENTBOX_FILTER = COMMENTBOX_FILTER %}
+{% endif %}
+
+{# Author's twitter handle. Used in Twitter card meta data #}
+{% if not TWITTER_USERNAME %}
+{% set TWITTER_USERNAME = '' %}
+{% else %}
+{% set TWITTER_USERNAME = TWITTER_USERNAME %}
+{% endif %}
+
+{# Thumbnail image to show when homepage is shared on social media. It also
+serves as the default image for posts whose featured_image is not set. #}
+{% if not FEATURED_IMAGE %}
+{% set FEATURED_IMAGE = '' %}
+{% else %}
+{% set FEATURED_IMAGE = FEATURED_IMAGE %}
+{% endif %}
+
+{# License of your site that appears in the footer of every page #}
+{% if not SITE_LICENSE %}
+{% set SITE_LICENSE = '' %}
+{% else %}
+{% set SITE_LICENSE = SITE_LICENSE %}
+{% endif %}
+
+{# Description of your site. It is used in meta tags so it will appear in
+search results and social media #}
+{% if not SITE_DESCRIPTION %}
+{% set SITE_DESCRIPTION = '' %}
+{% else %}
+{% set SITE_DESCRIPTION = SITE_DESCRIPTION %}
+{% endif %}
+
+{# Mailchimp form action URL. This value is mandatory, to show subscriber form
+#}
+{% if not MAILCHIMP_FORM_ACTION %} {% set MAILCHIMP_FORM_ACTION = '' %}
+{% else %}
+{% set MAILCHIMP_FORM_ACTION = MAILCHIMP_FORM_ACTION %}
+{% endif %}
+
+{% if not MAILCHIMP_FILTER %}
+{% set MAILCHIMP_FILTER = False %}
+{% else %}
+{% set MAILCHIMP_FILTER = MAILCHIMP_FILTER %}
+{% endif %}
+
+{% if not FREELISTS_NAME %} {% set FREELISTS_NAME = '' %}
+{% else %}
+{% set FREELISTS_NAME = FREELISTS_NAME %}
+{% endif %}
+
+{% if not FREELISTS_FILTER %}
+{% set FREELISTS_FILTER = False %}
+{% else %}
+{% set FREELISTS_FILTER = FREELISTS_FILTER %}
+{% endif %}
+
+{# It is displayed along with the SITENAME in the footer of every page #}
+{% if not SITESUBTITLE %}
+{% set SITESUBTITLE = '' %}
+{% else %}
+{% set SITESUBTITLE = SITESUBTITLE %}
+{% endif %}
+
+{# Set it to True to display favicon and speed dial icon. Also make sure that
+you have placed images in the appropriate directory and defined STATIC_PATHS
+accordingly #}
+{% if not USE_SHORTCUT_ICONS %}
+{% set USE_SHORTCUT_ICONS = False %}
+{% else %}
+{% set USE_SHORTCUT_ICONS = USE_SHORTCUT_ICONS %}
+{% endif %}
+
+{# It is a string
+#}
+{% if not LANDING_PAGE_TITLE %}
+{% set LANDING_PAGE_TITLE = '' %}
+{% else %}
+{% set LANDING_PAGE_TITLE = LANDING_PAGE_TITLE %}
+{% endif %}
+
+{# It is an array of dictionaries. Each dictionary has three keys: name, url,
+description.
+PROJECTS = [{
+    'name': 'Logpad + Duration',
+    'url': 'https://github.com/talha131/logpad-plus-duration#logpad--duration',
+    'description': 'Vim plugin to emulate Windows Notepad logging feature,'
+    ' and log duration of each entry'},
+    {'name': 'Elegant Theme for Pelican',
+    'url': 'http://oncrashreboot.com/pelican-elegant',
+    'description': 'A clean and distraction free theme, with search and a'
+    ' lot more unique features, using Jinja2 and Bootstrap'}]
+#}
+{% if not PROJECTS %}
+{% set PROJECTS = '' %}
+{% else %}
+{% set PROJECTS = PROJECTS %}
+{% endif %}
+
+{# Minimum reading time for not showing how long does it takes to read it (INTEGER) #}
+{% if not READING_TIME_LOWER_LIMIT %}
+{% set READING_TIME_LOWER_LIMIT = 4 %}
+{% else %}
+{% set READING_TIME_LOWER_LIMIT = READING_TIME_LOWER_LIMIT | int %}
+{% endif %}
+
+{# Lightbox enabled by default gallery  #}
+{% if not PHOTOS_LIGHTBOX %}
+{% set PHOTOS_LIGHTBOX = 'True' %}
+{% else %}
+{% set PHOTOS_LIGHTBOX = PHOTOS_LIGHTBOX %}
+{% endif %}
+
+{% if not TAGS_URL %}
+{% set TAGS_URL = 'tags.html' %}
+{% else %}
+{% set TAGS_URL = TAGS_URL %}
+{% endif %}
+
+{% if not CATEGORIES_URL %}
+{% set CATEGORIES_URL = 'categories.html' %}
+{% else %}
+{% set CATEGORIES_URL = CATEGORIES_URL %}
+{% endif %}
+
+{% if not ARCHIVES_URL %}
+{% set ARCHIVES_URL = 'archives.html' %}
+{% else %}
+{% set ARCHIVES_URL = ARCHIVES_URL %}
+{% endif %}
+
+{% if not SEARCH_URL %}
+{% set SEARCH_URL = 'search.html' %}
+{% else %}
+{% set SEARCH_URL = SEARCH_URL %}
+{% endif %}
+
+{% if not APPLAUSE_BUTTON %}
+{% set APPLAUSE_BUTTON = False %}
+{% else %}
+{% set APPLAUSE_BUTTON = APPLAUSE_BUTTON %}
+{% endif %}
+
+{% if not SHARE_LINKS %}
+{% set SHARE_LINKS = [ ('twitter', 'Twitter'), ('facebook', 'Facebook'), ('email', 'Email') ] %}
+{% else %}
+{% set SHARE_LINKS = SHARE_LINKS %}
+{% endif %}
