@@ -1,6 +1,6 @@
 Title: 101.3 Change runlevels / boot targets and shutdown or reboot system
 Date: 2010-12-03 10:20
-Category: LPIC1-101
+Category: LPIC1
 Tags: System Architecture, LPIC1, LPIC1-101-500
 Authors: Jadi
 Summary: Candidates should be able to manage the SysVinit runlevel or systemd boot target of the system. This objective includes changing to single user mode, shutdown or rebooting the system. Candidates should be able to alert users before switching runlevels / boot targets and properly terminate processes. This objective also includes setting the default SysVinit runlevel or systemd boot target. It also includes awareness of Upstart as an alternative to SysVinit or systemd.

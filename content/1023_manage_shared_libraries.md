@@ -1,6 +1,6 @@
 Title: 102.3 Manage shared libraries
 Date: 2010-12-03 10:20
-Category: LPIC1-101
+Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 Summary: Candidates should be able to determine the shared libraries that executable programs depend on and install them when necessary.

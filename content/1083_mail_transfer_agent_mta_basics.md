@@ -1,6 +1,6 @@
 Title: 108.3 Mail Transfer Agent (MTA) basics
 Date: 2010-12-03 10:20
-Category: LPIC1-101
+Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 Summary: 

@@ -1,6 +1,6 @@
 Title: 101.2 Boot the System
 Date: 2010-12-03 10:20
-Category: LPIC1-101
+Category: LPIC1
 Tags: System Architecture, LPIC1, LPIC1-101-500
 Authors: Jadi
 Summary: Candidates should be able to guide the system through the booting process.

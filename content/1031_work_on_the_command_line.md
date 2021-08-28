@@ -1,6 +1,6 @@
 Title: 103.1 Work on the command line
 Date: 2010-12-03 10:20
-Category: LPIC1-101
+Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 Summary: Candidates should be able to interact with shells and commands using the command line. The objective assumes the Bash shell.

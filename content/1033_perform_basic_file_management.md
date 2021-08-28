@@ -1,5 +1,5 @@
 Title: 103.3 Perform basic file management
-Category: LPIC1-101
+Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 Summary: 
