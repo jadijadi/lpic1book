@@ -1,8 +1,9 @@
 Title: 103.3 Perform basic file management
+Date: 2010-12-03 10:20
 Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
-Summary: 
+Summary:
 
 _Weight: 4_
 
@@ -560,4 +561,3 @@ $ dd if=/dev/zero of=1g.bin bs=1G count=1
 .
 
 .
-
