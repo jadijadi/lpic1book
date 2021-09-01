@@ -35,5 +35,7 @@ SOCIAL = (('You can add links in your config file', '#'),
 THEME = 'theme/elegant'
 AUTHORS = ['jadi','rahim']
 
-STATIC_PATHS = ['images', 'extra/CNAME']
-EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}, }
+STATIC_PATHS = ['images', 'extra/CNAME', 'extra/favicon.ico']
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},
+                       'extra/favicon.ico': {'path': 'favicon.ico'},
+                       }
