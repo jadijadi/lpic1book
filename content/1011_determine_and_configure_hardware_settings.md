@@ -29,6 +29,23 @@ Candidates should be able to determine and configure fundamental system hardware
 ## Find out about the hardware
 An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. It sits on top of the hardware and manage the resources when another software (sometimes called a userspace programs) asks for it. 
 
+### PCI
+- internal HDD. SATA or SCSI 
+- external HDD. Fiber. 
+- network cards. RJ 45 
+- wireless cards. IEEE 802.11
+- Bluetooth 
+- video
+- audio
+
+### usb
+- 2, 3 
+- A, B, C
+
+### Gpio
+- to control other devices
+
+
 ### sysfs
 sysfs is a pseudo file system provided by the Linux kernel that exports information about various kernel subsystems, hardware devices, and associated device drivers from the kernel's device model to user space through virtual files.[1] In addition to providing information about various devices and kernel subsystems, exported virtual files are also used for their configuration.
 
@@ -215,7 +232,7 @@ Shows hardware. Test it!
 
 
 
-### Loadable Kernael Modules
+### Loadable Kernel Modules
 Linux as any other OS needs drivers to work with hardware. In windows you need to install the drivers separately but in Linux, the system has most of the drivers build-in. But to prevent the kernel from loading all of them at the same time and to decrease the Kernel size, the linux uses Kernel Modules. Loadable kernel modules (. ko files) are object files that are used to extend the kernel of the Linux Distribution. They are used to provide drivers for new hardware like IoT expansion cards that have not been included in the Linux Distribution.
 
 You can inspect the modules using the `lsmod` or manage them via `modprob` commands.
