@@ -112,7 +112,8 @@
 </ul>
 <h2>Find out about the hardware</h2>
 <p>An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. It sits on top of the hardware and manage the resources when another software (sometimes called a userspace programs) asks for it. </p>
-<h3>PCI</h3>
+<h2>Peripheral Devices</h2>
+<h4>PCI</h4>
 <ul>
 <li>internal HDD. SATA or SCSI </li>
 <li>external HDD. Fiber. </li>
@@ -122,16 +123,16 @@
 <li>video</li>
 <li>audio</li>
 </ul>
-<h3>usb</h3>
+<h4>usb</h4>
 <ul>
 <li>2, 3 </li>
 <li>A, B, C</li>
 </ul>
-<h3>Gpio</h3>
+<h4>Gpio</h4>
 <ul>
 <li>to control other devices</li>
 </ul>
-<h3>sysfs</h3>
+<h2>sysfs</h2>
 <p>sysfs is a pseudo file system provided by the Linux kernel that exports information about various kernel subsystems, hardware devices, and associated device drivers from the kernel's device model to user space through virtual files.[1] In addition to providing information about various devices and kernel subsystems, exported virtual files are also used for their configuration.</p>
 <p>Sysfs is mounted under the /sys mount point.</p>
 <div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">/</span><span class="n">sys</span><span class="w"></span>
@@ -139,7 +140,7 @@
 </code></pre></div>
 
 <p>All block devices are at the <code>block</code> and <code>bus</code> directory has all the connected PCI, USB, serial, .. devices. Note that here in <code>sys</code> we have the devices based on their technology but <code>/dev/</code> is abstracted.</p>
-<h3>udev</h3>
+<h2>udev</h2>
 <p>udev (userspace /dev) is a device manager for the Linux kernel. As the successor of devfsd and hotplug, udev primarily manages device nodes in the /dev directory. At the same time, udev also handles all user space events raised when hardware devices are added into the system or removed from it, including firmware loading as required by certain devices.</p>
 <p>There are a lot of devices in /dev/ and if you plugin any device, it will have a file in /dev (say /dev/sdb2). <strong>udev</strong> lets you control what will be what in /dev. For example, you can use a rule to force your 8GB flash drive with one specific vendor to be /dev/mybackup all the time or you can tell it to copy all photos to your home directory as soon as your camera is connected.</p>
 <p><strong>udev</strong> controls <code>/dev/</code> directory. There are abstracted devices like a hard, is /dev/sda or /dev/hd0 regardless of its brand, model or technology:</p>
@@ -147,9 +148,9 @@
 <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda2</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda5</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span><span class="w"></span>
 </code></pre></div>
 
-<h3>dbus</h3>
+<h2>dbus</h2>
 <p>D-Bus is a message bus system, a simple way for applications to talk to one another. In addition to interprocess communication, D-Bus helps coordinate process lifecycle; it makes it simple and reliable to code a "single instance" application or daemon, and to launch applications and daemons on demand when their services are needed.</p>
-<h3>proc directory</h3>
+<h2>proc directory</h2>
 <p>This is where kernel keeps its settings and properties. This directory is created on ram and files might have write accessible.</p>
 <div class="highlight"><pre><span></span><code><span class="o">$</span> <span class="n">ls</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span>
 <span class="mi">1</span>      <span class="mi">1249</span>   <span class="mi">1451</span>   <span class="mi">1565</span>   <span class="mi">18069</span>  <span class="mi">20346</span>  <span class="mi">2426</span>  <span class="mi">2765</span>  <span class="mi">2926</span>  <span class="mi">3175</span>  <span class="mi">3317</span>  <span class="mi">3537</span>  <span class="mi">39</span>    <span class="mi">468</span>   <span class="mi">4921</span>  <span class="mi">53</span>    <span class="mi">689</span>   <span class="mi">969</span>      <span class="n">filesystems</span>  <span class="n">misc</span>       <span class="n">sysvipc</span>
@@ -243,7 +244,7 @@ power management:
 <blockquote>
 <p>All these changes will be reverted after a boot. You have to write into config files in <code>/etc/</code> to make these changes permanent</p>
 </blockquote>
-<h3>lsusb, lspci</h3>
+<h2>lsusb, lspci</h2>
 <p>Just liek <code>ls</code> but for pci, usb, ... </p>
 <h4>lspci</h4>
 <p>Shows PCI devices that are connected to the computer.</p>
@@ -284,7 +285,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 <p>Shows HAL data.</p>
 <h4>lshw</h4>
 <p>Shows hardware. Test it!</p>
-<h3>Loadable Kernel Modules</h3>
+<h2>Loadable Kernel Modules</h2>
 <p>Linux as any other OS needs drivers to work with hardware. In windows you need to install the drivers separately but in Linux, the system has most of the drivers build-in. But to prevent the kernel from loading all of them at the same time and to decrease the Kernel size, the linux uses Kernel Modules. Loadable kernel modules (. ko files) are object files that are used to extend the kernel of the Linux Distribution. They are used to provide drivers for new hardware like IoT expansion cards that have not been included in the Linux Distribution.</p>
 <p>You can inspect the modules using the <code>lsmod</code> or manage them via <code>modprob</code> commands.</p>
 <h4>lsmod</h4>
@@ -351,9 +352,11 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 <blockquote>
 <p>you can use <code>-f</code> switch to FORCE <code>rmmod</code> to remove the module even if it is in use</p>
 </blockquote>
-<p>If you need to load some modules every time your system boots do one of the following:
-1. add their name to this file <code>/etc/modules</code>
-2. add their config files to the <code>/etc/modprobe.d/</code></p>
+<p>If you need to load some modules every time your system boots do one of the following:</p>
+<ol>
+<li>add their name to this file <code>/etc/modules</code></li>
+<li>add their config files to the <code>/etc/modprobe.d/</code></li>
+</ol>
 
 
              
