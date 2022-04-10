@@ -4,6 +4,7 @@ Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 Summary: 
+sortorder: 230
 
 This used to be about disk quotas! but it removed. If you insist in reading it... here it is:
 ## 104.4 Manage disk quotas

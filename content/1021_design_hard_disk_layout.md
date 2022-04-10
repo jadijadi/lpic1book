@@ -4,6 +4,7 @@ Category: LPIC1
 Tags: Linux Installation and Package Management, LPIC1, LPIC1-101-500
 Authors: Jadi
 Summary: 
+sortorder: 060
 
 
 

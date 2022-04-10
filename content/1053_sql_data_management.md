@@ -4,6 +4,7 @@ Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 Summary: 
+sortorder: 290
 Topic: Shells and Shell Scripting
 
 How luckY! this is removed. If you insist this used to be the old text:

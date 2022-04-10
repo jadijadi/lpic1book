@@ -3,6 +3,7 @@ Date: 2010-12-03 10:20
 Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
+sortorder: 460
 Summary: 
 ## 110.2 Setup host security
 

@@ -4,6 +4,7 @@ Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 Summary: Candidates should be able to apply filters to text streams.
+sortorder: 130
 
 _Weight: 3_
 

@@ -5,6 +5,7 @@ Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 Summary: 106.3 Accessibility Date: 2021-08-03 13:28 Category: 106
 Topic: User Interfaces and Desktops
+sortorder: 320
 
 ## 106.3 Accessibility
 

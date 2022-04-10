@@ -1,6 +1,7 @@
 Title: Support/Donate
 URL: support
 save_as: support.html
+sortorder: 3
 
 You found this material helpful? You passed your LPIC? You feel generous? :) So here are different methods you can help.
 

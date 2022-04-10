@@ -4,6 +4,7 @@ Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 Summary: Candidates should be able to perform package management using RPM, YUM and Zypper.
+sortorder: 100
 
 _Weight: 3_
 

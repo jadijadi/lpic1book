@@ -39,3 +39,4 @@ STATIC_PATHS = ['images', 'extra/CNAME', 'extra/favicon.ico']
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},
                        'extra/favicon.ico': {'path': 'favicon.ico'},
                        }
+ARTICLE_ORDER_BY = 'sortorder'

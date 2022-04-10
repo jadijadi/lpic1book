@@ -112,7 +112,7 @@
         </div>
         <section id="article-sidebar" class="span2">
             {% include '_includes/post_stats.html' %}
-            {% if article.date %}
+            {% if article.date_FALSE %}
             <h4>Published</h4>
             {% set day = article.date.strftime('%d')|int %}
             <time itemprop="dateCreated" datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>

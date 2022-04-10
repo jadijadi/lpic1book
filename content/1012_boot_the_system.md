@@ -5,6 +5,7 @@ Tags: System Architecture, LPIC1, LPIC1-101-500
 Authors: Jadi
 Summary: Candidates should be able to guide the system through the booting process.
 Topic: System Architecture
+sortorder: 040
 
 weight: 3
 

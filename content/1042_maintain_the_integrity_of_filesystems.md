@@ -4,6 +4,7 @@ Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 Summary: 
+sortorder: 210
 
 _Weight: 2_
 

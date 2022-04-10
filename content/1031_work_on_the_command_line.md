@@ -4,6 +4,7 @@ Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 Summary: Candidates should be able to interact with shells and commands using the command line. The objective assumes the Bash shell.
+sortorder: 120
 
 _Weight: 4_
 

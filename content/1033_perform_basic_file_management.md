@@ -4,6 +4,7 @@ Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 Summary: Candidates should be able to use the basic Linux commands to manage files and directories.
+sortorder: 140
 
 _Weight: 4_
 

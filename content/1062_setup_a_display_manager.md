@@ -4,6 +4,7 @@ Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 Summary: 
+sortorder: 310
 Topic: User Interfaces and Desktops
 
 ## 106.2 Setup a display manager

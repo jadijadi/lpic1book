@@ -1,6 +1,8 @@
 Title: 101.1 Determine and configure hardware settings
-Date: 2015-12-25 12:20
+Date: 2010-12-03 10:20
+Category: LPIC1
 Category: lpic101
+sortorder: 030
 
 
 # 101.1 Determine and configure hardware settings
@@ -15,7 +17,7 @@ Candidates should be able to determine and configure fundamental system hardware
 - Determine hardware resources for devices.
 - Tools and utilities to list various hardware information (e.g. lsusb, lspci, etc.)
 - Tools and utilities to manipulate USB devices
-- Conceptual understanding of sysfs, udev, hald, dbus
+- Conceptual understanding of sysfs, udev, dbus
 
 
 - /sys
@@ -29,7 +31,9 @@ Candidates should be able to determine and configure fundamental system hardware
 ## Find out about the hardware
 An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. It sits on top of the hardware and manage the resources when another software (sometimes called a userspace programs) asks for it. 
 
-### PCI
+## Peripheral Devices
+
+#### PCI
 - internal HDD. SATA or SCSI 
 - external HDD. Fiber. 
 - network cards. RJ 45 
@@ -38,15 +42,15 @@ An operating system (OS) is system software that manages computer hardware, soft
 - video
 - audio
 
-### usb
+#### usb
 - 2, 3 
 - A, B, C
 
-### Gpio
+#### Gpio
 - to control other devices
 
 
-### sysfs
+## sysfs
 sysfs is a pseudo file system provided by the Linux kernel that exports information about various kernel subsystems, hardware devices, and associated device drivers from the kernel's device model to user space through virtual files.[1] In addition to providing information about various devices and kernel subsystems, exported virtual files are also used for their configuration.
 
 Sysfs is mounted under the /sys mount point.
@@ -58,7 +62,7 @@ block  bus  class  dev	devices  firmware  fs  hypervisor  kernel  module  power
 
 All block devices are at the `block` and `bus` directory has all the connected PCI, USB, serial, .. devices. Note that here in `sys` we have the devices based on their technology but `/dev/` is abstracted.
 
-### udev
+## udev
 udev (userspace /dev) is a device manager for the Linux kernel. As the successor of devfsd and hotplug, udev primarily manages device nodes in the /dev directory. At the same time, udev also handles all user space events raised when hardware devices are added into the system or removed from it, including firmware loading as required by certain devices.
 
 There are a lot of devices in /dev/ and if you plugin any device, it will have a file in /dev (say /dev/sdb2). **udev** lets you control what will be what in /dev. For example, you can use a rule to force your 8GB flash drive with one specific vendor to be /dev/mybackup all the time or you can tell it to copy all photos to your home directory as soon as your camera is connected.
@@ -72,12 +76,12 @@ root@funlife:/dev# ls /dev/sda*
 
 
 
-### dbus
+## dbus
 D-Bus is a message bus system, a simple way for applications to talk to one another. In addition to interprocess communication, D-Bus helps coordinate process lifecycle; it makes it simple and reliable to code a "single instance" application or daemon, and to launch applications and daemons on demand when their services are needed.
 
 
 
-### proc directory
+## proc directory
 This is where kernel keeps its settings and properties. This directory is created on ram and files might have write accessible.
 
 ````
@@ -179,7 +183,7 @@ Another very useful directory here, is `/proc/sys/net/ipv4` which controls real 
 > All these changes will be reverted after a boot. You have to write into config files in `/etc/` to make these changes permanent
 
 
-### lsusb, lspci
+## lsusb, lspci
 
 Just liek `ls` but for pci, usb, ... 
 
@@ -221,18 +225,12 @@ Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
 Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 ````
 
-#### lspcmcia
-Shows available PCMCIA cards on this computer.
-
-#### lshal
-Shows HAL data.
-
 #### lshw
 Shows hardware. Test it!
 
 
 
-### Loadable Kernel Modules
+## Loadable Kernel Modules
 Linux as any other OS needs drivers to work with hardware. In windows you need to install the drivers separately but in Linux, the system has most of the drivers build-in. But to prevent the kernel from loading all of them at the same time and to decrease the Kernel size, the linux uses Kernel Modules. Loadable kernel modules (. ko files) are object files that are used to extend the kernel of the Linux Distribution. They are used to provide drivers for new hardware like IoT expansion cards that have not been included in the Linux Distribution.
 
 You can inspect the modules using the `lsmod` or manage them via `modprob` commands.
@@ -310,6 +308,7 @@ but nobody uses `insmod` because it does not understand dependencies and you nee
 > you can use `-f` switch to FORCE `rmmod` to remove the module even if it is in use
 
 If you need to load some modules every time your system boots do one of the following:
+
 1. add their name to this file `/etc/modules`
 2. add their config files to the `/etc/modprobe.d/`
 

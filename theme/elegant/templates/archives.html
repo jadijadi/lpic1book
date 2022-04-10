@@ -34,7 +34,7 @@ Full archives of {{ SITENAME|striptags|e }} blog.
 <div class="row-fluid">
     <div class="span10 offset2">
         <div class="blog-archives">
-            {% for article in dates %}
+            {% for article in dates|sort(attribute='sortorder') %}
                 {# {% set year = article.date.strftime('%Y') %} #}
                 {% if loop.first %}
                     <h2 id="{{ year }}"><a href="#{{ year }}">{{ year }}</a></h2>

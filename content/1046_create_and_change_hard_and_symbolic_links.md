@@ -3,6 +3,7 @@ Date: 2010-12-03 10:20
 Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
+sortorder: 250
 Summary: 
 ## 104.6. Create and change hard & symbolic links
 

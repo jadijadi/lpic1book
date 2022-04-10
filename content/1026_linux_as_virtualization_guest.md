@@ -4,6 +4,7 @@ Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 Summary: Candidates should understand the implications of virtualization and cloud computing on a Linux guest system.
+sortorder: 110
 
 
 _Weight: 3_

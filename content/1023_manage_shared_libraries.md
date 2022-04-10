@@ -4,6 +4,7 @@ Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 Summary: Candidates should be able to determine the shared libraries that executable programs depend on and install them when necessary.
+sortorder: 080
 
 _weight 2_
 

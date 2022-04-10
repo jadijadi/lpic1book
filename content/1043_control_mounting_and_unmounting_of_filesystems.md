@@ -1,6 +1,8 @@
-Title: 104.3. Control mounting and unmounting of filesystems
-Date: 2015-12-25 12:20
+Title: 104.3 Control mounting and unmounting of filesystems
+Date: 2010-12-03 10:20
+Category: LPIC1
 Category: lpic102
+sortorder: 220
 
 
 # 104.3. Control mounting and unmounting of filesystems
