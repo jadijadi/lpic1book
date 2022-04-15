@@ -5,6 +5,9 @@ sortorder: 3
 
 You found this material helpful? You passed your LPIC? You feel generous? :) So here are different methods you can help.
 
+## Patreon
+Um.. this is not that impressive to convince someone to become a Patreon! :D But ... patreons are the supporters who make things happen in a long run. So here is my [Patreon/jadijadi](https://patreon.com/jadijadi)
+
 ## Paypal
 You can donate using the PayPal via my email address which is **jadijadi@gmail.com** .
 
@@ -12,6 +15,8 @@ You can donate using the PayPal via my email address which is **jadijadi@gmail.c
 
 Receiving Crypto is always a joy.. or the best Joy. If you want to support via crypto, these are my addresses and I would be more than happy if you email me on jadijadi@gmail.com afterwards so I'll be able to thank you.
 
+##### Lightening
+Lightening is the best solution to transfer small amounts of BTC these days and receiving even the smallets amounts, sparks joy! If you agree, this is my [BTC Lightening Link](http://zbd.gg/jadi)
 ##### BTC
 ![](images/crypto/jadi_bitcoin.png)
 1Kzrgoq8RHzLyd3ZVG5UVQ5p4QhLiYjqmc 
