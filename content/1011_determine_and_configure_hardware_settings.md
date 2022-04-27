@@ -31,22 +31,47 @@ Candidates should be able to determine and configure fundamental system hardware
 ## Find out about the hardware
 An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. It sits on top of the hardware and manage the resources when another software (sometimes called a userspace programs) asks for it. 
 
-## Peripheral Devices
+Firmware is the software *on* your hardware which runs it; think of it as a build-in os or driver for your hardware. Motherboards needs some firmware to be able to work too. 
 
+![BIOS](/images/bios.png)
+1. BIOS (Basic Input/Output System). Older. You can configure it from a text menu based system and boots the compututer from a boot loader first sector of the first partition of your harddisk (MBR). This is not enough for modern systems and most systems use a 2 step boot procedure.
+
+
+![UEFI](/images/uefi.jpeg)
+2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On linux its on /boot and file are .efi . You need to register each boot loader.
+
+## Peripheral Devices
+These are device interfaces.
 #### PCI
-- internal HDD. SATA or SCSI 
+Peripheral Component Interconnect. Letting hardware boards to be added to the motherboard. Now most servers use PCI Express (PCIe)
+
+
+![PCI](/images/pci.jpeg)
+
+- internal HDD.
+   - PATA (old)
+   - SATA (Serial & up to 4 devices)
+   - SCSI (Parallel & up to 8 devices) 
 - external HDD. Fiber. 
 - network cards. RJ 45 
 - wireless cards. IEEE 802.11
 - Bluetooth 
-- video
-- audio
+- video accelators
+- audio cards
 
 #### usb
-- 2, 3 
+Universal Serial Bus. Serial and need fewer connections.
+
+![USB Interfaces](/images/usb.png)
+
+- 1 (12Mbps), 2 (480Mbps), 3 (20Gbps)
 - A, B, C
 
 #### Gpio
+Genral Purpose Input Output. 
+
+![GPIO on a rasberrypie](/images/gpio.jpeg)
+
 - to control other devices
 
 
@@ -63,9 +88,9 @@ block  bus  class  dev	devices  firmware  fs  hypervisor  kernel  module  power
 All block devices are at the `block` and `bus` directory has all the connected PCI, USB, serial, .. devices. Note that here in `sys` we have the devices based on their technology but `/dev/` is abstracted.
 
 ## udev
-udev (userspace /dev) is a device manager for the Linux kernel. As the successor of devfsd and hotplug, udev primarily manages device nodes in the /dev directory. At the same time, udev also handles all user space events raised when hardware devices are added into the system or removed from it, including firmware loading as required by certain devices.
+udev (userspace `/dev`) is a device manager for the Linux kernel. As the successor of devfsd and hotplug, udev primarily manages device nodes in the `/dev` directory. At the same time, udev also handles all user space events raised when hardware devices are added into the system or removed from it, including firmware loading as required by certain devices.
 
-There are a lot of devices in /dev/ and if you plugin any device, it will have a file in /dev (say /dev/sdb2). **udev** lets you control what will be what in /dev. For example, you can use a rule to force your 8GB flash drive with one specific vendor to be /dev/mybackup all the time or you can tell it to copy all photos to your home directory as soon as your camera is connected.
+There are a lot of devices in `/dev/` and if you plugin any device, it will be assigned a file in `/dev` (say `/dev/sdb2`). **udev** lets you control what will be what in /dev. For example, you can use a rule to force your 128GB flash drive with one specific vendor to be `/dev/mybackup` every single time you connect it and you can even start a backprocess as soon as it connects.
 
 **udev** controls `/dev/` directory. There are abstracted devices like a hard, is /dev/sda or /dev/hd0 regardless of its brand, model or technology:
 
@@ -73,8 +98,15 @@ There are a lot of devices in /dev/ and if you plugin any device, it will have a
 root@funlife:/dev# ls /dev/sda*
 /dev/sda  /dev/sda1  /dev/sda2  /dev/sda3  /dev/sda5  /dev/sda6
 ````
+If a program wants to read / write from / to a device, it will use the corresponding file in /dev to do so. This can be done on **character devices** or **block devices**. When listing, a `b` or `c` will indicate this:
 
-
+```
+root@ocean:~# ls -ltrh /dev/  # Partial output is shown
+crw-rw---- 1 root tty       4,   1 Dec 15  2019 tty1
+crw-rw-rw- 1 root root      1,   5 Dec 15  2019 zero
+brw-rw---- 1 root disk      1,   0 Dec 15  2019 ram0
+brw-rw---- 1 root disk 253,   0 Dec 15  2019 /dev/vda
+```
 
 ## dbus
 D-Bus is a message bus system, a simple way for applications to talk to one another. In addition to interprocess communication, D-Bus helps coordinate process lifecycle; it makes it simple and reliable to code a "single instance" application or daemon, and to launch applications and daemons on demand when their services are needed.
@@ -82,7 +114,14 @@ D-Bus is a message bus system, a simple way for applications to talk to one anot
 
 
 ## proc directory
-This is where kernel keeps its settings and properties. This directory is created on ram and files might have write accessible.
+This is where kernel keeps its settings and properties. This directory is created on ram and files might have write access (say for some hardware configurations). You can find things like:
+
+- IRQs (interrupt requests)
+- I/O ports (locations in memeory where CPU can talk with devices)
+- DMA (direct memory acess, faster than I/O ports)
+- Processes
+- Network Settings
+- ...
 
 ````
 $ ls /proc/
@@ -182,9 +221,9 @@ Another very useful directory here, is `/proc/sys/net/ipv4` which controls real 
 
 > All these changes will be reverted after a boot. You have to write into config files in `/etc/` to make these changes permanent
 
+Try youself! Check the `/proc/ioports` or `/proc/dma` or `/proc/iomem`.
 
-## lsusb, lspci
-
+## lsusb, lspci, lsblk, lshw
 Just liek `ls` but for pci, usb, ... 
 
 #### lspci
@@ -285,7 +324,7 @@ lrw                    13287  1 aesni_intel
 iwlwifi               183038  1 iwldvm
 ````
 
-These are the kernel modules which are loaded.
+These are the kernel modules which are loaded. Use `modinfo` to get more info about a moduel; if you want.
 
 If you need to add a module to your kernel (say a new driver for a hardware) or remove it (uninstall a driver) you can use `rmmod` and `modprobe`.
 
