@@ -112,23 +112,38 @@
 </ul>
 <h2>Find out about the hardware</h2>
 <p>An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. It sits on top of the hardware and manage the resources when another software (sometimes called a userspace programs) asks for it. </p>
+<p>Firmware is the software <em>on</em> your hardware which runs it; think of it as a build-in os or driver for your hardware. Motherboards needs some firmware to be able to work too. </p>
+<p><img alt="BIOS" src="/images/bios.png">
+1. BIOS (Basic Input/Output System). Older. You can configure it from a text menu based system and boots the compututer from a boot loader first sector of the first partition of your harddisk (MBR). This is not enough for modern systems and most systems use a 2 step boot procedure.</p>
+<p><img alt="UEFI" src="/images/uefi.jpeg">
+2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On linux its on /boot and file are .efi . You need to register each boot loader.</p>
 <h2>Peripheral Devices</h2>
+<p>These are device interfaces.</p>
 <h4>PCI</h4>
+<p>Peripheral Component Interconnect. Letting hardware boards to be added to the motherboard. Now most servers use PCI Express (PCIe)</p>
+<p><img alt="PCI" src="/images/pci.jpeg"></p>
 <ul>
-<li>internal HDD. SATA or SCSI </li>
+<li>internal HDD.</li>
+<li>PATA (old)</li>
+<li>SATA (Serial &amp; up to 4 devices)</li>
+<li>SCSI (Parallel &amp; up to 8 devices) </li>
 <li>external HDD. Fiber. </li>
 <li>network cards. RJ 45 </li>
 <li>wireless cards. IEEE 802.11</li>
 <li>Bluetooth </li>
-<li>video</li>
-<li>audio</li>
+<li>video accelators</li>
+<li>audio cards</li>
 </ul>
 <h4>usb</h4>
+<p>Universal Serial Bus. Serial and need fewer connections.</p>
+<p><img alt="USB Interfaces" src="/images/usb.png"></p>
 <ul>
-<li>2, 3 </li>
+<li>1 (12Mbps), 2 (480Mbps), 3 (20Gbps)</li>
 <li>A, B, C</li>
 </ul>
 <h4>Gpio</h4>
+<p>Genral Purpose Input Output. </p>
+<p><img alt="GPIO on a rasberrypie" src="/images/gpio.jpeg"></p>
 <ul>
 <li>to control other devices</li>
 </ul>
@@ -141,17 +156,33 @@
 
 <p>All block devices are at the <code>block</code> and <code>bus</code> directory has all the connected PCI, USB, serial, .. devices. Note that here in <code>sys</code> we have the devices based on their technology but <code>/dev/</code> is abstracted.</p>
 <h2>udev</h2>
-<p>udev (userspace /dev) is a device manager for the Linux kernel. As the successor of devfsd and hotplug, udev primarily manages device nodes in the /dev directory. At the same time, udev also handles all user space events raised when hardware devices are added into the system or removed from it, including firmware loading as required by certain devices.</p>
-<p>There are a lot of devices in /dev/ and if you plugin any device, it will have a file in /dev (say /dev/sdb2). <strong>udev</strong> lets you control what will be what in /dev. For example, you can use a rule to force your 8GB flash drive with one specific vendor to be /dev/mybackup all the time or you can tell it to copy all photos to your home directory as soon as your camera is connected.</p>
+<p>udev (userspace <code>/dev</code>) is a device manager for the Linux kernel. As the successor of devfsd and hotplug, udev primarily manages device nodes in the <code>/dev</code> directory. At the same time, udev also handles all user space events raised when hardware devices are added into the system or removed from it, including firmware loading as required by certain devices.</p>
+<p>There are a lot of devices in <code>/dev/</code> and if you plugin any device, it will be assigned a file in <code>/dev</code> (say <code>/dev/sdb2</code>). <strong>udev</strong> lets you control what will be what in /dev. For example, you can use a rule to force your 128GB flash drive with one specific vendor to be <code>/dev/mybackup</code> every single time you connect it and you can even start a backprocess as soon as it connects.</p>
 <p><strong>udev</strong> controls <code>/dev/</code> directory. There are abstracted devices like a hard, is /dev/sda or /dev/hd0 regardless of its brand, model or technology:</p>
 <div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">/</span><span class="n">dev</span><span class="err">#</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="o">*</span><span class="w"></span>
 <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda2</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda5</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span><span class="w"></span>
 </code></pre></div>
 
+<p>If a program wants to read / write from / to a device, it will use the corresponding file in /dev to do so. This can be done on <strong>character devices</strong> or <strong>block devices</strong>. When listing, a <code>b</code> or <code>c</code> will indicate this:</p>
+<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@ocean</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">ltrh</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="k">Partial</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">shown</span><span class="w"></span>
+<span class="n">crw</span><span class="o">-</span><span class="n">rw</span><span class="o">----</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="n">tty</span><span class="w">       </span><span class="mi">4</span><span class="p">,</span><span class="w">   </span><span class="mi">1</span><span class="w"> </span><span class="k">Dec</span><span class="w"> </span><span class="mi">15</span><span class="w">  </span><span class="mi">2019</span><span class="w"> </span><span class="n">tty1</span><span class="w"></span>
+<span class="n">crw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="n">root</span><span class="w">      </span><span class="mi">1</span><span class="p">,</span><span class="w">   </span><span class="mi">5</span><span class="w"> </span><span class="k">Dec</span><span class="w"> </span><span class="mi">15</span><span class="w">  </span><span class="mi">2019</span><span class="w"> </span><span class="n">zero</span><span class="w"></span>
+<span class="n">brw</span><span class="o">-</span><span class="n">rw</span><span class="o">----</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="k">disk</span><span class="w">      </span><span class="mi">1</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="k">Dec</span><span class="w"> </span><span class="mi">15</span><span class="w">  </span><span class="mi">2019</span><span class="w"> </span><span class="n">ram0</span><span class="w"></span>
+<span class="n">brw</span><span class="o">-</span><span class="n">rw</span><span class="c1">---- 1 root disk 253,   0 Dec 15  2019 /dev/vda</span>
+</code></pre></div>
+
 <h2>dbus</h2>
 <p>D-Bus is a message bus system, a simple way for applications to talk to one another. In addition to interprocess communication, D-Bus helps coordinate process lifecycle; it makes it simple and reliable to code a "single instance" application or daemon, and to launch applications and daemons on demand when their services are needed.</p>
 <h2>proc directory</h2>
-<p>This is where kernel keeps its settings and properties. This directory is created on ram and files might have write accessible.</p>
+<p>This is where kernel keeps its settings and properties. This directory is created on ram and files might have write access (say for some hardware configurations). You can find things like:</p>
+<ul>
+<li>IRQs (interrupt requests)</li>
+<li>I/O ports (locations in memeory where CPU can talk with devices)</li>
+<li>DMA (direct memory acess, faster than I/O ports)</li>
+<li>Processes</li>
+<li>Network Settings</li>
+<li>...</li>
+</ul>
 <div class="highlight"><pre><span></span><code><span class="o">$</span> <span class="n">ls</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span>
 <span class="mi">1</span>      <span class="mi">1249</span>   <span class="mi">1451</span>   <span class="mi">1565</span>   <span class="mi">18069</span>  <span class="mi">20346</span>  <span class="mi">2426</span>  <span class="mi">2765</span>  <span class="mi">2926</span>  <span class="mi">3175</span>  <span class="mi">3317</span>  <span class="mi">3537</span>  <span class="mi">39</span>    <span class="mi">468</span>   <span class="mi">4921</span>  <span class="mi">53</span>    <span class="mi">689</span>   <span class="mi">969</span>      <span class="n">filesystems</span>  <span class="n">misc</span>       <span class="n">sysvipc</span>
 <span class="mi">10</span>     <span class="mi">13</span>     <span class="mi">146</span>    <span class="mi">157</span>    <span class="mi">18093</span>  <span class="mi">20681</span>  <span class="mi">2452</span>  <span class="mi">2766</span>  <span class="mi">2929</span>  <span class="mi">3183</span>  <span class="mi">3318</span>  <span class="mi">354</span>   <span class="mi">397</span>   <span class="mi">4694</span>  <span class="mi">4934</span>  <span class="mi">538</span>   <span class="mi">7</span>     <span class="mi">97</span>       <span class="n">fs</span>       <span class="n">modules</span>        <span class="n">timer_list</span>
@@ -244,7 +275,8 @@ power management:
 <blockquote>
 <p>All these changes will be reverted after a boot. You have to write into config files in <code>/etc/</code> to make these changes permanent</p>
 </blockquote>
-<h2>lsusb, lspci</h2>
+<p>Try youself! Check the <code>/proc/ioports</code> or <code>/proc/dma</code> or <code>/proc/iomem</code>.</p>
+<h2>lsusb, lspci, lsblk, lshw</h2>
 <p>Just liek <code>ls</code> but for pci, usb, ... </p>
 <h4>lspci</h4>
 <p>Shows PCI devices that are connected to the computer.</p>
@@ -332,7 +364,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 <span class="n">iwlwifi</span>               <span class="mi">183038</span>  <span class="mi">1</span> <span class="n">iwldvm</span>
 </code></pre></div>
 
-<p>These are the kernel modules which are loaded.</p>
+<p>These are the kernel modules which are loaded. Use <code>modinfo</code> to get more info about a moduel; if you want.</p>
 <p>If you need to add a module to your kernel (say a new driver for a hardware) or remove it (uninstall a driver) you can use <code>rmmod</code> and <code>modprobe</code>.</p>
 <div class="highlight"><pre><span></span><code># rmmod iwlwifi
 </code></pre></div>
