@@ -48,18 +48,18 @@ Peripheral Component Interconnect. Letting hardware boards to be added to the mo
 
 ![PCI](/images/pci.jpeg)
 
-- internal HDD.
+- Internal HDD.
    - PATA (old)
    - SATA (Serial & up to 4 devices)
    - SCSI (Parallel & up to 8 devices) 
-- external HDD. Fiber. 
-- network cards. RJ 45 
-- wireless cards. IEEE 802.11
+- External HDD. Fiber. 
+- Network cards. RJ 45 
+- Wireless cards. IEEE 802.11
 - Bluetooth 
-- video accelators
-- audio cards
+- Video accelerators
+- Audio cards
 
-#### usb
+#### USB
 Universal Serial Bus. Serial and need fewer connections.
 
 ![USB Interfaces](/images/usb.png)
@@ -67,12 +67,12 @@ Universal Serial Bus. Serial and need fewer connections.
 - 1 (12Mbps), 2 (480Mbps), 3 (20Gbps)
 - A, B, C
 
-#### Gpio
-Genral Purpose Input Output. 
+#### GPIO
+General Purpose Input Output. 
 
-![GPIO on a rasberrypie](/images/gpio.jpeg)
+![GPIO on a Raspberry Pi](/images/gpio.jpeg)
 
-- to control other devices
+- To control other devices
 
 
 ## sysfs
