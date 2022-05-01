@@ -33,21 +33,21 @@ Candidates should be able to determine and configure fundamental system hardware
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xCPDxgp0zXY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. It sits on top of the hardware and manage the resources when another software (sometimes called a userspace programs) asks for it. 
+An operating system (OS) is system software that manages computer hardware, and software resources, and provides common services for computer programs. It sits on top of the hardware and manages the resources when other software (sometimes called a userspace program) asks for it. 
 
-Firmware is the software *on* your hardware which runs it; think of it as a built-in os or driver for your hardware. Motherboards needs some firmware to be able to work too. 
+Firmware is the software *on* your hardware that runs it; think of it as a built-in os or driver for your hardware. Motherboards need some firmware to be able to work too. 
 
 ![BIOS](/images/bios.png)
-1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu based system and boots the computer from a boot loader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two step boot procedure.
+1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu-based system and boot the computer from a boot loader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two-step boot procedure.
 
 
 ![UEFI](/images/uefi.jpeg)
-2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On linux its on /boot and file are .efi . You need to register each boot loader.
+2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in Intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On Linux it is on /boot and files are .efi. You need to register each boot loader.
 
 ## Peripheral Devices
 These are device interfaces.
 #### PCI
-Peripheral Component Interconnect. Letting hardware boards to be added to the motherboard. Now most servers use PCI Express (PCIe)
+Peripheral Component Interconnect. Letting hardware boards be added to the motherboard. Now most servers use PCI Express (PCIe)
 
 
 ![PCI](/images/pci.jpeg)
@@ -121,11 +121,11 @@ D-Bus is a message bus system, a simple way for applications to talk to one anot
 
 
 ## proc directory
-This is where kernel keeps its settings and properties. This directory is created on ram and files might have write access (say for some hardware configurations). You can find things like:
+This is where the Kernel keeps its settings and properties. This directory is created on ram and files might have write access (say for some hardware configurations). You can find things like:
 
 - IRQs (interrupt requests)
-- I/O ports (locations in memeory where CPU can talk with devices)
-- DMA (direct memory acess, faster than I/O ports)
+- I/O ports (locations in memory where CPU can talk with devices)
+- DMA (direct memory access, faster than I/O ports)
 - Processes
 - Network Settings
 - ...
@@ -224,7 +224,7 @@ root@funlife:/proc/sys/fs# echo 1000000 > file-max
 root@funlife:/proc/sys/fs# cat file-max
 1000000
 ````
-Another very useful directory here, is `/proc/sys/net/ipv4` which controls real time networking configurations.
+Another very useful directory here, is `/proc/sys/net/ipv4` which controls real-time networking configurations.
 
 > All these changes will be reverted after a boot. You have to write into config files in `/etc/` to make these changes permanent
 
@@ -279,7 +279,7 @@ Shows hardware. Test it!
 
 
 ## Loadable Kernel Modules
-Linux as any other OS needs drivers to work with hardware. In windows you need to install the drivers separately but in Linux, the system has most of the drivers build-in. But to prevent the kernel from loading all of them at the same time and to decrease the Kernel size, the linux uses Kernel Modules. Loadable kernel modules (. ko files) are object files that are used to extend the kernel of the Linux Distribution. They are used to provide drivers for new hardware like IoT expansion cards that have not been included in the Linux Distribution.
+Linux like any other OS needs drivers to work with hardware. In Microsoft Windows, you need to install the drivers separately but in Linux, the system has most of the drivers build-in. But to prevent the kernel from loading all of them at the same time and to decrease the Kernel size, Linux uses Kernel Modules. Loadable kernel modules (. ko files) are object files that are used to extend the kernel of the Linux Distribution. They are used to provide drivers for new hardware like IoT expansion cards that have not been included in the Linux Distribution.
 
 You can inspect the modules using the `lsmod` or manage them via `modprob` commands.
 
@@ -333,9 +333,9 @@ lrw                    13287  1 aesni_intel
 iwlwifi               183038  1 iwldvm
 ````
 
-These are the kernel modules which are loaded. Use `modinfo` to get more info about a moduel; if you want.
+These are the kernel modules that are loaded. Use `modinfo` to get more info about a module; if you want.
 
-If you need to add a module to your kernel (say a new driver for a hardware) or remove it (uninstall a driver) you can use `rmmod` and `modprobe`.
+If you need to add a module to your kernel (say a new driver for hardware) or remove it (uninstall a driver) you can use `rmmod` and `modprobe`.
 
 ````
 # rmmod iwlwifi
@@ -347,7 +347,7 @@ And this is for installing the modules:
 # insmod kernel/drivers/net/wireless/lwlwifi.ko
 ````
 
-but nobody uses `insmod` because it does not understand dependencies and you need to give it the whole path to the module file. Instead use the `modprobe` command:
+but nobody uses `insmod` because it does not understand dependencies and you need to give it the whole path to the module file. Instead, use the `modprobe` command:
 
 ````
 # modprobe iwlwifi
