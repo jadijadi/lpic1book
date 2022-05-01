@@ -31,10 +31,10 @@ Candidates should be able to determine and configure fundamental system hardware
 ## Find out about the hardware
 An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. It sits on top of the hardware and manage the resources when another software (sometimes called a userspace programs) asks for it. 
 
-Firmware is the software *on* your hardware which runs it; think of it as a build-in os or driver for your hardware. Motherboards needs some firmware to be able to work too. 
+Firmware is the software *on* your hardware which runs it; think of it as a built-in os or driver for your hardware. Motherboards needs some firmware to be able to work too. 
 
 ![BIOS](/images/bios.png)
-1. BIOS (Basic Input/Output System). Older. You can configure it from a text menu based system and boots the compututer from a boot loader first sector of the first partition of your harddisk (MBR). This is not enough for modern systems and most systems use a 2 step boot procedure.
+1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu based system and boots the computer from a boot loader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two step boot procedure.
 
 
 ![UEFI](/images/uefi.jpeg)
@@ -48,18 +48,18 @@ Peripheral Component Interconnect. Letting hardware boards to be added to the mo
 
 ![PCI](/images/pci.jpeg)
 
-- internal HDD.
+- Internal HDD.
    - PATA (old)
    - SATA (Serial & up to 4 devices)
    - SCSI (Parallel & up to 8 devices) 
-- external HDD. Fiber. 
-- network cards. RJ 45 
-- wireless cards. IEEE 802.11
+- External HDD. Fiber. 
+- Network cards. RJ 45 
+- Wireless cards. IEEE 802.11
 - Bluetooth 
-- video accelators
-- audio cards
+- Video accelerators
+- Audio cards
 
-#### usb
+#### USB
 Universal Serial Bus. Serial and need fewer connections.
 
 ![USB Interfaces](/images/usb.png)
@@ -67,12 +67,12 @@ Universal Serial Bus. Serial and need fewer connections.
 - 1 (12Mbps), 2 (480Mbps), 3 (20Gbps)
 - A, B, C
 
-#### Gpio
-Genral Purpose Input Output. 
+#### GPIO
+General Purpose Input Output. 
 
-![GPIO on a rasberrypie](/images/gpio.jpeg)
+![GPIO on a Raspberry Pi](/images/gpio.jpeg)
 
-- to control other devices
+- To control other devices
 
 
 ## sysfs
