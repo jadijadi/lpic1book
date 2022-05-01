@@ -31,10 +31,10 @@ Candidates should be able to determine and configure fundamental system hardware
 ## Find out about the hardware
 An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. It sits on top of the hardware and manage the resources when another software (sometimes called a userspace programs) asks for it. 
 
-Firmware is the software *on* your hardware which runs it; think of it as a build-in os or driver for your hardware. Motherboards needs some firmware to be able to work too. 
+Firmware is the software *on* your hardware which runs it; think of it as a built-in os or driver for your hardware. Motherboards needs some firmware to be able to work too. 
 
 ![BIOS](/images/bios.png)
-1. BIOS (Basic Input/Output System). Older. You can configure it from a text menu based system and boots the compututer from a boot loader first sector of the first partition of your harddisk (MBR). This is not enough for modern systems and most systems use a 2 step boot procedure.
+1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu based system and boots the computer from a boot loader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two step boot procedure.
 
 
 ![UEFI](/images/uefi.jpeg)
