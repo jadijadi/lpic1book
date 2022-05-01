@@ -27,8 +27,12 @@ Candidates should be able to determine and configure fundamental system hardware
 - lsmod
 - lspci
 - lsusb
+ 
 
 ## Find out about the hardware
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xCPDxgp0zXY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. It sits on top of the hardware and manage the resources when another software (sometimes called a userspace programs) asks for it. 
 
 Firmware is the software *on* your hardware which runs it; think of it as a built-in os or driver for your hardware. Motherboards needs some firmware to be able to work too. 
@@ -76,6 +80,9 @@ General Purpose Input Output.
 
 
 ## sysfs
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/879oHKwgDG8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 sysfs is a pseudo file system provided by the Linux kernel that exports information about various kernel subsystems, hardware devices, and associated device drivers from the kernel's device model to user space through virtual files.[1] In addition to providing information about various devices and kernel subsystems, exported virtual files are also used for their configuration.
 
 Sysfs is mounted under the /sys mount point.
@@ -225,6 +232,8 @@ Try youself! Check the `/proc/ioports` or `/proc/dma` or `/proc/iomem`.
 
 ## lsusb, lspci, lsblk, lshw
 Just liek `ls` but for pci, usb, ... 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/b5bAXRSYmoA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 #### lspci
 Shows PCI devices that are connected to the computer.

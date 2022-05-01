@@ -7,4 +7,4 @@ Welcome to Jadi's free LPIC 1 book and videos. Made with Love and Linux! You can
 
 Please note that this is a work in progress project and I will update pages and will add videos on a weekly basis.
 
-If interested please find me at Youtube.com/geekingjadi 
+If interested please check and subscribe to my channel at [Youtube.com/geekingjadi](https://youtube.com/geekingjadi) where you can find [the complete playlist of my free LPIC 1 101&102 videos too](https://www.youtube.com/watch?v=AKkNUvEHXhk&list=PLFOYXCPEqdNUU55Xvgst8wGTWnz_sd-cj). 
