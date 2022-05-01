@@ -111,10 +111,12 @@
 <li>lsusb</li>
 </ul>
 <h2>Find out about the hardware</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xCPDxgp0zXY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <p>An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. It sits on top of the hardware and manage the resources when another software (sometimes called a userspace programs) asks for it. </p>
-<p>Firmware is the software <em>on</em> your hardware which runs it; think of it as a build-in os or driver for your hardware. Motherboards needs some firmware to be able to work too. </p>
+<p>Firmware is the software <em>on</em> your hardware which runs it; think of it as a built-in os or driver for your hardware. Motherboards needs some firmware to be able to work too. </p>
 <p><img alt="BIOS" src="/images/bios.png">
-1. BIOS (Basic Input/Output System). Older. You can configure it from a text menu based system and boots the compututer from a boot loader first sector of the first partition of your harddisk (MBR). This is not enough for modern systems and most systems use a 2 step boot procedure.</p>
+1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu based system and boots the computer from a boot loader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two step boot procedure.</p>
 <p><img alt="UEFI" src="/images/uefi.jpeg">
 2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On linux its on /boot and file are .efi . You need to register each boot loader.</p>
 <h2>Peripheral Devices</h2>
@@ -123,31 +125,33 @@
 <p>Peripheral Component Interconnect. Letting hardware boards to be added to the motherboard. Now most servers use PCI Express (PCIe)</p>
 <p><img alt="PCI" src="/images/pci.jpeg"></p>
 <ul>
-<li>internal HDD.</li>
+<li>Internal HDD.</li>
 <li>PATA (old)</li>
 <li>SATA (Serial &amp; up to 4 devices)</li>
 <li>SCSI (Parallel &amp; up to 8 devices) </li>
-<li>external HDD. Fiber. </li>
-<li>network cards. RJ 45 </li>
-<li>wireless cards. IEEE 802.11</li>
+<li>External HDD. Fiber. </li>
+<li>Network cards. RJ 45 </li>
+<li>Wireless cards. IEEE 802.11</li>
 <li>Bluetooth </li>
-<li>video accelators</li>
-<li>audio cards</li>
+<li>Video accelerators</li>
+<li>Audio cards</li>
 </ul>
-<h4>usb</h4>
+<h4>USB</h4>
 <p>Universal Serial Bus. Serial and need fewer connections.</p>
 <p><img alt="USB Interfaces" src="/images/usb.png"></p>
 <ul>
 <li>1 (12Mbps), 2 (480Mbps), 3 (20Gbps)</li>
 <li>A, B, C</li>
 </ul>
-<h4>Gpio</h4>
-<p>Genral Purpose Input Output. </p>
-<p><img alt="GPIO on a rasberrypie" src="/images/gpio.jpeg"></p>
+<h4>GPIO</h4>
+<p>General Purpose Input Output. </p>
+<p><img alt="GPIO on a Raspberry Pi" src="/images/gpio.jpeg"></p>
 <ul>
-<li>to control other devices</li>
+<li>To control other devices</li>
 </ul>
 <h2>sysfs</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/879oHKwgDG8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <p>sysfs is a pseudo file system provided by the Linux kernel that exports information about various kernel subsystems, hardware devices, and associated device drivers from the kernel's device model to user space through virtual files.[1] In addition to providing information about various devices and kernel subsystems, exported virtual files are also used for their configuration.</p>
 <p>Sysfs is mounted under the /sys mount point.</p>
 <div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">/</span><span class="n">sys</span><span class="w"></span>
@@ -278,6 +282,8 @@ power management:
 <p>Try youself! Check the <code>/proc/ioports</code> or <code>/proc/dma</code> or <code>/proc/iomem</code>.</p>
 <h2>lsusb, lspci, lsblk, lshw</h2>
 <p>Just liek <code>ls</code> but for pci, usb, ... </p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/b5bAXRSYmoA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <h4>lspci</h4>
 <p>Shows PCI devices that are connected to the computer.</p>
 <div class="highlight"><pre><span></span><code><span class="cp"># lspci</span>
