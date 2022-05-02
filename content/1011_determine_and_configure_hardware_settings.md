@@ -231,7 +231,7 @@ Another very useful directory here, is `/proc/sys/net/ipv4` which controls real 
 Try youself! Check the `/proc/ioports` or `/proc/dma` or `/proc/iomem`.
 
 ## lsusb, lspci, lsblk, lshw
-Just liek `ls` but for pci, usb, ... 
+Just like `ls` but for pci, usb, ... 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/b5bAXRSYmoA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
