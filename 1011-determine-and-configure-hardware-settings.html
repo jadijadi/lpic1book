@@ -113,16 +113,16 @@
 <h2>Find out about the hardware</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xCPDxgp0zXY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p>An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. It sits on top of the hardware and manage the resources when another software (sometimes called a userspace programs) asks for it. </p>
-<p>Firmware is the software <em>on</em> your hardware which runs it; think of it as a built-in os or driver for your hardware. Motherboards needs some firmware to be able to work too. </p>
+<p>An operating system (OS) is system software that manages computer hardware, and software resources, and provides common services for computer programs. It sits on top of the hardware and manages the resources when other software (sometimes called a userspace program) asks for it. </p>
+<p>Firmware is the software <em>on</em> your hardware that runs it; think of it as a built-in os or driver for your hardware. Motherboards need some firmware to be able to work too. </p>
 <p><img alt="BIOS" src="/images/bios.png">
-1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu based system and boots the computer from a boot loader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two step boot procedure.</p>
+1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu-based system and boot the computer from a boot loader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two-step boot procedure.</p>
 <p><img alt="UEFI" src="/images/uefi.jpeg">
-2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On linux its on /boot and file are .efi . You need to register each boot loader.</p>
+2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in Intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On Linux it is on /boot and files are .efi. You need to register each boot loader.</p>
 <h2>Peripheral Devices</h2>
 <p>These are device interfaces.</p>
 <h4>PCI</h4>
-<p>Peripheral Component Interconnect. Letting hardware boards to be added to the motherboard. Now most servers use PCI Express (PCIe)</p>
+<p>Peripheral Component Interconnect. Letting hardware boards be added to the motherboard. Now most servers use PCI Express (PCIe)</p>
 <p><img alt="PCI" src="/images/pci.jpeg"></p>
 <ul>
 <li>Internal HDD.</li>
@@ -178,11 +178,11 @@
 <h2>dbus</h2>
 <p>D-Bus is a message bus system, a simple way for applications to talk to one another. In addition to interprocess communication, D-Bus helps coordinate process lifecycle; it makes it simple and reliable to code a "single instance" application or daemon, and to launch applications and daemons on demand when their services are needed.</p>
 <h2>proc directory</h2>
-<p>This is where kernel keeps its settings and properties. This directory is created on ram and files might have write access (say for some hardware configurations). You can find things like:</p>
+<p>This is where the Kernel keeps its settings and properties. This directory is created on ram and files might have write access (say for some hardware configurations). You can find things like:</p>
 <ul>
 <li>IRQs (interrupt requests)</li>
-<li>I/O ports (locations in memeory where CPU can talk with devices)</li>
-<li>DMA (direct memory acess, faster than I/O ports)</li>
+<li>I/O ports (locations in memory where CPU can talk with devices)</li>
+<li>DMA (direct memory access, faster than I/O ports)</li>
 <li>Processes</li>
 <li>Network Settings</li>
 <li>...</li>
@@ -275,13 +275,13 @@ power management:
 <span class="mi">1000000</span><span class="w"></span>
 </code></pre></div>
 
-<p>Another very useful directory here, is <code>/proc/sys/net/ipv4</code> which controls real time networking configurations.</p>
+<p>Another very useful directory here, is <code>/proc/sys/net/ipv4</code> which controls real-time networking configurations.</p>
 <blockquote>
 <p>All these changes will be reverted after a boot. You have to write into config files in <code>/etc/</code> to make these changes permanent</p>
 </blockquote>
 <p>Try youself! Check the <code>/proc/ioports</code> or <code>/proc/dma</code> or <code>/proc/iomem</code>.</p>
 <h2>lsusb, lspci, lsblk, lshw</h2>
-<p>Just liek <code>ls</code> but for pci, usb, ... </p>
+<p>Just like <code>ls</code> but for pci, usb, ... </p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/b5bAXRSYmoA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h4>lspci</h4>
@@ -320,7 +320,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 <h4>lshw</h4>
 <p>Shows hardware. Test it!</p>
 <h2>Loadable Kernel Modules</h2>
-<p>Linux as any other OS needs drivers to work with hardware. In windows you need to install the drivers separately but in Linux, the system has most of the drivers build-in. But to prevent the kernel from loading all of them at the same time and to decrease the Kernel size, the linux uses Kernel Modules. Loadable kernel modules (. ko files) are object files that are used to extend the kernel of the Linux Distribution. They are used to provide drivers for new hardware like IoT expansion cards that have not been included in the Linux Distribution.</p>
+<p>Linux like any other OS needs drivers to work with hardware. In Microsoft Windows, you need to install the drivers separately but in Linux, the system has most of the drivers build-in. But to prevent the kernel from loading all of them at the same time and to decrease the Kernel size, Linux uses Kernel Modules. Loadable kernel modules (. ko files) are object files that are used to extend the kernel of the Linux Distribution. They are used to provide drivers for new hardware like IoT expansion cards that have not been included in the Linux Distribution.</p>
 <p>You can inspect the modules using the <code>lsmod</code> or manage them via <code>modprob</code> commands.</p>
 <h4>lsmod</h4>
 <p>Shows kernel modules. They are located at <code>/lib/modules</code>. </p>
@@ -370,8 +370,8 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 <span class="n">iwlwifi</span>               <span class="mi">183038</span>  <span class="mi">1</span> <span class="n">iwldvm</span>
 </code></pre></div>
 
-<p>These are the kernel modules which are loaded. Use <code>modinfo</code> to get more info about a moduel; if you want.</p>
-<p>If you need to add a module to your kernel (say a new driver for a hardware) or remove it (uninstall a driver) you can use <code>rmmod</code> and <code>modprobe</code>.</p>
+<p>These are the kernel modules that are loaded. Use <code>modinfo</code> to get more info about a module; if you want.</p>
+<p>If you need to add a module to your kernel (say a new driver for hardware) or remove it (uninstall a driver) you can use <code>rmmod</code> and <code>modprobe</code>.</p>
 <div class="highlight"><pre><span></span><code># rmmod iwlwifi
 </code></pre></div>
 
@@ -379,7 +379,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 <div class="highlight"><pre><span></span><code><span class="p">#</span> <span class="n">insmod</span> <span class="n">kernel</span><span class="o">/</span><span class="n">drivers</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">wireless</span><span class="o">/</span><span class="n">lwlwifi</span><span class="p">.</span><span class="n">ko</span>
 </code></pre></div>
 
-<p>but nobody uses <code>insmod</code> because it does not understand dependencies and you need to give it the whole path to the module file. Instead use the <code>modprobe</code> command:</p>
+<p>but nobody uses <code>insmod</code> because it does not understand dependencies and you need to give it the whole path to the module file. Instead, use the <code>modprobe</code> command:</p>
 <div class="highlight"><pre><span></span><code># modprobe iwlwifi
 </code></pre></div>
 
