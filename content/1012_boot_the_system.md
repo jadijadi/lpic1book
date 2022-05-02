@@ -28,7 +28,7 @@ Candidates should be able to guide the system through the booting process.
 
 #### BIOS
 
-BIOS is Basic Input Output System and does the first steps of the PC bootup. For example is does a POST \(Power On Self Test\) and decides which hardware should boot the system.
+BIOS is Basic Input Output System and does the first steps of the PC bootup. For example it does a POST \(Power On Self Test\) and decides which hardware should boot the system.
 
 #### bootloader
 
@@ -54,7 +54,7 @@ first process, process in charge, a big family tree of commands:
 pstree
 ```
 
-init is being replaced in many distros \(say ubuntu with upstart\) but still is in exam and has its own section.
+init is being replaced in many distros \(say ubuntu with upstart\) but still is in the exam and has its own section.
 
 #### dmesg
 
@@ -72,7 +72,7 @@ will show **only** the data during the boot
 
 After the init process comes up, syslog daemon will log messages. It has timestamps and will persist during restarts.
 
-* Kernel is still logging its own messages in dmesg
-* in some systems it might be called /var/log/syslog
+* The Kernel is still logging its messages in dmesg
+* in some systems, it might be called /var/log/syslog
 * there are many other logs at /var/log
 
