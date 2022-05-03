@@ -85,7 +85,7 @@ General Purpose Input Output.
 
 sysfs is a pseudo file system provided by the Linux kernel that exports information about various kernel subsystems, hardware devices, and associated device drivers from the kernel's device model to user space through virtual files.[1] In addition to providing information about various devices and kernel subsystems, exported virtual files are also used for their configuration.
 
-Sysfs is mounted under the /sys mount point.
+Sysfs is mounted under the `/sys` mount point.
 
 ````
 jadi@funlife:~$ ls /sys
@@ -97,15 +97,15 @@ All block devices are at the `block` and `bus` directory has all the connected P
 ## udev
 udev (userspace `/dev`) is a device manager for the Linux kernel. As the successor of devfsd and hotplug, udev primarily manages device nodes in the `/dev` directory. At the same time, udev also handles all user space events raised when hardware devices are added into the system or removed from it, including firmware loading as required by certain devices.
 
-There are a lot of devices in `/dev/` and if you plugin any device, it will be assigned a file in `/dev` (say `/dev/sdb2`). **udev** lets you control what will be what in /dev. For example, you can use a rule to force your 128GB flash drive with one specific vendor to be `/dev/mybackup` every single time you connect it and you can even start a backprocess as soon as it connects.
+There are a lot of devices in `/dev/` and if you plugin any device, it will be assigned a file in `/dev` (say `/dev/sdb2`). **udev** lets you control what will be what in `/dev`. For example, you can use a rule to force your 128GB flash drive with one specific vendor to be `/dev/mybackup` every single time you connect it and you can even start a backprocess as soon as it connects.
 
-**udev** controls `/dev/` directory. There are abstracted devices like a hard, is /dev/sda or /dev/hd0 regardless of its brand, model or technology:
+**udev** controls `/dev/` directory. There are abstracted devices like a hard, is `/dev/sda` or `/dev/hd0` regardless of its brand, model or technology:
 
 ````
 root@funlife:/dev# ls /dev/sda*
 /dev/sda  /dev/sda1  /dev/sda2  /dev/sda3  /dev/sda5  /dev/sda6
 ````
-If a program wants to read / write from / to a device, it will use the corresponding file in /dev to do so. This can be done on **character devices** or **block devices**. When listing, a `b` or `c` will indicate this:
+If a program wants to read/write from/to a device, it will use the corresponding file in /dev to do so. This can be done on **character devices** or **block devices**. When listing, a `b` or `c` will indicate this:
 
 ```
 root@ocean:~# ls -ltrh /dev/  # Partial output is shown
@@ -279,7 +279,7 @@ Shows hardware. Test it!
 
 
 ## Loadable Kernel Modules
-Linux like any other OS needs drivers to work with hardware. In Microsoft Windows, you need to install the drivers separately but in Linux, the system has most of the drivers build-in. But to prevent the kernel from loading all of them at the same time and to decrease the Kernel size, Linux uses Kernel Modules. Loadable kernel modules (. ko files) are object files that are used to extend the kernel of the Linux Distribution. They are used to provide drivers for new hardware like IoT expansion cards that have not been included in the Linux Distribution.
+Linux like any other OS needs drivers to work with hardware. In Microsoft Windows, you need to install the drivers separately but in Linux, the system has most of the drivers built-in. But to prevent the kernel from loading all of them at the same time and to decrease the Kernel size, Linux uses Kernel Modules. Loadable kernel modules (.ko files) are object files that are used to extend the kernel of the Linux Distribution. They are used to provide drivers for new hardware like IoT expansion cards that have not been included in the Linux Distribution.
 
 You can inspect the modules using the `lsmod` or manage them via `modprob` commands.
 
@@ -347,7 +347,7 @@ And this is for installing the modules:
 # insmod kernel/drivers/net/wireless/lwlwifi.ko
 ````
 
-but nobody uses `insmod` because it does not understand dependencies and you need to give it the whole path to the module file. Instead, use the `modprobe` command:
+But nobody uses `insmod` because it does not understand dependencies and you need to give it the whole path to the module file. Instead, use the `modprobe` command:
 
 ````
 # modprobe iwlwifi
@@ -357,7 +357,7 @@ but nobody uses `insmod` because it does not understand dependencies and you nee
 
 If you need to load some modules every time your system boots do one of the following:
 
-1. add their name to this file `/etc/modules`
-2. add their config files to the `/etc/modprobe.d/`
+1. Add their name to this file `/etc/modules`
+2. Add their config files to the `/etc/modprobe.d/`
 
 
