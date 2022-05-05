@@ -153,7 +153,7 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/879oHKwgDG8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <p>sysfs is a pseudo file system provided by the Linux kernel that exports information about various kernel subsystems, hardware devices, and associated device drivers from the kernel's device model to user space through virtual files.[1] In addition to providing information about various devices and kernel subsystems, exported virtual files are also used for their configuration.</p>
-<p>Sysfs is mounted under the /sys mount point.</p>
+<p>Sysfs is mounted under the <code>/sys</code> mount point.</p>
 <div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">/</span><span class="n">sys</span><span class="w"></span>
 <span class="n">block</span><span class="w">  </span><span class="n">bus</span><span class="w">  </span><span class="k">class</span><span class="w">  </span><span class="n">dev</span><span class="w">  </span><span class="n">devices</span><span class="w">  </span><span class="n">firmware</span><span class="w">  </span><span class="n">fs</span><span class="w">  </span><span class="n">hypervisor</span><span class="w">  </span><span class="n">kernel</span><span class="w">  </span><span class="k">module</span><span class="w">  </span><span class="nf">power</span><span class="w"></span>
 </code></pre></div>
@@ -161,13 +161,13 @@
 <p>All block devices are at the <code>block</code> and <code>bus</code> directory has all the connected PCI, USB, serial, .. devices. Note that here in <code>sys</code> we have the devices based on their technology but <code>/dev/</code> is abstracted.</p>
 <h2>udev</h2>
 <p>udev (userspace <code>/dev</code>) is a device manager for the Linux kernel. As the successor of devfsd and hotplug, udev primarily manages device nodes in the <code>/dev</code> directory. At the same time, udev also handles all user space events raised when hardware devices are added into the system or removed from it, including firmware loading as required by certain devices.</p>
-<p>There are a lot of devices in <code>/dev/</code> and if you plugin any device, it will be assigned a file in <code>/dev</code> (say <code>/dev/sdb2</code>). <strong>udev</strong> lets you control what will be what in /dev. For example, you can use a rule to force your 128GB flash drive with one specific vendor to be <code>/dev/mybackup</code> every single time you connect it and you can even start a backprocess as soon as it connects.</p>
-<p><strong>udev</strong> controls <code>/dev/</code> directory. There are abstracted devices like a hard, is /dev/sda or /dev/hd0 regardless of its brand, model or technology:</p>
+<p>There are a lot of devices in <code>/dev/</code> and if you plugin any device, it will be assigned a file in <code>/dev</code> (say <code>/dev/sdb2</code>). <strong>udev</strong> lets you control what will be what in <code>/dev</code>. For example, you can use a rule to force your 128GB flash drive with one specific vendor to be <code>/dev/mybackup</code> every single time you connect it and you can even start a backprocess as soon as it connects.</p>
+<p><strong>udev</strong> controls <code>/dev/</code> directory. There are abstracted devices like a hard, is <code>/dev/sda</code> or <code>/dev/hd0</code> regardless of its brand, model or technology:</p>
 <div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">/</span><span class="n">dev</span><span class="err">#</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="o">*</span><span class="w"></span>
 <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda2</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda5</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span><span class="w"></span>
 </code></pre></div>
 
-<p>If a program wants to read / write from / to a device, it will use the corresponding file in /dev to do so. This can be done on <strong>character devices</strong> or <strong>block devices</strong>. When listing, a <code>b</code> or <code>c</code> will indicate this:</p>
+<p>If a program wants to read/write from/to a device, it will use the corresponding file in /dev to do so. This can be done on <strong>character devices</strong> or <strong>block devices</strong>. When listing, a <code>b</code> or <code>c</code> will indicate this:</p>
 <div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@ocean</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">ltrh</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="k">Partial</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">shown</span><span class="w"></span>
 <span class="n">crw</span><span class="o">-</span><span class="n">rw</span><span class="o">----</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="n">tty</span><span class="w">       </span><span class="mi">4</span><span class="p">,</span><span class="w">   </span><span class="mi">1</span><span class="w"> </span><span class="k">Dec</span><span class="w"> </span><span class="mi">15</span><span class="w">  </span><span class="mi">2019</span><span class="w"> </span><span class="n">tty1</span><span class="w"></span>
 <span class="n">crw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="n">root</span><span class="w">      </span><span class="mi">1</span><span class="p">,</span><span class="w">   </span><span class="mi">5</span><span class="w"> </span><span class="k">Dec</span><span class="w"> </span><span class="mi">15</span><span class="w">  </span><span class="mi">2019</span><span class="w"> </span><span class="n">zero</span><span class="w"></span>
@@ -320,7 +320,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 <h4>lshw</h4>
 <p>Shows hardware. Test it!</p>
 <h2>Loadable Kernel Modules</h2>
-<p>Linux like any other OS needs drivers to work with hardware. In Microsoft Windows, you need to install the drivers separately but in Linux, the system has most of the drivers build-in. But to prevent the kernel from loading all of them at the same time and to decrease the Kernel size, Linux uses Kernel Modules. Loadable kernel modules (. ko files) are object files that are used to extend the kernel of the Linux Distribution. They are used to provide drivers for new hardware like IoT expansion cards that have not been included in the Linux Distribution.</p>
+<p>Linux like any other OS needs drivers to work with hardware. In Microsoft Windows, you need to install the drivers separately but in Linux, the system has most of the drivers built-in. But to prevent the kernel from loading all of them at the same time and to decrease the Kernel size, Linux uses Kernel Modules. Loadable kernel modules (.ko files) are object files that are used to extend the kernel of the Linux Distribution. They are used to provide drivers for new hardware like IoT expansion cards that have not been included in the Linux Distribution.</p>
 <p>You can inspect the modules using the <code>lsmod</code> or manage them via <code>modprob</code> commands.</p>
 <h4>lsmod</h4>
 <p>Shows kernel modules. They are located at <code>/lib/modules</code>. </p>
@@ -379,7 +379,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 <div class="highlight"><pre><span></span><code><span class="p">#</span> <span class="n">insmod</span> <span class="n">kernel</span><span class="o">/</span><span class="n">drivers</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">wireless</span><span class="o">/</span><span class="n">lwlwifi</span><span class="p">.</span><span class="n">ko</span>
 </code></pre></div>
 
-<p>but nobody uses <code>insmod</code> because it does not understand dependencies and you need to give it the whole path to the module file. Instead, use the <code>modprobe</code> command:</p>
+<p>But nobody uses <code>insmod</code> because it does not understand dependencies and you need to give it the whole path to the module file. Instead, use the <code>modprobe</code> command:</p>
 <div class="highlight"><pre><span></span><code># modprobe iwlwifi
 </code></pre></div>
 
@@ -388,8 +388,8 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 </blockquote>
 <p>If you need to load some modules every time your system boots do one of the following:</p>
 <ol>
-<li>add their name to this file <code>/etc/modules</code></li>
-<li>add their config files to the <code>/etc/modprobe.d/</code></li>
+<li>Add their name to this file <code>/etc/modules</code></li>
+<li>Add their config files to the <code>/etc/modprobe.d/</code></li>
 </ol>
 
 
