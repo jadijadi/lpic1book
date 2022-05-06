@@ -110,6 +110,8 @@
 <li>SysVinit</li>
 <li>systemd</li>
 </ul>
+<iframe width="560" "315" src="https://www.youtube.com/embed/Zn_IGnNMHvc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <h2>The Boot Process</h2>
 <p>Its important to understnd because on this stage, you have very little control on system and you can not issue commands to troulbeshoot much. You should have a good understanding of what is happening.</p>
 <ol>
@@ -144,6 +146,9 @@
 <h3>Kernel</h3>
 <p>Kernel is the core of your operating system, the LINUX itself. Your bootloader loads the kernel in the memory and runs it. But kernel needs some initial info to start; things like drivers neccesary to work with the hardware. Those are stored in <code>initrd</code> or <code>initramfs</code> alongside the kernel and used during the boot. </p>
 <p>You can also send parameters to the kernel during the boot using the Grub configs. For example sending a 1 or S will result the sytem to boot in single user mode (recovery). Or you can force your graphics to work in 1024×768x24 mode by passing <code>vga=792</code> to the kerrnel during the boot. </p>
+<hr>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Sn20NKM0hbw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <h4>dmesg</h4>
 <p>Linux will show you the boot process logs during the boot. Some desktop systems hide this behind a fancy boot splash which you can hide using Esc key or pressing Ctrl+Alt+F1.</p>
 <blockquote>
