@@ -32,7 +32,7 @@ Candidates should be able to guide the system through the booting process.
 * SysVinit
 * systemd
 
-<iframe width="560" "315" src="https://www.youtube.com/embed/Zn_IGnNMHvc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Zn_IGnNMHvc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## The Boot Process
 Its important to understnd because on this stage, you have very little control on system and you can not issue commands to troulbeshoot much. You should have a good understanding of what is happening.
