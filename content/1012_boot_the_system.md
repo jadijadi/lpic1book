@@ -35,21 +35,21 @@ Candidates should be able to guide the system through the booting process.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Zn_IGnNMHvc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## The Boot Process
-Its important to understnd because on this stage, you have very little control on system and you can not issue commands to troulbeshoot much. You should have a good understanding of what is happening.
+It is important to understand because at this stage, you have very little control over the system and you can not issue commands to troubleshoot much. You should have a good understanding of what is happening.
 
 1. Motherboard Firmware does a PowerOnSelfTest
 2. Motherboard loads the bootloader
-3. Bootloader loads the Linux Kernel based on its configs / commands
-4. Kernel loads and prepares the system (root filesystem) and runs the initialization program
+3. Bootloader loads the Linux Kernel-based on its configs / commands
+4. The Kernel loads and prepares the system (root filesystem) and runs the initialization program
 5. Init program start the service, other programs, .. (webserver, graphical interface, networking, ...)
 
-As we discussed in previous section (101.1), the Firmware on the motherboard can be BIOS or UEFI. 
+As we discussed in the previous section (101.1), the Firmware on the motherboard can be BIOS or UEFI. 
 
 ### BIOS
 Basic Input Output System
 
 - older
-- limited to one sector of the disk and needs a multi stage bootloader
+- limited to one sector of the disk and needs a multi-stage bootloader
 - Can start the bootloader from internal/external HDD, CD/DVD, USB Flash drive, Network server
 - If booting from the HDD, the Master Boot Record will be used (1 sector)
 
@@ -58,20 +58,20 @@ Unified Extensible Firmware Interface.
 
 - Modern and fancy
 - Specifies a special disk partition for the bootloader. Called EFI System Partition (ESP)
-- ESP is FAT and mounted on /boot/efi and bootloader files has .efi extentions
+- ESP is FAT and mounted on /boot/efi and bootloader files has .efi extensions
 
-> You can check /sys/firmware/efi to see if you are using an UEFI system or not
+> You can check /sys/firmware/efi to see if you are using a UEFI system or not
 
 ### bootloader
-Botloader initilizes the minimum hardware needed to boot the system and then find and runs the OS.
+Bootloader initializes the minimum hardware needed to boot the system and then finds and runs the OS.
 
-Technically you can point your UEFI to run anything you want but typically under GNU/Linux systems, we use GRUB. Even the GRUB can be used to run any specific program you need but genearly it runs the OS. 
+Technically you can point your UEFI to run anything you want but typically under GNU/Linux systems, we use GRUB. Even the GRUB can be used to run any specific program you need but generally it runs the OS. 
 
 ### Kernel
 
-Kernel is the core of your operating system, the LINUX itself. Your bootloader loads the kernel in the memory and runs it. But kernel needs some initial info to start; things like drivers neccesary to work with the hardware. Those are stored in `initrd` or `initramfs` alongside the kernel and used during the boot. 
+The Kernel is the core of your operating system, the LINUX itself. Your bootloader loads the kernel in the memory and runs it. But kernel needs some initial info to start; things like drivers are necessary to work with the hardware. Those are stored in `initrd` or `initramfs` alongside the kernel and used during the boot. 
 
-You can also send parameters to the kernel during the boot using the Grub configs. For example sending a 1 or S will result the sytem to boot in single user mode (recovery). Or you can force your graphics to work in 1024×768x24 mode by passing `vga=792` to the kerrnel during the boot. 
+You can also send parameters to the kernel during the boot using the Grub configs. For example, sending a 1 or S will result the system booting in single-user mode (recovery). Or you can force your graphics to work in 1024×768x24 mode by passing `vga=792` to the Kernel during the boot. 
 
 ---
 
@@ -80,9 +80,9 @@ You can also send parameters to the kernel during the boot using the Grub config
 
 #### dmesg
 
-Linux will show you the boot process logs during the boot. Some desktop systems hide this behind a fancy boot splash which you can hide using Esc key or pressing Ctrl+Alt+F1.
+Linux will show you the boot process logs during the boot. Some desktop systems hide this behind a fancy boot splash which you can hide using the Esc key or press Ctrl+Alt+F1.
 
-> **Fun Fact:** During the bootup, only The Kernel is running so it should record and keep its own logs!
+> **Fun Fact:** During the bootup, only The Kernel is running so it should record and keep its logs!
 
 dmesg command will show the full data from **kernel ring buffer** up to now. But
 
@@ -92,9 +92,9 @@ cat /var/log/dmesg
 
 will show **only** the data during the boot.
 
-We can also you `journalctl -k` to check kernal logs or use `journalctl -b` to check for boot logs (or even use `journalctl -u kernel` to see all previous logs too).
+We can also you `journalctl -k` to check Kernel logs or use `journalctl -b` to check for boot logs (or even use `journalctl -u kernel` to see all previous logs too).
 
-In additionm to these, most systems keep the boot logs in a text like file too. Under Debian based systems, its called `/var/log/boot` and for RedHat based systems its `/var/log/boot.log`.
+In addition to these, most systems keep the boot logs in a text-like file too. Under Debian-based systems, it's called `/var/log/boot` and for RedHat based systems its `/var/log/boot.log`.
 
 #### /var/log/messages
 
@@ -106,13 +106,13 @@ After the init process comes up, syslog daemon will log messages. It has timesta
 
 ## init
 
-When the kernel finished its initialization, its time to start other programs. To do so, kernel runs the Initialization Daemon process and it takes care of starting other daemons, services, subsystems and programs. Using the init system one can say "I need service A and then service B. Then I need C and D and E but do not start D unless the A and B are running". The system admin can use the init system to sop and start the services later.
+When the Kernel finished its initialization, its time to start other programs. To do so, the Kernel runs the Initialization Daemon process, and it takes care of starting other daemons, services, subsystems and programs. Using the init system one can say "I need service A and then service B. Then I need C and D and E but do not start D unless the A and B are running". The system admin can use the init system to stop and start the services later.
 
 There are different init systems:
 
 - **SysVinit** is based on Unix System V. Not being used much but people loved it and you may see it on older machines or even on recently installed ones
-- **systemd** is the new replacement. Some people hate it but it is being used by all the major distros. Can start services in paralel and do lots of fancy stuff! 
-- **upstart** was an event-based replacement for the traditional init daemon. The project started at 2014 by Canonical (the company behind Ubuntu) to replace the SysV but did not continued after 2015 and Ubuntu is now using the systemd as its init system.
+- **systemd** is the new replacement. Some people hate it but it is being used by all the major distros. Can start services in parallel and do lots of fancy stuff! 
+- **upstart** was an event-based replacement for the traditional init daemon. The project was started in 2014 by Canonical (the company behind Ubuntu) to replace the SysV but did not continue after 2015 and Ubuntu is now using the systemd as its init system.
 
 The init process had the ID of 1 and you can find it by running the 
 
@@ -133,9 +133,9 @@ pstree
 ```
 
 ### systemd
-Is new, loved and hated. Lots of new ideas but not following some of the beloved UNIX principles (say.. not saving logs in a text files or tyring to help you too much but asking for root password when you are not running commands with sudo). It lets us run servies if a hardware is connected, in time intervals, if another services is started and ...
+Is new, loved, and hated. Lots of new ideas but not following some of the beloved UNIX principles (say.. not saving logs in a text file or trying to help you too much but asking for the root password when you are not running commands with sudo). It lets us run services if hardware is connected, in time intervals, if another service is started, and ...
 
-The systemd is made around **unit**s. A unit can be a service, group of services or an action. Units do have a name, a type and a configuration file. There are 12 unit types: automount, device, mount, path, scope, service, slice, snapshot, socket, swap, target & timer.
+The systemd is made around **unit**s. A unit can be a service, group of services, or an action. Units do have a name, a type, and a configuration file. There are 12 unit types: automount, device, mount, path, scope, service, slice, snapshot, socket, swap, target & timer.
 
 We use `systemctl` to work with these unts and `journalctl` to see the logs.
 
@@ -179,7 +179,7 @@ there are other commands too:
 # systemctl --failed
 ```
 
-to check the logs, we hve to use the `journalctl` utility:
+to check the logs, we have to use the `journalctl` utility:
 
 ```
 # journalctl # show all journal
