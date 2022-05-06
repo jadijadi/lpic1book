@@ -137,7 +137,7 @@ Is new, loved, and hated. Lots of new ideas but not following some of the belove
 
 The systemd is made around **unit**s. A unit can be a service, group of services, or an action. Units do have a name, a type, and a configuration file. There are 12 unit types: automount, device, mount, path, scope, service, slice, snapshot, socket, swap, target & timer.
 
-We use `systemctl` to work with these unts and `journalctl` to see the logs.
+We use `systemctl` to work with these units and `journalctl` to see the logs.
 
 ```
 # systemctl list-units
