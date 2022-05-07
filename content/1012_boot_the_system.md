@@ -62,7 +62,7 @@ Unified Extensible Firmware Interface.
 
 > You can check /sys/firmware/efi to see if you are using a UEFI system or not
 
-### bootloader
+### Bootloader
 Bootloader initializes the minimum hardware needed to boot the system and then finds and runs the OS.
 
 Technically you can point your UEFI to run anything you want but typically under GNU/Linux systems, we use GRUB. Even the GRUB can be used to run any specific program you need but generally it runs the OS. 
@@ -142,7 +142,7 @@ We use `systemctl` to work with these units and `journalctl` to see the logs.
 ```
 # systemctl list-units
 # systemctl list-units --type=target
-# systemctl get-default # default target (grooups of services are started via target unit files)
+# systemctl get-default # default target (groups of services are started via target unit files)
 ```
 
 The units can be found in these places (sorted by priority):
@@ -192,7 +192,7 @@ to check the logs, we have to use the `journalctl` utility:
 ```
 
 ### SysV
-Is the older init system. Still can be used on many systems. The control files are located at `/etc/init.d/` and are closer to the genearl bash scripts. In many cases youc an call like:
+Is the older init system. Still can be used on many systems. The control files are located at `/etc/init.d/` and are closer to the general bash scripts. In many cases you can call like:
 
 ```
 /etc/init.d/ntpd status
