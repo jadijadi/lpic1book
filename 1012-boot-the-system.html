@@ -140,7 +140,7 @@
 <blockquote>
 <p>You can check /sys/firmware/efi to see if you are using a UEFI system or not</p>
 </blockquote>
-<h3>bootloader</h3>
+<h3>Bootloader</h3>
 <p>Bootloader initializes the minimum hardware needed to boot the system and then finds and runs the OS.</p>
 <p>Technically you can point your UEFI to run anything you want but typically under GNU/Linux systems, we use GRUB. Even the GRUB can be used to run any specific program you need but generally it runs the OS. </p>
 <h3>Kernel</h3>
@@ -196,7 +196,7 @@ PID TTY TIME     CMD
 <p>We use <code>systemctl</code> to work with these units and <code>journalctl</code> to see the logs.</p>
 <div class="highlight"><pre><span></span><code># systemctl list-units
 # systemctl list-units --type=target
-# systemctl get-default # default target (grooups of services are started via target unit files)
+# systemctl get-default # default target (groups of services are started via target unit files)
 </code></pre></div>
 
 <p>The units can be found in these places (sorted by priority):</p>
@@ -239,7 +239,7 @@ PID TTY TIME     CMD
 </code></pre></div>
 
 <h3>SysV</h3>
-<p>Is the older init system. Still can be used on many systems. The control files are located at <code>/etc/init.d/</code> and are closer to the genearl bash scripts. In many cases youc an call like:</p>
+<p>Is the older init system. Still can be used on many systems. The control files are located at <code>/etc/init.d/</code> and are closer to the general bash scripts. In many cases you can call like:</p>
 <div class="highlight"><pre><span></span><code>/etc/init.d/ntpd status
 /etc/init.d/ntpd stop
 /etc/init.d/ntpd start

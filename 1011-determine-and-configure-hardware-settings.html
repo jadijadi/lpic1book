@@ -376,7 +376,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 </code></pre></div>
 
 <p>And this is for installing the modules:</p>
-<div class="highlight"><pre><span></span><code><span class="p">#</span> <span class="n">insmod</span> <span class="n">kernel</span><span class="o">/</span><span class="n">drivers</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">wireless</span><span class="o">/</span><span class="n">lwlwifi</span><span class="p">.</span><span class="n">ko</span>
+<div class="highlight"><pre><span></span><code><span class="p">#</span> <span class="n">insmod</span> <span class="n">kernel</span><span class="o">/</span><span class="n">drivers</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">wireless</span><span class="o">/</span><span class="n">iwlwifi</span><span class="p">.</span><span class="n">ko</span>
 </code></pre></div>
 
 <p>But nobody uses <code>insmod</code> because it does not understand dependencies and you need to give it the whole path to the module file. Instead, use the <code>modprobe</code> command:</p>
