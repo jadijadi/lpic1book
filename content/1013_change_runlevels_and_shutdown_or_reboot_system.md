@@ -1,20 +1,20 @@
-Title: 101.3 Change runlevels / boot targets and shutdown or reboot system
+Title: 101.3 Change runlevels / boot targets and shutdown or reboot the system
 Date: 2010-12-03 10:20
 Category: LPIC1
 Tags: System Architecture, LPIC1, LPIC1-101-500
 Authors: Jadi
 sortorder: 050
-Summary: Candidates should be able to manage the SysVinit runlevel or systemd boot target of the system. This objective includes changing to single user mode, shutdown or rebooting the system. Candidates should be able to alert users before switching runlevels / boot targets and properly terminate processes. This objective also includes setting the default SysVinit runlevel or systemd boot target. It also includes awareness of Upstart as an alternative to SysVinit or systemd.
+Summary: Candidates should be able to manage the SysVinit runlevel or systemd boot target of the system. This objective includes changing to single-user mode, and shutdown or rebooting the system. Candidates should be able to alert users before switching runlevels / boot targets and properly terminate processes. This objective also includes setting the default SysVinit runlevel or systemd boot target. It also includes awareness of Upstart as an alternative to SysVinit or systemd.
 Topic: System Architecture
 
 weight: 3
 
-Description: Candidates should be able to manage the SysVinit runlevel or systemd boot target of the system. This objective includes changing to single user mode, shutdown or rebooting the system. Candidates should be able to alert users before switching runlevels / boot targets and properly terminate processes. This objective also includes setting the default SysVinit runlevel or systemd boot target. It also includes awareness of Upstart as an alternative to SysVinit or systemd.
+Description: Candidates should be able to manage the SysVinit runlevel or systemd boot target of the system. This objective includes changing to single-user mode, and shutdown or rebooting the system. Candidates should be able to alert users before switching runlevels / boot targets and properly terminate processes. This objective also includes setting the default SysVinit runlevel or systemd boot target. It also includes awareness of Upstart as an alternative to SysVinit or systemd.
 
 ### Key Knowledge Areas:
 
 - Set the default runlevel or boot target.
-- Change between runlevels / boot targets including single user mode.
+- Change between runlevels / boot targets including single-user mode.
 - Shutdown and reboot from the command line.
 - Alert users before switching runlevels / boot targets or other major system events.
 - Properly terminate processes.
@@ -79,8 +79,8 @@ root@debian:~# systemctl status multi-user.target
 
 It is also possible to *isolate* any of the targets or move to two special targets too:
 
-1. `rescue`: Local file systems are mounted, there is no networking and only root user (*maintenance* mode)
-2. `emergency`: Only the root file system and in read only mode, No networking and only root (*maintenance* mode)
+1. `rescue`: Local file systems are mounted, there is no networking, and only root user (*maintenance* mode)
+2. `emergency`: Only the root file system and in read-only mode, No networking and only root (*maintenance* mode)
 3. `reboot`
 4. `halt`: stops all processes and halts CPU activities
 5. `poweroff`: like halt but also sends an ACPI shutdown signal (no lights!)
@@ -100,9 +100,9 @@ maintenance
 On SysV we were able to define different stages. On a red had based system we usually had 7:
 
 * 0- Shutdown
-* 1- Single user mode \(recovery\); also called S or s
+* 1- Single-user mode \(recovery\); also called S or s
 * 2- Multi-user without networking
-* 3- Multi-user with netwroking
+* 3- Multi-user with networking
 * 4- to be customized by the admin
 * 5- Multi-user with networking and graphics
 * 6- reboot
@@ -110,8 +110,8 @@ On SysV we were able to define different stages. On a red had based system we us
 and in Debian based system we had:
 
 * 0- Shutdown
-* 1- Single user mode
-* 2- Multi user mod with graphics
+* 1- Single-user mode
+* 2- Multi-user mode with graphics
 * 6- reboot
 
 ## Checking status and setting defaults
@@ -152,7 +152,7 @@ is being replaced by upstart and systemd but is still part of the exam.
 
 ```text
 #
-# inittab       This file describes how the INIT process should set up
+# inittab       This file describes how the INIT process should be set up
 #               the system in a certain run-level.
 #
 # Author:       Miquel van Smoorenburg, <miquels@drinkel.nl.mugnet.org>
@@ -161,7 +161,7 @@ is being replaced by upstart and systemd but is still part of the exam.
 
 # Default runlevel. The runlevels used by RHS are:
 #   0 - halt (Do NOT set initdefault to this)
-#   1 - Single user mode
+#   1 - Single-user mode
 #   2 - Multiuser, without NFS (The same as 3, if you do not have networking)
 #   3 - Full multiuser mode
 #   4 - unused
@@ -186,7 +186,7 @@ ca::ctrlaltdel:/sbin/shutdown -t3 -r now
 
 # When our UPS tells us power has failed, assume we have a few minutes
 # of power left.  Schedule a shutdown for 2 minutes from now.
-# This does, of course, assume you have powerd installed and your
+# This does, of course, assume you have powered installed and your
 # UPS connected and working correctly.
 pf::powerfail:/sbin/shutdown -f -h +2 "Power Failure; System Shutting Down"
 
@@ -230,47 +230,47 @@ root@funlife:~# ls /etc/rc2.d/
 
 ## Stopping the system
 
-The preferred method to shut down or reboot the system is to use the `shutdown` command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 5 seconds, or another delay if specified, init sends a SIGKILL signal to forcibly end each remaining process.
+The preferred method to shut down or reboot the system is to use the `shutdown` command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 5 seconds or another delay, if specified, init sends a SIGKILL signal to forcibly end each remaining process.
 
-* default is 5 seconds delay and then going to runlevel 1
+* Default is 5 seconds delay and then going to runlevel 1
 * -h will halt the system
 * -r will reboot the system
 * time is hh:mm or n \(minutes\) or now
-* whatever you add, will be broadcasted to logged in users using the `wall` command
+* whatever you add, will be broadcasted to logged-in users using the `wall` command
 * if the command is running, ctrl+c or the "shutdown -c" will cancel it
 
 ```text
 shutdown -r 60 Reloading updated kernel
 ```
 
-for more advance users:
+for more advanced users:
 
 * -t60 will delay 60 seconds between SIGTERM and SIGKILL
-* if you cancel a shutdown, users wont get the news! you can use "wall" command to tell them that the shutdown is canceled
+* if you cancel a shutdown, users won't get the news! you can use "wall" command to tell them that the shutdown is canceled
 
-### Halt, reboot and poweroff
+### Halt, reboot, and poweroff
 
 * The `halt` command halts the system.
 * The `poweroff` command halts the system and then attempts to power it off.
 * The `reboot` command halts the system and then reboots it.
 
-> On most distros, these are symbolicl links to the systemctl utility
+> On most distros, these are symbolic links to the systemctl utility
 
 ### Advanced Configuration and Power Interface (ACPI)
-ACPI provides an open standard that operating systems can use to discover and configure computer hardware components, to perform power management (e.g. putting unused hardware components to sleep), to perform auto configuration (e.g. Plug and Play and hot swapping), and to perform status monitoring.
+ACPI provides an open standard that operating systems can use to discover and configure computer hardware components, perform power management (e.g. putting unused hardware components to sleep), perform auto-configuration (e.g. Plug and Play, and hot-swapping), and perform status monitoring.
 
-This subsystem lets OS commands (like shutdown) to send signals to the computer which result in powering down of the whole PC. In older times we used to have these mechanical keyboards to do a *real* power down after the OS has done its own shutdown and told us that "is is not safe to power down your computer".
+This subsystem lets OS commands (like shutdown) send signals to the computer which results in powering down of the whole PC. In older times we used to have these mechanical keyboards to do a *real* power down after the OS has done its shutdown and told us that "it is not safe to power down your computer".
 
 ![](/images/vintage_poweroff.jpeg)
 
 ## Notifying users
-It is good to be informed! Speically if the system is going down; specially on a shared server. Linux have different tools for system admins to notify their users:
+It is good to be informed! Especially if the system is going down; especially on a shared server. Linux has different tools for system admins to notify their users:
 
-- `wall`. Sending *wall messages* to logged in users
+- `wall`. Sending *wall messages* to logged-in users
 - `/etc/issue`. Text to be displayed on the tty terminal logins (before login)
 - `/etc/issue.net`. Text to be displayed on the remote terminal logins (before login)
 - `/etc/motd`: Message of the day (after login). Some companies add "Do not enter if you are not allowed" texts here for legal reasons.
-- `mesg` command controls if you want to get wall messages on not. You can do `mesg n` and `who -T` will show mesg status. Note that `shutdown` wall messages do not respects the `mesg` status
+- `mesg` command controls if you want to get wall messages on not. You can do `mesg n` and `who -T` will show mesg status. Note that `shutdown` wall messages do not respect the `mesg` status
 
-> systemctl sends wall messages for emergency, halt, power-off, reboot and rescue
+> systemctl sends wall messages for emergency, halt, power-off, reboot, and rescue
 
