@@ -117,7 +117,7 @@ jadi      --       5    5000       0              2     0     0
 
 ### Warning users
 
-There is a command for checking quotas and warning users called `warnquota`. It is good to run it time to time using a crontab \(will see this crontabs later\).
+There is a command for checking quotas and warning users called `warnquota`. It will be good to run it time to time using a crontab \(will see this crontabs later\).
 
 .
 
