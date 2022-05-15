@@ -7,6 +7,11 @@ sortorder: 450
 Summary: 
 ## 110.1 Perform security administration tasks
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+</div>
+
+
 _Weight: 3_
 
 Candidates should know how to review system configuration to ensure host security in accordance with local security policies.

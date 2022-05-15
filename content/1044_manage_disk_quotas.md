@@ -9,6 +9,11 @@ sortorder: 230
 This used to be about disk quotas! but it removed. If you insist in reading it... here it is:
 ## 104.4 Manage disk quotas
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+</div>
+
+
 _Weight: 1_
 
 Candidates should be able to manage disk quotas for users.

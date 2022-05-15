@@ -7,6 +7,11 @@ sortorder: 440
 Summary: 
 ## 109.4 Configure client side DNS
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+</div>
+
+
 _Weight: 2_
 
 Candidates should be able to configure DNS on a client host.

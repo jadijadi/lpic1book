@@ -8,6 +8,11 @@ Summary:
 Topic: Shells and Shell Scripting
 ## 105.1. Customize and use the shell environment
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+</div>
+
+
 _Weight: 4_
 
 Candidates should be able to customize shell environments to meet users’ needs. Candidates should be able to modify global and user profiles.

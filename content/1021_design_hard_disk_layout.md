@@ -7,6 +7,9 @@ Summary:
 sortorder: 060
 
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+</div>
 
 _Weight: 2_
 

@@ -7,6 +7,11 @@ sortorder: 360
 Summary: 
 ## 108.1 Maintain system time
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+</div>
+
+
 _Weight: 3_
 
 Candidates should be able to properly maintain the system time and synchronize the clock via NTP.
