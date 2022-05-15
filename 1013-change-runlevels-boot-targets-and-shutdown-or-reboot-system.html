@@ -111,6 +111,8 @@
 <li><code>/usr/lib/systemd/</code></li>
 <li>wall</li>
 </ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1mOKv5LsPsw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <h2>runlevels</h2>
 <p>Runlevels define what tasks can be accomplished in the current state (or runlevel) of a Linux system. This of it as different stages of <em>being alive</em>. </p>
 <h3>systemd</h3>
@@ -283,6 +285,8 @@ x:5:respawn:/etc/X11/prefdm -nodaemon
 </code></pre></div>
 
 <h2>Stopping the system</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/C7kr7fZtWqs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <p>The preferred method to shut down or reboot the system is to use the <code>shutdown</code> command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 1 minute, or another delay if specified, init sends a SIGKILL signal to forcibly end each remaining process.</p>
 <ul>
 <li>Default is 1 minute delay and then going to runlevel 1</li>
