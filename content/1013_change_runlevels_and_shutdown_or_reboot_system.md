@@ -33,6 +33,8 @@ Description: Candidates should be able to manage the SysVinit runlevel or system
 - `/usr/lib/systemd/`
 - wall
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1mOKv5LsPsw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## runlevels
 
 Runlevels define what tasks can be accomplished in the current state \(or runlevel\) of a Linux system. This of it as different stages of *being alive*. 
@@ -229,6 +231,8 @@ root@funlife:~# ls /etc/rc2.d/
 ```
 
 ## Stopping the system
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/C7kr7fZtWqs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 The preferred method to shut down or reboot the system is to use the `shutdown` command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 1 minute, or another delay if specified, init sends a SIGKILL signal to forcibly end each remaining process.
 
