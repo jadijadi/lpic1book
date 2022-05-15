@@ -113,7 +113,7 @@ And in Debian based system we had:
 
 * 0- Shutdown
 * 1- Single-user mode
-* 2- Multi-user mod with graphics
+* 2- Multi-user mode with graphics
 * 6- Reboot
 
 ## Checking status and setting defaults
