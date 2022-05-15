@@ -7,7 +7,7 @@ Summary: Candidates should be able to select, install and configure a boot manag
 sortorder: 070
 
 <div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
 </div>
 
 _Weight: 2_ 

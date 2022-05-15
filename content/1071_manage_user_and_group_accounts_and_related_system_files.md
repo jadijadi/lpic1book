@@ -8,7 +8,7 @@ Summary:
 ## 107.1 Manage user and group accounts and related system files
 
 <div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
 </div>
 
 

@@ -8,7 +8,7 @@ Summary:
 ## 104.7 Find system files and place files in the correct location
 
 <div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
 </div>
 
 

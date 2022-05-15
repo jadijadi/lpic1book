@@ -7,7 +7,7 @@ Summary: Candidates should be able to apply filters to text streams.
 sortorder: 130
 
 <div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
 </div>
 
 

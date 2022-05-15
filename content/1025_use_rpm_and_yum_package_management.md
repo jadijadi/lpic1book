@@ -7,7 +7,7 @@ Summary: Candidates should be able to perform package management using RPM, YUM 
 sortorder: 100
 
 <div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
 </div>
 
 
