@@ -7,6 +7,11 @@ sortorder: 460
 Summary: 
 ## 110.2 Setup host security
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+</div>
+
+
 _Weight: 3_
 
 Candidates should know how to set up a basic level of host security.

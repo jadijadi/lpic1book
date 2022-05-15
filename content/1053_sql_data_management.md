@@ -10,6 +10,11 @@ Topic: Shells and Shell Scripting
 How luckY! this is removed. If you insist this used to be the old text:
 ## 105.3 SQL data management
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+</div>
+
+
 _Weight: 2_
 
 Candidates should be able to query databases and manipulate data using basic SQL commands. This objective includes performing queries involving joining of 2 tables and/or subselects.

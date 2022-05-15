@@ -6,6 +6,11 @@ Authors: Jadi
 Summary: Candidates should be able to perform package management using RPM, YUM and Zypper.
 sortorder: 100
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+</div>
+
+
 _Weight: 3_
 
 Candidates should be able to perform package management using RPM and YUM tools.

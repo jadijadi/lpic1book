@@ -7,6 +7,11 @@ sortorder: 350
 Summary: 
 ## 107.3 Localisation and internationalisation
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+</div>
+
+
 _Weight: 3_
 
 Candidates should be able to localise a system in a different language than English. As well, an understanding of why LANG=C is useful when scripting.

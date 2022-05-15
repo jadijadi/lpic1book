@@ -22,23 +22,25 @@ Description: Candidates should be able to manage the SysVinit runlevel or system
 
 ### The following is a partial list of the used files, terms and utilities:
 
-- /etc/inittab
+- `/etc/inittab`
 - shutdown
 - init
-- /etc/init.d/
+- `/etc/init.d/`
 - telinit
 - systemd
 - systemctl
-- /etc/systemd/
-- /usr/lib/systemd/
+- `/etc/systemd/`
+- `/usr/lib/systemd/`
 - wall
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1mOKv5LsPsw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## runlevels
 
 Runlevels define what tasks can be accomplished in the current state \(or runlevel\) of a Linux system. This of it as different stages of *being alive*. 
 
 ### systemd
-On systemd, we have different targes which are groups of services:
+On systemd, we have different targets which are groups of services:
 
 ```
 root@debian:~# systemctl list-units --type=target # On a Debian machine
@@ -64,7 +66,7 @@ root@debian:~# systemctl list-units --type=target # On a Debian machine
   timers.target       loaded active active Timers
 ```
 
-and we can check the default one or get the status of each of them: 
+And we can check the default one or get the status of each of them: 
 
 ```
 root@debian:~# systemctl get-default 
@@ -82,8 +84,8 @@ It is also possible to *isolate* any of the targets or move to two special targe
 1. `rescue`: Local file systems are mounted, there is no networking, and only root user (*maintenance* mode)
 2. `emergency`: Only the root file system and in read-only mode, No networking and only root (*maintenance* mode)
 3. `reboot`
-4. `halt`: stops all processes and halts CPU activities
-5. `poweroff`: like halt but also sends an ACPI shutdown signal (no lights!)
+4. `halt`: Stops all processes and halts CPU activities
+5. `poweroff`: Like halt but also sends an ACPI shutdown signal (no lights!)
 
 ```
 # systemctl isolate emergency
@@ -97,7 +99,7 @@ maintenance
 
 ### SysV runlevels
 
-On SysV we were able to define different stages. On a red had based system we usually had 7:
+On SysV we were able to define different stages. On a red hat based system we usually had 7:
 
 * 0- Shutdown
 * 1- Single-user mode \(recovery\); also called S or s
@@ -105,14 +107,14 @@ On SysV we were able to define different stages. On a red had based system we us
 * 3- Multi-user with networking
 * 4- to be customized by the admin
 * 5- Multi-user with networking and graphics
-* 6- reboot
+* 6- Reboot
 
-and in Debian based system we had:
+And in Debian based system we had:
 
 * 0- Shutdown
 * 1- Single-user mode
-* 2- Multi-user mode with graphics
-* 6- reboot
+* 2- Multi-user mod with graphics
+* 6- Reboot
 
 ## Checking status and setting defaults
 
@@ -124,9 +126,9 @@ grep "^id:" /etc/inittab #on initV systems
 id:5:initdefault:
 ```
 
-it can also be done on grub kernel parameters.
+It can also be done on grub kernel parameters.
 
-or using the runlevel and `telinit` command.
+Or using the runlevel and `telinit` command.
 
 ```text
 # runlevel
@@ -139,16 +141,16 @@ N 3
 
 You can find the files in `/etc/init.d` and runlevels in `/etc/rc[0-6].d` directories where S indicates Start and K indicates Kill. 
 
-On systemd, you can find the configs in 
+On systemd, you can find the configs in:
 
-- /etc/systemd
-- /usr/lib/systemd/
+- `/etc/systemd`
+- `/usr/lib/systemd/`
 
 As discussed in 101.2
 
 ### /etc/inittab
 
-is being replaced by upstart and systemd but is still part of the exam.
+Is being replaced by upstart and systemd but is still part of the exam.
 
 ```text
 #
@@ -206,7 +208,7 @@ pr:12345:powerokwait:/sbin/shutdown -c "Power Restored; Shutdown Cancelled"
 x:5:respawn:/etc/X11/prefdm -nodaemon
 ```
 
-this is the format:
+This is the format:
 
 ```text
 id:runlevels:action:process
@@ -216,13 +218,13 @@ id:runlevels:action:process
 * runlevels: which runlevel this commands refers to \(empty means all\)
 * action: respawn, wait, once, initdefault \(default run level as seen above\), ctrlaltdel \(what to do with crrl+alt+delete\)
 
-all scripts are here:
+All scripts are here:
 
 ```text
 ls -ltrh /etc/init.d
 ```
 
-and start/stop on runlevels are controlled from these directories:
+And start/stop on runlevels are controlled from these directories:
 
 ```text
 root@funlife:~# ls /etc/rc2.d/
@@ -230,14 +232,16 @@ root@funlife:~# ls /etc/rc2.d/
 
 ## Stopping the system
 
-The preferred method to shut down or reboot the system is to use the `shutdown` command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 5 seconds or another delay, if specified, init sends a SIGKILL signal to forcibly end each remaining process.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/C7kr7fZtWqs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-* Default is 5 seconds delay and then going to runlevel 1
+The preferred method to shut down or reboot the system is to use the `shutdown` command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 1 minute or another delay, if specified, init sends a SIGKILL signal to forcibly end each remaining process.
+
+* Default is 1 minute delay and then going to runlevel 1
 * -h will halt the system
 * -r will reboot the system
-* time is hh:mm or n \(minutes\) or now
-* whatever you add, will be broadcasted to logged-in users using the `wall` command
-* if the command is running, ctrl+c or the "shutdown -c" will cancel it
+* Time is hh:mm or n \(minutes\) or now
+* Whatever you add, will be broadcasted to logged-in users using the `wall` command
+* If the command is running, ctrl+c or the "shutdown -c" will cancel it
 
 ```text
 shutdown -r 60 Reloading updated kernel

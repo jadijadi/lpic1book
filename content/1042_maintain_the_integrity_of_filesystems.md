@@ -6,6 +6,11 @@ Authors: Jadi
 Summary: 
 sortorder: 210
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+</div>
+
+
 _Weight: 2_
 
 Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem.

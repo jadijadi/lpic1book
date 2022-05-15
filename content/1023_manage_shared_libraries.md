@@ -6,6 +6,11 @@ Authors: Jadi
 Summary: Candidates should be able to determine the shared libraries that executable programs depend on and install them when necessary.
 sortorder: 080
 
+
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+</div>
+
 _weight 2_
 
 ### Objectives

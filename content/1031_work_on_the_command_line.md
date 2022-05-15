@@ -6,6 +6,11 @@ Authors: Jadi
 Summary: Candidates should be able to interact with shells and commands using the command line. The objective assumes the Bash shell.
 sortorder: 120
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+</div>
+
+
 _Weight: 4_
 
 Description: Candidates should be able to interact with shells and commands using the command line. The objective assumes the bash shell.
