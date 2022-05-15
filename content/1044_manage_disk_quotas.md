@@ -10,7 +10,7 @@ This used to be about disk quotas! but it removed. If you insist in reading it..
 ## 104.4 Manage disk quotas
 
 <div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few week.s
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
 </div>
 
 
@@ -117,7 +117,7 @@ jadi      --       5    5000       0              2     0     0
 
 ### Warning users
 
-There is a command for checking quotas and warning users called `warnquota`. If is good to run it time to time using a crontab \(will see this crontabs later\).
+There is a command for checking quotas and warning users called `warnquota`. It will be good to run it time to time using a crontab \(will see this crontabs later\).
 
 .
 
