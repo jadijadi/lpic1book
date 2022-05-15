@@ -62,8 +62,8 @@
                                 <li ><a href="./support">Support/Donate</a></li>
                                 <li ><a href="./archives.html">Chapters</a></li>
                                 <li ><a href="./tags.html">Tags</a></li>
+                                <li><form action="https://www.google.com/search" method="get" target="_blank" class="navbar-search"> <input type="hidden" name="sitesearch" value="https://linux1st.com/"/><input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
 
-                                <li><form class="navbar-search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -95,19 +95,25 @@
 <li>Tailor the design to the intended use of the system.</li>
 <li>Ensure the /boot partition conforms to the hardware architecture requirements for booting.</li>
 <li>Knowledge of basic features of LVM</li>
+</ul>
+<p>the following is a partial list of the used files, terms and utilities:</p>
+<ul>
 <li>/ (root) filesystem</li>
 <li>/var filesystem</li>
 <li>/home filesystem</li>
+<li>/boot filesystem</li>
+<li>EFI System Partition (ESP)</li>
 <li>swap space</li>
 <li>mount points</li>
 <li>partitions</li>
 </ul>
 <h3>Basics</h3>
-<p>As any other OS, Linux uses <em>files</em> and <em>directories</em> to operate. But unlike <em>Windows</em>, it does not use A:, C:, D:, etc. In Linux everything is in <em>*one big tree</em>, starting with / (called root). Any partition, disk, CD, USB, network drive, ... will be placed somewhere in this huge tree.</p>
+<p>As any contemporary OS, Linux uses <em>files</em> and <em>directories</em> to operate. But unlike <em>Windows</em>, it does not use A:, C:, D:, etc. In Linux everything is in <em>*one big tree</em>, starting with / (called root). Any partition, disk, CD, USB, network drive, ... will be placed somewhere in this huge tree.</p>
 <blockquote>
 <p>Note: Most of external devices (USB, CD, ..) are mounted at /media/ or /mnt/ .</p>
 </blockquote>
-<h3>Unix directories</h3>
+<h3>Unix directorieso</h3>
+<p>This might be your most importatnt "Oh I got it!" moment in your linux journey. This might help you to find the programs, configs, ... you are looking for much faster. </p>
 <table>
 <thead>
 <tr>
@@ -166,7 +172,7 @@
 </tr>
 <tr>
 <td align="left">tmp</td>
-<td align="left">Temporary files</td>
+<td align="left">Temporary files, sometimes purged on each boot</td>
 </tr>
 <tr>
 <td align="left">usr</td>
@@ -174,13 +180,28 @@
 </tr>
 <tr>
 <td align="left">var</td>
-<td align="left">Variable data</td>
+<td align="left">Variable data (logs, ...)</td>
 </tr>
 </tbody>
 </table>
 <h3>Partitions</h3>
-<p>In Linux world, devices are defined at /dev/. First SATA disk is /dev/sda, second SATA disk is /dev/sdb, ... and first SCSI disk (older systems) is /dev/hda.</p>
-<p>You have to <em>PARTITION</em> the disks, that is creating smaller parts on a big disk and calling them /dev/sda1 (first partition on first SCSI disk) or /dev/hd<strong>b</strong>3 (3rd partition on second disk).</p>
+<p>In Linux world, devices are defined at /dev/. First SATA or SCSI disks you will have <code>/dev/sda</code>, and for 3rd PATA (super old) disk you will see /dev/hdc.</p>
+<p>You have to <em>PARTITION</em> the disks, that is creating smaller parts on a big disk. These are self-contained sections on the main drive. OS sees these as standalone disks.  We call them /dev/sda1 (first partition of first SCSI disk) or /dev/hd<strong>b</strong>3 (3rd partition on second disk).</p>
+<p>BIOS system were using MBR and could have upto 4 partitions on each disk, altough insteaf of creating 4 Primary parititons, you could create an Extended partition and define more Logical partititons inside it.  </p>
+<blockquote>
+<p>Note: an Extended partition is just an empty box for creating Logical partitions inside it.</p>
+</blockquote>
+<p>So:</p>
+<ul>
+<li>/dev/sda3 is the 3rd primary partition on the first disk</li>
+<li>/dev/sdb5 is the first logical partition on the second disk</li>
+<li>/dev/sda7 is the 3rd logical partition of the first physical disk</li>
+</ul>
+<p>UEFI ssytems use GUID Partitio Table (GPT) which supports 128 partitions on each device. </p>
+<blockquote>
+<p>If you define an extended partition on a BIOS ssytem, that will be /dev/sdx5 (1-4 for primary and first extended will be 5). </p>
+</blockquote>
+<p>Linux systems can <strong>mount</strong> these partitions on different paths. Say you can have a separated disk with one huge partition for your /home and another one for your /var/logs/ .</p>
 <div class="highlight"><pre><span></span><code># fdisk /dev/sda
 Welcome to fdisk (util-linux 2.25.1).
 Changes will remain in memory only, until you decide to write them.
@@ -203,18 +224,6 @@ Device     Boot     Start       End   Sectors   Size Id Type
 /dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
 </code></pre></div>
 
-<h4>Primary, Extended &amp; Logical Partitions</h4>
-<p>The partition table is located in the master boot record (<strong>MBR</strong>) of a disk. The MBR is the first sector on the disk, so the partition table is not a very large part of it. This limits the primary partitions to 4 and the max size of a disk to around 2TBs. If you need more partitions you have a define one extended and then create logicals <em>inside</em> them.</p>
-<p>Linux numbers the primary partitions 1, 2, 3 &amp; 4. If you define an extended partitions, logical partitions inside it will be called 5, 6, 7.</p>
-<blockquote>
-<p>Note: an Extended partition is just an empty box for creating Logical partitions inside it.</p>
-</blockquote>
-<p>So:</p>
-<ul>
-<li>/dev/sda3 is the 3rd primary partition on the first disk</li>
-<li>/dev/sdb5 is the first logical partition on the second disk</li>
-<li>/dev/sda7 is the 3rd logical partition of the first physical disk</li>
-</ul>
 <p>The newer <strong>GUID Partition Table (or GPT)</strong> solves this problems. If you format your disk with GTP you can have 128 primary partitions (no need to extended and logical).</p>
 <h3>commands</h3>
 <h4>parted</h4>
@@ -265,7 +274,7 @@ Device     Boot     Start       End   Sectors   Size Id Type
 <p>A graphical tool for managing disks and partitions.</p>
 <p><img alt="" src="http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-1/gparted-1s.jpg"></p>
 <h4>LVM</h4>
-<p>In many cases you need to resize your partitions or even add new disks and <em>add</em> them to your mount points. LVM is designed for this.</p>
+<p>In many cases you need to resize your partitions or even install new disks and <em>add</em> them to your current mount points; increasing the total size. LVM is designed for this.</p>
 <p>LVM helps you create one partition from different disks and add or remove space to them. The main concepts are:</p>
 <ul>
 <li>Physical Volume (pv): a whole drive or a partition. It is better to define partitions and <strong>not use whole disks - unpartitioned</strong>.</li>
@@ -277,11 +286,12 @@ Device     Boot     Start       End   Sectors   Size Id Type
 <p><strong>swap</strong></p>
 <p>swap in Linux works like an extended memory. Kernel will <em>page</em> memory to this partition / file. It is enough to format one partition with <strong>swap file system</strong> and define it in /etc/fstab (you will see this later in 104 modules).</p>
 <blockquote>
-<p>Note: swap size is 1 or 2 times the system memory but not more than 8GBs. So if you have 2GB of RAM, swap will be 4GB but if you have 6GB of RAM, it is recommended to have a 8GB swap partition.</p>
+<p>Note: There is no strict formula for swap size. People used to say "double the ram but not more than 8GB". On recent machines with SSDs, some say "RAM + 2" (Hibernation + some extra ) or "RAM * 2" depends on your usage.</p>
 </blockquote>
 <p><strong>/boot</strong></p>
 <p>Older Linux systems were not able to handle HUGE disks during the boot (say Terabytes) so there were a separated /boot. It is also useful to recover broken systems or even you can make /boot read only. Most of the time, having 100MB for /boot is enough. This can be a different disk or a separated partition.</p>
-<p>This partition should be accessible by BIOS during the boot (no network drive).</p>
+<p>This partition should be accessible by BIOS/UEFI during the boot (no network drive).</p>
+<p>On UEFI systems, there is a /boot/efi mounthpoint called EFI (Extensible Firmware Interface) system partition or ESP. This contains the bootloader and kernel and should be accesible by the UEFI firmware during the boot.</p>
 <h4>case one: Desktop computer</h4>
 <p>On a desktop computer, it is good to have one swap, one /boot and allocate all other space to / (root).</p>
 <h4>network workstation</h4>
