@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="./theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="./theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="Jadi" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="System Architecture, LPIC1, LPIC1-101-500, LPIC1, " />
+
+<meta property="og:title" content="101.3 Change runlevels / boot targets and shutdown or reboot the system "/>
+<meta property="og:url" content="./1013-change-runlevels-boot-targets-and-shutdown-or-reboot-the-system.html" />
+<meta property="og:description" content="Candidates should be able to manage the SysVinit runlevel or systemd boot target of the system. This objective includes changing to single-user mode, and shutdown or rebooting the system. Candidates should be able to alert users before switching runlevels / boot targets and properly terminate processes. This objective also includes setting the default SysVinit runlevel or systemd boot target. It also includes awareness of Upstart as an alternative to SysVinit or systemd." />
+<meta property="og:site_name" content="lpic1book" />
+<meta property="og:article:author" content="Jadi" />
+<meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
+<meta name="twitter:title" content="101.3 Change runlevels / boot targets and shutdown or reboot the system ">
+<meta name="twitter:description" content="Candidates should be able to manage the SysVinit runlevel or systemd boot target of the system. This objective includes changing to single-user mode, and shutdown or rebooting the system. Candidates should be able to alert users before switching runlevels / boot targets and properly terminate processes. This objective also includes setting the default SysVinit runlevel or systemd boot target. It also includes awareness of Upstart as an alternative to SysVinit or systemd.">
+
+        <title>101.3 Change runlevels / boot targets and shutdown or reboot the system  · lpic1book
+</title>
+
+
+
+        
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-4CZV14VZXW"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-4CZV14VZXW');
+        </script>
+        
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="./"><span class=site-name>lpic1book</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                </li>
+                                <li ><a href="./">Home</a></li>
+                                <li ><a href="./support">Support/Donate</a></li>
+                                <li ><a href="./archives.html">Chapters</a></li>
+                                <li ><a href="./tags.html">Tags</a></li>
+                                <li><form action="https://www.google.com/search" method="get" target="_blank" class="navbar-search"> <input type="hidden" name="sitesearch" value="https://linux1st.com/"/><input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="./1013-change-runlevels-boot-targets-and-shutdown-or-reboot-the-system.html">
+                101.3 Change runlevels / boot targets and shutdown or reboot the system
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>weight: 3</p>
+<p>Description: Candidates should be able to manage the SysVinit runlevel or systemd boot target of the system. This objective includes changing to single-user mode, and shutdown or rebooting the system. Candidates should be able to alert users before switching runlevels / boot targets and properly terminate processes. This objective also includes setting the default SysVinit runlevel or systemd boot target. It also includes awareness of Upstart as an alternative to SysVinit or systemd.</p>
+<h3>Key Knowledge Areas:</h3>
+<ul>
+<li>Set the default runlevel or boot target.</li>
+<li>Change between runlevels / boot targets including single-user mode.</li>
+<li>Shutdown and reboot from the command line.</li>
+<li>Alert users before switching runlevels / boot targets or other major system events.</li>
+<li>Properly terminate processes.</li>
+<li>Awareness of acpid.</li>
+</ul>
+<h3>The following is a partial list of the used files, terms and utilities:</h3>
+<ul>
+<li><code>/etc/inittab</code></li>
+<li>shutdown</li>
+<li>init</li>
+<li><code>/etc/init.d/</code></li>
+<li>telinit</li>
+<li>systemd</li>
+<li>systemctl</li>
+<li><code>/etc/systemd/</code></li>
+<li><code>/usr/lib/systemd/</code></li>
+<li>wall</li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1mOKv5LsPsw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h2>runlevels</h2>
+<p>Runlevels define what tasks can be accomplished in the current state (or runlevel) of a Linux system. This of it as different stages of <em>being alive</em>. </p>
+<h3>systemd</h3>
+<p>On systemd, we have different targets which are groups of services:</p>
+<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="err">@</span><span class="n">debian</span><span class="p">:</span><span class="o">~</span><span class="c1"># systemctl list-units --type=target # On a Debian machine</span>
+  <span class="n">UNIT</span>                <span class="n">LOAD</span>   <span class="n">ACTIVE</span> <span class="n">SUB</span>    <span class="n">DESCRIPTION</span>
+<span class="o">---------------------------------------------------------</span>
+  <span class="n">basic</span><span class="o">.</span><span class="n">target</span>        <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">Basic</span> <span class="n">System</span>
+  <span class="n">cryptsetup</span><span class="o">.</span><span class="n">target</span>   <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">Local</span> <span class="n">Encrypted</span> <span class="n">Volumes</span>
+  <span class="n">getty</span><span class="o">.</span><span class="n">target</span>        <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">Login</span> <span class="n">Prompts</span>
+  <span class="n">graphical</span><span class="o">.</span><span class="n">target</span>    <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">Graphical</span> <span class="n">Interface</span>
+  <span class="n">local</span><span class="o">-</span><span class="n">fs</span><span class="o">-</span><span class="n">pre</span><span class="o">.</span><span class="n">target</span> <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">Local</span> <span class="n">File</span> <span class="n">Systems</span> <span class="p">(</span><span class="n">Pre</span><span class="p">)</span>
+  <span class="n">local</span><span class="o">-</span><span class="n">fs</span><span class="o">.</span><span class="n">target</span>     <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">Local</span> <span class="n">File</span> <span class="n">Systems</span>
+  <span class="n">multi</span><span class="o">-</span><span class="n">user</span><span class="o">.</span><span class="n">target</span>   <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">Multi</span><span class="o">-</span><span class="n">User</span> <span class="n">System</span>
+  <span class="n">network</span><span class="o">.</span><span class="n">target</span>      <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">Network</span>
+  <span class="n">paths</span><span class="o">.</span><span class="n">target</span>        <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">Paths</span>
+  <span class="k">remote</span><span class="o">-</span><span class="n">fs</span><span class="o">.</span><span class="n">target</span>    <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">Remote</span> <span class="n">File</span> <span class="n">Systems</span>
+  <span class="n">slices</span><span class="o">.</span><span class="n">target</span>       <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">Slices</span>
+  <span class="n">sockets</span><span class="o">.</span><span class="n">target</span>      <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">Sockets</span>
+  <span class="n">sound</span><span class="o">.</span><span class="n">target</span>        <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">Sound</span> <span class="n">Card</span>
+  <span class="n">swap</span><span class="o">.</span><span class="n">target</span>         <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">Swap</span>
+  <span class="n">sysinit</span><span class="o">.</span><span class="n">target</span>      <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">System</span> <span class="n">Initialization</span>
+  <span class="n">time</span><span class="o">-</span><span class="n">set</span><span class="o">.</span><span class="n">target</span>     <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">System</span> <span class="n">Time</span> <span class="n">Set</span>
+  <span class="n">time</span><span class="o">-</span><span class="n">sync</span><span class="o">.</span><span class="n">target</span>    <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">System</span> <span class="n">Time</span> <span class="n">Synchronized</span>
+  <span class="n">timers</span><span class="o">.</span><span class="n">target</span>       <span class="n">loaded</span> <span class="n">active</span> <span class="n">active</span> <span class="n">Timers</span>
+</code></pre></div>
+
+<p>And we can check the default one or get the status of each of them: </p>
+<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="err">@</span><span class="n">debian</span><span class="p">:</span><span class="o">~</span><span class="c1"># systemctl get-default </span>
+<span class="n">graphical</span><span class="o">.</span><span class="n">target</span>
+
+<span class="n">root</span><span class="err">@</span><span class="n">debian</span><span class="p">:</span><span class="o">~</span><span class="c1"># systemctl status multi-user.target </span>
+<span class="err">●</span> <span class="n">multi</span><span class="o">-</span><span class="n">user</span><span class="o">.</span><span class="n">target</span> <span class="o">-</span> <span class="n">Multi</span><span class="o">-</span><span class="n">User</span> <span class="n">System</span>
+     <span class="n">Loaded</span><span class="p">:</span> <span class="n">loaded</span> <span class="p">(</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">multi</span><span class="o">-</span><span class="n">user</span><span class="o">.</span><span class="n">target</span><span class="p">;</span> <span class="k">static</span><span class="p">)</span>
+     <span class="n">Active</span><span class="p">:</span> <span class="n">active</span> <span class="n">since</span> <span class="n">Sat</span> <span class="mi">2022</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">07</span> <span class="mi">11</span><span class="p">:</span><span class="mi">58</span><span class="p">:</span><span class="mi">36</span> <span class="n">EDT</span><span class="p">;</span> <span class="mi">4</span><span class="n">h</span> <span class="mi">24</span><span class="nb">min</span> <span class="n">left</span>
+       <span class="n">Docs</span><span class="p">:</span> <span class="n">man</span><span class="p">:</span><span class="n">systemd</span><span class="o">.</span><span class="n">special</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</code></pre></div>
+
+<p>It is also possible to <em>isolate</em> any of the targets or move to two special targets too:</p>
+<ol>
+<li><code>rescue</code>: Local file systems are mounted, there is no networking, and only root user (<em>maintenance</em> mode)</li>
+<li><code>emergency</code>: Only the root file system and in read-only mode, No networking and only root (<em>maintenance</em> mode)</li>
+<li><code>reboot</code></li>
+<li><code>halt</code>: Stops all processes and halts CPU activities</li>
+<li><code>poweroff</code>: Like halt but also sends an ACPI shutdown signal (no lights!)</li>
+</ol>
+<div class="highlight"><pre><span></span><code># <span class="nv">systemctl</span> <span class="nv">isolate</span> <span class="nv">emergency</span>
+<span class="nv">Welcome</span> <span class="nv">to</span> <span class="nv">emergency</span> <span class="nv">mode</span><span class="o">!</span> <span class="nv">After</span> <span class="nv">logging</span> <span class="nv">in</span>, <span class="nv">type</span> <span class="s2">&quot;</span><span class="s">journalctl -xb</span><span class="s2">&quot;</span> <span class="nv">to</span> <span class="nv">view</span> <span class="nv">system</span> <span class="nv">logs</span>, <span class="s2">&quot;</span><span class="s">systemctl reboot</span><span class="s2">&quot;</span> <span class="nv">to</span> <span class="nv">reboot</span>, <span class="s2">&quot;</span><span class="s">systemctl default</span><span class="s2">&quot;</span> <span class="nv">or</span> <span class="o">^</span><span class="nv">D</span> <span class="nv">to</span> <span class="nv">try</span> <span class="nv">again</span> <span class="nv">to</span> <span class="nv">boot</span> <span class="nv">into</span> <span class="nv">default</span> <span class="nv">mode</span>.
+<span class="nv">Give</span> <span class="nv">root</span> <span class="nv">password</span> <span class="k">for</span> <span class="nv">maintenance</span>
+<span class="ss">(</span><span class="nv">or</span> <span class="nv">type</span> <span class="nv">Control</span><span class="o">-</span><span class="nv">D</span> <span class="nv">to</span> <span class="k">continue</span><span class="ss">)</span>:
+#
+# <span class="nv">systemctl</span> <span class="nv">is</span><span class="o">-</span><span class="nv">system</span><span class="o">-</span><span class="nv">running</span>
+<span class="nv">maintenance</span>
+</code></pre></div>
+
+<h3>SysV runlevels</h3>
+<p>On SysV we were able to define different stages. On a red hat based system we usually had 7:</p>
+<ul>
+<li>0- Shutdown</li>
+<li>1- Single-user mode (recovery); also called S or s</li>
+<li>2- Multi-user without networking</li>
+<li>3- Multi-user with networking</li>
+<li>4- to be customized by the admin</li>
+<li>5- Multi-user with networking and graphics</li>
+<li>6- Reboot</li>
+</ul>
+<p>And in Debian based system we had:</p>
+<ul>
+<li>0- Shutdown</li>
+<li>1- Single-user mode</li>
+<li>2- Multi-user mode with graphics</li>
+<li>6- Reboot</li>
+</ul>
+<h2>Checking status and setting defaults</h2>
+<p>You can check your current runlevel with <code>runlevel</code> command. It comes from SysV era but still works on systemd systems. 
+The default was in <code>/etc/inittab</code> </p>
+<div class="highlight"><pre><span></span><code>grep &quot;^id:&quot; /etc/inittab #on initV systems
+id:5:initdefault:
+</code></pre></div>
+
+<p>It can also be done on grub kernel parameters.</p>
+<p>Or using the runlevel and <code>telinit</code> command.</p>
+<div class="highlight"><pre><span></span><code># runlevel
+N 3
+# telinit 5
+# runlevel
+3 5
+# init 0 # shutdow the system
+</code></pre></div>
+
+<p>You can find the files in <code>/etc/init.d</code> and runlevels in <code>/etc/rc[0-6].d</code> directories where S indicates Start and K indicates Kill. </p>
+<p>On systemd, you can find the configs in:</p>
+<ul>
+<li><code>/etc/systemd</code></li>
+<li><code>/usr/lib/systemd/</code></li>
+</ul>
+<p>As discussed in 101.2</p>
+<h3>/etc/inittab</h3>
+<p>Is being replaced by upstart and systemd but is still part of the exam.</p>
+<div class="highlight"><pre><span></span><code>#
+# inittab       This file describes how the INIT process should be set up
+#               the system in a certain run-level.
+#
+# Author:       Miquel van Smoorenburg, &lt;miquels@drinkel.nl.mugnet.org&gt;
+#               Modified for RHS Linux by Marc Ewing and Donnie Barnes
+#
+
+# Default runlevel. The runlevels used by RHS are:
+#   0 - halt (Do NOT set initdefault to this)
+#   1 - Single-user mode
+#   2 - Multiuser, without NFS (The same as 3, if you do not have networking)
+#   3 - Full multiuser mode
+#   4 - unused
+#   5 - X11
+#   6 - reboot (Do NOT set initdefault to this)
+#
+id:5:initdefault:
+
+# System initialization.
+si::sysinit:/etc/rc.d/rc.sysinit
+
+l0:0:wait:/etc/rc.d/rc 0
+l1:1:wait:/etc/rc.d/rc 1
+l2:2:wait:/etc/rc.d/rc 2
+l3:3:wait:/etc/rc.d/rc 3
+l4:4:wait:/etc/rc.d/rc 4
+l5:5:wait:/etc/rc.d/rc 5
+l6:6:wait:/etc/rc.d/rc 6
+
+# Trap CTRL-ALT-DELETE
+ca::ctrlaltdel:/sbin/shutdown -t3 -r now
+
+# When our UPS tells us power has failed, assume we have a few minutes
+# of power left.  Schedule a shutdown for 2 minutes from now.
+# This does, of course, assume you have powered installed and your
+# UPS connected and working correctly.
+pf::powerfail:/sbin/shutdown -f -h +2 &quot;Power Failure; System Shutting Down&quot;
+
+# If power was restored before the shutdown kicked in, cancel it.
+pr:12345:powerokwait:/sbin/shutdown -c &quot;Power Restored; Shutdown Cancelled&quot;
+
+
+# Run gettys in standard runlevels
+1:2345:respawn:/sbin/mingetty tty1
+2:2345:respawn:/sbin/mingetty tty2
+3:2345:respawn:/sbin/mingetty tty3
+4:2345:respawn:/sbin/mingetty tty4
+5:2345:respawn:/sbin/mingetty tty5
+6:2345:respawn:/sbin/mingetty tty6
+
+# Run xdm in runlevel 5
+x:5:respawn:/etc/X11/prefdm -nodaemon
+</code></pre></div>
+
+<p>This is the format:</p>
+<div class="highlight"><pre><span></span><code>id:runlevels:action:process
+</code></pre></div>
+
+<ul>
+<li>id: 2 or 3 chars</li>
+<li>runlevels: which runlevel this commands refers to (empty means all)</li>
+<li>action: respawn, wait, once, initdefault (default run level as seen above), ctrlaltdel (what to do with crrl+alt+delete)</li>
+</ul>
+<p>All scripts are here:</p>
+<div class="highlight"><pre><span></span><code>ls -ltrh /etc/init.d
+</code></pre></div>
+
+<p>And start/stop on runlevels are controlled from these directories:</p>
+<div class="highlight"><pre><span></span><code>root@funlife:~# ls /etc/rc2.d/
+</code></pre></div>
+
+<h2>Stopping the system</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/C7kr7fZtWqs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p>The preferred method to shut down or reboot the system is to use the <code>shutdown</code> command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 1 minute or another delay, if specified, init sends a SIGKILL signal to forcibly end each remaining process.</p>
+<ul>
+<li>Default is 1 minute delay and then going to runlevel 1</li>
+<li>-h will halt the system</li>
+<li>-r will reboot the system</li>
+<li>Time is hh:mm or n (minutes) or now</li>
+<li>Whatever you add, will be broadcasted to logged-in users using the <code>wall</code> command</li>
+<li>If the command is running, ctrl+c or the "shutdown -c" will cancel it</li>
+</ul>
+<div class="highlight"><pre><span></span><code>shutdown -r 60 Reloading updated kernel
+</code></pre></div>
+
+<p>for more advanced users:</p>
+<ul>
+<li>-t60 will delay 60 seconds between SIGTERM and SIGKILL</li>
+<li>if you cancel a shutdown, users won't get the news! you can use "wall" command to tell them that the shutdown is canceled</li>
+</ul>
+<h3>Halt, reboot, and poweroff</h3>
+<ul>
+<li>The <code>halt</code> command halts the system.</li>
+<li>The <code>poweroff</code> command halts the system and then attempts to power it off.</li>
+<li>The <code>reboot</code> command halts the system and then reboots it.</li>
+</ul>
+<blockquote>
+<p>On most distros, these are symbolic links to the systemctl utility</p>
+</blockquote>
+<h3>Advanced Configuration and Power Interface (ACPI)</h3>
+<p>ACPI provides an open standard that operating systems can use to discover and configure computer hardware components, perform power management (e.g. putting unused hardware components to sleep), perform auto-configuration (e.g. Plug and Play, and hot-swapping), and perform status monitoring.</p>
+<p>This subsystem lets OS commands (like shutdown) send signals to the computer which results in powering down of the whole PC. In older times we used to have these mechanical keyboards to do a <em>real</em> power down after the OS has done its shutdown and told us that "it is not safe to power down your computer".</p>
+<p><img alt="" src="/images/vintage_poweroff.jpeg"></p>
+<h2>Notifying users</h2>
+<p>It is good to be informed! Especially if the system is going down; especially on a shared server. Linux has different tools for system admins to notify their users:</p>
+<ul>
+<li><code>wall</code>. Sending <em>wall messages</em> to logged-in users</li>
+<li><code>/etc/issue</code>. Text to be displayed on the tty terminal logins (before login)</li>
+<li><code>/etc/issue.net</code>. Text to be displayed on the remote terminal logins (before login)</li>
+<li><code>/etc/motd</code>: Message of the day (after login). Some companies add "Do not enter if you are not allowed" texts here for legal reasons.</li>
+<li><code>mesg</code> command controls if you want to get wall messages on not. You can do <code>mesg n</code> and <code>who -T</code> will show mesg status. Note that <code>shutdown</code> wall messages do not respect the <code>mesg</code> status</li>
+</ul>
+<blockquote>
+<p>systemctl sends wall messages for emergency, halt, power-off, reboot, and rescue</p>
+</blockquote>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+
+            <!-- show next and previous links -->
+            <table style="background: white; border: 0; font-size: 0.8em;"><tr>
+                
+                
+                
+                
+                
+                <td style="background: white; border: 0;">
+                            <a href="./1012-boot-the-system.html">← 101.2 Boot the System</a>
+                </td>
+                <td style="background: white; border: 0;"><center ><a href="/archives.html">Chapter List</a></center></td>
+                <td style="background: white; border: 0; text-align: right;">
+                            <a href="./1021-design-hard-disk-layout.html">102.1 Design hard disk layout →</a>
+                </td>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            </tr></table>
+            
+            <hr />
+
+
+	<div class=comment>
+
+<div id="disqus_thread"></div>
+<script>
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://linux1st.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+	</div>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Category</h4>
+            <a class="category-link" href="./categories.html#lpic1-ref">LPIC1</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="./tags.html#lpic1-ref">LPIC1
+                    <span class="superscript">42</span>
+</a></li>
+                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
+                    <span class="superscript">41</span>
+</a></li>
+                <li><a href="./tags.html#system-architecture-ref">System Architecture
+                    <span class="superscript">2</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="./theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>
