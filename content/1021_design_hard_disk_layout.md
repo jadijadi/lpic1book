@@ -7,9 +7,6 @@ Summary:
 sortorder: 060
 
 
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
 
 _Weight: 2_
 
@@ -41,9 +38,9 @@ As any contemporary OS, Linux uses _files_ and _directories_ to operate. But unl
 
 > Note: Most of external devices \(USB, CD, ..\) are mounted at /media/ or /mnt/ .
 
-### Unix directorieso
+### Unix directories
 
-This might be your most importatnt "Oh I got it!" moment in your linux journey. This might help you to find the programs, configs, ... you are looking for much faster. 
+This might be your enlightening moment in your linux journey. Understanding **Filesystem Hierarchy Standard (FHS)** can help you find your programs, configs, logs, ... without having prior knowlege about them. This is standard and the latest revision is for 2015.
 
 | Directory | Description |
 | :--- | :--- |
@@ -166,7 +163,7 @@ Device     Boot     Start       End   Sectors   Size Id Type
 
 A graphical tool for managing disks and partitions.
 
-![](http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-1/gparted-1s.jpg)
+![](/images/gparted.png)
 
 #### LVM
 
