@@ -108,6 +108,8 @@
 <li>partitions</li>
 </ul>
 <h3>Basics</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/AGu0ulELDzE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <p>Like any contemporary OS, Linux uses <em>files</em> and <em>directories</em> to operate. But unlike <em>Windows</em>, it does not use A:, C:, D:, etc. In Linux, everything is in <em>*one big tree</em>, starting with / (called root). Any partition, disk, CD, USB, network drive, ... will be placed somewhere in this huge tree.</p>
 <blockquote>
 <p>Note: Most of external devices (USB, CD, ..) are mounted at /media/ or /mnt/ .</p>
@@ -185,6 +187,8 @@
 </tbody>
 </table>
 <h3>Partitions</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WHsjpzCYXo8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <p>In the Linux world, devices are defined at /dev/. First SATA or SCSI disks you will have <code>/dev/sda</code>, and for the 3rd PATA (super old) disk you will see /dev/hdc.</p>
 <p>You have to <em>PARTITION</em> the disks, that is create smaller parts on a big disk. These are self-contained sections on the main drive. OS sees these as standalone disks.  We call them /dev/sda1 (first partition of first SCSI disk) or /dev/hd<strong>b</strong>3 (3rd partition on second disk).</p>
 <p>BIOS systems were using MBR and could have up to 4 partitions on each disk, although instead of creating 4 Primary partitions, you could create an Extended partition and define more Logical partitions inside it.  </p>
