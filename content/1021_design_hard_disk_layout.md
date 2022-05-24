@@ -7,13 +7,6 @@ Summary:
 sortorder: 060
 
 
-<<<<<<< HEAD
-=======
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for the LPIC version 500 exam. Will be updated in a few weeks.
-</div>
->>>>>>> b7a959b588e0c5a0167f06a1457f0617aa8db9ab
-
 _Weight: 2_
 
 Description: Candidates should be able to design a disk partitioning scheme for a Linux system.
@@ -39,6 +32,8 @@ the following is a partial list of the used files, terms, and utilities:
 
 
 ### Basics
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/AGu0ulELDzE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Like any contemporary OS, Linux uses _files_ and _directories_ to operate. But unlike _Windows_, it does not use A:, C:, D:, etc. In Linux, everything is in _\*one big tree_, starting with / \(called root\). Any partition, disk, CD, USB, network drive, ... will be placed somewhere in this huge tree.
 
@@ -67,6 +62,8 @@ This might be your enlightening moment in your linux journey. Understanding **Fi
 | var | Variable data (logs, ...)|
 
 ### Partitions
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WHsjpzCYXo8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 In the Linux world, devices are defined at /dev/. First SATA or SCSI disks you will have `/dev/sda`, and for the 3rd PATA (super old) disk you will see /dev/hdc.
 
