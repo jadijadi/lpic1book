@@ -65,7 +65,7 @@ This might be your enlightening moment in your linux journey. Understanding **Fi
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/WHsjpzCYXo8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-In the Linux world, devices are defined at `/dev/`. First SATA or SCSI disks you will have `/dev/sda`, and for the 3rd PATA (super old) disk you will see `/dev/hdc`.
+In the Linux world, devices are defined at `/dev/`. First SATA or SCSI disks you will have `/dev/sda`, For newer nvme drives you can see `/dev/nvme0` and partitions are available as `/dev/nvme0n1`, and for the 3rd PATA (super old) disk you will see `/dev/hdc`, also for SD/eMMC/bare NAND/NOR devices you will have `/dev/mmcblk0` and partitions are seen as `/dev/mmcblk0p0`.
 
 You have to _PARTITION_ the disks, that is create smaller parts on a big disk. These are self-contained sections on the main drive. OS sees these as standalone disks.  We call them /dev/sd**a**1 \(first partition of first SCSI disk\) or /dev/hd**b**3 \(3rd partition on second disk\).
 
