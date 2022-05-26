@@ -366,8 +366,7 @@ fi
 
 
 #### GRUB2 commands
-And here is a realworld `grub.cfg`:
-To rebuild the installation file, you need to do a `grub2-mkconfig` or `grub-mkconfig`. It reads the configuration files from `/etc/grub.d/` and `/etc/default/grub/` and create the `grub.cfg` file based on them. You run it like this:
+The installation is done with `grub-install /dev/sda` and after changing the config files, you need to issue  `grub2-mkconfig` or `grub-mkconfig`. It reads the configuration files from `/etc/grub.d/` and `/etc/default/grub/` and create the `grub.cfg` file based on them. You run it like this:
 
 ```
 grub2-mkconfig > /boot/grub2/grub.cfg
@@ -378,6 +377,11 @@ or
 ```
 grub2-mkconfig -o /boot/grub2/grub.cfg
 ``` 
+
+
+There is also a command called `update-grub` as a frontend to `grub-mkconfig` which runs `grub-mkconfig -o /boot/grub/grub.cfg`
+
+> Please note that on some modern distros, you have both `grub` and `grub2` commands available for compability reasons and one links to the other.
 
 
 #### Interacting with GRUB2
@@ -408,39 +412,4 @@ These are some of the other options you may use:
 |selinux|disable `selinux` on boot|
 |single,S,1,Single|Boot in single user mode for troubleshooting (SysV)|
 |systemd.unit=|Boot in this systemd target|
-
-
-When you run `grub-install /dev/sda`, grub2 builds a core image, build a configuration file and install GRUB 2 in your MBR.
-
-These steps can be done separately:
-
-```text
-$ grub-install --help
-Usage: grub-install [OPTION] install_device
-Install GRUB on your drive.
-
-  -h, --help              print this message and exit
-  -v, --version           print the version information and exit
-  --modules=MODULES       pre-load specified modules MODULES
-  --root-directory=DIR    install GRUB images under the directory DIR
-                          instead of the root directory
-  --grub-setup=FILE       use FILE as grub-setup
-  --grub-mkimage=FILE     use FILE as grub-mkimage
-  --grub-mkdevicemap=FILE use FILE as grub-mkdevicemap
-  --grub-probe=FILE       use FILE as grub-probe
-  --no-floppy             do not probe any floppy drive
-  --recheck               probe a device map even if it already exists
-  --force                 install even if problems are detected
-  --disk-module=MODULE    disk module to use
-
-INSTALL_DEVICE can be a GRUB device name or a system device filename.
-
-grub-install copies GRUB images into the DIR/boot directory specified by
---root-directory, and uses grub-setup to install grub into the boot
-sector.
-
-Report bugs to <bug-grub@gnu.org>.
-```
-
-> There is a command called `update-grub` as a frontend to `grub-mkconfig` which looks into the /etc/default/grub and creates a grub.cfg file.
 
