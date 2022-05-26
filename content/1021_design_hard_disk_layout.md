@@ -207,3 +207,14 @@ As any other system `/boot` should be local \(a physical disk connected to the m
 #### Case three: Server
 
 On servers `/boot` is still local and based on usage, `/home` can be local or network. In many cases, we separate the `/var` because logs and many other files are there and being updated so it is good to separate it or even put it on more advanced storage \(like RAID disks to prevent data loss\). Some people also separate the `/usr` and write-protect it \(read-only file systems\) or even mount the /usr from the network so they can change/update one file on the network storage and all the servers will use the new file \(you remember? `/usr` contains important executables like Apache webserver\).
+
+## Bonus! know about zram
+Here I'll review the 3 different methods to add a *swap* to your OS. We will have a look at 3 different distros:
+
+- Debian 11; uses a swap partition
+- Ubuntu 22.04; uses a swap file
+- Fedora 36; uses `zram`
+
+In short `zram` is a virtual disk on your RAM which can be used as a swap space or be mounted anywhere you like; a common example is `\tmp`. Lets see.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Y6aceqC0p0Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
