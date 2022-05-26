@@ -496,8 +496,7 @@ menuentry &quot;Windows&quot; {
 </code></pre></div>
 
 <h4>GRUB2 commands</h4>
-<p>And here is a realworld <code>grub.cfg</code>:
-To rebuild the installation file, you need to do a <code>grub2-mkconfig</code> or <code>grub-mkconfig</code>. It reads the configuration files from <code>/etc/grub.d/</code> and <code>/etc/default/grub/</code> and create the <code>grub.cfg</code> file based on them. You run it like this:</p>
+<p>The installation is done with <code>grub-install /dev/sda</code> and after changing the config files, you need to issue  <code>grub2-mkconfig</code> or <code>grub-mkconfig</code>. It reads the configuration files from <code>/etc/grub.d/</code> and <code>/etc/default/grub/</code> and create the <code>grub.cfg</code> file based on them. You run it like this:</p>
 <div class="highlight"><pre><span></span><code>grub2-mkconfig &gt; /boot/grub2/grub.cfg
 </code></pre></div>
 
@@ -505,6 +504,10 @@ To rebuild the installation file, you need to do a <code>grub2-mkconfig</code> o
 <div class="highlight"><pre><span></span><code>grub2-mkconfig -o /boot/grub2/grub.cfg
 </code></pre></div>
 
+<p>There is also a command called <code>update-grub</code> as a frontend to <code>grub-mkconfig</code> which runs <code>grub-mkconfig -o /boot/grub/grub.cfg</code></p>
+<blockquote>
+<p>Please note that on some modern distros, you have both <code>grub</code> and <code>grub2</code> commands available for compability reasons and one links to the other.</p>
+</blockquote>
 <h4>Interacting with GRUB2</h4>
 <p>if you press <code>c</code> on the grub menu, you will go into the <em>GRUB Command Line</em> or <em>GRUB shell</em>. Ther you can type commands like <code>root</code> and <code>kernel</code> and <code>initrd</code> and boot the system with <code>boot</code> or press the <code>Esc</code> key to return back to the menu. </p>
 <h3>Kernel Boot Parameters</h3>
@@ -564,38 +567,6 @@ To rebuild the installation file, you need to do a <code>grub2-mkconfig</code> o
 </tr>
 </tbody>
 </table>
-<p>When you run <code>grub-install /dev/sda</code>, grub2 builds a core image, build a configuration file and install GRUB 2 in your MBR.</p>
-<p>These steps can be done separately:</p>
-<div class="highlight"><pre><span></span><code>$ grub-install --help
-Usage: grub-install [OPTION] install_device
-Install GRUB on your drive.
-
-  -h, --help              print this message and exit
-  -v, --version           print the version information and exit
-  --modules=MODULES       pre-load specified modules MODULES
-  --root-directory=DIR    install GRUB images under the directory DIR
-                          instead of the root directory
-  --grub-setup=FILE       use FILE as grub-setup
-  --grub-mkimage=FILE     use FILE as grub-mkimage
-  --grub-mkdevicemap=FILE use FILE as grub-mkdevicemap
-  --grub-probe=FILE       use FILE as grub-probe
-  --no-floppy             do not probe any floppy drive
-  --recheck               probe a device map even if it already exists
-  --force                 install even if problems are detected
-  --disk-module=MODULE    disk module to use
-
-INSTALL_DEVICE can be a GRUB device name or a system device filename.
-
-grub-install copies GRUB images into the DIR/boot directory specified by
---root-directory, and uses grub-setup to install grub into the boot
-sector.
-
-Report bugs to &lt;bug-grub@gnu.org&gt;.
-</code></pre></div>
-
-<blockquote>
-<p>There is a command called <code>update-grub</code> as a frontend to <code>grub-mkconfig</code> which looks into the /etc/default/grub and creates a grub.cfg file.</p>
-</blockquote>
 
 
              
