@@ -249,15 +249,15 @@ title Windows
 <h3>GRUB2</h3>
 <p>This is the most common boot loader these days. On BIOS systems it is installed on <code>/boot/grub/</code> or <code>/boot/grub2/</code> and under UEFI it goes in <code>/boot/efi/EFI/distro-name/</code> (say <code>/boot/efi/EFI/fedora/</code>). GRUB2's configuration file is called <code>grub.cfg</code>.</p>
 <p>Here is a simplified <code>grub.cfg</code>:</p>
-<div class="highlight"><pre><span></span><code>set default=&quot;0&quot;
-menuentry &quot;Fedora&quot; { 
-  set root=(hd1,1)
-  linux /boot/vmlinuz-5.10.0-9-arm64 ro quiet
-  initrd /boot/initrd.img-5.10.0-9-arm64
-}
-menuentry &quot;Windows&quot; {
-  set root=(hd0,1)
-}
+<div class="highlight"><pre><span></span><code><span class="n">set</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;0&quot;</span>
+<span class="n">menuentry</span> <span class="s2">&quot;Fedora&quot;</span> <span class="p">{</span> 
+  <span class="n">set</span> <span class="n">root</span><span class="o">=</span><span class="p">(</span><span class="n">hd1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">linux</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span> <span class="n">ro</span> <span class="n">quiet</span>
+  <span class="n">initrd</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="o">.</span><span class="n">img</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span>
+<span class="p">}</span>
+<span class="n">menuentry</span> <span class="s2">&quot;Windows&quot;</span> <span class="p">{</span>
+  <span class="n">chainloader</span> <span class="p">(</span><span class="n">hd1</span><span class="p">,</span><span class="n">msdos2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+<span class="p">}</span>
 </code></pre></div>
 
 <p>As you can see, GRUB uses Linux style numbering for partitions, so the first partition on first hard disk is (hd1,1) or (hd1,msdos1) for Dos partitions.</p>
