@@ -104,6 +104,8 @@
 <li>MBR</li>
 </ul>
 <h3>Boot overview</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/G_FzcMZYDbg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <p>Most systems use BIOS or UEFI. When on BIOS, System will do a self test called POST. Then it will hand over the boot process to the first sector of master boot record (MBR) which is track (Cylinder) 0, side (Head) 0 and Sector 1 of the first disk. </p>
 <p>MBR is only 512bytes so we need a <em>smart bootloader</em> to handle larger boot managers and even multiple systems. Some of these boot loaders are LILO, GRUB and GRUB2.</p>
 <p>If the system is using UEFI, the hardware will follow UEFI stages. They start with a Security phase and will continue till the end phase where the UEFI looks for a EFI System Partition, that is just a FAT32 partition (usually the first one, but that's implementation defined) with PE executables and runs them. </p>
@@ -247,6 +249,8 @@ title Windows
 <h4>Interacting with GRUB Legacy</h4>
 <p>if you press <code>c</code> on the grub menu, you will go into the <em>GRUB Command Line</em> or <em>GRUB shell</em>. Ther you can type commands like <code>root</code> and <code>kernel</code> and <code>initrd</code> and boot the system with <code>boot</code> or press the <code>Esc</code> key to return back to the menu. </p>
 <h3>GRUB2</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lB-1orohGA0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <p>This is the most common boot loader these days. On BIOS systems it is installed on <code>/boot/grub/</code> or <code>/boot/grub2/</code> and under UEFI it goes in <code>/boot/efi/EFI/distro-name/</code> (say <code>/boot/efi/EFI/fedora/</code>). GRUB2's configuration file is called <code>grub.cfg</code>.</p>
 <p>Here is a simplified <code>grub.cfg</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">set</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;0&quot;</span>
