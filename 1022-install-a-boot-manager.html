@@ -251,7 +251,7 @@ title Windows
 <p>Here is a simplified <code>grub.cfg</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">set</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;0&quot;</span>
 <span class="n">menuentry</span> <span class="s2">&quot;Fedora&quot;</span> <span class="p">{</span> 
-  <span class="n">set</span> <span class="n">root</span><span class="o">=</span><span class="p">(</span><span class="n">hd1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">set</span> <span class="n">root</span><span class="o">=</span><span class="p">(</span><span class="n">hd0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
   <span class="n">linux</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span> <span class="n">ro</span> <span class="n">quiet</span>
   <span class="n">initrd</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="o">.</span><span class="n">img</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span>
 <span class="p">}</span>
@@ -260,7 +260,7 @@ title Windows
 <span class="p">}</span>
 </code></pre></div>
 
-<p>As you can see, GRUB uses Linux style numbering for partitions, so the first partition on first hard disk is (hd1,1) or (hd1,msdos1) for Dos partitions.</p>
+<p>As you can see, GRUB uses Linux style numbering for partitions, so the first partition on first hard disk is (hd0,1) or (hd0,msdos1) for Dos partitions or (hd0,gpt1) for gpt drives.</p>
 <p>Here you can see some of the options:</p>
 <table>
 <thead>
@@ -512,7 +512,7 @@ title Windows
 <p>if you press <code>c</code> on the grub menu, you will go into the <em>GRUB Command Line</em> or <em>GRUB shell</em>. Ther you can type commands like <code>root</code> and <code>kernel</code> and <code>initrd</code> and boot the system with <code>boot</code> or press the <code>Esc</code> key to return back to the menu. </p>
 <h3>Kernel Boot Parameters</h3>
 <p>In the above configs, we sent some parameters to the kernel like this:</p>
-<div class="highlight"><pre><span></span><code>        linux   /boot/vmlinuz-5.10.0-9-arm64 root=(hd0,1) ro  quiet
+<div class="highlight"><pre><span></span><code>        linux   /boot/vmlinuz-5.10.0-9-arm64 root=/dev/sda1 ro  quiet
 </code></pre></div>
 
 <p>This tells the kernel to boot in <em>ReadOnly</em> mode and do not show lots of logs during the boot (<em>quiet</em>).</p>

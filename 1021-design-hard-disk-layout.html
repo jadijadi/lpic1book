@@ -189,7 +189,7 @@
 <h3>Partitions</h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/WHsjpzCYXo8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p>In the Linux world, devices are defined at <code>/dev/</code>. First SATA or SCSI disks you will have <code>/dev/sda</code>, and for the 3rd PATA (super old) disk you will see <code>/dev/hdc</code>.</p>
+<p>In the Linux world, devices are defined at <code>/dev/</code>. First SATA or SCSI disks you will have <code>/dev/sda</code>, For newer nvme drives you can see <code>/dev/nvme0</code> and partitions are available as <code>/dev/nvme0n1</code>, and for the 3rd PATA (super old) disk you will see <code>/dev/hdc</code>, also for SD/eMMC/bare NAND/NOR devices you will have <code>/dev/mmcblk0</code> and partitions are seen as <code>/dev/mmcblk0p0</code>.</p>
 <p>You have to <em>PARTITION</em> the disks, that is create smaller parts on a big disk. These are self-contained sections on the main drive. OS sees these as standalone disks.  We call them /dev/sd<strong>a</strong>1 (first partition of first SCSI disk) or /dev/hd<strong>b</strong>3 (3rd partition on second disk).</p>
 <p>BIOS systems were using MBR and could have up to 4 partitions on each disk, although instead of creating 4 Primary partitions, you could create an Extended partition and define more Logical partitions inside it.  </p>
 <blockquote>
