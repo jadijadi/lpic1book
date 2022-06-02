@@ -140,16 +140,16 @@ Here is a simplified `grub.cfg`:
 ```
 set default="0"
 menuentry "Fedora" { 
-  set root=(hd1,1)
+  set root=(hd0,1)
   linux /boot/vmlinuz-5.10.0-9-arm64 ro quiet
   initrd /boot/initrd.img-5.10.0-9-arm64
 }
 menuentry "Windows" {
-  set root=(hd0,1)
+  chainloader (hd1,msdos2)+1
 }
 ```
 
-As you can see, GRUB uses Linux style numbering for partitions, so the first partition on first hard disk is (hd1,1) or (hd1,msdos1) for Dos partitions.
+As you can see, GRUB uses Linux style numbering for partitions, so the first partition on first hard disk is (hd0,1) or (hd0,msdos1) for Dos partitions or (hd0,gpt1) for gpt drives.
 
 Here you can see some of the options:
 
@@ -393,7 +393,7 @@ if you press `c` on the grub menu, you will go into the _GRUB Command Line_ or _
 In the above configs, we sent some parameters to the kernel like this:
 
 ```
-        linux   /boot/vmlinuz-5.10.0-9-arm64 root=(hd0,1) ro  quiet
+        linux   /boot/vmlinuz-5.10.0-9-arm64 root=/dev/sda1 ro  quiet
 ```
 
 This tells the kernel to boot in _ReadOnly_ mode and do not show lots of logs during the boot (_quiet_).
