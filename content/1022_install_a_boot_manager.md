@@ -26,6 +26,8 @@ Description: Candidates should be able to select, install and configure a boot m
 
 ### Boot overview
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/G_FzcMZYDbg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 Most systems use BIOS or UEFI. When on BIOS, System will do a self test called POST. Then it will hand over the boot process to the first sector of master boot record \(MBR\) which is track \(Cylinder\) 0, side \(Head\) 0 and Sector 1 of the first disk. 
 
 MBR is only 512bytes so we need a _smart bootloader_ to handle larger boot managers and even multiple systems. Some of these boot loaders are LILO, GRUB and GRUB2.
@@ -133,6 +135,9 @@ If you needed to change or reconfigure anything during the startup, just press t
 if you press `c` on the grub menu, you will go into the _GRUB Command Line_ or _GRUB shell_. Ther you can type commands like `root` and `kernel` and `initrd` and boot the system with `boot` or press the `Esc` key to return back to the menu. 
 
 ### GRUB2
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lB-1orohGA0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 This is the most common boot loader these days. On BIOS systems it is installed on `/boot/grub/` or `/boot/grub2/` and under UEFI it goes in `/boot/efi/EFI/distro-name/` (say `/boot/efi/EFI/fedora/`). GRUB2's configuration file is called `grub.cfg`.
 
 Here is a simplified `grub.cfg`:
