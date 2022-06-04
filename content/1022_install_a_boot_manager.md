@@ -28,13 +28,13 @@ Description: Candidates should be able to select, install and configure a boot m
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/G_FzcMZYDbg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Most systems use BIOS or UEFI. When on BIOS, System will do a self test called POST. Then it will hand over the boot process to the first sector of master boot record \(MBR\) which is track \(Cylinder\) 0, side \(Head\) 0 and Sector 1 of the first disk. 
+Most systems use BIOS or UEFI. When on BIOS, system will do a self test called POST. Then it will hand over the boot process to the first sector of master boot record \(MBR\) which is track \(Cylinder\) 0, side \(Head\) 0 and Sector 1 of the first disk. 
 
-MBR is only 512bytes so we need a _smart bootloader_ to handle larger boot managers and even multiple systems. Some of these boot loaders are LILO, GRUB and GRUB2.
+MBR is only 512 bytes so we need a _smart bootloader_ to handle larger boot managers and even multiple systems. Some of these boot loaders are LILO, GRUB and GRUB2.
 
-If the system is using UEFI, the hardware will follow UEFI stages. They start with a Security phase and will continue till the end phase where the UEFI looks for a EFI System Partition, that is just a FAT32 partition (usually the first one, but that's implementation defined) with PE executables and runs them. 
+If the system is using UEFI, the hardware will follow UEFI stages. They start with a security phase and will continue till the end phase where the UEFI looks for a EFI System Partition, that is just a FAT32 partition (usually the first one, but that's implementation defined) with PE executables and runs them. 
 
-In both cases, the binary starts the boot loader. It might be a complete bootloader on /boot/efi/ of your computer or a small loader for the main grub on the MBR or a windows loader or even a chainloader.
+In both cases, the binary starts the boot loader. It might be a complete bootloader on `/boot/efi/` of your computer or a small loader for the main grub on the MBR or a windows loader or even a chainloader.
 
 > Chain Loading is when a boot loaders, loads another boot loader. This is done when a linux bootloader needs to start a Windows system.
 
@@ -47,23 +47,23 @@ It's a menu based system where you can choose which Kernel or chainloader to boo
 
 ### Grub Legacy
 
-Usually the GRUBv1 \(actually 0.9\) is installed in `/boot/grub`. Its main configuration is in `/boot/grub/menu.lst` but nowadayw some distros (including RedHat Based ones) link this to the `/boot/grub/grub.conf`.
+Usually the GRUBv1 \(actually 0.9\) is installed in `/boot/grub`. Its main configuration is in `/boot/grub/menu.lst` but nowadays some distros (including RedHat Based ones) link this to the `/boot/grub/grub.conf`.
 
-A sample menu.lst / grub.conf file for GRUB legacy consists of two sections. The first section contins global configs and the 2nd part defines different kernel/initram or chainloader options.
+A sample menu.lst / grub.conf file for GRUB legacy consists of two sections. The first section contains global configs and the 2nd part defines different kernel/initram or chainloader options.
 
 The global configs are:
 
 |Config|Description|
 |------|-----------|
-| \# | comment |
-|color|foreground and background colors for normal and active items.|
-|default|which boot menu item is the default|
-|fallback|which boot menu should be used if the _default_ fails|
+| \# | Comment |
+|color|Foreground and background colors for normal and active items|
+|default|Which boot menu item is the default|
+|fallback|WWhich boot menu should be used if the _default_ fails|
 |hiddenmenu|Hide the menu options|
 |splashimage|Show this image in the background!|
-|timeout|wait this much and then start the default|
-| password | Security is important! will ask this password |
-| savedefault | remember the last booted item |
+|timeout|Wait this much and then start the default|
+| password | Security is important! Will ask this password |
+| savedefault | Remember the last booted item |
 
 
 On the seccond part of the config, we have these:
@@ -71,11 +71,11 @@ On the seccond part of the config, we have these:
 |Config|Description|
 |------|-----------|
 |title|Defines the section name|
-|root|Disk and partition where /boot folder is. In the form of (hddrive, partition), say (hd0, 0) or (hd0, msdos0)|
-|kernel|Kernel image file name in /boot|
-|initrd|Initramfs file in /boot|
+|root|Disk and partition where `/boot` directory is. In the form of (hddrive, partition), say (hd0, 0) or (hd0, msdos0)|
+|kernel|Kernel image file name in `/boot`|
+|initrd|Initramfs file in `/boot`|
 |rootnoverify|Defines a non-Linux root partition|
-| chainloader | another file will act as stage 1 loader. Used for booting Windows systems |
+| chainloader | Another file will act as stage 1 loader. Used for booting Windows systems |
 
 Here you can see a sample of GRUB-Legacy config:
 
@@ -127,12 +127,12 @@ After creating the configuration, you need to install the grub on a disk MBR. To
 ```
 
 
-Just like any other boot manager, you can install grub on a CD, floppy, MBR \(/dev/sda, /dev/sdb, ..\) or a partition \(/dev/sdb2, /dev/sda6, ..\). But if you want to install it on anywhere other than the MBR, use a chainloader to point your boot sequence toward it.
+Just like any other boot manager, you can install grub on a CD, floppy, MBR \(`/dev/sda`, `/dev/sdb`, ..\) or a partition \(`/dev/sdb2`, `/dev/sda6`, ..\). But if you want to install it on anywhere other than the MBR, use a chainloader to point your boot sequence toward it.
 
 If you needed to change or reconfigure anything during the startup, just press the `e` on that item and you'll get an interactive editing environment. Press **Enter** when done and `b` for boot.
 
 #### Interacting with GRUB Legacy
-if you press `c` on the grub menu, you will go into the _GRUB Command Line_ or _GRUB shell_. Ther you can type commands like `root` and `kernel` and `initrd` and boot the system with `boot` or press the `Esc` key to return back to the menu. 
+If you press `c` on the grub menu, you will go into the _GRUB Command Line_ or _GRUB shell_. There you can type commands like `root` and `kernel` and `initrd` and boot the system with `boot` or press the `Esc` key to return back to the menu. 
 
 ### GRUB2
 
@@ -154,18 +154,18 @@ menuentry "Windows" {
 }
 ```
 
-As you can see, GRUB uses Linux style numbering for partitions, so the first partition on first hard disk is (hd0,1) or (hd0,msdos1) for Dos partitions or (hd0,gpt1) for gpt drives.
+As you can see, GRUB uses Linux style numbering for partitions, so the first partition on first hard disk is `(hd0,1)` or `(hd0,msdos1)` for DOS partitions or `(hd0,gpt1)` for GPT drives.
 
 Here you can see some of the options:
 
 |Option|Description|
 |-|-|
-|menuentry|defines a new menuentry|
-|set root|defines the root where /boot located|
-|linux, linux16|defines the location of the Linux kernel on BIOS systems|
-|linuxefi|defines the Linux kernel on UEFI systems|
-|initrd|defines the initramfs image for BIOS systems|
-|initrdefi|defines the initramfs image for UEFI systems|
+|menuentry|Defines a new menuentry|
+|set root|Defines the root where `/boot` located|
+|linux, linux16|Defines the location of the Linux kernel on BIOS systems|
+|linuxefi|Defines the Linux kernel on UEFI systems|
+|initrd|Defines the initramfs image for BIOS systems|
+|initrdefi|Defines the initramfs image for UEFI systems|
 
 And here is a realworld `grub.cfg`:
 
@@ -391,10 +391,10 @@ There is also a command called `update-grub` as a frontend to `grub-mkconfig` wh
 
 #### Interacting with GRUB2
 
-if you press `c` on the grub menu, you will go into the _GRUB Command Line_ or _GRUB shell_. Ther you can type commands like `root` and `kernel` and `initrd` and boot the system with `boot` or press the `Esc` key to return back to the menu. 
+If you press `c` on the grub menu, you will go into the _GRUB Command Line_ or _GRUB shell_. There you can type commands like `root` and `kernel` and `initrd` and boot the system with `boot` or press the `Esc` key to return back to the menu. 
 
 
-### Kernel Boot Parameters
+### Kernel boot parameters
 In the above configs, we sent some parameters to the kernel like this:
 
 ```
@@ -409,12 +409,12 @@ These are some of the other options you may use:
 |-|-|
 |console=|Set the console|
 |debug|Start in debug mode|
-|init=|run an specific program instead of the default init|
-|initrd=|use this initrd|
+|init=|Run an specific program instead of the default init|
+|initrd=|Use this initrd|
 |ro|Mount the root filesystem read only|
 |rw|Mount the root filesystem for read and write|
-|root=|use this as the root filesystem|
-|selinux|disable `selinux` on boot|
+|root=|Use this as the root filesystem|
+|selinux|Disable `selinux` on boot|
 |single,S,1,Single|Boot in single user mode for troubleshooting (SysV)|
 |systemd.unit=|Boot in this systemd target|
 
