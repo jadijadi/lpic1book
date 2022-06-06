@@ -36,14 +36,14 @@ If the system is using UEFI, the hardware will follow UEFI stages. They start wi
 
 In both cases, the binary starts the boot loader. It might be a complete bootloader on `/boot/efi/` of your computer or a small loader for the main grub on the MBR or a windows loader or even a chainloader.
 
-> Chain Loading is when a boot loaders, loads another boot loader. This is done when a linux bootloader needs to start a Windows system.
+> Chain Loading is when a boot loader, loads another boot loader. This is done when a Linux bootloader needs to start a Windows system.
 
 ## GRUB
 
 
-**GRUB** \(**GR**and **U**nified **B**ootloader\) started to replace the older LILO. The first version (1) is called Grub Legacy and startd in 1999. The 2nd version, started in 2005 and is a complete rewrite of the version 1.
+**GRUB** \(**GR**and **U**nified **B**ootloader\) started to replace the older LILO. The first version (1) is called Grub Legacy and started in 1999. The 2nd version started in 2005 and is a complete rewrite of version 1.
 
-It's a menu based system where you can choose which Kernel or chainloader to boot. It is also possible to edit the menus on the fly or give direct commands from a command line.
+It's a menu-based system where you can choose which Kernel or chainloader to boot. It is also possible to edit the menus on the fly or give direct commands from a command line.
 
 ### Grub Legacy
 
@@ -66,7 +66,7 @@ The global configs are:
 | savedefault | Remember the last booted item |
 
 
-On the seccond part of the config, we have these:
+On the second part of the config, we have these:
 
 |Config|Description|
 |------|-----------|
@@ -129,6 +129,7 @@ After creating the configuration, you need to install the grub on a disk MBR. To
 
 Just like any other boot manager, you can install grub on a CD, floppy, MBR \(`/dev/sda`, `/dev/sdb`, ..\) or a partition \(`/dev/sdb2`, `/dev/sda6`, ..\). But if you want to install it on anywhere other than the MBR, use a chainloader to point your boot sequence toward it.
 
+
 If you needed to change or reconfigure anything during the startup, just press the `e` on that item and you'll get an interactive editing environment. Press **Enter** when done and `b` for boot.
 
 #### Interacting with GRUB Legacy
@@ -167,7 +168,7 @@ Here you can see some of the options:
 |initrd|Defines the initramfs image for BIOS systems|
 |initrdefi|Defines the initramfs image for UEFI systems|
 
-And here is a realworld `grub.cfg`:
+And here is a real world `grub.cfg`:
 
 ```
 #
@@ -386,7 +387,7 @@ grub2-mkconfig -o /boot/grub2/grub.cfg
 
 There is also a command called `update-grub` as a frontend to `grub-mkconfig` which runs `grub-mkconfig -o /boot/grub/grub.cfg`
 
-> Please note that on some modern distros, you have both `grub` and `grub2` commands available for compability reasons and one links to the other.
+> Please note that on some modern distros, you have both `grub` and `grub2` commands available for compatibility reasons, and one links to the other.
 
 
 #### Interacting with GRUB2
@@ -401,7 +402,7 @@ In the above configs, we sent some parameters to the kernel like this:
         linux   /boot/vmlinuz-5.10.0-9-arm64 root=/dev/sda1 ro  quiet
 ```
 
-This tells the kernel to boot in _ReadOnly_ mode and do not show lots of logs during the boot (_quiet_).
+This tells the kernel to boot in _ReadOnly_ mode and does not show lots of logs during the boot (_quiet_).
 
 These are some of the other options you may use:
 
@@ -417,4 +418,3 @@ These are some of the other options you may use:
 |selinux|Disable `selinux` on boot|
 |single,S,1,Single|Boot in single user mode for troubleshooting (SysV)|
 |systemd.unit=|Boot in this systemd target|
-
