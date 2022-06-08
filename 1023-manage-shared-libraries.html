@@ -87,17 +87,16 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>weight 2</em></p>
+            <p><em>weight 1</em></p>
 <h3>Objectives</h3>
 <p>Candidates should be able to determine the shared libraries that executable programs depend on and install them when necessary.</p>
 <ul>
 <li>Identify shared libraries.</li>
 <li>Identify the typical locations of system libraries.</li>
 <li>Load shared libraries.</li>
+</ul>
+<h4>Terms and Utilities</h4>
+<ul>
 <li>ldd</li>
 <li>ldconfig</li>
 <li>/etc/ld.so.conf</li>
@@ -109,11 +108,12 @@
 <li><strong>Static</strong> linking is when you add this library to your executable program. In this method your program size is big because it has all the needed libraries. One good advantage is your program can be run without being dependent to other programs / libraries.</li>
 <li><strong>Dynamic</strong> linking is when you just say in your program "We need this and that library to run this program". This way your program is smaller but you need to install those libraries separately. This makes programs more secure (because libraries can be updated centrally), more advanced (any improvement in a library will improve the whole program) and smaller.</li>
 </ul>
+<p>Linux dynamic libraries have names like <code>libLIBNAME.so.VERSION</code> and are located at places like <code>/lib*/</code> and <code>/usr/lib*/</code>. On Windows, we call them Dynamic Linked Libraries (DLLs). </p>
 <blockquote>
 <p>Dynamic linking is also called <strong>shared</strong> libraries because all the programs are sharing one library which is separately installed.</p>
 </blockquote>
 <h3>What libraries I need</h3>
-<p>first you should know that libraries are installed in <code>/lib</code> and <code>/lib64</code> (for 32bit and 64bit libraries).</p>
+<p>Libraries related to system utilities are installed in <code>/lib</code> and <code>/lib64</code> (for 32bit and 64bit libraries) and libraries installed by other softwares will be located at <code>/usr/lib</code> and <code>/usr/lib64</code>.</p>
 <h4>ldd</h4>
 <p>the <code>ldd</code> command helps you find:</p>
 <ul>
@@ -121,29 +121,25 @@
 <li>What libraries a program needs</li>
 </ul>
 <p>lets have a look at two files:</p>
-<div class="highlight"><pre><span></span><code># ldd /sbin/ldconfig
+<div class="highlight"><pre><span></span><code>[jadi@fedora ~]$ ldd /sbin/ldconfig
     not a dynamic executable
 
-# ldd /bin/ls
-ls     lsblk  lsmod  
-root@funlife:/home/jadi/Downloads# ldd /bin/ls
-    linux-vdso.so.1 =&gt;  (0x00007fffef1fc000)
-    libselinux.so.1 =&gt; /lib/x86_64-linux-gnu/libselinux.so.1 (0x00007f61696b3000)
-    libacl.so.1 =&gt; /lib/x86_64-linux-gnu/libacl.so.1 (0x00007f61694aa000)
-    libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f61690e4000)
-    libpcre.so.3 =&gt; /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007f6168e77000)
-    libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f6168c73000)
-    /lib64/ld-linux-x86-64.so.2 (0x00007f61698f8000)
-    libattr.so.1 =&gt; /lib/x86_64-linux-gnu/libattr.so.1 (0x00007f6168a6d000)
-    libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f616884f000)
+[jadi@fedora ~]$ ldd /bin/ls
+    linux-vdso.so.1 (0x00007ffdd53eb000)
+    libselinux.so.1 =&gt; /lib64/libselinux.so.1 (0x00007f5cbc7b0000)
+    libcap.so.2 =&gt; /lib64/libcap.so.2 (0x00007f5cbc7a6000)
+    libc.so.6 =&gt; /lib64/libc.so.6 (0x00007f5cbc5a5000)
+    libpcre2-8.so.0 =&gt; /lib64/libpcre2-8.so.0 (0x00007f5cbc50f000)
+    /lib64/ld-linux-x86-64.so.2 (0x00007f5cbc813es
 </code></pre></div>
 
 <p>As you can see, <code>ldd</code> tells us that the <code>/sbin/ldconfig</code> is not dynamically linked but shows us the libraries needed by <code>/bin/ls</code>.</p>
 <h4>symbolic links for libraries</h4>
-<p>If you are writing a program and you use udev functions, you will ask for a library called <em>libudev.so.1</em>. But a Linux distro, might call its version of udev library <em>libudev.so.1.4.0</em>. How can we solve this problem? with <strong>symbolic links</strong> you will learn more about this in next chapters but for short, a symbolic name is a new name for the same file.</p>
+<p>If you are writing a program and you use udev functions, you will ask for a library called <em>libudev.so.1</em>. But a Linux distro, might call its version of udev library <em>libudev.so.1.4.0</em>. How can we solve this problem? The answer is <strong>symbolic links</strong>; you will learn more about them in next chapters but for short, a symbolic name is a new name for the same file.</p>
 <p>I will check the same thing on my system. First I'll find where the libudev.so.1 on my system is:</p>
 <div class="highlight"><pre><span></span><code># locate libudev.so.1
 /lib/i386-linux-gnu/libudev.so.1
+/usr/lib64/libudev.so.1.7.3
 </code></pre></div>
 
 <p>and then will check that file:</p>
@@ -152,63 +148,87 @@ lrwxrwxrwx 1 root root    16 Nov 13 23:05 /lib/i386-linux-gnu/libudev.so.1 -&gt;
 </code></pre></div>
 
 <p>As you can see, this is a symbolic link pointing to the version of libudev I have installed (1.4.0) so even if a software says it need libudev.so.1, my system will use its libusdev.so.1.4.0.</p>
-<h4>Dynamic library configs</h4>
-<p>As most of other linux tools, dynamic linking is also configured using a text config file. It is located at <em>/etc/ld.so.conf</em>. On an Ubuntu system it just points to other config files in <code>/etc/ld.so.conf.d/</code> but all those lines can be included in the main file too:</p>
-<div class="highlight"><pre><span></span><code># cat /etc/ld.so.conf
-include /etc/ld.so.conf.d/*.conf
-
-# ls /etc/ld.so.conf.d/
-fakeroot-x86_64-linux-gnu.conf          i686-linux-gnu.conf                     x86_64-linux-gnu_EGL.conf               
-i386-linux-gnu.conf                     libc.conf                               x86_64-linux-gnu_GL.conf                
-i386-linux-gnu_GL.conf                  x86_64-linux-gnu.conf                   x86_64-linux-gnu_mirclient8driver.conf  
-
-# cat /etc/ld.so.conf.d/libc.conf
-# libc default configuration
-/usr/local/lib
-
-root@funlife:/sbin# cat /etc/ld.so.conf.d/x86_64-linux-gnu_GL.conf
-/usr/lib/x86_64-linux-gnu/mesa
+<h4>Dynamic library configs and cache</h4>
+<p>As most of other linux tools, dynamic linking is also configured by a textual configuration file. It is located at <em>/etc/ld.so.conf</em> and it might load more config files from <code>_/etc/ld.so.conf.d/*.conf</code>. Please note that this <em>loadin other files from</em> <code>/etc/ld.so.conf.d/</code> is a common practice to keep config files separated and clean. You will see the same pattern in many other places too and technically we were able to add whatever is needed in the original file.</p>
+<div class="highlight"><pre><span></span><code>[jadi@fedora ~]$ cat /etc/ld.so.conf
+include ld.so.conf.d/*.conf
+[jadi@fedora ~]$ ls /etc/ld.so.conf.d/
+llvm13-x86_64.conf  pipewire-jack-x86_64.conf
+[jadi@fedora ~]$ cat /etc/ld.so.conf.d/llvm13-x86_64.conf
+/usr/lib64/llvm13/lib
 </code></pre></div>
 
 <p>the <code>ldconfig</code> commands processed all these files to make the loading of libraries faster. This command creates ld.so.cache to locate files that are to be dynamically loaded and linked.</p>
 <blockquote>
-<p>if you change the ld.so.conf (or sub-directories) you need to run <code>ldconfig</code></p>
+<p>if you change the ld.so.conf (or sub-directories) you need to run <code>ldconfig</code>. Try it with <code>-v</code> switch to see the progress / data.</p>
 </blockquote>
 <p>To close this section lets run ldconfig with the <strong>-p</strong> switch to see what is saved in ld.so.cache:</p>
-<div class="highlight"><pre><span></span><code># ldconfig -p | head
-1358 libs found in cache `/etc/ld.so.cache&#39;
-    libzvbi.so.0 (libc6,x86-64) =&gt; /usr/lib/x86_64-linux-gnu/libzvbi.so.0
-    libzvbi-chains.so.0 (libc6,x86-64) =&gt; /usr/lib/x86_64-linux-gnu/libzvbi-chains.so.0
-    libzephyr.so.4 (libc6,x86-64) =&gt; /usr/lib/x86_64-linux-gnu/libzephyr.so.4
-    libzeitgeist-2.0.so.0 (libc6,x86-64) =&gt; /usr/lib/x86_64-linux-gnu/libzeitgeist-2.0.so.0
-    libzeitgeist-1.0.so.1 (libc6,x86-64) =&gt; /usr/lib/libzeitgeist-1.0.so.1
-    libzbar.so.0 (libc6,x86-64) =&gt; /usr/lib/libzbar.so.0
-...
-...
+<div class="highlight"><pre><span></span><code>[jadi@fedora ~]$ ldconfig -p | head
+1373 libs found in cache `/etc/ld.so.cache&#39;
+    libzstd.so.1 (libc6,x86-64) =&gt; /lib64/libzstd.so.1
+    libzmf-0.0.so.0 (libc6,x86-64) =&gt; /lib64/libzmf-0.0.so.0
+    libzip.so.5 (libc6,x86-64) =&gt; /lib64/libzip.so.5
+    libzhuyin.so.13 (libc6,x86-64) =&gt; /lib64/libzhuyin.so.13
+    libzck.so.1 (libc6,x86-64) =&gt; /lib64/libzck.so.1
+    libz.so.1 (libc6,x86-64) =&gt; /lib64/libz.so.1
+    libyui.so.15 (libc6,x86-64) =&gt; /lib64/libyui.so.15
+    libyui-mga.so.15 (libc6,x86-64) =&gt; /lib64/libyui-mga.so.15
+    libyelp.so.0 (libc6,x86-64) =&gt; /lib64/libyelp.so.0
 </code></pre></div>
 
-<p>As you can see, this file tells the the kernel that anyone asks for <em>libzvbi.so.0</em>, the <em>/usr/lib/x86_64-linux-gnu/libzvbi.so.0</em> file should be loaded.</p>
-<h3>LD_LIBRARY_PATH</h3>
-<p>Sometimes you need to override the original installed libraries and use your own or a specific library. Cases can be :</p>
+<p>As you can see, this file tells the the kernel that anyone asks for <em>libzstd.so.1</em>, the <em>/lib64/libzstd.so.1</em> file should be loaded and used.</p>
+<h3>where OS finds dynamic libarries</h3>
+<p>When a program needs a shared library, the system will search files in this order:</p>
+<ol>
+<li>LD_LIBRARY_PATH environment variable</li>
+<li>Programs PATH</li>
+<li>/etc/ld.so.conf (which might load moer files from /etc/ld.so.conf.d/ in its beginning or its end)</li>
+<li><code>/lib/</code>, <code>/lib64/</code>, <code>/usr/lib/</code>, <code>/usr/lib64/</code></li>
+</ol>
+<p>In some cases, you might need to override the default system libraries. Some examples are:</p>
 <ul>
 <li>You are running an old software which needs an old version of a library.</li>
 <li>You are developing a shared library and want to test is without installing it</li>
 <li>You are running a specific program (say from opt) which needs to access its own libraries</li>
 </ul>
-<p>in these cases, you have to use the environment variable  <strong>LD_LIBRARY_PATH</strong>. A collon (:) separated list of directories will tell your program where to search for needed libraries <strong>before</strong> checking the libraries in ld.so.cache.</p>
+<p>in these cases, you can point the environment variable <strong>LD_LIBRARY_PATH</strong> to the library you need to use and then run your program. A collon (:) separated list of directories will tell your program where to search for needed libraries <strong>before</strong> checking the libraries in ld.so.cache.</p>
 <p>For example if you give this command:</p>
 <div class="highlight"><pre><span></span><code>export  LD_LIBRARY_PATH=/usr/lib/myoldlibs:/home/jadi/lpic/libs/
 </code></pre></div>
 
 <p>and then run any command, the system will search <code>/usr/lib/myoldlibs</code> and then <code>/home/jadi/lpic/libs/</code> before going to the main system libraries (defined in ld.so.cache). . .</p>
-<p>. .</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
+<h2>loading dynamically</h2>
+<p>As the last part of this section, lets see how we can manually tell linux to run a program using its <em>dynamic linker</em>. Its also called dynamic loader and is used to load dynamic libraries needed by an executable. It might be called <code>ld</code> or <code>ld-linux</code>. You can find yours by running:</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">locate</span><span class="w"> </span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="w"></span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib64</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">64.</span><span class="n">so</span><span class="mf">.2</span><span class="w"></span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="n">man8</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="mf">.8</span><span class="p">.</span><span class="n">gz</span><span class="w"></span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="n">man8</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="p">.</span><span class="n">so</span><span class="mf">.8</span><span class="p">.</span><span class="n">gz</span><span class="w"></span>
+</code></pre></div>
+
+<p>and run programs using it like this:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">jadi</span><span class="err">@</span><span class="n">fedora</span> <span class="o">~</span><span class="p">]</span><span class="o">$</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib64</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">64.</span><span class="n">so</span><span class="o">.</span><span class="mi">2</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">ls</span>
+<span class="n">Desktop</span>  <span class="n">Documents</span>  <span class="n">Downloads</span>  <span class="n">Music</span>  <span class="n">Pictures</span>  <span class="n">Public</span>  <span class="n">Templates</span>  <span class="n">tmp</span>  <span class="n">Videos</span>
+</code></pre></div>
+
+<p>You want to go deeper than LPIC1 and ask why you do not need to run <code>ld-linux</code> when running a command? Because the executable you are running is a Linux ELF executable and if you check its inside, you can see that it says "run this using ld-linux": </p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">readelf</span><span class="w"> </span><span class="o">-</span><span class="n">Wl</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">ls</span><span class="w"></span>
+
+<span class="n">Elf</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">DYN</span><span class="w"> </span><span class="p">(</span><span class="k">Position</span><span class="o">-</span><span class="n">Independent</span><span class="w"> </span><span class="n">Executable</span><span class="w"> </span><span class="k">file</span><span class="p">)</span><span class="w"></span>
+<span class="n">Entry</span><span class="w"> </span><span class="n">point</span><span class="w"> </span><span class="mh">0x6c00</span><span class="w"></span>
+<span class="n">There</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="n">program</span><span class="w"> </span><span class="n">headers</span><span class="p">,</span><span class="w"> </span><span class="n">starting</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="mi">64</span><span class="w"></span>
+
+<span class="n">Program</span><span class="w"> </span><span class="nl">Headers</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="n">Type</span><span class="w">           </span><span class="n">Offset</span><span class="w">   </span><span class="n">VirtAddr</span><span class="w">           </span><span class="n">PhysAddr</span><span class="w">           </span><span class="n">FileSiz</span><span class="w">  </span><span class="n">MemSiz</span><span class="w">   </span><span class="n">Flg</span><span class="w"> </span><span class="n">Align</span><span class="w"></span>
+<span class="w">  </span><span class="n">PHDR</span><span class="w">           </span><span class="mh">0x000040</span><span class="w"> </span><span class="mh">0x0000000000000040</span><span class="w"> </span><span class="mh">0x0000000000000040</span><span class="w"> </span><span class="mh">0x0002d8</span><span class="w"> </span><span class="mh">0x0002d8</span><span class="w"> </span><span class="n">R</span><span class="w">   </span><span class="mh">0x8</span><span class="w"></span>
+<span class="w">  </span><span class="n">INTERP</span><span class="w">         </span><span class="mh">0x000318</span><span class="w"> </span><span class="mh">0x0000000000000318</span><span class="w"> </span><span class="mh">0x0000000000000318</span><span class="w"> </span><span class="mh">0x00001c</span><span class="w"> </span><span class="mh">0x00001c</span><span class="w"> </span><span class="n">R</span><span class="w">   </span><span class="mh">0x1</span><span class="w"></span>
+<span class="w">      </span><span class="o">[</span><span class="n">Requesting program interpreter: /lib64/ld-linux-x86-64.so.2</span><span class="o">]</span><span class="w"></span>
+<span class="w">  </span><span class="k">LOAD</span><span class="w">           </span><span class="mh">0x000000</span><span class="w"> </span><span class="mh">0x0000000000000000</span><span class="w"> </span><span class="mh">0x0000000000000000</span><span class="w"> </span><span class="mh">0x003798</span><span class="w"> </span><span class="mh">0x003798</span><span class="w"> </span><span class="n">R</span><span class="w">   </span><span class="mh">0x1000</span><span class="w"></span>
+<span class="w">  </span><span class="k">LOAD</span><span class="w">           </span><span class="mh">0x004000</span><span class="w"> </span><span class="mh">0x0000000000004000</span><span class="w"> </span><span class="mh">0x0000000000004000</span><span class="w"> </span><span class="mh">0x013c21</span><span class="w"> </span><span class="mh">0x013c21</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="mh">0x1000</span><span class="w"></span>
+<span class="w">  </span><span class="k">LOAD</span><span class="w">           </span><span class="mh">0x018000</span><span class="w"> </span><span class="mh">0x0000000000018000</span><span class="w"> </span><span class="mh">0x0000000000018000</span><span class="w"> </span><span class="mh">0x0074d8</span><span class="w"> </span><span class="mh">0x0074d8</span><span class="w"> </span><span class="n">R</span><span class="w">   </span><span class="mh">0x1000</span><span class="w"></span>
+<span class="w">  </span><span class="o">[</span><span class="n">...</span><span class="o">]</span><span class="w"></span>
+</code></pre></div>
+
+<p>💀 There is a <em>hack</em> here: <em>you can run any linux executable even if its exeutable bit is not set!</em> just run it using <code>ld-linux</code> as we did a few lines above!</p>
 
 
              
