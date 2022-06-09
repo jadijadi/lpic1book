@@ -106,19 +106,19 @@
 <h3>Boot overview</h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/G_FzcMZYDbg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p>Most systems use BIOS or UEFI. When on BIOS, System will do a self test called POST. Then it will hand over the boot process to the first sector of master boot record (MBR) which is track (Cylinder) 0, side (Head) 0 and Sector 1 of the first disk. </p>
-<p>MBR is only 512bytes so we need a <em>smart bootloader</em> to handle larger boot managers and even multiple systems. Some of these boot loaders are LILO, GRUB and GRUB2.</p>
-<p>If the system is using UEFI, the hardware will follow UEFI stages. They start with a Security phase and will continue till the end phase where the UEFI looks for a EFI System Partition, that is just a FAT32 partition (usually the first one, but that's implementation defined) with PE executables and runs them. </p>
-<p>In both cases, the binary starts the boot loader. It might be a complete bootloader on /boot/efi/ of your computer or a small loader for the main grub on the MBR or a windows loader or even a chainloader.</p>
+<p>Most systems use BIOS or UEFI. When on BIOS, system will do a self test called POST. Then it will hand over the boot process to the first sector of master boot record (MBR) which is track (Cylinder) 0, side (Head) 0 and Sector 1 of the first disk. </p>
+<p>MBR is only 512 bytes so we need a <em>smart bootloader</em> to handle larger boot managers and even multiple systems. Some of these boot loaders are LILO, GRUB and GRUB2.</p>
+<p>If the system is using UEFI, the hardware will follow UEFI stages. They start with a security phase and will continue till the end phase where the UEFI looks for a EFI System Partition, that is just a FAT32 partition (usually the first one, but that's implementation defined) with PE executables and runs them. </p>
+<p>In both cases, the binary starts the boot loader. It might be a complete bootloader on <code>/boot/efi/</code> of your computer or a small loader for the main grub on the MBR or a windows loader or even a chainloader.</p>
 <blockquote>
-<p>Chain Loading is when a boot loaders, loads another boot loader. This is done when a linux bootloader needs to start a Windows system.</p>
+<p>Chain Loading is when a boot loader, loads another boot loader. This is done when a Linux bootloader needs to start a Windows system.</p>
 </blockquote>
 <h2>GRUB</h2>
-<p><strong>GRUB</strong> (<strong>GR</strong>and <strong>U</strong>nified <strong>B</strong>ootloader) started to replace the older LILO. The first version (1) is called Grub Legacy and startd in 1999. The 2nd version, started in 2005 and is a complete rewrite of the version 1.</p>
-<p>It's a menu based system where you can choose which Kernel or chainloader to boot. It is also possible to edit the menus on the fly or give direct commands from a command line.</p>
+<p><strong>GRUB</strong> (<strong>GR</strong>and <strong>U</strong>nified <strong>B</strong>ootloader) started to replace the older LILO. The first version (1) is called Grub Legacy and started in 1999. The 2nd version started in 2005 and is a complete rewrite of version 1.</p>
+<p>It's a menu-based system where you can choose which Kernel or chainloader to boot. It is also possible to edit the menus on the fly or give direct commands from a command line.</p>
 <h3>Grub Legacy</h3>
-<p>Usually the GRUBv1 (actually 0.9) is installed in <code>/boot/grub</code>. Its main configuration is in <code>/boot/grub/menu.lst</code> but nowadayw some distros (including RedHat Based ones) link this to the <code>/boot/grub/grub.conf</code>.</p>
-<p>A sample menu.lst / grub.conf file for GRUB legacy consists of two sections. The first section contins global configs and the 2nd part defines different kernel/initram or chainloader options.</p>
+<p>Usually the GRUBv1 (actually 0.9) is installed in <code>/boot/grub</code>. Its main configuration is in <code>/boot/grub/menu.lst</code> but nowadays some distros (including RedHat Based ones) link this to the <code>/boot/grub/grub.conf</code>.</p>
+<p>A sample menu.lst / grub.conf file for GRUB legacy consists of two sections. The first section contains global configs and the 2nd part defines different kernel/initram or chainloader options.</p>
 <p>The global configs are:</p>
 <table>
 <thead>
@@ -130,19 +130,19 @@
 <tbody>
 <tr>
 <td>#</td>
-<td>comment</td>
+<td>Comment</td>
 </tr>
 <tr>
 <td>color</td>
-<td>foreground and background colors for normal and active items.</td>
+<td>Foreground and background colors for normal and active items</td>
 </tr>
 <tr>
 <td>default</td>
-<td>which boot menu item is the default</td>
+<td>Which boot menu item is the default</td>
 </tr>
 <tr>
 <td>fallback</td>
-<td>which boot menu should be used if the <em>default</em> fails</td>
+<td>WWhich boot menu should be used if the <em>default</em> fails</td>
 </tr>
 <tr>
 <td>hiddenmenu</td>
@@ -154,19 +154,19 @@
 </tr>
 <tr>
 <td>timeout</td>
-<td>wait this much and then start the default</td>
+<td>Wait this much and then start the default</td>
 </tr>
 <tr>
 <td>password</td>
-<td>Security is important! will ask this password</td>
+<td>Security is important! Will ask this password</td>
 </tr>
 <tr>
 <td>savedefault</td>
-<td>remember the last booted item</td>
+<td>Remember the last booted item</td>
 </tr>
 </tbody>
 </table>
-<p>On the seccond part of the config, we have these:</p>
+<p>On the second part of the config, we have these:</p>
 <table>
 <thead>
 <tr>
@@ -181,15 +181,15 @@
 </tr>
 <tr>
 <td>root</td>
-<td>Disk and partition where /boot folder is. In the form of (hddrive, partition), say (hd0, 0) or (hd0, msdos0)</td>
+<td>Disk and partition where <code>/boot</code> directory is. In the form of (hddrive, partition), say (hd0, 0) or (hd0, msdos0)</td>
 </tr>
 <tr>
 <td>kernel</td>
-<td>Kernel image file name in /boot</td>
+<td>Kernel image file name in <code>/boot</code></td>
 </tr>
 <tr>
 <td>initrd</td>
-<td>Initramfs file in /boot</td>
+<td>Initramfs file in <code>/boot</code></td>
 </tr>
 <tr>
 <td>rootnoverify</td>
@@ -197,7 +197,7 @@
 </tr>
 <tr>
 <td>chainloader</td>
-<td>another file will act as stage 1 loader. Used for booting Windows systems</td>
+<td>Another file will act as stage 1 loader. Used for booting Windows systems</td>
 </tr>
 </tbody>
 </table>
@@ -244,10 +244,10 @@ title Windows
 # grub-install &#39;(fd0)&#39;
 </code></pre></div>
 
-<p>Just like any other boot manager, you can install grub on a CD, floppy, MBR (/dev/sda, /dev/sdb, ..) or a partition (/dev/sdb2, /dev/sda6, ..). But if you want to install it on anywhere other than the MBR, use a chainloader to point your boot sequence toward it.</p>
+<p>Just like any other boot manager, you can install grub on a CD, floppy, MBR (<code>/dev/sda</code>, <code>/dev/sdb</code>, ..) or a partition (<code>/dev/sdb2</code>, <code>/dev/sda6</code>, ..). But if you want to install it on anywhere other than the MBR, use a chainloader to point your boot sequence toward it.</p>
 <p>If you needed to change or reconfigure anything during the startup, just press the <code>e</code> on that item and you'll get an interactive editing environment. Press <strong>Enter</strong> when done and <code>b</code> for boot.</p>
 <h4>Interacting with GRUB Legacy</h4>
-<p>if you press <code>c</code> on the grub menu, you will go into the <em>GRUB Command Line</em> or <em>GRUB shell</em>. Ther you can type commands like <code>root</code> and <code>kernel</code> and <code>initrd</code> and boot the system with <code>boot</code> or press the <code>Esc</code> key to return back to the menu. </p>
+<p>If you press <code>c</code> on the grub menu, you will go into the <em>GRUB Command Line</em> or <em>GRUB shell</em>. There you can type commands like <code>root</code> and <code>kernel</code> and <code>initrd</code> and boot the system with <code>boot</code> or press the <code>Esc</code> key to return back to the menu. </p>
 <h3>GRUB2</h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/lB-1orohGA0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -264,7 +264,7 @@ title Windows
 <span class="p">}</span>
 </code></pre></div>
 
-<p>As you can see, GRUB uses Linux style numbering for partitions, so the first partition on first hard disk is (hd0,1) or (hd0,msdos1) for Dos partitions or (hd0,gpt1) for gpt drives.</p>
+<p>As you can see, GRUB uses Linux style numbering for partitions, so the first partition on first hard disk is <code>(hd0,1)</code> or <code>(hd0,msdos1)</code> for DOS partitions or <code>(hd0,gpt1)</code> for GPT drives.</p>
 <p>Here you can see some of the options:</p>
 <table>
 <thead>
@@ -276,31 +276,31 @@ title Windows
 <tbody>
 <tr>
 <td>menuentry</td>
-<td>defines a new menuentry</td>
+<td>Defines a new menuentry</td>
 </tr>
 <tr>
 <td>set root</td>
-<td>defines the root where /boot located</td>
+<td>Defines the root where <code>/boot</code> located</td>
 </tr>
 <tr>
 <td>linux, linux16</td>
-<td>defines the location of the Linux kernel on BIOS systems</td>
+<td>Defines the location of the Linux kernel on BIOS systems</td>
 </tr>
 <tr>
 <td>linuxefi</td>
-<td>defines the Linux kernel on UEFI systems</td>
+<td>Defines the Linux kernel on UEFI systems</td>
 </tr>
 <tr>
 <td>initrd</td>
-<td>defines the initramfs image for BIOS systems</td>
+<td>Defines the initramfs image for BIOS systems</td>
 </tr>
 <tr>
 <td>initrdefi</td>
-<td>defines the initramfs image for UEFI systems</td>
+<td>Defines the initramfs image for UEFI systems</td>
 </tr>
 </tbody>
 </table>
-<p>And here is a realworld <code>grub.cfg</code>:</p>
+<p>And here is a real world <code>grub.cfg</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">#</span>
 <span class="c1"># DO NOT EDIT THIS FILE</span>
 <span class="c1">#</span>
@@ -510,16 +510,16 @@ title Windows
 
 <p>There is also a command called <code>update-grub</code> as a frontend to <code>grub-mkconfig</code> which runs <code>grub-mkconfig -o /boot/grub/grub.cfg</code></p>
 <blockquote>
-<p>Please note that on some modern distros, you have both <code>grub</code> and <code>grub2</code> commands available for compability reasons and one links to the other.</p>
+<p>Please note that on some modern distros, you have both <code>grub</code> and <code>grub2</code> commands available for compatibility reasons, and one links to the other.</p>
 </blockquote>
 <h4>Interacting with GRUB2</h4>
-<p>if you press <code>c</code> on the grub menu, you will go into the <em>GRUB Command Line</em> or <em>GRUB shell</em>. Ther you can type commands like <code>root</code> and <code>kernel</code> and <code>initrd</code> and boot the system with <code>boot</code> or press the <code>Esc</code> key to return back to the menu. </p>
-<h3>Kernel Boot Parameters</h3>
+<p>If you press <code>c</code> on the grub menu, you will go into the <em>GRUB Command Line</em> or <em>GRUB shell</em>. There you can type commands like <code>root</code> and <code>kernel</code> and <code>initrd</code> and boot the system with <code>boot</code> or press the <code>Esc</code> key to return back to the menu. </p>
+<h3>Kernel boot parameters</h3>
 <p>In the above configs, we sent some parameters to the kernel like this:</p>
 <div class="highlight"><pre><span></span><code>        linux   /boot/vmlinuz-5.10.0-9-arm64 root=/dev/sda1 ro  quiet
 </code></pre></div>
 
-<p>This tells the kernel to boot in <em>ReadOnly</em> mode and do not show lots of logs during the boot (<em>quiet</em>).</p>
+<p>This tells the kernel to boot in <em>ReadOnly</em> mode and does not show lots of logs during the boot (<em>quiet</em>).</p>
 <p>These are some of the other options you may use:</p>
 <table>
 <thead>
@@ -539,11 +539,11 @@ title Windows
 </tr>
 <tr>
 <td>init=</td>
-<td>run an specific program instead of the default init</td>
+<td>Run an specific program instead of the default init</td>
 </tr>
 <tr>
 <td>initrd=</td>
-<td>use this initrd</td>
+<td>Use this initrd</td>
 </tr>
 <tr>
 <td>ro</td>
@@ -555,11 +555,11 @@ title Windows
 </tr>
 <tr>
 <td>root=</td>
-<td>use this as the root filesystem</td>
+<td>Use this as the root filesystem</td>
 </tr>
 <tr>
 <td>selinux</td>
-<td>disable <code>selinux</code> on boot</td>
+<td>Disable <code>selinux</code> on boot</td>
 </tr>
 <tr>
 <td>single,S,1,Single</td>
