@@ -6,7 +6,7 @@ Authors: Jadi
 Summary: Candidates should be able to determine the shared libraries that executable programs depend on and install them when necessary.
 sortorder: 080
 
-_weight 1_
+_Weight: 1_
 
 ### Objectives
 
@@ -19,7 +19,7 @@ Candidates should be able to determine the shared libraries that executable prog
 
 * ldd
 * ldconfig
-* /etc/ld.so.conf
+* `/etc/ld.so.conf`
 * LD\_LIBRARY\_PATH
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1P58gW8xCkk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -28,8 +28,8 @@ Candidates should be able to determine the shared libraries that executable prog
 
 When we write a program, we use libraries. For example if you need to read text from standard input, you need to _link_ a library which provides this. Think linking has two forms:
 
-* **Static** linking is when you add this library to your executable program. In this method your program size is big because it has all the needed libraries. One good advantage is your program can be run without being dependent to other programs / libraries.
-* **Dynamic** linking is when you just say in your program "We need this and that library to run this program". This way your program is smaller but you need to install those libraries separately. This makes programs more secure \(because libraries can be updated centrally\), more advanced \(any improvement in a library will improve the whole program\) and smaller.
+* **Static** Linking is when you add this library to your executable program. In this method your program size is big because it has all the needed libraries. One good advantage is your program can be run without being dependent to other programs/libraries.
+* **Dynamic** Linking is when you just say in your program "We need this and that library to run this program". This way your program is smaller but you need to install those libraries separately. This makes programs more secure \(because libraries can be updated centrally\), more advanced \(any improvement in a library will improve the whole program\) and smaller.
 
 Linux dynamic libraries have names like `libLIBNAME.so.VERSION` and are located at places like `/lib*/` and `/usr/lib*/`. On Windows, we call them Dynamic Linked Libraries (DLLs). 
 
@@ -41,12 +41,12 @@ Libraries related to system utilities are installed in `/lib` and `/lib64` \(for
 
 #### ldd
 
-the `ldd` command helps you find:
+The `ldd` command helps you find:
 
 * If a program is dynamically or statically linked
 * What libraries a program needs
 
-lets have a look at two files:
+Lets have a look at two files:
 
 ```text
 [jadi@fedora ~]$ ldd /sbin/ldconfig
@@ -64,7 +64,7 @@ lets have a look at two files:
 
 As you can see, `ldd` tells us that the `/sbin/ldconfig` is not dynamically linked but shows us the libraries needed by `/bin/ls`.
 
-#### symbolic links for libraries
+#### Symbolic links for libraries
 
 If you are writing a program and you use udev functions, you will ask for a library called _libudev.so.1_. But a Linux distro, might call its version of udev library _libudev.so.1.4.0_. How can we solve this problem? The answer is **symbolic links**; you will learn more about them in next chapters but for short, a symbolic name is a new name for the same file.
 
@@ -76,7 +76,7 @@ I will check the same thing on my system. First I'll find where the libudev.so.1
 /usr/lib64/libudev.so.1.7.3
 ```
 
-and then will check that file:
+And then will check that file:
 
 ```text
 # ls -la /lib/i386-linux-gnu/libudev.so.1
@@ -87,7 +87,7 @@ As you can see, this is a symbolic link pointing to the version of libudev I hav
 
 #### Dynamic library configs and cache
 
-As most of other linux tools, dynamic linking is also configured by a textual configuration file. It is located at _/etc/ld.so.conf_ and it might load more config files from `_/etc/ld.so.conf.d/*.conf`. Please note that this _loadin other files from_ `/etc/ld.so.conf.d/` is a common practice to keep config files separated and clean. You will see the same pattern in many other places too and technically we were able to add whatever is needed in the original file.
+As most of other linux tools, dynamic linking is also configured by a textual configuration file. It is located at `/etc/ld.so.conf` and it might load more config files from `/etc/ld.so.conf.d/*.conf`. Please note that this _including other files from_ `/etc/ld.so.conf.d/` is a common practice to keep config files separated and clean. You will see the same pattern in many other places too and technically we were able to add whatever is needed in the original file.
 
 ```text
 [jadi@fedora ~]$ cat /etc/ld.so.conf
@@ -98,9 +98,9 @@ llvm13-x86_64.conf  pipewire-jack-x86_64.conf
 /usr/lib64/llvm13/lib
 ```
 
-the `ldconfig` commands processed all these files to make the loading of libraries faster. This command creates ld.so.cache to locate files that are to be dynamically loaded and linked.
+The `ldconfig` commands processed all these files to make the loading of libraries faster. This command creates `ld.so.cache` to locate files that are to be dynamically loaded and linked.
 
-> if you change the ld.so.conf \(or sub-directories\) you need to run `ldconfig`. Try it with `-v` switch to see the progress / data.
+> If you change the `ld.so.conf` \(or sub-directories\) you need to run `ldconfig`. Try it with `-v` switch to see the progress / data.
 
 To close this section lets run ldconfig with the **-p** switch to see what is saved in ld.so.cache:
 
@@ -118,14 +118,14 @@ To close this section lets run ldconfig with the **-p** switch to see what is sa
 	libyelp.so.0 (libc6,x86-64) => /lib64/libyelp.so.0
 ```
 
-As you can see, this file tells the the kernel that anyone asks for _libzstd.so.1_, the _/lib64/libzstd.so.1_ file should be loaded and used.
+As you can see, this file tells the the kernel that anyone asks for `libzstd.so.1`, the `/lib64/libzstd.so.1` file should be loaded and used.
 
-### where OS finds dynamic libarries
+### Where OS finds dynamic libraries
 When a program needs a shared library, the system will search files in this order:
 
 1. LD\_LIBRARY\_PATH environment variable
 2. Programs PATH
-3. /etc/ld.so.conf (which might load moer files from /etc/ld.so.conf.d/ in its beginning or its end)
+3. `/etc/ld.so.conf` (which might load more files from `/etc/ld.so.conf.d/` in its beginning or its end)
 4. `/lib/`, `/lib64/`, `/usr/lib/`, `/usr/lib64/`
 
 In some cases, you might need to override the default system libraries. Some examples are:
@@ -134,7 +134,7 @@ In some cases, you might need to override the default system libraries. Some exa
 * You are developing a shared library and want to test is without installing it
 * You are running a specific program \(say from opt\) which needs to access its own libraries
 
-in these cases, you can point the environment variable **LD\_LIBRARY\_PATH** to the library you need to use and then run your program. A collon \(:\) separated list of directories will tell your program where to search for needed libraries **before** checking the libraries in ld.so.cache.
+In these cases, you can point the environment variable **LD\_LIBRARY\_PATH** to the library you need to use and then run your program. A colon \(:\) separated list of directories will tell your program where to search for needed libraries **before** checking the libraries in `/etc/ld.so.cache`.
 
 For example if you give this command:
 
@@ -142,9 +142,9 @@ For example if you give this command:
 export  LD_LIBRARY_PATH=/usr/lib/myoldlibs:/home/jadi/lpic/libs/
 ```
 
-and then run any command, the system will search `/usr/lib/myoldlibs` and then `/home/jadi/lpic/libs/` before going to the main system libraries \(defined in ld.so.cache\). . .
+And then run any command, the system will search `/usr/lib/myoldlibs` and then `/home/jadi/lpic/libs/` before going to the main system libraries \(defined in `/etc/ld.so.cache`\). . .
 
-## loading dynamically
+## Loading dynamically
 
 As the last part of this section, lets see how we can manually tell linux to run a program using its _dynamic linker_. Its also called dynamic loader and is used to load dynamic libraries needed by an executable. It might be called `ld` or `ld-linux`. You can find yours by running:
 
@@ -182,4 +182,4 @@ Program Headers:
   [...]
 ```
 
-💀 There is a *hack* here: *you can run any linux executable even if its exeutable bit is not set!* just run it using `ld-linux` as we did a few lines above!
+💀 There is a *hack* here: *You can run any linux executable even if its executable bit is not set!* just run it using `ld-linux` as we did a few lines above!
