@@ -22,6 +22,8 @@ Candidates should be able to determine the shared libraries that executable prog
 * /etc/ld.so.conf
 * LD\_LIBRARY\_PATH
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1P58gW8xCkk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ### Linking
 
 When we write a program, we use libraries. For example if you need to read text from standard input, you need to _link_ a library which provides this. Think linking has two forms:
