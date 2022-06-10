@@ -87,11 +87,7 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>weight: 3</em></p>
+            <p><em>Weight: 3</em></p>
 <p>Candidates should be able to perform package management using the Debian package tools.</p>
 <ul>
 <li>Install, upgrade and uninstall Debian binary packages.</li>
@@ -108,19 +104,20 @@
 <li>apt-cache</li>
 </ul>
 <h3>Concept of the package management system</h3>
-<p>Linux used to be based on compiling source code but then Distributions arrived. Most distributions have their own Package Manager for installing pre-build programs from defined <em>repositories</em>. Debian based distros use .deb files with apt, dpkg, aptitude and Fedora, RedHat, RHEL, SUSE, .. use RPM and Yum package managers.</p>
+<p>Some people think that on GNU/Linux we have to compile all the software we need manualy. This is not the case in 99% of cases and never have been the case in last 20 years. GNU/Linux is the preceedor of what we call App Store these days. All major distros do have huge archives of pre-compiled software called their <em>repositories</em> and some kind of a <strong>package manager</strong> software which takes care of searching these repositories, installing software from them, finding dependencies and installing them, resolving conflicts and updating the system and installed softwares. Debian based distros use .deb files as their "packages" and uses tools like <code>apt-get</code>, <code>dpkg</code>, <code>apt</code> and other tools to manage them.</p>
+<p>Debian packages are names like <code>NAME-VERSION-RELEASE_ARCHITECTURE.deb</code>; say <code>tmux_3.2a-4build1_amd64.deb</code>. </p>
 <h3>Installing packages</h3>
-<p>We do not have "bzr" installed.</p>
-<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ bzr
+<p>Say you have heard about this retro source control software called <code>bzr</code> and you want to give it a try.</p>
+<div class="highlight"><pre><span></span><code>$ bzr
 The program &#39;bzr&#39; is currently not installed. You can install it by typing:
 sudo apt-get install bzr
-jadi@funlife:~/w/lpic/101$ which bzr
-jadi@funlife:~/w/lpic/101$ type bzr
+$ which bzr
+$ type bzr
 bash: type: bzr: not found
 </code></pre></div>
 
-<p>so lets install it. If we have the .deb file:</p>
-<div class="highlight"><pre><span></span><code> apt-get install bzr
+<p>so lets install it. If its in the repositories its enough to tell the package manager to install it:</p>
+<div class="highlight"><pre><span></span><code>apt-get install bzr
 </code></pre></div>
 
 <p>note that</p>
@@ -129,38 +126,85 @@ bash: type: bzr: not found
 <li>apt-get resolved <em>dependencies</em>, it know what is needed to install this package and installs them</li>
 <li>debian packages are something.deb</li>
 </ul>
-<p>bzr</p>
 <p>if you only want a dry-run / simulation:</p>
 <div class="highlight"><pre><span></span><code>apt-get install -s bzr
 </code></pre></div>
 
-<p>and this will only download the files without installing them:</p>
+<p>and this will only download the files needed into the cache without installing them:</p>
 <div class="highlight"><pre><span></span><code>apt-get install --download-only bzr
 </code></pre></div>
 
-<p>which only Downloaded files are stored them at /var/cache/apt/archive/ (or use the -d switch instead)</p>
-<h3>Package location</h3>
-<p>where these packages come from? from a <strong>Repository</strong> of different <strong>Repositories</strong> which are defined at /etc/apt/sources.list file and files located at /etc/apt/sources.list.d/ in the form of:</p>
-<div class="highlight"><pre><span></span><code>$ cat /etc/apt/sources.list
+<p>The downloaded packages are stored as a cache in <code>/var/cache/apt/archive/</code>.</p>
+<p>If you want to download only one specific package, you can do:</p>
+<div class="highlight"><pre><span></span><code><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">download</span> <span class="n">bzr</span>
+</code></pre></div>
 
-deb http://ir.archive.ubuntu.com/ubuntu/ utopic-updates multiverse
+<h3>Repositories</h3>
+<p>But where did this package came from? How the OS knew where to look for this deb package? The answer is <strong>Repositories</strong>. Each distro has its own repository of packages. It can be on a Disk, A network drive, a collection of DVDs or most commonly, a network address on the Internet. </p>
+<p>On debian systems, the main configuration locations are:
+- /etc/apt/sources.list 
+- /etc/apt/sources.list.d/</p>
+<div class="highlight"><pre><span></span><code>jadi@lpicjadi:~$ cat /etc/apt/sources.list
+#deb cdrom:[Ubuntu 22.04 LTS _Jammy Jellyfish_ - Beta amd64 (20220329.1)]/ jammy main restricted
+
+# See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
+# newer versions of the distribution.
+deb http://us.archive.ubuntu.com/ubuntu/ jammy main restricted
+# deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main restricted
+
+## Major bug fix updates produced after the final release of the
+## distribution.
+deb http://us.archive.ubuntu.com/ubuntu/ jammy-updates main restricted
+# deb-src http://us.archive.ubuntu.com/ubuntu/ jammy-updates main restricted
+
+## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+## team. Also, please note that software in universe WILL NOT receive any
+## review or updates from the Ubuntu security team.
+deb http://us.archive.ubuntu.com/ubuntu/ jammy universe
+# deb-src http://us.archive.ubuntu.com/ubuntu/ jammy universe
+deb http://us.archive.ubuntu.com/ubuntu/ jammy-updates universe
+# deb-src http://us.archive.ubuntu.com/ubuntu/ jammy-updates universe
+
+## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+## team, and may not be under a free licence. Please satisfy yourself as to
+## your rights to use the software. Also, please note that software in
+## multiverse WILL NOT receive any review or updates from the Ubuntu
+## security team.
+deb http://us.archive.ubuntu.com/ubuntu/ jammy multiverse
+# deb-src http://us.archive.ubuntu.com/ubuntu/ jammy multiverse
+deb http://us.archive.ubuntu.com/ubuntu/ jammy-updates multiverse
+# deb-src http://us.archive.ubuntu.com/ubuntu/ jammy-updates multiverse
 
 ## N.B. software from this repository may not have been tested as
 ## extensively as that contained in the main release, although it includes
 ## newer versions of some applications which may provide useful features.
 ## Also, please note that software in backports WILL NOT receive any review
 ## or updates from the Ubuntu security team.
-deb http://ir.archive.ubuntu.com/ubuntu/ utopic-backports main restricted universe multiverse
+deb http://us.archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
+# deb-src http://us.archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
 
-deb http://security.ubuntu.com/ubuntu utopic-security main restricted
-deb http://security.ubuntu.com/ubuntu utopic-security universe
-deb http://security.ubuntu.com/ubuntu utopic-security multiverse
+deb http://security.ubuntu.com/ubuntu jammy-security main restricted
+# deb-src http://security.ubuntu.com/ubuntu jammy-security main restricted
+deb http://security.ubuntu.com/ubuntu jammy-security universe
+# deb-src http://security.ubuntu.com/ubuntu jammy-security universe
+deb http://security.ubuntu.com/ubuntu jammy-security multiverse
+# deb-src http://security.ubuntu.com/ubuntu jammy-security multiverse
+
+# This system was installed using small removable media
+# (e.g. netinst, live or single CD). The matching &quot;deb cdrom&quot;
+# entries were disabled at the end of the installation process.
+# For information about how to configure apt package sources,
+# see the sources.list(5) manual.
 </code></pre></div>
 
 <p>Updating sources information:</p>
 <div class="highlight"><pre><span></span><code>apt-get update
 </code></pre></div>
 
+<p>This will check all the sources in the configs and updates the information about the latest softwares available there.</p>
+<blockquote>
+<p>This wont actually <em>Upgrade</em> the software. The <em>Update</em> will only <em>Update the information about the packages and not the packages themselves</em>.</p>
+</blockquote>
 <h3>Removing debian packages</h3>
 <div class="highlight"><pre><span></span><code>apt-get remove bzr
 </code></pre></div>
@@ -181,17 +225,19 @@ After this operation, 203 MB disk space will be freed.
 Do you want to continue? [Y/n] y
 </code></pre></div>
 
+<p>to autoremove whatever is not needed anymore.</p>
 <p>Notes:</p>
 <ul>
 <li>removing a package will not remove its dependencies</li>
 <li>if removing a dependency, you'll get a warning about what will be removed alongside this package</li>
 </ul>
 <h3>searching for packages</h3>
+<p>If you are using apt suit, the search is done via <code>apt-cache</code> or you can use the general <code>apt</code>. </p>
 <div class="highlight"><pre><span></span><code>$ apt-cache search &quot;tiny window&quot;
-$ aptitude search grub2
+$ apt search grub2
 </code></pre></div>
 
-<h3>Updating</h3>
+<h3>Upgrading</h3>
 <p>for updating a single package</p>
 <div class="highlight"><pre><span></span><code>apt-get install tzdata
 </code></pre></div>
@@ -206,22 +252,83 @@ $ aptitude search grub2
 
 <p>Note: as most other tools, you can configure the default configs at /etc/apt/apt.conf and there is a program apt-config for this purpose.</p>
 <h3>reconfiguring packages</h3>
-<p>A program called debconf configures packages after they are installed. you can reconfigure a package (say tzdata) using</p>
+<p>Debian packages can have <em>configuration actions</em> which will take after after the package is installed. This is done by <code>debconf</code>. For example tzdata will ask you about the timezone settings after you installed it. If you want to <em>reconfigure</em> a package which is already installed, you can use the <code>dpkg-reconfigure</code>:</p>
 <div class="highlight"><pre><span></span><code> dpkg-reconfigure tzdata
 </code></pre></div>
 
 <h3>package information with dpkg</h3>
-<p>dpkg is a very powerful tool for working with .deb package files. If you want to see what is inside a .deb file:</p>
-<div class="highlight"><pre><span></span><code>$ dpkg --contents bzr_2.6.0+bzr6595-1ubuntu1_all.deb
-drwxr-xr-x root/root         0 2014-05-02 18:16 ./
-drwxr-xr-x root/root         0 2014-05-02 18:15 ./etc/
-drwxr-xr-x root/root         0 2014-05-02 18:15 ./etc/bash_completion.d/
--rw-r--r-- root/root      1467 2010-04-22 11:31 ./etc/bash_completion.d/bzr
-...
-...
+<p>The underlying tool to work with <code>.deb</code> files is the <code>dpkg</code>. It is your to-go tool if you want to do manual actions on a deb package. The general format is:</p>
+<div class="highlight"><pre><span></span><code><span class="n">dpkg</span><span class="w"> </span><span class="o">[</span><span class="n">OPTIONS</span><span class="o">]</span><span class="w"> </span><span class="k">ACTION</span><span class="w"> </span><span class="n">PACKAGE</span><span class="w"></span>
 </code></pre></div>
 
-<p>another apt tool is dpkg. dpkg can install, remove, configure and query packages and as always the config is at /etc/dpkg/dpkg.cfg and uses /var/lib/dpkg tree . the most important switch is <strong>-s</strong> for <strong>status</strong>.</p>
+<p>Some common actions are:</p>
+<table>
+<thead>
+<tr>
+<th>Switch</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c or --contents</td>
+<td>Show the contents of a package</td>
+</tr>
+<tr>
+<td>-C or --audit</td>
+<td>Search for broken installed pckages and propose solutions</td>
+</tr>
+<tr>
+<td>--configure</td>
+<td>Reconfigure an installed package</td>
+</tr>
+<tr>
+<td>-i or --install</td>
+<td>Install or Upgrade a package; wont resolve / install dependencies</td>
+</tr>
+<tr>
+<td>-I or --info</td>
+<td>Show Info</td>
+</tr>
+<tr>
+<td>-l or --list</td>
+<td>List all installed pckages</td>
+</tr>
+<tr>
+<td>-L or --listfiles</td>
+<td>List all files related to this package</td>
+</tr>
+<tr>
+<td>-P or --purge</td>
+<td>Remove the package and its configuration files</td>
+</tr>
+<tr>
+<td>-r or --remove</td>
+<td>Remove the package; keep the configurations</td>
+</tr>
+<tr>
+<td>-s or --status</td>
+<td>Display status of a package</td>
+</tr>
+<tr>
+<td>-S or --search</td>
+<td>Search and see which package owns this file</td>
+</tr>
+</tbody>
+</table>
+<p>You can check the contents:</p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">/</span><span class="n">tmp</span><span class="err">$</span><span class="w"> </span><span class="n">dpkg</span><span class="w"> </span><span class="o">--</span><span class="n">contents</span><span class="w"> </span><span class="n">bzr_2</span><span class="mf">.7.0</span><span class="o">+</span><span class="n">bzr6622</span><span class="o">+</span><span class="n">brz_all</span><span class="p">.</span><span class="n">deb</span><span class="w"></span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="n">root</span><span class="o">/</span><span class="n">root</span><span class="w">         </span><span class="mi">0</span><span class="w"> </span><span class="mi">2019</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">19</span><span class="w"> </span><span class="mi">18</span><span class="err">:</span><span class="mi">25</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="w"></span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="n">root</span><span class="o">/</span><span class="n">root</span><span class="w">         </span><span class="mi">0</span><span class="w"> </span><span class="mi">2019</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">19</span><span class="w"> </span><span class="mi">18</span><span class="err">:</span><span class="mi">25</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="w"></span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="n">root</span><span class="o">/</span><span class="n">root</span><span class="w">         </span><span class="mi">0</span><span class="w"> </span><span class="mi">2019</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">19</span><span class="w"> </span><span class="mi">18</span><span class="err">:</span><span class="mi">25</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="w"></span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="n">root</span><span class="o">/</span><span class="n">root</span><span class="w">         </span><span class="mi">0</span><span class="w"> </span><span class="mi">2019</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">19</span><span class="w"> </span><span class="mi">18</span><span class="err">:</span><span class="mi">25</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">doc</span><span class="o">/</span><span class="w"></span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="n">root</span><span class="o">/</span><span class="n">root</span><span class="w">         </span><span class="mi">0</span><span class="w"> </span><span class="mi">2019</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">19</span><span class="w"> </span><span class="mi">18</span><span class="err">:</span><span class="mi">25</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">doc</span><span class="o">/</span><span class="n">bzr</span><span class="o">/</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="n">root</span><span class="o">/</span><span class="n">root</span><span class="w">       </span><span class="mi">404</span><span class="w"> </span><span class="mi">2019</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">19</span><span class="w"> </span><span class="mi">18</span><span class="err">:</span><span class="mi">25</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">doc</span><span class="o">/</span><span class="n">bzr</span><span class="o">/</span><span class="n">NEWS</span><span class="p">.</span><span class="n">Debian</span><span class="p">.</span><span class="n">gz</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="n">root</span><span class="o">/</span><span class="n">root</span><span class="w">      </span><span class="mi">1301</span><span class="w"> </span><span class="mi">2019</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">19</span><span class="w"> </span><span class="mi">18</span><span class="err">:</span><span class="mi">25</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">doc</span><span class="o">/</span><span class="n">bzr</span><span class="o">/</span><span class="n">changelog</span><span class="p">.</span><span class="n">gz</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="c1">--r-- root/root      1769 2019-09-19 18:25 ./usr/share/doc/bzr/copyright</span>
+</code></pre></div>
+
+<p>Or install a deb packages (without its dependencies) or check its status:</p>
 <div class="highlight"><pre><span></span><code>$ dpkg -s bzr
 Package: bzr
 Status: deinstall ok config-files
@@ -265,9 +372,9 @@ Homepage: http://bazaar-vcs.org
 Original-Maintainer: Debian Bazaar Maintainers &lt;pkg-bazaar-maint@lists.alioth.debian.org&gt;
 </code></pre></div>
 
-<p>another command is <strong>purge</strong> which will remove the package and all of its configurations.. the switch is <strong>-P</strong> or <strong>--purge</strong>.</p>
+<p>Or even <strong>purge</strong> an installed packages; removing the package and all of its configurations. To Purge a pckages use the <strong>-P</strong> or <strong>--purge</strong> switch.</p>
 <p>There is also <strong>-L</strong> to check the files and directories a package installed:</p>
-<div class="highlight"><pre><span></span><code>$ dpkg -L jcal
+<div class="highlight"><pre><span></span><code>$ dpkg -L bzr
 /.
 /usr
 /usr/bin
@@ -288,42 +395,93 @@ Original-Maintainer: Debian Bazaar Maintainers &lt;pkg-bazaar-maint@lists.alioth
 mplayer: /var/lib/mplayer/prefs/mirrors
 </code></pre></div>
 
-<p>Note: you can also use <code>which</code> for finding out what file will be used on any given command:</p>
-<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ which java
-/usr/bin/java
-</code></pre></div>
-
-<h3>aptitude</h3>
-<p>is a newer tool for managing files. It can be used like this:</p>
-<div class="highlight"><pre><span></span><code>$ aptitude install jcal
-$ aptitude remove jcal
-$ aptitude search cal
-$ aptitude show bzr
-</code></pre></div>
-
-<p>or it can also be used as a standalone program:</p>
-<p><img alt="aptitude sample" src="http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-4/fig-102-4-2.gif"></p>
+<h2>Common apt-get options</h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>autoclean</td>
+<td>Removes unsed packages</td>
+</tr>
+<tr>
+<td>check</td>
+<td>Checkd db for issues</td>
+</tr>
+<tr>
+<td>clean</td>
+<td>Clean the DB, you can do a <code>clean all</code> to clean everything and star afresh</td>
+</tr>
+<tr>
+<td>dist-upgrade</td>
+<td>Checks for new versions of the OS; major upgrade</td>
+</tr>
+<tr>
+<td>install</td>
+<td>Install or upgrade packages</td>
+</tr>
+<tr>
+<td>remove</td>
+<td>Removes a package</td>
+</tr>
+<tr>
+<td>source</td>
+<td>Install the source of a package</td>
+</tr>
+<tr>
+<td>update</td>
+<td>Updates the information about packages from repositories</td>
+</tr>
+<tr>
+<td>upgrade</td>
+<td>Upgrades all packages</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>In some cases a package is installed but without proper dependencies (say using <code>dpkg</code>) or an installation is intrupted for any reason. In these cases a <code>apt-get install -f</code> might help, <code>-f</code> is for <code>fix broken</code>. </p>
+</blockquote>
+<h2>Common apt-cache options</h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>depends</td>
+<td>Show dependencies</td>
+</tr>
+<tr>
+<td>pkgnames</td>
+<td>Shows all installed packages</td>
+</tr>
+<tr>
+<td>search</td>
+<td>Search</td>
+</tr>
+<tr>
+<td>showpkg</td>
+<td>Show information about a package</td>
+</tr>
+<tr>
+<td>stats</td>
+<td>Show statistics</td>
+</tr>
+<tr>
+<td>unmet</td>
+<td>Show unmet dependencies for all installed packages or the one you specified</td>
+</tr>
+</tbody>
+</table>
 <h3>other tools</h3>
-<p>there is gui tools like "synaptic" and "update manager". These will Search, Update, Upgrade, Install, Remove via a graphical user interface and are present in many distributions. This is ubuntu software center:</p>
-<p><img alt="Ubuntu Software Center" src="http://screenshots.debian.net/screenshots/s/software-center/10674_large.png"></p>
-<p>and this is a software updater GUI for gnome:</p>
-<p><img alt="Software Updater" src="http://farm5.static.flickr.com/4100/4897220771_4b27362dbc.jpg"></p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>. . .</p>
-<p>..</p>
-<p>. .</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
+<p>There are even more tools, the tools with fancy GUIs or text based tools user interface tools like <code>aptitude</code>.</p>
 
 
              
