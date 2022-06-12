@@ -47,18 +47,18 @@ It's a menu-based system where you can choose which Kernel or chainloader to boo
 
 ### Grub Legacy
 
-Usually the GRUBv1 \(actually 0.9\) is installed in `/boot/grub`. Its main configuration is in `/boot/grub/menu.lst` but nowadays some distros (including RedHat Based ones) link this to the `/boot/grub/grub.conf`.
+Usually the GRUB v1 \(actually 0.9\) is installed in `/boot/grub`. Its main configuration is in `/boot/grub/menu.lst` but nowadays some distros (including RedHat Based ones) link this to the `/boot/grub/grub.conf`.
 
 A sample menu.lst / grub.conf file for GRUB legacy consists of two sections. The first section contains global configs and the 2nd part defines different kernel/initram or chainloader options.
 
 The global configs are:
 
 |Config|Description|
-|------|-----------|
+|:------|:-----------|
 | \# | Comment |
 |color|Foreground and background colors for normal and active items|
 |default|Which boot menu item is the default|
-|fallback|WWhich boot menu should be used if the _default_ fails|
+|fallback|Which boot menu should be used if the _default_ fails|
 |hiddenmenu|Hide the menu options|
 |splashimage|Show this image in the background!|
 |timeout|Wait this much and then start the default|
@@ -69,7 +69,7 @@ The global configs are:
 On the second part of the config, we have these:
 
 |Config|Description|
-|------|-----------|
+|:------|:-----------|
 |title|Defines the section name|
 |root|Disk and partition where `/boot` directory is. In the form of (hddrive, partition), say (hd0, 0) or (hd0, msdos0)|
 |kernel|Kernel image file name in `/boot`|
@@ -160,7 +160,7 @@ As you can see, GRUB uses Linux style numbering for partitions, so the first par
 Here you can see some of the options:
 
 |Option|Description|
-|-|-|
+|:----|:----|
 |menuentry|Defines a new menuentry|
 |set root|Defines the root where `/boot` located|
 |linux, linux16|Defines the location of the Linux kernel on BIOS systems|
@@ -407,7 +407,7 @@ This tells the kernel to boot in _ReadOnly_ mode and does not show lots of logs 
 These are some of the other options you may use:
 
 |Option|Description|
-|-|-|
+|:---|:---|
 |console=|Set the console|
 |debug|Start in debug mode|
 |init=|Run an specific program instead of the default init|
