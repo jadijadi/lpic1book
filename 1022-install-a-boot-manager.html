@@ -117,52 +117,52 @@
 <p><strong>GRUB</strong> (<strong>GR</strong>and <strong>U</strong>nified <strong>B</strong>ootloader) started to replace the older LILO. The first version (1) is called Grub Legacy and started in 1999. The 2nd version started in 2005 and is a complete rewrite of version 1.</p>
 <p>It's a menu-based system where you can choose which Kernel or chainloader to boot. It is also possible to edit the menus on the fly or give direct commands from a command line.</p>
 <h3>Grub Legacy</h3>
-<p>Usually the GRUBv1 (actually 0.9) is installed in <code>/boot/grub</code>. Its main configuration is in <code>/boot/grub/menu.lst</code> but nowadays some distros (including RedHat Based ones) link this to the <code>/boot/grub/grub.conf</code>.</p>
+<p>Usually the GRUB v1 (actually 0.9) is installed in <code>/boot/grub</code>. Its main configuration is in <code>/boot/grub/menu.lst</code> but nowadays some distros (including RedHat Based ones) link this to the <code>/boot/grub/grub.conf</code>.</p>
 <p>A sample menu.lst / grub.conf file for GRUB legacy consists of two sections. The first section contains global configs and the 2nd part defines different kernel/initram or chainloader options.</p>
 <p>The global configs are:</p>
 <table>
 <thead>
 <tr>
-<th>Config</th>
-<th>Description</th>
+<th align="left">Config</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>#</td>
-<td>Comment</td>
+<td align="left">#</td>
+<td align="left">Comment</td>
 </tr>
 <tr>
-<td>color</td>
-<td>Foreground and background colors for normal and active items</td>
+<td align="left">color</td>
+<td align="left">Foreground and background colors for normal and active items</td>
 </tr>
 <tr>
-<td>default</td>
-<td>Which boot menu item is the default</td>
+<td align="left">default</td>
+<td align="left">Which boot menu item is the default</td>
 </tr>
 <tr>
-<td>fallback</td>
-<td>WWhich boot menu should be used if the <em>default</em> fails</td>
+<td align="left">fallback</td>
+<td align="left">Which boot menu should be used if the <em>default</em> fails</td>
 </tr>
 <tr>
-<td>hiddenmenu</td>
-<td>Hide the menu options</td>
+<td align="left">hiddenmenu</td>
+<td align="left">Hide the menu options</td>
 </tr>
 <tr>
-<td>splashimage</td>
-<td>Show this image in the background!</td>
+<td align="left">splashimage</td>
+<td align="left">Show this image in the background!</td>
 </tr>
 <tr>
-<td>timeout</td>
-<td>Wait this much and then start the default</td>
+<td align="left">timeout</td>
+<td align="left">Wait this much and then start the default</td>
 </tr>
 <tr>
-<td>password</td>
-<td>Security is important! Will ask this password</td>
+<td align="left">password</td>
+<td align="left">Security is important! Will ask this password</td>
 </tr>
 <tr>
-<td>savedefault</td>
-<td>Remember the last booted item</td>
+<td align="left">savedefault</td>
+<td align="left">Remember the last booted item</td>
 </tr>
 </tbody>
 </table>
@@ -170,34 +170,34 @@
 <table>
 <thead>
 <tr>
-<th>Config</th>
-<th>Description</th>
+<th align="left">Config</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>title</td>
-<td>Defines the section name</td>
+<td align="left">title</td>
+<td align="left">Defines the section name</td>
 </tr>
 <tr>
-<td>root</td>
-<td>Disk and partition where <code>/boot</code> directory is. In the form of (hddrive, partition), say (hd0, 0) or (hd0, msdos0)</td>
+<td align="left">root</td>
+<td align="left">Disk and partition where <code>/boot</code> directory is. In the form of (hddrive, partition), say (hd0, 0) or (hd0, msdos0)</td>
 </tr>
 <tr>
-<td>kernel</td>
-<td>Kernel image file name in <code>/boot</code></td>
+<td align="left">kernel</td>
+<td align="left">Kernel image file name in <code>/boot</code></td>
 </tr>
 <tr>
-<td>initrd</td>
-<td>Initramfs file in <code>/boot</code></td>
+<td align="left">initrd</td>
+<td align="left">Initramfs file in <code>/boot</code></td>
 </tr>
 <tr>
-<td>rootnoverify</td>
-<td>Defines a non-Linux root partition</td>
+<td align="left">rootnoverify</td>
+<td align="left">Defines a non-Linux root partition</td>
 </tr>
 <tr>
-<td>chainloader</td>
-<td>Another file will act as stage 1 loader. Used for booting Windows systems</td>
+<td align="left">chainloader</td>
+<td align="left">Another file will act as stage 1 loader. Used for booting Windows systems</td>
 </tr>
 </tbody>
 </table>
@@ -269,34 +269,34 @@ title Windows
 <table>
 <thead>
 <tr>
-<th>Option</th>
-<th>Description</th>
+<th align="left">Option</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>menuentry</td>
-<td>Defines a new menuentry</td>
+<td align="left">menuentry</td>
+<td align="left">Defines a new menuentry</td>
 </tr>
 <tr>
-<td>set root</td>
-<td>Defines the root where <code>/boot</code> located</td>
+<td align="left">set root</td>
+<td align="left">Defines the root where <code>/boot</code> located</td>
 </tr>
 <tr>
-<td>linux, linux16</td>
-<td>Defines the location of the Linux kernel on BIOS systems</td>
+<td align="left">linux, linux16</td>
+<td align="left">Defines the location of the Linux kernel on BIOS systems</td>
 </tr>
 <tr>
-<td>linuxefi</td>
-<td>Defines the Linux kernel on UEFI systems</td>
+<td align="left">linuxefi</td>
+<td align="left">Defines the Linux kernel on UEFI systems</td>
 </tr>
 <tr>
-<td>initrd</td>
-<td>Defines the initramfs image for BIOS systems</td>
+<td align="left">initrd</td>
+<td align="left">Defines the initramfs image for BIOS systems</td>
 </tr>
 <tr>
-<td>initrdefi</td>
-<td>Defines the initramfs image for UEFI systems</td>
+<td align="left">initrdefi</td>
+<td align="left">Defines the initramfs image for UEFI systems</td>
 </tr>
 </tbody>
 </table>
@@ -524,50 +524,50 @@ title Windows
 <table>
 <thead>
 <tr>
-<th>Option</th>
-<th>Description</th>
+<th align="left">Option</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>console=</td>
-<td>Set the console</td>
+<td align="left">console=</td>
+<td align="left">Set the console</td>
 </tr>
 <tr>
-<td>debug</td>
-<td>Start in debug mode</td>
+<td align="left">debug</td>
+<td align="left">Start in debug mode</td>
 </tr>
 <tr>
-<td>init=</td>
-<td>Run an specific program instead of the default init</td>
+<td align="left">init=</td>
+<td align="left">Run an specific program instead of the default init</td>
 </tr>
 <tr>
-<td>initrd=</td>
-<td>Use this initrd</td>
+<td align="left">initrd=</td>
+<td align="left">Use this initrd</td>
 </tr>
 <tr>
-<td>ro</td>
-<td>Mount the root filesystem read only</td>
+<td align="left">ro</td>
+<td align="left">Mount the root filesystem read only</td>
 </tr>
 <tr>
-<td>rw</td>
-<td>Mount the root filesystem for read and write</td>
+<td align="left">rw</td>
+<td align="left">Mount the root filesystem for read and write</td>
 </tr>
 <tr>
-<td>root=</td>
-<td>Use this as the root filesystem</td>
+<td align="left">root=</td>
+<td align="left">Use this as the root filesystem</td>
 </tr>
 <tr>
-<td>selinux</td>
-<td>Disable <code>selinux</code> on boot</td>
+<td align="left">selinux</td>
+<td align="left">Disable <code>selinux</code> on boot</td>
 </tr>
 <tr>
-<td>single,S,1,Single</td>
-<td>Boot in single user mode for troubleshooting (SysV)</td>
+<td align="left">single,S,1,Single</td>
+<td align="left">Boot in single user mode for troubleshooting (SysV)</td>
 </tr>
 <tr>
-<td>systemd.unit=</td>
-<td>Boot in this systemd target</td>
+<td align="left">systemd.unit=</td>
+<td align="left">Boot in this systemd target</td>
 </tr>
 </tbody>
 </table>

@@ -106,39 +106,6 @@
 <h3>Concept of the package management system</h3>
 <p>Some people think that on GNU/Linux we have to compile all the software we need manualy. This is not the case in 99% of cases and never have been the case in last 20 years. GNU/Linux is the preceedor of what we call App Store these days. All major distros do have huge archives of pre-compiled software called their <em>repositories</em> and some kind of a <strong>package manager</strong> software which takes care of searching these repositories, installing software from them, finding dependencies and installing them, resolving conflicts and updating the system and installed softwares. Debian based distros use .deb files as their "packages" and uses tools like <code>apt-get</code>, <code>dpkg</code>, <code>apt</code> and other tools to manage them.</p>
 <p>Debian packages are names like <code>NAME-VERSION-RELEASE_ARCHITECTURE.deb</code>; say <code>tmux_3.2a-4build1_amd64.deb</code>. </p>
-<h3>Installing packages</h3>
-<p>Say you have heard about this retro source control software called <code>bzr</code> and you want to give it a try.</p>
-<div class="highlight"><pre><span></span><code>$ bzr
-The program &#39;bzr&#39; is currently not installed. You can install it by typing:
-sudo apt-get install bzr
-$ which bzr
-$ type bzr
-bash: type: bzr: not found
-</code></pre></div>
-
-<p>so lets install it. If its in the repositories its enough to tell the package manager to install it:</p>
-<div class="highlight"><pre><span></span><code>apt-get install bzr
-</code></pre></div>
-
-<p>note that</p>
-<ul>
-<li>apt-get install asked for confirmation (Y)</li>
-<li>apt-get resolved <em>dependencies</em>, it know what is needed to install this package and installs them</li>
-<li>debian packages are something.deb</li>
-</ul>
-<p>if you only want a dry-run / simulation:</p>
-<div class="highlight"><pre><span></span><code>apt-get install -s bzr
-</code></pre></div>
-
-<p>and this will only download the files needed into the cache without installing them:</p>
-<div class="highlight"><pre><span></span><code>apt-get install --download-only bzr
-</code></pre></div>
-
-<p>The downloaded packages are stored as a cache in <code>/var/cache/apt/archive/</code>.</p>
-<p>If you want to download only one specific package, you can do:</p>
-<div class="highlight"><pre><span></span><code><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">download</span> <span class="n">bzr</span>
-</code></pre></div>
-
 <h3>Repositories</h3>
 <p>But where did this package came from? How the OS knew where to look for this deb package? The answer is <strong>Repositories</strong>. Each distro has its own repository of packages. It can be on a Disk, A network drive, a collection of DVDs or most commonly, a network address on the Internet. </p>
 <p>On debian systems, the main configuration locations are:
@@ -205,12 +172,45 @@ deb http://security.ubuntu.com/ubuntu jammy-security multiverse
 <blockquote>
 <p>This wont actually <em>Upgrade</em> the software. The <em>Update</em> will only <em>Update the information about the packages and not the packages themselves</em>.</p>
 </blockquote>
+<h3>Installing packages</h3>
+<p>Say you have heard about this retro source control software called <code>tmux</code> and you want to give it a try.</p>
+<div class="highlight"><pre><span></span><code>$ tmux
+The program &#39;tmux&#39; is currently not installed. You can install it by typing:
+sudo apt-get install tmux
+$ which tmux
+$ type tmux
+bash: type: tmux: not found
+</code></pre></div>
+
+<p>so lets install it. If its in the repositories its enough to tell the package manager to install it:</p>
+<div class="highlight"><pre><span></span><code>apt-get install tmux
+</code></pre></div>
+
+<p>note that</p>
+<ul>
+<li>apt-get install asked for confirmation (Y)</li>
+<li>apt-get resolved <em>dependencies</em>, it know what is needed to install this package and installs them</li>
+<li>debian packages are something.deb</li>
+</ul>
+<p>if you only want a dry-run / simulation:</p>
+<div class="highlight"><pre><span></span><code>apt-get install -s tmux
+</code></pre></div>
+
+<p>and this will only download the files needed into the cache without installing them:</p>
+<div class="highlight"><pre><span></span><code>apt-get install --download-only tmux
+</code></pre></div>
+
+<p>The downloaded packages are stored as a cache in <code>/var/cache/apt/archive/</code>.</p>
+<p>If you want to download only one specific package, you can do:</p>
+<div class="highlight"><pre><span></span><code><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">download</span> <span class="n">tmux</span>
+</code></pre></div>
+
 <h3>Removing debian packages</h3>
-<div class="highlight"><pre><span></span><code>apt-get remove bzr
+<div class="highlight"><pre><span></span><code>apt-get remove tmux
 </code></pre></div>
 
 <p>and if you want to remove automatically installed dependencies:</p>
-<div class="highlight"><pre><span></span><code>$ apt-get autoremove bzr
+<div class="highlight"><pre><span></span><code>$ apt-get autoremove tmux
 </code></pre></div>
 
 <p>or even</p>
