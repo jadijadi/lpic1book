@@ -26,18 +26,18 @@ Candidates should be able to determine the shared libraries that executable prog
 
 ### Linking
 
-When we write a program, we use libraries. For example if you need to read text from standard input, you need to _link_ a library which provides this. Think linking has two forms:
+When we write a program, we use libraries. For example, if you need to read text from standard input, you need to _link_ a library that provides this. Think linking has two forms:
 
-* **Static** Linking is when you add this library to your executable program. In this method your program size is big because it has all the needed libraries. One good advantage is your program can be run without being dependent to other programs/libraries.
-* **Dynamic** Linking is when you just say in your program "We need this and that library to run this program". This way your program is smaller but you need to install those libraries separately. This makes programs more secure \(because libraries can be updated centrally\), more advanced \(any improvement in a library will improve the whole program\) and smaller.
+* **Static** Linking is when you add this library to your executable program. In this method, your program size is big because it has all the needed libraries. One good advantage is your program can be run without being dependent on other programs/libraries.
+* **Dynamic** Linking is when you just say in your program "We need this and that library to run this program". This way your program is smaller but you need to install those libraries separately. This makes programs more secure \(because libraries can be updated centrally\), more advanced \(any improvement in a library will improve the whole program\), and smaller.
 
 Linux dynamic libraries have names like `libLIBNAME.so.VERSION` and are located at places like `/lib*/` and `/usr/lib*/`. On Windows, we call them Dynamic Linked Libraries (DLLs). 
 
 > Dynamic linking is also called **shared** libraries because all the programs are sharing one library which is separately installed.
 
-### What libraries I need
+### What libraries do I need
 
-Libraries related to system utilities are installed in `/lib` and `/lib64` \(for 32bit and 64bit libraries\) and libraries installed by other softwares will be located at `/usr/lib` and `/usr/lib64`.
+Libraries related to system utilities are installed in `/lib` and `/lib64` \(for 32bit and 64bit libraries\) and libraries installed by other software will be located at `/usr/lib` and `/usr/lib64`.
 
 #### ldd
 
@@ -46,7 +46,7 @@ The `ldd` command helps you find:
 * If a program is dynamically or statically linked
 * What libraries a program needs
 
-Lets have a look at two files:
+Let's have a look at two files:
 
 ```text
 [jadi@fedora ~]$ ldd /sbin/ldconfig
@@ -66,7 +66,7 @@ As you can see, `ldd` tells us that the `/sbin/ldconfig` is not dynamically link
 
 #### Symbolic links for libraries
 
-If you are writing a program and you use udev functions, you will ask for a library called _libudev.so.1_. But a Linux distro, might call its version of udev library _libudev.so.1.4.0_. How can we solve this problem? The answer is **symbolic links**; you will learn more about them in next chapters but for short, a symbolic name is a new name for the same file.
+If you are writing a program and you use udev functions, you will ask for a library called _libudev.so.1_. But a Linux distro, might call its version of udev library _libudev.so.1.4.0_. How can we solve this problem? The answer is **symbolic links**; you will learn more about them in the next chapters but for short, a symbolic name is a new name for the same file.
 
 I will check the same thing on my system. First I'll find where the libudev.so.1 on my system is:
 
@@ -83,11 +83,11 @@ And then will check that file:
 lrwxrwxrwx 1 root root    16 Nov 13 23:05 /lib/i386-linux-gnu/libudev.so.1 -> libudev.so.1.4.0
 ```
 
-As you can see, this is a symbolic link pointing to the version of libudev I have installed \(1.4.0\) so even if a software says it need libudev.so.1, my system will use its libusdev.so.1.4.0.
+As you can see, this is a symbolic link pointing to the version of libudev I have installed \(1.4.0\) so even if a software says it needs libudev.so.1, my system will use its libusdev.so.1.4.0.
 
 #### Dynamic library configs and cache
 
-As most of other linux tools, dynamic linking is also configured by a textual configuration file. It is located at `/etc/ld.so.conf` and it might load more config files from `/etc/ld.so.conf.d/*.conf`. Please note that this _including other files from_ `/etc/ld.so.conf.d/` is a common practice to keep config files separated and clean. You will see the same pattern in many other places too and technically we were able to add whatever is needed in the original file.
+Like most of the other Linux tools, dynamic linking is also configured by a textual configuration file. It is located at `/etc/ld.so.conf` and it might load more config files from `/etc/ld.so.conf.d/*.conf`. Please note that this _including other files from_ `/etc/ld.so.conf.d/` is a common practice to keep config files separated and clean. You will see the same pattern in many other places too and technically we were able to add whatever is needed in the original file.
 
 ```text
 [jadi@fedora ~]$ cat /etc/ld.so.conf
@@ -118,7 +118,7 @@ To close this section lets run ldconfig with the **-p** switch to see what is sa
 	libyelp.so.0 (libc6,x86-64) => /lib64/libyelp.so.0
 ```
 
-As you can see, this file tells the the kernel that anyone asks for `libzstd.so.1`, the `/lib64/libzstd.so.1` file should be loaded and used.
+As you can see, this file tells the kernel that anyone asks for `libzstd.so.1`, the `/lib64/libzstd.so.1` file should be loaded and used.
 
 ### Where OS finds dynamic libraries
 When a program needs a shared library, the system will search files in this order:
@@ -131,7 +131,7 @@ When a program needs a shared library, the system will search files in this orde
 In some cases, you might need to override the default system libraries. Some examples are:
 
 * You are running an old software which needs an old version of a library.
-* You are developing a shared library and want to test is without installing it
+* You are developing a shared library and want to test it without installing it
 * You are running a specific program \(say from opt\) which needs to access its own libraries
 
 In these cases, you can point the environment variable **LD\_LIBRARY\_PATH** to the library you need to use and then run your program. A colon \(:\) separated list of directories will tell your program where to search for needed libraries **before** checking the libraries in `/etc/ld.so.cache`.
@@ -146,7 +146,7 @@ And then run any command, the system will search `/usr/lib/myoldlibs` and then `
 
 ## Loading dynamically
 
-As the last part of this section, lets see how we can manually tell linux to run a program using its _dynamic linker_. Its also called dynamic loader and is used to load dynamic libraries needed by an executable. It might be called `ld` or `ld-linux`. You can find yours by running:
+In the last part of this section, let's see how we can manually tell Linux to run a program using its _dynamic linker_. Its also called a dynamic loader and is used to load dynamic libraries needed by an executable. It might be called `ld` or `ld-linux`. You can find yours by running:
 
 ```
 [jadi@fedora ~]$ locate ld-linux
@@ -162,7 +162,7 @@ and run programs using it like this:
 Desktop  Documents  Downloads  Music  Pictures	Public	Templates  tmp	Videos
 ```
 
-You want to go deeper than LPIC1 and ask why you do not need to run `ld-linux` when running a command? Because the executable you are running is a Linux ELF executable and if you check its inside, you can see that it says "run this using ld-linux": 
+Do you want to go deeper than LPIC1 and ask why you do not need to run `ld-linux` when running a command? Because the executable you are running is a Linux ELF executable and if you check its inside, you can see that it says "run this using ld-linux": 
 
 ```
 [jadi@fedora ~]$ readelf -Wl /usr/bin/ls
@@ -182,4 +182,4 @@ Program Headers:
   [...]
 ```
 
-💀 There is a *hack* here: *You can run any linux executable even if its executable bit is not set!* just run it using `ld-linux` as we did a few lines above!
+💀 There is a *hack* here: *You can run any Linux executable even if its executable bit is not set!* just run it using `ld-linux` as we did a few lines above!
