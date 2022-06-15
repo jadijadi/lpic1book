@@ -105,24 +105,24 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1P58gW8xCkk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>Linking</h3>
-<p>When we write a program, we use libraries. For example if you need to read text from standard input, you need to <em>link</em> a library which provides this. Think linking has two forms:</p>
+<p>When we write a program, we use libraries. For example, if you need to read text from standard input, you need to <em>link</em> a library that provides this. Think linking has two forms:</p>
 <ul>
-<li><strong>Static</strong> Linking is when you add this library to your executable program. In this method your program size is big because it has all the needed libraries. One good advantage is your program can be run without being dependent to other programs/libraries.</li>
-<li><strong>Dynamic</strong> Linking is when you just say in your program "We need this and that library to run this program". This way your program is smaller but you need to install those libraries separately. This makes programs more secure (because libraries can be updated centrally), more advanced (any improvement in a library will improve the whole program) and smaller.</li>
+<li><strong>Static</strong> Linking is when you add this library to your executable program. In this method, your program size is big because it has all the needed libraries. One good advantage is your program can be run without being dependent on other programs/libraries.</li>
+<li><strong>Dynamic</strong> Linking is when you just say in your program "We need this and that library to run this program". This way your program is smaller but you need to install those libraries separately. This makes programs more secure (because libraries can be updated centrally), more advanced (any improvement in a library will improve the whole program), and smaller.</li>
 </ul>
 <p>Linux dynamic libraries have names like <code>libLIBNAME.so.VERSION</code> and are located at places like <code>/lib*/</code> and <code>/usr/lib*/</code>. On Windows, we call them Dynamic Linked Libraries (DLLs). </p>
 <blockquote>
 <p>Dynamic linking is also called <strong>shared</strong> libraries because all the programs are sharing one library which is separately installed.</p>
 </blockquote>
-<h3>What libraries I need</h3>
-<p>Libraries related to system utilities are installed in <code>/lib</code> and <code>/lib64</code> (for 32bit and 64bit libraries) and libraries installed by other softwares will be located at <code>/usr/lib</code> and <code>/usr/lib64</code>.</p>
+<h3>What libraries do I need</h3>
+<p>Libraries related to system utilities are installed in <code>/lib</code> and <code>/lib64</code> (for 32bit and 64bit libraries) and libraries installed by other software will be located at <code>/usr/lib</code> and <code>/usr/lib64</code>.</p>
 <h4>ldd</h4>
 <p>The <code>ldd</code> command helps you find:</p>
 <ul>
 <li>If a program is dynamically or statically linked</li>
 <li>What libraries a program needs</li>
 </ul>
-<p>Lets have a look at two files:</p>
+<p>Let's have a look at two files:</p>
 <div class="highlight"><pre><span></span><code>[jadi@fedora ~]$ ldd /sbin/ldconfig
     not a dynamic executable
 
@@ -137,7 +137,7 @@
 
 <p>As you can see, <code>ldd</code> tells us that the <code>/sbin/ldconfig</code> is not dynamically linked but shows us the libraries needed by <code>/bin/ls</code>.</p>
 <h4>Symbolic links for libraries</h4>
-<p>If you are writing a program and you use udev functions, you will ask for a library called <em>libudev.so.1</em>. But a Linux distro, might call its version of udev library <em>libudev.so.1.4.0</em>. How can we solve this problem? The answer is <strong>symbolic links</strong>; you will learn more about them in next chapters but for short, a symbolic name is a new name for the same file.</p>
+<p>If you are writing a program and you use udev functions, you will ask for a library called <em>libudev.so.1</em>. But a Linux distro, might call its version of udev library <em>libudev.so.1.4.0</em>. How can we solve this problem? The answer is <strong>symbolic links</strong>; you will learn more about them in the next chapters but for short, a symbolic name is a new name for the same file.</p>
 <p>I will check the same thing on my system. First I'll find where the libudev.so.1 on my system is:</p>
 <div class="highlight"><pre><span></span><code># locate libudev.so.1
 /lib/i386-linux-gnu/libudev.so.1
@@ -149,9 +149,9 @@
 lrwxrwxrwx 1 root root    16 Nov 13 23:05 /lib/i386-linux-gnu/libudev.so.1 -&gt; libudev.so.1.4.0
 </code></pre></div>
 
-<p>As you can see, this is a symbolic link pointing to the version of libudev I have installed (1.4.0) so even if a software says it need libudev.so.1, my system will use its libusdev.so.1.4.0.</p>
+<p>As you can see, this is a symbolic link pointing to the version of libudev I have installed (1.4.0) so even if a software says it needs libudev.so.1, my system will use its libusdev.so.1.4.0.</p>
 <h4>Dynamic library configs and cache</h4>
-<p>As most of other linux tools, dynamic linking is also configured by a textual configuration file. It is located at <code>/etc/ld.so.conf</code> and it might load more config files from <code>/etc/ld.so.conf.d/*.conf</code>. Please note that this <em>including other files from</em> <code>/etc/ld.so.conf.d/</code> is a common practice to keep config files separated and clean. You will see the same pattern in many other places too and technically we were able to add whatever is needed in the original file.</p>
+<p>Like most of the other Linux tools, dynamic linking is also configured by a textual configuration file. It is located at <code>/etc/ld.so.conf</code> and it might load more config files from <code>/etc/ld.so.conf.d/*.conf</code>. Please note that this <em>including other files from</em> <code>/etc/ld.so.conf.d/</code> is a common practice to keep config files separated and clean. You will see the same pattern in many other places too and technically we were able to add whatever is needed in the original file.</p>
 <div class="highlight"><pre><span></span><code>[jadi@fedora ~]$ cat /etc/ld.so.conf
 include ld.so.conf.d/*.conf
 [jadi@fedora ~]$ ls /etc/ld.so.conf.d/
@@ -178,7 +178,7 @@ llvm13-x86_64.conf  pipewire-jack-x86_64.conf
     libyelp.so.0 (libc6,x86-64) =&gt; /lib64/libyelp.so.0
 </code></pre></div>
 
-<p>As you can see, this file tells the the kernel that anyone asks for <code>libzstd.so.1</code>, the <code>/lib64/libzstd.so.1</code> file should be loaded and used.</p>
+<p>As you can see, this file tells the kernel that anyone asks for <code>libzstd.so.1</code>, the <code>/lib64/libzstd.so.1</code> file should be loaded and used.</p>
 <h3>Where OS finds dynamic libraries</h3>
 <p>When a program needs a shared library, the system will search files in this order:</p>
 <ol>
@@ -190,7 +190,7 @@ llvm13-x86_64.conf  pipewire-jack-x86_64.conf
 <p>In some cases, you might need to override the default system libraries. Some examples are:</p>
 <ul>
 <li>You are running an old software which needs an old version of a library.</li>
-<li>You are developing a shared library and want to test is without installing it</li>
+<li>You are developing a shared library and want to test it without installing it</li>
 <li>You are running a specific program (say from opt) which needs to access its own libraries</li>
 </ul>
 <p>In these cases, you can point the environment variable <strong>LD_LIBRARY_PATH</strong> to the library you need to use and then run your program. A colon (:) separated list of directories will tell your program where to search for needed libraries <strong>before</strong> checking the libraries in <code>/etc/ld.so.cache</code>.</p>
@@ -200,7 +200,7 @@ llvm13-x86_64.conf  pipewire-jack-x86_64.conf
 
 <p>And then run any command, the system will search <code>/usr/lib/myoldlibs</code> and then <code>/home/jadi/lpic/libs/</code> before going to the main system libraries (defined in <code>/etc/ld.so.cache</code>). . .</p>
 <h2>Loading dynamically</h2>
-<p>As the last part of this section, lets see how we can manually tell linux to run a program using its <em>dynamic linker</em>. Its also called dynamic loader and is used to load dynamic libraries needed by an executable. It might be called <code>ld</code> or <code>ld-linux</code>. You can find yours by running:</p>
+<p>In the last part of this section, let's see how we can manually tell Linux to run a program using its <em>dynamic linker</em>. Its also called a dynamic loader and is used to load dynamic libraries needed by an executable. It might be called <code>ld</code> or <code>ld-linux</code>. You can find yours by running:</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">locate</span><span class="w"> </span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="w"></span>
 <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib64</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">64.</span><span class="n">so</span><span class="mf">.2</span><span class="w"></span>
 <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="n">man8</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="mf">.8</span><span class="p">.</span><span class="n">gz</span><span class="w"></span>
@@ -212,7 +212,7 @@ llvm13-x86_64.conf  pipewire-jack-x86_64.conf
 <span class="n">Desktop</span>  <span class="n">Documents</span>  <span class="n">Downloads</span>  <span class="n">Music</span>  <span class="n">Pictures</span>  <span class="n">Public</span>  <span class="n">Templates</span>  <span class="n">tmp</span>  <span class="n">Videos</span>
 </code></pre></div>
 
-<p>You want to go deeper than LPIC1 and ask why you do not need to run <code>ld-linux</code> when running a command? Because the executable you are running is a Linux ELF executable and if you check its inside, you can see that it says "run this using ld-linux": </p>
+<p>Do you want to go deeper than LPIC1 and ask why you do not need to run <code>ld-linux</code> when running a command? Because the executable you are running is a Linux ELF executable and if you check its inside, you can see that it says "run this using ld-linux": </p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">readelf</span><span class="w"> </span><span class="o">-</span><span class="n">Wl</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">ls</span><span class="w"></span>
 
 <span class="n">Elf</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">DYN</span><span class="w"> </span><span class="p">(</span><span class="k">Position</span><span class="o">-</span><span class="n">Independent</span><span class="w"> </span><span class="n">Executable</span><span class="w"> </span><span class="k">file</span><span class="p">)</span><span class="w"></span>
@@ -230,7 +230,7 @@ llvm13-x86_64.conf  pipewire-jack-x86_64.conf
 <span class="w">  </span><span class="o">[</span><span class="n">...</span><span class="o">]</span><span class="w"></span>
 </code></pre></div>
 
-<p>💀 There is a <em>hack</em> here: <em>You can run any linux executable even if its executable bit is not set!</em> just run it using <code>ld-linux</code> as we did a few lines above!</p>
+<p>💀 There is a <em>hack</em> here: <em>You can run any Linux executable even if its executable bit is not set!</em> just run it using <code>ld-linux</code> as we did a few lines above!</p>
 
 
              
