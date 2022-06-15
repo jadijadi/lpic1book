@@ -25,6 +25,8 @@ Candidates should be able to perform package management using the Debian package
 
 ### Concept of the package management system
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jtwbweigRxo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 Some people think that on GNU/Linux we have to compile all the software we need manualy. This is not the case in 99% of cases and never have been the case in last 20 years. GNU/Linux is the preceedor of what we call App Store these days. All major distros do have huge archives of pre-compiled software called their _repositories_ and some kind of a **package manager** software which takes care of searching these repositories, installing software from them, finding dependencies and installing them, resolving conflicts and updating the system and installed softwares. Debian based distros use .deb files as their "packages" and uses tools like `apt-get`, `dpkg`, `apt` and other tools to manage them.
 
 Debian packages are names like `NAME-VERSION-RELEASE_ARCHITECTURE.deb`; say `tmux_3.2a-4build1_amd64.deb`. 
@@ -101,7 +103,9 @@ This will check all the sources in the configs and updates the information about
 
 > This wont actually _Upgrade_ the software. The *Update* will only *Update the information about the packages and not the packages themselves*.
 
-### Installing packages
+### Installing packageso
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IBnxIX_WceI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Say you have heard about this retro source control software called `tmux` and you want to give it a try.
 
