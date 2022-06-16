@@ -17,7 +17,7 @@ Candidates should be able to perform package management using the Debian package
 
 #### Terms and Utilities
 
-* /etc/apt/sources.list
+* `/etc/apt/sources.list`
 * dpkg
 * dpkg-reconfigure
 * apt-get
@@ -27,7 +27,7 @@ Candidates should be able to perform package management using the Debian package
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/jtwbweigRxo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Some people think that on GNU/Linux we have to compile all the software we need manualy. This is not the case in 99% of cases and never have been the case in last 20 years. GNU/Linux is the preceedor of what we call App Store these days. All major distros do have huge archives of pre-compiled software called their _repositories_ and some kind of a **package manager** software which takes care of searching these repositories, installing software from them, finding dependencies and installing them, resolving conflicts and updating the system and installed softwares. Debian based distros use .deb files as their "packages" and uses tools like `apt-get`, `dpkg`, `apt` and other tools to manage them.
+Some people think that on GNU/Linux we have to compile all the software we need manualy. This is not the case in 99% of cases and never have been the case in last 20 years. GNU/Linux is the preceedor of what we call App Store these days. All major distros do have huge archives of pre-compiled software called their _repositories_ and some kind of a **package manager** software which takes care of searching these repositories, installing software from them, finding dependencies and installing them, resolving conflicts and updating the system and installed softwares. Debian based distros use `.deb` files as their "packages" and uses tools like `apt-get`, `dpkg`, `apt` and other tools to manage them.
 
 Debian packages are names like `NAME-VERSION-RELEASE_ARCHITECTURE.deb`; say `tmux_3.2a-4build1_amd64.deb`. 
 
@@ -37,8 +37,8 @@ Debian packages are names like `NAME-VERSION-RELEASE_ARCHITECTURE.deb`; say `tmu
 But where did this package came from? How the OS knew where to look for this deb package? The answer is **Repositories**. Each distro has its own repository of packages. It can be on a Disk, A network drive, a collection of DVDs or most commonly, a network address on the Internet. 
 
 On debian systems, the main configuration locations are:
-- /etc/apt/sources.list 
-- /etc/apt/sources.list.d/
+* `/etc/apt/sources.list`
+* `/etc/apt/sources.list.d/`
 
 ```text
 jadi@lpicjadi:~$ cat /etc/apt/sources.list
@@ -103,7 +103,7 @@ This will check all the sources in the configs and updates the information about
 
 > This wont actually _Upgrade_ the software. The *Update* will only *Update the information about the packages and not the packages themselves*.
 
-### Installing packageso
+### Installing packages
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/IBnxIX_WceI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -118,19 +118,19 @@ $ type tmux
 bash: type: tmux: not found
 ```
 
-so lets install it. If its in the repositories its enough to tell the package manager to install it:
+So lets install it. If its in the repositories its enough to tell the package manager to install it:
 
 ```text
 apt-get install tmux
 ```
 
-note that
+Note that
 
 * apt-get install asked for confirmation \(Y\)
-* apt-get resolved _dependencies_, it know what is needed to install this package and installs them
+* apt-get resolved _dependencies_, It know what is needed to install this package and installs them
 * debian packages are something.deb
 
-if you only want a dry-run / simulation:
+If you only want a dry-run / simulation:
 
 ```text
 apt-get install -s tmux
@@ -155,7 +155,7 @@ apt-get download tmux
 apt-get remove tmux
 ```
 
-and if you want to remove automatically installed dependencies:
+And if you want to remove automatically installed dependencies:
 
 ```text
 $ apt-get autoremove tmux
@@ -175,14 +175,14 @@ After this operation, 203 MB disk space will be freed.
 Do you want to continue? [Y/n] y
 ```
 
-to autoremove whatever is not needed anymore.
+To autoremove whatever is not needed anymore.
 
 Notes:
 
-* removing a package will not remove its dependencies
-* if removing a dependency, you'll get a warning about what will be removed alongside this package
+* Removing a package will not remove its dependencies
+* If removing a dependency, you'll get a warning about what will be removed alongside this package
 
-### searching for packages
+### Searching for packages
 If you are using apt suit, the search is done via `apt-cache` or you can use the general `apt`. 
 
 ```text
@@ -192,27 +192,27 @@ $ apt search grub2
 
 ### Upgrading
 
-for updating a single package
+For updating a single package:
 
 ```text
 apt-get install tzdata
 ```
 
-and for upgrading whatever installed:
+And for upgrading whatever installed:
 
 ```text
 apt-get upgrade
 ```
 
-or going to a new distribution:
+Or going to a new distribution:
 
 ```text
 apt-get dist-upgrade
 ```
 
-Note: as most other tools, you can configure the default configs at /etc/apt/apt.conf and there is a program apt-config for this purpose.
+Note: as most other tools, you can configure the default configs at `/etc/apt/apt.conf` and there is a program apt-config for this purpose.
 
-### reconfiguring packages
+### Reconfiguring packages
 
 Debian packages can have _configuration actions_ which will take after after the package is installed. This is done by `debconf`. For example tzdata will ask you about the timezone settings after you installed it. If you want to *reconfigure* a package which is already installed, you can use the `dpkg-reconfigure`:
 
@@ -220,7 +220,7 @@ Debian packages can have _configuration actions_ which will take after after the
  dpkg-reconfigure tzdata
 ```
 
-### package information with dpkg
+### Package information with dpkg
 
 The underlying tool to work with `.deb` files is the `dpkg`. It is your to-go tool if you want to do manual actions on a deb package. The general format is:
 
@@ -335,8 +335,8 @@ mplayer: /var/lib/mplayer/prefs/mirrors
 ## Common apt-get options
 |Option|Usage|
 |-|-|
-|autoclean|Removes unsed packages|
-|check|Checkd db for issues|
+|autoclean|Removes unused packages|
+|check|Check db for issues|
 |clean|Clean the DB, you can do a `clean all` to clean everything and star afresh|
 |dist-upgrade|Checks for new versions of the OS; major upgrade|
 |install|Install or upgrade packages|
@@ -358,5 +358,5 @@ mplayer: /var/lib/mplayer/prefs/mirrors
 |unmet|Show unmet dependencies for all installed packages or the one you specified|
 
 
-### other tools
+### Other tools
 There are even more tools, the tools with fancy GUIs or text based tools user interface tools like `aptitude`.
