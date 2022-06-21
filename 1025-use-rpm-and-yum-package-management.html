@@ -87,340 +87,463 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>Weight: 3</em></p>
-<p>Candidates should be able to perform package management using RPM and YUM tools.</p>
-<h3>Goals</h3>
+            <p><em>Weight: 3</em></p>
+<p>Candidates should be able to perform package management using RPM, YUM and Zypper.</p>
+<h3>Key Knowledge Areas</h3>
 <ul>
-<li>Install, re-install, upgrade and remove packages using RPM and YUM.</li>
-<li>Obtain information on RPM packages such as version, status, dependencies, integrity and signatures.</li>
-<li>Determine what files a package provides, as well as find which package a specific file comes from.</li>
+<li>Install, re-install, upgrade and remove packages using RPM, YUM and Zypper.</li>
+<li>Obtain information on RPM packages such as version, status, dependencies, integrity and signatures.
+Determine what files a package provides, as well as find which package a specific file comes from.
+Awareness of dnf.</li>
+<li>The following is a partial list of the used files, terms and utilities:</li>
+</ul>
+<h5>Terms</h5>
+<ul>
 <li>rpm</li>
 <li>rpm2cpio</li>
 <li>/etc/yum.conf</li>
 <li>/etc/yum.repos.d/</li>
 <li>yum</li>
-<li>yumdownloader</li>
+<li>zypper</li>
 </ul>
-<h4>Introduction</h4>
-<p><strong>RedHat Package Manager (RPM)</strong> and <strong>Yellowdog Updater Modified (YUM)</strong> are fedora / redhat / rhel / centos / .. tools to manage packages. There are also gui tools for installing and updating. As you saw on 102.4, all package managers can do standard functions like installing, updating and removing packages.</p>
-<p>YUM adds extra features likes automatic updates, dependency management and works with repositories (collection on packages accessed over network or on a CD).</p>
-<h4>Installing</h4>
-<p>Say you want to install "bzr" and you don't have it:</p>
-<div class="highlight"><pre><span></span><code>bzr:[jadi@localhost ~]$ bzr
-bash: bzr: command not found
-[jadi@localhost ~]$ which bzr
-/usr/bin/which: no bzr in (/usr/libexec/lightdm:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/home/jadi/.local/bin:/home/jadi/bin)
-[jadi@localhost ~]$ whatis bzr
-bzr: nothing appropriate.
-[jadi@localhost ~]$ whereis bzr
-bzr:[jadi@localhost ~]$
+<h2>Introduction</h2>
+<p><strong>RedHat Package Manager (RPM)</strong> and <strong>YellowDog Update Manager (YUM)</strong> are used by Fedora, RedHat, RHEL, CentOS, RocksOS, ... to manage packages. The package format is called RPM and can be managed by <code>rpm</code> tools but if you want to use the repositories to install, update, search, .. packages or even upgrade the whole ssytem, you can use the <code>yum</code> command. To have a deeper understanding of the repositories, please refer to the previous section (102.4); here I assume that you know the concept.</p>
+<h2>YUM</h2>
+<p><code>YUM</code> is the package manager used by RedHat based systems. Its configuration files are located at <code>/etc/yum.conf</code> and <code>/etc/yum.repos.d/</code>. Below is a sample.</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">yum</span><span class="p">.</span><span class="n">conf</span><span class="w"></span>
+<span class="o">[</span><span class="n">main</span><span class="o">]</span><span class="w"></span>
+<span class="n">cachedir</span><span class="o">=/</span><span class="nf">var</span><span class="o">/</span><span class="n">cache</span><span class="o">/</span><span class="n">yum</span><span class="o">/</span><span class="err">$</span><span class="n">basearch</span><span class="o">/</span><span class="err">$</span><span class="n">releasever</span><span class="w"></span>
+<span class="n">keepcache</span><span class="o">=</span><span class="mi">0</span><span class="w"></span>
+<span class="n">debuglevel</span><span class="o">=</span><span class="mi">2</span><span class="w"></span>
+<span class="n">logfile</span><span class="o">=/</span><span class="nf">var</span><span class="o">/</span><span class="nf">log</span><span class="o">/</span><span class="n">yum</span><span class="p">.</span><span class="nf">log</span><span class="w"></span>
+<span class="n">exactarch</span><span class="o">=</span><span class="mi">1</span><span class="w"></span>
+<span class="n">obsoletes</span><span class="o">=</span><span class="mi">1</span><span class="w"></span>
+<span class="n">gpgcheck</span><span class="o">=</span><span class="mi">1</span><span class="w"></span>
+<span class="n">plugins</span><span class="o">=</span><span class="mi">1</span><span class="w"></span>
+<span class="n">installonly_limit</span><span class="o">=</span><span class="mi">3</span><span class="w"></span>
 </code></pre></div>
 
-<p>we can obtain the bzr RPM package and try to install it:</p>
-<div class="highlight"><pre><span></span><code>[root@localhost ~]# rpm -i bzr-2.6.0-2.fc20.x86_64.rpm
-error: Failed dependencies:
-    python-paramiko is needed by bzr-2.6.0-2.fc20.x86_64
+<p>And here is a sample of an actual Repo file on a Fedora system:</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">yum</span><span class="p">.</span><span class="n">repos</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">fedora</span><span class="p">.</span><span class="n">repo</span><span class="w"></span>
+<span class="o">[</span><span class="n">fedora</span><span class="o">]</span><span class="w"></span>
+<span class="n">name</span><span class="o">=</span><span class="n">Fedora</span><span class="w"> </span><span class="err">$</span><span class="n">releasever</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="err">$</span><span class="n">basearch</span><span class="w"></span>
+<span class="n">#baseurl</span><span class="o">=</span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="p">.</span><span class="n">example</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">fedora</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="err">$</span><span class="n">releasever</span><span class="o">/</span><span class="n">Everything</span><span class="o">/</span><span class="err">$</span><span class="n">basearch</span><span class="o">/</span><span class="n">os</span><span class="o">/</span><span class="w"></span>
+<span class="n">metalink</span><span class="o">=</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="p">.</span><span class="n">fedoraproject</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">metalink</span><span class="vm">?</span><span class="n">repo</span><span class="o">=</span><span class="n">fedora</span><span class="o">-</span><span class="err">$</span><span class="n">releasever</span><span class="o">&amp;</span><span class="n">arch</span><span class="o">=</span><span class="err">$</span><span class="n">basearch</span><span class="w"></span>
+<span class="n">enabled</span><span class="o">=</span><span class="mi">1</span><span class="w"></span>
+<span class="n">countme</span><span class="o">=</span><span class="mi">1</span><span class="w"></span>
+<span class="n">metadata_expire</span><span class="o">=</span><span class="mi">7</span><span class="n">d</span><span class="w"></span>
+<span class="n">repo_gpgcheck</span><span class="o">=</span><span class="mi">0</span><span class="w"></span>
+<span class="n">type</span><span class="o">=</span><span class="n">rpm</span><span class="w"></span>
+<span class="n">gpgcheck</span><span class="o">=</span><span class="mi">1</span><span class="w"></span>
+<span class="n">gpgkey</span><span class="o">=</span><span class="k">file</span><span class="err">:</span><span class="o">///</span><span class="n">etc</span><span class="o">/</span><span class="n">pki</span><span class="o">/</span><span class="n">rpm</span><span class="o">-</span><span class="n">gpg</span><span class="o">/</span><span class="n">RPM</span><span class="o">-</span><span class="n">GPG</span><span class="o">-</span><span class="k">KEY</span><span class="o">-</span><span class="n">fedora</span><span class="o">-</span><span class="err">$</span><span class="n">releasever</span><span class="o">-</span><span class="err">$</span><span class="n">basearch</span><span class="w"></span>
+<span class="n">skip_if_unavailable</span><span class="o">=</span><span class="k">False</span><span class="w"></span>
+
+<span class="o">[</span><span class="n">fedora-debuginfo</span><span class="o">]</span><span class="w"></span>
+<span class="n">name</span><span class="o">=</span><span class="n">Fedora</span><span class="w"> </span><span class="err">$</span><span class="n">releasever</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="err">$</span><span class="n">basearch</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Debug</span><span class="w"></span>
+<span class="n">#baseurl</span><span class="o">=</span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="p">.</span><span class="n">example</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">fedora</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="err">$</span><span class="n">releasever</span><span class="o">/</span><span class="n">Everything</span><span class="o">/</span><span class="err">$</span><span class="n">basearch</span><span class="o">/</span><span class="n">debug</span><span class="o">/</span><span class="n">tree</span><span class="o">/</span><span class="w"></span>
+<span class="n">metalink</span><span class="o">=</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="p">.</span><span class="n">fedoraproject</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">metalink</span><span class="vm">?</span><span class="n">repo</span><span class="o">=</span><span class="n">fedora</span><span class="o">-</span><span class="n">debug</span><span class="o">-</span><span class="err">$</span><span class="n">releasever</span><span class="o">&amp;</span><span class="n">arch</span><span class="o">=</span><span class="err">$</span><span class="n">basearch</span><span class="w"></span>
+<span class="n">enabled</span><span class="o">=</span><span class="mi">0</span><span class="w"></span>
+<span class="n">metadata_expire</span><span class="o">=</span><span class="mi">7</span><span class="n">d</span><span class="w"></span>
+<span class="n">repo_gpgcheck</span><span class="o">=</span><span class="mi">0</span><span class="w"></span>
+<span class="n">type</span><span class="o">=</span><span class="n">rpm</span><span class="w"></span>
+<span class="n">gpgcheck</span><span class="o">=</span><span class="mi">1</span><span class="w"></span>
+<span class="n">gpgkey</span><span class="o">=</span><span class="k">file</span><span class="err">:</span><span class="o">///</span><span class="n">etc</span><span class="o">/</span><span class="n">pki</span><span class="o">/</span><span class="n">rpm</span><span class="o">-</span><span class="n">gpg</span><span class="o">/</span><span class="n">RPM</span><span class="o">-</span><span class="n">GPG</span><span class="o">-</span><span class="k">KEY</span><span class="o">-</span><span class="n">fedora</span><span class="o">-</span><span class="err">$</span><span class="n">releasever</span><span class="o">-</span><span class="err">$</span><span class="n">basearch</span><span class="w"></span>
+<span class="n">skip_if_unavailable</span><span class="o">=</span><span class="k">False</span><span class="w"></span>
+
+<span class="o">[</span><span class="n">fedora-source</span><span class="o">]</span><span class="w"></span>
+<span class="n">name</span><span class="o">=</span><span class="n">Fedora</span><span class="w"> </span><span class="err">$</span><span class="n">releasever</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Source</span><span class="w"></span>
+<span class="n">#baseurl</span><span class="o">=</span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="p">.</span><span class="n">example</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">fedora</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="err">$</span><span class="n">releasever</span><span class="o">/</span><span class="n">Everything</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">tree</span><span class="o">/</span><span class="w"></span>
+<span class="n">metalink</span><span class="o">=</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="p">.</span><span class="n">fedoraproject</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">metalink</span><span class="vm">?</span><span class="n">repo</span><span class="o">=</span><span class="n">fedora</span><span class="o">-</span><span class="n">source</span><span class="o">-</span><span class="err">$</span><span class="n">releasever</span><span class="o">&amp;</span><span class="n">arch</span><span class="o">=</span><span class="err">$</span><span class="n">basearch</span><span class="w"></span>
+<span class="n">enabled</span><span class="o">=</span><span class="mi">0</span><span class="w"></span>
+<span class="n">metadata_expire</span><span class="o">=</span><span class="mi">7</span><span class="n">d</span><span class="w"></span>
+<span class="n">repo_gpgcheck</span><span class="o">=</span><span class="mi">0</span><span class="w"></span>
+<span class="n">type</span><span class="o">=</span><span class="n">rpm</span><span class="w"></span>
+<span class="n">gpgcheck</span><span class="o">=</span><span class="mi">1</span><span class="w"></span>
+<span class="n">gpgkey</span><span class="o">=</span><span class="k">file</span><span class="err">:</span><span class="o">///</span><span class="n">etc</span><span class="o">/</span><span class="n">pki</span><span class="o">/</span><span class="n">rpm</span><span class="o">-</span><span class="n">gpg</span><span class="o">/</span><span class="n">RPM</span><span class="o">-</span><span class="n">GPG</span><span class="o">-</span><span class="k">KEY</span><span class="o">-</span><span class="n">fedora</span><span class="o">-</span><span class="err">$</span><span class="n">releasever</span><span class="o">-</span><span class="err">$</span><span class="n">basearch</span><span class="w"></span>
+<span class="n">skip_if_unavailable</span><span class="o">=</span><span class="k">False</span><span class="w"></span>
 </code></pre></div>
 
-<p>Failed because of dependencies. RPM understands the dependencies but does not installs it itself. We need YUM:</p>
-<div class="highlight"><pre><span></span><code>[root@localhost ~]# yum install bzr
-Loaded plugins: langpacks
-Resolving Dependencies
---&gt; Running transaction check
----&gt; Package bzr.x86_64 0:2.6.0-2.fc20 will be installed
---&gt; Processing Dependency: python-paramiko for package: bzr-2.6.0-2.fc20.x86_64
---&gt; Running transaction check
----&gt; Package python-paramiko.noarch 0:1.15.1-1.fc20 will be installed
---&gt; Processing Dependency: python-crypto &gt;= 2.1 for package: python-paramiko-1.15.1-1.fc20.noarch
---&gt; Running transaction check
----&gt; Package python-crypto.x86_64 0:2.6.1-1.fc20 will be installed
---&gt; Finished Dependency Resolution
+<p>We use yum like <code>yum [OPTIONS] [COMMAND] [PACKAGE_NAME]</code>.</p>
+<p>One of the most important options is <code>-y</code> which says <em>yes</em> to the Y/N questions.</p>
+<p>And here you can find some of the commands:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Descriptioin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>update</td>
+<td>Updates the repositories and update the names packages, or all if nothing is named</td>
+</tr>
+<tr>
+<td>install</td>
+<td>Install a package</td>
+</tr>
+<tr>
+<td>reinstall</td>
+<td>Reinstall a package</td>
+</tr>
+<tr>
+<td>list</td>
+<td>Show a list of installed packages</td>
+</tr>
+<tr>
+<td>info</td>
+<td>Show information about a package</td>
+</tr>
+<tr>
+<td>remove</td>
+<td>Removes an installed package</td>
+</tr>
+<tr>
+<td>search</td>
+<td>Searches repositories for packages</td>
+</tr>
+<tr>
+<td>provides</td>
+<td>Checck which packages provides an specific file</td>
+</tr>
+<tr>
+<td>upgrade</td>
+<td>Upgrades packages and removes the obsolete ones</td>
+</tr>
+<tr>
+<td>localinstall</td>
+<td>Instlal from a local rpm file</td>
+</tr>
+<tr>
+<td>localupdate</td>
+<td>Updates from a local rpm file</td>
+</tr>
+<tr>
+<td>check-update</td>
+<td>Checks repositories for updates to the installed packages</td>
+</tr>
+<tr>
+<td>deplist</td>
+<td>Shows dependencies of a package</td>
+</tr>
+<tr>
+<td>groupinstall</td>
+<td>Install a group, say "KDE Plasma Workspaces"</td>
+</tr>
+<tr>
+<td>history</td>
+<td>show history of the usage</td>
+</tr>
+</tbody>
+</table>
+<p>This is a sample installation:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># yum  install bzr</span>
+<span class="n">Last</span> <span class="n">metadata</span> <span class="n">expiration</span> <span class="n">check</span><span class="p">:</span> <span class="mi">0</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">47</span> <span class="n">ago</span> <span class="n">on</span> <span class="n">Tue</span> <span class="mi">21</span> <span class="n">Jun</span> <span class="mi">2022</span> <span class="mi">06</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">00</span> <span class="n">PM</span> <span class="o">+</span><span class="mf">0430.</span>
+<span class="n">Dependencies</span> <span class="n">resolved</span><span class="o">.</span>
+<span class="o">=====================================================================================================================</span>
+ <span class="n">Package</span>                                  <span class="n">Architecture</span>       <span class="n">Version</span>                       <span class="n">Repository</span>           <span class="n">Size</span>
+<span class="o">=====================================================================================================================</span>
+<span class="n">Installing</span><span class="p">:</span>
+ <span class="n">breezy</span>                                   <span class="n">x86_64</span>             <span class="mf">3.2</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span>                  <span class="n">fedora</span>              <span class="mf">6.0</span> <span class="n">M</span>
+<span class="n">Installing</span> <span class="n">dependencies</span><span class="p">:</span>
+ <span class="n">libsodium</span>                                <span class="n">x86_64</span>             <span class="mf">1.0</span><span class="o">.</span><span class="mi">18</span><span class="o">-</span><span class="mf">9.</span><span class="n">fc36</span>                 <span class="n">fedora</span>              <span class="mi">163</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">bcrypt</span>                           <span class="n">x86_64</span>             <span class="mf">3.2</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span>                  <span class="n">updates</span>              <span class="mi">43</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">certifi</span>                          <span class="n">noarch</span>             <span class="mf">2021.10</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span>              <span class="n">fedora</span>               <span class="mi">15</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">configobj</span>                        <span class="n">noarch</span>             <span class="mf">5.0</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mf">27.</span><span class="n">fc36</span>                 <span class="n">fedora</span>               <span class="mi">63</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">cryptography</span>                     <span class="n">x86_64</span>             <span class="mf">36.0</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span>                 <span class="n">fedora</span>              <span class="mf">1.0</span> <span class="n">M</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">dulwich</span>                          <span class="n">x86_64</span>             <span class="mf">0.20</span><span class="o">.</span><span class="mi">32</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span>                <span class="n">fedora</span>              <span class="mi">408</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">httplib2</span>                         <span class="n">noarch</span>             <span class="mf">0.20</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span>                 <span class="n">fedora</span>              <span class="mi">122</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">jeepney</span>                          <span class="n">noarch</span>             <span class="mf">0.7</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span>                  <span class="n">fedora</span>              <span class="mi">324</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">jwt</span>                              <span class="n">noarch</span>             <span class="mf">2.4</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span>                  <span class="n">updates</span>              <span class="mi">41</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">keyring</span>                          <span class="n">noarch</span>             <span class="mf">23.6</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span>                 <span class="n">updates</span>              <span class="mi">78</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">lazr</span><span class="o">-</span><span class="n">restfulclient</span>               <span class="n">noarch</span>             <span class="mf">0.14</span><span class="o">.</span><span class="mi">4</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span>                 <span class="n">fedora</span>               <span class="mi">84</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">lazr</span><span class="o">-</span><span class="n">uri</span>                         <span class="n">noarch</span>             <span class="mf">1.0</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span>                  <span class="n">fedora</span>               <span class="mi">33</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">oauthlib</span>                         <span class="n">noarch</span>             <span class="mf">3.0</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">12.</span><span class="n">fc36</span>                 <span class="n">fedora</span>              <span class="mi">169</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">paramiko</span>                         <span class="n">noarch</span>             <span class="mf">2.11</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span>                 <span class="n">updates</span>             <span class="mi">303</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">patiencediff</span>                     <span class="n">x86_64</span>             <span class="mf">0.2</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">4.</span><span class="n">fc36</span>                  <span class="n">fedora</span>               <span class="mi">45</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">pynacl</span>                           <span class="n">x86_64</span>             <span class="mf">1.4</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">5.</span><span class="n">fc36</span>                  <span class="n">fedora</span>              <span class="mi">108</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">secretstorage</span>                    <span class="n">noarch</span>             <span class="mf">3.3</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">4.</span><span class="n">fc36</span>                  <span class="n">fedora</span>               <span class="mi">35</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">wadllib</span>                          <span class="n">noarch</span>             <span class="mf">1.3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span>                  <span class="n">fedora</span>               <span class="mi">60</span> <span class="n">k</span>
+<span class="n">Installing</span> <span class="n">weak</span> <span class="n">dependencies</span><span class="p">:</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">jwt</span><span class="o">+</span><span class="n">crypto</span>                       <span class="n">noarch</span>             <span class="mf">2.4</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span>                  <span class="n">updates</span>             <span class="mf">8.9</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">launchpadlib</span>                     <span class="n">noarch</span>             <span class="mf">1.10</span><span class="o">.</span><span class="mf">15.1</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span>              <span class="n">fedora</span>              <span class="mi">167</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">oauthlib</span><span class="o">+</span><span class="n">signedtoken</span>             <span class="n">noarch</span>             <span class="mf">3.0</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">12.</span><span class="n">fc36</span>                 <span class="n">fedora</span>              <span class="mf">8.5</span> <span class="n">k</span>
+ <span class="n">python3</span><span class="o">-</span><span class="n">pyasn1</span>                           <span class="n">noarch</span>             <span class="mf">0.4</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="mf">8.</span><span class="n">fc36</span>                  <span class="n">fedora</span>              <span class="mi">134</span> <span class="n">k</span>
 
-Dependencies Resolved
+<span class="n">Transaction</span> <span class="n">Summary</span>
+<span class="o">=====================================================================================================================</span>
+<span class="n">Install</span>  <span class="mi">23</span> <span class="n">Packages</span>
 
-=========================================================================================================================
- Package                          Arch                    Version                         Repository                Size
-=========================================================================================================================
-Installing:
- bzr                              x86_64                  2.6.0-2.fc20                    fedora                   6.3 M
-Installing for dependencies:
- python-crypto                    x86_64                  2.6.1-1.fc20                    fedora                   470 k
- python-paramiko                  noarch                  1.15.1-1.fc20                   updates                  998 k
+<span class="n">Total</span> <span class="n">download</span> <span class="n">size</span><span class="p">:</span> <span class="mf">9.4</span> <span class="n">M</span>
+<span class="n">Installed</span> <span class="n">size</span><span class="p">:</span> <span class="mi">44</span> <span class="n">M</span>
+<span class="n">Is</span> <span class="n">this</span> <span class="n">ok</span> <span class="p">[</span><span class="n">y</span><span class="o">/</span><span class="n">N</span><span class="p">]:</span> <span class="n">y</span>
+<span class="n">Downloading</span> <span class="n">Packages</span><span class="p">:</span>
+<span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">certifi</span><span class="o">-</span><span class="mf">2021.10</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                                  <span class="mf">1.8</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>  <span class="mi">15</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">08</span>
+<span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">libsodium</span><span class="o">-</span><span class="mf">1.0</span><span class="o">.</span><span class="mi">18</span><span class="o">-</span><span class="mf">9.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">rpm</span>                                            <span class="mi">15</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="mi">163</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">10</span>
+<span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">configobj</span><span class="o">-</span><span class="mf">5.0</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mf">27.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                                    <span class="mi">10</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>  <span class="mi">63</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">06</span>
+<span class="p">(</span><span class="mi">4</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">breezy</span><span class="o">-</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">rpm</span>                                               <span class="mi">262</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="mf">6.0</span> <span class="n">MB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">23</span>
+<span class="p">(</span><span class="mi">5</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">dulwich</span><span class="o">-</span><span class="mf">0.20</span><span class="o">.</span><span class="mi">32</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">rpm</span>                                     <span class="mi">47</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="mi">408</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">08</span>
+<span class="p">(</span><span class="mi">6</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">cryptography</span><span class="o">-</span><span class="mf">36.0</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">rpm</span>                                 <span class="mi">77</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="mf">1.0</span> <span class="n">MB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">13</span>
+<span class="p">(</span><span class="mi">7</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">httplib2</span><span class="o">-</span><span class="mf">0.20</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                                    <span class="mi">105</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="mi">122</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">01</span>
+<span class="p">(</span><span class="mi">8</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">jeepney</span><span class="o">-</span><span class="mf">0.7</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                                      <span class="mi">259</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="mi">324</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">01</span>
+<span class="p">(</span><span class="mi">9</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">launchpadlib</span><span class="o">-</span><span class="mf">1.10</span><span class="o">.</span><span class="mf">15.1</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                              <span class="mi">74</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="mi">167</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">02</span>
+<span class="p">(</span><span class="mi">10</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">lazr</span><span class="o">-</span><span class="n">restfulclient</span><span class="o">-</span><span class="mf">0.14</span><span class="o">.</span><span class="mi">4</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                          <span class="mi">36</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>  <span class="mi">84</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">02</span>
+<span class="p">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">lazr</span><span class="o">-</span><span class="n">uri</span><span class="o">-</span><span class="mf">1.0</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                                     <span class="mi">15</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>  <span class="mi">33</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">02</span>
+<span class="p">(</span><span class="mi">12</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">oauthlib</span><span class="o">+</span><span class="n">signedtoken</span><span class="o">-</span><span class="mf">3.0</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">12.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                       <span class="mf">4.2</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="mf">8.5</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">02</span>
+<span class="p">(</span><span class="mi">13</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">oauthlib</span><span class="o">-</span><span class="mf">3.0</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">12.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                                    <span class="mi">58</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="mi">169</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">02</span>
+<span class="p">(</span><span class="mi">14</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">patiencediff</span><span class="o">-</span><span class="mf">0.2</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">4.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">rpm</span>                                 <span class="mi">15</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>  <span class="mi">45</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">02</span>
+<span class="p">(</span><span class="mi">15</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">pyasn1</span><span class="o">-</span><span class="mf">0.4</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="mf">8.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                                       <span class="mi">61</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="mi">134</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">02</span>
+<span class="p">(</span><span class="mi">16</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">pynacl</span><span class="o">-</span><span class="mf">1.4</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">5.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">rpm</span>                                       <span class="mi">36</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="mi">108</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">03</span>
+<span class="p">(</span><span class="mi">17</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">secretstorage</span><span class="o">-</span><span class="mf">3.3</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">4.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                                <span class="mi">12</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>  <span class="mi">35</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">02</span>
+<span class="p">(</span><span class="mi">18</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">wadllib</span><span class="o">-</span><span class="mf">1.3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                                      <span class="mi">24</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>  <span class="mi">60</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">02</span>
+<span class="p">(</span><span class="mi">19</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">bcrypt</span><span class="o">-</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">rpm</span>                                       <span class="mi">16</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>  <span class="mi">43</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">02</span>
+<span class="p">(</span><span class="mi">20</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">jwt</span><span class="o">+</span><span class="n">crypto</span><span class="o">-</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                                  <span class="mf">3.2</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="mf">8.9</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">02</span>
+<span class="p">(</span><span class="mi">21</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">jwt</span><span class="o">-</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                                          <span class="mi">16</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>  <span class="mi">41</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">02</span>
+<span class="p">(</span><span class="mi">22</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">keyring</span><span class="o">-</span><span class="mf">23.6</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                                     <span class="mi">18</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>  <span class="mi">78</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">04</span>
+<span class="p">(</span><span class="mi">23</span><span class="o">/</span><span class="mi">23</span><span class="p">):</span> <span class="n">python3</span><span class="o">-</span><span class="n">paramiko</span><span class="o">-</span><span class="mf">2.11</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>                                    <span class="mi">38</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="mi">303</span> <span class="n">kB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">08</span>
+<span class="o">---------------------------------------------------------------------------------------------------------------------</span>
+<span class="n">Total</span>                                                                                <span class="mi">177</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="mf">9.4</span> <span class="n">MB</span>     <span class="mi">00</span><span class="p">:</span><span class="mi">54</span>
+<span class="n">Running</span> <span class="n">transaction</span> <span class="n">check</span>
+<span class="n">Transaction</span> <span class="n">check</span> <span class="n">succeeded</span><span class="o">.</span>
+<span class="n">Running</span> <span class="n">transaction</span> <span class="n">test</span>
+<span class="n">Transaction</span> <span class="n">test</span> <span class="n">succeeded</span><span class="o">.</span>
+<span class="n">Running</span> <span class="n">transaction</span>
+  <span class="n">Preparing</span>        <span class="p">:</span>                                                                                             <span class="mi">1</span><span class="o">/</span><span class="mi">1</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">cryptography</span><span class="o">-</span><span class="mf">36.0</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                                  <span class="mi">1</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">lazr</span><span class="o">-</span><span class="n">uri</span><span class="o">-</span><span class="mf">1.0</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                       <span class="mi">2</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">jeepney</span><span class="o">-</span><span class="mf">0.7</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                        <span class="mi">3</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">httplib2</span><span class="o">-</span><span class="mf">0.20</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                      <span class="mi">4</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">secretstorage</span><span class="o">-</span><span class="mf">3.3</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">4.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                  <span class="mi">5</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">keyring</span><span class="o">-</span><span class="mf">23.6</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                       <span class="mi">6</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">wadllib</span><span class="o">-</span><span class="mf">1.3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                        <span class="mi">7</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">jwt</span><span class="o">-</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                            <span class="mi">8</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">jwt</span><span class="o">+</span><span class="n">crypto</span><span class="o">-</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                     <span class="mi">9</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">oauthlib</span><span class="o">-</span><span class="mf">3.0</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">12.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                     <span class="mi">10</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">oauthlib</span><span class="o">+</span><span class="n">signedtoken</span><span class="o">-</span><span class="mf">3.0</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">12.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                         <span class="mi">11</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">lazr</span><span class="o">-</span><span class="n">restfulclient</span><span class="o">-</span><span class="mf">0.14</span><span class="o">.</span><span class="mi">4</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                           <span class="mi">12</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">launchpadlib</span><span class="o">-</span><span class="mf">1.10</span><span class="o">.</span><span class="mf">15.1</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                              <span class="mi">13</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">bcrypt</span><span class="o">-</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                                        <span class="mi">14</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">pyasn1</span><span class="o">-</span><span class="mf">0.4</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="mf">8.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                        <span class="mi">15</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">patiencediff</span><span class="o">-</span><span class="mf">0.2</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">4.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                                  <span class="mi">16</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">configobj</span><span class="o">-</span><span class="mf">5.0</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mf">27.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                    <span class="mi">17</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">certifi</span><span class="o">-</span><span class="mf">2021.10</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                   <span class="mi">18</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">dulwich</span><span class="o">-</span><span class="mf">0.20</span><span class="o">.</span><span class="mi">32</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                                     <span class="mi">19</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">libsodium</span><span class="o">-</span><span class="mf">1.0</span><span class="o">.</span><span class="mi">18</span><span class="o">-</span><span class="mf">9.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                                            <span class="mi">20</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">pynacl</span><span class="o">-</span><span class="mf">1.4</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">5.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                                        <span class="mi">21</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">paramiko</span><span class="o">-</span><span class="mf">2.11</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                     <span class="mi">22</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Installing</span>       <span class="p">:</span> <span class="n">breezy</span><span class="o">-</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                                                <span class="mi">23</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Running</span> <span class="n">scriptlet</span><span class="p">:</span> <span class="n">breezy</span><span class="o">-</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                                                <span class="mi">23</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">breezy</span><span class="o">-</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                                                 <span class="mi">1</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">libsodium</span><span class="o">-</span><span class="mf">1.0</span><span class="o">.</span><span class="mi">18</span><span class="o">-</span><span class="mf">9.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                                             <span class="mi">2</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">certifi</span><span class="o">-</span><span class="mf">2021.10</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                    <span class="mi">3</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">configobj</span><span class="o">-</span><span class="mf">5.0</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mf">27.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                     <span class="mi">4</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">cryptography</span><span class="o">-</span><span class="mf">36.0</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                                  <span class="mi">5</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">dulwich</span><span class="o">-</span><span class="mf">0.20</span><span class="o">.</span><span class="mi">32</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                                      <span class="mi">6</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">httplib2</span><span class="o">-</span><span class="mf">0.20</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                      <span class="mi">7</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">jeepney</span><span class="o">-</span><span class="mf">0.7</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                        <span class="mi">8</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">launchpadlib</span><span class="o">-</span><span class="mf">1.10</span><span class="o">.</span><span class="mf">15.1</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                               <span class="mi">9</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">lazr</span><span class="o">-</span><span class="n">restfulclient</span><span class="o">-</span><span class="mf">0.14</span><span class="o">.</span><span class="mi">4</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                           <span class="mi">10</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">lazr</span><span class="o">-</span><span class="n">uri</span><span class="o">-</span><span class="mf">1.0</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                      <span class="mi">11</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">oauthlib</span><span class="o">+</span><span class="n">signedtoken</span><span class="o">-</span><span class="mf">3.0</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">12.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                         <span class="mi">12</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">oauthlib</span><span class="o">-</span><span class="mf">3.0</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">12.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                     <span class="mi">13</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">patiencediff</span><span class="o">-</span><span class="mf">0.2</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">4.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                                  <span class="mi">14</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">pyasn1</span><span class="o">-</span><span class="mf">0.4</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="mf">8.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                        <span class="mi">15</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">pynacl</span><span class="o">-</span><span class="mf">1.4</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">5.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                                        <span class="mi">16</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">secretstorage</span><span class="o">-</span><span class="mf">3.3</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">4.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                 <span class="mi">17</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">wadllib</span><span class="o">-</span><span class="mf">1.3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                       <span class="mi">18</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">bcrypt</span><span class="o">-</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                                        <span class="mi">19</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">jwt</span><span class="o">+</span><span class="n">crypto</span><span class="o">-</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                    <span class="mi">20</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">jwt</span><span class="o">-</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                           <span class="mi">21</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">keyring</span><span class="o">-</span><span class="mf">23.6</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                      <span class="mi">22</span><span class="o">/</span><span class="mi">23</span>
+  <span class="n">Verifying</span>        <span class="p">:</span> <span class="n">python3</span><span class="o">-</span><span class="n">paramiko</span><span class="o">-</span><span class="mf">2.11</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                                                     <span class="mi">23</span><span class="o">/</span><span class="mi">23</span>
 
-Transaction Summary
-=========================================================================================================================
-Install  1 Package (+2 Dependent packages)
+<span class="n">Installed</span><span class="p">:</span>
+  <span class="n">breezy</span><span class="o">-</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                                 <span class="n">libsodium</span><span class="o">-</span><span class="mf">1.0</span><span class="o">.</span><span class="mi">18</span><span class="o">-</span><span class="mf">9.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>
+  <span class="n">python3</span><span class="o">-</span><span class="n">bcrypt</span><span class="o">-</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                         <span class="n">python3</span><span class="o">-</span><span class="n">certifi</span><span class="o">-</span><span class="mf">2021.10</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>
+  <span class="n">python3</span><span class="o">-</span><span class="n">configobj</span><span class="o">-</span><span class="mf">5.0</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mf">27.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                     <span class="n">python3</span><span class="o">-</span><span class="n">cryptography</span><span class="o">-</span><span class="mf">36.0</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>
+  <span class="n">python3</span><span class="o">-</span><span class="n">dulwich</span><span class="o">-</span><span class="mf">0.20</span><span class="o">.</span><span class="mi">32</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                      <span class="n">python3</span><span class="o">-</span><span class="n">httplib2</span><span class="o">-</span><span class="mf">0.20</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>
+  <span class="n">python3</span><span class="o">-</span><span class="n">jeepney</span><span class="o">-</span><span class="mf">0.7</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                        <span class="n">python3</span><span class="o">-</span><span class="n">jwt</span><span class="o">-</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>
+  <span class="n">python3</span><span class="o">-</span><span class="n">jwt</span><span class="o">+</span><span class="n">crypto</span><span class="o">-</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                     <span class="n">python3</span><span class="o">-</span><span class="n">keyring</span><span class="o">-</span><span class="mf">23.6</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>
+  <span class="n">python3</span><span class="o">-</span><span class="n">launchpadlib</span><span class="o">-</span><span class="mf">1.10</span><span class="o">.</span><span class="mf">15.1</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>               <span class="n">python3</span><span class="o">-</span><span class="n">lazr</span><span class="o">-</span><span class="n">restfulclient</span><span class="o">-</span><span class="mf">0.14</span><span class="o">.</span><span class="mi">4</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>
+  <span class="n">python3</span><span class="o">-</span><span class="n">lazr</span><span class="o">-</span><span class="n">uri</span><span class="o">-</span><span class="mf">1.0</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>                       <span class="n">python3</span><span class="o">-</span><span class="n">oauthlib</span><span class="o">-</span><span class="mf">3.0</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">12.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>
+  <span class="n">python3</span><span class="o">-</span><span class="n">oauthlib</span><span class="o">+</span><span class="n">signedtoken</span><span class="o">-</span><span class="mf">3.0</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">12.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>          <span class="n">python3</span><span class="o">-</span><span class="n">paramiko</span><span class="o">-</span><span class="mf">2.11</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>
+  <span class="n">python3</span><span class="o">-</span><span class="n">patiencediff</span><span class="o">-</span><span class="mf">0.2</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mf">4.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                   <span class="n">python3</span><span class="o">-</span><span class="n">pyasn1</span><span class="o">-</span><span class="mf">0.4</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="mf">8.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>
+  <span class="n">python3</span><span class="o">-</span><span class="n">pynacl</span><span class="o">-</span><span class="mf">1.4</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mf">5.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span>                         <span class="n">python3</span><span class="o">-</span><span class="n">secretstorage</span><span class="o">-</span><span class="mf">3.3</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">4.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>
+  <span class="n">python3</span><span class="o">-</span><span class="n">wadllib</span><span class="o">-</span><span class="mf">1.3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mf">2.</span><span class="n">fc36</span><span class="o">.</span><span class="n">noarch</span>
 
-Total size: 7.7 M
-Total download size: 998 k
-Installed size: 36 M
-Is this ok [y/d/N]: y
-Downloading packages:
-Not downloading Presto metadata for updates
-python-paramiko-1.15.1-1.fc20.noarch.rpm                                                          | 998 kB  00:00:32     
-Running transaction check
-Running transaction test
-Transaction test succeeded
-Running transaction
-  Installing : python-crypto-2.6.1-1.fc20.x86_64                                                                     1/3
-  Installing : python-paramiko-1.15.1-1.fc20.noarch                                                                  2/3
-  Installing : bzr-2.6.0-2.fc20.x86_64                                                                               3/3
-  Verifying  : python-crypto-2.6.1-1.fc20.x86_64                                                                     1/3
-  Verifying  : python-paramiko-1.15.1-1.fc20.noarch                                                                  2/3
-  Verifying  : bzr-2.6.0-2.fc20.x86_64                                                                               3/3
-
-Installed:
-  bzr.x86_64 0:2.6.0-2.fc20                                                                                              
-
-Dependency Installed:
-  python-crypto.x86_64 0:2.6.1-1.fc20                       python-paramiko.noarch 0:1.15.1-1.fc20                      
-
-Complete!
+<span class="n">Complete</span><span class="o">!</span>
 </code></pre></div>
 
-<blockquote>
-<p>it is possible to use -y switch to prevent yum from asking <em>Is this ok [y/d/N]</em></p>
-</blockquote>
-<p>but where does YUM find these dependencies to install? it starts from /etc/yum.repos.d/</p>
-<div class="highlight"><pre><span></span><code>$ cat /etc/yum.repos.d/fedora-updates.repo
-[updates]
-name=Fedora $releasever - $basearch - Updates
-failovermethod=priority
-#baseurl=http://download.fedoraproject.org/pub/fedora/linux/updates/$releasever/$basearch/
-metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-f$releasever&amp;arch=$basearch
-enabled=1
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
-skip_if_unavailable=False
-
-[updates-debuginfo]
-name=Fedora $releasever - $basearch - Updates - Debug
-failovermethod=priority
-#baseurl=http://download.fedoraproject.org/pub/fedora/linux/updates/$releasever/$basearch/debug/
-metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-debug-f$releasever&amp;arch=$basearch
-enabled=0
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
-skip_if_unavailable=False
-
-[updates-source]
-name=Fedora $releasever - Updates Source
-failovermethod=priority
-#baseurl=http://download.fedoraproject.org/pub/fedora/linux/updates/$releasever/SRPMS/
-metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-source-f$releasever&amp;arch=$basearch
-enabled=0
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
-skip_if_unavailable=False
-</code></pre></div>
-
-<h4>Removing</h4>
-<p>For removing a package we have to use -e option of rpm (e for erase) or use the <em>remove</em> option of yum.</p>
-<div class="highlight"><pre><span></span><code>[root@localhost ~]# rpm -e bzr
-[root@localhost ~]# bzr
-bash: bzr: command not found
-</code></pre></div>
-
-<p>notes:</p>
-<ul>
-<li>rpm does not have a database of automatic package installation so it can not remove dependencies which are installed automatically.</li>
-<li>rpm removes package without asking!</li>
-<li>rpm wont remove a package which is needed by another package</li>
-</ul>
-<p>but if you remove with yum, it will tell what other packages should be removed because of dependencies:</p>
-<div class="highlight"><pre><span></span><code># yum install bzr
-# rpm -e python-crypto
-error: Failed dependencies:
-    python-crypto &gt;= 2.1 is needed by (installed) python-paramiko-1.15.1-1.fc20.noarch
-</code></pre></div>
-
-<h4>Upgrading</h4>
-<p>the most common command is <code>yum update</code>. This will update the repository data and then will ask user to confirm and then will upgrade the system. It is also possible to give a single package name or use a wildcard (*) to upgrade specific packages.</p>
+<p>You can also use the wildcards:</p>
 <div class="highlight"><pre><span></span><code># yum upgrade &#39;cal*&#39;
 </code></pre></div>
 
-<p>will upgrade all packages starting with cal (sal calendarj, calibre, ...).</p>
-<p>if using RPM, you can upgrade a system using -U or -F instead of -i. This is the difference:</p>
 <blockquote>
-<p>-i is for install, -U is upgrade or install, -F is upgrade if installed. Note that -F wont install / upgrade the package if it is not already installed.</p>
-<p>please note that in many cases, we also us -v (verbose = print a lot of info) and -h (show a progress bar with hash signs (#) ).</p>
+<p>Fun fact: Fedora Linux uses <code>dnf</code> as its package manager and will translate your <code>yum</code> commands to its <code>dnf</code> equavalents.</p>
 </blockquote>
-<p>Last thing you should now is if installing or updating using <code>rpm</code> and you have many files which are dependent to each other, you can copy all your rpm files into one directory and do a <code>rpm -Uvh *.rpm</code> and rpm will install/upgrade all the packages based on their dependencies to each other.</p>
-<h4>Querying info</h4>
-<p>You saw that rpm needed a full file name and yum needed only the package name. How can we find these info?</p>
-<div class="highlight"><pre><span></span><code>[root@localhost ~]# yum list bzr
-Loaded plugins: langpacks
-Installed Packages
-bzr.x86_64                                              2.6.0-2.fc20                                              @fedora
-
-[root@localhost ~]# yum list emacs
-Loaded plugins: langpacks
-Available Packages
-emacs.x86_64                                            1:24.3-25.fc20                                            updates
-
-[root@localhost ~]# rpm -q bzr
-bzr-2.6.0-2.fc20.x86_64
-
-[root@localhost ~]# rpm -q emacs
-package emacs is not installed
-
-[root@localhost ~]# yum info bzr
-Loaded plugins: langpacks
-Installed Packages
-Name        : bzr
-Arch        : x86_64
-Version     : 2.6.0
-Release     : 2.fc20
-Size        : 29 M
-Repo        : installed
-From repo   : fedora
-Summary     : Friendly distributed version control system
-URL         : http://www.bazaar-vcs.org/
-License     : GPLv2+
-Description : Bazaar is a distributed revision control system that is powerful, friendly,
-            : and scalable.  It is the successor of Baz-1.x which, in turn, was
-            : a user-friendly reimplementation of GNU Arch.
-
-[root@localhost ~]# yum info emacs
-Loaded plugins: langpacks
-Available Packages
-Name        : emacs
-Arch        : x86_64
-Epoch       : 1
-Version     : 24.3
-Release     : 25.fc20
-Size        : 2.9 M
-Repo        : updates/20/x86_64
-Summary     : GNU Emacs text editor
-URL         : http://www.gnu.org/software/emacs/
-License     : GPLv3+
-Description : Emacs is a powerful, customizable, self-documenting, modeless text
-            : editor. Emacs contains special code editing features, a scripting
-            : language (elisp), and the capability to read mail, news, and more
-            : without leaving the editor.
-            :
-            : This package provides an emacs binary with support for X windows.
-</code></pre></div>
-
-<p>It is also possible to search for packages:</p>
-<div class="highlight"><pre><span></span><code>[root@localhost ~]# yum search hack
-Loaded plugins: langpacks
-=================================================== N/S matched: hack ===================================================
-nethack-vultures.x86_64 : NetHack - Vulture&#39;s Eye and Vulture&#39;s Claw
-python-hacking.noarch : OpenStack Hacking Guideline Enforcement
-...
-...
-wmMatrix.x86_64 : DockApp version of Jamie Zawinski&#39;s xmatrix screensaver hack
-
-  Name and summary matches only, use &quot;search all&quot; for everything.
-</code></pre></div>
-
-<p>it is also possible to find <strong>all installed</strong> packages with <code>rpm -qa</code> (query all). In most cases we pipe this with <code>sort</code> or <code>grep</code> and <code>`less</code>:</p>
-<div class="highlight"><pre><span></span><code>[root@localhost ~]# rpm -qa | grep vim
-vim-minimal-7.4.027-2.fc20.x86_64
-</code></pre></div>
-
-<p>If you need to find files in a installed package:</p>
-<div class="highlight"><pre><span></span><code>[root@localhost ~]# rpm -ql bzr | head
-/etc/bash_completion.d
-/etc/bash_completion.d/bzr
-/usr/bin/bzr
-/usr/lib64/python2.7/site-packages/bzr-2.6.0-py2.7.egg-info
-/usr/lib64/python2.7/site-packages/bzrlib
-...
-...
-</code></pre></div>
-
-<blockquote>
-<p>It is easy, query list.</p>
-<p>if you need same info for a downloaded package, just add the -p switch to your rpm command.</p>
-</blockquote>
-<p>Another important task is checking which package, own a specific file. Lets see what package gave us the <code>cal</code> command:</p>
-<div class="highlight"><pre><span></span><code>[jadi@localhost ~]$ which cal
-/usr/bin/cal
-[jadi@localhost ~]$ rpm -qf /usr/bin/cal
-util-linux-2.24-2.fc20.x86_64
-</code></pre></div>
-
-<p><strong>Dependencies</strong></p>
-<p>if you need to check what a packages is dependent on, use the <code>--requires</code> or <code>-R</code> switch:</p>
-<div class="highlight"><pre><span></span><code>[root@localhost ~]# rpm -qR bzr
-/usr/bin/python
-libc.so.6()(64bit)
-libc.so.6(GLIBC_2.14)(64bit)
-libc.so.6(GLIBC_2.2.5)(64bit)
-libc.so.6(GLIBC_2.3.4)(64bit)
-...
-...
-</code></pre></div>
-
-<p>or use <code>yum deplist bzr</code> instead.</p>
-<p>Poof.. I know this part was long so here comes the last important RPM querying command: <strong>whatprovides</strong>.</p>
-<p>If you need to use bzr, you need to check what provides it! if installed you can go with <code>rpm -q --whatprovides bzr</code> and if not :</p>
-<div class="highlight"><pre><span></span><code>yum whatprovides bzr
-Loaded plugins: langpacks
-bzr-2.6.0-2.fc20.x86_64 : Friendly distributed version control system
-Repo        : fedora
-</code></pre></div>
-
-<h4>File Integrity</h4>
-<p>Security is important! So RPM can check the MD5 or SHA1 of files. The option is --checksig (-K) and it is a good idea to use it with -v option (verbose):</p>
-<div class="highlight"><pre><span></span><code>[root@localhost ~]# rpm -vK bzr-2.6.0-2.fc20.x86_64.rpm
-bzr-2.6.0-2.fc20.x86_64.rpm:
-    Header V3 RSA/SHA256 Signature, key ID 246110c1: OK
-    Header SHA1 digest: OK (171c91fbd14416ac44c0f6d396826d583c3840ce)
-    V3 RSA/SHA256 Signature, key ID 246110c1: OK
-    MD5 digest: OK (c4478d64f009d07cb17d018b377677ab)
-</code></pre></div>
-
-<p>The above output shows that this file is a valid file.</p>
-<p>it is also possible to check if the installed FILES by a packages is OK:</p>
-<div class="highlight"><pre><span></span><code>[root@localhost ~]# rpm -V bzr
-[root@localhost ~]# rm /etc/bash_completion.d/bzr
-rm: remove regular file ‘/etc/bash_completion.d/bzr’? y
-[root@localhost ~]# rpm -V bzr
-missing     /etc/bash_completion.d/bzr
-</code></pre></div>
-
-<p>if anything goes wrong, we can always reinstall a package:</p>
-<div class="highlight"><pre><span></span><code>yum reinstall bzr
-</code></pre></div>
-
 <h4>yumdownloader</h4>
-<p>this tool will download rpms from repositories but wont install them. If you need to download all the dependencies too, use the --resolve switch:</p>
+<p>This tool will download rpms from repositories without installing them. If you need to download all the dependencies too, use the --resolve switch:</p>
 <div class="highlight"><pre><span></span><code>yumdownloader --resolve bzr
 </code></pre></div>
 
-<h4>rpm2cpio</h4>
-<p>The <strong>cpio</strong> is kind of an archive, just like zip or rar or tar. the rpm2cpio can convert rpm files to cpio archives so you can <em>open</em> them using cpio command.</p>
-<div class="highlight"><pre><span></span><code># rpm2cpio bzr-2.6.0-2.fc20.x86_64.rpm | cpio -idv
-./etc/bash_completion.d
-./etc/bash_completion.d/bzr
-./usr/bin/bzr
-./usr/lib64/python2.7/site-packages/bzr-2.6.0-py2.7.egg-info
-./usr/lib64/python2.7/site-packages/bzrlib
-./usr/lib64/python2.7/site-packages/bzrlib/__init__.py
-./usr/lib64/python2.7/site-packages/bzrlib/_annotator_py.py
-./usr/lib64/python2.7/site-packages/bzrlib/_annotator_pyx.so
-...
-...
+<h2>RPM</h2>
+<p>The <code>rpm</code> command can run ACTIONs on individual RPM files. You can use it like <code>rpm ACTION [OPTION] rpm_file.rpm</code></p>
+<p>One of the most used options is <code>-v</code> for verbose output and these are the common ACTIONs:</p>
+<p>|Short Form|Long Form|Description|
+|-|-|
+|-i|--install|Installs a package|
+|-e|--erase|Removes a package|
+|-U|--upgrade|Installs/Upgrades a package|
+|-q|--query|Checks if the package is installed|
+|-F|--freshen|Only update if its already installed|
+|-V|--verify|Check the integritity of the installation|
+|-K|--checksig|Checks the integrity of a rpm</p>
+<p>Please note that each action, might have its own specific options.</p>
+<h3>Install and update</h3>
+<p>In most cases we use -U which Installs or upgrades a package. </p>
+<ul>
+<li>rpm does not have a database of automatic package installation so it can not remove dependencies which are installed automatically.</li>
+</ul>
+<p>If you have an rpm with all of its dependencies, you can install them using <code>rpm -Uvh *.rpm</code>. This will tell rpm not to complain about the dependencies if it is presented in other files. Here the <code>-h</code> creates 50 hash signs to show the progress.</p>
+<h3>Query</h3>
+<p>A normal query is like this:</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">root@fedora tmp</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">-</span><span class="n">q</span><span class="w"> </span><span class="n">breezy</span><span class="o">-</span><span class="mf">3.2.1</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="p">.</span><span class="n">x86_64</span><span class="p">.</span><span class="n">rpm</span><span class="w"></span>
+<span class="n">breezy</span><span class="o">-</span><span class="mf">3.2.1</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="p">.</span><span class="n">x86_64</span><span class="w"></span>
+<span class="o">[</span><span class="n">root@fedora tmp</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">-</span><span class="n">q</span><span class="w"> </span><span class="n">breezy</span><span class="w"></span>
+<span class="n">breezy</span><span class="o">-</span><span class="mf">3.2.1</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="p">.</span><span class="n">x86_64</span><span class="w"></span>
+<span class="o">[</span><span class="n">root@fedora tmp</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">-</span><span class="n">q</span><span class="w"> </span><span class="n">emacs</span><span class="w"></span>
+<span class="n">package</span><span class="w"> </span><span class="n">emacs</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">installed</span><span class="w"></span>
 </code></pre></div>
 
+<p>And you can use these options to spice it up:
+|Short|Long|Description|
+|-|-|-|
+|-c|--configfiles|Show the packages configuration files|
+|-i|--info|Detailed info about a pacakge|
+|-a|--all|Show all Installed packages|
+||--whatprovides|shows what packages provides this file|
+|-l|--list|Query the list of files a package installs|
+|-R|--requires|Show dependencies of a package|
+|-f|--file|Query package owning file|</p>
+<h3>Verify</h3>
+<p>You can verify your packages and see if they are installed correctly or not. You can use the <code>-Vv</code> option for verbose output or just use the <code>-V</code> to verify and see only the issues. This is the output after I edited the /bin/tmux manually:</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">root@fedora tmp</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">-</span><span class="n">V</span><span class="w"> </span><span class="n">tmux</span><span class="w"></span>
+<span class="n">S</span><span class="mf">.5</span><span class="p">....</span><span class="n">T</span><span class="p">.</span><span class="w">    </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">tmux</span><span class="w"></span>
+</code></pre></div>
+
+<p>and this is part of the <code>man rpm</code>'s <code>-V</code> section:</p>
+<div class="highlight"><pre><span></span><code>    M Mode differs (includes permissions and file type)
+    5 digest (formerly MD5 sum) differs
+    D Device major/minor number mismatch
+    L readLink(2) path mismatch
+    U User ownership differs
+    G Group ownership differs
+    T mTime differs
+    P caPabilities differ
+</code></pre></div>
+
+<p>You can also check the integrity of a rpm package with -K:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># rpm -Kv breezy-3.2.1-3.fc36.x86_64.rpm</span>
+<span class="n">breezy</span><span class="o">-</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">rpm</span><span class="p">:</span>
+    <span class="n">Header</span> <span class="n">V4</span> <span class="n">RSA</span><span class="o">/</span><span class="n">SHA256</span> <span class="n">Signature</span><span class="p">,</span> <span class="n">key</span> <span class="n">ID</span> <span class="mi">38</span><span class="n">ab71f4</span><span class="p">:</span> <span class="n">OK</span>
+    <span class="n">Header</span> <span class="n">SHA256</span> <span class="n">digest</span><span class="p">:</span> <span class="n">OK</span>
+    <span class="n">Header</span> <span class="n">SHA1</span> <span class="n">digest</span><span class="p">:</span> <span class="n">OK</span>
+    <span class="n">Payload</span> <span class="n">SHA256</span> <span class="n">digest</span><span class="p">:</span> <span class="n">OK</span>
+    <span class="n">V4</span> <span class="n">RSA</span><span class="o">/</span><span class="n">SHA256</span> <span class="n">Signature</span><span class="p">,</span> <span class="n">key</span> <span class="n">ID</span> <span class="mi">38</span><span class="n">ab71f4</span><span class="p">:</span> <span class="n">OK</span>
+    <span class="n">MD5</span> <span class="n">digest</span><span class="p">:</span> <span class="n">OK</span>
+</code></pre></div>
+
+<p>The above output shows that this file is a valid file.</p>
+<h3>Uninstall</h3>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">root@fedora tmp</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="n">tmux</span><span class="w"></span>
+<span class="nl">error</span><span class="p">:</span><span class="w"> </span><span class="n">Failed</span><span class="w"> </span><span class="nl">dependencies</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">tmux</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">needed</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="p">(</span><span class="n">installed</span><span class="p">)</span><span class="w"> </span><span class="n">anaconda</span><span class="o">-</span><span class="n">install</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">deps</span><span class="o">-</span><span class="mf">36.16.5</span><span class="o">-</span><span class="mf">1.</span><span class="n">fc36</span><span class="p">.</span><span class="n">x86_64</span><span class="w"></span>
+</code></pre></div>
+
+<ul>
+<li>rpm removes package without asking!</li>
+<li>rpm wont remove a package which is needed by another package</li>
+</ul>
+<h3>Extract RPM Files</h3>
+<h4>rpm2cpio</h4>
+<p>The <strong>cpio</strong> is an archive format (just like zip or rar or tar). You can use the <code>rpm2cpio</code> command to convert RPM fiels to <em>cpio</em> and then use the <code>cpio</code> tool to extract them:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">fedora</span> <span class="n">tmp</span><span class="p">]</span><span class="c1"># rpm2cpio breezy-3.2.1-3.fc36.x86_64.rpm &gt; breezy.cpio</span>
+<span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">fedora</span> <span class="n">tmp</span><span class="p">]</span><span class="c1"># cpio -idv &lt; breezy.cpio</span>
+<span class="o">./</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">brz</span>
+<span class="o">./</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bzr</span>
+<span class="o">./</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bzr</span><span class="o">-</span><span class="n">receive</span><span class="o">-</span><span class="n">pack</span>
+<span class="o">./</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bzr</span><span class="o">-</span><span class="n">upload</span><span class="o">-</span><span class="n">pack</span>
+<span class="o">./</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">git</span><span class="o">-</span><span class="k">remote</span><span class="o">-</span><span class="n">brz</span>
+<span class="o">./</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">git</span><span class="o">-</span><span class="k">remote</span><span class="o">-</span><span class="n">bzr</span>
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</code></pre></div>
+
+<h2>Zypper</h2>
+<p>The SUSE Linux and its sibiling openSUSE uses ZYpp as their package manager engine. You can use YAST or Zypper tools to communicate with it. </p>
+<p>These are the main commands use in <code>zypper</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>help</td>
+<td>General help</td>
+</tr>
+<tr>
+<td>install</td>
+<td>Installs a package</td>
+</tr>
+<tr>
+<td>info</td>
+<td>Displays information of a package</td>
+</tr>
+<tr>
+<td>list-updates</td>
+<td>Shows available updates</td>
+</tr>
+<tr>
+<td>lr</td>
+<td>Shows repository information</td>
+</tr>
+<tr>
+<td>packages</td>
+<td>List all available pacakges or pacakges from a specific repo</td>
+</tr>
+<tr>
+<td>what-provides</td>
+<td>Show the owner of a file</td>
+</tr>
+<tr>
+<td>refresh</td>
+<td>Refreshes the repositories information</td>
+</tr>
+<tr>
+<td>remove</td>
+<td>Removes a package from the system</td>
+</tr>
+<tr>
+<td>search</td>
+<td>Searches for a package</td>
+</tr>
+<tr>
+<td>update</td>
+<td>Checks the repositoes and updates the installed packages</td>
+</tr>
+<tr>
+<td>verify</td>
+<td>Checks a packages and its dependencies</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>You can shorten the command when using <code>zypper</code>, so <code>zypper se tmux</code> will <em>search</em> for tmux.</p>
+</blockquote>
 <h4>Other tools</h4>
-<p>YUM and RPM are the main package manager tools on Fedora, RHEL &amp; Centos. but other system are available. The SUSE uses YaST and many modern desktops (KDE &amp; Gnome) use PackageKit. Package Kit installs and updates packages on graphical interfaces on most linux systems (Debian, Fedora, Arch, ...).</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
+<p>YUM and RPM are the main package managers on Fedora, RHEL &amp; Centos but other tools are also available. As mentnioned the SUSE uses <code>YaST</code> and some modern desktops (KDE &amp; Gnome) use <code>PackageKit</code> which is a graphical tool. It is also good to note that the  <code>dnf</code> suite is also gaining popularity and is pre-installed on Fedora systems.</p>
 
 
              
