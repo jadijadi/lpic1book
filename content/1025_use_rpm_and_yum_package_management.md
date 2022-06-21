@@ -6,405 +6,403 @@ Authors: Jadi
 Summary: Candidates should be able to perform package management using RPM, YUM and Zypper.
 sortorder: 100
 
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-
 _Weight: 3_
 
-Candidates should be able to perform package management using RPM and YUM tools.
+Candidates should be able to perform package management using RPM, YUM and Zypper.
 
-### Goals
+### Key Knowledge Areas
+- Install, re-install, upgrade and remove packages using RPM, YUM and Zypper.
+- Obtain information on RPM packages such as version, status, dependencies, integrity and signatures.
+Determine what files a package provides, as well as find which package a specific file comes from.
+Awareness of dnf.
+- The following is a partial list of the used files, terms and utilities:
 
-* Install, re-install, upgrade and remove packages using RPM and YUM.
-* Obtain information on RPM packages such as version, status, dependencies, integrity and signatures.
-* Determine what files a package provides, as well as find which package a specific file comes from.
+
+##### Terms
 * rpm
 * rpm2cpio
 * /etc/yum.conf
 * /etc/yum.repos.d/
 * yum
-* yumdownloader
+* zypper
 
-#### Introduction
+## Introduction
 
-**RedHat Package Manager \(RPM\)** and **Yellowdog Updater Modified \(YUM\)** are fedora / redhat / rhel / centos / .. tools to manage packages. There are also gui tools for installing and updating. As you saw on 102.4, all package managers can do standard functions like installing, updating and removing packages.
+**RedHat Package Manager \(RPM\)** and **YellowDog Update Manager \(YUM\)** are used by Fedora, RedHat, RHEL, CentOS, RocksOS, ... to manage packages. The package format is called RPM and can be managed by `rpm` tools but if you want to use the repositories to install, update, search, .. packages or even upgrade the whole ssytem, you can use the `yum` command. To have a deeper understanding of the repositories, please refer to the previous section (102.4); here I assume that you know the concept.
 
-YUM adds extra features likes automatic updates, dependency management and works with repositories \(collection on packages accessed over network or on a CD\).
+## YUM
+`YUM` is the package manager used by RedHat based systems. Its configuration files are located at `/etc/yum.conf` and `/etc/yum.repos.d/`. Below is a sample.
 
-#### Installing
-
-Say you want to install "bzr" and you don't have it:
-
-```text
-bzr:[jadi@localhost ~]$ bzr
-bash: bzr: command not found
-[jadi@localhost ~]$ which bzr
-/usr/bin/which: no bzr in (/usr/libexec/lightdm:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/home/jadi/.local/bin:/home/jadi/bin)
-[jadi@localhost ~]$ whatis bzr
-bzr: nothing appropriate.
-[jadi@localhost ~]$ whereis bzr
-bzr:[jadi@localhost ~]$
+```
+# cat /etc/yum.conf
+[main]
+cachedir=/var/cache/yum/$basearch/$releasever
+keepcache=0
+debuglevel=2
+logfile=/var/log/yum.log
+exactarch=1
+obsoletes=1
+gpgcheck=1
+plugins=1
+installonly_limit=3
 ```
 
-we can obtain the bzr RPM package and try to install it:
+And here is a sample of an actual Repo file on a Fedora system:
 
-```text
-[root@localhost ~]# rpm -i bzr-2.6.0-2.fc20.x86_64.rpm
-error: Failed dependencies:
-    python-paramiko is needed by bzr-2.6.0-2.fc20.x86_64
+```
+# cat /etc/yum.repos.d/fedora.repo
+[fedora]
+name=Fedora $releasever - $basearch
+#baseurl=http://download.example/pub/fedora/linux/releases/$releasever/Everything/$basearch/os/
+metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch
+enabled=1
+countme=1
+metadata_expire=7d
+repo_gpgcheck=0
+type=rpm
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+skip_if_unavailable=False
+
+[fedora-debuginfo]
+name=Fedora $releasever - $basearch - Debug
+#baseurl=http://download.example/pub/fedora/linux/releases/$releasever/Everything/$basearch/debug/tree/
+metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-debug-$releasever&arch=$basearch
+enabled=0
+metadata_expire=7d
+repo_gpgcheck=0
+type=rpm
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+skip_if_unavailable=False
+
+[fedora-source]
+name=Fedora $releasever - Source
+#baseurl=http://download.example/pub/fedora/linux/releases/$releasever/Everything/source/tree/
+metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-source-$releasever&arch=$basearch
+enabled=0
+metadata_expire=7d
+repo_gpgcheck=0
+type=rpm
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+skip_if_unavailable=False
 ```
 
-Failed because of dependencies. RPM understands the dependencies but does not installs it itself. We need YUM:
 
-```text
-[root@localhost ~]# yum install bzr
-Loaded plugins: langpacks
-Resolving Dependencies
---> Running transaction check
----> Package bzr.x86_64 0:2.6.0-2.fc20 will be installed
---> Processing Dependency: python-paramiko for package: bzr-2.6.0-2.fc20.x86_64
---> Running transaction check
----> Package python-paramiko.noarch 0:1.15.1-1.fc20 will be installed
---> Processing Dependency: python-crypto >= 2.1 for package: python-paramiko-1.15.1-1.fc20.noarch
---> Running transaction check
----> Package python-crypto.x86_64 0:2.6.1-1.fc20 will be installed
---> Finished Dependency Resolution
+We use yum like `yum [OPTIONS] [COMMAND] [PACKAGE_NAME]`.
 
-Dependencies Resolved
+One of the most important options is `-y` which says _yes_ to the Y/N questions.
 
-=========================================================================================================================
- Package                          Arch                    Version                         Repository                Size
-=========================================================================================================================
+And here you can find some of the commands:
+
+|Command|Descriptioin|
+|-|-|
+|update|Updates the repositories and update the names packages, or all if nothing is named|
+|install|Install a package|
+|reinstall|Reinstall a package|
+|list|Show a list of installed packages|
+|info|Show information about a package|
+|remove|Removes an installed package|
+|search|Searches repositories for packages|
+|provides|Checck which packages provides an specific file|
+|upgrade|Upgrades packages and removes the obsolete ones|
+|localinstall|Instlal from a local rpm file|
+|localupdate|Updates from a local rpm file|
+|check-update|Checks repositories for updates to the installed packages|
+|deplist|Shows dependencies of a package|
+|groupinstall|Install a group, say "KDE Plasma Workspaces"|
+|history|show history of the usage|
+
+This is a sample installation:
+
+```
+# yum  install bzr
+Last metadata expiration check: 0:00:47 ago on Tue 21 Jun 2022 06:38:00 PM +0430.
+Dependencies resolved.
+=====================================================================================================================
+ Package                                  Architecture       Version                       Repository           Size
+=====================================================================================================================
 Installing:
- bzr                              x86_64                  2.6.0-2.fc20                    fedora                   6.3 M
-Installing for dependencies:
- python-crypto                    x86_64                  2.6.1-1.fc20                    fedora                   470 k
- python-paramiko                  noarch                  1.15.1-1.fc20                   updates                  998 k
+ breezy                                   x86_64             3.2.1-3.fc36                  fedora              6.0 M
+Installing dependencies:
+ libsodium                                x86_64             1.0.18-9.fc36                 fedora              163 k
+ python3-bcrypt                           x86_64             3.2.2-1.fc36                  updates              43 k
+ python3-certifi                          noarch             2021.10.8-1.fc36              fedora               15 k
+ python3-configobj                        noarch             5.0.6-27.fc36                 fedora               63 k
+ python3-cryptography                     x86_64             36.0.0-3.fc36                 fedora              1.0 M
+ python3-dulwich                          x86_64             0.20.32-1.fc36                fedora              408 k
+ python3-httplib2                         noarch             0.20.3-2.fc36                 fedora              122 k
+ python3-jeepney                          noarch             0.7.1-2.fc36                  fedora              324 k
+ python3-jwt                              noarch             2.4.0-1.fc36                  updates              41 k
+ python3-keyring                          noarch             23.6.0-1.fc36                 updates              78 k
+ python3-lazr-restfulclient               noarch             0.14.4-2.fc36                 fedora               84 k
+ python3-lazr-uri                         noarch             1.0.6-2.fc36                  fedora               33 k
+ python3-oauthlib                         noarch             3.0.2-12.fc36                 fedora              169 k
+ python3-paramiko                         noarch             2.11.0-1.fc36                 updates             303 k
+ python3-patiencediff                     x86_64             0.2.2-4.fc36                  fedora               45 k
+ python3-pynacl                           x86_64             1.4.0-5.fc36                  fedora              108 k
+ python3-secretstorage                    noarch             3.3.1-4.fc36                  fedora               35 k
+ python3-wadllib                          noarch             1.3.6-2.fc36                  fedora               60 k
+Installing weak dependencies:
+ python3-jwt+crypto                       noarch             2.4.0-1.fc36                  updates             8.9 k
+ python3-launchpadlib                     noarch             1.10.15.1-2.fc36              fedora              167 k
+ python3-oauthlib+signedtoken             noarch             3.0.2-12.fc36                 fedora              8.5 k
+ python3-pyasn1                           noarch             0.4.8-8.fc36                  fedora              134 k
 
 Transaction Summary
-=========================================================================================================================
-Install  1 Package (+2 Dependent packages)
+=====================================================================================================================
+Install  23 Packages
 
-Total size: 7.7 M
-Total download size: 998 k
-Installed size: 36 M
-Is this ok [y/d/N]: y
-Downloading packages:
-Not downloading Presto metadata for updates
-python-paramiko-1.15.1-1.fc20.noarch.rpm                                                          | 998 kB  00:00:32     
+Total download size: 9.4 M
+Installed size: 44 M
+Is this ok [y/N]: y
+Downloading Packages:
+(1/23): python3-certifi-2021.10.8-1.fc36.noarch.rpm                                  1.8 kB/s |  15 kB     00:08
+(2/23): libsodium-1.0.18-9.fc36.x86_64.rpm                                            15 kB/s | 163 kB     00:10
+(3/23): python3-configobj-5.0.6-27.fc36.noarch.rpm                                    10 kB/s |  63 kB     00:06
+(4/23): breezy-3.2.1-3.fc36.x86_64.rpm                                               262 kB/s | 6.0 MB     00:23
+(5/23): python3-dulwich-0.20.32-1.fc36.x86_64.rpm                                     47 kB/s | 408 kB     00:08
+(6/23): python3-cryptography-36.0.0-3.fc36.x86_64.rpm                                 77 kB/s | 1.0 MB     00:13
+(7/23): python3-httplib2-0.20.3-2.fc36.noarch.rpm                                    105 kB/s | 122 kB     00:01
+(8/23): python3-jeepney-0.7.1-2.fc36.noarch.rpm                                      259 kB/s | 324 kB     00:01
+(9/23): python3-launchpadlib-1.10.15.1-2.fc36.noarch.rpm                              74 kB/s | 167 kB     00:02
+(10/23): python3-lazr-restfulclient-0.14.4-2.fc36.noarch.rpm                          36 kB/s |  84 kB     00:02
+(11/23): python3-lazr-uri-1.0.6-2.fc36.noarch.rpm                                     15 kB/s |  33 kB     00:02
+(12/23): python3-oauthlib+signedtoken-3.0.2-12.fc36.noarch.rpm                       4.2 kB/s | 8.5 kB     00:02
+(13/23): python3-oauthlib-3.0.2-12.fc36.noarch.rpm                                    58 kB/s | 169 kB     00:02
+(14/23): python3-patiencediff-0.2.2-4.fc36.x86_64.rpm                                 15 kB/s |  45 kB     00:02
+(15/23): python3-pyasn1-0.4.8-8.fc36.noarch.rpm                                       61 kB/s | 134 kB     00:02
+(16/23): python3-pynacl-1.4.0-5.fc36.x86_64.rpm                                       36 kB/s | 108 kB     00:03
+(17/23): python3-secretstorage-3.3.1-4.fc36.noarch.rpm                                12 kB/s |  35 kB     00:02
+(18/23): python3-wadllib-1.3.6-2.fc36.noarch.rpm                                      24 kB/s |  60 kB     00:02
+(19/23): python3-bcrypt-3.2.2-1.fc36.x86_64.rpm                                       16 kB/s |  43 kB     00:02
+(20/23): python3-jwt+crypto-2.4.0-1.fc36.noarch.rpm                                  3.2 kB/s | 8.9 kB     00:02
+(21/23): python3-jwt-2.4.0-1.fc36.noarch.rpm                                          16 kB/s |  41 kB     00:02
+(22/23): python3-keyring-23.6.0-1.fc36.noarch.rpm                                     18 kB/s |  78 kB     00:04
+(23/23): python3-paramiko-2.11.0-1.fc36.noarch.rpm                                    38 kB/s | 303 kB     00:08
+---------------------------------------------------------------------------------------------------------------------
+Total                                                                                177 kB/s | 9.4 MB     00:54
 Running transaction check
+Transaction check succeeded.
 Running transaction test
-Transaction test succeeded
+Transaction test succeeded.
 Running transaction
-  Installing : python-crypto-2.6.1-1.fc20.x86_64                                                                     1/3
-  Installing : python-paramiko-1.15.1-1.fc20.noarch                                                                  2/3
-  Installing : bzr-2.6.0-2.fc20.x86_64                                                                               3/3
-  Verifying  : python-crypto-2.6.1-1.fc20.x86_64                                                                     1/3
-  Verifying  : python-paramiko-1.15.1-1.fc20.noarch                                                                  2/3
-  Verifying  : bzr-2.6.0-2.fc20.x86_64                                                                               3/3
+  Preparing        :                                                                                             1/1
+  Installing       : python3-cryptography-36.0.0-3.fc36.x86_64                                                  1/23
+  Installing       : python3-lazr-uri-1.0.6-2.fc36.noarch                                                       2/23
+  Installing       : python3-jeepney-0.7.1-2.fc36.noarch                                                        3/23
+  Installing       : python3-httplib2-0.20.3-2.fc36.noarch                                                      4/23
+  Installing       : python3-secretstorage-3.3.1-4.fc36.noarch                                                  5/23
+  Installing       : python3-keyring-23.6.0-1.fc36.noarch                                                       6/23
+  Installing       : python3-wadllib-1.3.6-2.fc36.noarch                                                        7/23
+  Installing       : python3-jwt-2.4.0-1.fc36.noarch                                                            8/23
+  Installing       : python3-jwt+crypto-2.4.0-1.fc36.noarch                                                     9/23
+  Installing       : python3-oauthlib-3.0.2-12.fc36.noarch                                                     10/23
+  Installing       : python3-oauthlib+signedtoken-3.0.2-12.fc36.noarch                                         11/23
+  Installing       : python3-lazr-restfulclient-0.14.4-2.fc36.noarch                                           12/23
+  Installing       : python3-launchpadlib-1.10.15.1-2.fc36.noarch                                              13/23
+  Installing       : python3-bcrypt-3.2.2-1.fc36.x86_64                                                        14/23
+  Installing       : python3-pyasn1-0.4.8-8.fc36.noarch                                                        15/23
+  Installing       : python3-patiencediff-0.2.2-4.fc36.x86_64                                                  16/23
+  Installing       : python3-configobj-5.0.6-27.fc36.noarch                                                    17/23
+  Installing       : python3-certifi-2021.10.8-1.fc36.noarch                                                   18/23
+  Installing       : python3-dulwich-0.20.32-1.fc36.x86_64                                                     19/23
+  Installing       : libsodium-1.0.18-9.fc36.x86_64                                                            20/23
+  Installing       : python3-pynacl-1.4.0-5.fc36.x86_64                                                        21/23
+  Installing       : python3-paramiko-2.11.0-1.fc36.noarch                                                     22/23
+  Installing       : breezy-3.2.1-3.fc36.x86_64                                                                23/23
+  Running scriptlet: breezy-3.2.1-3.fc36.x86_64                                                                23/23
+  Verifying        : breezy-3.2.1-3.fc36.x86_64                                                                 1/23
+  Verifying        : libsodium-1.0.18-9.fc36.x86_64                                                             2/23
+  Verifying        : python3-certifi-2021.10.8-1.fc36.noarch                                                    3/23
+  Verifying        : python3-configobj-5.0.6-27.fc36.noarch                                                     4/23
+  Verifying        : python3-cryptography-36.0.0-3.fc36.x86_64                                                  5/23
+  Verifying        : python3-dulwich-0.20.32-1.fc36.x86_64                                                      6/23
+  Verifying        : python3-httplib2-0.20.3-2.fc36.noarch                                                      7/23
+  Verifying        : python3-jeepney-0.7.1-2.fc36.noarch                                                        8/23
+  Verifying        : python3-launchpadlib-1.10.15.1-2.fc36.noarch                                               9/23
+  Verifying        : python3-lazr-restfulclient-0.14.4-2.fc36.noarch                                           10/23
+  Verifying        : python3-lazr-uri-1.0.6-2.fc36.noarch                                                      11/23
+  Verifying        : python3-oauthlib+signedtoken-3.0.2-12.fc36.noarch                                         12/23
+  Verifying        : python3-oauthlib-3.0.2-12.fc36.noarch                                                     13/23
+  Verifying        : python3-patiencediff-0.2.2-4.fc36.x86_64                                                  14/23
+  Verifying        : python3-pyasn1-0.4.8-8.fc36.noarch                                                        15/23
+  Verifying        : python3-pynacl-1.4.0-5.fc36.x86_64                                                        16/23
+  Verifying        : python3-secretstorage-3.3.1-4.fc36.noarch                                                 17/23
+  Verifying        : python3-wadllib-1.3.6-2.fc36.noarch                                                       18/23
+  Verifying        : python3-bcrypt-3.2.2-1.fc36.x86_64                                                        19/23
+  Verifying        : python3-jwt+crypto-2.4.0-1.fc36.noarch                                                    20/23
+  Verifying        : python3-jwt-2.4.0-1.fc36.noarch                                                           21/23
+  Verifying        : python3-keyring-23.6.0-1.fc36.noarch                                                      22/23
+  Verifying        : python3-paramiko-2.11.0-1.fc36.noarch                                                     23/23
 
 Installed:
-  bzr.x86_64 0:2.6.0-2.fc20                                                                                              
-
-Dependency Installed:
-  python-crypto.x86_64 0:2.6.1-1.fc20                       python-paramiko.noarch 0:1.15.1-1.fc20                      
+  breezy-3.2.1-3.fc36.x86_64                                 libsodium-1.0.18-9.fc36.x86_64
+  python3-bcrypt-3.2.2-1.fc36.x86_64                         python3-certifi-2021.10.8-1.fc36.noarch
+  python3-configobj-5.0.6-27.fc36.noarch                     python3-cryptography-36.0.0-3.fc36.x86_64
+  python3-dulwich-0.20.32-1.fc36.x86_64                      python3-httplib2-0.20.3-2.fc36.noarch
+  python3-jeepney-0.7.1-2.fc36.noarch                        python3-jwt-2.4.0-1.fc36.noarch
+  python3-jwt+crypto-2.4.0-1.fc36.noarch                     python3-keyring-23.6.0-1.fc36.noarch
+  python3-launchpadlib-1.10.15.1-2.fc36.noarch               python3-lazr-restfulclient-0.14.4-2.fc36.noarch
+  python3-lazr-uri-1.0.6-2.fc36.noarch                       python3-oauthlib-3.0.2-12.fc36.noarch
+  python3-oauthlib+signedtoken-3.0.2-12.fc36.noarch          python3-paramiko-2.11.0-1.fc36.noarch
+  python3-patiencediff-0.2.2-4.fc36.x86_64                   python3-pyasn1-0.4.8-8.fc36.noarch
+  python3-pynacl-1.4.0-5.fc36.x86_64                         python3-secretstorage-3.3.1-4.fc36.noarch
+  python3-wadllib-1.3.6-2.fc36.noarch
 
 Complete!
+
 ```
 
-> it is possible to use -y switch to prevent yum from asking _Is this ok \[y/d/N\]_
-
-but where does YUM find these dependencies to install? it starts from /etc/yum.repos.d/
-
-```text
-$ cat /etc/yum.repos.d/fedora-updates.repo
-[updates]
-name=Fedora $releasever - $basearch - Updates
-failovermethod=priority
-#baseurl=http://download.fedoraproject.org/pub/fedora/linux/updates/$releasever/$basearch/
-metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-f$releasever&arch=$basearch
-enabled=1
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
-skip_if_unavailable=False
-
-[updates-debuginfo]
-name=Fedora $releasever - $basearch - Updates - Debug
-failovermethod=priority
-#baseurl=http://download.fedoraproject.org/pub/fedora/linux/updates/$releasever/$basearch/debug/
-metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-debug-f$releasever&arch=$basearch
-enabled=0
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
-skip_if_unavailable=False
-
-[updates-source]
-name=Fedora $releasever - Updates Source
-failovermethod=priority
-#baseurl=http://download.fedoraproject.org/pub/fedora/linux/updates/$releasever/SRPMS/
-metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-source-f$releasever&arch=$basearch
-enabled=0
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
-skip_if_unavailable=False
-```
-
-#### Removing
-
-For removing a package we have to use -e option of rpm \(e for erase\) or use the _remove_ option of yum.
-
-```text
-[root@localhost ~]# rpm -e bzr
-[root@localhost ~]# bzr
-bash: bzr: command not found
-```
-
-notes:
-
-* rpm does not have a database of automatic package installation so it can not remove dependencies which are installed automatically.
-* rpm removes package without asking!
-* rpm wont remove a package which is needed by another package
-
-but if you remove with yum, it will tell what other packages should be removed because of dependencies:
-
-```text
-# yum install bzr
-# rpm -e python-crypto
-error: Failed dependencies:
-    python-crypto >= 2.1 is needed by (installed) python-paramiko-1.15.1-1.fc20.noarch
-```
-
-#### Upgrading
-
-the most common command is `yum update`. This will update the repository data and then will ask user to confirm and then will upgrade the system. It is also possible to give a single package name or use a wildcard \(\*\) to upgrade specific packages.
+You can also use the wildcards:
 
 ```text
 # yum upgrade 'cal*'
 ```
 
-will upgrade all packages starting with cal \(sal calendarj, calibre, ...\).
-
-if using RPM, you can upgrade a system using -U or -F instead of -i. This is the difference:
-
-> -i is for install, -U is upgrade or install, -F is upgrade if installed. Note that -F wont install / upgrade the package if it is not already installed.
->
-> please note that in many cases, we also us -v \(verbose = print a lot of info\) and -h \(show a progress bar with hash signs \(\#\) \).
-
-Last thing you should now is if installing or updating using `rpm` and you have many files which are dependent to each other, you can copy all your rpm files into one directory and do a `rpm -Uvh *.rpm` and rpm will install/upgrade all the packages based on their dependencies to each other.
-
-#### Querying info
-
-You saw that rpm needed a full file name and yum needed only the package name. How can we find these info?
-
-```text
-[root@localhost ~]# yum list bzr
-Loaded plugins: langpacks
-Installed Packages
-bzr.x86_64                                              2.6.0-2.fc20                                              @fedora
-
-[root@localhost ~]# yum list emacs
-Loaded plugins: langpacks
-Available Packages
-emacs.x86_64                                            1:24.3-25.fc20                                            updates
-
-[root@localhost ~]# rpm -q bzr
-bzr-2.6.0-2.fc20.x86_64
-
-[root@localhost ~]# rpm -q emacs
-package emacs is not installed
-
-[root@localhost ~]# yum info bzr
-Loaded plugins: langpacks
-Installed Packages
-Name        : bzr
-Arch        : x86_64
-Version     : 2.6.0
-Release     : 2.fc20
-Size        : 29 M
-Repo        : installed
-From repo   : fedora
-Summary     : Friendly distributed version control system
-URL         : http://www.bazaar-vcs.org/
-License     : GPLv2+
-Description : Bazaar is a distributed revision control system that is powerful, friendly,
-            : and scalable.  It is the successor of Baz-1.x which, in turn, was
-            : a user-friendly reimplementation of GNU Arch.
-
-[root@localhost ~]# yum info emacs
-Loaded plugins: langpacks
-Available Packages
-Name        : emacs
-Arch        : x86_64
-Epoch       : 1
-Version     : 24.3
-Release     : 25.fc20
-Size        : 2.9 M
-Repo        : updates/20/x86_64
-Summary     : GNU Emacs text editor
-URL         : http://www.gnu.org/software/emacs/
-License     : GPLv3+
-Description : Emacs is a powerful, customizable, self-documenting, modeless text
-            : editor. Emacs contains special code editing features, a scripting
-            : language (elisp), and the capability to read mail, news, and more
-            : without leaving the editor.
-            :
-            : This package provides an emacs binary with support for X windows.
-```
-
-It is also possible to search for packages:
-
-```text
-[root@localhost ~]# yum search hack
-Loaded plugins: langpacks
-=================================================== N/S matched: hack ===================================================
-nethack-vultures.x86_64 : NetHack - Vulture's Eye and Vulture's Claw
-python-hacking.noarch : OpenStack Hacking Guideline Enforcement
-...
-...
-wmMatrix.x86_64 : DockApp version of Jamie Zawinski's xmatrix screensaver hack
-
-  Name and summary matches only, use "search all" for everything.
-```
-
-it is also possible to find **all installed** packages with `rpm -qa` \(query all\). In most cases we pipe this with `sort` or `grep` and ```less``:
-
-```text
-[root@localhost ~]# rpm -qa | grep vim
-vim-minimal-7.4.027-2.fc20.x86_64
-```
-
-If you need to find files in a installed package:
-
-```text
-[root@localhost ~]# rpm -ql bzr | head
-/etc/bash_completion.d
-/etc/bash_completion.d/bzr
-/usr/bin/bzr
-/usr/lib64/python2.7/site-packages/bzr-2.6.0-py2.7.egg-info
-/usr/lib64/python2.7/site-packages/bzrlib
-...
-...
-```
-
-> It is easy, query list.
->
-> if you need same info for a downloaded package, just add the -p switch to your rpm command.
-
-Another important task is checking which package, own a specific file. Lets see what package gave us the `cal` command:
-
-```text
-[jadi@localhost ~]$ which cal
-/usr/bin/cal
-[jadi@localhost ~]$ rpm -qf /usr/bin/cal
-util-linux-2.24-2.fc20.x86_64
-```
-
-**Dependencies**
-
-if you need to check what a packages is dependent on, use the `--requires` or `-R` switch:
-
-```text
-[root@localhost ~]# rpm -qR bzr
-/usr/bin/python
-libc.so.6()(64bit)
-libc.so.6(GLIBC_2.14)(64bit)
-libc.so.6(GLIBC_2.2.5)(64bit)
-libc.so.6(GLIBC_2.3.4)(64bit)
-...
-...
-```
-
-or use `yum deplist bzr` instead.
-
-Poof.. I know this part was long so here comes the last important RPM querying command: **whatprovides**.
-
-If you need to use bzr, you need to check what provides it! if installed you can go with `rpm -q --whatprovides bzr` and if not :
-
-```text
-yum whatprovides bzr
-Loaded plugins: langpacks
-bzr-2.6.0-2.fc20.x86_64 : Friendly distributed version control system
-Repo        : fedora
-```
-
-#### File Integrity
-
-Security is important! So RPM can check the MD5 or SHA1 of files. The option is --checksig \(-K\) and it is a good idea to use it with -v option \(verbose\):
-
-```text
-[root@localhost ~]# rpm -vK bzr-2.6.0-2.fc20.x86_64.rpm
-bzr-2.6.0-2.fc20.x86_64.rpm:
-    Header V3 RSA/SHA256 Signature, key ID 246110c1: OK
-    Header SHA1 digest: OK (171c91fbd14416ac44c0f6d396826d583c3840ce)
-    V3 RSA/SHA256 Signature, key ID 246110c1: OK
-    MD5 digest: OK (c4478d64f009d07cb17d018b377677ab)
-```
-
-The above output shows that this file is a valid file.
-
-it is also possible to check if the installed FILES by a packages is OK:
-
-```text
-[root@localhost ~]# rpm -V bzr
-[root@localhost ~]# rm /etc/bash_completion.d/bzr
-rm: remove regular file ‘/etc/bash_completion.d/bzr’? y
-[root@localhost ~]# rpm -V bzr
-missing     /etc/bash_completion.d/bzr
-```
-
-if anything goes wrong, we can always reinstall a package:
-
-```text
-yum reinstall bzr
-```
+> Fun fact: Fedora Linux uses `dnf` as its package manager and will translate your `yum` commands to its `dnf` equavalents.
 
 #### yumdownloader
-
-this tool will download rpms from repositories but wont install them. If you need to download all the dependencies too, use the --resolve switch:
+This tool will download rpms from repositories without installing them. If you need to download all the dependencies too, use the --resolve switch:
 
 ```text
 yumdownloader --resolve bzr
 ```
 
-#### rpm2cpio
+## RPM
+The `rpm` command can run ACTIONs on individual RPM files. You can use it like `rpm ACTION [OPTION] rpm_file.rpm`
 
-The **cpio** is kind of an archive, just like zip or rar or tar. the rpm2cpio can convert rpm files to cpio archives so you can _open_ them using cpio command.
+One of the most used options is `-v` for verbose output and these are the common ACTIONs:
 
-```text
-# rpm2cpio bzr-2.6.0-2.fc20.x86_64.rpm | cpio -idv
-./etc/bash_completion.d
-./etc/bash_completion.d/bzr
-./usr/bin/bzr
-./usr/lib64/python2.7/site-packages/bzr-2.6.0-py2.7.egg-info
-./usr/lib64/python2.7/site-packages/bzrlib
-./usr/lib64/python2.7/site-packages/bzrlib/__init__.py
-./usr/lib64/python2.7/site-packages/bzrlib/_annotator_py.py
-./usr/lib64/python2.7/site-packages/bzrlib/_annotator_pyx.so
-...
-...
+|Short Form|Long Form|Description|
+|-|-|
+|-i|--install|Installs a package|
+|-e|--erase|Removes a package|
+|-U|--upgrade|Installs/Upgrades a package|
+|-q|--query|Checks if the package is installed|
+|-F|--freshen|Only update if its already installed|
+|-V|--verify|Check the integritity of the installation|
+|-K|--checksig|Checks the integrity of a rpm
+
+
+Please note that each action, might have its own specific options.
+### Install and update
+In most cases we use -U which Installs or upgrades a package. 
+
+* rpm does not have a database of automatic package installation so it can not remove dependencies which are installed automatically.
+
+If you have an rpm with all of its dependencies, you can install them using `rpm -Uvh *.rpm`. This will tell rpm not to complain about the dependencies if it is presented in other files. Here the `-h` creates 50 hash signs to show the progress.
+
+### Query
+
+A normal query is like this:
+
+```
+[root@fedora tmp]# rpm -q breezy-3.2.1-3.fc36.x86_64.rpm
+breezy-3.2.1-3.fc36.x86_64
+[root@fedora tmp]# rpm -q breezy
+breezy-3.2.1-3.fc36.x86_64
+[root@fedora tmp]# rpm -q emacs
+package emacs is not installed
+```
+And you can use these options to spice it up:
+|Short|Long|Description|
+|-|-|-|
+|-c|--configfiles|Show the packages configuration files|
+|-i|--info|Detailed info about a pacakge|
+|-a|--all|Show all Installed packages|
+||--whatprovides|shows what packages provides this file|
+|-l|--list|Query the list of files a package installs|
+|-R|--requires|Show dependencies of a package|
+|-f|--file|Query package owning file|
+
+### Verify
+You can verify your packages and see if they are installed correctly or not. You can use the `-Vv` option for verbose output or just use the `-V` to verify and see only the issues. This is the output after I edited the /bin/tmux manually:
+
+```
+[root@fedora tmp]# rpm -V tmux
+S.5....T.    /usr/bin/tmux
 ```
 
+and this is part of the `man rpm`'s `-V` section:
+
+```
+    M Mode differs (includes permissions and file type)
+    5 digest (formerly MD5 sum) differs
+    D Device major/minor number mismatch
+    L readLink(2) path mismatch
+    U User ownership differs
+    G Group ownership differs
+    T mTime differs
+    P caPabilities differ
+```
+
+You can also check the integrity of a rpm package with -K:
+
+```
+# rpm -Kv breezy-3.2.1-3.fc36.x86_64.rpm
+breezy-3.2.1-3.fc36.x86_64.rpm:
+    Header V4 RSA/SHA256 Signature, key ID 38ab71f4: OK
+    Header SHA256 digest: OK
+    Header SHA1 digest: OK
+    Payload SHA256 digest: OK
+    V4 RSA/SHA256 Signature, key ID 38ab71f4: OK
+    MD5 digest: OK
+```
+
+The above output shows that this file is a valid file.
+
+### Uninstall
+```
+[root@fedora tmp]# rpm -e tmux
+error: Failed dependencies:
+	tmux is needed by (installed) anaconda-install-env-deps-36.16.5-1.fc36.x86_64
+```
+
+* rpm removes package without asking!
+* rpm wont remove a package which is needed by another package
+
+### Extract RPM Files
+
+#### rpm2cpio
+
+The **cpio** is an archive format (just like zip or rar or tar). You can use the `rpm2cpio` command to convert RPM fiels to _cpio_ and then use the `cpio` tool to extract them:
+
+```
+[root@fedora tmp]# rpm2cpio breezy-3.2.1-3.fc36.x86_64.rpm > breezy.cpio
+[root@fedora tmp]# cpio -idv < breezy.cpio
+./usr/bin/brz
+./usr/bin/bzr
+./usr/bin/bzr-receive-pack
+./usr/bin/bzr-upload-pack
+./usr/bin/git-remote-brz
+./usr/bin/git-remote-bzr
+[...]
+```
+
+## Zypper
+The SUSE Linux and its sibiling openSUSE uses ZYpp as their package manager engine. You can use YAST or Zypper tools to communicate with it. 
+
+These are the main commands use in `zypper`:
+
+|Command|Description|
+|-|-|
+|help|General help|
+|install|Installs a package|
+|info|Displays information of a package|
+|list-updates|Shows available updates|
+|lr|Shows repository information|
+|packages|List all available pacakges or pacakges from a specific repo|
+|what-provides|Show the owner of a file|
+|refresh|Refreshes the repositories information|
+|remove|Removes a package from the system|
+|search|Searches for a package|
+|update|Checks the repositoes and updates the installed packages|
+|verify|Checks a packages and its dependencies|
+
+> You can shorten the command when using `zypper`, so `zypper se tmux` will _search_ for tmux.
+
+
 #### Other tools
-
-YUM and RPM are the main package manager tools on Fedora, RHEL & Centos. but other system are available. The SUSE uses YaST and many modern desktops \(KDE & Gnome\) use PackageKit. Package Kit installs and updates packages on graphical interfaces on most linux systems \(Debian, Fedora, Arch, ...\).
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
+YUM and RPM are the main package managers on Fedora, RHEL & Centos but other tools are also available. As mentnioned the SUSE uses `YaST` and some modern desktops \(KDE & Gnome\) use `PackageKit` which is a graphical tool. It is also good to note that the  `dnf` suite is also gaining popularity and is pre-installed on Fedora systems.
