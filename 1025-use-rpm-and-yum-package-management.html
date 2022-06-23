@@ -389,15 +389,52 @@ Awareness of dnf.</li>
 <h2>RPM</h2>
 <p>The <code>rpm</code> command can run ACTIONs on individual RPM files. You can use it like <code>rpm ACTION [OPTION] rpm_file.rpm</code></p>
 <p>One of the most used options is <code>-v</code> for verbose output and these are the common ACTIONs:</p>
-<p>|Short Form|Long Form|Description|
-|-|-|
-|-i|--install|Installs a package|
-|-e|--erase|Removes a package|
-|-U|--upgrade|Installs/Upgrades a package|
-|-q|--query|Checks if the package is installed|
-|-F|--freshen|Only update if its already installed|
-|-V|--verify|Check the integritity of the installation|
-|-K|--checksig|Checks the integrity of a rpm</p>
+<table>
+<thead>
+<tr>
+<th>Short Form</th>
+<th>Long Form</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i</td>
+<td>--install</td>
+<td>Installs a package</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>--erase</td>
+<td>Removes a package</td>
+</tr>
+<tr>
+<td>-U</td>
+<td>--upgrade</td>
+<td>Installs/Upgrades a package</td>
+</tr>
+<tr>
+<td>-q</td>
+<td>--query</td>
+<td>Checks if the package is installed</td>
+</tr>
+<tr>
+<td>-F</td>
+<td>--freshen</td>
+<td>Only update if its already installed</td>
+</tr>
+<tr>
+<td>-V</td>
+<td>--verify</td>
+<td>Check the integritity of the installation</td>
+</tr>
+<tr>
+<td>-K</td>
+<td>--checksig</td>
+<td>Checks the integrity of a rpm</td>
+</tr>
+</tbody>
+</table>
 <p>Please note that each action, might have its own specific options.</p>
 <h3>Install and update</h3>
 <p>In most cases we use -U which Installs or upgrades a package. </p>
@@ -415,16 +452,53 @@ Awareness of dnf.</li>
 <span class="n">package</span><span class="w"> </span><span class="n">emacs</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">installed</span><span class="w"></span>
 </code></pre></div>
 
-<p>And you can use these options to spice it up:
-|Short|Long|Description|
-|-|-|-|
-|-c|--configfiles|Show the packages configuration files|
-|-i|--info|Detailed info about a pacakge|
-|-a|--all|Show all Installed packages|
-||--whatprovides|shows what packages provides this file|
-|-l|--list|Query the list of files a package installs|
-|-R|--requires|Show dependencies of a package|
-|-f|--file|Query package owning file|</p>
+<p>And you can use these options to spice it up:</p>
+<table>
+<thead>
+<tr>
+<th>Short</th>
+<th>Long</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>--configfiles</td>
+<td>Show the packages configuration files</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>--info</td>
+<td>Detailed info about a pacakge</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>--all</td>
+<td>Show all Installed packages</td>
+</tr>
+<tr>
+<td></td>
+<td>--whatprovides</td>
+<td>shows what packages provides this file</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>--list</td>
+<td>Query the list of files a package installs</td>
+</tr>
+<tr>
+<td>-R</td>
+<td>--requires</td>
+<td>Show dependencies of a package</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>--file</td>
+<td>Query package owning file</td>
+</tr>
+</tbody>
+</table>
 <h3>Verify</h3>
 <p>You can verify your packages and see if they are installed correctly or not. You can use the <code>-Vv</code> option for verbose output or just use the <code>-V</code> to verify and see only the issues. This is the output after I edited the /bin/tmux manually:</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">root@fedora tmp</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">-</span><span class="n">V</span><span class="w"> </span><span class="n">tmux</span><span class="w"></span>
