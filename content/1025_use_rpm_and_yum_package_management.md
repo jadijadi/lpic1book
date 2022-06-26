@@ -3,19 +3,19 @@ Date: 2010-12-03 10:20
 Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
-Summary: Candidates should be able to perform package management using RPM, YUM and Zypper.
+Summary: Candidates should be able to perform package management using RPM, YUM, and Zypper.
 sortorder: 100
 
 _Weight: 3_
 
-Candidates should be able to perform package management using RPM, YUM and Zypper.
+Candidates should be able to perform package management using RPM, YUM, and Zypper.
 
 ### Key Knowledge Areas
-- Install, re-install, upgrade and remove packages using RPM, YUM and Zypper.
-- Obtain information on RPM packages such as version, status, dependencies, integrity and signatures.
+- Install, re-install, upgrade and remove packages using RPM, YUM, and Zypper.
+- Obtain information on RPM packages such as version, status, dependencies, integrity, and signatures.
 Determine what files a package provides, as well as find which package a specific file comes from.
 Awareness of dnf.
-- The following is a partial list of the used files, terms and utilities:
+- The following is a partial list of the used files, terms, and utilities:
 
 
 ##### Terms
@@ -30,10 +30,10 @@ Awareness of dnf.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qk6qcEAvf4A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-**RedHat Package Manager \(RPM\)** and **YellowDog Update Manager \(YUM\)** are used by Fedora, RedHat, RHEL, CentOS, RocksOS, ... to manage packages. The package format is called RPM and can be managed by `rpm` tools but if you want to use the repositories to install, update, search, .. packages or even upgrade the whole ssytem, you can use the `yum` command. To have a deeper understanding of the repositories, please refer to the previous section (102.4); here I assume that you know the concept.
+**RedHat Package Manager \(RPM\)** and **YellowDog Update Manager \(YUM\)** are used by Fedora, RedHat, RHEL, CentOS, RocksOS, ... to manage packages. The package format is called RPM and can be managed by `rpm` tools but if you want to use the repositories to install, update, search, .. packages, or even upgrade the whole system, you can use the `yum` command. To have a deeper understanding of the repositories, please refer to the previous section (102.4); here I assume that you know the concept.
 
 ## YUM
-`YUM` is the package manager used by RedHat based systems. Its configuration files are located at `/etc/yum.conf` and `/etc/yum.repos.d/`. Below is a sample.
+`YUM` is the package manager used by RedHat-based systems. Its configuration files are located at `/etc/yum.conf` and `/etc/yum.repos.d/`. Below is a sample.
 
 ```
 # cat /etc/yum.conf
@@ -100,14 +100,14 @@ And here you can find some of the commands:
 
 |Command|Descriptioin|
 |-|-|
-|update|Updates the repositories and update the names packages, or all if nothing is named|
+|update|Updates the repositories and update the names of packages, or all if nothing is named|
 |install|Install a package|
 |reinstall|Reinstall a package|
 |list|Show a list of packages|
 |info|Show information about a package|
 |remove|Removes an installed package|
 |search|Searches repositories for packages|
-|provides|Checck which packages provides an specific file|
+|provides|Checck which packages provide a specific file|
 |upgrade|Upgrades packages and removes the obsolete ones|
 |localinstall|Instlal from a local rpm file|
 |localupdate|Updates from a local rpm file|
@@ -263,7 +263,7 @@ You can also use the wildcards:
 # yum update 'cal*'
 ```
 
-> Fun fact: Fedora Linux uses `dnf` as its package manager and will translate your `yum` commands to its `dnf` equavalents.
+> Fun fact: Fedora Linux uses `dnf` as its package manager and will translate your `yum` commands to its `dnf` equivalents.
 
 #### yumdownloader
 This tool will download rpms from repositories without installing them. If you need to download all the dependencies too, use the --resolve switch:
@@ -287,16 +287,16 @@ One of the most used options is `-v` for verbose output and these are the common
 |-e|--erase|Removes a package|
 |-U|--upgrade|Installs/Upgrades a package|
 |-q|--query|Checks if the package is installed|
-|-F|--freshen|Only update if its already installed|
-|-V|--verify|Check the integritity of the installation|
-|-K|--checksig|Checks the integrity of a rpm
+|-F|--freshen|Only update if it's already installed|
+|-V|--verify|Check the integrity of the installation|
+|-K|--checksig|Checks the integrity of an rpm
 
 
-Please note that each action, might have its own specific options.
+Please note that each action might have its specific options.
 ### Install and update
-In most cases we use -U which Installs or upgrades a package. 
+In most cases, we use -U which Installs or upgrades a package. 
 
-* rpm does not have a database of automatic package installation so it can not remove dependencies which are installed automatically.
+* rpm does not have a database of automatic package installation so it can not remove dependencies that are installed automatically.
 
 If you have an rpm with all of its dependencies, you can install them using `rpm -Uvh *.rpm`. This will tell rpm not to complain about the dependencies if it is presented in other files. Here the `-h` creates 50 hash signs to show the progress.
 
@@ -319,7 +319,7 @@ And you can use these options to spice it up:
 |-c|--configfiles|Show the packages configuration files|
 |-i|--info|Detailed info about a pacakge|
 |-a|--all|Show all Installed packages|
-||--whatprovides|shows what packages provides this file|
+||--whatprovides|shows what packages provide this file|
 |-l|--list|Query the list of files a package installs|
 |-R|--requires|Show dependencies of a package|
 |-f|--file|Query package owning file|
@@ -346,7 +346,7 @@ and this is part of the `man rpm`'s `-V` section:
     P caPabilities differ
 ```
 
-You can also check the integrity of a rpm package with -K:
+You can also check the integrity of an rpm package with -K:
 
 ```
 # rpm -Kv breezy-3.2.1-3.fc36.x86_64.rpm
@@ -359,7 +359,7 @@ breezy-3.2.1-3.fc36.x86_64.rpm:
     MD5 digest: OK
 ```
 
-The above output shows that this file is a valid file.
+The above output shows that this file is valid.
 
 ### Uninstall
 ```
@@ -369,13 +369,13 @@ error: Failed dependencies:
 ```
 
 * rpm removes package without asking!
-* rpm wont remove a package which is needed by another package
+* rpm won't remove a package that is needed by another package
 
 ### Extract RPM Files
 
 #### rpm2cpio
 
-The **cpio** is an archive format (just like zip or rar or tar). You can use the `rpm2cpio` command to convert RPM fiels to _cpio_ and then use the `cpio` tool to extract them:
+The **cpio** is an archive format (just like zip or rar or tar). You can use the `rpm2cpio` command to convert RPM files to _cpio_ and then use the `cpio` tool to extract them:
 
 ```
 [root@fedora tmp]# rpm2cpio breezy-3.2.1-3.fc36.x86_64.rpm > breezy.cpio
@@ -390,9 +390,9 @@ The **cpio** is an archive format (just like zip or rar or tar). You can use the
 ```
 
 ## Zypper
-The SUSE Linux and its sibiling openSUSE uses ZYpp as their package manager engine. You can use YAST or Zypper tools to communicate with it. 
+The SUSE Linux and its sibling openSUSE use ZYpp as their package manager engine. You can use YAST or Zypper tools to communicate with it. 
 
-These are the main commands use in `zypper`:
+These are the main commands used in `zypper`:
 
 |Command|Description|
 |-|-|
@@ -401,16 +401,16 @@ These are the main commands use in `zypper`:
 |info|Displays information of a package|
 |list-updates|Shows available updates|
 |lr|Shows repository information|
-|packages|List all available pacakges or pacakges from a specific repo|
+|packages|List all available packages or packages from a specific repo|
 |what-provides|Show the owner of a file|
 |refresh|Refreshes the repositories information|
 |remove|Removes a package from the system|
 |search|Searches for a package|
-|update|Checks the repositoes and updates the installed packages|
-|verify|Checks a packages and its dependencies|
+|update|Checks the repositories and updates the installed packages|
+|verify|Checks a package and its dependencies|
 
 > You can shorten the command when using `zypper`, so `zypper se tmux` will _search_ for tmux.
 
 
 #### Other tools
-YUM and RPM are the main package managers on Fedora, RHEL & Centos but other tools are also available. As mentnioned the SUSE uses `YaST` and some modern desktops \(KDE & Gnome\) use `PackageKit` which is a graphical tool. It is also good to note that the  `dnf` suite is also gaining popularity and is pre-installed on Fedora systems.
+YUM and RPM are the main package managers on Fedora, RHEL & Centos but other tools are also available. As mentioned, the SUSE uses `YaST`, and some modern desktops \(KDE & Gnome\) use `PackageKit` which is a graphical tool. It is also good to note that the  `dnf` suite is also gaining popularity and is pre-installed on Fedora systems.
