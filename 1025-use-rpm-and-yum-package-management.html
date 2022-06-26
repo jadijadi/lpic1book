@@ -107,6 +107,8 @@ Awareness of dnf.</li>
 <li>zypper</li>
 </ul>
 <h2>Introduction</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qk6qcEAvf4A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <p><strong>RedHat Package Manager (RPM)</strong> and <strong>YellowDog Update Manager (YUM)</strong> are used by Fedora, RedHat, RHEL, CentOS, RocksOS, ... to manage packages. The package format is called RPM and can be managed by <code>rpm</code> tools but if you want to use the repositories to install, update, search, .. packages or even upgrade the whole ssytem, you can use the <code>yum</code> command. To have a deeper understanding of the repositories, please refer to the previous section (102.4); here I assume that you know the concept.</p>
 <h2>YUM</h2>
 <p><code>YUM</code> is the package manager used by RedHat based systems. Its configuration files are located at <code>/etc/yum.conf</code> and <code>/etc/yum.repos.d/</code>. Below is a sample.</p>
@@ -375,7 +377,7 @@ Awareness of dnf.</li>
 </code></pre></div>
 
 <p>You can also use the wildcards:</p>
-<div class="highlight"><pre><span></span><code># yum upgrade &#39;cal*&#39;
+<div class="highlight"><pre><span></span><code># yum update &#39;cal*&#39;
 </code></pre></div>
 
 <blockquote>
@@ -387,6 +389,8 @@ Awareness of dnf.</li>
 </code></pre></div>
 
 <h2>RPM</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0E_EuBUSuz4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <p>The <code>rpm</code> command can run ACTIONs on individual RPM files. You can use it like <code>rpm ACTION [OPTION] rpm_file.rpm</code></p>
 <p>One of the most used options is <code>-v</code> for verbose output and these are the common ACTIONs:</p>
 <table>
@@ -506,7 +510,8 @@ Awareness of dnf.</li>
 </code></pre></div>
 
 <p>and this is part of the <code>man rpm</code>'s <code>-V</code> section:</p>
-<div class="highlight"><pre><span></span><code>    M Mode differs (includes permissions and file type)
+<div class="highlight"><pre><span></span><code>    S Size differs
+    M Mode differs (includes permissions and file type)
     5 digest (formerly MD5 sum) differs
     D Device major/minor number mismatch
     L readLink(2) path mismatch
