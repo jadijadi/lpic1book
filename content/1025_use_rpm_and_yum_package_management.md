@@ -28,6 +28,8 @@ Awareness of dnf.
 
 ## Introduction
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qk6qcEAvf4A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 **RedHat Package Manager \(RPM\)** and **YellowDog Update Manager \(YUM\)** are used by Fedora, RedHat, RHEL, CentOS, RocksOS, ... to manage packages. The package format is called RPM and can be managed by `rpm` tools but if you want to use the repositories to install, update, search, .. packages or even upgrade the whole ssytem, you can use the `yum` command. To have a deeper understanding of the repositories, please refer to the previous section (102.4); here I assume that you know the concept.
 
 ## YUM
@@ -101,7 +103,7 @@ And here you can find some of the commands:
 |update|Updates the repositories and update the names packages, or all if nothing is named|
 |install|Install a package|
 |reinstall|Reinstall a package|
-|list|Show a list of installed packages|
+|list|Show a list of packages|
 |info|Show information about a package|
 |remove|Removes an installed package|
 |search|Searches repositories for packages|
@@ -258,7 +260,7 @@ Complete!
 You can also use the wildcards:
 
 ```text
-# yum upgrade 'cal*'
+# yum update 'cal*'
 ```
 
 > Fun fact: Fedora Linux uses `dnf` as its package manager and will translate your `yum` commands to its `dnf` equavalents.
@@ -271,12 +273,16 @@ yumdownloader --resolve bzr
 ```
 
 ## RPM
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0E_EuBUSuz4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The `rpm` command can run ACTIONs on individual RPM files. You can use it like `rpm ACTION [OPTION] rpm_file.rpm`
 
 One of the most used options is `-v` for verbose output and these are the common ACTIONs:
 
 |Short Form|Long Form|Description|
-|-|-|
+|-|-|-|
 |-i|--install|Installs a package|
 |-e|--erase|Removes a package|
 |-U|--upgrade|Installs/Upgrades a package|
@@ -307,6 +313,7 @@ breezy-3.2.1-3.fc36.x86_64
 package emacs is not installed
 ```
 And you can use these options to spice it up:
+
 |Short|Long|Description|
 |-|-|-|
 |-c|--configfiles|Show the packages configuration files|
@@ -328,6 +335,7 @@ S.5....T.    /usr/bin/tmux
 and this is part of the `man rpm`'s `-V` section:
 
 ```
+    S Size differs
     M Mode differs (includes permissions and file type)
     5 digest (formerly MD5 sum) differs
     D Device major/minor number mismatch
