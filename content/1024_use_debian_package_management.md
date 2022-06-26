@@ -12,7 +12,7 @@ Candidates should be able to perform package management using the Debian package
 
 * Install, upgrade and uninstall Debian binary packages.
 * Find packages containing specific files or libraries which may or may not be installed.
-* Obtain package information like version, content, dependencies, package integrity and installation status \(whether or not the package is installed\).
+* Obtain package information like version, content, dependencies, package integrity, and installation status \(whether or not the package is installed\).
 * Awareness of apt.
 
 #### Terms and Utilities
@@ -27,14 +27,14 @@ Candidates should be able to perform package management using the Debian package
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/jtwbweigRxo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Some people think that on GNU/Linux we have to compile all the software we need manualy. This is not the case in 99% of cases and never have been the case in last 20 years. GNU/Linux is the preceedor of what we call App Store these days. All major distros do have huge archives of pre-compiled software called their _repositories_ and some kind of a **package manager** software which takes care of searching these repositories, installing software from them, finding dependencies and installing them, resolving conflicts and updating the system and installed softwares. Debian based distros use `.deb` files as their "packages" and uses tools like `apt-get`, `dpkg`, `apt` and other tools to manage them.
+Some people think that on GNU/Linux we have to compile all the software we need manually. This is not the case in 99% of cases and never has been the case in the last 20 years. GNU/Linux is the predecessor of what we call the App Store these days. All major distros do have huge archives of pre-compiled software called their _repositories_ and some kind of a **package manager** software that takes care of searching these repositories, installing software from them, finding dependencies, installing them, resolving conflicts, and updating the system and installed software. Debian-based distros use `.deb` files as their "packages" and use tools like `apt-get`, `dpkg`, `apt`, and other tools to manage them.
 
 Debian packages are names like `NAME-VERSION-RELEASE_ARCHITECTURE.deb`; say `tmux_3.2a-4build1_amd64.deb`. 
 
 
 
 ### Repositories
-But where did this package came from? How the OS knew where to look for this deb package? The answer is **Repositories**. Each distro has its own repository of packages. It can be on a Disk, A network drive, a collection of DVDs or most commonly, a network address on the Internet. 
+But where did this package come from? How does the OS know where to look for this deb package? The answer is **Repositories**. Each distro has its repository of packages. It can be on a Disk, A network drive, a collection of DVDs, or most commonly, a network address on the Internet. 
 
 On debian systems, the main configuration locations are:
 * `/etc/apt/sources.list`
@@ -55,7 +55,7 @@ deb http://us.archive.ubuntu.com/ubuntu/ jammy-updates main restricted
 # deb-src http://us.archive.ubuntu.com/ubuntu/ jammy-updates main restricted
 
 ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
-## team. Also, please note that software in universe WILL NOT receive any
+## team. Also, please note that software in the universe WILL NOT receive any
 ## review or updates from the Ubuntu security team.
 deb http://us.archive.ubuntu.com/ubuntu/ jammy universe
 # deb-src http://us.archive.ubuntu.com/ubuntu/ jammy universe
@@ -63,8 +63,8 @@ deb http://us.archive.ubuntu.com/ubuntu/ jammy-updates universe
 # deb-src http://us.archive.ubuntu.com/ubuntu/ jammy-updates universe
 
 ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
-## team, and may not be under a free licence. Please satisfy yourself as to
-## your rights to use the software. Also, please note that software in
+## team, and may not be under a free license. Please satisfy yourself as to
+## your rights to use the software. Also, please note that the software in
 ## multiverse WILL NOT receive any review or updates from the Ubuntu
 ## security team.
 deb http://us.archive.ubuntu.com/ubuntu/ jammy multiverse
@@ -99,9 +99,9 @@ Updating sources information:
 ```text
 apt-get update
 ```
-This will check all the sources in the configs and updates the information about the latest softwares available there.
+This will check all the sources in the configs and update the information about the latest software available there.
 
-> This wont actually _Upgrade_ the software. The *Update* will only *Update the information about the packages and not the packages themselves*.
+> This won't actually _Upgrade_ the software. The *Update* will only *Update the information about the packages and not the packages themselves*.
 
 ### Installing packages
 
@@ -118,7 +118,7 @@ $ type tmux
 bash: type: tmux: not found
 ```
 
-So lets install it. If its in the repositories its enough to tell the package manager to install it:
+So let's install it. If it's in the repositories it's enough to tell the package manager to install it:
 
 ```text
 apt-get install tmux
@@ -127,8 +127,8 @@ apt-get install tmux
 Note that
 
 * apt-get install asked for confirmation \(Y\)
-* apt-get resolved _dependencies_, It know what is needed to install this package and installs them
-* debian packages are something.deb
+* apt-get resolved _dependencies_, It knows what is needed to install this package and installs them
+* Debian packages are something.deb
 
 If you only want a dry-run / simulation:
 
@@ -170,8 +170,8 @@ Building dependency tree
 Reading state information... Done
 The following packages will be REMOVED:
   linux-image-3.16.0-25-generic linux-image-extra-3.16.0-25-generic
-0 upgraded, 0 newly installed, 2 to remove and 0 not upgraded.
-After this operation, 203 MB disk space will be freed.
+0 upgraded, 0 newly installed, 2 to remove, and 0 not upgraded.
+After this operation, 203 MB of disk space will be freed.
 Do you want to continue? [Y/n] y
 ```
 
@@ -183,7 +183,7 @@ Notes:
 * If removing a dependency, you'll get a warning about what will be removed alongside this package
 
 ### Searching for packages
-If you are using apt suit, the search is done via `apt-cache` or you can use the general `apt`. 
+If you are using the apt suit, the search is done via `apt-cache` or you can use the general `apt`. 
 
 ```text
 $ apt-cache search "tiny window"
@@ -198,7 +198,7 @@ For updating a single package:
 apt-get install tzdata
 ```
 
-And for upgrading whatever installed:
+And for upgrading whatever is installed:
 
 ```text
 apt-get upgrade
@@ -210,11 +210,11 @@ Or going to a new distribution:
 apt-get dist-upgrade
 ```
 
-Note: as most other tools, you can configure the default configs at `/etc/apt/apt.conf` and there is a program apt-config for this purpose.
+Note: like most other tools, you can configure the default configs at `/etc/apt/apt.conf` and there is a program apt-config for this purpose.
 
 ### Reconfiguring packages
 
-Debian packages can have _configuration actions_ which will take after after the package is installed. This is done by `debconf`. For example tzdata will ask you about the timezone settings after you installed it. If you want to *reconfigure* a package which is already installed, you can use the `dpkg-reconfigure`:
+Debian packages can have _configuration actions_ which will take after the package is installed. This is done by `debconf`. For example, tzdata will ask you about the timezone settings after you installed it. If you want to *reconfigure* a package that is already installed, you can use the `dpkg-reconfigure`:
 
 ```text
  dpkg-reconfigure tzdata
@@ -233,7 +233,7 @@ Some common actions are:
 |Switch|Description|
 |-|-|
 |-c or --contents| Show the contents of a package|
-|-C or --audit| Search for broken installed pckages and propose solutions |
+|-C or --audit| Search for broken installed packages and propose solutions |
 |--configure| Reconfigure an installed package|
 |-i or --install| Install or Upgrade a package; wont resolve / install dependencies|
 |-I or --info| Show Info|
@@ -258,7 +258,7 @@ drwxr-xr-x root/root         0 2019-09-19 18:25 ./usr/share/doc/bzr/
 -rw-r--r-- root/root      1769 2019-09-19 18:25 ./usr/share/doc/bzr/copyright
 ```
 
-Or install a deb packages (without its dependencies) or check its status:
+Or install a deb package (without its dependencies) or check its status:
 
 ```text
 $ dpkg -s bzr
@@ -288,22 +288,22 @@ Description: easy to use distributed version control system
  with), FTP, or over a custom and faster protocol if bzr is installed in
  the remote end.
  .
- Merging in Bazaar is easy, as the implementation is able to avoid many
- spurious conflicts, deals well with repeated merges between branches,
- and is able to handle modifications to renamed files correctly.
+ Merging in Bazaar is easy, as the implementation can avoid many
+ spurious conflicts deals well with repeated merges between branches,
+ and can handle modifications to renamed files correctly.
  .
- Bazaar is written in Python, and has a flexible plugin interface which
+ Bazaar is written in Python and has a flexible plugin interface that
  can be used to extend its functionality. Many plugins exist, providing
  useful commands (bzrtools), graphical interfaces (qbzr), or native
  interaction with Subversion branches (bzr-svn).
  .
  Install python-paramiko if you are going to push branches to remote
- hosts with sftp, and python-pycurl if you'd like for SSL certificates
+ hosts with sftp, and python-pycurl if you'd like SSL certificates
  always to be verified.
 Homepage: http://bazaar-vcs.org
 Original-Maintainer: Debian Bazaar Maintainers <pkg-bazaar-maint@lists.alioth.debian.org>
 ```
-Or even **purge** an installed packages; removing the package and all of its configurations. To Purge a pckages use the **-P** or **--purge** switch.
+Or even **purge** an installed package; removing the package and all of its configurations. To Purge a package use the **-P** or **--purge** switch.
 
 There is also **-L** to check the files and directories a package installed:
 
@@ -337,7 +337,7 @@ mplayer: /var/lib/mplayer/prefs/mirrors
 |-|-|
 |autoclean|Removes unused packages|
 |check|Check db for issues|
-|clean|Clean the DB, you can do a `clean all` to clean everything and star afresh|
+|clean|Clean the DB, you can do a `clean all` to clean everything and start afresh|
 |dist-upgrade|Checks for new versions of the OS; major upgrade|
 |install|Install or upgrade packages|
 |remove|Removes a package|
@@ -345,7 +345,7 @@ mplayer: /var/lib/mplayer/prefs/mirrors
 |update|Updates the information about packages from repositories|
 |upgrade|Upgrades all packages|
 
-> In some cases a package is installed but without proper dependencies (say using `dpkg`) or an installation is intrupted for any reason. In these cases a `apt-get install -f` might help, `-f` is for `fix broken`. 
+> In some cases a package is installed but without proper dependencies (say using `dpkg`) or an installation is interrupted for any reason. In these cases a `apt-get install -f` might help, `-f` is for `fix broken`. 
 ## Common apt-cache options
 
 |Option|Usage|
@@ -359,4 +359,4 @@ mplayer: /var/lib/mplayer/prefs/mirrors
 
 
 ### Other tools
-There are even more tools, the tools with fancy GUIs or text based tools user interface tools like `aptitude`.
+There are even more tools, the tools with fancy GUIs or text-based tools and user interface tools like `aptitude`.
