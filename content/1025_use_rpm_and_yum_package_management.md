@@ -18,11 +18,11 @@ Awareness of dnf.
 - The following is a partial list of the used files, terms, and utilities:
 
 
-##### Terms
+##### Terms and Utilities
 * rpm
 * rpm2cpio
-* /etc/yum.conf
-* /etc/yum.repos.d/
+* `/etc/yum.conf`
+* `/etc/yum.repos.d/`
 * yum
 * zypper
 
@@ -30,7 +30,7 @@ Awareness of dnf.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qk6qcEAvf4A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-**RedHat Package Manager \(RPM\)** and **YellowDog Update Manager \(YUM\)** are used by Fedora, RedHat, RHEL, CentOS, RocksOS, ... to manage packages. The package format is called RPM and can be managed by `rpm` tools but if you want to use the repositories to install, update, search, .. packages, or even upgrade the whole system, you can use the `yum` command. To have a deeper understanding of the repositories, please refer to the previous section (102.4); here I assume that you know the concept.
+**RedHat Package Manager \(RPM\)** and **YellowDog Update Manager \(YUM\)** are used by Fedora, RedHat, RHEL, CentOS, RocksOS, ... to manage packages. The package format is called RPM and can be managed by `rpm` tools but if you want to use the repositories to install, update, search, ... packages, or even upgrade the whole system, you can use the `yum` command. To have a deeper understanding of the repositories, please refer to the previous section (102.4); here I assume that you know the concept.
 
 ## YUM
 `YUM` is the package manager used by RedHat-based systems. Its configuration files are located at `/etc/yum.conf` and `/etc/yum.repos.d/`. Below is a sample.
@@ -98,7 +98,7 @@ One of the most important options is `-y` which says _yes_ to the Y/N questions.
 
 And here you can find some of the commands:
 
-|Command|Descriptioin|
+|Command|Description|
 |-|-|
 |update|Updates the repositories and update the names of packages, or all if nothing is named|
 |install|Install a package|
@@ -107,19 +107,19 @@ And here you can find some of the commands:
 |info|Show information about a package|
 |remove|Removes an installed package|
 |search|Searches repositories for packages|
-|provides|Checck which packages provide a specific file|
+|provides|Check which packages provide a specific file|
 |upgrade|Upgrades packages and removes the obsolete ones|
-|localinstall|Instlal from a local rpm file|
+|localinstall|Install from a local rpm file|
 |localupdate|Updates from a local rpm file|
 |check-update|Checks repositories for updates to the installed packages|
 |deplist|Shows dependencies of a package|
 |groupinstall|Install a group, say "KDE Plasma Workspaces"|
-|history|show history of the usage|
+|history|Show history of the usage|
 
 This is a sample installation:
 
 ```
-# yum  install bzr
+# yum install bzr
 Last metadata expiration check: 0:00:47 ago on Tue 21 Jun 2022 06:38:00 PM +0430.
 Dependencies resolved.
 =====================================================================================================================
@@ -266,7 +266,7 @@ You can also use the wildcards:
 > Fun fact: Fedora Linux uses `dnf` as its package manager and will translate your `yum` commands to its `dnf` equivalents.
 
 #### yumdownloader
-This tool will download rpms from repositories without installing them. If you need to download all the dependencies too, use the --resolve switch:
+This tool will download rpms from repositories without installing them. If you need to download all the dependencies too, use the `--resolve` switch:
 
 ```text
 yumdownloader --resolve bzr
@@ -294,9 +294,9 @@ One of the most used options is `-v` for verbose output and these are the common
 
 Please note that each action might have its specific options.
 ### Install and update
-In most cases, we use -U which Installs or upgrades a package. 
+In most cases, we use `-U` which Installs or upgrades a package. 
 
-* rpm does not have a database of automatic package installation so it can not remove dependencies that are installed automatically.
+* RPM does not have a database of automatic package installation so it can not remove dependencies that are installed automatically.
 
 If you have an rpm with all of its dependencies, you can install them using `rpm -Uvh *.rpm`. This will tell rpm not to complain about the dependencies if it is presented in other files. Here the `-h` creates 50 hash signs to show the progress.
 
@@ -319,20 +319,20 @@ And you can use these options to spice it up:
 |-c|--configfiles|Show the packages configuration files|
 |-i|--info|Detailed info about a pacakge|
 |-a|--all|Show all Installed packages|
-||--whatprovides|shows what packages provide this file|
+||--whatprovides|Shows what packages provide this file|
 |-l|--list|Query the list of files a package installs|
 |-R|--requires|Show dependencies of a package|
 |-f|--file|Query package owning file|
 
 ### Verify
-You can verify your packages and see if they are installed correctly or not. You can use the `-Vv` option for verbose output or just use the `-V` to verify and see only the issues. This is the output after I edited the /bin/tmux manually:
+You can verify your packages and see if they are installed correctly or not. You can use the `-Vv` option for verbose output or just use the `-V` to verify and see only the issues. This is the output after I edited the `/bin/tmux` manually:
 
 ```
 [root@fedora tmp]# rpm -V tmux
 S.5....T.    /usr/bin/tmux
 ```
 
-and this is part of the `man rpm`'s `-V` section:
+And this is part of the `man rpm`'s `-V` section:
 
 ```
     S Size differs
@@ -346,7 +346,7 @@ and this is part of the `man rpm`'s `-V` section:
     P caPabilities differ
 ```
 
-You can also check the integrity of an rpm package with -K:
+You can also check the integrity of an rpm package with `-K`:
 
 ```
 # rpm -Kv breezy-3.2.1-3.fc36.x86_64.rpm
