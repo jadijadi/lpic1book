@@ -19,12 +19,12 @@
 
 <meta property="og:title" content="102.5 Use RPM and YUM package management "/>
 <meta property="og:url" content="./1025-use-rpm-and-yum-package-management.html" />
-<meta property="og:description" content="Candidates should be able to perform package management using RPM, YUM and Zypper." />
+<meta property="og:description" content="Candidates should be able to perform package management using RPM, YUM, and Zypper." />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
 <meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="102.5 Use RPM and YUM package management ">
-<meta name="twitter:description" content="Candidates should be able to perform package management using RPM, YUM and Zypper.">
+<meta name="twitter:description" content="Candidates should be able to perform package management using RPM, YUM, and Zypper.">
 
         <title>102.5 Use RPM and YUM package management  · lpic1book
 </title>
@@ -88,30 +88,30 @@
         <div class="span8 offset2 article-content">
             
             <p><em>Weight: 3</em></p>
-<p>Candidates should be able to perform package management using RPM, YUM and Zypper.</p>
+<p>Candidates should be able to perform package management using RPM, YUM, and Zypper.</p>
 <h3>Key Knowledge Areas</h3>
 <ul>
-<li>Install, re-install, upgrade and remove packages using RPM, YUM and Zypper.</li>
-<li>Obtain information on RPM packages such as version, status, dependencies, integrity and signatures.
+<li>Install, re-install, upgrade and remove packages using RPM, YUM, and Zypper.</li>
+<li>Obtain information on RPM packages such as version, status, dependencies, integrity, and signatures.
 Determine what files a package provides, as well as find which package a specific file comes from.
 Awareness of dnf.</li>
-<li>The following is a partial list of the used files, terms and utilities:</li>
+<li>The following is a partial list of the used files, terms, and utilities:</li>
 </ul>
-<h5>Terms</h5>
+<h5>Terms and Utilities</h5>
 <ul>
 <li>rpm</li>
 <li>rpm2cpio</li>
-<li>/etc/yum.conf</li>
-<li>/etc/yum.repos.d/</li>
+<li><code>/etc/yum.conf</code></li>
+<li><code>/etc/yum.repos.d/</code></li>
 <li>yum</li>
 <li>zypper</li>
 </ul>
 <h2>Introduction</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qk6qcEAvf4A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p><strong>RedHat Package Manager (RPM)</strong> and <strong>YellowDog Update Manager (YUM)</strong> are used by Fedora, RedHat, RHEL, CentOS, RocksOS, ... to manage packages. The package format is called RPM and can be managed by <code>rpm</code> tools but if you want to use the repositories to install, update, search, .. packages or even upgrade the whole ssytem, you can use the <code>yum</code> command. To have a deeper understanding of the repositories, please refer to the previous section (102.4); here I assume that you know the concept.</p>
+<p><strong>RedHat Package Manager (RPM)</strong> and <strong>YellowDog Update Manager (YUM)</strong> are used by Fedora, RedHat, RHEL, CentOS, RocksOS, ... to manage packages. The package format is called RPM and can be managed by <code>rpm</code> tools but if you want to use the repositories to install, update, search, ... packages, or even upgrade the whole system, you can use the <code>yum</code> command. To have a deeper understanding of the repositories, please refer to the previous section (102.4); here I assume that you know the concept.</p>
 <h2>YUM</h2>
-<p><code>YUM</code> is the package manager used by RedHat based systems. Its configuration files are located at <code>/etc/yum.conf</code> and <code>/etc/yum.repos.d/</code>. Below is a sample.</p>
+<p><code>YUM</code> is the package manager used by RedHat-based systems. Its configuration files are located at <code>/etc/yum.conf</code> and <code>/etc/yum.repos.d/</code>. Below is a sample.</p>
 <div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">yum</span><span class="p">.</span><span class="n">conf</span><span class="w"></span>
 <span class="o">[</span><span class="n">main</span><span class="o">]</span><span class="w"></span>
 <span class="n">cachedir</span><span class="o">=/</span><span class="nf">var</span><span class="o">/</span><span class="n">cache</span><span class="o">/</span><span class="n">yum</span><span class="o">/</span><span class="err">$</span><span class="n">basearch</span><span class="o">/</span><span class="err">$</span><span class="n">releasever</span><span class="w"></span>
@@ -172,13 +172,13 @@ Awareness of dnf.</li>
 <thead>
 <tr>
 <th>Command</th>
-<th>Descriptioin</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>update</td>
-<td>Updates the repositories and update the names packages, or all if nothing is named</td>
+<td>Updates the repositories and update the names of packages, or all if nothing is named</td>
 </tr>
 <tr>
 <td>install</td>
@@ -206,7 +206,7 @@ Awareness of dnf.</li>
 </tr>
 <tr>
 <td>provides</td>
-<td>Checck which packages provides an specific file</td>
+<td>Check which packages provide a specific file</td>
 </tr>
 <tr>
 <td>upgrade</td>
@@ -214,7 +214,7 @@ Awareness of dnf.</li>
 </tr>
 <tr>
 <td>localinstall</td>
-<td>Instlal from a local rpm file</td>
+<td>Install from a local rpm file</td>
 </tr>
 <tr>
 <td>localupdate</td>
@@ -234,12 +234,12 @@ Awareness of dnf.</li>
 </tr>
 <tr>
 <td>history</td>
-<td>show history of the usage</td>
+<td>Show history of the usage</td>
 </tr>
 </tbody>
 </table>
 <p>This is a sample installation:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># yum  install bzr</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># yum install bzr</span>
 <span class="n">Last</span> <span class="n">metadata</span> <span class="n">expiration</span> <span class="n">check</span><span class="p">:</span> <span class="mi">0</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">47</span> <span class="n">ago</span> <span class="n">on</span> <span class="n">Tue</span> <span class="mi">21</span> <span class="n">Jun</span> <span class="mi">2022</span> <span class="mi">06</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">00</span> <span class="n">PM</span> <span class="o">+</span><span class="mf">0430.</span>
 <span class="n">Dependencies</span> <span class="n">resolved</span><span class="o">.</span>
 <span class="o">=====================================================================================================================</span>
@@ -381,10 +381,10 @@ Awareness of dnf.</li>
 </code></pre></div>
 
 <blockquote>
-<p>Fun fact: Fedora Linux uses <code>dnf</code> as its package manager and will translate your <code>yum</code> commands to its <code>dnf</code> equavalents.</p>
+<p>Fun fact: Fedora Linux uses <code>dnf</code> as its package manager and will translate your <code>yum</code> commands to its <code>dnf</code> equivalents.</p>
 </blockquote>
 <h4>yumdownloader</h4>
-<p>This tool will download rpms from repositories without installing them. If you need to download all the dependencies too, use the --resolve switch:</p>
+<p>This tool will download rpms from repositories without installing them. If you need to download all the dependencies too, use the <code>--resolve</code> switch:</p>
 <div class="highlight"><pre><span></span><code>yumdownloader --resolve bzr
 </code></pre></div>
 
@@ -425,25 +425,25 @@ Awareness of dnf.</li>
 <tr>
 <td>-F</td>
 <td>--freshen</td>
-<td>Only update if its already installed</td>
+<td>Only update if it's already installed</td>
 </tr>
 <tr>
 <td>-V</td>
 <td>--verify</td>
-<td>Check the integritity of the installation</td>
+<td>Check the integrity of the installation</td>
 </tr>
 <tr>
 <td>-K</td>
 <td>--checksig</td>
-<td>Checks the integrity of a rpm</td>
+<td>Checks the integrity of an rpm</td>
 </tr>
 </tbody>
 </table>
-<p>Please note that each action, might have its own specific options.</p>
+<p>Please note that each action might have its specific options.</p>
 <h3>Install and update</h3>
-<p>In most cases we use -U which Installs or upgrades a package. </p>
+<p>In most cases, we use <code>-U</code> which Installs or upgrades a package. </p>
 <ul>
-<li>rpm does not have a database of automatic package installation so it can not remove dependencies which are installed automatically.</li>
+<li>RPM does not have a database of automatic package installation so it can not remove dependencies that are installed automatically.</li>
 </ul>
 <p>If you have an rpm with all of its dependencies, you can install them using <code>rpm -Uvh *.rpm</code>. This will tell rpm not to complain about the dependencies if it is presented in other files. Here the <code>-h</code> creates 50 hash signs to show the progress.</p>
 <h3>Query</h3>
@@ -484,7 +484,7 @@ Awareness of dnf.</li>
 <tr>
 <td></td>
 <td>--whatprovides</td>
-<td>shows what packages provides this file</td>
+<td>Shows what packages provide this file</td>
 </tr>
 <tr>
 <td>-l</td>
@@ -504,12 +504,12 @@ Awareness of dnf.</li>
 </tbody>
 </table>
 <h3>Verify</h3>
-<p>You can verify your packages and see if they are installed correctly or not. You can use the <code>-Vv</code> option for verbose output or just use the <code>-V</code> to verify and see only the issues. This is the output after I edited the /bin/tmux manually:</p>
+<p>You can verify your packages and see if they are installed correctly or not. You can use the <code>-Vv</code> option for verbose output or just use the <code>-V</code> to verify and see only the issues. This is the output after I edited the <code>/bin/tmux</code> manually:</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">root@fedora tmp</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">-</span><span class="n">V</span><span class="w"> </span><span class="n">tmux</span><span class="w"></span>
 <span class="n">S</span><span class="mf">.5</span><span class="p">....</span><span class="n">T</span><span class="p">.</span><span class="w">    </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">tmux</span><span class="w"></span>
 </code></pre></div>
 
-<p>and this is part of the <code>man rpm</code>'s <code>-V</code> section:</p>
+<p>And this is part of the <code>man rpm</code>'s <code>-V</code> section:</p>
 <div class="highlight"><pre><span></span><code>    S Size differs
     M Mode differs (includes permissions and file type)
     5 digest (formerly MD5 sum) differs
@@ -521,7 +521,7 @@ Awareness of dnf.</li>
     P caPabilities differ
 </code></pre></div>
 
-<p>You can also check the integrity of a rpm package with -K:</p>
+<p>You can also check the integrity of an rpm package with <code>-K</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># rpm -Kv breezy-3.2.1-3.fc36.x86_64.rpm</span>
 <span class="n">breezy</span><span class="o">-</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="o">.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">rpm</span><span class="p">:</span>
     <span class="n">Header</span> <span class="n">V4</span> <span class="n">RSA</span><span class="o">/</span><span class="n">SHA256</span> <span class="n">Signature</span><span class="p">,</span> <span class="n">key</span> <span class="n">ID</span> <span class="mi">38</span><span class="n">ab71f4</span><span class="p">:</span> <span class="n">OK</span>
@@ -532,7 +532,7 @@ Awareness of dnf.</li>
     <span class="n">MD5</span> <span class="n">digest</span><span class="p">:</span> <span class="n">OK</span>
 </code></pre></div>
 
-<p>The above output shows that this file is a valid file.</p>
+<p>The above output shows that this file is valid.</p>
 <h3>Uninstall</h3>
 <div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">root@fedora tmp</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="n">tmux</span><span class="w"></span>
 <span class="nl">error</span><span class="p">:</span><span class="w"> </span><span class="n">Failed</span><span class="w"> </span><span class="nl">dependencies</span><span class="p">:</span><span class="w"></span>
@@ -541,11 +541,11 @@ Awareness of dnf.</li>
 
 <ul>
 <li>rpm removes package without asking!</li>
-<li>rpm wont remove a package which is needed by another package</li>
+<li>rpm won't remove a package that is needed by another package</li>
 </ul>
 <h3>Extract RPM Files</h3>
 <h4>rpm2cpio</h4>
-<p>The <strong>cpio</strong> is an archive format (just like zip or rar or tar). You can use the <code>rpm2cpio</code> command to convert RPM fiels to <em>cpio</em> and then use the <code>cpio</code> tool to extract them:</p>
+<p>The <strong>cpio</strong> is an archive format (just like zip or rar or tar). You can use the <code>rpm2cpio</code> command to convert RPM files to <em>cpio</em> and then use the <code>cpio</code> tool to extract them:</p>
 <div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">fedora</span> <span class="n">tmp</span><span class="p">]</span><span class="c1"># rpm2cpio breezy-3.2.1-3.fc36.x86_64.rpm &gt; breezy.cpio</span>
 <span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">fedora</span> <span class="n">tmp</span><span class="p">]</span><span class="c1"># cpio -idv &lt; breezy.cpio</span>
 <span class="o">./</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">brz</span>
@@ -558,8 +558,8 @@ Awareness of dnf.</li>
 </code></pre></div>
 
 <h2>Zypper</h2>
-<p>The SUSE Linux and its sibiling openSUSE uses ZYpp as their package manager engine. You can use YAST or Zypper tools to communicate with it. </p>
-<p>These are the main commands use in <code>zypper</code>:</p>
+<p>The SUSE Linux and its sibling openSUSE use ZYpp as their package manager engine. You can use YAST or Zypper tools to communicate with it. </p>
+<p>These are the main commands used in <code>zypper</code>:</p>
 <table>
 <thead>
 <tr>
@@ -590,7 +590,7 @@ Awareness of dnf.</li>
 </tr>
 <tr>
 <td>packages</td>
-<td>List all available pacakges or pacakges from a specific repo</td>
+<td>List all available packages or packages from a specific repo</td>
 </tr>
 <tr>
 <td>what-provides</td>
@@ -610,11 +610,11 @@ Awareness of dnf.</li>
 </tr>
 <tr>
 <td>update</td>
-<td>Checks the repositoes and updates the installed packages</td>
+<td>Checks the repositories and updates the installed packages</td>
 </tr>
 <tr>
 <td>verify</td>
-<td>Checks a packages and its dependencies</td>
+<td>Checks a package and its dependencies</td>
 </tr>
 </tbody>
 </table>
@@ -622,7 +622,7 @@ Awareness of dnf.</li>
 <p>You can shorten the command when using <code>zypper</code>, so <code>zypper se tmux</code> will <em>search</em> for tmux.</p>
 </blockquote>
 <h4>Other tools</h4>
-<p>YUM and RPM are the main package managers on Fedora, RHEL &amp; Centos but other tools are also available. As mentnioned the SUSE uses <code>YaST</code> and some modern desktops (KDE &amp; Gnome) use <code>PackageKit</code> which is a graphical tool. It is also good to note that the  <code>dnf</code> suite is also gaining popularity and is pre-installed on Fedora systems.</p>
+<p>YUM and RPM are the main package managers on Fedora, RHEL &amp; Centos but other tools are also available. As mentioned, the SUSE uses <code>YaST</code>, and some modern desktops (KDE &amp; Gnome) use <code>PackageKit</code> which is a graphical tool. It is also good to note that the  <code>dnf</code> suite is also gaining popularity and is pre-installed on Fedora systems.</p>
 
 
              
