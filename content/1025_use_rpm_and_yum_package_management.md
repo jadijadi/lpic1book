@@ -296,7 +296,7 @@ Please note that each action might have its specific options.
 ### Install and update
 In most cases, we use `-U` which Installs or upgrades a package. 
 
-* RPM does not have a database of automatic package installation, so it cannot remove automatically installed dependencies.
+* RPM does not have a database of automatic package installation, so it can not remove automatically installed dependencies.
 
 If you have an rpm with all of its dependencies, you can install them using `rpm -Uvh *.rpm`. This will tell rpm not to complain about the dependencies if it is presented in other files. Here the `-h` creates 50 hash signs to show the progress.
 
