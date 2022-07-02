@@ -6,60 +6,103 @@ Authors: Jadi
 Summary: Candidates should understand the implications of virtualization and cloud computing on a Linux guest system.
 sortorder: 110
 
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
 
 
 
-_Weight: 3_
+_Weight: 1_
 
 Candidates should understand the implications of virtualization and cloud computing on a Linux guest system.
 
-### Goals
+## Key Knowledge Areas
 
-* Know the Hypervisors and it's two types
-* Know the container concepts both the application container and operating system container
-* Create a Virtual machine
-* Know the cloud system provider (CSP) and how to log in using an SSH host key to different cloud based VMs.
+- Understand the general concept of virtual machines and containers
+- Understand common elements virtual machines in an IaaS cloud, such as computing instances, block storage and networking
+- Understand unique properties of a Linux system which have to changed when a system is cloned or used as a template
+- Understand how system images are used to deploy virtual machines, cloud instances and containers
+- Understand Linux extensions which integrate Linux with a virtualization product.
+Awareness of cloud-init
+- The following is a partial list of the used files, terms and utilities:
 
-#### Introduction
+### Terms
+- Virtual machine
+- Linux container
+- Application container
+- Guest drivers
+- SSH host keys
+- D-Bus machine id
 
-Virtual machines (VMs) are simulated computer systems that appear and act as physical machines to their users. The process of creating these virtual machines is called virtualization.
+## Introduction
+Virtual machines (VMs) are are *simulated* computers. Using Virtual Machines you can create new computers on top of your running machine and install new OSs there. In some cases its also possible to run only parts of an OS on top of current OS; this is called having containers. 
 
-#### Managing VMs
+To run virtual machines, we need **Hypervisor** software (also called Virtual Machine Managers (VMM)). We have two types of Hypervisors.
 
-The primary software tool used to create and manage VMs is a hypervisor , which has been historically called either a virtual machine monitor or a virtual machine manager (VMM).
+To check and see if your host operating system / CPU, supports using hypervisors check for the `vmx` (for Intel CPUs) or `svm` (for AMD CPUs) in your `/proc/cpuinfo`. 
 
-#### Creating a Virtual Machine
+> You many need to turn the Hypervisor option On using your BIOS or UEFI.
 
-There are many ways to create a virtual machine. When first starting out, most people will create a Linux virtual machine from the ground up; they set up the VM specifications within the hypervisor software of their choice and use an ISO file (live or otherwise) to install the guest operating system.
+Based on your CPU you should have `kvm` or `kvm-amd` kernel modules loaded. 
 
-#### Integrating via Linux Extensions
+```
+lsmod | grep -i kvm
+sudo modprobe kvm
+```
 
-Before you jump into creating virtual machines, it’s important to check that your Linux host system will support virtualization and the hypervisor product you have chosen. This support is accomplished via various extensions and modules.
+> if you see `hypervisor` in your `/proc/cpuinfo` it means that you are inside a virtualized linux machine :)
 
-#### Understanding Containers
+Now, lets see the 2 types of hypervisors. First the type 2, since its easier to understand. 
 
-Containers are virtual entities, but they are different from virtual machines and serve distinct purposes.
+![](images/Hyperviseur.png)
+### Type 2 Hypervisor
+These hypervisors run on a conventional operating system (OS) just as other computer programs do. A guest operating system runs as a process on the host. Type-2 hypervisors abstract guest operating systems from the host operating system.
 
-#### Looking at Infrastructure as a Service
+In other words, type 2 hypervisor is a software between the guest and host. It completely runs on the host OS and provides virtualization to the guest. 
 
-With the high expenses of maintaining hardware and providing the electricity to run servers as well as cool them,many companies are looking to cloud-based data centers. For virtualization, companies turn to Infrastructure as a Service (IaaS) providers.
+Two of the most famous Type 2 hypervisor on linux are VirtualBox (from Oracle) and VMWare.
 
-When using a cloud-based virtualized environment, you should know a few additional terms that will assist in selecting a CSP. They are as follows:
+### Type 1 Hypervisor
+These hypervisors run directly on the host's hardware to control the hardware and to manage guest operating systems. For this reason, they are sometimes called bare-metal hypervisors. The first hypervisors, which IBM developed in the 1960s, were native hypervisors. These included the test software SIMMON and the CP/CMS operating system, the predecessor of IBM z/VM.
 
-* Computing Instance
-* Cloud Type
-* Elasticity
-* Load Balancing
-* Management Console or Portal
-* lock and Object Storage
-* Remote Instance Access
 
-#### Summary
+Some of the most famous Type 2 hypervisor on linux KVM, Xen & Hyper-V. From Linux Kernel version 2.6.20, KVM is build-in. 
+## Creating a Virtual Machine
+First we create the machine itself. We tell the hypervisor how much ram/disk/cpu/... we need and name our machine. Then we need to *install* the guest OS. This can be done using:
 
-Moving your system from running directly on a physical system to a virtualized environment, such as a virtual machine or a container, is becoming very popular among
-businesses. You will need to understand the basic concepts of providing a virtualized
-environment within your company’s data center, and/or using IaaS is critical for modern
-TechOps.
+- installing from a CD / DVD / ... 
+- **Cloning** an existing machine
+- Using **Open Virtualization Fromat** to move machines between hypervisors
+- It is also possible to create **Templates** which are *master copies* to initiate new machines
+
+> You may need to install some *guest drivers* or *additions* to help your hypervisor have a better control on your guest machine. These might include graphical drivers for virtualbox or scripts to help vmware to control a guest machine or check its status. 
+
+## Guest specific configs
+There are some configurations which are machine specific. For example a network cards MAC address should be uniq in the whole network. If we are cloning a machine or sometimes creating them from templates, we need to at least change these on each machine before booting them:
+
+- Host Name
+- NIC MAC Address
+- NIC IP (if not using DHCP)
+- Machine ID (delete the `/etc/machine-id` and `/var/lib/dbus/machine-id` and run `dbus-uuidgen --ensure`. These two files might be soft links to each other)
+- Encryption Keys like SSH Fingerprints and PGP keys
+- HDD UUIDs
+- Any other UUIDs on the system
+
+> Some configs might be empty on templates, do not forget to fill them too.
+
+
+## Containers
+
+![](/images/containers.png)
+
+In previous sections, we were dealing with complete guest OSs. But its also possible to virtualize only parts of an OS; this is called OS level virtualization. 
+
+OS-level virtualization is an operating system (OS) paradigm in which the kernel allows the existence of multiple isolated user space instances, called containers. 
+
+This can be done to run an application or a service or even running most parts of a new OS for test purposes. 
+
+## IaaS
+As the name implies, ** Infrastructure as a Service** or IaaS means offloading parts of your infrastructure to other companies. This means buying *services* like electricity, cooling and even running hypervisors to another company and just rent your VirtualMachine from them. This makes your life easier because things like "Adding New Hards" now only means paying a bit more for more HDD on your machine; instead of actually buying HDDs and installing, ... This is called cloud! You might even be able to move your machine from one continent to another one just by one click. 
+
+Samples of these cloud providers are Amazon Web Services, Google Cloud Platform & Microsoft Azure.
+
+> In some cases you even end up buying your while Software as a Service. This is called SasS. An example? having access to an online Office Suit.
+
+There are programs like `cloud-init` which help you initialize your cloud machine with ease. This service can help you start machines based on templates on AWS, Azure, Digital Ocean an others with ease.
