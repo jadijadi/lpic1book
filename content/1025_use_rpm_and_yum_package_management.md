@@ -33,7 +33,7 @@ Awareness of dnf.
 **RedHat Package Manager \(RPM\)** and **YellowDog Update Manager \(YUM\)** are used by Fedora, RedHat, RHEL, CentOS, RocksOS, ... to manage packages. The package format is called RPM and can be managed by `rpm` tools but if you want to use the repositories to install, update, search, ... packages, or even upgrade the whole system, you can use the `yum` command. To have a deeper understanding of the repositories, please refer to the previous section (102.4); here I assume that you know the concept.
 
 ## YUM
-`YUM` is the package manager used by RedHat-based systems. Its configuration files are located at `/etc/yum.conf` and `/etc/yum.repos.d/`. Below is a sample.
+`yum` is the package manager used by RedHat-based systems. Its configuration files are located at `/etc/yum.conf` and `/etc/yum.repos.d/`. Below is a sample.
 
 ```
 # cat /etc/yum.conf
@@ -289,14 +289,14 @@ One of the most used options is `-v` for verbose output and these are the common
 |-q|--query|Checks if the package is installed|
 |-F|--freshen|Only update if it's already installed|
 |-V|--verify|Check the integrity of the installation|
-|-K|--checksig|Checks the integrity of an rpm
+|-K|--checksig|Checks the integrity of an rpm package|
 
 
 Please note that each action might have its specific options.
 ### Install and update
 In most cases, we use `-U` which Installs or upgrades a package. 
 
-* RPM does not have a database of automatic package installation so it can not remove dependencies that are installed automatically.
+* RPM does not have a database of automatic package installation, so it can not remove automatically installed dependencies.
 
 If you have an rpm with all of its dependencies, you can install them using `rpm -Uvh *.rpm`. This will tell rpm not to complain about the dependencies if it is presented in other files. Here the `-h` creates 50 hash signs to show the progress.
 
