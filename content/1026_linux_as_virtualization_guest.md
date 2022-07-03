@@ -69,7 +69,7 @@ First we create the machine itself. We tell the hypervisor how much ram/disk/cpu
 
 - installing from a CD / DVD / ... 
 - **Cloning** an existing machine
-- Using **Open Virtualization Fromat** to move machines between hypervisors
+- Using **Open Virtualization Format (OVF)** to move machines between hypervisors. This is an standard format for virtual machine definition and may include several files, in this case you can archive all of them into one **Open Virtualization Archive (OVA)** file.
 - It is also possible to create **Templates** which are *master copies* to initiate new machines
 
 > You may need to install some *guest drivers* or *additions* to help your hypervisor have a better control on your guest machine. These might include graphical drivers for virtualbox or scripts to help vmware to control a guest machine or check its status. 
@@ -103,6 +103,12 @@ As the name implies, ** Infrastructure as a Service** or IaaS means offloading p
 
 Samples of these cloud providers are Amazon Web Services, Google Cloud Platform & Microsoft Azure.
 
-> In some cases you even end up buying your while Software as a Service. This is called SasS. An example? having access to an online Office Suit.
+Different cloud providers might provide different levels of Infrastructure or services. These are some examples:
+
+- Load Balancing: distribute incoming requests between your servers
+- Block Storage: Providing disks to be configured by you and added to your machines
+- Object Storage: Lets you store your data directly; say for photos
+- Elasticity: Lets you configure an automated increase/decrease in your service capacity based on request volume
+- SaaS: Software as a service lets you use softwares you need, on the cloud as a service. Think of having an online office suite for your company without installing anything on your workstations.
 
 There are programs like `cloud-init` which help you initialize your cloud machine with ease. This service can help you start machines based on templates on AWS, Azure, Digital Ocean an others with ease.
