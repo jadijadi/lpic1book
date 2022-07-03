@@ -137,7 +137,7 @@ sudo modprobe kvm
 <ul>
 <li>installing from a CD / DVD / ... </li>
 <li><strong>Cloning</strong> an existing machine</li>
-<li>Using <strong>Open Virtualization Fromat</strong> to move machines between hypervisors</li>
+<li>Using <strong>Open Virtualization Format (OVF)</strong> to move machines between hypervisors. This is an standard format for virtual machine definition and may include several files, in this case you can archive all of them into one <strong>Open Virtualization Archive (OVA)</strong> file.</li>
 <li>It is also possible to create <strong>Templates</strong> which are <em>master copies</em> to initiate new machines</li>
 </ul>
 <blockquote>
@@ -165,9 +165,14 @@ sudo modprobe kvm
 <h2>IaaS</h2>
 <p>As the name implies, <strong> Infrastructure as a Service</strong> or IaaS means offloading parts of your infrastructure to other companies. This means buying <em>services</em> like electricity, cooling and even running hypervisors to another company and just rent your VirtualMachine from them. This makes your life easier because things like "Adding New Hards" now only means paying a bit more for more HDD on your machine; instead of actually buying HDDs and installing, ... This is called cloud! You might even be able to move your machine from one continent to another one just by one click. </p>
 <p>Samples of these cloud providers are Amazon Web Services, Google Cloud Platform &amp; Microsoft Azure.</p>
-<blockquote>
-<p>In some cases you even end up buying your while Software as a Service. This is called SasS. An example? having access to an online Office Suit.</p>
-</blockquote>
+<p>Different cloud providers might provide different levels of Infrastructure or services. These are some examples:</p>
+<ul>
+<li>Load Balancing: distribute incoming requests between your servers</li>
+<li>Block Storage: Providing disks to be configured by you and added to your machines</li>
+<li>Object Storage: Lets you store your data directly; say for photos</li>
+<li>Elasticity: Lets you configure an automated increase/decrease in your service capacity based on request volume</li>
+<li>SaaS: Software as a service lets you use softwares you need, on the cloud as a service. Think of having an online office suite for your company without installing anything on your workstations.</li>
+</ul>
 <p>There are programs like <code>cloud-init</code> which help you initialize your cloud machine with ease. This service can help you start machines based on templates on AWS, Azure, Digital Ocean an others with ease.</p>
 
 
