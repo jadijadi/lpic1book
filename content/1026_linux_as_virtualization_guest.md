@@ -21,7 +21,6 @@ Candidates should understand the implications of virtualization and cloud comput
 - Understand how system images are used to deploy virtual machines, cloud instances and containers
 - Understand Linux extensions which integrate Linux with a virtualization product.
 Awareness of cloud-init
-- The following is a partial list of the used files, terms and utilities:
 
 ### Terms
 - Virtual machine
@@ -30,6 +29,8 @@ Awareness of cloud-init
 - Guest drivers
 - SSH host keys
 - D-Bus machine id
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/F3yl5Lx1htc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Introduction
 Virtual machines (VMs) are are *simulated* computers. Using Virtual Machines you can create new computers on top of your running machine and install new OSs there. In some cases its also possible to run only parts of an OS on top of current OS; this is called having containers. 
