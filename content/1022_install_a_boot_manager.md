@@ -17,22 +17,22 @@ Description: Candidates should be able to select, install and configure a boot m
 * Perform basic configuration changes for GRUB 2.
 * Interact with the boot loader
 
-#### Terms and Utilities
+## Terms and Utilities
 
-* menu.lst, grub.cfg and grub.conf
+* `menu.lst`, `grub.cfg` and `grub.conf`
 * grub-install
 * grub-mkconfig
 * MBR
 
-### Boot overview
+## Boot overview
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/G_FzcMZYDbg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Most systems use BIOS or UEFI. When on BIOS, system will do a self test called POST. Then it will hand over the boot process to the first sector of master boot record \(MBR\) which is track \(Cylinder\) 0, side \(Head\) 0 and Sector 1 of the first disk. 
+Most systems use BIOS or UEFI. When on BIOS, the system will do a self test called POST (Power-On Self-Test). Then it will hand over the boot process to the first sector of Master Boot Record \(MBR\) which is track \(Cylinder\) 0, side \(Head\) 0 and Sector 1 of the first disk. 
 
 MBR is only 512 bytes so we need a _smart bootloader_ to handle larger boot managers and even multiple systems. Some of these boot loaders are LILO, GRUB and GRUB2.
 
-If the system is using UEFI, the hardware will follow UEFI stages. They start with a security phase and will continue till the end phase where the UEFI looks for a EFI System Partition, that is just a FAT32 partition (usually the first one, but that's implementation defined) with PE executables and runs them. 
+If the system is using UEFI, the hardware will follow the UEFI stages. They start with a security phase and will continue till the end phase where the UEFI looks for an EFI System Partition, which is just a FAT32 partition (Usually the first one, but that's implementation-defined) with PE executables and runs them. 
 
 In both cases, the binary starts the boot loader. It might be a complete bootloader on `/boot/efi/` of your computer or a small loader for the main grub on the MBR or a windows loader or even a chainloader.
 
@@ -49,7 +49,7 @@ It's a menu-based system where you can choose which Kernel or chainloader to boo
 
 Usually the GRUB v1 \(actually 0.9\) is installed in `/boot/grub`. Its main configuration is in `/boot/grub/menu.lst` but nowadays some distros (including RedHat Based ones) link this to the `/boot/grub/grub.conf`.
 
-A sample menu.lst / grub.conf file for GRUB legacy consists of two sections. The first section contains global configs and the 2nd part defines different kernel/initram or chainloader options.
+A sample `menu.lst` / `grub.conf` file for GRUB legacy consists of two sections. The first section contains global configs and the 2nd part defines different kernel/initram or chainloader options.
 
 The global configs are:
 
@@ -155,7 +155,7 @@ menuentry "Windows" {
 }
 ```
 
-As you can see, GRUB uses Linux style numbering for partitions, so the first partition on first hard disk is `(hd0,1)` or `(hd0,msdos1)` for DOS partitions or `(hd0,gpt1)` for GPT drives.
+As you can see, GRUB uses Linux-style numbering for partitions, so the first partition on the first hard disk is `(hd0,1)` or `(hd0,msdos1)` for DOS partitions or `(hd0,gpt1)` for GPT drives.
 
 Here you can see some of the options:
 
@@ -168,7 +168,7 @@ Here you can see some of the options:
 |initrd|Defines the initramfs image for BIOS systems|
 |initrdefi|Defines the initramfs image for UEFI systems|
 
-And here is a real world `grub.cfg`:
+And here is a real-world `grub.cfg`:
 
 ```
 #

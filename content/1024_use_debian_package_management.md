@@ -12,10 +12,10 @@ Candidates should be able to perform package management using the Debian package
 
 * Install, upgrade and uninstall Debian binary packages.
 * Find packages containing specific files or libraries which may or may not be installed.
-* Obtain package information like version, content, dependencies, package integrity, and installation status \(whether or not the package is installed\).
+* Obtain package information like version, content, dependencies, package integrity, and installation status \(Whether or not the package is installed\).
 * Awareness of apt.
 
-#### Terms and Utilities
+## Terms and Utilities
 
 * `/etc/apt/sources.list`
 * dpkg
@@ -23,17 +23,17 @@ Candidates should be able to perform package management using the Debian package
 * apt-get
 * apt-cache
 
-### Concept of the package management system
+## Concept of the package management system
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/jtwbweigRxo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Some people think that on GNU/Linux we have to compile all the software we need manually. This is not the case in 99% of cases and never has been the case in the last 20 years. GNU/Linux is the predecessor of what we call the App Store these days. All major distros do have huge archives of pre-compiled software called their _repositories_ and some kind of a **package manager** software that takes care of searching these repositories, installing software from them, finding dependencies, installing them, resolving conflicts, and updating the system and installed software. Debian-based distros use `.deb` files as their "packages" and use tools like `apt-get`, `dpkg`, `apt`, and other tools to manage them.
 
-Debian packages are names like `NAME-VERSION-RELEASE_ARCHITECTURE.deb`; say `tmux_3.2a-4build1_amd64.deb`. 
+Debian packages are names like `NAME-VERSION-RELEASE_ARCHITECTURE.deb`; Say `tmux_3.2a-4build1_amd64.deb`. 
 
 
 
-### Repositories
+## Repositories
 But where did this package come from? How does the OS know where to look for this deb package? The answer is **Repositories**. Each distro has its repository of packages. It can be on a Disk, A network drive, a collection of DVDs, or most commonly, a network address on the Internet. 
 
 On debian systems, the main configuration locations are:
@@ -103,7 +103,7 @@ This will check all the sources in the configs and update the information about 
 
 > This won't actually _Upgrade_ the software. The *Update* will only *Update the information about the packages and not the packages themselves*.
 
-### Installing packages
+## Installing packages
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/IBnxIX_WceI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -130,7 +130,7 @@ Note that
 * apt-get resolved _dependencies_, It knows what is needed to install this package and installs them
 * Debian packages are something.deb
 
-If you only want a dry-run / simulation:
+If you only want a dry-run/simulation:
 
 ```text
 apt-get install -s tmux
@@ -149,7 +149,7 @@ If you want to download only one specific package, you can do:
 ```
 apt-get download tmux
 ```
-### Removing debian packages
+## Removing debian packages
 
 ```text
 apt-get remove tmux
@@ -182,7 +182,7 @@ Notes:
 * Removing a package will not remove its dependencies
 * If removing a dependency, you'll get a warning about what will be removed alongside this package
 
-### Searching for packages
+## Searching for packages
 If you are using the apt suit, the search is done via `apt-cache` or you can use the general `apt`. 
 
 ```text
@@ -190,7 +190,7 @@ $ apt-cache search "tiny window"
 $ apt search grub2
 ```
 
-### Upgrading
+## Upgrading
 
 For updating a single package:
 
@@ -212,15 +212,15 @@ apt-get dist-upgrade
 
 Note: like most other tools, you can configure the default configs at `/etc/apt/apt.conf` and there is a program apt-config for this purpose.
 
-### Reconfiguring packages
+## Reconfiguring packages
 
-Debian packages can have _configuration actions_ which will take after the package is installed. This is done by `debconf`. For example, tzdata will ask you about the timezone settings after you installed it. If you want to *reconfigure* a package that is already installed, you can use the `dpkg-reconfigure`:
+Debian packages can have _configuration actions_ that will take after the package is installed. This is done by `debconf`. For example, tzdata will ask you about the timezone settings after you installed it. If you want to *reconfigure* a package that is already installed, you can use the `dpkg-reconfigure`:
 
 ```text
  dpkg-reconfigure tzdata
 ```
 
-### Package information with dpkg
+## Package information with dpkg
 
 The underlying tool to work with `.deb` files is the `dpkg`. It is your to-go tool if you want to do manual actions on a deb package. The general format is:
 
@@ -235,12 +235,12 @@ Some common actions are:
 |-c or --contents| Show the contents of a package|
 |-C or --audit| Search for broken installed packages and propose solutions |
 |--configure| Reconfigure an installed package|
-|-i or --install| Install or Upgrade a package; wont resolve / install dependencies|
+|-i or --install| Install or Upgrade a package; Wont resolve / install dependencies|
 |-I or --info| Show Info|
 |-l or --list| List all installed pckages|
 |-L or --listfiles | List all files related to this package|
 |-P or --purge| Remove the package and its configuration files|
-|-r or --remove| Remove the package; keep the configurations|
+|-r or --remove| Remove the package; Keep the configurations|
 |-s or --status| Display status of a package|
 |-S or --search| Search and see which package owns this file|
 
@@ -303,7 +303,7 @@ Description: easy to use distributed version control system
 Homepage: http://bazaar-vcs.org
 Original-Maintainer: Debian Bazaar Maintainers <pkg-bazaar-maint@lists.alioth.debian.org>
 ```
-Or even **purge** an installed package; removing the package and all of its configurations. To Purge a package use the **-P** or **--purge** switch.
+Or even **purge** an installed package; Removing the package and all of its configurations. To Purge a package, use the **-P** or **--purge** switch.
 
 There is also **-L** to check the files and directories a package installed:
 
@@ -338,7 +338,7 @@ mplayer: /var/lib/mplayer/prefs/mirrors
 |autoclean|Removes unused packages|
 |check|Check db for issues|
 |clean|Clean the DB, you can do a `clean all` to clean everything and start afresh|
-|dist-upgrade|Checks for new versions of the OS; major upgrade|
+|dist-upgrade|Checks for new versions of the OS; Major upgrade|
 |install|Install or upgrade packages|
 |remove|Removes a package|
 |source|Install the source of a package|
@@ -358,5 +358,5 @@ mplayer: /var/lib/mplayer/prefs/mirrors
 |unmet|Show unmet dependencies for all installed packages or the one you specified|
 
 
-### Other tools
+## Other tools
 There are even more tools, the tools with fancy GUIs or text-based tools and user interface tools like `aptitude`.
