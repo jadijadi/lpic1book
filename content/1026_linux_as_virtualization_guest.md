@@ -13,9 +13,9 @@ Candidates should understand the implications of virtualization and cloud comput
 ## Key Knowledge Areas
 
 - Understand the general concept of virtual machines and containers
-- Understand common elements of virtual machines in an IaaS cloud, such as computing instances, block storage and networking
+- Understand common elements of virtual machines in an IaaS cloud, such as computing instances, block storage, and networking
 - Understand the unique properties of a Linux system which have to be changed when a system is cloned or used as a template
-- Understand how system images are used to deploy virtual machines, cloud instances and containers
+- Understand how system images are used to deploy virtual machines, cloud instances, and containers
 - Understand Linux extensions that integrate Linux with a virtualization product.
 Awareness of cloud-init
 
@@ -45,7 +45,7 @@ lsmod | grep -i kvm
 sudo modprobe kvm
 ```
 
-> If you see `hypervisor` in your `/proc/cpuinfo` it means that you are inside a virtualized linux machine :)
+> If you see `hypervisor` in your `/proc/cpuinfo` it means that you are inside a virtualized Linux machine :)
 
 Now, let's see the 2 types of hypervisors. First type 2, since it's easier to understand. 
 
@@ -70,9 +70,9 @@ First, create the machine itself. We tell the hypervisor this machine how much R
 - Using **Open Virtualization Format (OVF)** to move machines between hypervisors. This is a standard format for virtual machine definition and may include several files, in this case, you can archive all of them into one **Open Virtualization Archive (OVA)** file.
 - It is also possible to create **Templates** that are _master copies_* to initiate new machines
 
-> You may need to install some *guest drivers* or *additions* to help your hypervisor to have a better control on your guest machine. These might include graphical drivers for virtualbox or scripts to help vmware to control a guest machine or check its status. 
+> You may need to install some *guest drivers* or *additions* to help your hypervisor to have better control over your guest machine. These might include graphical drivers for VirtualBox or scripts to help VMWare to control a guest machine or check its status. 
 
-## Guest specific configs
+## Guest-specific configs
 Some configurations are machine specific. For example, a network card's MAC address should be unique for whole the network. If we are cloning a machine or sometimes creating them from templates, at least we need to change these on each machine before booting them:
 
 - Host Name
@@ -92,14 +92,14 @@ Some configurations are machine specific. For example, a network card's MAC addr
 
 In previous sections, we were dealing with complete guest OSs. But is also possible to virtualize only parts of an OS; This is called OS-level virtualization. 
 
-OS-level virtualization is an operating system (OS) paradigm in which the kernel allows the existence of multiple isolated user space instances, called containers. 
+OS-level virtualization is an operating system (OS) paradigm in which the kernel allows the existence of multiple isolated user-space instances, called containers. 
 
 This can be done to run an application or a service or even run most parts of a new OS for test purposes. 
 
 ## IaaS
-As the name implies, **Infrastructure as a Service** or IaaS means offloading parts of your infrastructure to other companies. This means buying *services* like electricity, cooling and even running hypervisors to another company and just rent your VirtualMachine from them. This makes your life easier because things like "Adding New Hards" now only mean paying a bit more for more HDD on your machine; Instead of buying HDDs and installing, ... This is called cloud! You might even be able to move your machine from one continent to another one just with one click. 
+As the name implies, **Infrastructure as a Service** or IaaS means offloading parts of your infrastructure to other companies. This means buying *services* like electricity, cooling, and even running hypervisors to another company and just renting your VirtualMachine from them. This makes your life easier because things like "Adding New Hards" now only mean paying a bit more for more HDD on your machine; Instead of buying HDDs and installing them, ... This is called cloud! You might even be able to move your machine from one continent to another one just with one click. 
 
-Samples of these cloud providers are [Amazon Web Services][1] , [Google Cloud Platform][2] and [Microsoft Azure][3].
+Samples of these cloud providers are [Amazon Web Services][1], [Google Cloud Platform][2], and [Microsoft Azure][3].
 
 Different cloud providers might provide different levels of Infrastructure or services. These are some examples:
 
@@ -109,7 +109,7 @@ Different cloud providers might provide different levels of Infrastructure or se
 - Elasticity: Lets you configure an automated increase/decrease in your service capacity based on request volume
 - SaaS: Software as a Service lets you use the software you need, on the Cloud as a Service. Think of having an online office suite for your company without installing anything on your workstations.
 
-There are programs like `cloud-init` which help you initialize your cloud machine with ease. This service can help you start machines based on templates on AWS, Azure, Digital Ocean and others with ease.
+There are programs like `cloud-init` which help you initialize your cloud machine with ease. This service can help you start machines based on templates on AWS, Azure, Digital Ocean, and others with ease.
 
 [1]:(https://aws.amazon.com/)
 [2]:(https://cloud.google.com/)
