@@ -92,10 +92,10 @@
 <h2>Key Knowledge Areas</h2>
 <ul>
 <li>Understand the general concept of virtual machines and containers</li>
-<li>Understand common elements virtual machines in an IaaS cloud, such as computing instances, block storage and networking</li>
-<li>Understand unique properties of a Linux system which have to changed when a system is cloned or used as a template</li>
+<li>Understand common elements of virtual machines in an IaaS cloud, such as computing instances, block storage and networking</li>
+<li>Understand the unique properties of a Linux system which have to be changed when a system is cloned or used as a template</li>
 <li>Understand how system images are used to deploy virtual machines, cloud instances and containers</li>
-<li>Understand Linux extensions which integrate Linux with a virtualization product.
+<li>Understand Linux extensions that integrate Linux with a virtualization product.
 Awareness of cloud-init</li>
 </ul>
 <h3>Terms</h3>
@@ -110,11 +110,11 @@ Awareness of cloud-init</li>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/F3yl5Lx1htc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h2>Introduction</h2>
-<p>Virtual machines (VMs) are are <em>simulated</em> computers. Using Virtual Machines you can create new computers on top of your running machine and install new OSs there. In some cases its also possible to run only parts of an OS on top of current OS; this is called having containers. </p>
-<p>To run virtual machines, we need <strong>Hypervisor</strong> software (also called Virtual Machine Managers (VMM)). We have two types of Hypervisors.</p>
-<p>To check and see if your host operating system / CPU, supports using hypervisors check for the <code>vmx</code> (for Intel CPUs) or <code>svm</code> (for AMD CPUs) in your <code>/proc/cpuinfo</code>. </p>
+<p>Virtual machines (VMs) are <em>simulated</em> computers. You can use Virtual Machines to create new computers on top of your running machine and install new OSs there. In some cases, it's also possible to run only parts of an OS on top of the current OS; This is called having containers. </p>
+<p>To run virtual machines, we need <strong>Hypervisor</strong> software (also called Virtual Machine Managers (VMM)). We have two types of hypervisors.</p>
+<p>To check and see if your host operating system / CPU, supports using hypervisors check for the <code>vmx</code> (for Intel CPUs) or <code>svm</code> (for AMD CPUs) in your <code>/proc/cpuinfo</code> in flags. </p>
 <blockquote>
-<p>You many need to turn the Hypervisor option On using your BIOS or UEFI.</p>
+<p>You may need to turn the hypervisor option On using your BIOS or UEFI.</p>
 </blockquote>
 <p>Based on your CPU you should have <code>kvm</code> or <code>kvm-amd</code> kernel modules loaded. </p>
 <div class="highlight"><pre><span></span><code>lsmod | grep -i kvm
@@ -122,34 +122,34 @@ sudo modprobe kvm
 </code></pre></div>
 
 <blockquote>
-<p>if you see <code>hypervisor</code> in your <code>/proc/cpuinfo</code> it means that you are inside a virtualized linux machine :)</p>
+<p>If you see <code>hypervisor</code> in your <code>/proc/cpuinfo</code> it means that you are inside a virtualized linux machine :)</p>
 </blockquote>
-<p>Now, lets see the 2 types of hypervisors. First the type 2, since its easier to understand. </p>
-<p><img alt="" src="images/Hyperviseur.png"></p>
+<p>Now, let's see the 2 types of hypervisors. First type 2, since it's easier to understand. </p>
+<p><img alt="Types of hypervisors" src="images/hypervisor.png"></p>
 <h3>Type 2 Hypervisor</h3>
 <p>These hypervisors run on a conventional operating system (OS) just as other computer programs do. A guest operating system runs as a process on the host. Type-2 hypervisors abstract guest operating systems from the host operating system.</p>
-<p>In other words, type 2 hypervisor is a software between the guest and host. It completely runs on the host OS and provides virtualization to the guest. </p>
-<p>Two of the most famous Type 2 hypervisor on linux are VirtualBox (from Oracle) and VMWare.</p>
+<p>In other words, a type 2 hypervisor is the software between the guest and host. It completely runs on the host OS and provides virtualization to the guest. </p>
+<p>Two of the most famous Type 2 hypervisors are VirtualBox (from Oracle) and VMware.</p>
 <h3>Type 1 Hypervisor</h3>
-<p>These hypervisors run directly on the host's hardware to control the hardware and to manage guest operating systems. For this reason, they are sometimes called bare-metal hypervisors. The first hypervisors, which IBM developed in the 1960s, were native hypervisors. These included the test software SIMMON and the CP/CMS operating system, the predecessor of IBM z/VM.</p>
-<p>Some of the most famous Type 2 hypervisor on linux KVM, Xen &amp; Hyper-V. From Linux Kernel version 2.6.20, KVM is build-in. </p>
+<p>These hypervisors run directly on the host's hardware to control the hardware and manage guest operating systems. For this reason, they are sometimes called bare-metal hypervisors. The first hypervisors, which IBM developed in the 1960s, were native hypervisors. These included the test software SIMMON and the CP/CMS operating system, the predecessor of IBM z/VM.</p>
+<p>Some of the most famous Type 1 hypervisors are KVM, Xen &amp; Hyper-V. <strong>KVM</strong> is built-in since Linux Kernel version 2.6.20. </p>
 <h2>Creating a Virtual Machine</h2>
-<p>First we create the machine itself. We tell the hypervisor how much ram/disk/cpu/... we need and name our machine. Then we need to <em>install</em> the guest OS. This can be done using:</p>
+<p>First, create the machine itself. We tell the hypervisor this machine how much RAM/disk/CPU/... needs and set a name for our machine. Then we need to <em>install</em> the guest OS. This can be done using:</p>
 <ul>
-<li>installing from a CD / DVD / ... </li>
+<li>Installing from a CD / DVD / ... </li>
 <li><strong>Cloning</strong> an existing machine</li>
-<li>Using <strong>Open Virtualization Format (OVF)</strong> to move machines between hypervisors. This is an standard format for virtual machine definition and may include several files, in this case you can archive all of them into one <strong>Open Virtualization Archive (OVA)</strong> file.</li>
-<li>It is also possible to create <strong>Templates</strong> which are <em>master copies</em> to initiate new machines</li>
+<li>Using <strong>Open Virtualization Format (OVF)</strong> to move machines between hypervisors. This is a standard format for virtual machine definition and may include several files, in this case, you can archive all of them into one <strong>Open Virtualization Archive (OVA)</strong> file.</li>
+<li>It is also possible to create <strong>Templates</strong> that are <em>master copies</em>* to initiate new machines</li>
 </ul>
 <blockquote>
-<p>You may need to install some <em>guest drivers</em> or <em>additions</em> to help your hypervisor have a better control on your guest machine. These might include graphical drivers for virtualbox or scripts to help vmware to control a guest machine or check its status. </p>
+<p>You may need to install some <em>guest drivers</em> or <em>additions</em> to help your hypervisor to have a better control on your guest machine. These might include graphical drivers for virtualbox or scripts to help vmware to control a guest machine or check its status. </p>
 </blockquote>
 <h2>Guest specific configs</h2>
-<p>There are some configurations which are machine specific. For example a network cards MAC address should be uniq in the whole network. If we are cloning a machine or sometimes creating them from templates, we need to at least change these on each machine before booting them:</p>
+<p>Some configurations are machine specific. For example, a network card's MAC address should be unique for whole the network. If we are cloning a machine or sometimes creating them from templates, at least we need to change these on each machine before booting them:</p>
 <ul>
 <li>Host Name</li>
 <li>NIC MAC Address</li>
-<li>NIC IP (if not using DHCP)</li>
+<li>NIC IP (If not using DHCP)</li>
 <li>Machine ID (delete the <code>/etc/machine-id</code> and <code>/var/lib/dbus/machine-id</code> and run <code>dbus-uuidgen --ensure</code>. These two files might be soft links to each other)</li>
 <li>Encryption Keys like SSH Fingerprints and PGP keys</li>
 <li>HDD UUIDs</li>
@@ -159,22 +159,22 @@ sudo modprobe kvm
 <p>Some configs might be empty on templates, do not forget to fill them too.</p>
 </blockquote>
 <h2>Containers</h2>
-<p><img alt="" src="/images/containers.png"></p>
-<p>In previous sections, we were dealing with complete guest OSs. But its also possible to virtualize only parts of an OS; this is called OS level virtualization. </p>
+<p><img alt="Containers" src="/images/containers.png"></p>
+<p>In previous sections, we were dealing with complete guest OSs. But is also possible to virtualize only parts of an OS; This is called OS-level virtualization. </p>
 <p>OS-level virtualization is an operating system (OS) paradigm in which the kernel allows the existence of multiple isolated user space instances, called containers. </p>
-<p>This can be done to run an application or a service or even running most parts of a new OS for test purposes. </p>
+<p>This can be done to run an application or a service or even run most parts of a new OS for test purposes. </p>
 <h2>IaaS</h2>
-<p>As the name implies, <strong> Infrastructure as a Service</strong> or IaaS means offloading parts of your infrastructure to other companies. This means buying <em>services</em> like electricity, cooling and even running hypervisors to another company and just rent your VirtualMachine from them. This makes your life easier because things like "Adding New Hards" now only means paying a bit more for more HDD on your machine; instead of actually buying HDDs and installing, ... This is called cloud! You might even be able to move your machine from one continent to another one just by one click. </p>
-<p>Samples of these cloud providers are Amazon Web Services, Google Cloud Platform &amp; Microsoft Azure.</p>
+<p>As the name implies, <strong>Infrastructure as a Service</strong> or IaaS means offloading parts of your infrastructure to other companies. This means buying <em>services</em> like electricity, cooling and even running hypervisors to another company and just rent your VirtualMachine from them. This makes your life easier because things like "Adding New Hards" now only mean paying a bit more for more HDD on your machine; Instead of buying HDDs and installing, ... This is called cloud! You might even be able to move your machine from one continent to another one just with one click. </p>
+<p>Samples of these cloud providers are <a href="(https://aws.amazon.com/)">Amazon Web Services</a> , <a href="(https://cloud.google.com/)">Google Cloud Platform</a> and <a href="(https://azure.microsoft.com/en-us/)">Microsoft Azure</a>.</p>
 <p>Different cloud providers might provide different levels of Infrastructure or services. These are some examples:</p>
 <ul>
-<li>Load Balancing: distribute incoming requests between your servers</li>
+<li>Load Balancing: Distribute incoming requests between your servers</li>
 <li>Block Storage: Providing disks to be configured by you and added to your machines</li>
-<li>Object Storage: Lets you store your data directly; say for photos</li>
+<li>Object Storage: Lets you store your data directly; Say for photos</li>
 <li>Elasticity: Lets you configure an automated increase/decrease in your service capacity based on request volume</li>
-<li>SaaS: Software as a service lets you use softwares you need, on the cloud as a service. Think of having an online office suite for your company without installing anything on your workstations.</li>
+<li>SaaS: Software as a Service lets you use the software you need, on the Cloud as a Service. Think of having an online office suite for your company without installing anything on your workstations.</li>
 </ul>
-<p>There are programs like <code>cloud-init</code> which help you initialize your cloud machine with ease. This service can help you start machines based on templates on AWS, Azure, Digital Ocean an others with ease.</p>
+<p>There are programs like <code>cloud-init</code> which help you initialize your cloud machine with ease. This service can help you start machines based on templates on AWS, Azure, Digital Ocean and others with ease.</p>
 
 
              
