@@ -6,210 +6,93 @@ Authors: Jadi
 Summary: Candidates should be able to interact with shells and commands using the command line. The objective assumes the Bash shell.
 sortorder: 120
 
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
 
 _Weight: 4_
 
-Description: Candidates should be able to interact with shells and commands using the command line. The objective assumes the bash shell.
+Description: Candidates should be able to interact with shells and commands using the command line. The objective assumes the Bash shell.
 
 ### Objectives
 
-* Use single shell commands and one line command sequences to perform basic tasks on command line.
+* Use single shell commands and one line command sequences to perform basic tasks on the command line.
 * Use and modify the shell environment including defining, referencing and exporting environment variables.
 * Use and edit command history.
 * Invoke commands inside and outside the defined path.
-* . and ..
+
+### Terms
 * bash
 * echo
 * env
-* exec
 * export
 * pwd
 * set
 * unset
+* type
+* which
 * man
 * uname
 * history
+* .bash_history
+* Quoting
 
-#### Bash
+#### Shells and Bash
+You issue your commands in a shell; its your command line interface and you have various options for it. To reach your shell you should login into the system in the text mode or run one of the various *Terminal Emulators* in your GUI. Some samples are `gnome-terminal`, `konsole`, `xterm`, ...
 
-As any other thing Linux, you can choose your shell too \(by shell I mean the command line interface\). **Bash** in the most common one.
+After running the Terminal Emulator or loggining into the text mode, you are in the shell and you can issue commands. Although `bash` (GNU Bourne Again shell) is the most common one, you might use `zsh`, `dash`, `ksh`, `csh` and others.
 
-Some commands are build in \(cd, break, exec\) and it uses streams:
+You can check where your general `sh` command links to via
 
-* **stdin** is the standard input stream, which provides input to commands.
-* **stdout** is the standard output stream, which displays output from commands.
-* **stderr** is the standard error stream, which displays error output from commands.
-
-User Prompts are like these:
-
-```text
-jadi@funlife:~$
-[jadi@funlife lpic1]$
-$
+```
+$ readlink /bin/sh
 ```
 
-> in most cases, root users prompt uses \# instead of $ \(say: `root@funlife:/etc#`\).
+or check your `$SHELL` variable using:
 
-Global bash configs are stored at /etc/profile and each user has her own config at ~/.profile & ~/.bash\_profile & ~/.bash\_logout
-
-#### Commands and sequences
-
-Most commands have a _command name_ and some _parameters_. A simple one is the ```echo`` command:
-
-```text
-$ echo
-
-$ echo Hello lpic
-Hello lpic
-$ echo Hello lpic #just a simple hi
-Hello lpic
+```
+echo $SHELL
 ```
 
-> Note: the \# is for _comments_. Anything after it is comment.
+Your bash have some *internal* commands which it understands without any external dependency (say `cd`, `break`, `exec`, ...) but if it does not understand something internally, it will try to run it as an external executable.
 
-**escaped characters**
+You can use the `type` command to determine this:
 
-Some special characters need special case in programming and linux world. Say you want to go to the new line during an echo command.
-
-```text
-jadi@funlife:~$ echo -e "hello\nthere"
-hello
-there
+```
+[jadi@fedora ~]$ type cd
+cd is a shell builtin
+[jadi@fedora ~]$ type ls
+ls is aliased to `ls --color=auto'
+[jadi@fedora ~]$ type ping
+ping is /usr/bin/ping
 ```
 
-| Escape sequence    Function |  |
-| :--- | :--- |
-| \a | Alert \(bell\) |
-| \b | Backspace |
-| \c | Suppress trailing newline \(same function as -n option\) |
-| \f | Form feed \(clear the screen on a video display\) |
-| \n | New line |
-| \r | Carriage return |
-| \t | Horizontal tab |
+### cd, pwd & uname
+#### cd
+You've already seen lots of `cd` commands :) it *changes directory*, including `.` (current directory) and `..` (parent directory). 
 
-> Note: you can use  to break a command in many lines:
->
-> ```text
-> $ echo but this \
-> is another \
-> usage
-> but this is another usage
-> ```
+You can point to directories in two ways:
 
-**metacharacters and Control operators**
+1. **Absolute Paths**: like /home/jadi/lpic1/lesson3.1
+2. **Relative Paths**: like lpic1/lesson3.1. In this case we are not adding the `/` in the beginning so the bash will try to to find `lpic1` directory where we are (local / relative)
 
-Also there are characters with special meaning. You need to escape then if you need them in your commands: **\| & ; \( \) &lt; &gt;\***
+> the `~` characters means *home directory of the user issuing the command*
 
-There is also control operators. They also have special meanings:  **\|\| && & ; ;; \| \( \)**
+It is also possible to issue the `cd` without any parameters. It will move you to your home directory. So these 3 commands are all equal:
 
-The most important ones are ; \(do one by one\), && \(logical and\) and \|\| \(logical or\).
-
-```text
-$ echo line 1;echo line 2; echo line 3
-line 1
-line 2
-line 3
-
-$ echo line 1&&echo line 2&&echo line 3
-line 1
-line 2
-line 3
-
-$ echo line 1||echo line 2; echo line 3
-line 1
-line 3
+```
+cd
+cd ~
+cd $HOME
 ```
 
-### exiting shell
+#### pwd
+Will show you your current directory:
 
-the `exit` command exits the shell. Same as ctrl+d.
-
-if you run a command inside parentheses that command will be run inside a sub-shell.
-
-and `exec` will run a command and closes the current shell.
-
-### Environment variables
-
-Concept of EV.
-
-Every variable has name and a value. echo the name with a $ in front of it.
-
-Some common ones are:
-
-| Name | Function |
-| :--- | :--- |
-| USER | The name of the logged-in user |
-| UID | The numeric user id of the logged-in user |
-| HOME | The user's home directory |
-| PWD | The current working directory |
-| SHELL | The name of the shell |
-| $ | The process id \(or PIDof the running bash shell \(or other\) process |
-| PPID | The process id of the process that started this process \(that is, the id of the parent process\) |
-| ? | The exit code of the last command |
-
-```text
-$ echo $USER $UID
-jadi 1000
-$SHELL $HOME $PWD
-/bin/bash /home/jadi /home/jadi/lpic
-$ (exit 0);echo $?;(exit 4);echo $?
-0
-4
-$ echo $$ $PPID
-2559 2558
+```
+[jadi@fedora lesson3.1]$ pwd
+/home/jadi/lpic1/lesson3.1
 ```
 
-And this is the way to define a EV:
-
-```text
-jadi@funlife:~$ MYMOOD=happy
-jadi@funlife:~$ echo I am $MYMOOD
-I am happy
-```
-
-if we `export` a variable, it will be available for other programs starting from that shell.
-
-> Note: sometimes you may need to use { and } to describe a variable:
->
-> ```text
-> $ echo "-$HOME/abc-"
-> -/home/jadi/abc-
-> $ echo "-$HOME_abc-"
-> --
-> $ echo "-${HOME}_abc-"
-> -/home/jadi_abc-
-> ```
->
-> #### env, set, unset
->
-> the `env` shows current EVs. It can also be used to run a command in a specific environment.
-
-set is a bit more complicated. it can configure how your bash behaves. unset, unsets a variable.
-
-```text
-$ echo $-
-himBH
-$ echo $VAR1
-
-$ set -u;echo $-
-himuBH
-$ echo $VAR1
--bash: VAR1: unbound variable
-$ VAR1=v1;echo $VAR1
-v1
-$ unset VAR1;echo $VAR1
--bash: VAR1: unbound variable
-```
-
-> Note: if you use `set` with no parameter, it shows the EVs.
-
-### uname
-
-gives you data about the system. Common switches are:
+#### uname
+Gives you data about the system. Common switches are:
 
 | Option | Description |
 | :--- | :--- |
@@ -221,36 +104,81 @@ gives you data about the system. Common switches are:
 | -o | Print the operating system name. |
 | -a | Print all of the above information. |
 
+Example:
+
 ```text
-$ uname -a
-Linux funlife 3.16.0-28-generic #38-Ubuntu SMP Fri Dec 12 17:37:40 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
+[jadi@fedora lesson3.1]$ uname -a
+Linux fedora 5.14.0-60.fc35.aarch64 #1 SMP Mon Aug 30 16:30:42 UTC 2021 aarch64 aarch64 aarch64 GNU/Linux
 ```
 
-### history
+### Shell environment variables
+*Environment Variables* contain some configs and information about the shell. For example your default editor is set in the `EDITOR` variable. You can query the value of a shell variable like this:
 
-The bash, saves the commands you issue in a file defined in **HISTFILE** ev. the `history` shows the full command history \(500 commands normally but can be changes in HISTSIZE\).
+```
+[jadi@fedora ~]$ echo $EDITOR
+/usr/bin/nano
+```
 
-There are also some shortcuts:
+It is possible to check all the env variables using the `set` or `env` command. 
 
-* `history 20` shows last 20 commands
-* `!!` last command
-* `!string` most recent command that starts with string
-* `!?string?` most recent command that contains string
+These are some of the most used bash environment variables:
 
-when you logout, all these are saved in .bash\_history
 
-### Paths
+| Name | Function |
+| :--- | :--- |
+| USER | The name of the logged-in user |
+| PATH | List of directories to search for commands, colon separated |
+| EDITOR | Default editor |
+| HISTFILE | where bash should save its history (normally .bash_history) |
+| HOSTNAME | system hostname |
+| PS1 | The Prompt! Play with it |
+| UID | The numeric user id of the logged-in user |
+| HOME | The user's home directory |
+| PWD | The current working directory |
+| SHELL | The name of the shell |
+| $ | The process id \(or PID of the running bash shell \(or other\) process |
+| PPID | The process id of the process that started this process \(that is, the id of the parent process\) |
+| ? | The exit code of the last command |
 
-External commands are just files on disks. So where does bash knows where to find commands?
+When trying to access the value, you should add a `$` to the beginning of the name.
 
 ```text
-jadi@funlife:~$ echo $PATH
+$ echo $USER $UID
+jadi 1000
+$ echo $SHELL $HOME $PWD
+/bin/bash /home/jadi /home/jadi/lpic
+```
+
+To define a new EV or change or delete one, we can do:
+
+```text
+$ MYMOOD=happy
+$ echo I am $MYMOOD
+I am happy
+$ MYMOOD="Even Happier" # space has a specific meaning
+$ unset MM
+```
+
+If you want new programs starting from this shell to have access to the variable you defined, you have to set them with `export` or export them later.
+
+```
+$ export MYMOOD
+$ export YOURMOOD="Not Confused"
+```
+
+> Global bash configs are stored at /etc/profile and each user has her own config at ~/.profile & ~/.bash\_profile & ~/.bash\_logout. If you need a permanent change, add your configs to these.
+
+### Path
+When you issue a command, bash will run if its an internal bash command. Otherwise bash will go and check the `PATH` variable one by one and will try to find it there. If not, it will give you an error. If you want to run something in a specific path, you have to exclusively describe the location:
+
+```text
+$ echo $PATH
 /home/jadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
 ```
 
-and this gives me some more data:
+But what happens if I try to run `tar`? Lets check with `which`, `type` and `whereis` commands:
 
-```text
+```
 jadi@funlife:~$ which tar
 /bin/tar
 jadi@funlife:~$ type tar
@@ -259,147 +187,100 @@ jadi@funlife:~$ whereis tar
 tar: /usr/lib/tar /bin/tar /usr/include/tar.h /usr/share/man/man1/tar.1.gz
 ```
 
-**running other commands**
+A cooler example is `ping` on Fedora:
 
-* It is possible to add to my path
-* give the full path
-* give the relative path \(. & ..\)
-
-### cd & pwd
-
-````cd``` will change directories (including .. and .) and````pwd\`\`\`\` tells where you are at the moment.
-
-### man pages
-
-the best linux help you can find.-
-
-```text
-$ man ping
-PING(8)                                                            System Manager's Manual: iputils                                                           PING(8)
-
-NAME
-       ping, ping6 - send ICMP ECHO_REQUEST to network hosts
-
-SYNOPSIS
-       ping  [-aAbBdDfhLnOqrRUvV]  [-c  count] [-F flowlabel] [-i interval] [-I interface] [-l preload] [-m mark] [-M pmtudisc_option] [-N nodeinfo_option] [-w dead‐
-       line] [-W timeout] [-p pattern] [-Q tos] [-s packetsize] [-S sndbuf] [-t ttl] [-T timestamp option] [hop ...] destination
-
-DESCRIPTION
-       ping uses the ICMP protocol's mandatory ECHO_REQUEST datagram to elicit an ICMP ECHO_RESPONSE from a host or gateway.  ECHO_REQUEST datagrams (``pings'') have
-       an IP and ICMP header, followed by a struct timeval and then an arbitrary number of ``pad'' bytes used to fill out the packet.
-
-       ping6  is  IPv6  version of ping, and can also send Node Information Queries (RFC4620).  Intermediate hops may not be allowed, because IPv6 source routing was
-       deprecated (RFC5095).
-
-OPTIONS
-       -a     Audible ping.
-
-       -A     Adaptive ping. Interpacket interval adapts to round-trip time, so that effectively not more than one (or more, if preload is set) unanswered  probe  is
-              present in the network. Minimal interval is 200msec for not super-user.  On networks with low rtt this mode is essentially equivalent to flood mode.
-
-       -b     Allow pinging a broadcast address.
-
-       -B     Do not allow ping to change source address of probes.  The address is bound to one selected when ping starts.
-
-       -c count
-              Stop after sending count ECHO_REQUEST packets. With deadline option, ping waits for count ECHO_REPLY packets, until the timeout expires.
-...
+```
+[jadi@fedora ~]$ whereis ping
+ping: /usr/bin/ping /usr/sbin/ping /usr/share/man/man8/ping.8.gz
+[jadi@fedora ~]$ which ping
+/usr/bin/ping
+[jadi@fedora ~]$ /usr/sbin/ping 4.2.2.4
+PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.
+64 bytes from 4.2.2.4: icmp_seq=1 ttl=50 time=160 ms
 ```
 
-As you can see, on top:
+> Thats why when you want to say "run this_program in this directory" you issue "./this_program". You are exclusively telling bash where the file is. In Linux, the current directory (.) is not part of the PATH by default
 
-* Name of the command and section
-* name and related commands in this section
-* options and formats
-* short description
-* detailed info
 
-and at the end bug reporting, files, related commands and authors.
 
-There are 9 man sections:
+### Getting Help
+Most of the commands we use do have a cool and complete manual, accessible via the `man` command. It uses the `less` pager by default and contains the documentations, switches, parameters, .. of commands and utilities. 
 
-1. User commands \(env, ls, echo, mkdir, tty\)
-2. System calls or kernel functions \(link, sethostname, mkdir\)
-3. Library routines \(acosh, asctime, btree, locale, XML::Parser\)
-4. Device related information \(isdn\_audio, mouse, tty, zero\)
-5. File format descriptions \(keymaps, motd, wvdial.conf\)
-6. Games \(note that many games are now graphical and have graphical help outside the man page system\)
-7. Miscellaneous \(arp, boot, regex, unix utf8\)
-8. System administration \(debugfs, fdisk, fsck, mount, renice, rpm\)
-9. kernel utils
+Make yourself familiar with the man by reading the manual of the `yes` command:
 
-of course there can be more and one command can be in different places.
-
-If you are searching, do:
-
-```text
-jadi@funlife:~$ man -f ls
-ls (1)               - list directory contents
-jadi@funlife:~$ man -w ls
-/usr/share/man/man1/ls.1.gz
-jadi@funlife:~$ man -k ls | head
-SSL (3ssl)           - OpenSSL SSL/TLS library
-_llseek (2)          - reposition read/write file offset
-aconnect (1)         - ALSA sequencer connection manager
-add-shell (8)        - add shells to the list of valid login shells
-afs_syscall (2)      - unimplemented system calls
-alsactl (1)          - advanced controls for ALSA soundcard driver
-alsactl_init (7)     - alsa control management - initialization
-alsaloop (1)         - command-line PCM loopback
-alsamixer (1)        - soundcard mixer for ALSA soundcard driver, with ncurses interface
-amidi (1)            - read from and write to ALSA RawMIDI ports
-...
+```
+$ man yes
 ```
 
-Or use the `apropos` command which searches man pages:
+Please note that man pages are categorized in different sections (books). You can check these via reading the man's manual:
 
-```text
-$ apropos route
-ip-mroute (8)        - multicast routing cache management
-ip-route (8)         - routing table management
-route (8)            - show / manipulate the IP routing table
-routef (8)           - flush routes
-routel (8)           - list routes with pretty output format
-sensible-mda (8)     - a generic local MDA router for Debian systems
-tor (1)              - The second-generation onion router
-torrc (5)            - The second-generation onion router
-traceroute6 (8)      - traces path to a network host
-traceroute6.iputils (8) - traces path to a network host
+```
+$ man man
+$ man 5 passwd
 ```
 
-> Note: A linux master will read as many `man pages` she can! Start with `man man`
+### Command history
+Bash saves its history in `~/.bash_history`. You can `cat` it and see its contents or run the `history` command. You can also use below keys (combinations) to access your previous commands:
 
-.
+| Key (Combination) | Usage |
+|-|-|
+| Up and Down Arrow | Move in the history |
+| Ctrl+R | Backward Search |
+| Ctrl+O | Run the command you found with Ctrl+R |
+| !! | Run the last command |
+| !10 | Run command number 10 |
+| !text | search backwards for text, and run the first found command |
 
-.
+> If you want to clear your history, issue `HISTSIZE=0
+`
 
-.
 
-.
+### Special characters and Quoting/Escaping
+In computer world, some characters do have special meanings. For example in bash, the `*` character will expand to all files. In these cases, if you want to use this character as without this expansion, you have to *Quote* it or *Escape* it. In many cases this is done via adding a `\` character before it:
 
-.
+```
+$ echo 2 \* 3 = 6
+2 * 3 = 6
+```
 
-.
+These are the character with special meaning which you need to quote if you are using them in your commands:
 
-.
+`* ?[]'"\$;&()|^<>`
 
-.
+> As you can see, the `\` has an specific meaning so if you want to use the back-slash itself (without its escaping usage), you have to *quote* your back-slash with another back-slash `\\`.
 
-..
+In addition to escaping, you can use `\` to create some special characters. For example as you can not type a *return* character, you create it via `\n` (new line):
 
-.
+```text
+jadi@funlife:~$ echo -e "hello\nthere"
+hello
+there
+```
 
-.
+Some other cases are:
 
-.
+| Escape sequence    Function |  |
+| :--- | :--- |
+| \a | Alert \(bell\) |
+| \b | Backspace |
+| \c | Suppress trailing newline \(same function as -n option\) |
+| \f | Form feed \(clear the screen on a video display\) |
+| \n | New line |
+| \r | Carriage return |
+| \t | Horizontal tab |
 
-.
+On bash you can use `\` to break a command into more lines:
 
-.
+```
+$ echo You know slashes! But this \
+is another \
+usage
+You know slashes! But this is another usage
+```
 
-.
 
-.
+### Exiting the Shell
 
-.
+The `exit` command exits the shell. Same as ctrl+d.
 
+If you run a command inside parentheses that command will be run inside a sub-shell and `exec` will run a command and closes the current shell.
