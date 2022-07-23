@@ -202,6 +202,81 @@ cd $HOME
 Linux fedora 5.14.0-60.fc35.aarch64 #1 SMP Mon Aug 30 16:30:42 UTC 2021 aarch64 aarch64 aarch64 GNU/Linux
 </code></pre></div>
 
+<h3>Getting Help</h3>
+<p>Most of the commands we use do have a cool and complete manual, accessible via the <code>man</code> command. It uses the <code>less</code> pager by default and contains the documentations, switches, parameters, .. of commands and utilities. </p>
+<p>Make yourself familiar with the man by reading the manual of the <code>yes</code> command:</p>
+<div class="highlight"><pre><span></span><code>$ man yes
+</code></pre></div>
+
+<p>Please note that man pages are categorized in different sections (books). You can check these via reading the man's manual:</p>
+<div class="highlight"><pre><span></span><code>$ man man
+$ man <span class="m">5</span> passwd
+</code></pre></div>
+
+<p>`</p>
+<h3>Special characters and Quoting/Escaping</h3>
+<p>In computer world, some characters do have special meanings. For example in bash, the <code>*</code> character will expand to all files. In these cases, if you want to use this character as without this expansion, you have to <em>Quote</em> it or <em>Escape</em> it. In many cases this is done via adding a <code>\</code> character before it:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="m">2</span> <span class="se">\*</span> <span class="nv">3</span> <span class="o">=</span> <span class="m">6</span>
+<span class="m">2</span> * <span class="nv">3</span> <span class="o">=</span> <span class="m">6</span>
+</code></pre></div>
+
+<p>These are the character with special meaning which you need to quote if you are using them in your commands:</p>
+<p><code>* ?[]'"\$;&amp;()|^&lt;&gt;</code></p>
+<blockquote>
+<p>As you can see, the <code>\</code> has an specific meaning so if you want to use the back-slash itself (without its escaping usage), you have to <em>quote</em> your back-slash with another back-slash <code>\\</code>.</p>
+</blockquote>
+<p>In addition to escaping, you can use <code>\</code> to create some special characters. For example as you can not type a <em>return</em> character, you create it via <code>\n</code> (new line):</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~$ echo -e &quot;hello\nthere&quot;
+hello
+there
+</code></pre></div>
+
+<p>Some other cases are:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Escape sequence    Function</th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">\a</td>
+<td align="left">Alert (bell)</td>
+</tr>
+<tr>
+<td align="left">\b</td>
+<td align="left">Backspace</td>
+</tr>
+<tr>
+<td align="left">\c</td>
+<td align="left">Suppress trailing newline (same function as -n option)</td>
+</tr>
+<tr>
+<td align="left">\f</td>
+<td align="left">Form feed (clear the screen on a video display)</td>
+</tr>
+<tr>
+<td align="left">\n</td>
+<td align="left">New line</td>
+</tr>
+<tr>
+<td align="left">\r</td>
+<td align="left">Carriage return</td>
+</tr>
+<tr>
+<td align="left">\t</td>
+<td align="left">Horizontal tab</td>
+</tr>
+</tbody>
+</table>
+<p>On bash you can use <code>\</code> to break a command into more lines:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> You know slashes! But this <span class="se">\</span>
+is another <span class="se">\</span>
+usage
+You know slashes! But this is another usage
+</code></pre></div>
+
 <h3>Shell environment variables</h3>
 <p><em>Environment Variables</em> contain some configs and information about the shell. For example your default editor is set in the <code>EDITOR</code> variable. You can query the value of a shell variable like this:</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="err">$</span><span class="n">EDITOR</span><span class="w"></span>
@@ -323,17 +398,6 @@ $ <span class="nb">export</span> <span class="nv">YOURMOOD</span><span class="o"
 <blockquote>
 <p>Thats why when you want to say "run this_program in this directory" you issue "./this_program". You are exclusively telling bash where the file is. In Linux, the current directory (.) is not part of the PATH by default</p>
 </blockquote>
-<h3>Getting Help</h3>
-<p>Most of the commands we use do have a cool and complete manual, accessible via the <code>man</code> command. It uses the <code>less</code> pager by default and contains the documentations, switches, parameters, .. of commands and utilities. </p>
-<p>Make yourself familiar with the man by reading the manual of the <code>yes</code> command:</p>
-<div class="highlight"><pre><span></span><code>$ man yes
-</code></pre></div>
-
-<p>Please note that man pages are categorized in different sections (books). You can check these via reading the man's manual:</p>
-<div class="highlight"><pre><span></span><code>$ man man
-$ man <span class="m">5</span> passwd
-</code></pre></div>
-
 <h3>Command history</h3>
 <p>Bash saves its history in <code>~/.bash_history</code>. You can <code>cat</code> it and see its contents or run the <code>history</code> command. You can also use below keys (combinations) to access your previous commands:</p>
 <table>
@@ -371,71 +435,8 @@ $ man <span class="m">5</span> passwd
 </tbody>
 </table>
 <blockquote>
-<p>If you want to clear your history, issue <code>HISTSIZE=0</code></p>
+<p>If you want to clear your history, issue `HISTSIZE=0</p>
 </blockquote>
-<h3>Special characters and Quoting/Escaping</h3>
-<p>In computer world, some characters do have special meanings. For example in bash, the <code>*</code> character will expand to all files. In these cases, if you want to use this character as without this expansion, you have to <em>Quote</em> it or <em>Escape</em> it. In many cases this is done via adding a <code>\</code> character before it:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="m">2</span> <span class="se">\*</span> <span class="nv">3</span> <span class="o">=</span> <span class="m">6</span>
-<span class="m">2</span> * <span class="nv">3</span> <span class="o">=</span> <span class="m">6</span>
-</code></pre></div>
-
-<p>These are the character with special meaning which you need to quote if you are using them in your commands:</p>
-<p><code>* ?[]'"\$;&amp;()|^&lt;&gt;</code></p>
-<blockquote>
-<p>As you can see, the <code>\</code> has an specific meaning so if you want to use the back-slash itself (without its escaping usage), you have to <em>quote</em> your back-slash with another back-slash <code>\\</code>.</p>
-</blockquote>
-<p>In addition to escaping, you can use <code>\</code> to create some special characters. For example as you can not type a <em>return</em> character, you create it via <code>\n</code> (new line):</p>
-<div class="highlight"><pre><span></span><code>jadi@funlife:~$ echo -e &quot;hello\nthere&quot;
-hello
-there
-</code></pre></div>
-
-<p>Some other cases are:</p>
-<table>
-<thead>
-<tr>
-<th align="left">Escape sequence    Function</th>
-<th align="left"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">\a</td>
-<td align="left">Alert (bell)</td>
-</tr>
-<tr>
-<td align="left">\b</td>
-<td align="left">Backspace</td>
-</tr>
-<tr>
-<td align="left">\c</td>
-<td align="left">Suppress trailing newline (same function as -n option)</td>
-</tr>
-<tr>
-<td align="left">\f</td>
-<td align="left">Form feed (clear the screen on a video display)</td>
-</tr>
-<tr>
-<td align="left">\n</td>
-<td align="left">New line</td>
-</tr>
-<tr>
-<td align="left">\r</td>
-<td align="left">Carriage return</td>
-</tr>
-<tr>
-<td align="left">\t</td>
-<td align="left">Horizontal tab</td>
-</tr>
-</tbody>
-</table>
-<p>On bash you can use <code>\</code> to break a command into more lines:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> You know slashes! But this <span class="se">\</span>
-is another <span class="se">\</span>
-usage
-You know slashes! But this is another usage
-</code></pre></div>
-
 <h3>Exiting the Shell</h3>
 <p>The <code>exit</code> command exits the shell. Same as ctrl+d.</p>
 <p>If you run a command inside parentheses that command will be run inside a sub-shell and <code>exec</code> will run a command and closes the current shell.</p>
