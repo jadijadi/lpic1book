@@ -111,6 +111,71 @@ Example:
 Linux fedora 5.14.0-60.fc35.aarch64 #1 SMP Mon Aug 30 16:30:42 UTC 2021 aarch64 aarch64 aarch64 GNU/Linux
 ```
 
+
+### Getting Help
+Most of the commands we use do have a cool and complete manual, accessible via the `man` command. It uses the `less` pager by default and contains the documentations, switches, parameters, .. of commands and utilities. 
+
+Make yourself familiar with the man by reading the manual of the `yes` command:
+
+```
+$ man yes
+```
+
+Please note that man pages are categorized in different sections (books). You can check these via reading the man's manual:
+
+```
+$ man man
+$ man 5 passwd
+```
+
+`
+
+
+### Special characters and Quoting/Escaping
+In computer world, some characters do have special meanings. For example in bash, the `*` character will expand to all files. In these cases, if you want to use this character as without this expansion, you have to *Quote* it or *Escape* it. In many cases this is done via adding a `\` character before it:
+
+```
+$ echo 2 \* 3 = 6
+2 * 3 = 6
+```
+
+These are the character with special meaning which you need to quote if you are using them in your commands:
+
+`* ?[]'"\$;&()|^<>`
+
+> As you can see, the `\` has an specific meaning so if you want to use the back-slash itself (without its escaping usage), you have to *quote* your back-slash with another back-slash `\\`.
+
+In addition to escaping, you can use `\` to create some special characters. For example as you can not type a *return* character, you create it via `\n` (new line):
+
+```text
+jadi@funlife:~$ echo -e "hello\nthere"
+hello
+there
+```
+
+Some other cases are:
+
+| Escape sequence    Function |  |
+| :--- | :--- |
+| \a | Alert \(bell\) |
+| \b | Backspace |
+| \c | Suppress trailing newline \(same function as -n option\) |
+| \f | Form feed \(clear the screen on a video display\) |
+| \n | New line |
+| \r | Carriage return |
+| \t | Horizontal tab |
+
+On bash you can use `\` to break a command into more lines:
+
+```
+$ echo You know slashes! But this \
+is another \
+usage
+You know slashes! But this is another usage
+```
+
+
+
 ### Shell environment variables
 *Environment Variables* contain some configs and information about the shell. For example your default editor is set in the `EDITOR` variable. You can query the value of a shell variable like this:
 
@@ -202,23 +267,6 @@ PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.
 > Thats why when you want to say "run this_program in this directory" you issue "./this_program". You are exclusively telling bash where the file is. In Linux, the current directory (.) is not part of the PATH by default
 
 
-
-### Getting Help
-Most of the commands we use do have a cool and complete manual, accessible via the `man` command. It uses the `less` pager by default and contains the documentations, switches, parameters, .. of commands and utilities. 
-
-Make yourself familiar with the man by reading the manual of the `yes` command:
-
-```
-$ man yes
-```
-
-Please note that man pages are categorized in different sections (books). You can check these via reading the man's manual:
-
-```
-$ man man
-$ man 5 passwd
-```
-
 ### Command history
 Bash saves its history in `~/.bash_history`. You can `cat` it and see its contents or run the `history` command. You can also use below keys (combinations) to access your previous commands:
 
@@ -232,52 +280,6 @@ Bash saves its history in `~/.bash_history`. You can `cat` it and see its conten
 | !text | search backwards for text, and run the first found command |
 
 > If you want to clear your history, issue `HISTSIZE=0
-`
-
-
-### Special characters and Quoting/Escaping
-In computer world, some characters do have special meanings. For example in bash, the `*` character will expand to all files. In these cases, if you want to use this character as without this expansion, you have to *Quote* it or *Escape* it. In many cases this is done via adding a `\` character before it:
-
-```
-$ echo 2 \* 3 = 6
-2 * 3 = 6
-```
-
-These are the character with special meaning which you need to quote if you are using them in your commands:
-
-`* ?[]'"\$;&()|^<>`
-
-> As you can see, the `\` has an specific meaning so if you want to use the back-slash itself (without its escaping usage), you have to *quote* your back-slash with another back-slash `\\`.
-
-In addition to escaping, you can use `\` to create some special characters. For example as you can not type a *return* character, you create it via `\n` (new line):
-
-```text
-jadi@funlife:~$ echo -e "hello\nthere"
-hello
-there
-```
-
-Some other cases are:
-
-| Escape sequence    Function |  |
-| :--- | :--- |
-| \a | Alert \(bell\) |
-| \b | Backspace |
-| \c | Suppress trailing newline \(same function as -n option\) |
-| \f | Form feed \(clear the screen on a video display\) |
-| \n | New line |
-| \r | Carriage return |
-| \t | Horizontal tab |
-
-On bash you can use `\` to break a command into more lines:
-
-```
-$ echo You know slashes! But this \
-is another \
-usage
-You know slashes! But this is another usage
-```
-
 
 ### Exiting the Shell
 
