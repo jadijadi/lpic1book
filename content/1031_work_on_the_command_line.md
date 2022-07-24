@@ -35,6 +35,9 @@ Description: Candidates should be able to interact with shells and commands usin
 * Quoting
 
 #### Shells and Bash
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/X-zq9-FhjOA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 You issue your commands in a shell; its your command line interface and you have various options for it. To reach your shell you should login into the system in the text mode or run one of the various *Terminal Emulators* in your GUI. Some samples are `gnome-terminal`, `konsole`, `xterm`, ...
 
 After running the Terminal Emulator or loggining into the text mode, you are in the shell and you can issue commands. Although `bash` (GNU Bourne Again shell) is the most common one, you might use `zsh`, `dash`, `ksh`, `csh` and others.
@@ -177,6 +180,9 @@ You know slashes! But this is another usage
 
 
 ### Shell environment variables
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KMvc1SyPgjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 *Environment Variables* contain some configs and information about the shell. For example your default editor is set in the `EDITOR` variable. You can query the value of a shell variable like this:
 
 ```
