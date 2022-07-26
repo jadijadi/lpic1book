@@ -92,7 +92,7 @@ cat /var/log/dmesg
 
 will show **only** the data during the boot.
 
-We can also you `journalctl -k` to check Kernel logs or use `journalctl -b` to check for boot logs (or even use `journalctl -u kernel` to see all previous logs too).
+We can also use `journalctl -k` to check Kernel logs or use `journalctl -b` to check for boot logs (or even use `journalctl -u kernel` to see all previous logs too).
 
 In addition to these, most systems keep the boot logs in a text-like file too. Under Debian-based systems, it's called `/var/log/boot` and for RedHat based systems its `/var/log/boot.log`.
 
