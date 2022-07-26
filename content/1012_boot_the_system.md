@@ -7,19 +7,19 @@ Summary: Candidates should be able to guide the system through the booting proce
 Topic: System Architecture
 sortorder: 040
 
-weight: 3
+*Weight: 3*
 
 Candidates should be able to guide the system through the booting process.
 
-### Key Knowledge Areas
+## Key Knowledge Areas
 
-* Provide common commands to the boot loader and options to the kernel at boot time.
-* Demonstrate knowledge of the boot sequence from BIOS/UEFI to boot completion.
-* Understanding of SysVinit and systemd.
-* Awareness of Upstart.
-* Check boot events in the log files.
+* Provide common commands to the boot loader and options to the kernel at boot time
+* Demonstrate knowledge of the boot sequence from BIOS/UEFI to boot completion
+* Understanding of SysVinit and systemd
+* Awareness of Upstart
+* Check boot events in the log files
 
-### Terms
+## Terms
 
 * dmesg
 * journalctl
@@ -39,17 +39,17 @@ It is important to understand because at this stage, you have very little contro
 
 1. Motherboard Firmware does a PowerOnSelfTest
 2. Motherboard loads the bootloader
-3. Bootloader loads the Linux Kernel-based on its configs / commands
+3. Bootloader loads the Linux Kernel-based on its configs/commands
 4. The Kernel loads and prepares the system (root filesystem) and runs the initialization program
-5. Init program start the service, other programs, .. (webserver, graphical interface, networking, ...)
+5. Init program start the service, other programs, ... (web server, graphical interface, networking, etc.)
 
 As we discussed in the previous section (101.1), the Firmware on the motherboard can be BIOS or UEFI. 
 
 ### BIOS
 Basic Input Output System
 
-- older
-- limited to one sector of the disk and needs a multi-stage bootloader
+- Older
+- Limited to one sector of the disk and needs a multi-stage bootloader
 - Can start the bootloader from internal/external HDD, CD/DVD, USB Flash drive, Network server
 - If booting from the HDD, the Master Boot Record will be used (1 sector)
 
@@ -58,9 +58,9 @@ Unified Extensible Firmware Interface.
 
 - Modern and fancy
 - Specifies a special disk partition for the bootloader. Called EFI System Partition (ESP)
-- ESP is FAT and mounted on /boot/efi and bootloader files has .efi extensions
+- ESP is FAT and mounted on `/boot/efi` and bootloader files has .efi extensions
 
-> You can check /sys/firmware/efi to see if you are using a UEFI system or not
+> You can check `/sys/firmware/efi` to see if you are using a UEFI system or not
 
 ### Bootloader
 Bootloader initializes the minimum hardware needed to boot the system and then finds and runs the OS.
@@ -69,7 +69,7 @@ Technically you can point your UEFI to run anything you want but typically under
 
 ### Kernel
 
-The Kernel is the core of your operating system, the LINUX itself. Your bootloader loads the kernel in the memory and runs it. But kernel needs some initial info to start; things like drivers are necessary to work with the hardware. Those are stored in `initrd` or `initramfs` alongside the kernel and used during the boot. 
+The Kernel is the core of your operating system, the LINUX itself. Your bootloader loads the kernel in the memory and runs it. But kernel needs some initial info to start; Things like drivers are necessary to work with the hardware. Those are stored in `initrd` or `initramfs` alongside the kernel and used during the boot. 
 
 You can also send parameters to the kernel during the boot using the Grub configs. For example, sending a 1 or S will result the system booting in single-user mode (recovery). Or you can force your graphics to work in 1024×768x24 mode by passing `vga=792` to the Kernel during the boot. 
 
@@ -94,15 +94,15 @@ will show **only** the data during the boot.
 
 We can also use `journalctl -k` to check Kernel logs or use `journalctl -b` to check for boot logs (or even use `journalctl -u kernel` to see all previous logs too).
 
-In addition to these, most systems keep the boot logs in a text-like file too. Under Debian-based systems, it's called `/var/log/boot` and for RedHat based systems its `/var/log/boot.log`.
+In addition to these, most systems keep the boot logs in a text-like file too. Under Debian-based systems, it's called `/var/log/boot` and for RedHat-based systems, it's `/var/log/boot.log`.
 
 #### /var/log/messages
 
 After the init process comes up, syslog daemon will log messages. It has timestamps and will persist during restarts.
 
 * The Kernel is still logging its messages in dmesg
-* in some systems, it might be called /var/log/syslog
-* there are many other logs at /var/log
+* in some systems, it might be called `/var/log/syslog`
+* there are many other logs at `/var/log`
 
 ## init
 
@@ -132,8 +132,8 @@ You can check the hierarchy of processes using the `pstree` command.
 pstree
 ```
 
-### systemd
-Is new, loved, and hated. Lots of new ideas but not following some of the beloved UNIX principles (say.. not saving logs in a text file or trying to help you too much but asking for the root password when you are not running commands with sudo). It lets us run services if hardware is connected, in time intervals, if another service is started, and ...
+## systemd
+Is new, loved, and hated. Lots of new ideas but not following some of the beloved UNIX principles (say.. not saving logs in a text file or trying to help you too much but asking for the root password when you are not running commands with sudo). It lets us run services if the hardware is connected, in time intervals, if another service is started, and ...
 
 The systemd is made around **unit**s. A unit can be a service, group of services, or an action. Units do have a name, a type, and a configuration file. There are 12 unit types: automount, device, mount, path, scope, service, slice, snapshot, socket, swap, target & timer.
 
@@ -191,7 +191,7 @@ to check the logs, we have to use the `journalctl` utility:
 # journalctl _PID=1234
 ```
 
-### SysV
+## SysV
 Is the older init system. Still can be used on many systems. The control files are located at `/etc/init.d/` and are closer to the general bash scripts. In many cases you can call like:
 
 ```
