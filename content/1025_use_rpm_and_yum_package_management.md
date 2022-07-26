@@ -10,15 +10,15 @@ _Weight: 3_
 
 Candidates should be able to perform package management using RPM, YUM, and Zypper.
 
-### Key Knowledge Areas
-- Install, re-install, upgrade and remove packages using RPM, YUM, and Zypper.
-- Obtain information on RPM packages such as version, status, dependencies, integrity, and signatures.
-Determine what files a package provides, as well as find which package a specific file comes from.
-Awareness of dnf.
-- The following is a partial list of the used files, terms, and utilities:
+## Key Knowledge Areas
+- Install, re-install, upgrade and remove packages using RPM, YUM, and Zypper
+- Obtain information on RPM packages such as version, status, dependencies, integrity, and signatures
+Determine what files a package provides, as well as find which package a specific file comes from
+Awareness of dnf
 
+The following is a partial list of the used files, terms, and utilities:
 
-##### Terms and Utilities
+## Terms and Utilities
 * rpm
 * rpm2cpio
 * `/etc/yum.conf`
@@ -30,7 +30,7 @@ Awareness of dnf.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qk6qcEAvf4A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-**RedHat Package Manager \(RPM\)** and **YellowDog Update Manager \(YUM\)** are used by Fedora, RedHat, RHEL, CentOS, RocksOS, ... to manage packages. The package format is called RPM and can be managed by `rpm` tools but if you want to use the repositories to install, update, search, ... packages, or even upgrade the whole system, you can use the `yum` command. To have a deeper understanding of the repositories, please refer to the previous section (102.4); here I assume that you know the concept.
+**RedHat Package Manager \(RPM\)** and **YellowDog Update Manager \(YUM\)** are used by Fedora, RedHat, RHEL, CentOS, RocksOS, ... to manage packages. The package format is called RPM and can be managed by `rpm` tools but if you want to use the repositories to install, update, search, ... packages, or even upgrade the whole system, you can use the `yum` command. To have a deeper understanding of the repositories, please refer to the previous section (102.4); Here I assume that you know the concept.
 
 ## YUM
 `yum` is the package manager used by RedHat-based systems. Its configuration files are located at `/etc/yum.conf` and `/etc/yum.repos.d/`. Below is a sample.
@@ -265,7 +265,7 @@ You can also use the wildcards:
 
 > Fun fact: Fedora Linux uses `dnf` as its package manager and will translate your `yum` commands to its `dnf` equivalents.
 
-#### yumdownloader
+### yumdownloader
 This tool will download rpms from repositories without installing them. If you need to download all the dependencies too, use the `--resolve` switch:
 
 ```text
@@ -368,14 +368,14 @@ error: Failed dependencies:
 	tmux is needed by (installed) anaconda-install-env-deps-36.16.5-1.fc36.x86_64
 ```
 
-* rpm removes package without asking!
+* rpm removes the package without asking!
 * rpm won't remove a package that is needed by another package
 
 ### Extract RPM Files
 
 #### rpm2cpio
 
-The **cpio** is an archive format (just like zip or rar or tar). You can use the `rpm2cpio` command to convert RPM files to _cpio_ and then use the `cpio` tool to extract them:
+The **cpio** is an archive format (Just like zip or rar or tar). You can use the `rpm2cpio` command to convert RPM files to _cpio_ and then use the `cpio` tool to extract them:
 
 ```
 [root@fedora tmp]# rpm2cpio breezy-3.2.1-3.fc36.x86_64.rpm > breezy.cpio
@@ -412,5 +412,5 @@ These are the main commands used in `zypper`:
 > You can shorten the command when using `zypper`, so `zypper se tmux` will _search_ for tmux.
 
 
-#### Other tools
-YUM and RPM are the main package managers on Fedora, RHEL & Centos but other tools are also available. As mentioned, the SUSE uses `YaST`, and some modern desktops \(KDE & Gnome\) use `PackageKit` which is a graphical tool. It is also good to note that the  `dnf` suite is also gaining popularity and is pre-installed on Fedora systems.
+## Other tools
+YUM and RPM are the main package managers on Fedora, RHEL & Centos but other tools are also available. As mentioned, SUSE uses `YaST`, and some modern desktops \(KDE & Gnome\) use `PackageKit` which is a graphical tool. It is also good to note that the `dnf` suite is also gaining popularity and is pre-installed on Fedora systems.
