@@ -159,7 +159,7 @@
 </code></pre></div>
 
 <p>will show <strong>only</strong> the data during the boot.</p>
-<p>We can also you <code>journalctl -k</code> to check Kernel logs or use <code>journalctl -b</code> to check for boot logs (or even use <code>journalctl -u kernel</code> to see all previous logs too).</p>
+<p>We can also use <code>journalctl -k</code> to check Kernel logs or use <code>journalctl -b</code> to check for boot logs (or even use <code>journalctl -u kernel</code> to see all previous logs too).</p>
 <p>In addition to these, most systems keep the boot logs in a text-like file too. Under Debian-based systems, it's called <code>/var/log/boot</code> and for RedHat based systems its <code>/var/log/boot.log</code>.</p>
 <h4>/var/log/messages</h4>
 <p>After the init process comes up, syslog daemon will log messages. It has timestamps and will persist during restarts.</p>
