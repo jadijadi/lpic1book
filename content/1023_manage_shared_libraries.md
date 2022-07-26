@@ -8,14 +8,15 @@ sortorder: 080
 
 _Weight: 1_
 
-### Objectives
+## Objectives
 
 Candidates should be able to determine the shared libraries that executable programs depend on and install them when necessary.
 
 * Identify shared libraries.
 * Identify the typical locations of system libraries.
 * Load shared libraries.
-#### Terms and Utilities
+
+## Terms and Utilities
 
 * ldd
 * ldconfig
@@ -24,22 +25,22 @@ Candidates should be able to determine the shared libraries that executable prog
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1P58gW8xCkk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-### Linking
+## Linking
 
 When we write a program, we use libraries. For example, if you need to read text from standard input, you need to _link_ a library that provides this. Think linking has two forms:
 
 * **Static** Linking is when you add this library to your executable program. In this method, your program size is big because it has all the needed libraries. One good advantage is your program can be run without being dependent on other programs/libraries.
-* **Dynamic** Linking is when you just say in your program "We need this and that library to run this program". This way your program is smaller but you need to install those libraries separately. This makes programs more secure \(because libraries can be updated centrally\), more advanced \(any improvement in a library will improve the whole program\), and smaller.
+* **Dynamic** Linking is when you just say in your program "We need this and that library to run this program". This way your program is smaller but you need to install those libraries separately. This makes programs more secure \(Because libraries can be updated centrally, and more advanced any improvement in a library will improve the whole program\), and smaller.
 
 Linux dynamic libraries have names like `libLIBNAME.so.VERSION` and are located at places like `/lib*/` and `/usr/lib*/`. On Windows, we call them Dynamic Linked Libraries (DLLs). 
 
 > Dynamic linking is also called **shared** libraries because all the programs are sharing one library which is separately installed.
 
-### What libraries do I need
+## What libraries do I need
 
 Libraries related to system utilities are installed in `/lib` and `/lib64` \(for 32bit and 64bit libraries\) and libraries installed by other software will be located at `/usr/lib` and `/usr/lib64`.
 
-#### ldd
+### ldd
 
 The `ldd` command helps you find:
 
@@ -64,11 +65,11 @@ Let's have a look at two files:
 
 As you can see, `ldd` tells us that the `/sbin/ldconfig` is not dynamically linked but shows us the libraries needed by `/bin/ls`.
 
-#### Symbolic links for libraries
+### Symbolic links for libraries
 
-If you are writing a program and you use udev functions, you will ask for a library called _libudev.so.1_. But a Linux distro, might call its version of udev library _libudev.so.1.4.0_. How can we solve this problem? The answer is **symbolic links**; you will learn more about them in the next chapters but for short, a symbolic name is a new name for the same file.
+If you are writing a program and you use udev functions, you will ask for a library called _libudev.so.1_. But a Linux distro, might call its version of udev library _libudev.so.1.4.0_. How can we solve this problem? The answer is **symbolic links**; You will learn more about them in the next chapters but for short, a symbolic name is a new name for the same file.
 
-I will check the same thing on my system. First I'll find where the libudev.so.1 on my system is:
+I will check the same thing on my system. First I'll find where the `libudev.so.1` on my system is:
 
 ```text
 # locate libudev.so.1
@@ -85,7 +86,7 @@ lrwxrwxrwx 1 root root    16 Nov 13 23:05 /lib/i386-linux-gnu/libudev.so.1 -> li
 
 As you can see, this is a symbolic link pointing to the version of libudev I have installed \(1.4.0\) so even if a software says it needs libudev.so.1, my system will use its libusdev.so.1.4.0.
 
-#### Dynamic library configs and cache
+### Dynamic library configs and cache
 
 Like most of the other Linux tools, dynamic linking is also configured by a textual configuration file. It is located at `/etc/ld.so.conf` and it might load more config files from `/etc/ld.so.conf.d/*.conf`. Please note that this _including other files from_ `/etc/ld.so.conf.d/` is a common practice to keep config files separated and clean. You will see the same pattern in many other places too and technically we were able to add whatever is needed in the original file.
 
@@ -118,14 +119,14 @@ To close this section lets run ldconfig with the **-p** switch to see what is sa
 	libyelp.so.0 (libc6,x86-64) => /lib64/libyelp.so.0
 ```
 
-As you can see, this file tells the kernel that anyone asks for `libzstd.so.1`, the `/lib64/libzstd.so.1` file should be loaded and used.
+As you can see, this file tells the kernel that if anyone asks for `libzstd.so.1`, the `/lib64/libzstd.so.1` file should be loaded and used.
 
 ### Where OS finds dynamic libraries
 When a program needs a shared library, the system will search files in this order:
 
 1. LD\_LIBRARY\_PATH environment variable
 2. Programs PATH
-3. `/etc/ld.so.conf` (which might load more files from `/etc/ld.so.conf.d/` in its beginning or its end)
+3. `/etc/ld.so.conf` (Which might load more files from `/etc/ld.so.conf.d/` in its beginning or its end)
 4. `/lib/`, `/lib64/`, `/usr/lib/`, `/usr/lib64/`
 
 In some cases, you might need to override the default system libraries. Some examples are:
@@ -136,7 +137,7 @@ In some cases, you might need to override the default system libraries. Some exa
 
 In these cases, you can point the environment variable **LD\_LIBRARY\_PATH** to the library you need to use and then run your program. A colon \(:\) separated list of directories will tell your program where to search for needed libraries **before** checking the libraries in `/etc/ld.so.cache`.
 
-For example if you give this command:
+For example, if you give this command:
 
 ```text
 export  LD_LIBRARY_PATH=/usr/lib/myoldlibs:/home/jadi/lpic/libs/
