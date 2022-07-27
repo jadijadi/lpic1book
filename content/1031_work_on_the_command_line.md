@@ -40,9 +40,9 @@ Description: Candidates should be able to interact with shells and commands usin
 
 You issue your commands in a shell; its your command line interface and you have various options for it. To reach your shell you should login into the system in the text mode or run one of the various *Terminal Emulators* in your GUI. Some samples are `gnome-terminal`, `konsole`, `xterm`, ...
 
-After running the Terminal Emulator or loggining into the text mode, you are in the shell and you can issue commands. Although `bash` (GNU Bourne Again shell) is the most common one, you might use `zsh`, `dash`, `ksh`, `csh` and others.
+After running the Terminal Emulator or logining into the text mode, you are in the shell and you can invoke commands. Although `bash` (GNU Bourne Again shell) is the most common one, you might use `zsh`, `dash`, `ksh`, `csh` and others.
 
-You can check where your general `sh` command links to via
+You can check where your general `sh` command linked to :
 
 ```
 $ readlink /bin/sh
@@ -73,10 +73,10 @@ You've already seen lots of `cd` commands :) it *changes directory*, including `
 
 You can point to directories in two ways:
 
-1. **Absolute Paths**: like /home/jadi/lpic1/lesson3.1
-2. **Relative Paths**: like lpic1/lesson3.1. In this case we are not adding the `/` in the beginning so the bash will try to to find `lpic1` directory where we are (local / relative)
+1. **Absolute Paths**: like `/home/jadi/lpic1/lesson3.1`
+2. **Relative Paths**: like `lpic1/lesson3.1`. In this case we are not adding the `/` in the beginning, so the bash will try to to find `lpic1` directory where we are (local / relative)
 
-> the `~` characters means *home directory of the user issuing the command*
+> the `~` character means *user's home directory who is invoking the command*
 
 It is also possible to issue the `cd` without any parameters. It will move you to your home directory. So these 3 commands are all equal:
 
@@ -131,9 +131,6 @@ $ man man
 $ man 5 passwd
 ```
 
-`
-
-
 ### Special characters and Quoting/Escaping
 In computer world, some characters do have special meanings. For example in bash, the `*` character will expand to all files. In these cases, if you want to use this character as without this expansion, you have to *Quote* it or *Escape* it. In many cases this is done via adding a `\` character before it:
 
@@ -144,11 +141,11 @@ $ echo 2 \* 3 = 6
 
 These are the character with special meaning which you need to quote if you are using them in your commands:
 
-`* ?[]'"\$;&()|^<>`
+`* ? [] ' " \ $ ; & ( ) | ^ < >`
 
 > As you can see, the `\` has an specific meaning so if you want to use the back-slash itself (without its escaping usage), you have to *quote* your back-slash with another back-slash `\\`.
 
-In addition to escaping, you can use `\` to create some special characters. For example as you can not type a *return* character, you create it via `\n` (new line):
+In addition to escaping, you can use `\` to create some special characters. For example you cannot type a *return* character, you have to create it via `\n` (new line):
 
 ```text
 jadi@funlife:~$ echo -e "hello\nthere"
@@ -158,7 +155,7 @@ there
 
 Some other cases are:
 
-| Escape sequence    Function |  |
+| Escape sequence | Function |
 | :--- | :--- |
 | \a | Alert \(bell\) |
 | \b | Backspace |
@@ -168,7 +165,7 @@ Some other cases are:
 | \r | Carriage return |
 | \t | Horizontal tab |
 
-On bash you can use `\` to break a command into more lines:
+In bash you can use `\` to break a command into more lines:
 
 ```
 $ echo You know slashes! But this \
