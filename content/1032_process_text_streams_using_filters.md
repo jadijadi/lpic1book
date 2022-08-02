@@ -102,7 +102,7 @@ Some common less commands are as follow.
 
 |Command|Usage|
 |-|-|
-|Q|Exit|
+|q|Exit|
 |/foo|Searches for foo|
 |n|Next (search)|
 |?foo|search backward for foo|
@@ -194,7 +194,7 @@ you
 It is also possible to _cut_ fields 1, 2, 3 with `-f1-3` or only characters 4,5,7,8 with `-c4,5,7,8`.
 
 
-## Changing streams
+## Modifying streams
 ### nl
 
 Numbers lines.
