@@ -92,9 +92,9 @@
 <h2>Key Knowledge Areas</h2>
 <ul>
 <li>Understand the general concept of virtual machines and containers</li>
-<li>Understand common elements of virtual machines in an IaaS cloud, such as computing instances, block storage and networking</li>
+<li>Understand common elements of virtual machines in an IaaS cloud, such as computing instances, block storage, and networking</li>
 <li>Understand the unique properties of a Linux system which have to be changed when a system is cloned or used as a template</li>
-<li>Understand how system images are used to deploy virtual machines, cloud instances and containers</li>
+<li>Understand how system images are used to deploy virtual machines, cloud instances, and containers</li>
 <li>Understand Linux extensions that integrate Linux with a virtualization product.
 Awareness of cloud-init</li>
 </ul>
@@ -122,7 +122,7 @@ sudo modprobe kvm
 </code></pre></div>
 
 <blockquote>
-<p>If you see <code>hypervisor</code> in your <code>/proc/cpuinfo</code> it means that you are inside a virtualized linux machine :)</p>
+<p>If you see <code>hypervisor</code> in your <code>/proc/cpuinfo</code> it means that you are inside a virtualized Linux machine :)</p>
 </blockquote>
 <p>Now, let's see the 2 types of hypervisors. First type 2, since it's easier to understand. </p>
 <p><img alt="Types of hypervisors" src="images/hypervisor.png"></p>
@@ -142,9 +142,9 @@ sudo modprobe kvm
 <li>It is also possible to create <strong>Templates</strong> that are <em>master copies</em>* to initiate new machines</li>
 </ul>
 <blockquote>
-<p>You may need to install some <em>guest drivers</em> or <em>additions</em> to help your hypervisor to have a better control on your guest machine. These might include graphical drivers for virtualbox or scripts to help vmware to control a guest machine or check its status. </p>
+<p>You may need to install some <em>guest drivers</em> or <em>additions</em> to help your hypervisor to have better control over your guest machine. These might include graphical drivers for VirtualBox or scripts to help VMWare to control a guest machine or check its status. </p>
 </blockquote>
-<h2>Guest specific configs</h2>
+<h2>Guest-specific configs</h2>
 <p>Some configurations are machine specific. For example, a network card's MAC address should be unique for whole the network. If we are cloning a machine or sometimes creating them from templates, at least we need to change these on each machine before booting them:</p>
 <ul>
 <li>Host Name</li>
@@ -161,11 +161,11 @@ sudo modprobe kvm
 <h2>Containers</h2>
 <p><img alt="Containers" src="/images/containers.png"></p>
 <p>In previous sections, we were dealing with complete guest OSs. But is also possible to virtualize only parts of an OS; This is called OS-level virtualization. </p>
-<p>OS-level virtualization is an operating system (OS) paradigm in which the kernel allows the existence of multiple isolated user space instances, called containers. </p>
+<p>OS-level virtualization is an operating system (OS) paradigm in which the kernel allows the existence of multiple isolated user-space instances, called containers. </p>
 <p>This can be done to run an application or a service or even run most parts of a new OS for test purposes. </p>
 <h2>IaaS</h2>
-<p>As the name implies, <strong>Infrastructure as a Service</strong> or IaaS means offloading parts of your infrastructure to other companies. This means buying <em>services</em> like electricity, cooling and even running hypervisors to another company and just rent your VirtualMachine from them. This makes your life easier because things like "Adding New Hards" now only mean paying a bit more for more HDD on your machine; Instead of buying HDDs and installing, ... This is called cloud! You might even be able to move your machine from one continent to another one just with one click. </p>
-<p>Samples of these cloud providers are <a href="(https://aws.amazon.com/)">Amazon Web Services</a> , <a href="(https://cloud.google.com/)">Google Cloud Platform</a> and <a href="(https://azure.microsoft.com/en-us/)">Microsoft Azure</a>.</p>
+<p>As the name implies, <strong>Infrastructure as a Service</strong> or IaaS means offloading parts of your infrastructure to other companies. This means buying <em>services</em> like electricity, cooling, and even running hypervisors to another company and just renting your VirtualMachine from them. This makes your life easier because things like "Adding New Hards" now only mean paying a bit more for more HDD on your machine; Instead of buying HDDs and installing them, ... This is called cloud! You might even be able to move your machine from one continent to another one just with one click. </p>
+<p>Samples of these cloud providers are <a href="(https://aws.amazon.com/)">Amazon Web Services</a>, <a href="(https://cloud.google.com/)">Google Cloud Platform</a>, and <a href="(https://azure.microsoft.com/en-us/)">Microsoft Azure</a>.</p>
 <p>Different cloud providers might provide different levels of Infrastructure or services. These are some examples:</p>
 <ul>
 <li>Load Balancing: Distribute incoming requests between your servers</li>
@@ -174,7 +174,7 @@ sudo modprobe kvm
 <li>Elasticity: Lets you configure an automated increase/decrease in your service capacity based on request volume</li>
 <li>SaaS: Software as a Service lets you use the software you need, on the Cloud as a Service. Think of having an online office suite for your company without installing anything on your workstations.</li>
 </ul>
-<p>There are programs like <code>cloud-init</code> which help you initialize your cloud machine with ease. This service can help you start machines based on templates on AWS, Azure, Digital Ocean and others with ease.</p>
+<p>There are programs like <code>cloud-init</code> which help you initialize your cloud machine with ease. This service can help you start machines based on templates on AWS, Azure, Digital Ocean, and others with ease.</p>
 
 
              

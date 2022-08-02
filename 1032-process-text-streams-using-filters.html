@@ -87,89 +87,46 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>Weight: 3</em></p>
-<p>Description: Candidates should be able to apply filters to text streams.</p>
+            <p><em>Weight: 2</em></p>
+<p>Description: Candidates should should be able to apply filters to text streams.</p>
 <h3>Objectives</h3>
 <ul>
 <li>Send text files and output streams through text utility filters to modify the output using standard UNIX commands found in the GNU textutils package.</li>
+</ul>
+<h3>Terms</h3>
+<ul>
+<li>bzcat</li>
 <li>cat</li>
 <li>cut</li>
-<li>expand</li>
-<li>fmt</li>
 <li>head</li>
-<li>od</li>
-<li>join</li>
+<li>less</li>
+<li>md5sum</li>
 <li>nl</li>
+<li>od</li>
 <li>paste</li>
-<li>pr</li>
 <li>sed</li>
+<li>sha256sum</li>
+<li>sha512sum</li>
 <li>sort</li>
 <li>split</li>
 <li>tail</li>
 <li>tr</li>
-<li>unexpand</li>
 <li>uniq</li>
 <li>wc</li>
+<li>xzcat</li>
+<li>zcat</li>
 </ul>
 <h3>Streams</h3>
-<p>In <strong>UNIX</strong> world a lot of data is in TEXT form. Log files, configurations, user inputs, list of files, ... . <strong>Filtering</strong> this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a <strong>streams</strong> is nothing more than <em>"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"</em>.</p>
-<p>In simple words, a text stream is an input of text from keyboard, a file, a network device, .. and filtering it is automatically changing it.</p>
-<p>As you saw in previous section, modern programming environments and shells (including bash) use three standard I/O streams:</p>
+<p>In <strong>UNIX</strong> world a lot of data is in TEXT form. Log files, configurations, data, ... . <strong>Filtering</strong> this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a <strong>streams</strong> is nothing more than <em>"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"</em>.</p>
+<p>In simple words, a text stream is an input of text from keyboard, a file, a network device, .. which can be viewd, changed, examined and ... via text util commands.</p>
+<p>Modern programming environments and shells (including bash) use three standard I/O streams:</p>
 <ul>
 <li><strong>stdin</strong> is the standard input stream, which provides input to commands.</li>
 <li><strong>stdout</strong> is the standard output stream, which displays output from commands.</li>
 <li><strong>stderr</strong> is the standard error stream, which displays error output from commands</li>
 </ul>
-<h3>Piping ( | )</h3>
-<p>In <em>normal</em> cases, you give input from keyboard and output to the monitor. But in real life of a system admin, most inputs come from another commands. If you want to give the output of <code>command1</code> as the input of <code>command2</code>, you should <strong>PIPE</strong> them as <code>command1 | command2</code>.</p>
-<blockquote>
-<p>this | looks like a pipe!</p>
-</blockquote>
-<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ ls -1 | sort
-12
-62
-amir
-jadi
-neda
-you
-jadi@funlife:~/w/lpic/101$ ls -1 | sort -r
-you
-neda
-jadi
-amir
-62
-12
-</code></pre></div>
-
-<blockquote>
-<p>UNIX philosophy is building small, strong tools and combine them</p>
-</blockquote>
-<h3>Redirection ( &gt; )</h3>
-<p>Another useful way of controlling the streams is <code>&gt;</code>. This help you to redirect your output (mostly to a file).</p>
-<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ ls -ltrh
-total 0
--rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 12
--rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 62
--rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 neda
--rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 jadi
--rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 you
--rw-rw-r-- 1 jadi jadi 0 Jan  4 17:34 amir
-jadi@funlife:~/w/lpic/101$ ls -ltrh &gt; directory_data
-jadi@funlife:~/w/lpic/101$ cat directory_data
-total 0
--rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 12
--rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 62
--rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 neda
--rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 jadi
--rw-rw-r-- 1 jadi jadi 0 Jan  4 17:33 you
--rw-rw-r-- 1 jadi jadi 0 Jan  4 17:34 amir
--rw-rw-r-- 1 jadi jadi 0 Jan  4 17:37 directory_data
-</code></pre></div>
-
+<p>Here we are talking about the <strong>stdin</strong> and viewing or manipulating it via different commands and utilities. You will see more about these streams and will see how we can combine commands to <em>PIPE</em> inputs and outputs of different commands in chapter 103.4.</p>
+<h2>Viewing commands</h2>
 <h3>cat</h3>
 <p>this command simply outputs its input stream (or the filename you give it). As you saw in previous section. As most commands, if you do not give an input to it, it will read the data from the keyboard.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat &gt; mydata
@@ -183,9 +140,9 @@ bye
 </code></pre></div>
 
 <blockquote>
-<p>When inputting data, <code>ctrl+d</code> will end the stream.</p>
+<p>When entering the input via the keyboard, <code>ctrl+d</code> will end the stream.</p>
 </blockquote>
-<p>it is also possible to add files to each other using cat:</p>
+<p>You can also provide more than one input file name:</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat mydata directory_data
 test
 this is the second line
@@ -200,8 +157,55 @@ total 0
 -rw-rw-r-- 1 jadi jadi 0 Jan  4 17:37 directory_data
 </code></pre></div>
 
+<p>Some common cat switches are <code>-n</code> to show line numbers, <code>-s</code> to squeeze blanks, <code>-T</code> to show tabs and <code>-v</code> to show nonprinting chracters.</p>
+<h3>bzcat, xzcat, zcat, gzcat</h3>
+<p>There are used to directly <code>cat</code> the bz, xz and Z &amp; gz compressed files. These let you to see the contents of compressed files without uncompressing them first.</p>
+<h3>less</h3>
+<p>This is a powerful tool to view larger text files. It can paginate, search and move in text files. </p>
+<blockquote>
+<p>There is another command called <code>more</code>. Its more familiar for people coming from the DOS environment and not very common in the Linux world. Do not use it. Remember: <code>less</code> is more than <code>more</code>.</p>
+</blockquote>
+<p>Some common less commands are as follow.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q</td>
+<td>Exit</td>
+</tr>
+<tr>
+<td>/foo</td>
+<td>Searches for foo</td>
+</tr>
+<tr>
+<td>n</td>
+<td>Next (search)</td>
+</tr>
+<tr>
+<td>?foo</td>
+<td>search backward for foo</td>
+</tr>
+<tr>
+<td>G</td>
+<td>Go to end</td>
+</tr>
+<tr>
+<td>nG</td>
+<td>Go to line n</td>
+</tr>
+<tr>
+<td>PageUp, PageDown, UpArrow, DownArrow</td>
+<td>You guess!</td>
+</tr>
+</tbody>
+</table>
 <h3>od</h3>
-<p>This command _dump_s files (shows files in formats other than text). Normal behaviour is OctalDump (base 8):</p>
+<p>This command _dump_s files (shows files in formats other than text). Normal behavior is OctalDump (shwoing in base 8):</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ od mydata
 0000000 062564 072163 072012 064550 020163 071551 072040 062550
 0000020 071440 061545 067543 062156 066040 067151 005145 074542
@@ -209,14 +213,15 @@ total 0
 0000042
 </code></pre></div>
 
-<p>Not good.. lets use two switches:</p>
+<p>Not good enough for normal human beings.. lets add some switches:</p>
 <ul>
-<li>-t will tell what format to print (<code>-t a</code> for showing only named characters or <code>-t c</code> for showing escaped chars)</li>
-<li>-A for choosing how to show offsets (<code>```-A``````` D</code>ecimal,<code>O</code>ctal,<code>H</code>ex or<code>N\</code>```one)</li>
+<li>-t will tell what format to print (<code>-t a</code> for showing only named characters or <code>-t c</code> for showing escaped chars. You can summarize this to <code>-a</code> and <code>-c</code>)</li>
+<li>-A for choosing how to present offset field (<code>-A d</code> for Decimal, <code>-A o</code> for Octal, <code>-A h</code> for hex and <code>-A n</code> for None)</li>
 </ul>
 <blockquote>
 <p><code>od</code> is very useful to find problems in your text files - say finding out if you are using tabs or correct line endings</p>
 </blockquote>
+<h2>Chosing parts of files</h2>
 <h3>split</h3>
 <p>Will split files. It is very useful for transferring HUGE files on smaller media (say splitting a 3TB file to 8GB parts and moving them to another machine with a USB Disk).</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat mydata
@@ -240,124 +245,40 @@ still writing
 </code></pre></div>
 
 <ul>
-<li>on normal case, split uses xaa, xab, xac, .. for output files. If can be changed with <code>split -l 2 mydata output</code> which will lead to outputaa, outputab, ..</li>
-<li>the <code>-l 2``` switch told the split to put 2 lines in output files. It is possible to use</code>-b 42<code>to split every 42 bytes or even</code>-n 5```` to force 5 output files.</li>
+<li>By default, split uses xaa, xab, xac, .. for output file names. If can be changed with <code>split -l 2 mydata output</code> which split mydata into outputaa, outputab, ..; 2 lines per file.</li>
+<li>the <code>-l 2</code> splits 2 lines per file. It is possible to use <code>-b 42</code> to split every 42 bytes or even <code>-n 5</code> to force 5 output files.</li>
 <li>if you want numeric output (x00, x01, ..) use <code>-d</code></li>
 </ul>
 <blockquote>
 <p>need to join these files? <code>cat</code> them with <code>cat x* &gt; originalfile</code>.</p>
 </blockquote>
-<h3>wc</h3>
-<p>wc is <em>word count</em>. It counts the lines, words and bytes in the input stream.</p>
-<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ wc mydata
-  9  25 121 mydata
-</code></pre></div>
-
-<blockquote>
-<p>It is very normal to count the line numbers with <code>-l</code> switch.</p>
-</blockquote>
-<h3>head &amp; tail</h3>
-<p>Shows the <em>head</em> (top) of a file or its <em>tail</em> (bottom). The default lines to show is 10 but you can specify with <code>-n20</code> or <code>-20</code>.</p>
+<h3>head and tail</h3>
+<p>Will show the beginig (head) or end (tail) of text files. By default it will show 10 lines but you can change it by <code>-n20</code> or <code>-20</code>.</p>
 <blockquote>
 <p><code>tali -f</code> will continue showing the new lines which are being written at the eng of the file. Very useful.</p>
 </blockquote>
-<h3>expand &amp; unexpand &amp; tr</h3>
-<p>Expand will replace the tabs in a stream with spaces (normally 8 but can be defined with -n12 for 12):</p>
+<h3>cut</h3>
+<p>The <code>cut</code> command will <em>cut</em> one or more columns from a file. Good for separating fields:</p>
+<p>Lets cut the <em>first field</em> of a file.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat howcool
 jadi    5
 sina    6
 rubic    2
 you     12
-jadi@funlife:~/w/lpic/101$ od -tc howcool
-0000000   j   a   d   i  \t   5  \n   s   i   n   a  \t   6  \n   r   u
-0000020   b   i   c  \t   2  \n   y   o   u      \t   1   2  \n
-0000036
-jadi@funlife:~/w/lpic/101$ expand howcool | od -tc
-0000000   j   a   d   i                   5  \n   s   i   n   a        
-0000020           6  \n   r   u   b   i   c               2  \n   y   o
-0000040   u                       1   2  \n
-0000051
-</code></pre></div>
-
-<p>Unexpand will do the reverse. The default is converting only the initial blanks but his can be overrided by using <code>-a</code>.</p>
-<blockquote>
-<p>unexpand needs at least two spaces.</p>
-</blockquote>
-<p>The <code>tr</code> command <em>translates</em> A to 1, B to 2 and C to 3 in a stream you have to <code>tr 'ABC' '123'</code>. It is a pure filter so if you need to give it file to work on, you have to use cat:</p>
-<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat mydata
-hello
-this is second line
-but as you can see we are
-still writing
-and this is getting longer
-.
-.
-and longer
-and longer!
-jadi@funlife:~/w/lpic/101$ cat mydata | tr &#39;and&#39; &#39;AND&#39;
-hello
-this is second liNe
-but As you cAN see we Are
-still writiNg
-AND this is gettiNg loNger
-.
-.
-AND loNger
-AND loNger!
+jadi@funlife:~/w/lpic/101$ cut -f1 howcool
+jadi
+sina
+rubic
+you
 </code></pre></div>
 
 <blockquote>
-<p>Note: all <strong>a</strong>s are replaced with <strong>A</strong>.</p>
+<p>Default delimiter is TAB. use -dx to change it to "x" or -d' ' to change it to space</p>
 </blockquote>
-<h3>-</h3>
-<p>You should know that if you put <code>-</code> instead of a filename, the data will be replaced from the pipe (or keyboard stdin).</p>
-<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ wc -l mydata | cat mydata - mydata  
-hello
-this is second line
-but as you can see we are
-still writing
-and this is getting longer
-.
-.
-and longer
-and longer!
-9 mydata
-hello
-this is second line
-but as you can see we are
-still writing
-and this is getting longer
-.
-.
-and longer
-and longer!
-</code></pre></div>
-
-<h3>pr</h3>
-<p>this formats text for classic <em>printers</em>. The default header includes the filename and file creation date and time, along with a page number and two lines of blank footer.</p>
-<div class="highlight"><pre><span></span><code>pr mydata
-
-
-2015-01-04 17:58                      mydata                      Page 1
-
-
-hello
-this is second line
-but as you can see we are
-still writing
-and this is getting longer
-.
-.
-and longer
-and longer!
-</code></pre></div>
-
-<p>It is possible to print in two or more columns and other outdated fun stuff.</p>
-<blockquote>
-<p>When output is created from multiple files or the standard input stream, the current date and time are used instead of the filename and creation date.</p>
-</blockquote>
+<p>It is also possible to <em>cut</em> fields 1, 2, 3 with <code>-f1-3</code> or only characters 4,5,7,8 with <code>-c4,5,7,8</code>.</p>
+<h2>Changing streams</h2>
 <h3>nl</h3>
-<p>Simply numbers lines.</p>
+<p>Numbers lines.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ nl mydata  | head -3
      1    hello
      2    this is second line
@@ -367,13 +288,6 @@ and longer!
 <blockquote>
 <p>cat -n will also number lines.</p>
 </blockquote>
-<h3>fmt</h3>
-<p>Will reformat a text file within margins (say 80 columns width or 60 if you use -w60).</p>
-<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ fmt mydata
-hello this is second line but as you can see we are still writing and
-this is getting longer .  .  and longer and longer!
-</code></pre></div>
-
 <h3>sort &amp; uniq</h3>
 <p>Will sorts its input(s).</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat uses
@@ -396,10 +310,11 @@ sina    6
 you     12
 </code></pre></div>
 
+<p>I you want a reverse sort, use the <code>-r</code> switch.</p>
 <blockquote>
-<p>if you want to sort NUMERICALLY (so 9 is lower than 19), use <code>-n</code> -r will reverse the search</p>
+<p>if you want to sort NUMERICALLY (so 9 is lower than 19), use <code>-n</code></p>
 </blockquote>
-<p>and the <code>uniq</code> removes duplicate entries from its input. Normal behaviour is removing only the duplicated lines but you can change the behaviour for example by giving <code>-f1</code> to force it to not check fist field.</p>
+<p>And the <code>uniq</code> removes duplicate entries from its input. Normal behavior is removing only the duplicated lines but you can change the behavior for example by giving <code>-f1</code> to force it to not check fist field.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ uniq what_i_have.txt
 laptop
 socks
@@ -442,30 +357,8 @@ jadi@funlife:~/w/lpic/101$ sort what_i_have.txt  | uniq -d #show only repeated i
 socks
 </code></pre></div>
 
-<blockquote>
-<p>how many things I have? <code>wc -l what_i_have.txt</code> :)</p>
-</blockquote>
-<h3>cut</h3>
-<p>cut command will <em>cut</em> a column of one file. Good for separating fields:</p>
-<p>Lets cut the <em>first field</em> of a file.</p>
-<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat howcool
-jadi    5
-sina    6
-rubic    2
-you     12
-jadi@funlife:~/w/lpic/101$ cut -f1 howcool
-jadi
-sina
-rubic
-you
-</code></pre></div>
-
-<blockquote>
-<p>normal delimiter is TAB. use -dx to change it to "x" or use <code>| tr ' ' '\t' |</code> to convert spaces in your stream to TABs.</p>
-</blockquote>
-<p>It is also possible to <em>cut</em> fields 1, 2, 3 with <code>-f1-3</code> or only characters 4,5,7,8 with <code>-c4,5,7,8</code>.</p>
 <h2>paste</h2>
-<p>The paste command pastes lines from two or more files side-by-side! You can not do this in a normal text editor.</p>
+<p>The paste command pastes lines from two or more files side-by-side! You can not do this in a general text editor with ease!</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat howcool
 jadi    5
 sina    6
@@ -483,31 +376,35 @@ rubic    2    rubic windows
 you     12    neda mac
 </code></pre></div>
 
-<h3>join</h3>
-<p>Our final field-manipulating command is join, which joins files based on a matching field. <strong>The files should be sorted on the join field.</strong></p>
-<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat howcool
-jadi    5
-sina    6
-rubic    2
-you     12
-jadi@funlife:~/w/lpic/101$ cat uses
-you fedora
-jadi ubuntu
-rubic windows
-neda mac
-jadi@funlife:~/w/lpic/101$ sort howcool &gt; howcool.sorted
-jadi@funlife:~/w/lpic/101$ sort uses  &gt; uses.sorted
-jadi@funlife:~/w/lpic/101$ join howcool.sorted uses.sorted
-jadi 5 ubuntu
-rubic 2 windows
-you 12 fedora
+<h3>tr</h3>
+<p>The <code>tr</code> command <em>translates</em> characters in the stream. For example <code>tr 'ABC' '123'</code> will replace A with 1, B with 2 and C with 3 in the provided stream. It is a pure filter and does not accept input file name. If needed you can pipe the cat with it (see chapter 103.4).</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat mydata
+hello
+this is second line
+but as you can see we are
+still writing
+and this is getting longer
+.
+.
+and longer
+and longer!
+jadi@funlife:~/w/lpic/101$ cat mydata | tr &#39;and&#39; &#39;AND&#39;
+hello
+this is second liNe
+but As you cAN see we Are
+still writiNg
+AND this is gettiNg loNger
+.
+.
+AND loNger
+AND loNger!
 </code></pre></div>
 
 <blockquote>
-<p>join does not work on numeric fields unless the fields are all the same length. It default delimiter is any white space (TAB, space) and it joins on first field. check <code>man join</code> for more info.</p>
+<p>Note: all <strong>a</strong>s are replaced with <strong>A</strong>.</p>
 </blockquote>
 <h3>sed</h3>
-<p>sed is <strong>s</strong>tream <strong>ed</strong>itor. It is POWERFUL and can do magic! Just like most of the tools we saw, sed can work as a filter or take its input from a file. It uses <strong>regular expressions</strong> and is a great tool for replacing text. If you need to replace A with B only once in each line in a stream you have to say <code>sed 's/A/B/'</code>:</p>
+<p>sed is <strong>s</strong>tream <strong>ed</strong>itor. It is POWERFUL and can do things which are not far from magic! Just like most of the tools we saw, sed can work as a filter or take its input from a file. It uses <strong>regular expressions</strong> and is a great tool for replacing text. If you need to replace A with B only once in each line in a stream you have to say <code>sed 's/A/B/'</code>:</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat uses
 you fedora
 jadi ubuntu
@@ -545,6 +442,59 @@ and    this    is    getting    longer
 and    longer
 and    longer!
 </code></pre></div>
+
+<h2>Getting stats</h2>
+<h3>wc</h3>
+<p>The <code>wc</code> is <em>word count</em>. It counts the lines, words and bytes in the input stream.</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ wc mydata
+  9  25 121 mydata
+</code></pre></div>
+
+<blockquote>
+<p>It is very common to count the line numbers with <code>-l</code> switch.</p>
+</blockquote>
+<h3>-</h3>
+<p>You should know that if you put <code>-</code> instead of a filename, the data will be replaced from the pipe (or keyboard stdin).</p>
+<div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ wc -l mydata | cat mydata - mydata  
+hello
+this is second line
+but as you can see we are
+still writing
+and this is getting longer
+.
+.
+and longer
+and longer!
+9 mydata
+hello
+this is second line
+but as you can see we are
+still writing
+and this is getting longer
+.
+.
+and longer
+and longer!
+</code></pre></div>
+
+<h2>Hashing</h2>
+<p>A hash function is any function that can be used to map data of arbitrary size to fixed-size values. There are different hashes and we use them for different purposes. For example a site may hash your password in its database to keep it secure (and check the hash of provided password with a hash it already has in DB during logins), a site may provide the hash of a file so you can be sure that you've downloaded the correct file and ...</p>
+<p>The hashing algorithms covered on LPIC1 are:</p>
+<ul>
+<li>md5sum</li>
+<li>sha256sum</li>
+<li>sha512sum</li>
+</ul>
+<p>You can check any files (or input streams hash with something like this):</p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@ocean</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">md5sum</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">myfile</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="mi">8183</span><span class="n">aa57a23658efe7ba7aebe60816bc</span><span class="w">  </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">myfile</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@ocean</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">sha256sum</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">myfile</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="mi">7</span><span class="n">ddcfda184b55ee06b0c81e0ad136b1aa4a86daeb1078bcaeccc246eb2c8693b</span><span class="w">  </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">myfile</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@ocean</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">sha512sum</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">myfile</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="mf">79e5</span><span class="n">d789528e5e55fc1bddcb381afd56e896b1b452347a76777fb38d76c9754278700036f35df2a53c4d53d3e3623538a8b9ed155a3fd5275e667bdbf3c0b359</span><span class="w">  </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">myfile</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+</code></pre></div>
+
+<p>As you can see, <code>sha512sum</code> creates longer hashes and is more secure.</p>
 
 
              
