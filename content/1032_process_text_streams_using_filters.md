@@ -165,7 +165,7 @@ still writing
 ### head and tail
 Will show the beginig (head) or end (tail) of text files. By default it will show 10 lines but you can change it by `-n20` or `-20`.
 
-> `tali -f` will continue showing the new lines which are being written at the eng of the file. Very useful.
+> `tail -f` will continue showing the new lines which are being written at the eng of the file. Very useful.
 
 
 
