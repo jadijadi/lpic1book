@@ -117,6 +117,8 @@
 <li>zcat</li>
 </ul>
 <h3>Streams</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2mTH7HbErh8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <p>In <strong>UNIX</strong> world a lot of data is in TEXT form. Log files, configurations, data, ... . <strong>Filtering</strong> this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a <strong>streams</strong> is nothing more than <em>"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"</em>.</p>
 <p>In simple words, a text stream is an input of text from keyboard, a file, a network device, .. which can be viewd, changed, examined and ... via text util commands.</p>
 <p>Modern programming environments and shells (including bash) use three standard I/O streams:</p>
@@ -222,6 +224,8 @@ total 0
 <p><code>od</code> is very useful to find problems in your text files - say finding out if you are using tabs or correct line endings</p>
 </blockquote>
 <h2>Chosing parts of files</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/nw3Ic3RxbVI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <h3>split</h3>
 <p>Will split files. It is very useful for transferring HUGE files on smaller media (say splitting a 3TB file to 8GB parts and moving them to another machine with a USB Disk).</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat mydata
@@ -255,7 +259,7 @@ still writing
 <h3>head and tail</h3>
 <p>Will show the beginig (head) or end (tail) of text files. By default it will show 10 lines but you can change it by <code>-n20</code> or <code>-20</code>.</p>
 <blockquote>
-<p><code>tali -f</code> will continue showing the new lines which are being written at the eng of the file. Very useful.</p>
+<p><code>tail -f</code> will continue showing the new lines which are being written at the eng of the file. Very useful.</p>
 </blockquote>
 <h3>cut</h3>
 <p>The <code>cut</code> command will <em>cut</em> one or more columns from a file. Good for separating fields:</p>
@@ -277,6 +281,8 @@ you
 </blockquote>
 <p>It is also possible to <em>cut</em> fields 1, 2, 3 with <code>-f1-3</code> or only characters 4,5,7,8 with <code>-c4,5,7,8</code>.</p>
 <h2>Modifying streams</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IpJpI3CzN_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <h3>nl</h3>
 <p>Numbers lines.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ nl mydata  | head -3
@@ -444,6 +450,8 @@ and    longer!
 </code></pre></div>
 
 <h2>Getting stats</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wUi0lmmzm3k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <h3>wc</h3>
 <p>The <code>wc</code> is <em>word count</em>. It counts the lines, words and bytes in the input stream.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ wc mydata
