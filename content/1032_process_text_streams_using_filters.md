@@ -41,6 +41,8 @@ Description: Candidates should should be able to apply filters to text streams.
 
 ### Streams
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2mTH7HbErh8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 In **UNIX** world a lot of data is in TEXT form. Log files, configurations, data, ... . **Filtering** this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a **streams** is nothing more than _"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"_.
 
 In simple words, a text stream is an input of text from keyboard, a file, a network device, .. which can be viewd, changed, examined and ... via text util commands.
@@ -130,6 +132,9 @@ Not good enough for normal human beings.. lets add some switches:
 > `od` is very useful to find problems in your text files - say finding out if you are using tabs or correct line endings
 
 ## Chosing parts of files
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/nw3Ic3RxbVI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ### split
 
 Will split files. It is very useful for transferring HUGE files on smaller media \(say splitting a 3TB file to 8GB parts and moving them to another machine with a USB Disk\).
@@ -195,6 +200,9 @@ It is also possible to _cut_ fields 1, 2, 3 with `-f1-3` or only characters 4,5,
 
 
 ## Modifying streams
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IpJpI3CzN_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ### nl
 
 Numbers lines.
@@ -381,6 +389,9 @@ and    longer!
 ```
 
 ## Getting stats
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wUi0lmmzm3k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ### wc
 
 The `wc` is _word count_. It counts the lines, words and bytes in the input stream.
