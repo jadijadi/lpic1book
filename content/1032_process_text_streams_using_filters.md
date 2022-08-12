@@ -11,7 +11,7 @@ sortorder: 130
 
 _Weight: 2_
 
-Description: Candidates should should be able to apply filters to text streams.
+Description: Candidates should be able to apply filters to text streams.
 
 ### Objectives
 
@@ -107,10 +107,11 @@ Some common less commands are as follow.
 |q|Exit|
 |/foo|Searches for foo|
 |n|Next (search)|
+|N|Previous (search)|
 |?foo|search backward for foo|
 |G|Go to end|
 |nG|Go to line n|
-|PageUp, PageDown, UpArrow, DownArrow|You guess!|
+|PageUp, PageDown, UpArrow, DownArrow | You guess!|
 
 ### od
 
@@ -124,10 +125,17 @@ jadi@funlife:~/w/lpic/101$ od mydata
 0000042
 ```
 
-Not good enough for normal human beings.. lets add some switches:
+Not good enough for normal human beings.. lets use some switches:
 
-* -t will tell what format to print \(`-t a` for showing only named characters or `-t c` for showing escaped chars. You can summarize this to `-a` and `-c`\)
-* -A for choosing how to present offset field \(`-A d` for Decimal, `-A o` for Octal, `-A h` for hex and `-A n` for None)
+* **-t** will tell what format to print:
+  </br>`-t a` for showing only named characters
+  </br>`-t c` for showing escaped chars.</br>
+You can summarize two above to `-a` and `-c`
+* **_A** for choosing how to present offset field : 
+  </br> `-A d` for Decimal,
+  </br> `-A o` for Octal,
+  </br> `-A h` for hex 
+  </br> `-A n` for None
 
 > `od` is very useful to find problems in your text files - say finding out if you are using tabs or correct line endings
 
@@ -160,7 +168,7 @@ but as you can see we are
 still writing
 ```
 
-* By default, split uses xaa, xab, xac, .. for output file names. If can be changed with `split -l 2 mydata output` which split mydata into outputaa, outputab, ..; 2 lines per file.
+* By default, split uses xaa, xab, xac, .. for output file names. It can be changed with `split -l 2 mydata output` which split mydata into outputaa, outputab, ..; 2 lines per file.
 * the `-l 2` splits 2 lines per file. It is possible to use `-b 42` to split every 42 bytes or even `-n 5` to force 5 output files.
 * if you want numeric output \(x00, x01, ..\) use `-d`
 
@@ -168,9 +176,9 @@ still writing
 
 
 ### head and tail
-Will show the beginig (head) or end (tail) of text files. By default it will show 10 lines but you can change it by `-n20` or `-20`.
+Will show the beginning (head) or end (tail) of text files. By default it will show 10 lines but you can change it by `-n20` or `-20`.
 
-> `tail -f` will continue showing the new lines which are being written at the eng of the file. Very useful.
+> `tail -f` follows the new lines which are being written at the end of the file. Very useful.
 
 
 
@@ -194,7 +202,7 @@ rubic
 you
 ```
 
-> Default delimiter is TAB. use -dx to change it to "x" or -d' ' to change it to space
+> Default delimiter is TAB. use `-dx` to change it to "x" or `-d' '` to change it to space
 
 It is also possible to _cut_ fields 1, 2, 3 with `-f1-3` or only characters 4,5,7,8 with `-c4,5,7,8`.
 
@@ -205,7 +213,7 @@ It is also possible to _cut_ fields 1, 2, 3 with `-f1-3` or only characters 4,5,
 
 ### nl
 
-Numbers lines.
+This command is for showing line's numbers.
 
 ```text
 jadi@funlife:~/w/lpic/101$ nl mydata  | head -3
@@ -241,11 +249,11 @@ sina    6
 you     12
 ```
 
-I you want a reverse sort, use the `-r` switch.
+If you want a reverse sort, use the `-r` switch.
 
 > if you want to sort NUMERICALLY \(so 9 is lower than 19\), use `-n`
 
-And the `uniq` removes duplicate entries from its input. Normal behavior is removing only the duplicated lines but you can change the behavior for example by giving `-f1` to force it to not check fist field.
+And the `uniq` removes duplicate entries from its input. Normal behavior is removing only the duplicated lines but you can change it's behavior, for example  `-f1` switch forces it not to check first field.
 
 ```text
 jadi@funlife:~/w/lpic/101$ uniq what_i_have.txt
@@ -293,7 +301,7 @@ socks
 
 ## paste
 
-The paste command pastes lines from two or more files side-by-side! You can not do this in a general text editor with ease!
+The paste command pastes lines from two or more files side-by-side! You cannot do this in a general text editor with ease!
 
 ```text
 jadi@funlife:~/w/lpic/101$ cat howcool
@@ -339,12 +347,12 @@ AND loNger
 AND loNger!
 ```
 
-> Note: all **a**s are replaced with **A**.
+> Note: all **'a'**s are replaced with **'A'**.
 
 
 ### sed
 
-sed is **s**tream **ed**itor. It is POWERFUL and can do things which are not far from magic! Just like most of the tools we saw, sed can work as a filter or take its input from a file. It uses **regular expressions** and is a great tool for replacing text. If you need to replace A with B only once in each line in a stream you have to say `sed 's/A/B/'`:
+sed is **s**tream **ed**itor. It is POWERFUL and can do things which are not far from magic! Just like most of the tools we've seen far now, sed can work as a filter or take its input from a file. Sed is a great tool for replacing text with using **regular expressions** . If you need to replace A with B only once in each line in a stream just issue  `sed 's/A/B/'`:
 
 ```text
 jadi@funlife:~/w/lpic/101$ cat uses
@@ -434,13 +442,13 @@ and longer!
 ## Hashing
 A hash function is any function that can be used to map data of arbitrary size to fixed-size values. There are different hashes and we use them for different purposes. For example a site may hash your password in its database to keep it secure (and check the hash of provided password with a hash it already has in DB during logins), a site may provide the hash of a file so you can be sure that you've downloaded the correct file and ...
 
-The hashing algorithms covered on LPIC1 are:
+The hashing algorithms covered in LPIC1 are:
 
 - md5sum
 - sha256sum
 - sha512sum
 
-You can check any files (or input streams hash with something like this):
+You can check any file (or input streams hash with something like this):
 
 ```
 jadi@ocean:~$ md5sum /tmp/myfile.txt
@@ -451,4 +459,4 @@ jadi@ocean:~$ sha512sum /tmp/myfile.txt
 79e5d789528e5e55fc1bddcb381afd56e896b1b452347a76777fb38d76c9754278700036f35df2a53c4d53d3e3623538a8b9ed155a3fd5275e667bdbf3c0b359  /tmp/myfile.txt
 ```
 
-As you can see, `sha512sum` creates longer hashes and is more secure.
+As you can see, `sha512sum` creates longer hash which is more secure.
