@@ -6,11 +6,6 @@ Authors: Jadi
 Summary: Candidates should be able to use the basic Linux commands to manage files and directories.
 sortorder: 140
 
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-
 _Weight: 4_
 
 Candidates should be able to use the basic Linux commands to manage files and directories.
@@ -45,35 +40,40 @@ Candidates should be able to use the basic Linux commands to manage files and di
 - file globbing
 
 
-### ls
+- find
+- touch
+- dd
+- file
 
-Is used to _list_ directories & files. It can use absolute and relative paths
+- file globbing
+
+
+### general commands
+#### listing with `ls`
+
+Is used to _list_ directories & files. You can provide an absolute or relate path; if omitted the "." will be used as target.
 
 ```text
-$ ls -l
-total 52
--rw-rw-r-- 1 jadi jadi  146 Jan  5 08:29 alldata
--rw-rw-r-- 1 jadi jadi   30 Jan  5 09:15 howcool.sort
--rw-rw-r-- 1 jadi jadi  204 Jan  5 08:49 mydata
--rw-rw-r-- 1 jadi jadi  121 Jan  4 22:07 mydata.tab
-drwxrwxr-x 2 jadi jadi 4096 Jan  8 16:45 mydir
--rw-rw-r-- 1 jadi jadi   70 Jan  5 08:28 myfiles
-drwxrwxr-x 2 jadi jadi 4096 Jan  8 16:46 newdir
--rw-rw-r-- 1 jadi jadi   23 Jan  5 09:06 sorttest.txt
--rw-rw-r-- 1 jadi jadi   58 Jan  5 09:14 uses
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
+total 16K
+-rw-rw-r-- 1 jadi jadi 207 Aug 14 04:43 tasks.txt
+-rw-rw-r-- 1 jadi jadi  29 Aug 14 04:43 info.txt
+-rw-rw-r-- 1 jadi jadi  24 Aug 14 04:44 data.txt
+-rw-rw-r-- 1 jadi jadi 116 Aug 14 04:44 note_to_self
 ```
 
-> First field indicates if this is a file \(-\) or directory \(d\).
+> First field indicates if this is a file (`-`) or directory (`d`).
 
-* `-l` is for _long_ \(more info for each file\)
+Some common switches are:
+
+* `-l` is for _long_ (more info for each file)
 * `-1` will print one file per line
 * `-t` sorts based on modification date
-* `-r` reverses the search \(so -tr is reverse time \(newer files at the bottom\).
+* `-r` reverses the search (so `-tr` is reverse time (newer files at the bottom).
 
-> you can always mix switches. A famous one is `-ltrh` \(long+human readable sizes+reverse time\).
+> you can mix switches. A famous one is `-ltrh` (long+human readable sizes+reverse time).
 
-### Copying, Moving & Deleting
-
+#### Copy (`cp`), Move (`mv`) and Delete (`rm`)
 **cp**
 
 This will _copy_ files from one place / name to another place / name. If the target is a directory, all sources will be copied there.
@@ -82,6 +82,8 @@ This will _copy_ files from one place / name to another place / name. If the tar
 cp source destination
 ```
 
+A common switch is `-r` (or `-R`) which copies recursively (directories and their contents). So for copying a directory called `A` to `/tmp/` you can issue `cp -r A /tmp/`.
+
 **mv**
 
 Will _move_ or _rename_ files or directories. It works like `cp` command. If you are moving a file on the same file system, the **inode** wont change.
@@ -89,226 +91,203 @@ Will _move_ or _rename_ files or directories. It works like `cp` command. If you
 In general:
 
 * If the target is an existing directory, then all sources are copied into the target
-* If the target is a directory that does not exist, then the \(single\) source must also be a directory and a copy of the source directory and its contents is made with the target name as the new name
-* If the target is a file, then the \(single\) source must also be a file and a copy of the source file is made with the target name as the new name, replacing any existing file of the same name.
+* If the target is a directory that does not exist, then the source must be only one directory which will be renamed to the target directory.
+* If the target is a file, then the source must be only one file and rename will happen.
 
-But use common sense when answering questions or using `cp` and `mv` in real life.
+These look like "formulas" but they are common sense!
 
 **rm**
-
-Removes \(Deletes\) **files**.
+Removes (Deletes) **files**. You can do this recursively using the `-r` switch or even prevent it from checking for confirmations using `-f` (force) switch. So a `rm -rf /` means *delete everything from the file system*.
 
 #### General notes
 
 Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the `mv` will not move or rename a file if the target exists. Although this is highly dependent on your systems configuration. But in all cases you can overcome this using the `-f` switch.
 
-* `-f` \(--force\) will cause cp to try overwrite the target.
-* `-i` \(--interactive\) will ask Y/N question \(deleting / overwriting\).
-* `-b` \(--backup\) will make backups of overwritten files
+* `-f` (--force) will cause cp to try overwrite the target.
+* `-i` (--interactive) will ask Y/N question (deleting / overwriting).
+* `-b` (--backup) will make backups of overwritten files
 * `-p` will _preserve_ the attributes.
 
-### Creating and removing directories
+### Creating (mkdir) and removing (rmdir) directories
 
 The `mkdir` command creates directories.
 
-```text
-$ ls
-howcool.sort  uses.sort
-$ mkdir dirA dirB
-$ ls -ltrh
+```
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
 total 16K
--rw-rw-r-- 1 jadi jadi   30 Jan  8 16:45 howcool.sort
--rw-rw-r-- 1 jadi jadi   58 Jan  8 16:45 uses.sort
-drwxrwxr-x 2 jadi jadi 4.0K Jan  8 17:11 dirB
-drwxrwxr-x 2 jadi jadi 4.0K Jan  8 17:11 dirA
+-rw-rw-r-- 1 jadi jadi 207 Aug 14 04:43 tasks.txt
+-rw-rw-r-- 1 jadi jadi  29 Aug 14 04:43 info.txt
+-rw-rw-r-- 1 jadi jadi  24 Aug 14 04:44 data.txt
+-rw-rw-r-- 1 jadi jadi 116 Aug 14 04:44 note_to_self
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ mkdir new_dir
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
+total 20K
+-rw-rw-r-- 1 jadi jadi  207 Aug 14 04:43 tasks.txt
+-rw-rw-r-- 1 jadi jadi   29 Aug 14 04:43 info.txt
+-rw-rw-r-- 1 jadi jadi   24 Aug 14 04:44 data.txt
+-rw-rw-r-- 1 jadi jadi  116 Aug 14 04:44 note_to_self
+drwxrwxr-x 2 jadi jadi 4.0K Aug 14 04:57 new_dir
 ```
 
-* `-p` will create nested directories:
+If you want to create a tree of directories, you can use `-p` switch and tell the mkdir dir to create the *parent* directories if needed:
 
 ```text
-$ mkdir newDir/insideNew/lastDir
-mkdir: cannot create directory ‘newDir/insideNew/lastDir’: No such file or directory
-$ mkdir -p newDir/insideNew/lastDir
-$ ls newDir/insideNew/ -ltrh
-total 4.0K
-drwxrwxr-x 2 jadi jadi 4.0K Jan  8 17:13 lastDir
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
+total 20K
+-rw-rw-r-- 1 jadi jadi  207 Aug 14 04:43 tasks.txt
+-rw-rw-r-- 1 jadi jadi   29 Aug 14 04:43 info.txt
+-rw-rw-r-- 1 jadi jadi   24 Aug 14 04:44 data.txt
+-rw-rw-r-- 1 jadi jadi  116 Aug 14 04:44 note_to_self
+drwxrwxr-x 2 jadi jadi 4.0K Aug 14 04:57 new_dir
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ mkdir 1/2/3 -p
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ tree
+.
+├── 1
+│   └── 2
+│       └── 3
+├── data.txt
+├── info.txt
+├── new_dir
+├── note_to_self
+└── tasks.txt
 ```
 
 If you need to delete a directory the command is `rmdir` and you can also use the -p for nested removing:
 
-```text
-$ tree
+```
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ rmdir -p 1/2/3
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ rmdir new_dir
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ tree
 .
-├── dirA
-├── dirB
-├── howcool.sort
-└── uses.sort
+├── data.txt
+├── info.txt
+├── note_to_self
+└── tasks.txt
 
-2 directories, 2 files
-$ rmdir dirA dirB
-$ mkdir -p newDir/insideNew/lastDir
-$ tree
-.
-├── howcool.sort
-├── newDir
-│   └── insideNew
-│       └── lastDir
-└── uses.sort
-
-3 directories, 2 files
-$ rmdir -p newDir/insideNew/lastDir
-$ tree
-.
-├── howcool.sort
-└── uses.sort
-
-0 directories, 2 files
+0 directories, 4 files
 ```
 
-> If you are using `rmdir` to remove a directory, it MUST BE EMPTY! although later we will see how you can erase directories using `rm` command.
+> If you are using `rmdir` to remove a directory, it MUST BE EMPTY! Thats why many people use `rm -rf directory_name` to delete `directory_name` and whatever is in it.
 
-### Handling multiple files at once
+#### touch
+The `touch` will create an empty file (if it does not exists) or updates the **modification** date of a file if it already exists. The default time is *now* but you can specify other times too.
 
-Most of the times we need to work with more than one file. This is _Linux_ and there are ways!
-
-**Recursive commands**
-
-Recursive means going inside and inside and inside and inside! In many commands -r or -R is dedicated to recursive commands. Say ls. It uses -R :
-
-```text
-$ ls
-howcool.sort  newDir  uses.sort
-$ ls -R
-.:
-howcool.sort  newDir  uses.sort
-
-./newDir:
-insideNew  TestFile
-
-./newDir/insideNew:
-lastDir
-
-./newDir/insideNew/lastDir:
+```
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
+total 16K
+-rw-rw-r-- 1 jadi jadi 207 Aug 14 04:43 tasks.txt
+-rw-rw-r-- 1 jadi jadi  29 Aug 14 04:43 info.txt
+-rw-rw-r-- 1 jadi jadi  24 Aug 14 04:44 data.txt
+-rw-rw-r-- 1 jadi jadi 116 Aug 14 04:44 note_to_self
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ touch new_file
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
+total 16K
+-rw-rw-r-- 1 jadi jadi 207 Aug 14 04:43 tasks.txt
+-rw-rw-r-- 1 jadi jadi  29 Aug 14 04:43 info.txt
+-rw-rw-r-- 1 jadi jadi  24 Aug 14 04:44 data.txt
+-rw-rw-r-- 1 jadi jadi 116 Aug 14 04:44 note_to_self
+-rw-rw-r-- 1 jadi jadi   0 Aug 14 05:08 new_file
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ touch note_to_self
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
+total 16K
+-rw-rw-r-- 1 jadi jadi 207 Aug 14 04:43 tasks.txt
+-rw-rw-r-- 1 jadi jadi  29 Aug 14 04:43 info.txt
+-rw-rw-r-- 1 jadi jadi  24 Aug 14 04:44 data.txt
+-rw-rw-r-- 1 jadi jadi   0 Aug 14 05:08 new_file
+-rw-rw-r-- 1 jadi jadi 116 Aug 14 05:08 note_to_self
 ```
 
-It is more useful when you are copying or deleting. When using `cp` or `rm`, -r \(or -R or --recursive\) will copy/delete all files inside the given source.
+Or you can specify times. It is possible to use `-d` and give dates or use `-t` and give a timestamp in the form of `[[CC]YY]MMDDhhmm[.ss]`
 
 ```text
-$ tree mydir
-mydir
-├── howcool.sort
-├── newDir
-│   ├── insideNew
-│   │   └── lastDir
-│   └── TestFile
-└── uses.sort
-
-3 directories, 3 files
-$ mkdir newCopy
-$ cp mydir newCopy
-cp: omitting directory ‘mydir’
-$ cp -r mydir newCopy
-$ tree newCopy/
-newCopy/
-└── mydir
-    ├── howcool.sort
-    ├── newDir
-    │   ├── insideNew
-    │   │   └── lastDir
-    │   └── TestFile
-    └── uses.sort
-
-4 directories, 3 files
+$ touch -t 200908121510.59 file1
+$ touch -d 11am file2
+$ touch -d "last fortnight" file3
+$ touch -d "yesterday 6am" file4
+$ touch -d "2 days ago 12:00" file5
+$ touch -d "tomorrow 02:00" file6
+$ touch -d "5 Nov" file3
+$ ls -ltrh file?
+-rw-rw-r-- 1 jadi jadi 0 Aug 12  2009 file1
+-rw-rw-r-- 1 jadi jadi 0 Aug 12 12:00 file5
+-rw-rw-r-- 1 jadi jadi 0 Aug 13 06:00 file4
+-rw-rw-r-- 1 jadi jadi 0 Aug 14  2022 file2
+-rw-rw-r-- 1 jadi jadi 0 Aug 15  2022 file6
+-rw-rw-r-- 1 jadi jadi 0 Nov  5  2022 file3
 ```
 
-Same works with `rm`:
+Oh.. and its possible to set time of file, based on another file using the switch `-r` (for --reference)):
 
-```text
-$ rm newCopy
-rm: cannot remove ‘newCopy’: Is a directory
-$ rm -r newCopy
+```
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -l /etc/debian_version
+-rw-r--r-- 1 root root 13 Aug 22  2021 /etc/debian_version
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ touch -r /etc/debian_version file1
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
+total 20K
+-rw-rw-r-- 1 jadi jadi   0 Aug 22  2021 file1
 ```
 
-As you can see we can not `rm` a folder but if using -r \(or -R or --recursive\) it works because it deletes the dir and whatever inside it.
+#### file
 
-> `rm -rf /` is EXTREMELY DANGEROUS: force delete whatever in /
+To determine the type of a file, you should use `file` command.
 
-**Wildcards and globbing**
-
-This is a way to say **All files** or **everything which starts with A** or **all files with 3 letter names which end in A or B or C**.
-
-There are main cases:
-
-* `*` means **any string**
-* `?` means any single character
-* `[ABC]` matches A, B & C
-* `[a-k]` matches a, b, c, ..., k \(both lower-case and capital\)
-* `[0-9a-z]` matches all digits and numbers
-* `[!x]` means NOT X.
-
-So... this means that you can use these patterns in your commands to point to these files:
-
-| command | meaning |
-| :--- | :--- |
-| rm \* | delete all files |
-| ls A\*B | all files starting with A ending with B |
-| cp ???.\* /tmp | Copy all files with 3 characters, then a dot then whatever \(even nothing\) to /tmp |
-| rmdir \[a-z\]\* | remove all directories which start with a letter |
-
-### touch
-
-The `touch` command with no option will update the **modification** date of a file to the current time \(will create a file if it is not exists\).
-
-```text
-/touch$ ls -l
-total 0
--rw-rw-r-- 1 jadi jadi 0 Jan  8 17:47 myfile
-/touch$ touch myfile  #after a minute
-/touch$ ls -l
-total 0
--rw-rw-r-- 1 jadi jadi 0 Jan  8 17:48 myfile
+```
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ file file1
+file1: empty
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ file note_to_self
+note_to_self: ASCII text
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ file /bin/bash
+/bin/bash: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=33a5554034feb2af38e8c75872058883b2988bc5, for GNU/Linux 3.2.0, stripped
 ```
 
-There are also possible:
+> -i switch prints the mime format
 
-```text
-[ian@echidna lpi103-2]$ touch -t 200908121510.59 f3
-[ian@echidna lpi103-2]$ touch -d 11am f4
-[ian@echidna lpi103-2]$ touch -d "last fortnight" f5
-[ian@echidna lpi103-2]$ touch -d "yesterday 6am" f6
-[ian@echidna lpi103-2]$ touch -d "2 days ago 12:00" f7
-[ian@echidna lpi103-2]$ touch -d "tomorrow 02:00" f8
-[ian@echidna lpi103-2]$ touch -d "5 Nov" f9
-[ian@echidna lpi103-2]$ ls -lrt f*
--rw-rw-r--. 1 ian ian 0 2009-07-31 18:31 f5
--rw-rw-r--. 1 ian ian 0 2009-08-12 12:00 f7
--rw-rw-r--. 1 ian ian 0 2009-08-12 15:10 f3
--rw-rw-r--. 1 ian ian 0 2009-08-13 06:00 f6
--rw-rw-r--. 1 ian ian 0 2009-08-14 11:00 f4
--rw-rw-r--. 1 ian ian 4 2009-08-14 18:25 f1
--rw-rw-r--. 1 ian ian 0 2009-08-14 18:27 f2
--rw-rw-r--. 1 ian ian 0 2009-08-15 02:00 f8
--rw-rw-r--. 1 ian ian 0 2009-11-05 00:00 f9
+#### dd
+The `dd` command copies data from its input to its output (say files or devices). You may use it just like copy:
+
+```
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ dd if=note_to_self of=new_file
+0+1 records in
+0+1 records out
+116 bytes copied, 0.00141561 s, 81.9 kB/s
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ cat new_file
+I will continue learning... and if I get confused, I'll repeat the last section once more till everything is clear!
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$
 ```
 
-and the most advanced way is setting time of a file based on another file:
+* `if` is In File
+* `of` is Out File
 
-```text
-[ian@echidna lpi103-2]$ date
-Fri Aug 14 18:33:48 EDT 2009
-[ian@echidna lpi103-2]$ date -r f1
-Fri Aug 14 18:25:50 EDT 2009
-[ian@echidna lpi103-2]$ touch -r f1 f1a
-[ian@echidna lpi103-2]$ ls -l f1*
--rw-rw-r--. 1 ian ian 4 2009-08-14 18:25 f1
--rw-rw-r--. 1 ian ian 0 2009-08-14 18:25 f1a
+But commonly people use it to read / write from block devices. For example this will read all the sectors from the `/dev/sdb` and will write them a file called `backup.dd`. Later you can restore this backup by swapping the `if` and `of` and write from the `backup.dd` to `/dev/sdb`. 
+
+
+```
+# dd if=/dev/sda of=backup.dd bs=4096
 ```
 
-### Finding files
+or even:
 
-The `find` command helps us to find files based on MANY criteria. Look at this:
+```
+# dd if=/dev/sda2 | gzip > backup.dd.gzip
+```
 
-```text
+Another common usage is creating files of specific size:
+
+```
+$ dd if=/dev/zero of=1g.bin bs=1G count=1
+```
+
+or even *writing* your iso files to a USB disk to have a live bootable USB:
+
+```
+$ sudo dd if=ubuntu.iso of=/dev/sdc bs=2048
+```
+
+> Caution: here you are writing directly on a block devices. If you do something wrong... you will ruin your disk and need to reformat it.
+#### find
+The `find` command helps us to find files based on different criteria. Look at this:
+
+```
 $ find . -iname "[a-j]*"
 ./howcool.sort
 ./alldata
@@ -317,40 +296,22 @@ $ find . -iname "[a-j]*"
 ./howcool
 ```
 
-* the first parameter says where should be searched \(with subdirectories\).
-* the `-name` switch indicates the criteria \(here iname: searching for files with this name\).
+* the first parameter says where should we search (including subdirectories).
+* the `-name` switch indicates the criteria (here `iname` means search files with this name and ignore the character cases (z equals Z)). 
 
-a common switch is `-iname` which says "name but case is not important \(z is same as Z\)". Also `-d` is commonly used:
+Another common switch is `-type` to indicate type we are searching for (`f` for regular files, `d` for directories and `l` for symbolic links):
 
-```text
-$ find . -iname "*my*"
-./myfiles
-./mydata.noenter
-./mydata
-./mydir
-./mydir/hereisMYfile.txt
-./touch/myfile
-./mydata.tab
-$ find . -type f -iname "*my*"
-./myfiles
-./mydata.noenter
-./mydata
-./mydir/hereisMYfile.txt
-./touch/myfile
-./mydata.tab
+```
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ find . -type d -iname "[a-j]*"
+./directory
+./directory/innder_one
 ```
 
-These are the most common file types:
+if you want to search for file sizes do as below:
 
-* `-type f` will search for a regular file
-* `-type d` will search for a directory
-* `-type l` will search for a symbolic link
-
-you can also search for file sizes:
-
-| command | meanint |
+| command | meaning |
 | :--- | :--- |
-| -size 100c | files which are exactly 100 bytes \(you can also use **b** |
+| -size 100c | files which are exactly 100 characters/bytes (you can also use `b`) |
 | -size +100k | files which are more than 100 kilobytes |
 | -size -20M | files smaller than 20Megabytes |
 | -size +2G | files bigger than 2Gigabytes |
@@ -363,101 +324,163 @@ find /var -iname '*tmp* -size +1M -size -100M
 
 > you can find all empty files with `find . -size 0b` or `find . -empty`
 
+
+Another useful search criteria is time. These are some of the options:
+
+| switch | meaning | samples |
+| :--- | :--- | :--- |
+| -amin | Access Minutes | `-amin 40` means "files accesses exactly 40min ago" or `-amin +40` mins files accessed more than 40min ago and `-amin -40` means files accessed less than 40min ago|
+| -cmin | Status Change Min | `-cmin +60` file status changed before last hour |
+| -mmin | Modified Minutes | `-mmin -60` will give us files modified in last hour |
+| -atime | access time in days | `-atime +1` means files access "more than 1 days ago (which means 2 days and more)|
+| -ctime | Status Changed in Days ||
+| -mtime | Modified days | |
+| -newer | Newer than reference | `-newer file1` will give you files which are newer than file1 |
+
+
+> if you add `-daystart` switch to -mtime or -atime it means that we want to consider days as calendar days, starting at midnight.
+
+
 **Acting on files**
 
-We can act on files with various switches:
+We can execute commands or do other actions on files with various switches:
 
 | switch | meanint |
 | :--- | :--- |
 | -ls | will run ls -dils on each file |
 | -print | will print the full name of the files on each line |
 
-But the best way to run commands on found files is `-exec` switch. You can point to the file with **'{}'** or **{}** and finish your command with **\;**.
+But the best way to run commands on found files is `-exec` switch. You can point to the file with `'{}'` or `{}` and finish your command with `\;`.
 
-This will remove all empty files in this directory and its subdirectories:
+For example This will remove all empty files in this directory and its subdirectories:
 
-```text
+```
 find . -empty -exec rm '{}' \;
 ```
 
 or this will rename all htm files to html
 
-```text
+```
 find . -name "*.htm" -exec mv '{}' '{}l' \;
 ```
+> since deleting found files is a common task, there is switch for it: `-delete`
 
-At last you have to know the `-mtime` switch for finding files based on their time.
+### Wildcards and file globbing
+File globbing is shell capability which lets you tell things like :
+- All files
+- everything which starts with A
+- all files with 3 letter names which end in A or B or C
+- ...
 
-| switch | meanint |
+To do so you need to know about these characters:
+
+* `*` means **any string**
+* `?` means any single character
+* `[ABC]` matches A, B & C
+* `[a-k]` matches a, b, c, ..., k \(both lower-case and capital\)
+* `[0-9a-z]` matches all digits and numbers
+* `[!x]` means NOT X.
+
+knowing these, you can create your own patterns. For example:
+
+| command | meaning |
 | :--- | :--- |
-| -atime -6 | file was last accessed less than 6\*24 hours ago |
-| -ctime +6 | file was changed more than 6\*24 hours ago |
-| -mtime -6 | file _content_ moditication less than time is 6\*24 ago |
-| -mmin -90 | file's data was last modified less than 90 minutes ago |
-| -amin, -cmin | you guess! |
+| rm * | delete all files in this directory |
+| ls A*B | show all files starting with A ending with B |
+| cp ???.* /tmp | Copy all files with 3 characters, then a dot then whatever (even nothing) to /tmp |
+| rmdir [a-z\]* | remove all directories which start with a letter |
 
-> if you add `-daystart` switch to -mtime or -atime it means that we want to consider days as calendar days, starting at midnight.
 
-### Identify a file
-
-That is the `file` command:
-
-```text
-$ file mydata.tab
-mydata.tab: ASCII text
-$ file /bin/bash
-/bin/bash: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=cb63ec0718f2022619814c04a5b6cd8a36752a83, stripped
-$ file mydata.tab
-mydata.tab: ASCII text
-$ file /bin/bash
-/bin/bash: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=cb63ec0718f2022619814c04a5b6cd8a36752a83, stripped
-$ file -i mydir
-mydir: inode/directory; charset=binary
+### Compression
+#### gzip & gunzip
+Straight forward, one gzips files and one ungzips files; In place:
 ```
-
-> -i switch prints the complete mime format
-
-### Compressing files
-
-Compressing works best on text files.
-
-**zip**
-
-we mostly use `gzip` and `gunzip` in linux. It is very easy:
-
-```text
-$ ls *  -ltrh
--rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
-$ gzip  The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
-$ ls *  -ltrh
--rw-r--r-- 1 jadi jadi  30K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz
-$ gunzip The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz
-$ ls *  -ltrh
--rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
+total 20K
+-rw-rw-r-- 1 jadi jadi  207 Aug 14 04:43 tasks.txt
+-rw-rw-r-- 1 jadi jadi   29 Aug 14 04:43 info.txt
+-rw-rw-r-- 1 jadi jadi   24 Aug 14 04:44 data.txt
+-rw-rw-r-- 1 jadi jadi    0 Aug 14 05:08 new_file
+-rw-rw-r-- 1 jadi jadi  116 Aug 14 05:08 note_to_self
+drwxrwxr-x 3 jadi jadi 4.0K Aug 14 05:20 directory
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
+total 20K
+-rw-rw-r-- 1 jadi jadi  171 Aug 14 04:43 tasks.txt.gz
+-rw-rw-r-- 1 jadi jadi   29 Aug 14 04:43 info.txt
+-rw-rw-r-- 1 jadi jadi   24 Aug 14 04:44 data.txt
+-rw-rw-r-- 1 jadi jadi    0 Aug 14 05:08 new_file
+-rw-rw-r-- 1 jadi jadi  116 Aug 14 05:08 note_to_self
+drwxrwxr-x 3 jadi jadi 4.0K Aug 14 05:20 directory
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ gunzip tasks.txt.gz
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
+total 20K
+-rw-rw-r-- 1 jadi jadi  207 Aug 14 04:43 tasks.txt
+-rw-rw-r-- 1 jadi jadi   29 Aug 14 04:43 info.txt
+-rw-rw-r-- 1 jadi jadi   24 Aug 14 04:44 data.txt
+-rw-rw-r-- 1 jadi jadi    0 Aug 14 05:08 new_file
+-rw-rw-r-- 1 jadi jadi  116 Aug 14 05:08 note_to_self
+drwxrwxr-x 3 jadi jadi 4.0K Aug 14 05:20 directory
 ```
 
 * gzip preserves time
 * gzip creates the new compressed file with the same name but with .gz ending
 * gzip removes the original files after creating the compressed file
 
-**bzip2**
+#### Archiving with tar & cpio
 
-is another compressing tool. Works just the same but with another compression algorithm.
 
-```text
-$ ls *  -ltrh
--rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
-$ bzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
-$ ls *  -ltrh
--rw-r--r-- 1 jadi jadi  22K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2
-$ bunzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2
-$ ls *  -ltrh
--rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+#### bzip2 & bunzip2
+
+The `bzip2` is another compressing tool. Works just like the famous `gzip` but with a different compression algorithm.
+
 ```
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ bzip2 tasks.txt
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls  -ltrh
+total 20K
+-rw-rw-r-- 1 jadi jadi  172 Aug 14 04:43 tasks.txt.bz2
+-rw-rw-r-- 1 jadi jadi   29 Aug 14 04:43 info.txt
+-rw-rw-r-- 1 jadi jadi   24 Aug 14 04:44 data.txt
+-rw-rw-r-- 1 jadi jadi    0 Aug 14 05:08 new_file
+-rw-rw-r-- 1 jadi jadi  116 Aug 14 05:08 note_to_self
+drwxrwxr-x 3 jadi jadi 4.0K Aug 14 05:20 directory
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ bunzip2 tasks.txt.bz2
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls
+data.txt  directory  info.txt  new_file  note_to_self  tasks.txt
+```
+
+#### xz & unxz
+
+Another compression / decompression tool just like `gzip` and `bzip2`. 
+
+```
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ xz tasks.txt
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
+total 24K
+-rw-rw-r-- 1 jadi jadi  224 Aug 14 04:43 tasks.txt.xz
+-rw-rw-r-- 1 jadi jadi   29 Aug 14 04:43 info.txt
+-rw-rw-r-- 1 jadi jadi   24 Aug 14 04:44 data.txt
+-rw-rw-r-- 1 jadi jadi  116 Aug 14 05:08 note_to_self
+drwxrwxr-x 3 jadi jadi 4.0K Aug 14 05:20 directory
+-rw-rw-r-- 1 jadi jadi  116 Aug 14 07:51 new_file
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ unxz tasks.txt.xz
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
+total 24K
+-rw-rw-r-- 1 jadi jadi  207 Aug 14 04:43 tasks.txt
+-rw-rw-r-- 1 jadi jadi   29 Aug 14 04:43 info.txt
+-rw-rw-r-- 1 jadi jadi   24 Aug 14 04:44 data.txt
+-rw-rw-r-- 1 jadi jadi  116 Aug 14 05:08 note_to_self
+drwxrwxr-x 3 jadi jadi 4.0K Aug 14 05:20 directory
+-rw-rw-r-- 1 jadi jadi  116 Aug 14 07:51 new_file
+```
+
+Please note that *compressing* a small text file have made it larger. This is *normal* in small files because of all the headers and metadata.
+
+> In some cases, commands like `unxz` is just a calls to `xz --dcompress`
+
 
 ### Archiving files
 
-Sometimes we need to create an archive file from many files for easier moving or backing up. This is done with `cpio` and `tar`.
+Sometimes we need to create an archive file container many other files. This is different than compressing; this is combining files into one and then extracting them again. This is mostly used in backups, archives, moving files to a new location (say via email) and such. This is done with `cpio` and `tar`.
 
 **tar**
 
@@ -480,23 +503,24 @@ Common switches are
 
 **cpio**
 
-Gets a list of files and creates archive \(one file\) of it which can be opened later.
+Gets a list of files and creates an archive (one file). This file cap be used later to extract the original files.
 
-```text
+```
 $ ls | cpio -o > allfilesls.cpio
 3090354 blocks
 ```
 
-* `-o` makes cpio to create an output from its input
-* cpio does not goes into the folders. So mostly we use it with find:
+* `-o` tells cpio to create an output from its input
 
-```text
+Please note that `cpio` does not looks into the folders. So mostly we use it with find:
+
+```
 find . -name "*" | cpio -o > myarchivefind.cpio
 ```
 
-to decompress it:
+To extract the original files:
 
-```text
+```
 mkdir extract
 mv myarchivefind.cpio extract
 cd extract
@@ -505,70 +529,3 @@ cpio -id < myarchivefind.cpio
 
 * `-d` will create the folders
 * `-i` is for extract
-
-### dd
-
-The `dd` command copies data from one location to another. This data comes from files. You can use it just like copy:
-
-```text
-$ cat howcool
-jadi    5
-sina    6
-rubic    2
-you     12
-$ dd if=howcool of=newcool
-0+1 records in
-0+1 records out
-30 bytes (30 B) copied, 0.0227904 s, 1.3 kB/s
-$ cat newcool
-jadi    5
-sina    6
-rubic    2
-you     12
-$
-```
-
-* `if` is In File
-* `of` is Out File
-
-But it is used in many other cases specially writing directly to block devices such as /dev/sdb or changing data to upper/lower case.
-
-This will backup my whole hard to a file:
-
-```text
-# dd if=/dev/sda of=backup.dd bs=4096
-```
-
-or better:
-
-```text
-# dd if=/dev/sda2 |gzip >backup.dd.gzip
-```
-
-Another common usage is creating files of specific size:
-
-```text
-$ dd if=/dev/zero of=1g.bin bs=1G count=1
-```
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
