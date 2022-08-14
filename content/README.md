@@ -19,5 +19,3 @@ Enjoy!
 * twitter: [@jadi](http://twitter.com/jadi)
 
 Donations? [http://jadi.ir/support-donate/](http://jadi.ir/support-donate/) :D
-
-test
