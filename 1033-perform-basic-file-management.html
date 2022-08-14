@@ -87,11 +87,7 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>Weight: 4</em></p>
+            <p><em>Weight: 4</em></p>
 <p>Candidates should be able to use the basic Linux commands to manage files and directories.</p>
 <h3>Objectives</h3>
 <ul>
@@ -122,52 +118,63 @@
 <li>bunzip2</li>
 <li>xz</li>
 <li>unxz</li>
-<li>file globbing</li>
+<li>
+<p>file globbing</p>
+</li>
+<li>
+<p>find</p>
+</li>
+<li>touch</li>
+<li>dd</li>
+<li>
+<p>file</p>
+</li>
+<li>
+<p>file globbing</p>
+</li>
 </ul>
-<h3>ls</h3>
-<p>Is used to <em>list</em> directories &amp; files. It can use absolute and relative paths</p>
-<div class="highlight"><pre><span></span><code>$ ls -l
-total 52
--rw-rw-r-- 1 jadi jadi  146 Jan  5 08:29 alldata
--rw-rw-r-- 1 jadi jadi   30 Jan  5 09:15 howcool.sort
--rw-rw-r-- 1 jadi jadi  204 Jan  5 08:49 mydata
--rw-rw-r-- 1 jadi jadi  121 Jan  4 22:07 mydata.tab
-drwxrwxr-x 2 jadi jadi 4096 Jan  8 16:45 mydir
--rw-rw-r-- 1 jadi jadi   70 Jan  5 08:28 myfiles
-drwxrwxr-x 2 jadi jadi 4096 Jan  8 16:46 newdir
--rw-rw-r-- 1 jadi jadi   23 Jan  5 09:06 sorttest.txt
--rw-rw-r-- 1 jadi jadi   58 Jan  5 09:14 uses
+<h3>general commands</h3>
+<h4>listing with <code>ls</code></h4>
+<p>Is used to <em>list</em> directories &amp; files. You can provide an absolute or relate path; if omitted the "." will be used as target.</p>
+<div class="highlight"><pre><span></span><code>jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
+total 16K
+-rw-rw-r-- 1 jadi jadi 207 Aug 14 04:43 tasks.txt
+-rw-rw-r-- 1 jadi jadi  29 Aug 14 04:43 info.txt
+-rw-rw-r-- 1 jadi jadi  24 Aug 14 04:44 data.txt
+-rw-rw-r-- 1 jadi jadi 116 Aug 14 04:44 note_to_self
 </code></pre></div>
 
 <blockquote>
-<p>First field indicates if this is a file (-) or directory (d).</p>
+<p>First field indicates if this is a file (<code>-</code>) or directory (<code>d</code>).</p>
 </blockquote>
+<p>Some common switches are:</p>
 <ul>
 <li><code>-l</code> is for <em>long</em> (more info for each file)</li>
 <li><code>-1</code> will print one file per line</li>
 <li><code>-t</code> sorts based on modification date</li>
-<li><code>-r</code> reverses the search (so -tr is reverse time (newer files at the bottom).</li>
+<li><code>-r</code> reverses the search (so <code>-tr</code> is reverse time (newer files at the bottom).</li>
 </ul>
 <blockquote>
-<p>you can always mix switches. A famous one is <code>-ltrh</code> (long+human readable sizes+reverse time).</p>
+<p>you can mix switches. A famous one is <code>-ltrh</code> (long+human readable sizes+reverse time).</p>
 </blockquote>
-<h3>Copying, Moving &amp; Deleting</h3>
+<h4>Copy (<code>cp</code>), Move (<code>mv</code>) and Delete (<code>rm</code>)</h4>
 <p><strong>cp</strong></p>
 <p>This will <em>copy</em> files from one place / name to another place / name. If the target is a directory, all sources will be copied there.</p>
 <div class="highlight"><pre><span></span><code>cp source destination
 </code></pre></div>
 
+<p>A common switch is <code>-r</code> (or <code>-R</code>) which copies recursively (directories and their contents). So for copying a directory called <code>A</code> to <code>/tmp/</code> you can issue <code>cp -r A /tmp/</code>.</p>
 <p><strong>mv</strong></p>
 <p>Will <em>move</em> or <em>rename</em> files or directories. It works like <code>cp</code> command. If you are moving a file on the same file system, the <strong>inode</strong> wont change.</p>
 <p>In general:</p>
 <ul>
 <li>If the target is an existing directory, then all sources are copied into the target</li>
-<li>If the target is a directory that does not exist, then the (single) source must also be a directory and a copy of the source directory and its contents is made with the target name as the new name</li>
-<li>If the target is a file, then the (single) source must also be a file and a copy of the source file is made with the target name as the new name, replacing any existing file of the same name.</li>
+<li>If the target is a directory that does not exist, then the source must be only one directory which will be renamed to the target directory.</li>
+<li>If the target is a file, then the source must be only one file and rename will happen.</li>
 </ul>
-<p>But use common sense when answering questions or using <code>cp</code> and <code>mv</code> in real life.</p>
-<p><strong>rm</strong></p>
-<p>Removes (Deletes) <strong>files</strong>.</p>
+<p>These look like "formulas" but they are common sense!</p>
+<p><strong>rm</strong>
+Removes (Deletes) <strong>files</strong>. You can do this recursively using the <code>-r</code> switch or even prevent it from checking for confirmations using <code>-f</code> (force) switch. So a <code>rm -rf /</code> means <em>delete everything from the file system</em>.</p>
 <h4>General notes</h4>
 <p>Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the <code>mv</code> will not move or rename a file if the target exists. Although this is highly dependent on your systems configuration. But in all cases you can overcome this using the <code>-f</code> switch.</p>
 <ul>
@@ -176,131 +183,181 @@ drwxrwxr-x 2 jadi jadi 4096 Jan  8 16:46 newdir
 <li><code>-b</code> (--backup) will make backups of overwritten files</li>
 <li><code>-p</code> will <em>preserve</em> the attributes.</li>
 </ul>
-<h3>Creating and removing directories</h3>
+<h3>Creating (mkdir) and removing (rmdir) directories</h3>
 <p>The <code>mkdir</code> command creates directories.</p>
-<div class="highlight"><pre><span></span><code>$ ls
-howcool.sort  uses.sort
-$ mkdir dirA dirB
-$ ls -ltrh
-total 16K
--rw-rw-r-- 1 jadi jadi   30 Jan  8 16:45 howcool.sort
--rw-rw-r-- 1 jadi jadi   58 Jan  8 16:45 uses.sort
-drwxrwxr-x 2 jadi jadi 4.0K Jan  8 17:11 dirB
-drwxrwxr-x 2 jadi jadi 4.0K Jan  8 17:11 dirA
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">ltrh</span><span class="w"></span>
+<span class="n">total</span><span class="w"> </span><span class="mi">16</span><span class="n">K</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="mi">207</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">29</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">24</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">44</span><span class="w"> </span><span class="k">data</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="mi">116</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">44</span><span class="w"> </span><span class="n">note_to_self</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">mkdir</span><span class="w"> </span><span class="n">new_dir</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">ltrh</span><span class="w"></span>
+<span class="n">total</span><span class="w"> </span><span class="mi">20</span><span class="n">K</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">207</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">29</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">24</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">44</span><span class="w"> </span><span class="k">data</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">116</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">44</span><span class="w"> </span><span class="n">note_to_self</span><span class="w"></span>
+<span class="n">drwxrwxr</span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="mf">4.0</span><span class="n">K</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">57</span><span class="w"> </span><span class="n">new_dir</span><span class="w"></span>
 </code></pre></div>
 
-<ul>
-<li><code>-p</code> will create nested directories:</li>
-</ul>
-<div class="highlight"><pre><span></span><code>$ mkdir newDir/insideNew/lastDir
-mkdir: cannot create directory ‘newDir/insideNew/lastDir’: No such file or directory
-$ mkdir -p newDir/insideNew/lastDir
-$ ls newDir/insideNew/ -ltrh
-total 4.0K
-drwxrwxr-x 2 jadi jadi 4.0K Jan  8 17:13 lastDir
+<p>If you want to create a tree of directories, you can use <code>-p</code> switch and tell the mkdir dir to create the <em>parent</em> directories if needed:</p>
+<div class="highlight"><pre><span></span><code>jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
+total 20K
+-rw-rw-r-- 1 jadi jadi  207 Aug 14 04:43 tasks.txt
+-rw-rw-r-- 1 jadi jadi   29 Aug 14 04:43 info.txt
+-rw-rw-r-- 1 jadi jadi   24 Aug 14 04:44 data.txt
+-rw-rw-r-- 1 jadi jadi  116 Aug 14 04:44 note_to_self
+drwxrwxr-x 2 jadi jadi 4.0K Aug 14 04:57 new_dir
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ mkdir 1/2/3 -p
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ tree
+.
+├── 1
+│   └── 2
+│       └── 3
+├── data.txt
+├── info.txt
+├── new_dir
+├── note_to_self
+└── tasks.txt
 </code></pre></div>
 
 <p>If you need to delete a directory the command is <code>rmdir</code> and you can also use the -p for nested removing:</p>
-<div class="highlight"><pre><span></span><code>$ tree
-.
-├── dirA
-├── dirB
-├── howcool.sort
-└── uses.sort
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">rmdir</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">rmdir</span><span class="w"> </span><span class="n">new_dir</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">tree</span><span class="w"></span>
+<span class="p">.</span><span class="w"></span>
+<span class="err">├──</span><span class="w"> </span><span class="k">data</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="err">├──</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="err">├──</span><span class="w"> </span><span class="n">note_to_self</span><span class="w"></span>
+<span class="err">└──</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
 
-2 directories, 2 files
-$ rmdir dirA dirB
-$ mkdir -p newDir/insideNew/lastDir
-$ tree
-.
-├── howcool.sort
-├── newDir
-│   └── insideNew
-│       └── lastDir
-└── uses.sort
-
-3 directories, 2 files
-$ rmdir -p newDir/insideNew/lastDir
-$ tree
-.
-├── howcool.sort
-└── uses.sort
-
-0 directories, 2 files
+<span class="mi">0</span><span class="w"> </span><span class="n">directories</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">files</span><span class="w"></span>
 </code></pre></div>
 
 <blockquote>
-<p>If you are using <code>rmdir</code> to remove a directory, it MUST BE EMPTY! although later we will see how you can erase directories using <code>rm</code> command.</p>
+<p>If you are using <code>rmdir</code> to remove a directory, it MUST BE EMPTY! Thats why many people use <code>rm -rf directory_name</code> to delete <code>directory_name</code> and whatever is in it.</p>
 </blockquote>
-<h3>Handling multiple files at once</h3>
-<p>Most of the times we need to work with more than one file. This is <em>Linux</em> and there are ways!</p>
-<p><strong>Recursive commands</strong></p>
-<p>Recursive means going inside and inside and inside and inside! In many commands -r or -R is dedicated to recursive commands. Say ls. It uses -R :</p>
-<div class="highlight"><pre><span></span><code>$ ls
-howcool.sort  newDir  uses.sort
-$ ls -R
-.:
-howcool.sort  newDir  uses.sort
-
-./newDir:
-insideNew  TestFile
-
-./newDir/insideNew:
-lastDir
-
-./newDir/insideNew/lastDir:
+<h4>touch</h4>
+<p>The <code>touch</code> will create an empty file (if it does not exists) or updates the <strong>modification</strong> date of a file if it already exists. The default time is <em>now</em> but you can specify other times too.</p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">ltrh</span><span class="w"></span>
+<span class="n">total</span><span class="w"> </span><span class="mi">16</span><span class="n">K</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="mi">207</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">29</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">24</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">44</span><span class="w"> </span><span class="k">data</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="mi">116</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">44</span><span class="w"> </span><span class="n">note_to_self</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">touch</span><span class="w"> </span><span class="n">new_file</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">ltrh</span><span class="w"></span>
+<span class="n">total</span><span class="w"> </span><span class="mi">16</span><span class="n">K</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="mi">207</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">29</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">24</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">44</span><span class="w"> </span><span class="k">data</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="mi">116</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">44</span><span class="w"> </span><span class="n">note_to_self</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="n">new_file</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">touch</span><span class="w"> </span><span class="n">note_to_self</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">ltrh</span><span class="w"></span>
+<span class="n">total</span><span class="w"> </span><span class="mi">16</span><span class="n">K</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="mi">207</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">29</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">24</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">44</span><span class="w"> </span><span class="k">data</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="n">new_file</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="c1">-- 1 jadi jadi 116 Aug 14 05:08 note_to_self</span>
 </code></pre></div>
 
-<p>It is more useful when you are copying or deleting. When using <code>cp</code> or <code>rm</code>, -r (or -R or --recursive) will copy/delete all files inside the given source.</p>
-<div class="highlight"><pre><span></span><code>$ tree mydir
-mydir
-├── howcool.sort
-├── newDir
-│   ├── insideNew
-│   │   └── lastDir
-│   └── TestFile
-└── uses.sort
-
-3 directories, 3 files
-$ mkdir newCopy
-$ cp mydir newCopy
-cp: omitting directory ‘mydir’
-$ cp -r mydir newCopy
-$ tree newCopy/
-newCopy/
-└── mydir
-    ├── howcool.sort
-    ├── newDir
-    │   ├── insideNew
-    │   │   └── lastDir
-    │   └── TestFile
-    └── uses.sort
-
-4 directories, 3 files
+<p>Or you can specify times. It is possible to use <code>-d</code> and give dates or use <code>-t</code> and give a timestamp in the form of <code>[[CC]YY]MMDDhhmm[.ss]</code></p>
+<div class="highlight"><pre><span></span><code>$ touch -t 200908121510.59 file1
+$ touch -d 11am file2
+$ touch -d &quot;last fortnight&quot; file3
+$ touch -d &quot;yesterday 6am&quot; file4
+$ touch -d &quot;2 days ago 12:00&quot; file5
+$ touch -d &quot;tomorrow 02:00&quot; file6
+$ touch -d &quot;5 Nov&quot; file3
+$ ls -ltrh file?
+-rw-rw-r-- 1 jadi jadi 0 Aug 12  2009 file1
+-rw-rw-r-- 1 jadi jadi 0 Aug 12 12:00 file5
+-rw-rw-r-- 1 jadi jadi 0 Aug 13 06:00 file4
+-rw-rw-r-- 1 jadi jadi 0 Aug 14  2022 file2
+-rw-rw-r-- 1 jadi jadi 0 Aug 15  2022 file6
+-rw-rw-r-- 1 jadi jadi 0 Nov  5  2022 file3
 </code></pre></div>
 
-<p>Same works with <code>rm</code>:</p>
-<div class="highlight"><pre><span></span><code>$ rm newCopy
-rm: cannot remove ‘newCopy’: Is a directory
-$ rm -r newCopy
+<p>Oh.. and its possible to set time of file, based on another file using the switch <code>-r</code> (for --reference)):</p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">l</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">debian_version</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">22</span><span class="w">  </span><span class="mi">2021</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">debian_version</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">touch</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">debian_version</span><span class="w"> </span><span class="n">file1</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">ltrh</span><span class="w"></span>
+<span class="n">total</span><span class="w"> </span><span class="mi">20</span><span class="n">K</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="c1">-- 1 jadi jadi   0 Aug 22  2021 file1</span>
 </code></pre></div>
 
-<p>As you can see we can not <code>rm</code> a folder but if using -r (or -R or --recursive) it works because it deletes the dir and whatever inside it.</p>
+<h4>file</h4>
+<p>To determine the type of a file, you should use <code>file</code> command.</p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="n">file1</span><span class="w"></span>
+<span class="nl">file1</span><span class="p">:</span><span class="w"> </span><span class="n">empty</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="n">note_to_self</span><span class="w"></span>
+<span class="nl">note_to_self</span><span class="p">:</span><span class="w"> </span><span class="nf">ASCII</span><span class="w"> </span><span class="nc">text</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span><span class="w"></span>
+<span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="nl">bash</span><span class="p">:</span><span class="w"> </span><span class="n">ELF</span><span class="w"> </span><span class="mi">64</span><span class="o">-</span><span class="nc">bit</span><span class="w"> </span><span class="n">LSB</span><span class="w"> </span><span class="n">pie</span><span class="w"> </span><span class="n">executable</span><span class="p">,</span><span class="w"> </span><span class="n">x86</span><span class="o">-</span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">(</span><span class="n">SYSV</span><span class="p">),</span><span class="w"> </span><span class="n">dynamically</span><span class="w"> </span><span class="n">linked</span><span class="p">,</span><span class="w"> </span><span class="n">interpreter</span><span class="w"> </span><span class="o">/</span><span class="n">lib64</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">64.</span><span class="n">so</span><span class="mf">.2</span><span class="p">,</span><span class="w"> </span><span class="n">BuildID</span><span class="o">[</span><span class="n">sha1</span><span class="o">]=</span><span class="mi">33</span><span class="n">a5554034feb2af38e8c75872058883b2988bc5</span><span class="p">,</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">GNU</span><span class="o">/</span><span class="n">Linux</span><span class="w"> </span><span class="mf">3.2.0</span><span class="p">,</span><span class="w"> </span><span class="n">stripped</span><span class="w"></span>
+</code></pre></div>
+
 <blockquote>
-<p><code>rm -rf /</code> is EXTREMELY DANGEROUS: force delete whatever in /</p>
+<p>-i switch prints the mime format</p>
 </blockquote>
-<p><strong>Wildcards and globbing</strong></p>
-<p>This is a way to say <strong>All files</strong> or <strong>everything which starts with A</strong> or <strong>all files with 3 letter names which end in A or B or C</strong>.</p>
-<p>There are main cases:</p>
+<h4>dd</h4>
+<p>The <code>dd</code> command copies data from its input to its output (say files or devices). You may use it just like copy:</p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">dd</span><span class="w"> </span><span class="k">if</span><span class="o">=</span><span class="n">note_to_self</span><span class="w"> </span><span class="k">of</span><span class="o">=</span><span class="n">new_file</span><span class="w"></span>
+<span class="mi">0</span><span class="o">+</span><span class="mi">1</span><span class="w"> </span><span class="n">records</span><span class="w"> </span><span class="ow">in</span><span class="w"></span>
+<span class="mi">0</span><span class="o">+</span><span class="mi">1</span><span class="w"> </span><span class="n">records</span><span class="w"> </span><span class="k">out</span><span class="w"></span>
+<span class="mi">116</span><span class="w"> </span><span class="n">bytes</span><span class="w"> </span><span class="n">copied</span><span class="p">,</span><span class="w"> </span><span class="mf">0.00141561</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mf">81.9</span><span class="w"> </span><span class="n">kB</span><span class="o">/</span><span class="n">s</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="n">new_file</span><span class="w"></span>
+<span class="n">I</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">continue</span><span class="w"> </span><span class="n">learning</span><span class="p">...</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">confused</span><span class="p">,</span><span class="w"> </span><span class="n">I</span><span class="err">&#39;</span><span class="n">ll</span><span class="w"> </span><span class="n">repeat</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="k">section</span><span class="w"> </span><span class="n">once</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="n">till</span><span class="w"> </span><span class="n">everything</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">clear</span><span class="err">!</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"></span>
+</code></pre></div>
+
 <ul>
-<li><code>*</code> means <strong>any string</strong></li>
-<li><code>?</code> means any single character</li>
-<li><code>[ABC]</code> matches A, B &amp; C</li>
-<li><code>[a-k]</code> matches a, b, c, ..., k (both lower-case and capital)</li>
-<li><code>[0-9a-z]</code> matches all digits and numbers</li>
-<li><code>[!x]</code> means NOT X.</li>
+<li><code>if</code> is In File</li>
+<li><code>of</code> is Out File</li>
 </ul>
-<p>So... this means that you can use these patterns in your commands to point to these files:</p>
+<p>But commonly people use it to read / write from block devices. For example this will read all the sectors from the <code>/dev/sdb</code> and will write them a file called <code>backup.dd</code>. Later you can restore this backup by swapping the <code>if</code> and <code>of</code> and write from the <code>backup.dd</code> to <code>/dev/sdb</code>. </p>
+<div class="highlight"><pre><span></span><code># <span class="nv">dd</span> <span class="k">if</span><span class="o">=/</span><span class="nv">dev</span><span class="o">/</span><span class="nv">sda</span> <span class="nv">of</span><span class="o">=</span><span class="nv">backup</span>.<span class="nv">dd</span> <span class="nv">bs</span><span class="o">=</span><span class="mi">4096</span>
+</code></pre></div>
+
+<p>or even:</p>
+<div class="highlight"><pre><span></span><code># <span class="nv">dd</span> <span class="k">if</span><span class="o">=/</span><span class="nv">dev</span><span class="o">/</span><span class="nv">sda2</span> <span class="o">|</span> <span class="nv">gzip</span> <span class="o">&gt;</span> <span class="nv">backup</span>.<span class="nv">dd</span>.<span class="nv">gzip</span>
+</code></pre></div>
+
+<p>Another common usage is creating files of specific size:</p>
+<div class="highlight"><pre><span></span><code>$ dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>1g.bin <span class="nv">bs</span><span class="o">=</span>1G <span class="nv">count</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div>
+
+<p>or even <em>writing</em> your iso files to a USB disk to have a live bootable USB:</p>
+<div class="highlight"><pre><span></span><code>$ sudo dd <span class="k">if</span><span class="o">=</span>ubuntu.iso <span class="nv">of</span><span class="o">=</span>/dev/sdc <span class="nv">bs</span><span class="o">=</span><span class="m">2048</span>
+</code></pre></div>
+
+<blockquote>
+<p>Caution: here you are writing directly on a block devices. If you do something wrong... you will ruin your disk and need to reformat it.</p>
+</blockquote>
+<h4>find</h4>
+<p>The <code>find</code> command helps us to find files based on different criteria. Look at this:</p>
+<div class="highlight"><pre><span></span><code>$ find . -iname <span class="s2">&quot;[a-j]*&quot;</span>
+./howcool.sort
+./alldata
+./mydir/howcool.sort
+./mydir/newDir/insideNew
+./howcool
+</code></pre></div>
+
+<ul>
+<li>the first parameter says where should we search (including subdirectories).</li>
+<li>the <code>-name</code> switch indicates the criteria (here <code>iname</code> means search files with this name and ignore the character cases (z equals Z)). </li>
+</ul>
+<p>Another common switch is <code>-type</code> to indicate type we are searching for (<code>f</code> for regular files, <code>d</code> for directories and <code>l</code> for symbolic links):</p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">find</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">-</span><span class="n">iname</span><span class="w"> </span><span class="ss">&quot;[a-j]*&quot;</span><span class="w"></span>
+<span class="p">.</span><span class="o">/</span><span class="n">directory</span><span class="w"></span>
+<span class="p">.</span><span class="o">/</span><span class="n">directory</span><span class="o">/</span><span class="n">innder_one</span><span class="w"></span>
+</code></pre></div>
+
+<p>if you want to search for file sizes do as below:</p>
 <table>
 <thead>
 <tr>
@@ -310,115 +367,8 @@ $ rm -r newCopy
 </thead>
 <tbody>
 <tr>
-<td align="left">rm *</td>
-<td align="left">delete all files</td>
-</tr>
-<tr>
-<td align="left">ls A*B</td>
-<td align="left">all files starting with A ending with B</td>
-</tr>
-<tr>
-<td align="left">cp ???.* /tmp</td>
-<td align="left">Copy all files with 3 characters, then a dot then whatever (even nothing) to /tmp</td>
-</tr>
-<tr>
-<td align="left">rmdir [a-z]*</td>
-<td align="left">remove all directories which start with a letter</td>
-</tr>
-</tbody>
-</table>
-<h3>touch</h3>
-<p>The <code>touch</code> command with no option will update the <strong>modification</strong> date of a file to the current time (will create a file if it is not exists).</p>
-<div class="highlight"><pre><span></span><code>/touch$ ls -l
-total 0
--rw-rw-r-- 1 jadi jadi 0 Jan  8 17:47 myfile
-/touch$ touch myfile  #after a minute
-/touch$ ls -l
-total 0
--rw-rw-r-- 1 jadi jadi 0 Jan  8 17:48 myfile
-</code></pre></div>
-
-<p>There are also possible:</p>
-<div class="highlight"><pre><span></span><code>[ian@echidna lpi103-2]$ touch -t 200908121510.59 f3
-[ian@echidna lpi103-2]$ touch -d 11am f4
-[ian@echidna lpi103-2]$ touch -d &quot;last fortnight&quot; f5
-[ian@echidna lpi103-2]$ touch -d &quot;yesterday 6am&quot; f6
-[ian@echidna lpi103-2]$ touch -d &quot;2 days ago 12:00&quot; f7
-[ian@echidna lpi103-2]$ touch -d &quot;tomorrow 02:00&quot; f8
-[ian@echidna lpi103-2]$ touch -d &quot;5 Nov&quot; f9
-[ian@echidna lpi103-2]$ ls -lrt f*
--rw-rw-r--. 1 ian ian 0 2009-07-31 18:31 f5
--rw-rw-r--. 1 ian ian 0 2009-08-12 12:00 f7
--rw-rw-r--. 1 ian ian 0 2009-08-12 15:10 f3
--rw-rw-r--. 1 ian ian 0 2009-08-13 06:00 f6
--rw-rw-r--. 1 ian ian 0 2009-08-14 11:00 f4
--rw-rw-r--. 1 ian ian 4 2009-08-14 18:25 f1
--rw-rw-r--. 1 ian ian 0 2009-08-14 18:27 f2
--rw-rw-r--. 1 ian ian 0 2009-08-15 02:00 f8
--rw-rw-r--. 1 ian ian 0 2009-11-05 00:00 f9
-</code></pre></div>
-
-<p>and the most advanced way is setting time of a file based on another file:</p>
-<div class="highlight"><pre><span></span><code>[ian@echidna lpi103-2]$ date
-Fri Aug 14 18:33:48 EDT 2009
-[ian@echidna lpi103-2]$ date -r f1
-Fri Aug 14 18:25:50 EDT 2009
-[ian@echidna lpi103-2]$ touch -r f1 f1a
-[ian@echidna lpi103-2]$ ls -l f1*
--rw-rw-r--. 1 ian ian 4 2009-08-14 18:25 f1
--rw-rw-r--. 1 ian ian 0 2009-08-14 18:25 f1a
-</code></pre></div>
-
-<h3>Finding files</h3>
-<p>The <code>find</code> command helps us to find files based on MANY criteria. Look at this:</p>
-<div class="highlight"><pre><span></span><code>$ find . -iname &quot;[a-j]*&quot;
-./howcool.sort
-./alldata
-./mydir/howcool.sort
-./mydir/newDir/insideNew
-./howcool
-</code></pre></div>
-
-<ul>
-<li>the first parameter says where should be searched (with subdirectories).</li>
-<li>the <code>-name</code> switch indicates the criteria (here iname: searching for files with this name).</li>
-</ul>
-<p>a common switch is <code>-iname</code> which says "name but case is not important (z is same as Z)". Also <code>-d</code> is commonly used:</p>
-<div class="highlight"><pre><span></span><code>$ find . -iname &quot;*my*&quot;
-./myfiles
-./mydata.noenter
-./mydata
-./mydir
-./mydir/hereisMYfile.txt
-./touch/myfile
-./mydata.tab
-$ find . -type f -iname &quot;*my*&quot;
-./myfiles
-./mydata.noenter
-./mydata
-./mydir/hereisMYfile.txt
-./touch/myfile
-./mydata.tab
-</code></pre></div>
-
-<p>These are the most common file types:</p>
-<ul>
-<li><code>-type f</code> will search for a regular file</li>
-<li><code>-type d</code> will search for a directory</li>
-<li><code>-type l</code> will search for a symbolic link</li>
-</ul>
-<p>you can also search for file sizes:</p>
-<table>
-<thead>
-<tr>
-<th align="left">command</th>
-<th align="left">meanint</th>
-</tr>
-</thead>
-<tbody>
-<tr>
 <td align="left">-size 100c</td>
-<td align="left">files which are exactly 100 bytes (you can also use <strong>b</strong></td>
+<td align="left">files which are exactly 100 characters/bytes (you can also use <code>b</code>)</td>
 </tr>
 <tr>
 <td align="left">-size +100k</td>
@@ -441,8 +391,58 @@ $ find . -type f -iname &quot;*my*&quot;
 <blockquote>
 <p>you can find all empty files with <code>find . -size 0b</code> or <code>find . -empty</code></p>
 </blockquote>
+<p>Another useful search criteria is time. These are some of the options:</p>
+<table>
+<thead>
+<tr>
+<th align="left">switch</th>
+<th align="left">meaning</th>
+<th align="left">samples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">-amin</td>
+<td align="left">Access Minutes</td>
+<td align="left"><code>-amin 40</code> means "files accesses exactly 40min ago" or <code>-amin +40</code> mins files accessed more than 40min ago and <code>-amin -40</code> means files accessed less than 40min ago</td>
+</tr>
+<tr>
+<td align="left">-cmin</td>
+<td align="left">Status Change Min</td>
+<td align="left"><code>-cmin +60</code> file status changed before last hour</td>
+</tr>
+<tr>
+<td align="left">-mmin</td>
+<td align="left">Modified Minutes</td>
+<td align="left"><code>-mmin -60</code> will give us files modified in last hour</td>
+</tr>
+<tr>
+<td align="left">-atime</td>
+<td align="left">access time in days</td>
+<td align="left"><code>-atime +1</code> means files access "more than 1 days ago (which means 2 days and more)</td>
+</tr>
+<tr>
+<td align="left">-ctime</td>
+<td align="left">Status Changed in Days</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">-mtime</td>
+<td align="left">Modified days</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">-newer</td>
+<td align="left">Newer than reference</td>
+<td align="left"><code>-newer file1</code> will give you files which are newer than file1</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>if you add <code>-daystart</code> switch to -mtime or -atime it means that we want to consider days as calendar days, starting at midnight.</p>
+</blockquote>
 <p><strong>Acting on files</strong></p>
-<p>We can act on files with various switches:</p>
+<p>We can execute commands or do other actions on files with various switches:</p>
 <table>
 <thead>
 <tr>
@@ -461,78 +461,88 @@ $ find . -type f -iname &quot;*my*&quot;
 </tr>
 </tbody>
 </table>
-<p>But the best way to run commands on found files is <code>-exec</code> switch. You can point to the file with <strong>'{}'</strong> or <strong>{}</strong> and finish your command with <strong>\;</strong>.</p>
-<p>This will remove all empty files in this directory and its subdirectories:</p>
-<div class="highlight"><pre><span></span><code>find . -empty -exec rm &#39;{}&#39; \;
+<p>But the best way to run commands on found files is <code>-exec</code> switch. You can point to the file with <code>'{}'</code> or <code>{}</code> and finish your command with <code>\;</code>.</p>
+<p>For example This will remove all empty files in this directory and its subdirectories:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">find</span> . <span class="o">-</span><span class="nv">empty</span> <span class="o">-</span><span class="k">exec</span> <span class="nv">rm</span> <span class="s1">&#39;</span><span class="s">{}</span><span class="s1">&#39;</span> \<span class="c1">;</span>
 </code></pre></div>
 
 <p>or this will rename all htm files to html</p>
-<div class="highlight"><pre><span></span><code>find . -name &quot;*.htm&quot; -exec mv &#39;{}&#39; &#39;{}l&#39; \;
+<div class="highlight"><pre><span></span><code><span class="nv">find</span> . <span class="o">-</span><span class="nv">name</span> <span class="s2">&quot;</span><span class="s">*.htm</span><span class="s2">&quot;</span> <span class="o">-</span><span class="k">exec</span> <span class="nv">mv</span> <span class="s1">&#39;</span><span class="s">{}</span><span class="s1">&#39;</span> <span class="s1">&#39;</span><span class="s">{}l</span><span class="s1">&#39;</span> \<span class="c1">;</span>
 </code></pre></div>
 
-<p>At last you have to know the <code>-mtime</code> switch for finding files based on their time.</p>
+<blockquote>
+<p>since deleting found files is a common task, there is switch for it: <code>-delete</code></p>
+</blockquote>
+<h3>Wildcards and file globbing</h3>
+<p>File globbing is shell capability which lets you tell things like :
+- All files
+- everything which starts with A
+- all files with 3 letter names which end in A or B or C
+- ...</p>
+<p>To do so you need to know about these characters:</p>
+<ul>
+<li><code>*</code> means <strong>any string</strong></li>
+<li><code>?</code> means any single character</li>
+<li><code>[ABC]</code> matches A, B &amp; C</li>
+<li><code>[a-k]</code> matches a, b, c, ..., k (both lower-case and capital)</li>
+<li><code>[0-9a-z]</code> matches all digits and numbers</li>
+<li><code>[!x]</code> means NOT X.</li>
+</ul>
+<p>knowing these, you can create your own patterns. For example:</p>
 <table>
 <thead>
 <tr>
-<th align="left">switch</th>
-<th align="left">meanint</th>
+<th align="left">command</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-atime -6</td>
-<td align="left">file was last accessed less than 6*24 hours ago</td>
+<td align="left">rm *</td>
+<td align="left">delete all files in this directory</td>
 </tr>
 <tr>
-<td align="left">-ctime +6</td>
-<td align="left">file was changed more than 6*24 hours ago</td>
+<td align="left">ls A*B</td>
+<td align="left">show all files starting with A ending with B</td>
 </tr>
 <tr>
-<td align="left">-mtime -6</td>
-<td align="left">file <em>content</em> moditication less than time is 6*24 ago</td>
+<td align="left">cp ???.* /tmp</td>
+<td align="left">Copy all files with 3 characters, then a dot then whatever (even nothing) to /tmp</td>
 </tr>
 <tr>
-<td align="left">-mmin -90</td>
-<td align="left">file's data was last modified less than 90 minutes ago</td>
-</tr>
-<tr>
-<td align="left">-amin, -cmin</td>
-<td align="left">you guess!</td>
+<td align="left">rmdir [a-z]*</td>
+<td align="left">remove all directories which start with a letter</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>if you add <code>-daystart</code> switch to -mtime or -atime it means that we want to consider days as calendar days, starting at midnight.</p>
-</blockquote>
-<h3>Identify a file</h3>
-<p>That is the <code>file</code> command:</p>
-<div class="highlight"><pre><span></span><code>$ file mydata.tab
-mydata.tab: ASCII text
-$ file /bin/bash
-/bin/bash: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=cb63ec0718f2022619814c04a5b6cd8a36752a83, stripped
-$ file mydata.tab
-mydata.tab: ASCII text
-$ file /bin/bash
-/bin/bash: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=cb63ec0718f2022619814c04a5b6cd8a36752a83, stripped
-$ file -i mydir
-mydir: inode/directory; charset=binary
-</code></pre></div>
-
-<blockquote>
-<p>-i switch prints the complete mime format</p>
-</blockquote>
-<h3>Compressing files</h3>
-<p>Compressing works best on text files.</p>
-<p><strong>zip</strong></p>
-<p>we mostly use <code>gzip</code> and <code>gunzip</code> in linux. It is very easy:</p>
-<div class="highlight"><pre><span></span><code>$ ls *  -ltrh
--rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
-$ gzip  The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
-$ ls *  -ltrh
--rw-r--r-- 1 jadi jadi  30K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz
-$ gunzip The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz
-$ ls *  -ltrh
--rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+<h3>Compression</h3>
+<h4>gzip &amp; gunzip</h4>
+<p>Straight forward, one gzips files and one ungzips files; In place:</p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">ltrh</span><span class="w"></span>
+<span class="n">total</span><span class="w"> </span><span class="mi">20</span><span class="n">K</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">207</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">29</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">24</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">44</span><span class="w"> </span><span class="k">data</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="n">new_file</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">116</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="n">note_to_self</span><span class="w"></span>
+<span class="n">drwxrwxr</span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="mf">4.0</span><span class="n">K</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">20</span><span class="w"> </span><span class="n">directory</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">ltrh</span><span class="w"></span>
+<span class="n">total</span><span class="w"> </span><span class="mi">20</span><span class="n">K</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">171</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="p">.</span><span class="n">gz</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">29</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">24</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">44</span><span class="w"> </span><span class="k">data</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="n">new_file</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">116</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="n">note_to_self</span><span class="w"></span>
+<span class="n">drwxrwxr</span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="mf">4.0</span><span class="n">K</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">20</span><span class="w"> </span><span class="n">directory</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">gunzip</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="p">.</span><span class="n">gz</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">ltrh</span><span class="w"></span>
+<span class="n">total</span><span class="w"> </span><span class="mi">20</span><span class="n">K</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">207</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">29</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">24</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">44</span><span class="w"> </span><span class="k">data</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="n">new_file</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">116</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="n">note_to_self</span><span class="w"></span>
+<span class="n">drwxrwxr</span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="mf">4.0</span><span class="n">K</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">20</span><span class="w"> </span><span class="n">directory</span><span class="w"></span>
 </code></pre></div>
 
 <ul>
@@ -540,20 +550,51 @@ $ ls *  -ltrh
 <li>gzip creates the new compressed file with the same name but with .gz ending</li>
 <li>gzip removes the original files after creating the compressed file</li>
 </ul>
-<p><strong>bzip2</strong></p>
-<p>is another compressing tool. Works just the same but with another compression algorithm.</p>
-<div class="highlight"><pre><span></span><code>$ ls *  -ltrh
--rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
-$ bzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
-$ ls *  -ltrh
--rw-r--r-- 1 jadi jadi  22K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2
-$ bunzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2
-$ ls *  -ltrh
--rw-r--r-- 1 jadi jadi  79K Dec 22 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+<h4>Archiving with tar &amp; cpio</h4>
+<h4>bzip2 &amp; bunzip2</h4>
+<p>The <code>bzip2</code> is another compressing tool. Works just like the famous <code>gzip</code> but with a different compression algorithm.</p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">bzip2</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w">  </span><span class="o">-</span><span class="n">ltrh</span><span class="w"></span>
+<span class="n">total</span><span class="w"> </span><span class="mi">20</span><span class="n">K</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">172</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="p">.</span><span class="n">bz2</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">29</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">24</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">44</span><span class="w"> </span><span class="k">data</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="n">new_file</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">116</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="n">note_to_self</span><span class="w"></span>
+<span class="n">drwxrwxr</span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="mf">4.0</span><span class="n">K</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">20</span><span class="w"> </span><span class="n">directory</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">bunzip2</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="p">.</span><span class="n">bz2</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"></span>
+<span class="k">data</span><span class="p">.</span><span class="n">txt</span><span class="w">  </span><span class="n">directory</span><span class="w">  </span><span class="n">info</span><span class="p">.</span><span class="n">txt</span><span class="w">  </span><span class="n">new_file</span><span class="w">  </span><span class="n">note_to_self</span><span class="w">  </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
 </code></pre></div>
 
+<h4>xz &amp; unxz</h4>
+<p>Another compression / decompression tool just like <code>gzip</code> and <code>bzip2</code>. </p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">xz</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">ltrh</span><span class="w"></span>
+<span class="n">total</span><span class="w"> </span><span class="mi">24</span><span class="n">K</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">224</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="p">.</span><span class="n">xz</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">29</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">24</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">44</span><span class="w"> </span><span class="k">data</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">116</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="n">note_to_self</span><span class="w"></span>
+<span class="n">drwxrwxr</span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="mf">4.0</span><span class="n">K</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">20</span><span class="w"> </span><span class="n">directory</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">116</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">07</span><span class="err">:</span><span class="mi">51</span><span class="w"> </span><span class="n">new_file</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">unxz</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="p">.</span><span class="n">xz</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">ltrh</span><span class="w"></span>
+<span class="n">total</span><span class="w"> </span><span class="mi">24</span><span class="n">K</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">207</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">29</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">43</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">   </span><span class="mi">24</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">04</span><span class="err">:</span><span class="mi">44</span><span class="w"> </span><span class="k">data</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w">  </span><span class="mi">116</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">08</span><span class="w"> </span><span class="n">note_to_self</span><span class="w"></span>
+<span class="n">drwxrwxr</span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="n">jadi</span><span class="w"> </span><span class="mf">4.0</span><span class="n">K</span><span class="w"> </span><span class="n">Aug</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">05</span><span class="err">:</span><span class="mi">20</span><span class="w"> </span><span class="n">directory</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="c1">-- 1 jadi jadi  116 Aug 14 07:51 new_file</span>
+</code></pre></div>
+
+<p>Please note that <em>compressing</em> a small text file have made it larger. This is <em>normal</em> in small files because of all the headers and metadata.</p>
+<blockquote>
+<p>In some cases, commands like <code>unxz</code> is just a calls to <code>xz --dcompress</code></p>
+</blockquote>
 <h3>Archiving files</h3>
-<p>Sometimes we need to create an archive file from many files for easier moving or backing up. This is done with <code>cpio</code> and <code>tar</code>.</p>
+<p>Sometimes we need to create an archive file container many other files. This is different than compressing; this is combining files into one and then extracting them again. This is mostly used in backups, archives, moving files to a new location (say via email) and such. This is done with <code>cpio</code> and <code>tar</code>.</p>
 <p><strong>tar</strong></p>
 <p>TapeARchive or tar is the most common archiving tool. In automatically create an archive file from a directory and all its subdirs.</p>
 <p>Common switches are</p>
@@ -596,19 +637,19 @@ $ ls *  -ltrh
 <p>tar can work with tapes and other storages. Thats why we use <code>-f</code> to tell it that we are working with files.</p>
 </blockquote>
 <p><strong>cpio</strong></p>
-<p>Gets a list of files and creates archive (one file) of it which can be opened later.</p>
-<div class="highlight"><pre><span></span><code>$ ls | cpio -o &gt; allfilesls.cpio
-3090354 blocks
+<p>Gets a list of files and creates an archive (one file). This file cap be used later to extract the original files.</p>
+<div class="highlight"><pre><span></span><code>$ ls <span class="p">|</span> cpio -o &gt; allfilesls.cpio
+<span class="m">3090354</span> blocks
 </code></pre></div>
 
 <ul>
-<li><code>-o</code> makes cpio to create an output from its input</li>
-<li>cpio does not goes into the folders. So mostly we use it with find:</li>
+<li><code>-o</code> tells cpio to create an output from its input</li>
 </ul>
+<p>Please note that <code>cpio</code> does not looks into the folders. So mostly we use it with find:</p>
 <div class="highlight"><pre><span></span><code>find . -name &quot;*&quot; | cpio -o &gt; myarchivefind.cpio
 </code></pre></div>
 
-<p>to decompress it:</p>
+<p>To extract the original files:</p>
 <div class="highlight"><pre><span></span><code>mkdir extract
 mv myarchivefind.cpio extract
 cd extract
@@ -619,53 +660,6 @@ cpio -id &lt; myarchivefind.cpio
 <li><code>-d</code> will create the folders</li>
 <li><code>-i</code> is for extract</li>
 </ul>
-<h3>dd</h3>
-<p>The <code>dd</code> command copies data from one location to another. This data comes from files. You can use it just like copy:</p>
-<div class="highlight"><pre><span></span><code>$ cat howcool
-jadi    5
-sina    6
-rubic    2
-you     12
-$ dd if=howcool of=newcool
-0+1 records in
-0+1 records out
-30 bytes (30 B) copied, 0.0227904 s, 1.3 kB/s
-$ cat newcool
-jadi    5
-sina    6
-rubic    2
-you     12
-$
-</code></pre></div>
-
-<ul>
-<li><code>if</code> is In File</li>
-<li><code>of</code> is Out File</li>
-</ul>
-<p>But it is used in many other cases specially writing directly to block devices such as /dev/sdb or changing data to upper/lower case.</p>
-<p>This will backup my whole hard to a file:</p>
-<div class="highlight"><pre><span></span><code># dd if=/dev/sda of=backup.dd bs=4096
-</code></pre></div>
-
-<p>or better:</p>
-<div class="highlight"><pre><span></span><code># dd if=/dev/sda2 |gzip &gt;backup.dd.gzip
-</code></pre></div>
-
-<p>Another common usage is creating files of specific size:</p>
-<div class="highlight"><pre><span></span><code>$ dd if=/dev/zero of=1g.bin bs=1G count=1
-</code></pre></div>
-
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
 
 
              
