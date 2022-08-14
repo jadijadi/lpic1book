@@ -19,12 +19,12 @@
 
 <meta property="og:title" content="101.1 Determine and configure hardware settings "/>
 <meta property="og:url" content="./1011-determine-and-configure-hardware-settings.html" />
-<meta property="og:description" content="101.1 Determine and configure hardware settings Weight: 2 Candidates should be able to determine and configure fundamental system hardware. Objectives Enable and disable integrated peripherals. Differentiate between the various types of mass storage devices. Determine hardware resources for devices. Tools and utilities to list various hardware information (e.g …" />
+<meta property="og:description" content="Candidates should be able to determine and configure fundamental system hardware." />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
 <meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="101.1 Determine and configure hardware settings ">
-<meta name="twitter:description" content="101.1 Determine and configure hardware settings Weight: 2 Candidates should be able to determine and configure fundamental system hardware. Objectives Enable and disable integrated peripherals. Differentiate between the various types of mass storage devices. Determine hardware resources for devices. Tools and utilities to list various hardware information (e.g …">
+<meta name="twitter:description" content="Candidates should be able to determine and configure fundamental system hardware.">
 
         <title>101.1 Determine and configure hardware settings  · lpic1book
 </title>
@@ -87,24 +87,19 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h1>101.1 Determine and configure hardware settings</h1>
-<p><em>Weight: 2</em></p>
+            <p><em>Weight: 2</em></p>
 <p>Candidates should be able to determine and configure fundamental system hardware.</p>
 <h2>Objectives</h2>
 <ul>
-<li>Enable and disable integrated peripherals.</li>
-<li>Differentiate between the various types of mass storage devices.</li>
-<li>Determine hardware resources for devices.</li>
+<li>Enable and disable integrated peripherals</li>
+<li>Differentiate between the various types of mass storage devices</li>
+<li>Determine hardware resources for devices</li>
 <li>Tools and utilities to list various hardware information (e.g. lsusb, lspci, etc.)</li>
 <li>Tools and utilities to manipulate USB devices</li>
-<li>
-<p>Conceptual understanding of sysfs, udev, dbus</p>
-</li>
-<li>
-<p>/sys</p>
-</li>
-<li>/proc</li>
-<li>/dev</li>
+<li>Conceptual understanding of sysfs, udev, dbus</li>
+<li><code>/sys</code></li>
+<li><code>/proc</code></li>
+<li><code>/dev</code></li>
 <li>modprobe</li>
 <li>lsmod</li>
 <li>lspci</li>
@@ -113,37 +108,37 @@
 <h2>Find out about the hardware</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xCPDxgp0zXY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p>An operating system (OS) is system software that manages computer hardware, and software resources, and provides common services for computer programs. It sits on top of the hardware and manages the resources when other software (sometimes called a userspace program) asks for it. </p>
-<p>Firmware is the software <em>on</em> your hardware that runs it; think of it as a built-in os or driver for your hardware. Motherboards need some firmware to be able to work too. </p>
+<p>An operating system (OS) is system software that manages computer hardware, and software resources, and provides common services for computer programs. It sits on top of the hardware and manages the resources when other software (Sometimes called a userspace program) asks for it. </p>
+<p>Firmware is the software <em>on</em> your hardware that runs it; Think of it as a built-in os or driver for your hardware. Motherboards need some firmware to be able to work too. </p>
 <p><img alt="BIOS" src="/images/bios.png">
 1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu-based system and boot the computer from a boot loader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two-step boot procedure.</p>
 <p><img alt="UEFI" src="/images/uefi.jpeg">
 2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in Intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On Linux it is on /boot and files are .efi. You need to register each boot loader.</p>
 <h2>Peripheral Devices</h2>
 <p>These are device interfaces.</p>
-<h4>PCI</h4>
+<h3>PCI</h3>
 <p>Peripheral Component Interconnect. Letting hardware boards be added to the motherboard. Now most servers use PCI Express (PCIe)</p>
 <p><img alt="PCI" src="/images/pci.jpeg"></p>
 <ul>
 <li>Internal HDD.</li>
 <li>PATA (old)</li>
-<li>SATA (Serial &amp; up to 4 devices)</li>
-<li>SCSI (Parallel &amp; up to 8 devices) </li>
-<li>External HDD. Fiber. </li>
+<li>SATA (serial &amp; up to 4 devices)</li>
+<li>SCSI (parallel &amp; up to 8 devices) </li>
+<li>External HDD. Fiber</li>
 <li>Network cards. RJ 45 </li>
 <li>Wireless cards. IEEE 802.11</li>
 <li>Bluetooth </li>
 <li>Video accelerators</li>
 <li>Audio cards</li>
 </ul>
-<h4>USB</h4>
+<h3>USB</h3>
 <p>Universal Serial Bus. Serial and need fewer connections.</p>
 <p><img alt="USB Interfaces" src="/images/usb.png"></p>
 <ul>
 <li>1 (12Mbps), 2 (480Mbps), 3 (20Gbps)</li>
 <li>A, B, C</li>
 </ul>
-<h4>GPIO</h4>
+<h3>GPIO</h3>
 <p>General Purpose Input Output. </p>
 <p><img alt="GPIO on a Raspberry Pi" src="/images/gpio.jpeg"></p>
 <ul>
@@ -161,7 +156,7 @@
 <p>All block devices are at the <code>block</code> and <code>bus</code> directory has all the connected PCI, USB, serial, .. devices. Note that here in <code>sys</code> we have the devices based on their technology but <code>/dev/</code> is abstracted.</p>
 <h2>udev</h2>
 <p>udev (userspace <code>/dev</code>) is a device manager for the Linux kernel. As the successor of devfsd and hotplug, udev primarily manages device nodes in the <code>/dev</code> directory. At the same time, udev also handles all user space events raised when hardware devices are added into the system or removed from it, including firmware loading as required by certain devices.</p>
-<p>There are a lot of devices in <code>/dev/</code> and if you plugin any device, it will be assigned a file in <code>/dev</code> (say <code>/dev/sdb2</code>). <strong>udev</strong> lets you control what will be what in <code>/dev</code>. For example, you can use a rule to force your 128GB flash drive with one specific vendor to be <code>/dev/mybackup</code> every single time you connect it and you can even start a backprocess as soon as it connects.</p>
+<p>There are a lot of devices in <code>/dev/</code> and if you plug in any device, it will be assigned a file in <code>/dev</code> (say <code>/dev/sdb2</code>). <strong>udev</strong> lets you control what will be what in <code>/dev</code>. For example, you can use a rule to force your 128GB flash drive with one specific vendor to be <code>/dev/mybackup</code> every single time you connect it and you can even start a backprocess as soon as it connects.</p>
 <p><strong>udev</strong> controls <code>/dev/</code> directory. There are abstracted devices like a hard, is <code>/dev/sda</code> or <code>/dev/hd0</code> regardless of its brand, model or technology:</p>
 <div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">/</span><span class="n">dev</span><span class="err">#</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="o">*</span><span class="w"></span>
 <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda2</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda5</span><span class="w">  </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span><span class="w"></span>
@@ -176,7 +171,7 @@
 </code></pre></div>
 
 <h2>dbus</h2>
-<p>D-Bus is a message bus system, a simple way for applications to talk to one another. In addition to interprocess communication, D-Bus helps coordinate process lifecycle; it makes it simple and reliable to code a "single instance" application or daemon, and to launch applications and daemons on demand when their services are needed.</p>
+<p>D-Bus is a message bus system, a simple way for applications to talk to one another. In addition to inter-process communication, D-Bus helps coordinate process lifecycle; It makes it simple and reliable to code a "single instance" application or daemon and to launch applications and daemons on demand when their services are needed.</p>
 <h2>proc directory</h2>
 <p>This is where the Kernel keeps its settings and properties. This directory is created on ram and files might have write access (say for some hardware configurations). You can find things like:</p>
 <ul>
@@ -284,7 +279,7 @@ power management:
 <p>Just like <code>ls</code> but for pci, usb, ... </p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/b5bAXRSYmoA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<h4>lspci</h4>
+<h3>lspci</h3>
 <p>Shows PCI devices that are connected to the computer.</p>
 <div class="highlight"><pre><span></span><code><span class="cp"># lspci</span>
 <span class="mo">00</span><span class="o">:</span><span class="mf">00.0</span><span class="w"> </span><span class="n">Host</span><span class="w"> </span><span class="nl">bridge</span><span class="p">:</span><span class="w"> </span><span class="n">Intel</span><span class="w"> </span><span class="n">Corporation</span><span class="w"> </span><span class="mi">2</span><span class="n">nd</span><span class="w"> </span><span class="n">Generation</span><span class="w"> </span><span class="n">Core</span><span class="w"> </span><span class="n">Processor</span><span class="w"> </span><span class="n">Family</span><span class="w"> </span><span class="n">DRAM</span><span class="w"> </span><span class="n">Controller</span><span class="w"> </span><span class="p">(</span><span class="n">rev</span><span class="w"> </span><span class="mi">09</span><span class="p">)</span><span class="w"></span>
@@ -304,7 +299,7 @@ power management:
 <span class="mi">0</span><span class="nl">d</span><span class="p">:</span><span class="mf">00.0</span><span class="w"> </span><span class="n">System</span><span class="w"> </span><span class="nl">peripheral</span><span class="p">:</span><span class="w"> </span><span class="n">Ricoh</span><span class="w"> </span><span class="n">Co</span><span class="w"> </span><span class="n">Ltd</span><span class="w"> </span><span class="n">MMC</span><span class="o">/</span><span class="n">SD</span><span class="w"> </span><span class="n">Host</span><span class="w"> </span><span class="n">Controller</span><span class="w"> </span><span class="p">(</span><span class="n">rev</span><span class="w"> </span><span class="mo">07</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
-<h4>lsusb</h4>
+<h3>lsusb</h3>
 <p>Shows all the USB devices connected to the system.</p>
 <div class="highlight"><pre><span></span><code># lsusb
 Bus 002 Device 003: ID 1c4f:0026 SiGma Micro Keyboard
@@ -317,12 +312,14 @@ Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
 Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 </code></pre></div>
 
-<h4>lshw</h4>
+<h3>lshw</h3>
 <p>Shows hardware. Test it!</p>
+<h3>lsblk</h3>
+<p>Used for list devices that can read from or write to by blocks of data.</p>
 <h2>Loadable Kernel Modules</h2>
 <p>Linux like any other OS needs drivers to work with hardware. In Microsoft Windows, you need to install the drivers separately but in Linux, the system has most of the drivers built-in. But to prevent the kernel from loading all of them at the same time and to decrease the Kernel size, Linux uses Kernel Modules. Loadable kernel modules (.ko files) are object files that are used to extend the kernel of the Linux Distribution. They are used to provide drivers for new hardware like IoT expansion cards that have not been included in the Linux Distribution.</p>
-<p>You can inspect the modules using the <code>lsmod</code> or manage them via <code>modprob</code> commands.</p>
-<h4>lsmod</h4>
+<p>You can inspect the modules using the <code>lsmod</code> or manage them via <code>modprobe</code> commands.</p>
+<h3>lsmod</h3>
 <p>Shows kernel modules. They are located at <code>/lib/modules</code>. </p>
 <div class="highlight"><pre><span></span><code><span class="n">root@funlife</span><span class="p">:</span><span class="o">/</span><span class="n">dev#</span> <span class="n">lsmod</span>
 <span class="k">Module</span>                  <span class="nn">Size</span>  <span class="n">Used</span> <span class="n">by</span>
@@ -370,7 +367,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 <span class="n">iwlwifi</span>               <span class="mi">183038</span>  <span class="mi">1</span> <span class="n">iwldvm</span>
 </code></pre></div>
 
-<p>These are the kernel modules that are loaded. Use <code>modinfo</code> to get more info about a module; if you want.</p>
+<p>These are the kernel modules that are loaded. Use <code>modinfo</code> to get more info about a module; If you want.</p>
 <p>If you need to add a module to your kernel (say a new driver for hardware) or remove it (uninstall a driver) you can use <code>rmmod</code> and <code>modprobe</code>.</p>
 <div class="highlight"><pre><span></span><code># rmmod iwlwifi
 </code></pre></div>

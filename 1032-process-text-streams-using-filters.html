@@ -88,7 +88,7 @@
         <div class="span8 offset2 article-content">
             
             <p><em>Weight: 2</em></p>
-<p>Description: Candidates should should be able to apply filters to text streams.</p>
+<p>Description: Candidates should be able to apply filters to text streams.</p>
 <h3>Objectives</h3>
 <ul>
 <li>Send text files and output streams through text utility filters to modify the output using standard UNIX commands found in the GNU textutils package.</li>
@@ -189,6 +189,10 @@ total 0
 <td>Next (search)</td>
 </tr>
 <tr>
+<td>N</td>
+<td>Previous (search)</td>
+</tr>
+<tr>
 <td>?foo</td>
 <td>search backward for foo</td>
 </tr>
@@ -215,10 +219,17 @@ total 0
 0000042
 </code></pre></div>
 
-<p>Not good enough for normal human beings.. lets add some switches:</p>
+<p>Not good enough for normal human beings.. lets use some switches:</p>
 <ul>
-<li>-t will tell what format to print (<code>-t a</code> for showing only named characters or <code>-t c</code> for showing escaped chars. You can summarize this to <code>-a</code> and <code>-c</code>)</li>
-<li>-A for choosing how to present offset field (<code>-A d</code> for Decimal, <code>-A o</code> for Octal, <code>-A h</code> for hex and <code>-A n</code> for None)</li>
+<li><strong>-t</strong> will tell what format to print:
+  </br><code>-t a</code> for showing only named characters
+  </br><code>-t c</code> for showing escaped chars.</br>
+You can summarize two above to <code>-a</code> and <code>-c</code></li>
+<li><strong>_A</strong> for choosing how to present offset field : 
+  </br> <code>-A d</code> for Decimal,
+  </br> <code>-A o</code> for Octal,
+  </br> <code>-A h</code> for hex 
+  </br> <code>-A n</code> for None</li>
 </ul>
 <blockquote>
 <p><code>od</code> is very useful to find problems in your text files - say finding out if you are using tabs or correct line endings</p>
@@ -249,7 +260,7 @@ still writing
 </code></pre></div>
 
 <ul>
-<li>By default, split uses xaa, xab, xac, .. for output file names. If can be changed with <code>split -l 2 mydata output</code> which split mydata into outputaa, outputab, ..; 2 lines per file.</li>
+<li>By default, split uses xaa, xab, xac, .. for output file names. It can be changed with <code>split -l 2 mydata output</code> which split mydata into outputaa, outputab, ..; 2 lines per file.</li>
 <li>the <code>-l 2</code> splits 2 lines per file. It is possible to use <code>-b 42</code> to split every 42 bytes or even <code>-n 5</code> to force 5 output files.</li>
 <li>if you want numeric output (x00, x01, ..) use <code>-d</code></li>
 </ul>
@@ -257,9 +268,9 @@ still writing
 <p>need to join these files? <code>cat</code> them with <code>cat x* &gt; originalfile</code>.</p>
 </blockquote>
 <h3>head and tail</h3>
-<p>Will show the beginig (head) or end (tail) of text files. By default it will show 10 lines but you can change it by <code>-n20</code> or <code>-20</code>.</p>
+<p>Will show the beginning (head) or end (tail) of text files. By default it will show 10 lines but you can change it by <code>-n20</code> or <code>-20</code>.</p>
 <blockquote>
-<p><code>tail -f</code> will continue showing the new lines which are being written at the eng of the file. Very useful.</p>
+<p><code>tail -f</code> follows the new lines which are being written at the end of the file. Very useful.</p>
 </blockquote>
 <h3>cut</h3>
 <p>The <code>cut</code> command will <em>cut</em> one or more columns from a file. Good for separating fields:</p>
@@ -277,14 +288,14 @@ you
 </code></pre></div>
 
 <blockquote>
-<p>Default delimiter is TAB. use -dx to change it to "x" or -d' ' to change it to space</p>
+<p>Default delimiter is TAB. use <code>-dx</code> to change it to "x" or <code>-d' '</code> to change it to space</p>
 </blockquote>
 <p>It is also possible to <em>cut</em> fields 1, 2, 3 with <code>-f1-3</code> or only characters 4,5,7,8 with <code>-c4,5,7,8</code>.</p>
 <h2>Modifying streams</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/IpJpI3CzN_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>nl</h3>
-<p>Numbers lines.</p>
+<p>This command is for showing line's numbers.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ nl mydata  | head -3
      1    hello
      2    this is second line
@@ -316,11 +327,11 @@ sina    6
 you     12
 </code></pre></div>
 
-<p>I you want a reverse sort, use the <code>-r</code> switch.</p>
+<p>If you want a reverse sort, use the <code>-r</code> switch.</p>
 <blockquote>
 <p>if you want to sort NUMERICALLY (so 9 is lower than 19), use <code>-n</code></p>
 </blockquote>
-<p>And the <code>uniq</code> removes duplicate entries from its input. Normal behavior is removing only the duplicated lines but you can change the behavior for example by giving <code>-f1</code> to force it to not check fist field.</p>
+<p>And the <code>uniq</code> removes duplicate entries from its input. Normal behavior is removing only the duplicated lines but you can change it's behavior, for example  <code>-f1</code> switch forces it not to check first field.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ uniq what_i_have.txt
 laptop
 socks
@@ -364,7 +375,7 @@ socks
 </code></pre></div>
 
 <h2>paste</h2>
-<p>The paste command pastes lines from two or more files side-by-side! You can not do this in a general text editor with ease!</p>
+<p>The paste command pastes lines from two or more files side-by-side! You cannot do this in a general text editor with ease!</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat howcool
 jadi    5
 sina    6
@@ -407,10 +418,10 @@ AND loNger!
 </code></pre></div>
 
 <blockquote>
-<p>Note: all <strong>a</strong>s are replaced with <strong>A</strong>.</p>
+<p>Note: all <strong>'a'</strong>s are replaced with <strong>'A'</strong>.</p>
 </blockquote>
 <h3>sed</h3>
-<p>sed is <strong>s</strong>tream <strong>ed</strong>itor. It is POWERFUL and can do things which are not far from magic! Just like most of the tools we saw, sed can work as a filter or take its input from a file. It uses <strong>regular expressions</strong> and is a great tool for replacing text. If you need to replace A with B only once in each line in a stream you have to say <code>sed 's/A/B/'</code>:</p>
+<p>sed is <strong>s</strong>tream <strong>ed</strong>itor. It is POWERFUL and can do things which are not far from magic! Just like most of the tools we've seen far now, sed can work as a filter or take its input from a file. Sed is a great tool for replacing text with using <strong>regular expressions</strong> . If you need to replace A with B only once in each line in a stream just issue  <code>sed 's/A/B/'</code>:</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat uses
 you fedora
 jadi ubuntu
@@ -487,13 +498,13 @@ and longer!
 
 <h2>Hashing</h2>
 <p>A hash function is any function that can be used to map data of arbitrary size to fixed-size values. There are different hashes and we use them for different purposes. For example a site may hash your password in its database to keep it secure (and check the hash of provided password with a hash it already has in DB during logins), a site may provide the hash of a file so you can be sure that you've downloaded the correct file and ...</p>
-<p>The hashing algorithms covered on LPIC1 are:</p>
+<p>The hashing algorithms covered in LPIC1 are:</p>
 <ul>
 <li>md5sum</li>
 <li>sha256sum</li>
 <li>sha512sum</li>
 </ul>
-<p>You can check any files (or input streams hash with something like this):</p>
+<p>You can check any file (or input streams hash with something like this):</p>
 <div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@ocean</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">md5sum</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">myfile</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
 <span class="mi">8183</span><span class="n">aa57a23658efe7ba7aebe60816bc</span><span class="w">  </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">myfile</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
 <span class="n">jadi</span><span class="nv">@ocean</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">sha256sum</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">myfile</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
@@ -502,7 +513,7 @@ and longer!
 <span class="mf">79e5</span><span class="n">d789528e5e55fc1bddcb381afd56e896b1b452347a76777fb38d76c9754278700036f35df2a53c4d53d3e3623538a8b9ed155a3fd5275e667bdbf3c0b359</span><span class="w">  </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">myfile</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
 </code></pre></div>
 
-<p>As you can see, <code>sha512sum</code> creates longer hashes and is more secure.</p>
+<p>As you can see, <code>sha512sum</code> creates longer hash which is more secure.</p>
 
 
              

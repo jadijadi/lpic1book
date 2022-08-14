@@ -89,14 +89,14 @@
             
             <p><em>Weight: 4</em></p>
 <p>Description: Candidates should be able to interact with shells and commands using the command line. The objective assumes the Bash shell.</p>
-<h3>Objectives</h3>
+<h2>Objectives</h2>
 <ul>
-<li>Use single shell commands and one line command sequences to perform basic tasks on the command line.</li>
+<li>Use single shell commands and one-line command sequences to perform basic tasks on the command line.</li>
 <li>Use and modify the shell environment including defining, referencing and exporting environment variables.</li>
 <li>Use and edit command history.</li>
 <li>Invoke commands inside and outside the defined path.</li>
 </ul>
-<h3>Terms</h3>
+<h2>Terms</h2>
 <ul>
 <li>bash</li>
 <li>echo</li>
@@ -110,23 +110,23 @@
 <li>man</li>
 <li>uname</li>
 <li>history</li>
-<li>.bash_history</li>
+<li><code>.bash_history</code></li>
 <li>Quoting</li>
 </ul>
-<h4>Shells and Bash</h4>
+<h3>Shells and Bash</h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/X-zq9-FhjOA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p>You issue your commands in a shell; its your command line interface and you have various options for it. To reach your shell you should login into the system in the text mode or run one of the various <em>Terminal Emulators</em> in your GUI. Some samples are <code>gnome-terminal</code>, <code>konsole</code>, <code>xterm</code>, ...</p>
-<p>After running the Terminal Emulator or loggining into the text mode, you are in the shell and you can issue commands. Although <code>bash</code> (GNU Bourne Again shell) is the most common one, you might use <code>zsh</code>, <code>dash</code>, <code>ksh</code>, <code>csh</code> and others.</p>
+<p>You issue your commands in a shell; it's your command line interface and you have various options for it. To reach your shell you should login into the system in the text mode or run one of the various <em>Terminal Emulators</em> in your GUI. Some samples are <code>gnome-terminal</code>, <code>konsole</code>, <code>xterm</code>, etc.</p>
+<p>After running the Terminal Emulator or logging into the text mode, you are in the shell and you can issue commands. Although <code>bash</code> (GNU Bourne Again shell) is the most common one, you might use <code>zsh</code>, <code>dash</code>, <code>ksh</code>, <code>csh</code> and others.</p>
 <p>You can check where your general <code>sh</code> command links to via</p>
 <div class="highlight"><pre><span></span><code>$ readlink /bin/sh
 </code></pre></div>
 
-<p>or check your <code>$SHELL</code> variable using:</p>
+<p>Or check your <code>$SHELL</code> variable using:</p>
 <div class="highlight"><pre><span></span><code>echo $SHELL
 </code></pre></div>
 
-<p>Your bash have some <em>internal</em> commands which it understands without any external dependency (say <code>cd</code>, <code>break</code>, <code>exec</code>, ...) but if it does not understand something internally, it will try to run it as an external executable.</p>
+<p>Your bash has some <em>internal</em> commands that it understands without any external dependency (say <code>cd</code>, <code>break</code>, <code>exec</code>, ...) but if it does not understand something internally, it will try to run it as an external executable.</p>
 <p>You can use the <code>type</code> command to determine this:</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">cd</span><span class="w"></span>
 <span class="n">cd</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">shell</span><span class="w"> </span><span class="n">builtin</span><span class="w"></span>
@@ -136,16 +136,16 @@
 <span class="n">ping</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">ping</span><span class="w"></span>
 </code></pre></div>
 
-<h3>cd, pwd &amp; uname</h3>
-<h4>cd</h4>
+<h2>cd, pwd &amp; uname</h2>
+<h3>cd</h3>
 <p>You've already seen lots of <code>cd</code> commands :) it <em>changes directory</em>, including <code>.</code> (current directory) and <code>..</code> (parent directory). </p>
 <p>You can point to directories in two ways:</p>
 <ol>
-<li><strong>Absolute Paths</strong>: like /home/jadi/lpic1/lesson3.1</li>
-<li><strong>Relative Paths</strong>: like lpic1/lesson3.1. In this case we are not adding the <code>/</code> in the beginning so the bash will try to to find <code>lpic1</code> directory where we are (local / relative)</li>
+<li><strong>Absolute Paths</strong>: Like <code>/home/jadi/lpic1/lesson3.1</code></li>
+<li><strong>Relative Paths</strong>: Like <code>lpic1/lesson3.1</code>. In this case we are not adding the <code>/</code> in the beginning so the bash will try to to find <code>lpic1</code> directory where we are (local / relative)</li>
 </ol>
 <blockquote>
-<p>the <code>~</code> characters means <em>home directory of the user issuing the command</em></p>
+<p>The <code>~</code> characters means <em>home directory of the user issuing the command</em></p>
 </blockquote>
 <p>It is also possible to issue the <code>cd</code> without any parameters. It will move you to your home directory. So these 3 commands are all equal:</p>
 <div class="highlight"><pre><span></span><code>cd
@@ -153,13 +153,13 @@ cd ~
 cd $HOME
 </code></pre></div>
 
-<h4>pwd</h4>
+<h3>pwd</h3>
 <p>Will show you your current directory:</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora lesson3.1</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">pwd</span><span class="w"></span>
 <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="n">lpic1</span><span class="o">/</span><span class="n">lesson3</span><span class="mf">.1</span><span class="w"></span>
 </code></pre></div>
 
-<h4>uname</h4>
+<h3>uname</h3>
 <p>Gives you data about the system. Common switches are:</p>
 <table>
 <thead>
@@ -204,30 +204,31 @@ cd $HOME
 Linux fedora 5.14.0-60.fc35.aarch64 #1 SMP Mon Aug 30 16:30:42 UTC 2021 aarch64 aarch64 aarch64 GNU/Linux
 </code></pre></div>
 
-<h3>Getting Help</h3>
-<p>Most of the commands we use do have a cool and complete manual, accessible via the <code>man</code> command. It uses the <code>less</code> pager by default and contains the documentations, switches, parameters, .. of commands and utilities. </p>
+<h2>Getting Help</h2>
+<p>Most of the commands we use do have a cool and complete manual, accessible via the <code>man</code> command. It uses the <code>less</code> pager by default and contains the documentations, switches, parameters, ... of commands and utilities. </p>
 <p>Make yourself familiar with the man by reading the manual of the <code>yes</code> command:</p>
 <div class="highlight"><pre><span></span><code>$ man yes
 </code></pre></div>
 
-<p>Please note that man pages are categorized in different sections (books). You can check these via reading the man's manual:</p>
+<p>Please note that man pages are categorized in different sections (books). You can check these by reading the man's manual:</p>
 <div class="highlight"><pre><span></span><code>$ man man
 $ man <span class="m">5</span> passwd
 </code></pre></div>
 
 <p>`</p>
-<h3>Special characters and Quoting/Escaping</h3>
-<p>In computer world, some characters do have special meanings. For example in bash, the <code>*</code> character will expand to all files. In these cases, if you want to use this character as without this expansion, you have to <em>Quote</em> it or <em>Escape</em> it. In many cases this is done via adding a <code>\</code> character before it:</p>
+<h2>Special characters and Quoting/Escaping</h2>
+<p>In the computer world, some characters do have special meanings. For example in bash, the <code>*</code> character will expand to all files. In these cases, if you want to use this character without this expansion, you have to <em>Quote</em> it or <em>Escape</em> it. In many cases this is done via adding a <code>\</code> character before it:</p>
 <div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="m">2</span> <span class="se">\*</span> <span class="nv">3</span> <span class="o">=</span> <span class="m">6</span>
 <span class="m">2</span> * <span class="nv">3</span> <span class="o">=</span> <span class="m">6</span>
 </code></pre></div>
 
-<p>These are the character with special meaning which you need to quote if you are using them in your commands:</p>
+<p>These are the character with special meaning that you need to quote if you are using them in your commands:</p>
 <p><code>* ?[]'"\$;&amp;()|^&lt;&gt;</code></p>
+<p>Please note that there is a space character in the character list above.</p>
 <blockquote>
 <p>As you can see, the <code>\</code> has an specific meaning so if you want to use the back-slash itself (without its escaping usage), you have to <em>quote</em> your back-slash with another back-slash <code>\\</code>.</p>
 </blockquote>
-<p>In addition to escaping, you can use <code>\</code> to create some special characters. For example as you can not type a <em>return</em> character, you create it via <code>\n</code> (new line):</p>
+<p>In addition to escaping, you can use <code>\</code> to create some special characters. For example, as you can not type a <em>return</em> character, you create it via <code>\n</code> (new line):</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~$ echo -e &quot;hello\nthere&quot;
 hello
 there
@@ -279,10 +280,10 @@ usage
 You know slashes! But this is another usage
 </code></pre></div>
 
-<h3>Shell environment variables</h3>
+<h2>Shell environment variables</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/KMvc1SyPgjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p><em>Environment Variables</em> contain some configs and information about the shell. For example your default editor is set in the <code>EDITOR</code> variable. You can query the value of a shell variable like this:</p>
+<p><em>Environment Variables</em> contain some configs and information about the shell. For example, your default editor is set in the <code>EDITOR</code> variable. You can query the value of a shell variable like this:</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="err">$</span><span class="n">EDITOR</span><span class="w"></span>
 <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">nano</span><span class="w"></span>
 </code></pre></div>
@@ -311,11 +312,11 @@ You know slashes! But this is another usage
 </tr>
 <tr>
 <td align="left">HISTFILE</td>
-<td align="left">where bash should save its history (normally .bash_history)</td>
+<td align="left">Where bash should save its history (normally <code>.bash_history</code>)</td>
 </tr>
 <tr>
 <td align="left">HOSTNAME</td>
-<td align="left">system hostname</td>
+<td align="left">System hostname</td>
 </tr>
 <tr>
 <td align="left">PS1</td>
@@ -351,14 +352,14 @@ You know slashes! But this is another usage
 </tr>
 </tbody>
 </table>
-<p>When trying to access the value, you should add a <code>$</code> to the beginning of the name.</p>
+<p>When trying to access the value, you should add a <code>$</code> to the beginning of the variable name.</p>
 <div class="highlight"><pre><span></span><code>$ echo $USER $UID
 jadi 1000
 $ echo $SHELL $HOME $PWD
 /bin/bash /home/jadi /home/jadi/lpic
 </code></pre></div>
 
-<p>To define a new EV or change or delete one, we can do:</p>
+<p>To define a new EV (Environment Variable) or change or delete one, we can do:</p>
 <div class="highlight"><pre><span></span><code>$ MYMOOD=happy
 $ echo I am $MYMOOD
 I am happy
@@ -372,15 +373,15 @@ $ <span class="nb">export</span> <span class="nv">YOURMOOD</span><span class="o"
 </code></pre></div>
 
 <blockquote>
-<p>Global bash configs are stored at /etc/profile and each user has her own config at ~/.profile &amp; ~/.bash_profile &amp; ~/.bash_logout. If you need a permanent change, add your configs to these.</p>
+<p>Global bash configs are stored at <code>/etc/profile</code> and each user has her own config at <code>~/.profile</code> &amp; <code>~/.bash\_profile</code> &amp; <code>~/.bash\_logout</code>. If you need a permanent change, add your configs to these.</p>
 </blockquote>
-<h3>Path</h3>
-<p>When you issue a command, bash will run if its an internal bash command. Otherwise bash will go and check the <code>PATH</code> variable one by one and will try to find it there. If not, it will give you an error. If you want to run something in a specific path, you have to exclusively describe the location:</p>
+<h2>Path</h2>
+<p>When you issue a command, bash will run if it's an internal bash command. Otherwise, bash will go and check the <code>PATH</code> variables one by one and will try to find it there. If not, it will give you an error. If you want to run something on a specific path, you have to exclusively describe the location:</p>
 <div class="highlight"><pre><span></span><code>$ echo $PATH
 /home/jadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
 </code></pre></div>
 
-<p>But what happens if I try to run <code>tar</code>? Lets check with <code>which</code>, <code>type</code> and <code>whereis</code> commands:</p>
+<p>But what happens if I try to run <code>tar</code>? Let's check with <code>which</code>, <code>type</code> and <code>whereis</code> commands:</p>
 <div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">tar</span><span class="w"></span>
 <span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">tar</span><span class="w"></span>
 <span class="n">jadi</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">tar</span><span class="w"></span>
@@ -400,10 +401,10 @@ $ <span class="nb">export</span> <span class="nv">YOURMOOD</span><span class="o"
 </code></pre></div>
 
 <blockquote>
-<p>Thats why when you want to say "run this_program in this directory" you issue "./this_program". You are exclusively telling bash where the file is. In Linux, the current directory (.) is not part of the PATH by default</p>
+<p>Thats why when you want to say "run this_program in this directory" you issue "./this_program". You are exclusively telling bash where the file is. In Linux, the current directory (.) is not part of the PATH by default.</p>
 </blockquote>
-<h3>Command history</h3>
-<p>Bash saves its history in <code>~/.bash_history</code>. You can <code>cat</code> it and see its contents or run the <code>history</code> command. You can also use below keys (combinations) to access your previous commands:</p>
+<h2>Command history</h2>
+<p>Bash saves its history in <code>~/.bash_history</code>. You can <code>cat</code> it and see its contents or run the <code>history</code> command. You can also use the below keys (combinations) to access your previous commands:</p>
 <table>
 <thead>
 <tr>
@@ -441,8 +442,8 @@ $ <span class="nb">export</span> <span class="nv">YOURMOOD</span><span class="o"
 <blockquote>
 <p>If you want to clear your history, issue `HISTSIZE=0</p>
 </blockquote>
-<h3>Exiting the Shell</h3>
-<p>The <code>exit</code> command exits the shell. Same as ctrl+d.</p>
+<h2>Exiting the Shell</h2>
+<p>The <code>exit</code> command exits the shell. Same as CTRL+d.</p>
 <p>If you run a command inside parentheses that command will be run inside a sub-shell and <code>exec</code> will run a command and closes the current shell.</p>
 
 

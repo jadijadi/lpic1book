@@ -87,9 +87,9 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>weight: 3</p>
+            <p><em>Weight: 3</em></p>
 <p>Description: Candidates should be able to manage the SysVinit runlevel or systemd boot target of the system. This objective includes changing to single-user mode, and shutdown or rebooting the system. Candidates should be able to alert users before switching runlevels / boot targets and properly terminate processes. This objective also includes setting the default SysVinit runlevel or systemd boot target. It also includes awareness of Upstart as an alternative to SysVinit or systemd.</p>
-<h3>Key Knowledge Areas:</h3>
+<h2>Key Knowledge Areas:</h2>
 <ul>
 <li>Set the default runlevel or boot target.</li>
 <li>Change between runlevels / boot targets including single-user mode.</li>
@@ -98,7 +98,7 @@
 <li>Properly terminate processes.</li>
 <li>Awareness of acpid.</li>
 </ul>
-<h3>The following is a partial list of the used files, terms and utilities:</h3>
+<h2>The following is a partial list of the used files, terms and utilities:</h2>
 <ul>
 <li><code>/etc/inittab</code></li>
 <li>shutdown</li>
@@ -157,7 +157,7 @@
 <li><code>emergency</code>: Only the root file system and in read-only mode, No networking and only root (<em>maintenance</em> mode)</li>
 <li><code>reboot</code></li>
 <li><code>halt</code>: Stops all processes and halts CPU activities</li>
-<li><code>poweroff</code>: Like halt but also sends an ACPI shutdown signal (no lights!)</li>
+<li><code>poweroff</code>: Like halt but also sends an ACPI shutdown signal (No lights!)</li>
 </ol>
 <div class="highlight"><pre><span></span><code># <span class="nv">systemctl</span> <span class="nv">isolate</span> <span class="nv">emergency</span>
 <span class="nv">Welcome</span> <span class="nv">to</span> <span class="nv">emergency</span> <span class="nv">mode</span><span class="o">!</span> <span class="nv">After</span> <span class="nv">logging</span> <span class="nv">in</span>, <span class="nv">type</span> <span class="s2">&quot;</span><span class="s">journalctl -xb</span><span class="s2">&quot;</span> <span class="nv">to</span> <span class="nv">view</span> <span class="nv">system</span> <span class="nv">logs</span>, <span class="s2">&quot;</span><span class="s">systemctl reboot</span><span class="s2">&quot;</span> <span class="nv">to</span> <span class="nv">reboot</span>, <span class="s2">&quot;</span><span class="s">systemctl default</span><span class="s2">&quot;</span> <span class="nv">or</span> <span class="o">^</span><span class="nv">D</span> <span class="nv">to</span> <span class="nv">try</span> <span class="nv">again</span> <span class="nv">to</span> <span class="nv">boot</span> <span class="nv">into</span> <span class="nv">default</span> <span class="nv">mode</span>.
@@ -169,10 +169,10 @@
 </code></pre></div>
 
 <h3>SysV runlevels</h3>
-<p>On SysV we were able to define different stages. On a red hat based system we usually had 7:</p>
+<p>On SysV we were able to define different stages. On a Red Hat-based system we usually had 7:</p>
 <ul>
 <li>0- Shutdown</li>
-<li>1- Single-user mode (recovery); also called S or s</li>
+<li>1- Single-user mode (recovery); Also called S or s</li>
 <li>2- Multi-user without networking</li>
 <li>3- Multi-user with networking</li>
 <li>4- to be customized by the admin</li>
@@ -273,8 +273,8 @@ x:5:respawn:/etc/X11/prefdm -nodaemon
 
 <ul>
 <li>id: 2 or 3 chars</li>
-<li>runlevels: which runlevel this commands refers to (empty means all)</li>
-<li>action: respawn, wait, once, initdefault (default run level as seen above), ctrlaltdel (what to do with crrl+alt+delete)</li>
+<li>runlevels: Which runlevel this commands refers to (empty means all)</li>
+<li>action: Respawn, wait, once, initdefault (default run level as seen above), ctrlaltdel (What to do with Ctrl+Alt+Delete)</li>
 </ul>
 <p>All scripts are here:</p>
 <div class="highlight"><pre><span></span><code>ls -ltrh /etc/init.d
@@ -289,12 +289,12 @@ x:5:respawn:/etc/X11/prefdm -nodaemon
 
 <p>The preferred method to shut down or reboot the system is to use the <code>shutdown</code> command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 1 minute or another delay, if specified, init sends a SIGKILL signal to forcibly end each remaining process.</p>
 <ul>
-<li>Default is 1 minute delay and then going to runlevel 1</li>
-<li>-h will halt the system</li>
-<li>-r will reboot the system</li>
-<li>Time is hh:mm or n (minutes) or now</li>
+<li>Default is a 1-minute delay and then going to runlevel 1</li>
+<li><code>-h</code> will halt the system</li>
+<li><code>-r</code> will reboot the system</li>
+<li>Time is <code>hh:mm</code> or n (minutes) or now</li>
 <li>Whatever you add, will be broadcasted to logged-in users using the <code>wall</code> command</li>
-<li>If the command is running, ctrl+c or the "shutdown -c" will cancel it</li>
+<li>If the command is running, ctrl+c or the <code>shutdown -c</code> will cancel it</li>
 </ul>
 <div class="highlight"><pre><span></span><code>shutdown -r 60 Reloading updated kernel
 </code></pre></div>
@@ -302,7 +302,7 @@ x:5:respawn:/etc/X11/prefdm -nodaemon
 <p>for more advanced users:</p>
 <ul>
 <li>-t60 will delay 60 seconds between SIGTERM and SIGKILL</li>
-<li>if you cancel a shutdown, users won't get the news! you can use "wall" command to tell them that the shutdown is canceled</li>
+<li>if you cancel a shutdown, users won't get the news! you can use the "wall" command to tell them that the shutdown is canceled</li>
 </ul>
 <h3>Halt, reboot, and poweroff</h3>
 <ul>
@@ -316,15 +316,15 @@ x:5:respawn:/etc/X11/prefdm -nodaemon
 <h3>Advanced Configuration and Power Interface (ACPI)</h3>
 <p>ACPI provides an open standard that operating systems can use to discover and configure computer hardware components, perform power management (e.g. putting unused hardware components to sleep), perform auto-configuration (e.g. Plug and Play, and hot-swapping), and perform status monitoring.</p>
 <p>This subsystem lets OS commands (like shutdown) send signals to the computer which results in powering down of the whole PC. In older times we used to have these mechanical keyboards to do a <em>real</em> power down after the OS has done its shutdown and told us that "it is not safe to power down your computer".</p>
-<p><img alt="" src="/images/vintage_poweroff.jpeg"></p>
+<p><img alt="Vintage poweroff" src="/images/vintage_poweroff.jpeg"></p>
 <h2>Notifying users</h2>
-<p>It is good to be informed! Especially if the system is going down; especially on a shared server. Linux has different tools for system admins to notify their users:</p>
+<p>It is good to be informed! Especially if the system is going down; Especially on a shared server. Linux has different tools for system admins to notify their users:</p>
 <ul>
-<li><code>wall</code>. Sending <em>wall messages</em> to logged-in users</li>
-<li><code>/etc/issue</code>. Text to be displayed on the tty terminal logins (before login)</li>
-<li><code>/etc/issue.net</code>. Text to be displayed on the remote terminal logins (before login)</li>
+<li><code>wall</code>: Sending <em>wall messages</em> to logged-in users</li>
+<li><code>/etc/issue</code>: Text to be displayed on the tty terminal logins (before login)</li>
+<li><code>/etc/issue.net</code>: Text to be displayed on the remote terminal logins (before login)</li>
 <li><code>/etc/motd</code>: Message of the day (after login). Some companies add "Do not enter if you are not allowed" texts here for legal reasons.</li>
-<li><code>mesg</code> command controls if you want to get wall messages on not. You can do <code>mesg n</code> and <code>who -T</code> will show mesg status. Note that <code>shutdown</code> wall messages do not respect the <code>mesg</code> status</li>
+<li><code>mesg</code>: Command controls if you want to get wall messages on not. You can do <code>mesg n</code> and <code>who -T</code> will show mesg status. Note that <code>shutdown</code> wall messages do not respect the <code>mesg</code> status</li>
 </ul>
 <blockquote>
 <p>systemctl sends wall messages for emergency, halt, power-off, reboot, and rescue</p>

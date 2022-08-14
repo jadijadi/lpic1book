@@ -92,10 +92,10 @@
 <ul>
 <li>Install, upgrade and uninstall Debian binary packages.</li>
 <li>Find packages containing specific files or libraries which may or may not be installed.</li>
-<li>Obtain package information like version, content, dependencies, package integrity, and installation status (whether or not the package is installed).</li>
+<li>Obtain package information like version, content, dependencies, package integrity, and installation status (Whether or not the package is installed).</li>
 <li>Awareness of apt.</li>
 </ul>
-<h4>Terms and Utilities</h4>
+<h2>Terms and Utilities</h2>
 <ul>
 <li><code>/etc/apt/sources.list</code></li>
 <li>dpkg</li>
@@ -103,12 +103,12 @@
 <li>apt-get</li>
 <li>apt-cache</li>
 </ul>
-<h3>Concept of the package management system</h3>
+<h2>Concept of the package management system</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/jtwbweigRxo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <p>Some people think that on GNU/Linux we have to compile all the software we need manually. This is not the case in 99% of cases and never has been the case in the last 20 years. GNU/Linux is the predecessor of what we call the App Store these days. All major distros do have huge archives of pre-compiled software called their <em>repositories</em> and some kind of a <strong>package manager</strong> software that takes care of searching these repositories, installing software from them, finding dependencies, installing them, resolving conflicts, and updating the system and installed software. Debian-based distros use <code>.deb</code> files as their "packages" and use tools like <code>apt-get</code>, <code>dpkg</code>, <code>apt</code>, and other tools to manage them.</p>
-<p>Debian packages are names like <code>NAME-VERSION-RELEASE_ARCHITECTURE.deb</code>; say <code>tmux_3.2a-4build1_amd64.deb</code>. </p>
-<h3>Repositories</h3>
+<p>Debian packages are names like <code>NAME-VERSION-RELEASE_ARCHITECTURE.deb</code>; Say <code>tmux_3.2a-4build1_amd64.deb</code>. </p>
+<h2>Repositories</h2>
 <p>But where did this package come from? How does the OS know where to look for this deb package? The answer is <strong>Repositories</strong>. Each distro has its repository of packages. It can be on a Disk, A network drive, a collection of DVDs, or most commonly, a network address on the Internet. </p>
 <p>On debian systems, the main configuration locations are:
 * <code>/etc/apt/sources.list</code>
@@ -174,7 +174,7 @@ deb http://security.ubuntu.com/ubuntu jammy-security multiverse
 <blockquote>
 <p>This won't actually <em>Upgrade</em> the software. The <em>Update</em> will only <em>Update the information about the packages and not the packages themselves</em>.</p>
 </blockquote>
-<h3>Installing packages</h3>
+<h2>Installing packages</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/IBnxIX_WceI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <p>Say you have heard about this retro source control software called <code>tmux</code> and you want to give it a try.</p>
@@ -196,7 +196,7 @@ bash: type: tmux: not found
 <li>apt-get resolved <em>dependencies</em>, It knows what is needed to install this package and installs them</li>
 <li>Debian packages are something.deb</li>
 </ul>
-<p>If you only want a dry-run / simulation:</p>
+<p>If you only want a dry-run/simulation:</p>
 <div class="highlight"><pre><span></span><code>apt-get install -s tmux
 </code></pre></div>
 
@@ -209,7 +209,7 @@ bash: type: tmux: not found
 <div class="highlight"><pre><span></span><code><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">download</span> <span class="n">tmux</span>
 </code></pre></div>
 
-<h3>Removing debian packages</h3>
+<h2>Removing debian packages</h2>
 <div class="highlight"><pre><span></span><code>apt-get remove tmux
 </code></pre></div>
 
@@ -235,13 +235,13 @@ Do you want to continue? [Y/n] y
 <li>Removing a package will not remove its dependencies</li>
 <li>If removing a dependency, you'll get a warning about what will be removed alongside this package</li>
 </ul>
-<h3>Searching for packages</h3>
+<h2>Searching for packages</h2>
 <p>If you are using the apt suit, the search is done via <code>apt-cache</code> or you can use the general <code>apt</code>. </p>
 <div class="highlight"><pre><span></span><code>$ apt-cache search &quot;tiny window&quot;
 $ apt search grub2
 </code></pre></div>
 
-<h3>Upgrading</h3>
+<h2>Upgrading</h2>
 <p>For updating a single package:</p>
 <div class="highlight"><pre><span></span><code>apt-get install tzdata
 </code></pre></div>
@@ -255,12 +255,12 @@ $ apt search grub2
 </code></pre></div>
 
 <p>Note: like most other tools, you can configure the default configs at <code>/etc/apt/apt.conf</code> and there is a program apt-config for this purpose.</p>
-<h3>Reconfiguring packages</h3>
-<p>Debian packages can have <em>configuration actions</em> which will take after the package is installed. This is done by <code>debconf</code>. For example, tzdata will ask you about the timezone settings after you installed it. If you want to <em>reconfigure</em> a package that is already installed, you can use the <code>dpkg-reconfigure</code>:</p>
+<h2>Reconfiguring packages</h2>
+<p>Debian packages can have <em>configuration actions</em> that will take after the package is installed. This is done by <code>debconf</code>. For example, tzdata will ask you about the timezone settings after you installed it. If you want to <em>reconfigure</em> a package that is already installed, you can use the <code>dpkg-reconfigure</code>:</p>
 <div class="highlight"><pre><span></span><code> dpkg-reconfigure tzdata
 </code></pre></div>
 
-<h3>Package information with dpkg</h3>
+<h2>Package information with dpkg</h2>
 <p>The underlying tool to work with <code>.deb</code> files is the <code>dpkg</code>. It is your to-go tool if you want to do manual actions on a deb package. The general format is:</p>
 <div class="highlight"><pre><span></span><code><span class="n">dpkg</span><span class="w"> </span><span class="o">[</span><span class="n">OPTIONS</span><span class="o">]</span><span class="w"> </span><span class="k">ACTION</span><span class="w"> </span><span class="n">PACKAGE</span><span class="w"></span>
 </code></pre></div>
@@ -288,7 +288,7 @@ $ apt search grub2
 </tr>
 <tr>
 <td>-i or --install</td>
-<td>Install or Upgrade a package; wont resolve / install dependencies</td>
+<td>Install or Upgrade a package; Wont resolve / install dependencies</td>
 </tr>
 <tr>
 <td>-I or --info</td>
@@ -308,7 +308,7 @@ $ apt search grub2
 </tr>
 <tr>
 <td>-r or --remove</td>
-<td>Remove the package; keep the configurations</td>
+<td>Remove the package; Keep the configurations</td>
 </tr>
 <tr>
 <td>-s or --status</td>
@@ -376,7 +376,7 @@ Homepage: http://bazaar-vcs.org
 Original-Maintainer: Debian Bazaar Maintainers &lt;pkg-bazaar-maint@lists.alioth.debian.org&gt;
 </code></pre></div>
 
-<p>Or even <strong>purge</strong> an installed package; removing the package and all of its configurations. To Purge a package use the <strong>-P</strong> or <strong>--purge</strong> switch.</p>
+<p>Or even <strong>purge</strong> an installed package; Removing the package and all of its configurations. To Purge a package, use the <strong>-P</strong> or <strong>--purge</strong> switch.</p>
 <p>There is also <strong>-L</strong> to check the files and directories a package installed:</p>
 <div class="highlight"><pre><span></span><code>$ dpkg -L bzr
 /.
@@ -422,7 +422,7 @@ mplayer: /var/lib/mplayer/prefs/mirrors
 </tr>
 <tr>
 <td>dist-upgrade</td>
-<td>Checks for new versions of the OS; major upgrade</td>
+<td>Checks for new versions of the OS; Major upgrade</td>
 </tr>
 <tr>
 <td>install</td>
@@ -484,7 +484,7 @@ mplayer: /var/lib/mplayer/prefs/mirrors
 </tr>
 </tbody>
 </table>
-<h3>Other tools</h3>
+<h2>Other tools</h2>
 <p>There are even more tools, the tools with fancy GUIs or text-based tools and user interface tools like <code>aptitude</code>.</p>
 
 

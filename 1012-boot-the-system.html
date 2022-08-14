@@ -87,17 +87,17 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>weight: 3</p>
+            <p><em>Weight: 3</em></p>
 <p>Candidates should be able to guide the system through the booting process.</p>
-<h3>Key Knowledge Areas</h3>
+<h2>Key Knowledge Areas</h2>
 <ul>
-<li>Provide common commands to the boot loader and options to the kernel at boot time.</li>
-<li>Demonstrate knowledge of the boot sequence from BIOS/UEFI to boot completion.</li>
-<li>Understanding of SysVinit and systemd.</li>
-<li>Awareness of Upstart.</li>
-<li>Check boot events in the log files.</li>
+<li>Provide common commands to the boot loader and options to the kernel at boot time</li>
+<li>Demonstrate knowledge of the boot sequence from BIOS/UEFI to boot completion</li>
+<li>Understanding of SysVinit and systemd</li>
+<li>Awareness of Upstart</li>
+<li>Check boot events in the log files</li>
 </ul>
-<h3>Terms</h3>
+<h2>Terms</h2>
 <ul>
 <li>dmesg</li>
 <li>journalctl</li>
@@ -117,16 +117,16 @@
 <ol>
 <li>Motherboard Firmware does a PowerOnSelfTest</li>
 <li>Motherboard loads the bootloader</li>
-<li>Bootloader loads the Linux Kernel-based on its configs / commands</li>
+<li>Bootloader loads the Linux Kernel-based on its configs/commands</li>
 <li>The Kernel loads and prepares the system (root filesystem) and runs the initialization program</li>
-<li>Init program start the service, other programs, .. (webserver, graphical interface, networking, ...)</li>
+<li>Init program start the service, other programs, ... (web server, graphical interface, networking, etc.)</li>
 </ol>
 <p>As we discussed in the previous section (101.1), the Firmware on the motherboard can be BIOS or UEFI. </p>
 <h3>BIOS</h3>
 <p>Basic Input Output System</p>
 <ul>
-<li>older</li>
-<li>limited to one sector of the disk and needs a multi-stage bootloader</li>
+<li>Older</li>
+<li>Limited to one sector of the disk and needs a multi-stage bootloader</li>
 <li>Can start the bootloader from internal/external HDD, CD/DVD, USB Flash drive, Network server</li>
 <li>If booting from the HDD, the Master Boot Record will be used (1 sector)</li>
 </ul>
@@ -135,16 +135,16 @@
 <ul>
 <li>Modern and fancy</li>
 <li>Specifies a special disk partition for the bootloader. Called EFI System Partition (ESP)</li>
-<li>ESP is FAT and mounted on /boot/efi and bootloader files has .efi extensions</li>
+<li>ESP is FAT and mounted on <code>/boot/efi</code> and bootloader files has .efi extensions</li>
 </ul>
 <blockquote>
-<p>You can check /sys/firmware/efi to see if you are using a UEFI system or not</p>
+<p>You can check <code>/sys/firmware/efi</code> to see if you are using a UEFI system or not</p>
 </blockquote>
 <h3>Bootloader</h3>
 <p>Bootloader initializes the minimum hardware needed to boot the system and then finds and runs the OS.</p>
 <p>Technically you can point your UEFI to run anything you want but typically under GNU/Linux systems, we use GRUB. Even the GRUB can be used to run any specific program you need but generally it runs the OS. </p>
 <h3>Kernel</h3>
-<p>The Kernel is the core of your operating system, the LINUX itself. Your bootloader loads the kernel in the memory and runs it. But kernel needs some initial info to start; things like drivers are necessary to work with the hardware. Those are stored in <code>initrd</code> or <code>initramfs</code> alongside the kernel and used during the boot. </p>
+<p>The Kernel is the core of your operating system, the LINUX itself. Your bootloader loads the kernel in the memory and runs it. But kernel needs some initial info to start; Things like drivers are necessary to work with the hardware. Those are stored in <code>initrd</code> or <code>initramfs</code> alongside the kernel and used during the boot. </p>
 <p>You can also send parameters to the kernel during the boot using the Grub configs. For example, sending a 1 or S will result the system booting in single-user mode (recovery). Or you can force your graphics to work in 1024×768x24 mode by passing <code>vga=792</code> to the Kernel during the boot. </p>
 <hr>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Sn20NKM0hbw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -160,13 +160,13 @@
 
 <p>will show <strong>only</strong> the data during the boot.</p>
 <p>We can also use <code>journalctl -k</code> to check Kernel logs or use <code>journalctl -b</code> to check for boot logs (or even use <code>journalctl -u kernel</code> to see all previous logs too).</p>
-<p>In addition to these, most systems keep the boot logs in a text-like file too. Under Debian-based systems, it's called <code>/var/log/boot</code> and for RedHat based systems its <code>/var/log/boot.log</code>.</p>
+<p>In addition to these, most systems keep the boot logs in a text-like file too. Under Debian-based systems, it's called <code>/var/log/boot</code> and for RedHat-based systems, it's <code>/var/log/boot.log</code>.</p>
 <h4>/var/log/messages</h4>
 <p>After the init process comes up, syslog daemon will log messages. It has timestamps and will persist during restarts.</p>
 <ul>
 <li>The Kernel is still logging its messages in dmesg</li>
-<li>in some systems, it might be called /var/log/syslog</li>
-<li>there are many other logs at /var/log</li>
+<li>in some systems, it might be called <code>/var/log/syslog</code></li>
+<li>there are many other logs at <code>/var/log</code></li>
 </ul>
 <h2>init</h2>
 <p>When the Kernel finished its initialization, its time to start other programs. To do so, the Kernel runs the Initialization Daemon process, and it takes care of starting other daemons, services, subsystems and programs. Using the init system one can say "I need service A and then service B. Then I need C and D and E but do not start D unless the A and B are running". The system admin can use the init system to stop and start the services later.</p>
@@ -190,8 +190,8 @@ PID TTY TIME     CMD
 <div class="highlight"><pre><span></span><code>pstree
 </code></pre></div>
 
-<h3>systemd</h3>
-<p>Is new, loved, and hated. Lots of new ideas but not following some of the beloved UNIX principles (say.. not saving logs in a text file or trying to help you too much but asking for the root password when you are not running commands with sudo). It lets us run services if hardware is connected, in time intervals, if another service is started, and ...</p>
+<h2>systemd</h2>
+<p>Is new, loved, and hated. Lots of new ideas but not following some of the beloved UNIX principles (say.. not saving logs in a text file or trying to help you too much but asking for the root password when you are not running commands with sudo). It lets us run services if the hardware is connected, in time intervals, if another service is started, and ...</p>
 <p>The systemd is made around <strong>unit</strong>s. A unit can be a service, group of services, or an action. Units do have a name, a type, and a configuration file. There are 12 unit types: automount, device, mount, path, scope, service, slice, snapshot, socket, swap, target &amp; timer.</p>
 <p>We use <code>systemctl</code> to work with these units and <code>journalctl</code> to see the logs.</p>
 <div class="highlight"><pre><span></span><code># systemctl list-units
@@ -238,7 +238,7 @@ PID TTY TIME     CMD
 # <span class="nv">journalctl</span> <span class="nv">_PID</span><span class="o">=</span><span class="mi">1234</span>
 </code></pre></div>
 
-<h3>SysV</h3>
+<h2>SysV</h2>
 <p>Is the older init system. Still can be used on many systems. The control files are located at <code>/etc/init.d/</code> and are closer to the general bash scripts. In many cases you can call like:</p>
 <div class="highlight"><pre><span></span><code>/etc/init.d/ntpd status
 /etc/init.d/ntpd stop
