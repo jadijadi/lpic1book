@@ -1,5 +1,5 @@
 name: reviewdog
-on: [pull_request, push]
+on: pull_request
 jobs:
   remark-lint:
     name: runner / remark-lint
@@ -14,3 +14,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-check
+          workdir: ./content
