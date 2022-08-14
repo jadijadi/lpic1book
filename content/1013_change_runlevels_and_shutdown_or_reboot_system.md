@@ -7,11 +7,11 @@ sortorder: 050
 Summary: Candidates should be able to manage the SysVinit runlevel or systemd boot target of the system. This objective includes changing to single-user mode, and shutdown or rebooting the system. Candidates should be able to alert users before switching runlevels / boot targets and properly terminate processes. This objective also includes setting the default SysVinit runlevel or systemd boot target. It also includes awareness of Upstart as an alternative to SysVinit or systemd.
 Topic: System Architecture
 
-weight: 3
+*Weight: 3*
 
 Description: Candidates should be able to manage the SysVinit runlevel or systemd boot target of the system. This objective includes changing to single-user mode, and shutdown or rebooting the system. Candidates should be able to alert users before switching runlevels / boot targets and properly terminate processes. This objective also includes setting the default SysVinit runlevel or systemd boot target. It also includes awareness of Upstart as an alternative to SysVinit or systemd.
 
-### Key Knowledge Areas:
+## Key Knowledge Areas:
 
 - Set the default runlevel or boot target.
 - Change between runlevels / boot targets including single-user mode.
@@ -20,7 +20,7 @@ Description: Candidates should be able to manage the SysVinit runlevel or system
 - Properly terminate processes.
 - Awareness of acpid.
 
-### The following is a partial list of the used files, terms and utilities:
+## The following is a partial list of the used files, terms and utilities:
 
 - `/etc/inittab`
 - shutdown
@@ -85,7 +85,7 @@ It is also possible to *isolate* any of the targets or move to two special targe
 2. `emergency`: Only the root file system and in read-only mode, No networking and only root (*maintenance* mode)
 3. `reboot`
 4. `halt`: Stops all processes and halts CPU activities
-5. `poweroff`: Like halt but also sends an ACPI shutdown signal (no lights!)
+5. `poweroff`: Like halt but also sends an ACPI shutdown signal (No lights!)
 
 ```
 # systemctl isolate emergency
@@ -99,10 +99,10 @@ maintenance
 
 ### SysV runlevels
 
-On SysV we were able to define different stages. On a red hat based system we usually had 7:
+On SysV we were able to define different stages. On a Red Hat-based system we usually had 7:
 
 * 0- Shutdown
-* 1- Single-user mode \(recovery\); also called S or s
+* 1- Single-user mode \(recovery\); Also called S or s
 * 2- Multi-user without networking
 * 3- Multi-user with networking
 * 4- to be customized by the admin
@@ -215,8 +215,8 @@ id:runlevels:action:process
 ```
 
 * id: 2 or 3 chars
-* runlevels: which runlevel this commands refers to \(empty means all\)
-* action: respawn, wait, once, initdefault \(default run level as seen above\), ctrlaltdel \(what to do with crrl+alt+delete\)
+* runlevels: Which runlevel this commands refers to \(empty means all\)
+* action: Respawn, wait, once, initdefault \(default run level as seen above\), ctrlaltdel \(What to do with Ctrl+Alt+Delete\)
 
 All scripts are here:
 
@@ -236,12 +236,12 @@ root@funlife:~# ls /etc/rc2.d/
 
 The preferred method to shut down or reboot the system is to use the `shutdown` command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 1 minute or another delay, if specified, init sends a SIGKILL signal to forcibly end each remaining process.
 
-* Default is 1 minute delay and then going to runlevel 1
-* -h will halt the system
-* -r will reboot the system
-* Time is hh:mm or n \(minutes\) or now
+* Default is a 1-minute delay and then going to runlevel 1
+* `-h` will halt the system
+* `-r` will reboot the system
+* Time is `hh:mm` or n \(minutes\) or now
 * Whatever you add, will be broadcasted to logged-in users using the `wall` command
-* If the command is running, ctrl+c or the "shutdown -c" will cancel it
+* If the command is running, ctrl+c or the `shutdown -c` will cancel it
 
 ```text
 shutdown -r 60 Reloading updated kernel
@@ -250,7 +250,7 @@ shutdown -r 60 Reloading updated kernel
 for more advanced users:
 
 * -t60 will delay 60 seconds between SIGTERM and SIGKILL
-* if you cancel a shutdown, users won't get the news! you can use "wall" command to tell them that the shutdown is canceled
+* if you cancel a shutdown, users won't get the news! you can use the "wall" command to tell them that the shutdown is canceled
 
 ### Halt, reboot, and poweroff
 
@@ -265,16 +265,16 @@ ACPI provides an open standard that operating systems can use to discover and co
 
 This subsystem lets OS commands (like shutdown) send signals to the computer which results in powering down of the whole PC. In older times we used to have these mechanical keyboards to do a *real* power down after the OS has done its shutdown and told us that "it is not safe to power down your computer".
 
-![](/images/vintage_poweroff.jpeg)
+![Vintage poweroff](/images/vintage_poweroff.jpeg)
 
 ## Notifying users
-It is good to be informed! Especially if the system is going down; especially on a shared server. Linux has different tools for system admins to notify their users:
+It is good to be informed! Especially if the system is going down; Especially on a shared server. Linux has different tools for system admins to notify their users:
 
-- `wall`. Sending *wall messages* to logged-in users
-- `/etc/issue`. Text to be displayed on the tty terminal logins (before login)
-- `/etc/issue.net`. Text to be displayed on the remote terminal logins (before login)
+- `wall`: Sending *wall messages* to logged-in users
+- `/etc/issue`: Text to be displayed on the tty terminal logins (before login)
+- `/etc/issue.net`: Text to be displayed on the remote terminal logins (before login)
 - `/etc/motd`: Message of the day (after login). Some companies add "Do not enter if you are not allowed" texts here for legal reasons.
-- `mesg` command controls if you want to get wall messages on not. You can do `mesg n` and `who -T` will show mesg status. Note that `shutdown` wall messages do not respect the `mesg` status
+- `mesg`: Command controls if you want to get wall messages on not. You can do `mesg n` and `who -T` will show mesg status. Note that `shutdown` wall messages do not respect the `mesg` status
 
 > systemctl sends wall messages for emergency, halt, power-off, reboot, and rescue
 

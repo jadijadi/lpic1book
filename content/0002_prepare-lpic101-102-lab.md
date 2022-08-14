@@ -4,7 +4,7 @@ Category: LPIC1
 sortorder: 020
 
 # Prepare your Lab
-Watching videos or even reading books is never enough. You need to have a Linux installed and practice your newly acquired knowledge. As you may know, LPIC is a *distro agnostic* test and a LPIC certified guru should be able to work in any GNU/Linux system, or at least on the major ones. Because of this, I suggest you have two Linux machines which you can work on. One RPM-based and one Debian-based. 
+Watching videos or even reading books is never enough. You need to have Linux installed and practice your newly acquired knowledge. As you may know, LPIC is a *distro agnostic* test and an LPIC-certified guru should be able to work in any GNU/Linux system, or at least on the major ones. Because of this, I suggest you have two Linux machines which you can work on. One RPM-based and one Debian-based. 
 
 One common way is to use a Virtual Machine. You can install something like [VirtualBox](https://www.virtualbox.org) (for Win/Linux and Intel Macs) or [UTM](https://mac.getutm.app) (for M1 Macs) or any other solution to install your test machines in a Virtual Machine. 
 

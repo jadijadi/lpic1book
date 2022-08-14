@@ -1,28 +1,25 @@
 Title: 101.1 Determine and configure hardware settings
 Date: 2010-12-03 10:20
 Category: LPIC1
-Category: lpic101
 sortorder: 030
+Summary: Candidates should be able to determine and configure fundamental system hardware.
 
 
-# 101.1 Determine and configure hardware settings
 *Weight: 2*
 
 Candidates should be able to determine and configure fundamental system hardware.
 
 ## Objectives
 
-- Enable and disable integrated peripherals.
-- Differentiate between the various types of mass storage devices.
-- Determine hardware resources for devices.
+- Enable and disable integrated peripherals
+- Differentiate between the various types of mass storage devices
+- Determine hardware resources for devices
 - Tools and utilities to list various hardware information (e.g. lsusb, lspci, etc.)
 - Tools and utilities to manipulate USB devices
 - Conceptual understanding of sysfs, udev, dbus
-
-
-- /sys
-- /proc
-- /dev
+- `/sys`
+- `/proc`
+- `/dev`
 - modprobe
 - lsmod
 - lspci
@@ -33,9 +30,9 @@ Candidates should be able to determine and configure fundamental system hardware
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xCPDxgp0zXY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-An operating system (OS) is system software that manages computer hardware, and software resources, and provides common services for computer programs. It sits on top of the hardware and manages the resources when other software (sometimes called a userspace program) asks for it. 
+An operating system (OS) is system software that manages computer hardware, and software resources, and provides common services for computer programs. It sits on top of the hardware and manages the resources when other software (Sometimes called a userspace program) asks for it. 
 
-Firmware is the software *on* your hardware that runs it; think of it as a built-in os or driver for your hardware. Motherboards need some firmware to be able to work too. 
+Firmware is the software *on* your hardware that runs it; Think of it as a built-in os or driver for your hardware. Motherboards need some firmware to be able to work too. 
 
 ![BIOS](/images/bios.png)
 1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu-based system and boot the computer from a boot loader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two-step boot procedure.
@@ -46,24 +43,23 @@ Firmware is the software *on* your hardware that runs it; think of it as a built
 
 ## Peripheral Devices
 These are device interfaces.
-#### PCI
+### PCI
 Peripheral Component Interconnect. Letting hardware boards be added to the motherboard. Now most servers use PCI Express (PCIe)
-
 
 ![PCI](/images/pci.jpeg)
 
 - Internal HDD.
    - PATA (old)
-   - SATA (Serial & up to 4 devices)
-   - SCSI (Parallel & up to 8 devices) 
-- External HDD. Fiber. 
+   - SATA (serial & up to 4 devices)
+   - SCSI (parallel & up to 8 devices) 
+- External HDD. Fiber
 - Network cards. RJ 45 
 - Wireless cards. IEEE 802.11
 - Bluetooth 
 - Video accelerators
 - Audio cards
 
-#### USB
+### USB
 Universal Serial Bus. Serial and need fewer connections.
 
 ![USB Interfaces](/images/usb.png)
@@ -71,13 +67,12 @@ Universal Serial Bus. Serial and need fewer connections.
 - 1 (12Mbps), 2 (480Mbps), 3 (20Gbps)
 - A, B, C
 
-#### GPIO
+### GPIO
 General Purpose Input Output. 
 
 ![GPIO on a Raspberry Pi](/images/gpio.jpeg)
 
 - To control other devices
-
 
 ## sysfs
 
@@ -97,7 +92,7 @@ All block devices are at the `block` and `bus` directory has all the connected P
 ## udev
 udev (userspace `/dev`) is a device manager for the Linux kernel. As the successor of devfsd and hotplug, udev primarily manages device nodes in the `/dev` directory. At the same time, udev also handles all user space events raised when hardware devices are added into the system or removed from it, including firmware loading as required by certain devices.
 
-There are a lot of devices in `/dev/` and if you plugin any device, it will be assigned a file in `/dev` (say `/dev/sdb2`). **udev** lets you control what will be what in `/dev`. For example, you can use a rule to force your 128GB flash drive with one specific vendor to be `/dev/mybackup` every single time you connect it and you can even start a backprocess as soon as it connects.
+There are a lot of devices in `/dev/` and if you plug in any device, it will be assigned a file in `/dev` (say `/dev/sdb2`). **udev** lets you control what will be what in `/dev`. For example, you can use a rule to force your 128GB flash drive with one specific vendor to be `/dev/mybackup` every single time you connect it and you can even start a backprocess as soon as it connects.
 
 **udev** controls `/dev/` directory. There are abstracted devices like a hard, is `/dev/sda` or `/dev/hd0` regardless of its brand, model or technology:
 
@@ -116,8 +111,7 @@ brw-rw---- 1 root disk 253,   0 Dec 15  2019 /dev/vda
 ```
 
 ## dbus
-D-Bus is a message bus system, a simple way for applications to talk to one another. In addition to interprocess communication, D-Bus helps coordinate process lifecycle; it makes it simple and reliable to code a "single instance" application or daemon, and to launch applications and daemons on demand when their services are needed.
-
+D-Bus is a message bus system, a simple way for applications to talk to one another. In addition to inter-process communication, D-Bus helps coordinate process lifecycle; It makes it simple and reliable to code a "single instance" application or daemon and to launch applications and daemons on demand when their services are needed.
 
 
 ## proc directory
@@ -235,7 +229,7 @@ Just like `ls` but for pci, usb, ...
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/b5bAXRSYmoA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-#### lspci
+### lspci
 Shows PCI devices that are connected to the computer.
 
 ````
@@ -258,7 +252,7 @@ Shows PCI devices that are connected to the computer.
 ````
 
 
-#### lsusb
+### lsusb
 Shows all the USB devices connected to the system.
 
 ````
@@ -273,17 +267,19 @@ Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
 Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 ````
 
-#### lshw
+### lshw
 Shows hardware. Test it!
 
+### lsblk
+Used for list devices that can read from or write to by blocks of data.
 
 
 ## Loadable Kernel Modules
 Linux like any other OS needs drivers to work with hardware. In Microsoft Windows, you need to install the drivers separately but in Linux, the system has most of the drivers built-in. But to prevent the kernel from loading all of them at the same time and to decrease the Kernel size, Linux uses Kernel Modules. Loadable kernel modules (.ko files) are object files that are used to extend the kernel of the Linux Distribution. They are used to provide drivers for new hardware like IoT expansion cards that have not been included in the Linux Distribution.
 
-You can inspect the modules using the `lsmod` or manage them via `modprob` commands.
+You can inspect the modules using the `lsmod` or manage them via `modprobe` commands.
 
-#### lsmod
+### lsmod
 Shows kernel modules. They are located at `/lib/modules`. 
 
 ````
@@ -333,7 +329,7 @@ lrw                    13287  1 aesni_intel
 iwlwifi               183038  1 iwldvm
 ````
 
-These are the kernel modules that are loaded. Use `modinfo` to get more info about a module; if you want.
+These are the kernel modules that are loaded. Use `modinfo` to get more info about a module; If you want.
 
 If you need to add a module to your kernel (say a new driver for hardware) or remove it (uninstall a driver) you can use `rmmod` and `modprobe`.
 
