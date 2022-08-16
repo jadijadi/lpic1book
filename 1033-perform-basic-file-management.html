@@ -175,7 +175,7 @@ total 16K
 <p>These look like "formulas" but they are common sense!</p>
 <p><strong>rm</strong>
 Removes (Deletes) <strong>files</strong>. You can do this recursively using the <code>-r</code> switch or even prevent it from checking for confirmations using <code>-f</code> (force) switch. So a <code>rm -rf /</code> means <em>delete everything from the file system</em>.</p>
-<h4>General notes</h4>
+<h5>General notes</h5>
 <p>Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the <code>mv</code> will not move or rename a file if the target exists. Although this is highly dependent on your systems configuration. But in all cases you can overcome this using the <code>-f</code> switch.</p>
 <ul>
 <li><code>-f</code> (--force) will cause cp to try overwrite the target.</li>
@@ -183,7 +183,7 @@ Removes (Deletes) <strong>files</strong>. You can do this recursively using the 
 <li><code>-b</code> (--backup) will make backups of overwritten files</li>
 <li><code>-p</code> will <em>preserve</em> the attributes.</li>
 </ul>
-<h3>Creating (mkdir) and removing (rmdir) directories</h3>
+<h4>Creating (mkdir) and removing (rmdir) directories</h4>
 <p>The <code>mkdir</code> command creates directories.</p>
 <div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">ltrh</span><span class="w"></span>
 <span class="n">total</span><span class="w"> </span><span class="mi">16</span><span class="n">K</span><span class="w"></span>
@@ -550,7 +550,6 @@ $ ls -ltrh file?
 <li>gzip creates the new compressed file with the same name but with .gz ending</li>
 <li>gzip removes the original files after creating the compressed file</li>
 </ul>
-<h4>Archiving with tar &amp; cpio</h4>
 <h4>bzip2 &amp; bunzip2</h4>
 <p>The <code>bzip2</code> is another compressing tool. Works just like the famous <code>gzip</code> but with a different compression algorithm.</p>
 <div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">bzip2</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
@@ -593,7 +592,7 @@ $ ls -ltrh file?
 <blockquote>
 <p>In some cases, commands like <code>unxz</code> is just a calls to <code>xz --dcompress</code></p>
 </blockquote>
-<h3>Archiving files</h3>
+<h3>Archiving with tar &amp; cpio</h3>
 <p>Sometimes we need to create an archive file container many other files. This is different than compressing; this is combining files into one and then extracting them again. This is mostly used in backups, archives, moving files to a new location (say via email) and such. This is done with <code>cpio</code> and <code>tar</code>.</p>
 <p><strong>tar</strong></p>
 <p>TapeARchive or tar is the most common archiving tool. In automatically create an archive file from a directory and all its subdirs.</p>
