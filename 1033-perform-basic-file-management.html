@@ -89,7 +89,7 @@
             
             <p><em>Weight: 4</em></p>
 <p>Candidates should be able to use the basic Linux commands to manage files and directories.</p>
-<h3>Objectives</h3>
+<h2>Objectives</h2>
 <ul>
 <li>Copy, move and remove files and directories individually.</li>
 <li>Copy multiple files and directories recursively.</li>
@@ -118,21 +118,50 @@
 <li>bunzip2</li>
 <li>xz</li>
 <li>unxz</li>
-<li>
-<p>file globbing</p>
-</li>
-<li>
-<p>find</p>
-</li>
-<li>touch</li>
-<li>dd</li>
-<li>
-<p>file</p>
-</li>
-<li>
-<p>file globbing</p>
-</li>
+<li>file globbing</li>
 </ul>
+<h3>Wildcards and file globbing</h3>
+<p>File globbing is shell capability which lets you tell things like :
+- All files
+- everything which starts with A
+- all files with 3 letter names which end in A or B or C
+- ...</p>
+<p>To do so you need to know about these characters:</p>
+<ul>
+<li><code>*</code> means <strong>any string</strong></li>
+<li><code>?</code> means any single character</li>
+<li><code>[ABC]</code> matches A, B &amp; C</li>
+<li><code>[a-k]</code> matches a, b, c, ..., k (both lower-case and capital)</li>
+<li><code>[0-9a-z]</code> matches all digits and numbers</li>
+<li><code>[!x]</code> means NOT X.</li>
+</ul>
+<p>knowing these, you can create your own patterns. For example:</p>
+<table>
+<thead>
+<tr>
+<th align="left">command</th>
+<th align="left">meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">rm *</td>
+<td align="left">delete all files in this directory</td>
+</tr>
+<tr>
+<td align="left">ls A*B</td>
+<td align="left">show all files starting with A ending with B</td>
+</tr>
+<tr>
+<td align="left">cp ???.* /tmp</td>
+<td align="left">Copy all files with 3 characters, then a dot then whatever (even nothing) to /tmp</td>
+</tr>
+<tr>
+<td align="left">rmdir [a-z]*</td>
+<td align="left">remove all directories which start with a letter</td>
+</tr>
+</tbody>
+</table>
 <h3>general commands</h3>
 <h4>listing with <code>ls</code></h4>
 <p>Is used to <em>list</em> directories &amp; files. You can provide an absolute or relate path; if omitted the "." will be used as target.</p>
@@ -175,8 +204,8 @@ total 16K
 <p>These look like "formulas" but they are common sense!</p>
 <p><strong>rm</strong>
 Removes (Deletes) <strong>files</strong>. You can do this recursively using the <code>-r</code> switch or even prevent it from checking for confirmations using <code>-f</code> (force) switch. So a <code>rm -rf /</code> means <em>delete everything from the file system</em>.</p>
-<h5>General notes</h5>
-<p>Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the <code>mv</code> will not move or rename a file if the target exists. Although this is highly dependent on your systems configuration. But in all cases you can overcome this using the <code>-f</code> switch.</p>
+<p><strong>notes</strong>
+Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the <code>mv</code> will not move or rename a file if the target exists. Although this is highly dependent on your systems configuration. But in all cases you can overcome this using the <code>-f</code> switch.</p>
 <ul>
 <li><code>-f</code> (--force) will cause cp to try overwrite the target.</li>
 <li><code>-i</code> (--interactive) will ask Y/N question (deleting / overwriting).</li>
@@ -291,7 +320,7 @@ $ ls -ltrh file?
 </code></pre></div>
 
 <h4>file</h4>
-<p>To determine the type of a file, you should use <code>file</code> command.</p>
+<p>To determine the type of a file, you should use <code>file</code> command. It looks <em>into</em> the file and determine its file type.</p>
 <div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="n">file1</span><span class="w"></span>
 <span class="nl">file1</span><span class="p">:</span><span class="w"> </span><span class="n">empty</span><span class="w"></span>
 <span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="n">note_to_self</span><span class="w"></span>
@@ -473,48 +502,6 @@ $ ls -ltrh file?
 <blockquote>
 <p>since deleting found files is a common task, there is switch for it: <code>-delete</code></p>
 </blockquote>
-<h3>Wildcards and file globbing</h3>
-<p>File globbing is shell capability which lets you tell things like :
-- All files
-- everything which starts with A
-- all files with 3 letter names which end in A or B or C
-- ...</p>
-<p>To do so you need to know about these characters:</p>
-<ul>
-<li><code>*</code> means <strong>any string</strong></li>
-<li><code>?</code> means any single character</li>
-<li><code>[ABC]</code> matches A, B &amp; C</li>
-<li><code>[a-k]</code> matches a, b, c, ..., k (both lower-case and capital)</li>
-<li><code>[0-9a-z]</code> matches all digits and numbers</li>
-<li><code>[!x]</code> means NOT X.</li>
-</ul>
-<p>knowing these, you can create your own patterns. For example:</p>
-<table>
-<thead>
-<tr>
-<th align="left">command</th>
-<th align="left">meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">rm *</td>
-<td align="left">delete all files in this directory</td>
-</tr>
-<tr>
-<td align="left">ls A*B</td>
-<td align="left">show all files starting with A ending with B</td>
-</tr>
-<tr>
-<td align="left">cp ???.* /tmp</td>
-<td align="left">Copy all files with 3 characters, then a dot then whatever (even nothing) to /tmp</td>
-</tr>
-<tr>
-<td align="left">rmdir [a-z]*</td>
-<td align="left">remove all directories which start with a letter</td>
-</tr>
-</tbody>
-</table>
 <h3>Compression</h3>
 <h4>gzip &amp; gunzip</h4>
 <p>Straight forward, one gzips files and one ungzips files; In place:</p>
