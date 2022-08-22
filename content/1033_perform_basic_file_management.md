@@ -10,7 +10,7 @@ _Weight: 4_
 
 Candidates should be able to use the basic Linux commands to manage files and directories.
 
-### Objectives
+## Objectives
 * Copy, move and remove files and directories individually.
 * Copy multiple files and directories recursively.
 * Remove files and directories recursively.
@@ -39,14 +39,32 @@ Candidates should be able to use the basic Linux commands to manage files and di
 - unxz
 - file globbing
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lTnkGg9o6u0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-- find
-- touch
-- dd
-- file
+### Wildcards and file globbing
+File globbing is shell capability which lets you tell things like :
+- All files
+- everything which starts with A
+- all files with 3 letter names which end in A or B or C
+- ...
 
-- file globbing
+To do so you need to know about these characters:
 
+* `*` means **any string**
+* `?` means any single character
+* `[ABC]` matches A, B & C
+* `[a-k]` matches a, b, c, ..., k \(both lower-case and capital\)
+* `[0-9a-z]` matches all digits and numbers
+* `[!x]` means NOT X.
+
+knowing these, you can create your own patterns. For example:
+
+| command | meaning |
+| :--- | :--- |
+| rm * | delete all files in this directory |
+| ls A*B | show all files starting with A ending with B |
+| cp ???.* /tmp | Copy all files with 3 characters, then a dot then whatever (even nothing) to /tmp |
+| rmdir [a-z\]* | remove all directories which start with a letter |
 
 ### general commands
 #### listing with `ls`
@@ -84,7 +102,9 @@ cp source destination
 
 A common switch is `-r` (or `-R`) which copies recursively (directories and their contents). So for copying a directory called `A` to `/tmp/` you can issue `cp -r A /tmp/`.
 
+
 **mv**
+
 
 Will _move_ or _rename_ files or directories. It works like `cp` command. If you are moving a file on the same file system, the **inode** wont change.
 
@@ -99,8 +119,7 @@ These look like "formulas" but they are common sense!
 **rm**
 Removes (Deletes) **files**. You can do this recursively using the `-r` switch or even prevent it from checking for confirmations using `-f` (force) switch. So a `rm -rf /` means *delete everything from the file system*.
 
-#### General notes
-
+**notes**
 Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the `mv` will not move or rename a file if the target exists. Although this is highly dependent on your systems configuration. But in all cases you can overcome this using the `-f` switch.
 
 * `-f` (--force) will cause cp to try overwrite the target.
@@ -108,7 +127,7 @@ Normally, the cp command will copy a file over an existing copy, if the existing
 * `-b` (--backup) will make backups of overwritten files
 * `-p` will _preserve_ the attributes.
 
-### Creating (mkdir) and removing (rmdir) directories
+#### Creating (mkdir) and removing (rmdir) directories
 
 The `mkdir` command creates directories.
 
@@ -168,6 +187,8 @@ jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ tree
 ```
 
 > If you are using `rmdir` to remove a directory, it MUST BE EMPTY! Thats why many people use `rm -rf directory_name` to delete `directory_name` and whatever is in it.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tSN1MSaFYEw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 #### touch
 The `touch` will create an empty file (if it does not exists) or updates the **modification** date of a file if it already exists. The default time is *now* but you can specify other times too.
@@ -229,7 +250,7 @@ total 20K
 
 #### file
 
-To determine the type of a file, you should use `file` command.
+To determine the type of a file, you should use `file` command. It looks *into* the file and determine its file type.
 
 ```
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ file file1
@@ -365,31 +386,8 @@ find . -name "*.htm" -exec mv '{}' '{}l' \;
 ```
 > since deleting found files is a common task, there is switch for it: `-delete`
 
-### Wildcards and file globbing
-File globbing is shell capability which lets you tell things like :
-- All files
-- everything which starts with A
-- all files with 3 letter names which end in A or B or C
-- ...
 
-To do so you need to know about these characters:
-
-* `*` means **any string**
-* `?` means any single character
-* `[ABC]` matches A, B & C
-* `[a-k]` matches a, b, c, ..., k \(both lower-case and capital\)
-* `[0-9a-z]` matches all digits and numbers
-* `[!x]` means NOT X.
-
-knowing these, you can create your own patterns. For example:
-
-| command | meaning |
-| :--- | :--- |
-| rm * | delete all files in this directory |
-| ls A*B | show all files starting with A ending with B |
-| cp ???.* /tmp | Copy all files with 3 characters, then a dot then whatever (even nothing) to /tmp |
-| rmdir [a-z\]* | remove all directories which start with a letter |
-
+<iframe width="560" height="315" src="https://www.youtube.com/embed/6MLaCDTRgis" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Compression
 #### gzip & gunzip
@@ -426,7 +424,6 @@ drwxrwxr-x 3 jadi jadi 4.0K Aug 14 05:20 directory
 * gzip creates the new compressed file with the same name but with .gz ending
 * gzip removes the original files after creating the compressed file
 
-#### Archiving with tar & cpio
 
 
 #### bzip2 & bunzip2
@@ -478,7 +475,7 @@ Please note that *compressing* a small text file have made it larger. This is *n
 > In some cases, commands like `unxz` is just a calls to `xz --dcompress`
 
 
-### Archiving files
+### Archiving with tar & cpio
 
 Sometimes we need to create an archive file container many other files. This is different than compressing; this is combining files into one and then extracting them again. This is mostly used in backups, archives, moving files to a new location (say via email) and such. This is done with `cpio` and `tar`.
 
