@@ -89,11 +89,9 @@
             
             <p><em>Weight: 2</em></p>
 <p>Description: Candidates should be able to apply filters to text streams.</p>
-<h3>Objectives</h3>
-<ul>
-<li>Send text files and output streams through text utility filters to modify the output using standard UNIX commands found in the GNU textutils package.</li>
-</ul>
-<h3>Terms</h3>
+<h2>Objectives</h2>
+<p>Send text files and output streams through text utility filters to modify the output using standard UNIX commands found in the GNU textutils package.</p>
+<h2>Terms</h2>
 <ul>
 <li>bzcat</li>
 <li>cat</li>
@@ -116,11 +114,11 @@
 <li>xzcat</li>
 <li>zcat</li>
 </ul>
-<h3>Streams</h3>
+<h2>Streams</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/2mTH7HbErh8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p>In <strong>UNIX</strong> world a lot of data is in TEXT form. Log files, configurations, data, ... . <strong>Filtering</strong> this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a <strong>streams</strong> is nothing more than <em>"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"</em>.</p>
-<p>In simple words, a text stream is an input of text from keyboard, a file, a network device, .. which can be viewd, changed, examined and ... via text util commands.</p>
+<p>In <strong>UNIX</strong> world a lot of data is in TEXT form. Log files, configurations, data, etc. <strong>Filtering</strong> this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a <strong>streams</strong> is nothing more than <em>"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"</em>.</p>
+<p>In simple words, a text stream is an input of text from a keyboard, a file, a network device, ... which can be viewed, changed, examined and ... via text util commands.</p>
 <p>Modern programming environments and shells (including bash) use three standard I/O streams:</p>
 <ul>
 <li><strong>stdin</strong> is the standard input stream, which provides input to commands.</li>
@@ -130,7 +128,7 @@
 <p>Here we are talking about the <strong>stdin</strong> and viewing or manipulating it via different commands and utilities. You will see more about these streams and will see how we can combine commands to <em>PIPE</em> inputs and outputs of different commands in chapter 103.4.</p>
 <h2>Viewing commands</h2>
 <h3>cat</h3>
-<p>this command simply outputs its input stream (or the filename you give it). As you saw in previous section. As most commands, if you do not give an input to it, it will read the data from the keyboard.</p>
+<p>This command simply outputs its input stream (or the filename you give it). As you saw in the previous section. As most commands, if you do not give an input to it, it will read the data from the keyboard.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat &gt; mydata
 test
 this is the second line
@@ -159,9 +157,9 @@ total 0
 -rw-rw-r-- 1 jadi jadi 0 Jan  4 17:37 directory_data
 </code></pre></div>
 
-<p>Some common cat switches are <code>-n</code> to show line numbers, <code>-s</code> to squeeze blanks, <code>-T</code> to show tabs and <code>-v</code> to show nonprinting chracters.</p>
+<p>Some common cat switches are <code>-n</code> to show line numbers, <code>-s</code> to squeeze blanks, <code>-T</code> to show tabs and <code>-v</code> to show non-printing characters.</p>
 <h3>bzcat, xzcat, zcat, gzcat</h3>
-<p>There are used to directly <code>cat</code> the bz, xz and Z &amp; gz compressed files. These let you to see the contents of compressed files without uncompressing them first.</p>
+<p>There are used to directly <code>cat</code> the bz, xz and Z &amp; gz compressed files. These let you see the contents of compressed files without uncompressing them first.</p>
 <h3>less</h3>
 <p>This is a powerful tool to view larger text files. It can paginate, search and move in text files. </p>
 <blockquote>
@@ -194,7 +192,7 @@ total 0
 </tr>
 <tr>
 <td>?foo</td>
-<td>search backward for foo</td>
+<td>Search backward for foo</td>
 </tr>
 <tr>
 <td>G</td>
@@ -211,7 +209,7 @@ total 0
 </tbody>
 </table>
 <h3>od</h3>
-<p>This command _dump_s files (shows files in formats other than text). Normal behavior is OctalDump (shwoing in base 8):</p>
+<p>This command _dump_s files (Shows files in formats other than text). Normal behavior is OctalDump (showing in base 8):</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ od mydata
 0000000 062564 072163 072012 064550 020163 071551 072040 062550
 0000020 071440 061545 067543 062156 066040 067151 005145 074542
@@ -219,26 +217,26 @@ total 0
 0000042
 </code></pre></div>
 
-<p>Not good enough for normal human beings.. lets use some switches:</p>
+<p>Not good enough for normal human beings. Let's use some switches:</p>
 <ul>
 <li><strong>-t</strong> will tell what format to print:
   </br><code>-t a</code> for showing only named characters
   </br><code>-t c</code> for showing escaped chars.</br>
-You can summarize two above to <code>-a</code> and <code>-c</code></li>
-<li><strong>_A</strong> for choosing how to present offset field : 
+You can summarize the two above to <code>-a</code> and <code>-c</code></li>
+<li><strong>-A</strong> for choosing how to present offset field: 
   </br> <code>-A d</code> for Decimal,
   </br> <code>-A o</code> for Octal,
-  </br> <code>-A h</code> for hex 
+  </br> <code>-A x</code> for hex 
   </br> <code>-A n</code> for None</li>
 </ul>
 <blockquote>
-<p><code>od</code> is very useful to find problems in your text files - say finding out if you are using tabs or correct line endings</p>
+<p><code>od</code> is very useful to find problems in your text files - Say finding out if you are using tabs or correct line endings.</p>
 </blockquote>
-<h2>Chosing parts of files</h2>
+<h2>Choosing parts of files</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/nw3Ic3RxbVI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>split</h3>
-<p>Will split files. It is very useful for transferring HUGE files on smaller media (say splitting a 3TB file to 8GB parts and moving them to another machine with a USB Disk).</p>
+<p>Will split files. It is very useful for transferring HUGE files on smaller media (say splitting a 3TB file into 8GB parts and moving them to another machine with a USB Disk).</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat mydata
 hello
 this is second line
@@ -260,15 +258,15 @@ still writing
 </code></pre></div>
 
 <ul>
-<li>By default, split uses xaa, xab, xac, .. for output file names. It can be changed with <code>split -l 2 mydata output</code> which split mydata into outputaa, outputab, ..; 2 lines per file.</li>
+<li>By default, split uses xaa, xab, xac, ... for output file names. It can be changed with <code>split -l 2 mydata output</code> which split mydata into outputaa, outputab, ...; 2 lines per file.</li>
 <li>the <code>-l 2</code> splits 2 lines per file. It is possible to use <code>-b 42</code> to split every 42 bytes or even <code>-n 5</code> to force 5 output files.</li>
-<li>if you want numeric output (x00, x01, ..) use <code>-d</code></li>
+<li>If you want numeric output (x00, x01, ..) use <code>-d</code> option.</li>
 </ul>
 <blockquote>
-<p>need to join these files? <code>cat</code> them with <code>cat x* &gt; originalfile</code>.</p>
+<p>Need to join these files? <code>cat</code> them with <code>cat x* &gt; originalfile</code>.</p>
 </blockquote>
 <h3>head and tail</h3>
-<p>Will show the beginning (head) or end (tail) of text files. By default it will show 10 lines but you can change it by <code>-n20</code> or <code>-20</code>.</p>
+<p>Will show the beginning (head) or end (tail) of text files. By default, it will show 10 lines but you can change it by <code>-n20</code> or <code>-20</code>.</p>
 <blockquote>
 <p><code>tail -f</code> follows the new lines which are being written at the end of the file. Very useful.</p>
 </blockquote>
@@ -290,12 +288,12 @@ you
 <blockquote>
 <p>Default delimiter is TAB. use <code>-dx</code> to change it to "x" or <code>-d' '</code> to change it to space</p>
 </blockquote>
-<p>It is also possible to <em>cut</em> fields 1, 2, 3 with <code>-f1-3</code> or only characters 4,5,7,8 with <code>-c4,5,7,8</code>.</p>
+<p>It is also possible to <em>cut</em> fields 1, 2, 3 with <code>-f1-3</code> or only characters with index 4, 5, 7, 8 with from each line <code>-c4,5,7,8</code>.</p>
 <h2>Modifying streams</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/IpJpI3CzN_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>nl</h3>
-<p>This command is for showing line's numbers.</p>
+<p>This command is for showing line numbers.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ nl mydata  | head -3
      1    hello
      2    this is second line
@@ -303,7 +301,7 @@ you
 </code></pre></div>
 
 <blockquote>
-<p>cat -n will also number lines.</p>
+<p><code>cat -n</code> will also number lines.</p>
 </blockquote>
 <h3>sort &amp; uniq</h3>
 <p>Will sorts its input(s).</p>
@@ -329,9 +327,9 @@ you     12
 
 <p>If you want a reverse sort, use the <code>-r</code> switch.</p>
 <blockquote>
-<p>if you want to sort NUMERICALLY (so 9 is lower than 19), use <code>-n</code></p>
+<p>If you want to sort NUMERICALLY (so 9 is lower than 19), use <code>-n</code>.</p>
 </blockquote>
-<p>And the <code>uniq</code> removes duplicate entries from its input. Normal behavior is removing only the duplicated lines but you can change it's behavior, for example  <code>-f1</code> switch forces it not to check first field.</p>
+<p>And the <code>uniq</code> removes duplicate entries from its input. Normal behavior is removing only the duplicated lines but you can change its behavior, for example  <code>-f1</code> switch forces it not to check the first field.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ uniq what_i_have.txt
 laptop
 socks
@@ -349,7 +347,7 @@ jadi@funlife:~/w/lpic/101$
 </code></pre></div>
 
 <blockquote>
-<p>As you can see, the input HAVE TO BE sorted for uniq to work</p>
+<p>As you can see, the input HAVE TO BE sorted for uniq to work.</p>
 </blockquote>
 <p>uniq has great switches:</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat what_i_have.txt
@@ -394,7 +392,7 @@ you     12    neda mac
 </code></pre></div>
 
 <h3>tr</h3>
-<p>The <code>tr</code> command <em>translates</em> characters in the stream. For example <code>tr 'ABC' '123'</code> will replace A with 1, B with 2 and C with 3 in the provided stream. It is a pure filter and does not accept input file name. If needed you can pipe the cat with it (see chapter 103.4).</p>
+<p>The <code>tr</code> command <em>translates</em> characters in the stream. For example <code>tr 'ABC' '123'</code> will replace A with 1, B with 2 and C with 3 in the provided stream. It is a pure filter and does not accept the input file name. If needed you can pipe the cat with it (see chapter 103.4).</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat mydata
 hello
 this is second line
@@ -421,7 +419,7 @@ AND loNger!
 <p>Note: all <strong>'a'</strong>s are replaced with <strong>'A'</strong>.</p>
 </blockquote>
 <h3>sed</h3>
-<p>sed is <strong>s</strong>tream <strong>ed</strong>itor. It is POWERFUL and can do things which are not far from magic! Just like most of the tools we've seen far now, sed can work as a filter or take its input from a file. Sed is a great tool for replacing text with using <strong>regular expressions</strong> . If you need to replace A with B only once in each line in a stream just issue  <code>sed 's/A/B/'</code>:</p>
+<p>sed is <strong>s</strong>tream <strong>ed</strong>itor. It is POWERFUL and can do things that are not far from magic! Just like most of the tools we've seen far now, sed can work as a filter or take its input from a file. Sed is a great tool for replacing text with using <strong>regular expressions</strong> . If you need to replace A with B only once in each line in a stream just issue  <code>sed 's/A/B/'</code>:</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat uses
 you fedora
 jadi ubuntu
@@ -435,7 +433,7 @@ neda mac
 jadi@funlife:~/w/lpic/101$
 </code></pre></div>
 
-<p>the pattern for changing EVERY occurrence of A to B in a line is <code>sed 's/A/B/g'</code>.</p>
+<p>The pattern for changing EVERY occurrence of A to B in a line is <code>sed 's/A/B/g'</code>.</p>
 <p>Remember escape characters? They also work here and this will remove every <em>new line</em> from a file and will replace it with a space:</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat mydata
 hello
@@ -497,7 +495,7 @@ and longer!
 </code></pre></div>
 
 <h2>Hashing</h2>
-<p>A hash function is any function that can be used to map data of arbitrary size to fixed-size values. There are different hashes and we use them for different purposes. For example a site may hash your password in its database to keep it secure (and check the hash of provided password with a hash it already has in DB during logins), a site may provide the hash of a file so you can be sure that you've downloaded the correct file and ...</p>
+<p>A hash function is any function that can be used to map data of arbitrary size to fixed-size values. There are different hashes and we use them for different purposes. For example, a site may hash your password in its database to keep it secure (and check the hash of provided password with a hash it already has in DB during logins) a site may provide the hash of a file so you can be sure that you've downloaded the correct file and ...</p>
 <p>The hashing algorithms covered in LPIC1 are:</p>
 <ul>
 <li>md5sum</li>
@@ -513,7 +511,7 @@ and longer!
 <span class="mf">79e5</span><span class="n">d789528e5e55fc1bddcb381afd56e896b1b452347a76777fb38d76c9754278700036f35df2a53c4d53d3e3623538a8b9ed155a3fd5275e667bdbf3c0b359</span><span class="w">  </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">myfile</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
 </code></pre></div>
 
-<p>As you can see, <code>sha512sum</code> creates longer hash which is more secure.</p>
+<p>As you can see, <code>sha512sum</code> creates a longer hash which is more secure.</p>
 
 
              
