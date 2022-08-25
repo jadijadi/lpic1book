@@ -52,8 +52,8 @@ To do so you need to know about these characters:
 
 * `*` means **any string**
 * `?` means any single character
-* `[ABC]` matches A, B & C
-* `[a-k]` matches a, b, c, ..., k \(both lower-case and capital\)
+* `[ABC]` matches A, B or C
+* `[a-k]` matches a, b, c, ..., k \(both lower-case and upper-case\)
 * `[0-9a-z]` matches all digits and numbers
 * `[!x]` means NOT X.
 
@@ -64,12 +64,12 @@ knowing these, you can create your own patterns. For example:
 | rm * | delete all files in this directory |
 | ls A*B | show all files starting with A ending with B |
 | cp ???.* /tmp | Copy all files with 3 characters, then a dot then whatever (even nothing) to /tmp |
-| rmdir [a-z\]* | remove all directories which start with a letter |
+| rmdir [a-z\]* | remove all empty directories which start with a letter |
 
 ### general commands
 #### listing with `ls`
 
-Is used to _list_ directories & files. You can provide an absolute or relate path; if omitted the "." will be used as target.
+`ls` used to _list_ directories & files. You can provide an absolute or relative path; if omitted the "." will be used as target.
 
 ```text
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
@@ -89,10 +89,10 @@ Some common switches are:
 * `-t` sorts based on modification date
 * `-r` reverses the search (so `-tr` is reverse time (newer files at the bottom).
 
-> you can mix switches. A famous one is `-ltrh` (long+human readable sizes+reverse time).
+> you can mix switches. A famous one is `-ltrh` (long + human readable sizes + reverse time).
 
-#### Copy (`cp`), Move (`mv`) and Delete (`rm`)
-**cp**
+### Copy (`cp`), Move (`mv`) and Delete (`rm`)
+#### **cp**
 
 This will _copy_ files from one place / name to another place / name. If the target is a directory, all sources will be copied there.
 
@@ -103,7 +103,7 @@ cp source destination
 A common switch is `-r` (or `-R`) which copies recursively (directories and their contents). So for copying a directory called `A` to `/tmp/` you can issue `cp -r A /tmp/`.
 
 
-**mv**
+#### **mv**
 
 
 Will _move_ or _rename_ files or directories. It works like `cp` command. If you are moving a file on the same file system, the **inode** wont change.
@@ -111,15 +111,17 @@ Will _move_ or _rename_ files or directories. It works like `cp` command. If you
 In general:
 
 * If the target is an existing directory, then all sources are copied into the target
-* If the target is a directory that does not exist, then the source must be only one directory which will be renamed to the target directory.
-* If the target is a file, then the source must be only one file and rename will happen.
+* If the target directory does not exist, then the source must be only one directory which will be renamed to the target directory.
+* If the target is a file, then the source must be only one file so rename will happen.
 
 These look like "formulas" but they are common sense!
 
-**rm**
+#### **rm**
+
 Removes (Deletes) **files**. You can do this recursively using the `-r` switch or even prevent it from checking for confirmations using `-f` (force) switch. So a `rm -rf /` means *delete everything from the file system*.
 
 **notes**
+
 Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the `mv` will not move or rename a file if the target exists. Although this is highly dependent on your systems configuration. But in all cases you can overcome this using the `-f` switch.
 
 * `-f` (--force) will cause cp to try overwrite the target.
@@ -127,7 +129,7 @@ Normally, the cp command will copy a file over an existing copy, if the existing
 * `-b` (--backup) will make backups of overwritten files
 * `-p` will _preserve_ the attributes.
 
-#### Creating (mkdir) and removing (rmdir) directories
+### Creating (mkdir) and removing (rmdir) directories
 
 The `mkdir` command creates directories.
 
@@ -148,7 +150,7 @@ total 20K
 drwxrwxr-x 2 jadi jadi 4.0K Aug 14 04:57 new_dir
 ```
 
-If you want to create a tree of directories, you can use `-p` switch and tell the mkdir dir to create the *parent* directories if needed:
+If you want to create a tree of directories, you can use `-p` switch to tell the `mkdir` to create the *parent* directories if needed:
 
 ```text
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
@@ -158,7 +160,7 @@ total 20K
 -rw-rw-r-- 1 jadi jadi   24 Aug 14 04:44 data.txt
 -rw-rw-r-- 1 jadi jadi  116 Aug 14 04:44 note_to_self
 drwxrwxr-x 2 jadi jadi 4.0K Aug 14 04:57 new_dir
-jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ mkdir 1/2/3 -p
+jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ mkdir -p 1/2/3 
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ tree
 .
 ├── 1
@@ -186,11 +188,11 @@ jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ tree
 0 directories, 4 files
 ```
 
-> If you are using `rmdir` to remove a directory, it MUST BE EMPTY! Thats why many people use `rm -rf directory_name` to delete `directory_name` and whatever is in it.
+> If you are using `rmdir` to remove a directory, it *MUST BE EMPTY*! Thats why many people use `rm -rf directory_name` to delete not-empty directory and whatever is in it.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/tSN1MSaFYEw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-#### touch
+#### **touch**
 The `touch` will create an empty file (if it does not exists) or updates the **modification** date of a file if it already exists. The default time is *now* but you can specify other times too.
 
 ```
@@ -237,7 +239,7 @@ $ ls -ltrh file?
 -rw-rw-r-- 1 jadi jadi 0 Nov  5  2022 file3
 ```
 
-Oh.. and its possible to set time of file, based on another file using the switch `-r` (for --reference)):
+Oh.. and its possible to use another file's time to set , with switch `-r` (for --reference)):
 
 ```
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -l /etc/debian_version
@@ -248,9 +250,9 @@ total 20K
 -rw-rw-r-- 1 jadi jadi   0 Aug 22  2021 file1
 ```
 
-#### file
+#### **file**
 
-To determine the type of a file, you should use `file` command. It looks *into* the file and determine its file type.
+To determine the type of a file, you should use `file` command. It looks *into* the file and determine its type.
 
 ```
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ file file1
@@ -261,9 +263,9 @@ jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ file /bin/bash
 /bin/bash: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=33a5554034feb2af38e8c75872058883b2988bc5, for GNU/Linux 3.2.0, stripped
 ```
 
-> -i switch prints the mime format
+> `-i` switch prints the mime format
 
-#### dd
+#### **dd**
 The `dd` command copies data from its input to its output (say files or devices). You may use it just like copy:
 
 ```
@@ -276,10 +278,10 @@ I will continue learning... and if I get confused, I'll repeat the last section 
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$
 ```
 
-* `if` is In File
-* `of` is Out File
+* `if` is Input File
+* `of` is Output File
 
-But commonly people use it to read / write from block devices. For example this will read all the sectors from the `/dev/sdb` and will write them a file called `backup.dd`. Later you can restore this backup by swapping the `if` and `of` and write from the `backup.dd` to `/dev/sdb`. 
+But commonly people use it to read / write from block devices. For example this will read all the sectors from the `/dev/sdb` and will write them to a file named`backup.dd`. Later you can restore this backup by swapping the `if` and `of` and write from the `backup.dd` to `/dev/sdb`. 
 
 
 ```
@@ -305,7 +307,7 @@ $ sudo dd if=ubuntu.iso of=/dev/sdc bs=2048
 ```
 
 > Caution: here you are writing directly on a block devices. If you do something wrong... you will ruin your disk and need to reformat it.
-#### find
+#### **find**
 The `find` command helps us to find files based on different criteria. Look at this:
 
 ```
@@ -340,7 +342,7 @@ if you want to search for file sizes do as below:
 So this will find all files ending in _tmp_ with size between 1M and 100M in /var/ directory:
 
 ```text
-find /var -iname '*tmp* -size +1M -size -100M
+find /var -iname '*tmp' -size +1M -size -100M
 ```
 
 > you can find all empty files with `find . -size 0b` or `find . -empty`
@@ -362,11 +364,11 @@ Another useful search criteria is time. These are some of the options:
 > if you add `-daystart` switch to -mtime or -atime it means that we want to consider days as calendar days, starting at midnight.
 
 
-**Acting on files**
+#### Acting on files
 
 We can execute commands or do other actions on files with various switches:
 
-| switch | meanint |
+| switch | meaning |
 | :--- | :--- |
 | -ls | will run ls -dils on each file |
 | -print | will print the full name of the files on each line |
@@ -390,7 +392,7 @@ find . -name "*.htm" -exec mv '{}' '{}l' \;
 <iframe width="560" height="315" src="https://www.youtube.com/embed/6MLaCDTRgis" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Compression
-#### gzip & gunzip
+#### **gzip & gunzip**
 Straight forward, one gzips files and one ungzips files; In place:
 ```
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
@@ -422,11 +424,11 @@ drwxrwxr-x 3 jadi jadi 4.0K Aug 14 05:20 directory
 
 * gzip preserves time
 * gzip creates the new compressed file with the same name but with .gz ending
-* gzip removes the original files after creating the compressed file
+* gzip removes the original files after creating the compressed file (you can keep the input file with `-k` switch)
 
 
 
-#### bzip2 & bunzip2
+#### **bzip2 & bunzip2**
 
 The `bzip2` is another compressing tool. Works just like the famous `gzip` but with a different compression algorithm.
 
@@ -445,7 +447,7 @@ jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls
 data.txt  directory  info.txt  new_file  note_to_self  tasks.txt
 ```
 
-#### xz & unxz
+#### **xz & unxz**
 
 Another compression / decompression tool just like `gzip` and `bzip2`. 
 
@@ -470,37 +472,37 @@ drwxrwxr-x 3 jadi jadi 4.0K Aug 14 05:20 directory
 -rw-rw-r-- 1 jadi jadi  116 Aug 14 07:51 new_file
 ```
 
-Please note that *compressing* a small text file have made it larger. This is *normal* in small files because of all the headers and metadata.
+Please note that *compressing* a small text file makes it larger. This is *normal* in small files because of all the headers and metadata.
 
 > In some cases, commands like `unxz` is just a calls to `xz --dcompress`
 
 
 ### Archiving with tar & cpio
 
-Sometimes we need to create an archive file container many other files. This is different than compressing; this is combining files into one and then extracting them again. This is mostly used in backups, archives, moving files to a new location (say via email) and such. This is done with `cpio` and `tar`.
+Sometimes we need to create an archive file container of many other files. This operation is different than compressing, its combining files into one and then extracting them again. Archiving is  mostly used in backups, moving files to a new location (say via email) and such. This is done with `cpio` and `tar`.
 
-**tar**
+#### **tar**
 
 TapeARchive or tar is the most common archiving tool. In automatically create an archive file from a directory and all its subdirs.
 
-Common switches are
+Common switches are:
 
 | switch | meanint |
 | :--- | :--- |
-| -cf myarchive.tar | create file named myarchive.tar |
-| -xf myarchive.tar | extract a file called myarchive.tar |
+| -cf `myarchive.tar` | create file named myarchive.tar |
+| -xf `myarchive.tar` | extract a file named myarchive.tar |
 | -z | compress the archive with gzip after creating it |
 | -b | compress the archive with bzip2 after creating it |
-| -v | verbose! print a lot of data about what you are doing |
+| -v | verbose! print a lot of data about what is happening |
 | -r | append new files to the currentyp available archive |
 
 > If you issue absolute paths, tar removes the starting slash \(/\) for safety reasons when creating an archive. If you want to override, use -p option.
 >
 > tar can work with tapes and other storages. Thats why we use `-f` to tell it that we are working with files.
 
-**cpio**
+#### **cpio**
 
-Gets a list of files and creates an archive (one file). This file cap be used later to extract the original files.
+Gets a list of files and creates an archive (one file). This file can be used later to extract the original files.
 
 ```
 $ ls | cpio -o > allfilesls.cpio
