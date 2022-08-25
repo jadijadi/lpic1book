@@ -6,108 +6,104 @@ Authors: Jadi
 Summary: 
 sortorder: 150
 
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
+_Weight: 4_
+
+Candidates should be able to redirect streams and connect them in order to efficiently process textual data. Tasks include redirecting standard input, standard output and standard error, piping the output of one command to the input of another command, using the output of one command as arguments to another command and sending output to both stdout and a file.
 
 
-* Candidates should be able to redirect streams and connect them in order to efficiently process textual data. Tasks include redirecting standard input, standard output and standard error, piping the output of one command to the input of another command, using the output of one command as arguments to another command and sending output to both stdout and a file.
-
-### Objectives
-
+## Objectives
 * Redirecting standard input, standard output and standard error.
 * Pipe the output of one command to the input of another command.
 * Use the output of one command as arguments to another command.
 * Send output to both stdout and a file.
+
+## Terms
 * tee
 * xargs
 
-We've already talked about basics of piping and redirects in previous sections. Here you will get a deeper understanding of these concepts.
+These features helps us to control the input / output of the commands and do things like saving the output of a command to a file, getting the input of a command from another command or separating the normal output from errors. We've already used them in previous sections but lets lean more and deepen our understanding about these.
 
-### Redirecting standard IO
 
-On a linux system most shells use streams for input and output \(a list of characters\). . These streams can be from \(and toward\) various things including keyboard, block devices \(hards, usb stick, ..\), window of a program, fiels, ...
+## Redirecting standard IO
 
-1. _stdout_ is the standard output stream, which displays output from commands \(file descriptor 1\)
-2. _stderr_ is the standard error stream, which displays error output from commands \(file descriptor 2\)
-3. _stdin_ is the standard input stream, which provides input to commands \(file descriptor 0\)
+On a linux system most shells use streams for input and output. These streams can be from (and toward) various things including keyboard, block devices (hards, usb stick, ..), files and ...
 
-What are these **file descriptions**? There are used to control the output. If you need to control where your output goes, you can add `n>` or `n>>`.
+We have 3 different standard streams:
 
-* **n&gt;** redirects **file description n** to a file or device. If the file already exists it is **overwritten** and if it does not exists, it will be created.
-* **n&gt;&gt;** redirects file description n to a file or device. If the file already exists the stream will be appended to the end of it and if it does not exists, it will be created.
+0. _stdin_ is the standard input stream, which provides input to a command
+1. _stdout_ is the standard output stream, which includes output of a command
+2. _stderr_ is the standard error stream, which includes error output of a command
 
-> if the **n** is not given, the default is _standard output_
->
-> The user who runs the command should have write access to the file.
+> Note the 0, 1 & 2 numbering. The are called *file descriptors*. If you want to redirect the error, you can do 2> and only the error will be redirected.
 
-```text
+These are the other redirections you can use:
+
+|Operator|Usage|
+|--|--|
+|>|Redirect STDOUT to a file; Overwrite if exists|
+|>>|Redirect STDOUT to a file; Append if exists|
+|2>|Redirect STDERR to a file; Overwrite if exists|
+|2>>|Redirect STDERR to a file; Append if exists|
+|&>|Redirect both STDOUT and STDERR; Overwrite if exists|
+|&>>|Redirect both STDOUT and STDERR; Append if exists|
+|<|Redirect STDIN from a file|
+|<>|Redirect STDIN from the file and send the STDOUT to it|
+
+Some examples:
+
+```
 $ ls
-fiona  habib  mahmoodrm  minoo    mojtaba  sina
+bob	jack	jadi	linus	sara who_uses_what.txt
+$ ls x*
+ls: x*: No such file or directory
 $ ls j*
-ls: cannot access j*: No such file or directory
-$ ls m*
-mahmoodrm  minoo  mojtaba
-$ ls j* m*
-ls: cannot access j*: No such file or directory
-mahmoodrm  minoo  mojtaba
-$ ls j* m* > output 2> errors
+jack	jadi
+$ ls j* x* > output 2> errors
 $ cat output
-mahmoodrm
-minoo
-mojtaba
+jack
+jadi
 $ cat errors
-ls: cannot access j*: No such file or directory
-$
+ls: x*: No such file or directory
+$ cat who_uses_what.txt
+jadi, fedora
+linux, fedora
+bob, ubuntu
+jack, arch
+sara, fedora
+$ tr ' ', '' < who_uses_what.txt
+tr: empty string2
+$ cat who
+$ tr ',', '|' < who_uses_what.txt
+jadi| fedora
+linux| fedora
+bob| ubuntu
+jack| arch
+sara| fedora
 ```
 
-**Redirecting both stdout and stderr to one location**
+It is also possible to use `&1` and `&2` and `&0` to refer to the **target** of STDOUT, STDERR & STDIN. In this case `ls > file1 2>&1` means _redirect output to file1 and output stderr to same place as stdout \(file1\)_
 
-Sometimes \(say during automated tasks\) we prefer to send both standard output and standard error to same place, Use `&>` and `&>>` to say _both stderr and stdout_.
+> Be careful! `ls 2>&1 > file1` means _print stderr to current location of stdout (terminal) and then change the stdout to file1_
 
-It is also possible to use `&1` and `&2` and `&0` to refer to **current place** of stdout, stderr & stdin. In this case `ls > file1 2>&1` means _redirect output to file1 and output stderr to same place as stdout \(file1\)_
+#### sending to null
 
-> Be careful! `ls 2>&1 > file1` means _print stderr to current location of stdout \(screen\) and then change the stdout to file1_
+In linux, **/dev/null** device works like an abyss. You can send anything there and it disappears without being any burden on your system. So it is normal to say:
 
-**sending to null**
-
-In linux, **/dev/null** is like a trash-can. You can send anything there and it disappears. So it is normal to say:
-
-```text
-$ ls j* m* > file1
-ls: cannot access j*: No such file or directory
-$ ls j* m* > file1 2>/dev/null
+```
+$ ls j* x* > file1
+ls: x*: No such file or directory
+$ ls j* x* > file1 2>/dev/null
 $ cat file1
-mahmoodrm
-minoo
-mojtaba
-$
+jack
+jadi
 ```
 
-### redirecting input
-
-The **&lt;** operand redirects the input.
-
-```text
-$ cat uses
-you fedora
-jadi ubuntu
-rubic windows
-neda mac
-narsin arch
-$ tr ' ' ',' < uses
-you,fedora
-jadi,ubuntu
-rubic,windows
-neda,mac
-narsin,arch
-```
 
 #### here-documents
 
-Many shells, have here-documents \(also called here-docs\) as a way of input. You use `<<` and a `WORD` and then whatever you input is considered stdin till you give only the WORD in one line.
+Many shells, have here-documents (also called here-docs) as a way of input. You use `<<` and a `WORD` and then whatever you input is considered stdin till you give only the WORD in one line.
 
-```text
+```
 $ tr ' ' '.' << END_OF_DATA
 > this is a line
 > and then this
@@ -124,82 +120,103 @@ and,
 done!
 ```
 
-> Here-Documnts are very useful if you are writing scripts and automated tasks.
+> Here-Documents are very useful if you are writing scripts and automated tasks.
 
 ### Pipes
 
-Piping is sending one commands output to another commands input \(Piping the stdout to stdin\). You use `|` for this task.
+With the pipe (`|`), you can redirect STDOUT, STDIN, and STDERR between multiple commands all on one command line. When you do `command1 | command2 `; command1, is executed but its STDOUT is redirected as STDIN into the COMMAND2. 
 
-> As previously seen, many commands use a hyphen `-` in place of a filename as an argument to indicate when the input should come from stdin rather than a file.
 
-```text
-$ cat what_i_have.txt
-laptop
-socks
-tshirt
-ball
-socks
-glasses
-$ cut -f1 -d' ' what_i_have.txt | sort | uniq -c | sort -nr
-      2 socks
-      1 tshirt
-      1 laptop
-      1 glasses
-      1 ball
+```
+$ cat who_uses_what.txt
+jadi, fedora
+linux, fedora
+bob, ubuntu
+jack, arch
+sara, fedora
+$ cut -f2 -d, who_uses_what.txt | sed -e 's/ //g' | sort  | uniq -c | sort -nr
+   3 fedora
+   1 ubuntu
+   1 arch
 ```
 
 > If you need to start your pipeline with the contents of a file, start with `cat filename | ...` or use a `<` stdin redirect.
 
+Pipes are one of the super strong & super amazing features in the UNIX world. They let you create *new* tools via combining tools which do atomic things. 
+
+# TODO : add a video as a sample here
+
 ### xargs
 
-This command reads input from _stdin_ and uses them as arguments.
+The xargs utility reads space, tab, newline and end-of-file delimited strings from the standard input and executes the provided utility utility with the strings as arguments. them as arguments.
 
-```text
+```
+$ ls
+bob			file1			jadi			output			who_uses_what.txt
+errors			jack			linus			sara
 $ ls | xargs echo these are files:
-these are files: errors f file1 fiona habib mahmoodrm minoo mojtaba output output.txt sina uses what_i_have.txt
+these are files: bob errors file1 jack jadi linus output sara who_uses_what.txt
 ```
 
-> if you do not give any command to the `xargs` , the echo will be the default command \(it will show the stdin\).
+> if you do not give any command to the `xargs` , the echo will be the default command. 
 
-Have in mind that xargs breaks input based on blanks and use any part as an argument. You can limit the number of arguments with `--max-args` \(same as `-n`\) switch and escape blanks or quote them to prevent them from breaking.
+One common switch is `-I`. This is useful if you need to pass stdin arguments in the middle (or even start) of your commands. Use it like this: `xargs -I SOMETHING echo here is SOMETHING end`:
 
-One important switch is -I. This is useful if you need to pass stdin arguments in the middle \(or even start\) of your commands. use the form `xargs -I SOMETHING echo here is SOMETHING end`:
-
-```text
-$ cat what_i_have.txt
-laptop
-socks
-tshirt
-ball
-socks
-glasses
-$ cat what_i_have.txt | xargs -I DATA echo I have DATA and I love it.
-I have laptop and I love it.
-I have socks and I love it.
-I have tshirt and I love it.
-I have ball and I love it.
-I have socks and I love it.
-I have glasses and I love it.
+```
+$ cat who_uses_what.txt
+jadi, fedora
+linux, fedora
+bob, ubuntu
+jack, arch
+sara, fedora
+$ cat who_uses_what.txt | xargs -I DATA echo name is DATA is the choice.
+name is jadi, fedora is the choice.
+name is linux, fedora is the choice.
+name is bob, ubuntu is the choice.
+name is jack, arch is the choice.
+name is sara, fedora is the choice.
 ```
 
-> If you use -L, the input will break by line and not by blanks.
+Two more useful switches? `-L` to break based on new lines and `-n 1` to tell xargs to run invoke the provided utility after receiving 1 argument.  
 
 ### tee
 
-What if you need to see the output on screen and also save it to a file? Ugly way is redirecting to the file and using `tail -f file` in another window. Nice way is using `tee` and giving it one or more filenames for standard output \(if you need to save _stderr_, first redirect it to _stdout_\). This will write the output to those files and also writes them to the screen:
+The problem with redirection is that you can not see the progress of your commands in the same terminal. The `tee` utility solves this. If you need to see the output on screen and also save it to a file, `tee` is your friend. Give it one or more filenames and it will do the trick. 
 
-```text
+
+```
 $ ls -1 | tee allfiles myfiles
-allfiles
-f
-fiona
-habib
-mahmoodrm
-minoo
-mojtaba
-myfiles
-sina
+bob
+errors
+file1
+jack
+jadi
+linus
+output
+sara
+who_uses_what.txt
+$ cat allfiles myfiles
+bob
+errors
+file1
+jack
+jadi
+linus
+output
+sara
+who_uses_what.txt
+bob
+errors
+file1
+jack
+jadi
+linus
+output
+sara
+who_uses_what.txt
 ```
 
-> if you want to prevent overwriting files, use the `-a` switch to append to files if exists.
 
+> if you need to save _stderr_ too, first redirect it to _stdout_
+ 
+ The `-a` switch will append to files if they exists.
