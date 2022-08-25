@@ -87,9 +87,8 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <ul>
-<li>Candidates should be able to redirect streams and connect them in order to efficiently process textual data. Tasks include redirecting standard input, standard output and standard error, piping the output of one command to the input of another command, using the output of one command as arguments to another command and sending output to both stdout and a file.</li>
-</ul>
+            <p><em>Weight: 4</em></p>
+<p>Candidates should be able to redirect streams and connect them in order to efficiently process textual data. Tasks include redirecting standard input, standard output and standard error, piping the output of one command to the input of another command, using the output of one command as arguments to another command and sending output to both stdout and a file.</p>
 <h2>Objectives</h2>
 <ul>
 <li>Redirecting standard input, standard output and standard error.</li>
@@ -102,167 +101,211 @@
 <li>tee</li>
 <li>xargs</li>
 </ul>
-<p>We've already talked about basics of piping and redirects in previous sections. Here you will get a deeper understanding of these concepts.</p>
-<h3>Redirecting standard IO</h3>
-<p>On a linux system most shells use streams for input and output (a list of characters). . These streams can be from (and toward) various things including keyboard, block devices (hards, usb stick, ..), window of a program, fiels, ...</p>
+<p>These features helps us to control the input / output of the commands and do things like saving the output of a command to a file, getting the input of a command from another command or separating the normal output from errors. We've already used them in previous sections but lets lean more and deepen our understanding about these.</p>
+<h2>Redirecting standard IO</h2>
+<p>On a linux system most shells use streams for input and output. These streams can be from (and toward) various things including keyboard, block devices (hards, usb stick, ..), files and ...</p>
+<p>We have 3 different standard streams:</p>
 <ol>
-<li><em>stdout</em> is the standard output stream, which displays output from commands (file descriptor 1)</li>
-<li><em>stderr</em> is the standard error stream, which displays error output from commands (file descriptor 2)</li>
-<li><em>stdin</em> is the standard input stream, which provides input to commands (file descriptor 0)</li>
+<li><em>stdin</em> is the standard input stream, which provides input to a command</li>
+<li><em>stdout</em> is the standard output stream, which includes output of a command</li>
+<li><em>stderr</em> is the standard error stream, which includes error output of a command</li>
 </ol>
-<p>What are these <strong>file descriptions</strong>? There are used to control the output. If you need to control where your output goes, you can add <code>n&gt;</code> or <code>n&gt;&gt;</code>.</p>
-<ul>
-<li><strong>n&gt;</strong> redirects <strong>file description n</strong> to a file or device. If the file already exists it is <strong>overwritten</strong> and if it does not exists, it will be created.</li>
-<li><strong>n&gt;&gt;</strong> redirects file description n to a file or device. If the file already exists the stream will be appended to the end of it and if it does not exists, it will be created.</li>
-</ul>
 <blockquote>
-<p>if the <strong>n</strong> is not given, the default is <em>standard output</em></p>
-<p>The user who runs the command should have write access to the file.</p>
+<p>Note the 0, 1 &amp; 2 numbering. The are called <em>file descriptors</em>. If you want to redirect the error, you can do 2&gt; and only the error will be redirected.</p>
 </blockquote>
+<p>These are the other redirections you can use:</p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&gt;</td>
+<td>Redirect STDOUT to a file; Overwrite if exists</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>Redirect STDOUT to a file; Append if exists</td>
+</tr>
+<tr>
+<td>2&gt;</td>
+<td>Redirect STDERR to a file; Overwrite if exists</td>
+</tr>
+<tr>
+<td>2&gt;&gt;</td>
+<td>Redirect STDERR to a file; Append if exists</td>
+</tr>
+<tr>
+<td>&amp;&gt;</td>
+<td>Redirect both STDOUT and STDERR; Overwrite if exists</td>
+</tr>
+<tr>
+<td>&amp;&gt;&gt;</td>
+<td>Redirect both STDOUT and STDERR; Append if exists</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>Redirect STDIN from a file</td>
+</tr>
+<tr>
+<td>&lt;&gt;</td>
+<td>Redirect STDIN from the file and send the STDOUT to it</td>
+</tr>
+</tbody>
+</table>
+<p>Some examples:</p>
 <div class="highlight"><pre><span></span><code>$ ls
-fiona  habib  mahmoodrm  minoo    mojtaba  sina
+bob jack    jadi    linus   sara who_uses_what.txt
+$ ls x*
+ls: x*: No such file or directory
 $ ls j*
-ls: cannot access j*: No such file or directory
-$ ls m*
-mahmoodrm  minoo  mojtaba
-$ ls j* m*
-ls: cannot access j*: No such file or directory
-mahmoodrm  minoo  mojtaba
-$ ls j* m* &gt; output 2&gt; errors
+jack    jadi
+$ ls j* x* &gt; output <span class="m">2</span>&gt; errors
 $ cat output
-mahmoodrm
-minoo
-mojtaba
+jack
+jadi
 $ cat errors
-ls: cannot access j*: No such file or directory
-$
+ls: x*: No such file or directory
+$ cat who_uses_what.txt
+jadi, fedora
+linux, fedora
+bob, ubuntu
+jack, arch
+sara, fedora
+$ tr <span class="s1">&#39; &#39;</span>, <span class="s1">&#39;&#39;</span> &lt; who_uses_what.txt
+tr: empty string2
+$ cat who
+$ tr <span class="s1">&#39;,&#39;</span>, <span class="s1">&#39;|&#39;</span> &lt; who_uses_what.txt
+jadi<span class="p">|</span> fedora
+linux<span class="p">|</span> fedora
+bob<span class="p">|</span> ubuntu
+jack<span class="p">|</span> arch
+sara<span class="p">|</span> fedora
 </code></pre></div>
 
-<p><strong>Redirecting both stdout and stderr to one location</strong></p>
-<p>Sometimes (say during automated tasks) we prefer to send both standard output and standard error to same place, Use <code>&amp;&gt;</code> and <code>&amp;&gt;&gt;</code> to say <em>both stderr and stdout</em>.</p>
-<p>It is also possible to use <code>&amp;1</code> and <code>&amp;2</code> and <code>&amp;0</code> to refer to <strong>current place</strong> of stdout, stderr &amp; stdin. In this case <code>ls &gt; file1 2&gt;&amp;1</code> means <em>redirect output to file1 and output stderr to same place as stdout (file1)</em></p>
+<p>It is also possible to use <code>&amp;1</code> and <code>&amp;2</code> and <code>&amp;0</code> to refer to the <strong>target</strong> of STDOUT, STDERR &amp; STDIN. In this case <code>ls &gt; file1 2&gt;&amp;1</code> means <em>redirect output to file1 and output stderr to same place as stdout (file1)</em></p>
 <blockquote>
-<p>Be careful! <code>ls 2&gt;&amp;1 &gt; file1</code> means <em>print stderr to current location of stdout (screen) and then change the stdout to file1</em></p>
+<p>Be careful! <code>ls 2&gt;&amp;1 &gt; file1</code> means <em>print stderr to current location of stdout (terminal) and then change the stdout to file1</em></p>
 </blockquote>
-<p><strong>sending to null</strong></p>
-<p>In linux, <strong>/dev/null</strong> is like a trash-can. You can send anything there and it disappears. So it is normal to say:</p>
-<div class="highlight"><pre><span></span><code>$ ls j* m* &gt; file1
-ls: cannot access j*: No such file or directory
-$ ls j* m* &gt; file1 2&gt;/dev/null
+<h4>sending to null</h4>
+<p>In linux, <strong>/dev/null</strong> device works like an abyss. You can send anything there and it disappears without being any burden on your system. So it is normal to say:</p>
+<div class="highlight"><pre><span></span><code>$ ls j* x* &gt; file1
+ls: x*: No such file or directory
+$ ls j* x* &gt; file1 <span class="m">2</span>&gt;/dev/null
 $ cat file1
-mahmoodrm
-minoo
-mojtaba
-$
-</code></pre></div>
-
-<h3>redirecting input</h3>
-<p>The <strong>&lt;</strong> operand redirects the input.</p>
-<div class="highlight"><pre><span></span><code>$ cat uses
-you fedora
-jadi ubuntu
-rubic windows
-neda mac
-narsin arch
-$ tr &#39; &#39; &#39;,&#39; &lt; uses
-you,fedora
-jadi,ubuntu
-rubic,windows
-neda,mac
-narsin,arch
+jack
+jadi
 </code></pre></div>
 
 <h4>here-documents</h4>
 <p>Many shells, have here-documents (also called here-docs) as a way of input. You use <code>&lt;&lt;</code> and a <code>WORD</code> and then whatever you input is considered stdin till you give only the WORD in one line.</p>
-<div class="highlight"><pre><span></span><code>$ tr &#39; &#39; &#39;.&#39; &lt;&lt; END_OF_DATA
-&gt; this is a line
-&gt; and then this
-&gt;
-&gt; we&#39;ll still type
-&gt; and,
-&gt; done!
-&gt; END_OF_DATA
+<div class="highlight"><pre><span></span><code>$ tr <span class="s1">&#39; &#39;</span> <span class="s1">&#39;.&#39;</span> <span class="s">&lt;&lt; END_OF_DATA</span>
+<span class="s">&gt; this is a line</span>
+<span class="s">&gt; and then this</span>
+<span class="s">&gt;</span>
+<span class="s">&gt; we&#39;ll still type</span>
+<span class="s">&gt; and,</span>
+<span class="s">&gt; done!</span>
+<span class="s">&gt; END_OF_DATA</span>
 this.is.a.line
 and.then.this
 
-we&#39;ll.still.type
+we<span class="err">&#39;</span>ll.still.type
 and,
-done!
+<span class="k">done</span>!
 </code></pre></div>
 
 <blockquote>
-<p>Here-Documnts are very useful if you are writing scripts and automated tasks.</p>
+<p>Here-Documents are very useful if you are writing scripts and automated tasks.</p>
 </blockquote>
 <h3>Pipes</h3>
-<p>Piping is sending one commands output to another commands input (Piping the stdout to stdin). You use <code>|</code> for this task.</p>
-<blockquote>
-<p>As previously seen, many commands use a hyphen <code>-</code> in place of a filename as an argument to indicate when the input should come from stdin rather than a file.</p>
-</blockquote>
-<div class="highlight"><pre><span></span><code>$ cat what_i_have.txt
-laptop
-socks
-tshirt
-ball
-socks
-glasses
-$ cut -f1 -d&#39; &#39; what_i_have.txt | sort | uniq -c | sort -nr
-      2 socks
-      1 tshirt
-      1 laptop
-      1 glasses
-      1 ball
+<p>With the pipe (<code>|</code>), you can redirect STDOUT, STDIN, and STDERR between multiple commands all on one command line. When you do <code>command1 | command2</code>; command1, is executed but its STDOUT is redirected as STDIN into the COMMAND2. </p>
+<div class="highlight"><pre><span></span><code>$ cat who_uses_what.txt
+jadi, fedora
+linux, fedora
+bob, ubuntu
+jack, arch
+sara, fedora
+$ cut -f2 -d, who_uses_what.txt <span class="p">|</span> sed -e <span class="s1">&#39;s/ //g&#39;</span> <span class="p">|</span> sort  <span class="p">|</span> uniq -c <span class="p">|</span> sort -nr
+   <span class="m">3</span> fedora
+   <span class="m">1</span> ubuntu
+   <span class="m">1</span> arch
 </code></pre></div>
 
 <blockquote>
 <p>If you need to start your pipeline with the contents of a file, start with <code>cat filename | ...</code> or use a <code>&lt;</code> stdin redirect.</p>
 </blockquote>
+<p>Pipes are one of the super strong &amp; super amazing features in the UNIX world. They let you create <em>new</em> tools via combining tools which do atomic things. As an example, check this out:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/86V5amp1u7U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <h3>xargs</h3>
-<p>This command reads input from <em>stdin</em> and uses them as arguments.</p>
-<div class="highlight"><pre><span></span><code>$ ls | xargs echo these are files:
-these are files: errors f file1 fiona habib mahmoodrm minoo mojtaba output output.txt sina uses what_i_have.txt
+<p>The xargs utility reads space, tab, newline and end-of-file delimited strings from the standard input and executes the provided utility utility with the strings as arguments. them as arguments.</p>
+<div class="highlight"><pre><span></span><code>$ ls
+bob         file1           jadi            output          who_uses_what.txt
+errors          jack            linus           sara
+$ ls <span class="p">|</span> xargs <span class="nb">echo</span> these are files:
+these are files: bob errors file1 jack jadi linus output sara who_uses_what.txt
 </code></pre></div>
 
 <blockquote>
-<p>if you do not give any command to the <code>xargs</code> , the echo will be the default command (it will show the stdin).</p>
+<p>if you do not give any command to the <code>xargs</code> , the echo will be the default command. </p>
 </blockquote>
-<p>Have in mind that xargs breaks input based on blanks and use any part as an argument. You can limit the number of arguments with <code>--max-args</code> (same as <code>-n</code>) switch and escape blanks or quote them to prevent them from breaking.</p>
-<p>One important switch is -I. This is useful if you need to pass stdin arguments in the middle (or even start) of your commands. use the form <code>xargs -I SOMETHING echo here is SOMETHING end</code>:</p>
-<div class="highlight"><pre><span></span><code>$ cat what_i_have.txt
-laptop
-socks
-tshirt
-ball
-socks
-glasses
-$ cat what_i_have.txt | xargs -I DATA echo I have DATA and I love it.
-I have laptop and I love it.
-I have socks and I love it.
-I have tshirt and I love it.
-I have ball and I love it.
-I have socks and I love it.
-I have glasses and I love it.
+<p>One common switch is <code>-I</code>. This is useful if you need to pass stdin arguments in the middle (or even start) of your commands. Use it like this: <code>xargs -I SOMETHING echo here is SOMETHING end</code>:</p>
+<div class="highlight"><pre><span></span><code>$ cat who_uses_what.txt
+jadi, fedora
+linux, fedora
+bob, ubuntu
+jack, arch
+sara, fedora
+$ cat who_uses_what.txt <span class="p">|</span> xargs -I DATA <span class="nb">echo</span> name is DATA is the choice.
+name is jadi, fedora is the choice.
+name is linux, fedora is the choice.
+name is bob, ubuntu is the choice.
+name is jack, arch is the choice.
+name is sara, fedora is the choice.
 </code></pre></div>
 
-<blockquote>
-<p>If you use -L, the input will break by line and not by blanks.</p>
-</blockquote>
+<p>Two more useful switches? <code>-L</code> to break based on new lines and <code>-n 1</code> to tell xargs to run invoke the provided utility after receiving 1 argument.  </p>
 <h3>tee</h3>
-<p>What if you need to see the output on screen and also save it to a file? Ugly way is redirecting to the file and using <code>tail -f file</code> in another window. Nice way is using <code>tee</code> and giving it one or more filenames for standard output (if you need to save <em>stderr</em>, first redirect it to <em>stdout</em>). This will write the output to those files and also writes them to the screen:</p>
-<div class="highlight"><pre><span></span><code>$ ls -1 | tee allfiles myfiles
-allfiles
-f
-fiona
-habib
-mahmoodrm
-minoo
-mojtaba
-myfiles
-sina
+<p>The problem with redirection is that you can not see the progress of your commands in the same terminal. The <code>tee</code> utility solves this. If you need to see the output on screen and also save it to a file, <code>tee</code> is your friend. Give it one or more filenames and it will do the trick. </p>
+<div class="highlight"><pre><span></span><code>$ ls -1 <span class="p">|</span> tee allfiles myfiles
+bob
+errors
+file1
+jack
+jadi
+linus
+output
+sara
+who_uses_what.txt
+$ cat allfiles myfiles
+bob
+errors
+file1
+jack
+jadi
+linus
+output
+sara
+who_uses_what.txt
+bob
+errors
+file1
+jack
+jadi
+linus
+output
+sara
+who_uses_what.txt
 </code></pre></div>
 
 <blockquote>
-<p>if you want to prevent overwriting files, use the <code>-a</code> switch to append to files if exists.</p>
+<p>if you need to save <em>stderr</em> too, first redirect it to <em>stdout</em></p>
 </blockquote>
+<p>The <code>-a</code> switch will append to files if they exists.</p>
 
 
              
