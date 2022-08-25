@@ -142,9 +142,9 @@ $ cut -f2 -d, who_uses_what.txt | sed -e 's/ //g' | sort  | uniq -c | sort -nr
 
 > If you need to start your pipeline with the contents of a file, start with `cat filename | ...` or use a `<` stdin redirect.
 
-Pipes are one of the super strong & super amazing features in the UNIX world. They let you create *new* tools via combining tools which do atomic things. 
+Pipes are one of the super strong & super amazing features in the UNIX world. They let you create *new* tools via combining tools which do atomic things. As an example, check this out:
 
-# TODO : add a video as a sample here
+<iframe width="560" height="315" src="https://www.youtube.com/embed/86V5amp1u7U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### xargs
 
