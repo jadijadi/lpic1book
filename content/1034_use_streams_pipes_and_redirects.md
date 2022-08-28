@@ -23,6 +23,7 @@ Candidates should be able to redirect streams and connect them in order to effic
 
 These features helps us to control the input / output of the commands and do things like saving the output of a command to a file, getting the input of a command from another command or separating the normal output from errors. We've already used them in previous sections but lets lean more and deepen our understanding about these.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PeUhwMoSCko" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Redirecting standard IO
 
@@ -122,6 +123,7 @@ done!
 
 > Here-Documents are very useful if you are writing scripts and automated tasks.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/j3L_7Wxcl0U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 ### Pipes
 
 With the pipe (`|`), you can redirect STDOUT, STDIN, and STDERR between multiple commands all on one command line. When you do `command1 | command2 `; command1, is executed but its STDOUT is redirected as STDIN into the COMMAND2. 
