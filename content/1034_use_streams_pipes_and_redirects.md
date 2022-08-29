@@ -21,7 +21,7 @@ Candidates should be able to redirect streams and connect them in order to effic
 * tee
 * xargs
 
-These features helps us to control the input / output of the commands and do things like saving the output of a command to a file, getting the input of a command from another command or separating the normal output from errors. We've already used them in previous sections but lets lean more and deepen our understanding about these.
+These features helps us to control the input / output of the commands and do things like saving the output of a command to a file, getting the input of a command from another command or separating the normal output from errors. We've already used them in previous sections but lets learn more and deepen our understanding of these.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PeUhwMoSCko" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -31,11 +31,15 @@ On a linux system most shells use streams for input and output. These streams ca
 
 We have 3 different standard streams:
 
-0. _stdin_ is the standard input stream, which provides input to a command
-1. _stdout_ is the standard output stream, which includes output of a command
-2. _stderr_ is the standard error stream, which includes error output of a command
+0. ***stdin*** is the standard input stream, which provides input to a command.
+1. ***stdout*** is the standard output stream, which includes output of a command.
+2. ***stderr*** is the standard error stream, which includes error output of a command.
 
-> Note the 0, 1 & 2 numbering. The are called *file descriptors*. If you want to redirect the error, you can do 2> and only the error will be redirected.
+> ***Note*** :
+> 
+> The `0`, `1` & `2` numbering. They are called *file descriptors*.
+> 
+> If you want to redirect the stderror, you can do 2> and only the error will be redirected.
 
 These are the other redirections you can use:
 
@@ -50,7 +54,8 @@ These are the other redirections you can use:
 |<|Redirect STDIN from a file|
 |<>|Redirect STDIN from the file and send the STDOUT to it|
 
-Some examples:
+</br>
+Some examples: 
 
 ```
 $ ls
@@ -88,7 +93,7 @@ It is also possible to use `&1` and `&2` and `&0` to refer to the **target** of 
 
 #### sending to null
 
-In linux, **/dev/null** device works like an abyss. You can send anything there and it disappears without being any burden on your system. So it is normal to say:
+In linux **/dev/null** device works like an abyss. You can send anything there and it disappears without being any burden on your system. So it is normal to say:
 
 ```
 $ ls j* x* > file1
@@ -150,7 +155,7 @@ Pipes are one of the super strong & super amazing features in the UNIX world. Th
 
 ### xargs
 
-The xargs utility reads space, tab, newline and end-of-file delimited strings from the standard input and executes the provided utility utility with the strings as arguments. them as arguments.
+The xargs utility reads space, tab, newline and end-of-file delimited strings from the standard input and executes the provided utility with the strings as their arguments.
 
 ```
 $ ls
@@ -167,23 +172,25 @@ One common switch is `-I`. This is useful if you need to pass stdin arguments in
 ```
 $ cat who_uses_what.txt
 jadi, fedora
-linux, fedora
+linus, fedora
 bob, ubuntu
 jack, arch
 sara, fedora
 $ cat who_uses_what.txt | xargs -I DATA echo name is DATA is the choice.
 name is jadi, fedora is the choice.
-name is linux, fedora is the choice.
+name is linus, fedora is the choice.
 name is bob, ubuntu is the choice.
 name is jack, arch is the choice.
 name is sara, fedora is the choice.
 ```
 
-Two more useful switches? `-L` to break based on new lines and `-n 1` to tell xargs to run invoke the provided utility after receiving 1 argument.  
+Two more useful switches:
+1. `-L` breaks based on new lines 
+2. `-n 1` tells xargs to invoke the provided utility after receiving 1 argument.  
 
 ### tee
 
-The problem with redirection is that you can not see the progress of your commands in the same terminal. The `tee` utility solves this. If you need to see the output on screen and also save it to a file, `tee` is your friend. Give it one or more filenames and it will do the trick. 
+The problem with redirection is that you cannot see the progress of your commands in the same terminal. The `tee` utility solves this. If you need to see the output on screen and also save it to a file, `tee` is your friend. Give it one or more filenames and it will do the trick. 
 
 
 ```
@@ -217,8 +224,8 @@ output
 sara
 who_uses_what.txt
 ```
+The `-a` switch will append to files if they exists.
 
-
-> if you need to save _stderr_ too, first redirect it to _stdout_
+> If you need to save ***stderr*** too, first redirect it to ***stdout***
  
- The `-a` switch will append to files if they exists.
+ 
