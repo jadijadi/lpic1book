@@ -35,11 +35,7 @@ We have 3 different standard streams:
 1. ***stdout*** is the standard output stream, which includes output of a command.
 2. ***stderr*** is the standard error stream, which includes error output of a command.
 
-> ***Note*** :
-> 
-> The `0`, `1` & `2` numbering. They are called *file descriptors*.
-> 
-> If you want to redirect the stderror, you can do 2> and only the error will be redirected.
+> The `0`, `1` & `2` numbering above indicates the ***STDIN***, ***STDOUT*** and ***STDERR** accordingly. For example ff you want to redirect the stderror, you can use 2> and the STDERR will be redirected.
 
 These are the other redirections you can use:
 
