@@ -101,19 +101,19 @@
 <li>tee</li>
 <li>xargs</li>
 </ul>
-<p>These features helps us to control the input / output of the commands and do things like saving the output of a command to a file, getting the input of a command from another command or separating the normal output from errors. We've already used them in previous sections but lets lean more and deepen our understanding about these.</p>
+<p>These features helps us to control the input / output of the commands and do things like saving the output of a command to a file, getting the input of a command from another command or separating the normal output from errors. We've already used them in previous sections but lets learn more and deepen our understanding of these.</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PeUhwMoSCko" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h2>Redirecting standard IO</h2>
 <p>On a linux system most shells use streams for input and output. These streams can be from (and toward) various things including keyboard, block devices (hards, usb stick, ..), files and ...</p>
 <p>We have 3 different standard streams:</p>
 <ol>
-<li><em>stdin</em> is the standard input stream, which provides input to a command</li>
-<li><em>stdout</em> is the standard output stream, which includes output of a command</li>
-<li><em>stderr</em> is the standard error stream, which includes error output of a command</li>
+<li><strong><em>stdin</em></strong> is the standard input stream, which provides input to a command.</li>
+<li><strong><em>stdout</em></strong> is the standard output stream, which includes output of a command.</li>
+<li><strong><em>stderr</em></strong> is the standard error stream, which includes error output of a command.</li>
 </ol>
 <blockquote>
-<p>Note the 0, 1 &amp; 2 numbering. The are called <em>file descriptors</em>. If you want to redirect the error, you can do 2&gt; and only the error will be redirected.</p>
+<p>The <code>0</code>, <code>1</code> &amp; <code>2</code> numbering, indicates the <strong><em>STDIN</em></strong>, <strong><em>STDOUT</em></strong> and <strong>*STDERR</strong> accordingly. For example ff you want to redirect the stderror, you can use 2&gt; and the STDERR will be redirected.</p>
 </blockquote>
 <p>These are the other redirections you can use:</p>
 <table>
@@ -158,7 +158,8 @@
 </tr>
 </tbody>
 </table>
-<p>Some examples:</p>
+<p></br>
+Some examples: </p>
 <div class="highlight"><pre><span></span><code>$ ls
 bob jack    jadi    linus   sara who_uses_what.txt
 $ ls x*
@@ -193,7 +194,7 @@ sara<span class="p">|</span> fedora
 <p>Be careful! <code>ls 2&gt;&amp;1 &gt; file1</code> means <em>print stderr to current location of stdout (terminal) and then change the stdout to file1</em></p>
 </blockquote>
 <h4>sending to null</h4>
-<p>In linux, <strong>/dev/null</strong> device works like an abyss. You can send anything there and it disappears without being any burden on your system. So it is normal to say:</p>
+<p>In linux <strong>/dev/null</strong> device works like an abyss. You can send anything there and it disappears without being any burden on your system. So it is normal to say:</p>
 <div class="highlight"><pre><span></span><code>$ ls j* x* &gt; file1
 ls: x*: No such file or directory
 $ ls j* x* &gt; file1 <span class="m">2</span>&gt;/dev/null
@@ -245,7 +246,7 @@ $ cut -f2 -d, who_uses_what.txt <span class="p">|</span> sed -e <span class="s1"
 <iframe width="560" height="315" src="https://www.youtube.com/embed/86V5amp1u7U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>xargs</h3>
-<p>The xargs utility reads space, tab, newline and end-of-file delimited strings from the standard input and executes the provided utility utility with the strings as arguments. them as arguments.</p>
+<p>The xargs utility reads space, tab, newline and end-of-file delimited strings from the standard input and executes the provided utility with the strings as their arguments.</p>
 <div class="highlight"><pre><span></span><code>$ ls
 bob         file1           jadi            output          who_uses_what.txt
 errors          jack            linus           sara
@@ -259,21 +260,23 @@ these are files: bob errors file1 jack jadi linus output sara who_uses_what.txt
 <p>One common switch is <code>-I</code>. This is useful if you need to pass stdin arguments in the middle (or even start) of your commands. Use it like this: <code>xargs -I SOMETHING echo here is SOMETHING end</code>:</p>
 <div class="highlight"><pre><span></span><code>$ cat who_uses_what.txt
 jadi, fedora
-linux, fedora
+linus, fedora
 bob, ubuntu
 jack, arch
 sara, fedora
 $ cat who_uses_what.txt <span class="p">|</span> xargs -I DATA <span class="nb">echo</span> name is DATA is the choice.
 name is jadi, fedora is the choice.
-name is linux, fedora is the choice.
+name is linus, fedora is the choice.
 name is bob, ubuntu is the choice.
 name is jack, arch is the choice.
 name is sara, fedora is the choice.
 </code></pre></div>
 
-<p>Two more useful switches? <code>-L</code> to break based on new lines and <code>-n 1</code> to tell xargs to run invoke the provided utility after receiving 1 argument.  </p>
+<p>Two more useful switches:
+1. <code>-L</code> breaks based on new lines 
+2. <code>-n 1</code> tells xargs to invoke the provided utility after receiving 1 argument.  </p>
 <h3>tee</h3>
-<p>The problem with redirection is that you can not see the progress of your commands in the same terminal. The <code>tee</code> utility solves this. If you need to see the output on screen and also save it to a file, <code>tee</code> is your friend. Give it one or more filenames and it will do the trick. </p>
+<p>The problem with redirection is that you cannot see the progress of your commands in the same terminal. The <code>tee</code> utility solves this. If you need to see the output on screen and also save it to a file, <code>tee</code> is your friend. Give it one or more filenames and it will do the trick. </p>
 <div class="highlight"><pre><span></span><code>$ ls -1 <span class="p">|</span> tee allfiles myfiles
 bob
 errors
@@ -305,10 +308,10 @@ sara
 who_uses_what.txt
 </code></pre></div>
 
-<blockquote>
-<p>if you need to save <em>stderr</em> too, first redirect it to <em>stdout</em></p>
-</blockquote>
 <p>The <code>-a</code> switch will append to files if they exists.</p>
+<blockquote>
+<p>If you need to save <strong><em>stderr</em></strong> too, first redirect it to <strong><em>stdout</em></strong></p>
+</blockquote>
 
 
              

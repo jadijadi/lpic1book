@@ -87,19 +87,18 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>Weight: 4</em></p>
+            <p><em>Weight: 4</em></p>
 <p>Candidates should be able to perform basic process management.</p>
-<h3>Objectives</h3>
+<h2>Objectives</h2>
 <ul>
 <li>Run jobs in the foreground and background.</li>
 <li>Signal a program to continue running after logout.</li>
 <li>Monitor active processes.</li>
 <li>Select and sort processes for display.</li>
 <li>Send signals to processes.</li>
+</ul>
+<h2>Terms</h2>
+<ul>
 <li>&amp;</li>
 <li>bg</li>
 <li>fg</li>
@@ -111,8 +110,13 @@
 <li>free</li>
 <li>uptime</li>
 <li>killall</li>
+<li>pgrep</li>
+<li>pkill</li>
+<li>watch</li>
+<li>screen</li>
+<li>tmux</li>
 </ul>
-<h3>foreground and background jobs</h3>
+<h2>foreground and background jobs</h2>
 <p>One of the great points of linux on its beginning days, was the ability to run many programs at the same time. This is done with sending programs to the background.</p>
 <p>Normally if you run a program on the terminal, it <em>blocks</em> your terminal but sending a command to the background will prevent this:</p>
 <div class="highlight"><pre><span></span><code>xeyes &amp;
