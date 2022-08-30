@@ -107,11 +107,12 @@
 <h2>Redirecting standard IO</h2>
 <p>On a linux system most shells use streams for input and output. These streams can be from (and toward) various things including keyboard, block devices (hards, usb stick, ..), files and ...</p>
 <p>We have 3 different standard streams:</p>
-<ol>
-<li><strong><em>stdin</em></strong> is the standard input stream, which provides input to a command.</li>
-<li><strong><em>stdout</em></strong> is the standard output stream, which includes output of a command.</li>
-<li><strong><em>stderr</em></strong> is the standard error stream, which includes error output of a command.</li>
+<ol start="0">
+<li><b>STDIN</b> is the standard input stream, which provides input to a command.</li>
+<li><b>STDOUT</b> is the standard output stream, which includes output of a command.</li>
+<li><b>STDERR</b> is the standard error stream, which includes error output of a command.</li>
 </ol>
+
 <blockquote>
 <p>The <code>0</code>, <code>1</code> &amp; <code>2</code> numbering, indicates the <strong><em>STDIN</em></strong>, <strong><em>STDOUT</em></strong> and <strong>*STDERR</strong> accordingly. For example ff you want to redirect the stderror, you can use 2&gt; and the STDERR will be redirected.</p>
 </blockquote>
