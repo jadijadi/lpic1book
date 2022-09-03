@@ -6,22 +6,21 @@ Authors: Jadi
 Summary: 
 sortorder: 160
 
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
 
 _Weight: 4_
 
 Candidates should be able to perform basic process management.
 
-### Objectives
+## Objectives
 
 * Run jobs in the foreground and background.
 * Signal a program to continue running after logout.
 * Monitor active processes.
 * Select and sort processes for display.
 * Send signals to processes.
+
+## Terms
+
 * &
 * bg
 * fg
@@ -33,18 +32,27 @@ Candidates should be able to perform basic process management.
 * free
 * uptime
 * killall
+* pgrep
+* pkill
+* watch
+* screen
+* tmux
 
+## Managing processes
 ### foreground and background jobs
 
-One of the great points of linux on its beginning days, was the ability to run many programs at the same time. This is done with sending programs to the background.
+One of the great points of linux even from its beginning days, is the ability to run different programs and jobs at the same time. This is done with sending programs to the background.
 
-Normally if you run a program on the terminal, it _blocks_ your terminal but sending a command to the background will prevent this:
+Normally if you run a program on the terminal, it _blocks_ your terminal while its running but sending a command to the background will prevent this:
 
 ```text
 xeyes &
 ```
 
-But what if we started it normally? We can break / cancel it with `Ctrl+c` or _suspend_ it using `Ctrl+z`.
+Even when a program is running normally in the foreground, you can do two things:
+- break if using `Ctrl+c`
+_ *suspend* or pause it using `Ctrl+z`
+A *stopped* jobs can be brought to foreground using `fg` command (or background using `bg`). You can also list all the jobs by the `jobs` command.
 
 ```text
 $ xeyes
@@ -80,9 +88,9 @@ $ jobs
 
 ### nohup
 
-The `nohup` command lets you run your commands even after you logged out and writes its output to **nohup.out**:
+The `nohup` command lets you run your commands even after you close the terminal / logout. By default it write its output to `nohup.out`:
 
-```text
+```
 $ nohup ping 4.2.2.4
 nohup: ignoring input and appending output to ‘nohup.out’
 ^C$ cat nohup.out
@@ -95,13 +103,13 @@ PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.
 rtt min/avg/max/mdev = 223.584/224.767/225.950/1.183 ms
 ```
 
-> It is common to use 2&gt; to redirect the nohup errors to a file: `nohup script.sh > mynohup.out 2>&1 &`
+> It is common to use `2>` to redirect the nohup errors to another file and use a `&` to run it in the background: `nohup script.sh > mynohup.out 2>&1 &` 
 
 ### kill
 
-You can control processes by **signals**. Actually pressing `Ctrl+c` and `Ctrl+z` is also sending signals. Another way for this is using the kill command:
+Despite its frightening name, the `kill` command sends unix *signals* to processes. Actually pressing `Ctrl+c` and `Ctrl+z` is also sending signals. By default the `kill` command sends the signal **15** (which is TERM and tells to process to terminate itself)
 
-```text
+```
 $ jobs
 [3]   Running                 xeyes &
 [4]   Running                 sleep 1000 &
@@ -119,17 +127,17 @@ $ jobs
 [6]+  Running                 sleep 3000 &
 ```
 
-If is also possible to use PIDs in from of the kill or send other signals:
+If is also possible to use PIDs instead of job numbers and kill other signals. The general format is `kill -SIGNAL_ID_OR_NAME process_id`:
 
 | signal number | signal name | meaning |
 | :--- | :--- | :--- |
-| 1 | SIGHUP | Informing the process that its controlling terminal \(like an ssh connection\) is terminated |
-| 15 | SIGTERM | normal termination request |
-| 9 | SIGKILL | forcefully kills the proccess |
+| 1 | HUP | Informing the process that its controlling terminal \(like an ssh connection\) is terminated |
+| 15 | TERM | normal termination request |
+| 9 | KILL | forcefully kills the proccess |
 
 So you can do a `kill -9 8733` to force process ID 8733 to close.
 
-> Now you can understand what `nohup` means: go not answer to the SIGHUP.
+> Remember the `nohup` command? :) It is "do not answer to the hup signal".
 
 ### killall
 
@@ -153,11 +161,34 @@ $ ps -ef | grep sleep
 jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep
 ```
 
-### Monitoring Processes
+### pkill
 
-#### ps
+Will send the given signal \(or 15\) to all the processes with a specific pattern in their name:
 
-The `ps` command shows running processes on your computer.
+```text
+$ jobs
+[3]   Running                 xeyes &
+[5]-  Running                 sleep 2000 &
+[6]+  Running                 sleep 3000 &
+$ ps -ef | grep sleep
+jadi      7864  7651  0 21:07 pts/1    00:00:00 sleep 2000
+jadi      7865  7651  0 21:07 pts/1    00:00:00 sleep 3000
+jadi      7977  7651  0 21:14 pts/1    00:00:00 grep sleep
+$ pkill sle
+[5]-  Terminated              sleep 2000
+[6]+  Terminated              sleep 3000
+$ jobs
+[3]+  Running                 xeyes &
+$ ps -ef | grep sleep
+jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep
+```
+
+
+## Monitoring Processes
+
+### ps
+
+The `ps` command shows running processes on your computer. Each process has a process ID shown as **PID** and a Parent Process ID shown as PPID.
 
 ```text
 $ sleep 1000 &
@@ -175,17 +206,14 @@ $ ps
  7681 pts/1    00:00:00 ps
 ```
 
-But using `ps aux` \(= `-aux`\) or `ps -ef` is also common & shows ALL processes on this system:
+Two common switch combination is `ps aux` ( or `-aux`) and `ps ef` which shows ALL processes on a system:
 
 ```text
 $ ps -aux | wc -l
 293
 ```
 
-> Every process has a ProcessID \(PID\) and a PPID \(Parent Process ID\).
-
-**finding processes**
-
+### pgrep
 You've seen that `ps -ef` shows processes from all users. We can `grep` on that and see who is running `gedit` and what is its process ID:
 
 ```text
@@ -196,7 +224,7 @@ jadi      7725  7651  0 20:55 pts/1    00:00:00 grep gedit
 
 but there is also a more direct way:
 
-```text
+```
 $ ps -C gedit -o user,pid,tty,time,comm
 USER       PID TT           TIME COMMAND
 jadi      6213 ?        00:04:49 gedit
@@ -221,9 +249,8 @@ root      5477  5008  0 19:59 pts/12   00:00:00 sudo su -
 jadi      7680  7651  0 20:48 pts/1    00:00:01 xeyes
 ```
 
-#### top
-
-Processes are changing and sometimes you need to check them live. `top` command will help you:
+### top
+This is most common tool to do a simple monitoring on the system. It will update the stats and will give you a good glance of the status:
 
 ```text
 $top
@@ -257,8 +284,7 @@ You can see the processes, system load, uptime, CPU status, memory, ... and do s
 | k | kill after asking pid and signal |
 
 ### free
-
-The `free` command will show you info about the system memory. The default is _kilobytes_ but you can change it with `-m` for megabytes, `-g` for _gigabytes_ or even `-b` for bytes:
+The `free` command will show you info about the system memory. The default is _kilobytes_ but you can change it with `-m` for megabytes, `-g` for _gigabytes_ or even `-b` for bytes. You can also use the `-h` for **human readable**. 
 
 ```text
 $ free -m
@@ -268,34 +294,71 @@ Mem:          7871       5231       2640        332        169       2195
 Swap:         7627          0       7627
 ```
 
-> The system should not use swap in long term
+> A general hint: If your system is using swap, you have memory issues.
 
 ### uptime
-
-The `uptime` command shows the time, how long the system is up, how may users are logged in and the load average of 1, 5 & 15 minutes:
+The `uptime` command shows the time, systems uptime (how long system has been running), how may users are logged in and the load average of 1, 5 & 15 minutes:
 
 ```text
 $ uptime
  21:18:52 up  1:34,  5 users,  load average: 2.38, 2.64, 2.41
 ```
 
-.
+> Although its one of the most important KPIs of the system status, some of the experienced linux admins don not know what the load average mean. The load average show how many processes are in the **to be run** queue. If this number is higher than the number of your CPU cores, you are in a bad situation. If its close to the number of your cores constantly, its kind of dangerous and if its less than 1/10th of your core numbers, your system is kind of idle. Do you remember how to check the number of your cores? Its in `/proc/cpuinfo`.
 
-.
+## Other tools
+### watch
+Sometimes you have a command which shows you an output but you want to keep running it and observing the output. In these cases the `watch` is your friend. It lets you run and check the output of a command in specific time intervals (default is 5 seconds). 
 
-.
+```
+$ watch free -h
+```
 
-.
+If you have a pipe in your command, you have to quote the watched command in " or ':
 
-.
+```
+$ watch "ls -ltrh | wc -l"
+```
 
-.
+Thees are some of the switches:
 
-.
+- `-n` To specify the interval in seconds
+- `-b` Beep if command has a non-zero exit
+- `-d` Show difference between runs
 
-.
+### screen
+If you are used to GUI based system, its easy to run different terminals side to side and use them to run different programs. But if you are on a server, you need other tools to multiplex your terminal. One such a command is `screen`. 
 
-.
+Run it with `screen` and press enter to exit the welcome window into a prompt. You can use it as normal terminal and detach from it (and let it run in the background) using the Ctrl + A and then D keys. Check the list of your screens with `screen -ls` and re-attach to any of them with `screen -r screen-id`. 
 
-.
+Below you can see a few common switches, they all should be issues after the `Ctrl + A` combination.
 
+| Key | Usage |
+|---|---|
+|\\|Kill all processes windows and terminate the screen|
+|\||Split current window in two vertical focuses|
+|Shift+S|Split current window in two horizontal focuses|
+|C|Create a window in current focus|
+|Tab|Go to the next focus|
+|D|Detach from window|
+|K|Kill current window|
+|N|Move to Next window|
+|P|Move to Previous window|
+
+A great point about screen (and tmux) is the fact it remains running even after you logout of the system and its possible to relogin and re-attach to the same screen (or tmux)
+
+### tmux
+Is a screen on steroids! It is not installed by default in most distributions and you have to install it first. The default command prefix is `Ctrl+B` and after running the `tmux new` you can issue these:
+
+|Key|Usage|
+|---|---|
+|%|Split current window vertically|
+|"|Split current window horizontally|
+|D|Detach from current window|
+|&|Kill current window|
+
+You can list the tmux sessions using `tmux ls` and re-attach to one using `tmux att` to connect to the last one or `tmux att -t session_name` to attach to a specific one.
+
+> I highly recommend being fluent in tmux. Its super useful even when you are working locally on your machine. Visit the below video for a more in-depth session:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RvsTIt7cjy0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
