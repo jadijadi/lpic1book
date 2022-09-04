@@ -287,19 +287,6 @@ $ ps
 293
 </code></pre></div>
 
-<h3>pgrep</h3>
-<p>You've seen that <code>ps -ef</code> shows processes from all users. We can <code>grep</code> on that and see who is running <code>gedit</code> and what is its process ID:</p>
-<div class="highlight"><pre><span></span><code>$ ps -ef | grep gedit
-jadi      6213  4604  9 20:06 ?        00:04:43 gedit
-jadi      7725  7651  0 20:55 pts/1    00:00:00 grep gedit
-</code></pre></div>
-
-<p>but there is also a more direct way:</p>
-<div class="highlight"><pre><span></span><code>$ ps -C gedit -o user,pid,tty,time,comm
-USER       PID TT           TIME COMMAND
-jadi      <span class="m">6213</span> ?        <span class="m">00</span>:04:49 gedit
-</code></pre></div>
-
 <p>It is also possible to use the <code>--sort</code> switch to sort output based on different fields (+ for ascending &amp; - for descending).</p>
 <div class="highlight"><pre><span></span><code>$ ps -af --sort +comm,-sid
 UID        PID  PPID  C STIME TTY          TIME CMD
@@ -315,6 +302,18 @@ jadi      7777  7651  0 20:58 pts/1    00:00:00 sleep 1000
 root      5478  5477  0 19:59 pts/12   00:00:00 su -
 root      5477  5008  0 19:59 pts/12   00:00:00 sudo su -
 jadi      7680  7651  0 20:48 pts/1    00:00:01 xeyes
+</code></pre></div>
+
+<h3>pgrep</h3>
+<p>You've seen that <code>ps -ef</code> shows processes from all users. We can <code>grep</code> on that and see who is running <code>gedit</code> and what is its process ID:</p>
+<div class="highlight"><pre><span></span><code>$ ps -ef | grep gedit
+jadi      6213  4604  9 20:06 ?        00:04:43 gedit
+jadi      7725  7651  0 20:55 pts/1    00:00:00 grep gedit
+</code></pre></div>
+
+<p>but there is also a more direct way to check the PID of all gedit processes:</p>
+<div class="highlight"><pre><span></span><code>$ pgrep gedit 
+<span class="m">6213</span>
 </code></pre></div>
 
 <h3>top</h3>
@@ -391,7 +390,6 @@ Swap:         7627          0       7627
 <blockquote>
 <p>Although its one of the most important KPIs of the system status, some of the experienced linux admins don not know what the load average mean. The load average show how many processes are in the <strong>to be run</strong> queue. If this number is higher than the number of your CPU cores, you are in a bad situation. If its close to the number of your cores constantly, its kind of dangerous and if its less than 1/10th of your core numbers, your system is kind of idle. Do you remember how to check the number of your cores? Its in <code>/proc/cpuinfo</code>.</p>
 </blockquote>
-<h2>Other tools</h2>
 <h3>watch</h3>
 <p>Sometimes you have a command which shows you an output but you want to keep running it and observing the output. In these cases the <code>watch</code> is your friend. It lets you run and check the output of a command in specific time intervals (default is 5 seconds). </p>
 <div class="highlight"><pre><span></span><code>$ watch free -h
@@ -407,6 +405,7 @@ Swap:         7627          0       7627
 <li><code>-b</code> Beep if command has a non-zero exit</li>
 <li><code>-d</code> Show difference between runs</li>
 </ul>
+<h2>Terminal Multiplexers</h2>
 <h3>screen</h3>
 <p>If you are used to GUI based system, its easy to run different terminals side to side and use them to run different programs. But if you are on a server, you need other tools to multiplex your terminal. One such a command is <code>screen</code>. </p>
 <p>Run it with <code>screen</code> and press enter to exit the welcome window into a prompt. You can use it as normal terminal and detach from it (and let it run in the background) using the Ctrl + A and then D keys. Check the list of your screens with <code>screen -ls</code> and re-attach to any of them with <code>screen -r screen-id</code>. </p>
