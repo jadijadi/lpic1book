@@ -213,22 +213,6 @@ $ ps -aux | wc -l
 293
 ```
 
-### pgrep
-You've seen that `ps -ef` shows processes from all users. We can `grep` on that and see who is running `gedit` and what is its process ID:
-
-```text
-$ ps -ef | grep gedit
-jadi      6213  4604  9 20:06 ?        00:04:43 gedit
-jadi      7725  7651  0 20:55 pts/1    00:00:00 grep gedit
-```
-
-but there is also a more direct way:
-
-```
-$ ps -C gedit -o user,pid,tty,time,comm
-USER       PID TT           TIME COMMAND
-jadi      6213 ?        00:04:49 gedit
-```
 
 It is also possible to use the `--sort` switch to sort output based on different fields \(+ for ascending & - for descending\).
 
@@ -247,6 +231,23 @@ jadi      7777  7651  0 20:58 pts/1    00:00:00 sleep 1000
 root      5478  5477  0 19:59 pts/12   00:00:00 su -
 root      5477  5008  0 19:59 pts/12   00:00:00 sudo su -
 jadi      7680  7651  0 20:48 pts/1    00:00:01 xeyes
+```
+
+
+### pgrep
+You've seen that `ps -ef` shows processes from all users. We can `grep` on that and see who is running `gedit` and what is its process ID:
+
+```text
+$ ps -ef | grep gedit
+jadi      6213  4604  9 20:06 ?        00:04:43 gedit
+jadi      7725  7651  0 20:55 pts/1    00:00:00 grep gedit
+```
+
+but there is also a more direct way to check the PID of all gedit processes:
+
+```
+$ pgrep gedit 
+6213
 ```
 
 ### top
@@ -306,7 +307,6 @@ $ uptime
 
 > Although its one of the most important KPIs of the system status, some of the experienced linux admins don not know what the load average mean. The load average show how many processes are in the **to be run** queue. If this number is higher than the number of your CPU cores, you are in a bad situation. If its close to the number of your cores constantly, its kind of dangerous and if its less than 1/10th of your core numbers, your system is kind of idle. Do you remember how to check the number of your cores? Its in `/proc/cpuinfo`.
 
-## Other tools
 ### watch
 Sometimes you have a command which shows you an output but you want to keep running it and observing the output. In these cases the `watch` is your friend. It lets you run and check the output of a command in specific time intervals (default is 5 seconds). 
 
@@ -326,6 +326,7 @@ Thees are some of the switches:
 - `-b` Beep if command has a non-zero exit
 - `-d` Show difference between runs
 
+## Terminal Multiplexers
 ### screen
 If you are used to GUI based system, its easy to run different terminals side to side and use them to run different programs. But if you are on a server, you need other tools to multiplex your terminal. One such a command is `screen`. 
 
