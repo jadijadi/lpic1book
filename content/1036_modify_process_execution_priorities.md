@@ -6,61 +6,55 @@ Authors: Jadi
 Summary: 
 sortorder: 170
 
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-
 _Weight: 2_
 
 Candidates should be able to manage process execution priorities.
 
-### Objectives
-
+## Objectives
 * Know the default priority of a job that is created.
-* Run a program with higher or lower priority than the default..
+* Run a program with higher or lower priority than the default.
 * Change the priority of a running process.
+
+## Terms
 * nice
 * ps
 * renice
 * top
 
-On a Linux system, we are running a lot of processes and programs on a few CPUs. So you need a way to tell your OS to give more priority to some tasks or give less resources to some others. In last section you saw the `top` command to check the CPU usage of each process:
+On a Linux machine, you might have 100s of processes running at the same time and competing for more CPU & RAM. The good news is that you can give some of the processes higher or lower priority (or nice-ness) in this competition. Lets have a look at a sample `top` output:
+
 
 ```text
 $ top
 
-top - 08:44:51 up 13:00,  5 users,  load average: 0.57, 1.50, 1.50
-Tasks: 290 total,   2 running, 288 sleeping,   0 stopped,   0 zombie
-%Cpu(s): 38.4 us,  9.4 sy,  0.0 ni, 49.3 id,  2.8 wa,  0.0 hi,  0.0 si,  0.0 st
-KiB Mem:   8060264 total,  7858348 used,   201916 free,   360144 buffers
-KiB Swap:  7811068 total,        0 used,  7811068 free.  2842344 cached Mem
+Tasks: 169 total,   1 running, 168 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  3.0 sy,  0.0 ni, 97.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :   5948.9 total,   4115.2 free,    438.2 used,   1395.5 buff/cache
+MiB Swap:    975.0 total,    975.0 free,      0.0 used.   5210.3 avail Mem 
 
-  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND                                                                                                      
-13605 jadi      25   5 1473652 530700  91128 R  54.5  6.6   3:25.50 firefox                                                                                                      
-11157 root      20   0  572004 112652  94484 S   6.1  1.4   3:26.18 Xorg                                                                                                         
-12265 jadi      20   0 1210484  75848  42264 S   6.1  0.9   0:32.06 Telegram                                                                                                     
-12671 jadi      20   0 1800508 274564  80300 S   6.1  3.4   1:27.35 compiz                                                                                                       
-15035 jadi      20   0  768688  54920  34228 S   6.1  0.7   0:00.93 /usr/bin/termin                                                                                              
-15066 jadi      20   0   33796   3076   2448 R   6.1  0.0   0:00.02 top                                                                                                          
-    1 root      20   0   29528   4320   2584 S   0.0  0.1   0:02.27 init                                                                                                         
-    2 root      20   0       0      0      0 S   0.0  0.0   0:00.00 kthreadd                                                                                                     
-    3 root      20   0       0      0      0 S   0.0  0.0   0:00.27 ksoftirqd/0                                                                                                  
-    5 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kworker/0:0H    ```
-
-    Chkecn th
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                                        
+   6496 jadi      20   0   10112   3704   3212 R   6.2   0.1   0:00.01 top                                            
+      1 root      20   0  165172  10576   7780 S   0.0   0.2   0:02.80 systemd                                        
+      2 root      20   0       0      0      0 S   0.0   0.0   0:00.09 kthreadd                                       
+      3 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_gp                                         
+      4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_par_gp                                     
+      6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/0:0H-events_highpri                    
+      8 root       0 -20       0      0      0 I   0.0   0.0   0:12.71 kworker/0:1H-events_highpri                    
+      9 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 mm_percpu_wq                                   
+     10 root      20   0       0      0      0 S   0.0   0.0   0:00.00 rcu_tasks_rude_                                
+     11 root      20   0       0      0      0 S   0.0   0.0   0:00.00 rcu_tasks_trace
 ```
 
-There is **NI** column, it shows how **nice** the process is. The nicer the process, the less CPU it asks. Nice can be from -20 to 19 \(a process with nice = **-20** is ANGRY and asking for a lot of CPU while a process with nice = **19** is SUPER NICE and lets **other** processes use most of the CPU\).
+The **NI** column shows how **nice** this process is. The nicer the process, the less CPU it asks. The `nice` values can be from -20 to 19. To interpret this value, look at it like this :a process with nice = **-20** is ANGRY and gets more priority for CPU and RAM while a process with nice = **19** is SUPER NICE and lets **other** processes use the resources before her).
 
-> If you do not use nice command, processes will have nice level of 0. This can be checked with `nice` command:
->
-> ```text
-> $ nice
-> 0
-> ```
+The default value for `nice` is normally set on 0; this can be checked with:
 
-It is also possible to tell `ps` command to write the nice parameter of processes:
+```
+$ nice
+0
+```
+
+You can also check the nice-ness using the `ps` command:
 
 ```text
 $ ps -l
@@ -70,23 +64,23 @@ F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 0 R  1000 15080 15044  0  80   0 -  4680 -      pts/29   00:00:00 ps
 ```
 
-### Setting priorities when running commands
+### Setting nice-ness
 
 If you need to change the niceness level of a program you can running it with `nice` command and `-n` switch \(for nice\):
 
 ```text
+$ nice -n 19 echo "I am running!"
+I am running!
 $ nice -n -20 echo "I am running!"
 nice: cannot set niceness: Permission denied
 I am running!
 $ sudo nice -n -20 echo "I am running!"
 I am running!
-$ sudo nice -n 19 echo "I am running!"
-I am running!
 ```
 
-Please note to two points: 1. Give high priorities \(less than 0\) needs root access 2. If you are not root and asking for nice level lower than 0 you'll get an error message but the process will run with normal nice level \(0\).
+As you can in above example, only root can issue high priority niceness (below 0).
 
-If you run a command with `nice` without any parameters, the nice value will be 10:
+> If you run a command with `nice` without `-n`, the default will be `-n 10`
 
 ```text
 $ nice xeyes &
@@ -100,7 +94,7 @@ F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 
 ### Changing priorities
 
-The `renice` command can change the _niceness_ of running processes:
+The `renice` command can be used to change the _niceness_ of your running processes (or others if you are root):
 
 ```text
 $ ps -ef | grep firefox
@@ -110,29 +104,4 @@ $ sudo renice -n -10 13605
 13605 (process ID) old priority 5, new priority -10
 ```
 
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-. .
-
-.
-
+> You can also press `r` in `top` command to renice a process
