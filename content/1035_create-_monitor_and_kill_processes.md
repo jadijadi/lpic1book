@@ -38,6 +38,8 @@ Candidates should be able to perform basic process management.
 * screen
 * tmux
 
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=PQp_YPGg7GQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Managing processes
 ### foreground and background jobs
 
@@ -45,16 +47,17 @@ One of the great points of linux even from its beginning days, is the ability to
 
 Normally if you run a program on the terminal, it _blocks_ your terminal while its running but sending a command to the background will prevent this:
 
-```text
+```
 xeyes &
 ```
 
 Even when a program is running normally in the foreground, you can do two things:
-- break if using `Ctrl+c`
-_ *suspend* or pause it using `Ctrl+z`
-A *stopped* jobs can be brought to foreground using `fg` command (or background using `bg`). You can also list all the jobs by the `jobs` command.
+- break it using `Ctrl+c`
+- *suspend* or pause it using `Ctrl+z`
 
-```text
+A *stopped* job can be brought to foreground using `fg` command (or background using `bg`). You can also list all the jobs by the `jobs` command.
+
+```
 $ xeyes
 ^Z
 [1]+  Stopped                 xeyes
@@ -84,11 +87,11 @@ $ jobs
 `
 ```
 
-> -l switch of `jobs` will also show the process ID
+> `jobs -l ` also shows the process ID of jobs
 
 ### nohup
 
-The `nohup` command lets you run your commands even after you close the terminal / logout. By default it write its output to `nohup.out`:
+The `nohup` command lets you run your commands even after you close the terminal or logout. By default it write its output to `nohup.out`:
 
 ```
 $ nohup ping 4.2.2.4
@@ -107,7 +110,7 @@ rtt min/avg/max/mdev = 223.584/224.767/225.950/1.183 ms
 
 ### kill
 
-Despite its frightening name, the `kill` command sends unix *signals* to processes. Actually pressing `Ctrl+c` and `Ctrl+z` is also sending signals. By default the `kill` command sends the signal **15** (which is TERM and tells to process to terminate itself)
+Despite its frightening name, the `kill` command sends unix *signals* to processes. Actually pressing `Ctrl+c` and `Ctrl+z` is also sending signals. By default the `kill` command sends the signal **15** (which is TERM and tells to process to terminate itself).
 
 ```
 $ jobs
@@ -127,23 +130,25 @@ $ jobs
 [6]+  Running                 sleep 3000 &
 ```
 
-If is also possible to use PIDs instead of job numbers and kill other signals. The general format is `kill -SIGNAL_ID_OR_NAME process_id`:
+It is also possible to use PIDs instead of job number and kill other signals. The general format is `kill -SIGNAL_ID_OR_NAME process_id`:
 
 | signal number | signal name | meaning |
-| :--- | :--- | :--- |
+| :---: | :---: | :--- |
 | 1 | HUP | Informing the process that its controlling terminal \(like an ssh connection\) is terminated |
 | 15 | TERM | normal termination request |
 | 9 | KILL | forcefully kills the proccess |
 
+</br>
+
 So you can do a `kill -9 8733` to force process ID 8733 to close.
 
-> Remember the `nohup` command? :) It is "do not answer to the hup signal".
+> Remember the `nohup` command ? :) It means " do not respond to the hup signal ".
 
 ### killall
 
-Will send the given signal \(or 15\) to all the processes with the given name:
+This command Will send the given signal \(or by default 15\) to all processes with given name:
 
-```text
+```
 $ jobs
 [3]   Running                 xeyes &
 [5]-  Running                 sleep 2000 &
@@ -165,7 +170,7 @@ jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep
 
 Will send the given signal \(or 15\) to all the processes with a specific pattern in their name:
 
-```text
+```
 $ jobs
 [3]   Running                 xeyes &
 [5]-  Running                 sleep 2000 &
@@ -183,14 +188,15 @@ $ ps -ef | grep sleep
 jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep
 ```
 
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=wOXrckEQosU
+" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Monitoring Processes
-
 ### ps
 
 The `ps` command shows running processes on your computer. Each process has a process ID shown as **PID** and a Parent Process ID shown as PPID.
 
-```text
+```
 $ sleep 1000 &
 [1] 7678
 $ sleep 1001 &
@@ -208,7 +214,7 @@ $ ps
 
 Two common switch combination is `ps aux` ( or `-aux`) and `ps ef` which shows ALL processes on a system:
 
-```text
+```
 $ ps -aux | wc -l
 293
 ```
@@ -216,7 +222,7 @@ $ ps -aux | wc -l
 
 It is also possible to use the `--sort` switch to sort output based on different fields \(+ for ascending & - for descending\).
 
-```text
+```
 $ ps -af --sort +comm,-sid
 UID        PID  PPID  C STIME TTY          TIME CMD
 root      5486  5478  0 19:59 pts/12   00:00:00 -su
@@ -237,7 +243,7 @@ jadi      7680  7651  0 20:48 pts/1    00:00:01 xeyes
 ### pgrep
 You've seen that `ps -ef` shows processes from all users. We can `grep` on that and see who is running `gedit` and what is its process ID:
 
-```text
+```
 $ ps -ef | grep gedit
 jadi      6213  4604  9 20:06 ?        00:04:43 gedit
 jadi      7725  7651  0 20:55 pts/1    00:00:00 grep gedit
@@ -251,9 +257,9 @@ $ pgrep gedit
 ```
 
 ### top
-This is most common tool to do a simple monitoring on the system. It will update the stats and will give you a good glance of the status:
+This is most common tool to do a simple monitoring on the system. It will update the status and will give you a good glance of the status:
 
-```text
+```
 $top
 
 top - 21:00:44 up  1:16,  5 users,  load average: 1.51, 1.65, 1.78
@@ -277,7 +283,7 @@ KiB Swap:  7811068 total,        0 used,  7811068 free.  2250692 cached Mem
 You can see the processes, system load, uptime, CPU status, memory, ... and do some stuff:
 
 | key during top | functionality |
-| :--- | :--- |
+| :---: | :--- |
 | h | help |
 | q | quit |
 | M | sort based on memory usage" |
@@ -287,7 +293,7 @@ You can see the processes, system load, uptime, CPU status, memory, ... and do s
 ### free
 The `free` command will show you info about the system memory. The default is _kilobytes_ but you can change it with `-m` for megabytes, `-g` for _gigabytes_ or even `-b` for bytes. You can also use the `-h` for **human readable**. 
 
-```text
+```
 $ free -m
              total       used       free     shared    buffers     cached
 Mem:          7871       5231       2640        332        169       2195
@@ -295,26 +301,26 @@ Mem:          7871       5231       2640        332        169       2195
 Swap:         7627          0       7627
 ```
 
-> A general hint: If your system is using swap, you have memory issues.
+> A general **hint**: If your system is using swap, you have memory issues.
 
 ### uptime
-The `uptime` command shows the time, systems uptime (how long system has been running), how may users are logged in and the load average of 1, 5 & 15 minutes:
+The `uptime` command shows the time, systems uptime (how long system has been running), how many users are logged in and the load average of 1, 5 & 15 minutes:
 
-```text
+```
 $ uptime
  21:18:52 up  1:34,  5 users,  load average: 2.38, 2.64, 2.41
 ```
 
-> Although its one of the most important KPIs of the system status, some of the experienced linux admins don not know what the load average mean. The load average show how many processes are in the **to be run** queue. If this number is higher than the number of your CPU cores, you are in a bad situation. If its close to the number of your cores constantly, its kind of dangerous and if its less than 1/10th of your core numbers, your system is kind of idle. Do you remember how to check the number of your cores? Its in `/proc/cpuinfo`.
+> Although its one of the most important KPIs of the system status, some of the experienced linux admins don not know what the load average mean. The load average shows how many processes are in the **to be run** queue. If this number is higher than the number of your CPU cores, you are in a bad situation. If its close to the number of your cores constantly, its kind of dangerous and if its less than 1/10th of your core numbers, your system is kind of idle. Do you remember how to check the number of your cores? Its in `/proc/cpuinfo` or `nproc`.
 
 ### watch
-Sometimes you have a command which shows you an output but you want to keep running it and observing the output. In these cases the `watch` is your friend. It lets you run and check the output of a command in specific time intervals (default is 5 seconds). 
+Sometimes you have a command which shows you an output but you want to keep running it and observing the output. In these cases the `watch` is your friend. It lets you run and check the output of a command in specific time intervals (default is 2 seconds). 
 
 ```
 $ watch free -h
 ```
 
-If you have a pipe in your command, you have to quote the watched command in " or ':
+If you have a pipe in your command, you have to quote the watched command in double-quote `"` or single-quote `'`:
 
 ```
 $ watch "ls -ltrh | wc -l"
@@ -324,7 +330,9 @@ Thees are some of the switches:
 
 - `-n` To specify the interval in seconds
 - `-b` Beep if command has a non-zero exit
-- `-d` Show difference between runs
+- `-d` Shows difference between runs
+
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=7SDvwr7jVU8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Terminal Multiplexers
 ### screen
@@ -335,8 +343,8 @@ Run it with `screen` and press enter to exit the welcome window into a prompt. Y
 Below you can see a few common switches, they all should be issues after the `Ctrl + A` combination.
 
 | Key | Usage |
-|---|---|
-|\\|Kill all processes windows and terminate the screen|
+|:---:|---|
+|\\ |Kill all processes windows and terminate the screen|
 |\||Split current window in two vertical focuses|
 |Shift+S|Split current window in two horizontal focuses|
 |C|Create a window in current focus|
@@ -352,7 +360,7 @@ A great point about screen (and tmux) is the fact it remains running even after 
 Is a screen on steroids! It is not installed by default in most distributions and you have to install it first. The default command prefix is `Ctrl+B` and after running the `tmux new` you can issue these:
 
 |Key|Usage|
-|---|---|
+|:---:|---|
 |%|Split current window vertically|
 |"|Split current window horizontally|
 |D|Detach from current window|
@@ -360,6 +368,6 @@ Is a screen on steroids! It is not installed by default in most distributions an
 
 You can list the tmux sessions using `tmux ls` and re-attach to one using `tmux att` to connect to the last one or `tmux att -t session_name` to attach to a specific one.
 
-> I highly recommend being fluent in tmux. Its super useful even when you are working locally on your machine. Visit the below video for a more in-depth session:
+> I highly recommend being fluent in tmux. Its super useful even when you are working locally on your machine. watch the below video for more in-depth session:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RvsTIt7cjy0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://youtu.be/RvsTIt7cjy0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
