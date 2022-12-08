@@ -22,16 +22,16 @@ Candidates should be able to determine the shared libraries that executable prog
 
 ### Linking
 
-When we write a program, we use libraries. For example if you need to read text from standard input, you need to _link_ a library which provides this. Think linking has two forms:
+When we write a program, we use libraries. For example, if you need to read text from standard input, you need to _link_ a library that provides this. Think linking has two forms:
 
-* **Static** linking is when you add this library to your executable program. In this method your program size is big because it has all the needed libraries. One good advantage is your program can be run without being dependent to other programs / libraries.
-* **Dynamic** linking is when you just say in your program "We need this and that library to run this program". This way your program is smaller but you need to install those libraries separately. This makes programs more secure \(because libraries can be updated centrally\), more advanced \(any improvement in a library will improve the whole program\) and smaller.
+* **Static** linking is when you add this library to your executable program. In this method your program size is big because it has all the needed libraries. One good advantage is your program can be run without being dependent on other programs / libraries.
+* **Dynamic** linking is when you just say in your program "We need this and that library to run this program". This way your program is smaller, but you need to install those libraries separately. This makes programs more secure \(because libraries can be updated centrally\), more advanced \(any improvement in a library will improve the whole program\) and smaller.
 
 > Dynamic linking is also called **shared** libraries because all the programs are sharing one library which is separately installed.
 
 ### What libraries I need
 
-first you should know that libraries are installed in `/lib` and `/lib64` \(for 32bit and 64bit libraries\).
+first, you should know that libraries are installed in `/lib` and `/lib64` \(for 32bit and 64bit libraries\).
 
 #### ldd
 
@@ -40,7 +40,7 @@ the `ldd` command helps you find:
 * If a program is dynamically or statically linked
 * What libraries a program needs
 
-lets have a look at two files:
+let's have a look at two files:
 
 ```text
 # ldd /sbin/ldconfig
@@ -62,29 +62,29 @@ root@funlife:/home/jadi/Downloads# ldd /bin/ls
 
 As you can see, `ldd` tells us that the `/sbin/ldconfig` is not dynamically linked but shows us the libraries needed by `/bin/ls`.
 
-#### symbolic links for libraries
+#### Symbolic links for libraries
 
-If you are writing a program and you use udev functions, you will ask for a library called _libudev.so.1_. But a Linux distro, might call its version of udev library _libudev.so.1.4.0_. How can we solve this problem? with **symbolic links** you will learn more about this in next chapters but for short, a symbolic name is a new name for the same file.
+If you are writing a program and you use udev functions, you will ask for a library called _libudev.so.1_. But a Linux distro, might call its version of udev library _libudev.so.1.4.0_. How can we solve this problem? With **symbolic links** you will learn more about this in next chapters but for short, a symbolic name is a new name for the same file.
 
-I will check the same thing on my system. First I'll find where the libudev.so.1 on my system is:
+I will check the same thing on my system. First, I'll find where the libudev.so.1 on my system is:
 
 ```text
 # locate libudev.so.1
 /lib/i386-linux-gnu/libudev.so.1
 ```
 
-and then will check that file:
+And then will check that file:
 
 ```text
 # ls -la /lib/i386-linux-gnu/libudev.so.1
 lrwxrwxrwx 1 root root    16 Nov 13 23:05 /lib/i386-linux-gnu/libudev.so.1 -> libudev.so.1.4.0
 ```
 
-As you can see, this is a symbolic link pointing to the version of libudev I have installed \(1.4.0\) so even if a software says it need libudev.so.1, my system will use its libusdev.so.1.4.0.
+As you can see, this is a symbolic link pointing to the version of libudev I have installed \(1.4.0\) so even if a software says it needs libudev.so.1, my system will use its libusdev.so.1.4.0.
 
 #### Dynamic library configs
 
-As most of other linux tools, dynamic linking is also configured using a text config file. It is located at _/etc/ld.so.conf_. On an Ubuntu system it just points to other config files in `/etc/ld.so.conf.d/` but all those lines can be included in the main file too:
+As with most other Linux tools, dynamic linking is also configured using a text config file. It is located at _/etc/ld.so.conf_. On an Ubuntu system it just points to other config files in `/etc/ld.so.conf.d/` but all those lines can be included in the main file too:
 
 ```text
 # cat /etc/ld.so.conf
@@ -103,11 +103,11 @@ root@funlife:/sbin# cat /etc/ld.so.conf.d/x86_64-linux-gnu_GL.conf
 /usr/lib/x86_64-linux-gnu/mesa
 ```
 
-the `ldconfig` commands processed all these files to make the loading of libraries faster. This command creates ld.so.cache to locate files that are to be dynamically loaded and linked.
+The `ldconfig` commands processed all these files to make the loading of libraries faster. This command creates ld.so.cache to locate files that are to be dynamically loaded and linked.
 
 > if you change the ld.so.conf \(or sub-directories\) you need to run `ldconfig`
 
-To close this section lets run ldconfig with the **-p** switch to see what is saved in ld.so.cache:
+To close this section, let's run ldconfig with the **-p** switch to see what is saved in ld.so.cache:
 
 ```text
 # ldconfig -p | head
@@ -122,7 +122,7 @@ To close this section lets run ldconfig with the **-p** switch to see what is sa
 ...
 ```
 
-As you can see, this file tells the the kernel that anyone asks for _libzvbi.so.0_, the _/usr/lib/x86\_64-linux-gnu/libzvbi.so.0_ file should be loaded.
+As you can see, this file tells the kernel that if anyone asks for _libzvbi.so.0_, the _/usr/lib/x86\_64-linux-gnu/libzvbi.so.0_ file should be loaded.
 
 ### LD\_LIBRARY\_PATH
 
@@ -132,15 +132,15 @@ Sometimes you need to override the original installed libraries and use your own
 * You are developing a shared library and want to test is without installing it
 * You are running a specific program \(say from opt\) which needs to access its own libraries
 
-in these cases, you have to use the environment variable  **LD\_LIBRARY\_PATH**. A collon \(:\) separated list of directories will tell your program where to search for needed libraries **before** checking the libraries in ld.so.cache.
+in these cases, you have to use the environment variable  **LD\_LIBRARY\_PATH**. A colon \(:\) separated list of directories will tell your program where to search for needed libraries **before** checking the libraries in ld.so.cache.
 
-For example if you give this command:
+For example, if you give this command:
 
 ```text
 export  LD_LIBRARY_PATH=/usr/lib/myoldlibs:/home/jadi/lpic/libs/
 ```
 
-and then run any command, the system will search `/usr/lib/myoldlibs` and then `/home/jadi/lpic/libs/` before going to the main system libraries \(defined in ld.so.cache\). . .
+And then run any command, the system will search `/usr/lib/myoldlibs` and then `/home/jadi/lpic/libs/` before going to the main system libraries \(defined in ld.so.cache\). . .
 
 . .
 
