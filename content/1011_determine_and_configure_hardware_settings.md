@@ -33,16 +33,16 @@ Candidates should be able to determine and configure fundamental system hardware
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xCPDxgp0zXY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-An operating system (OS) is system software that manages computer hardware, and software resources, and provides common services for computer programs. It sits on top of the hardware and manages the resources when other software (sometimes called a userspace program) asks for it. 
+An operating system (OS) is system software that manages computer hardware, and software resources, and provides common services for computer programs. It sits on top of the hardware and manages the resources when other software (sometimes called an userspace program) asks for it. 
 
-Firmware is the software *on* your hardware that runs it; think of it as a built-in os or driver for your hardware. Motherboards need some firmware to be able to work too. 
+Firmware is the software *on* your hardware that runs it; think of it as a built-in OS or driver for your hardware. Motherboards need some firmware to be able to work too. 
 
 ![BIOS](/images/bios.png)
-1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu-based system and boot the computer from a boot loader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two-step boot procedure.
+1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu-based system and boot the computer from a bootloader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two-step boot procedure.
 
 
 ![UEFI](/images/uefi.jpeg)
-2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in Intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On Linux it is on /boot and files are .efi. You need to register each boot loader.
+2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in Intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On Linux it is on /boot and files are .efi. You need to register each bootloader.
 
 ## Peripheral Devices
 These are device interfaces.
@@ -92,7 +92,7 @@ jadi@funlife:~$ ls /sys
 block  bus  class  dev	devices  firmware  fs  hypervisor  kernel  module  power
 ````
 
-All block devices are at the `block` and `bus` directory has all the connected PCI, USB, serial, .. devices. Note that here in `sys` we have the devices based on their technology but `/dev/` is abstracted.
+All block devices are at the `block` and `bus` directory has all the connected PCI, USB, serial, ... devices. Note that here in `sys` we have the devices based on their technology but `/dev/` is abstracted.
 
 ## udev
 udev (userspace `/dev`) is a device manager for the Linux kernel. As the successor of devfsd and hotplug, udev primarily manages device nodes in the `/dev` directory. At the same time, udev also handles all user space events raised when hardware devices are added into the system or removed from it, including firmware loading as required by certain devices.
@@ -228,7 +228,7 @@ Another very useful directory here, is `/proc/sys/net/ipv4` which controls real-
 
 > All these changes will be reverted after a boot. You have to write into config files in `/etc/` to make these changes permanent
 
-Try youself! Check the `/proc/ioports` or `/proc/dma` or `/proc/iomem`.
+Try yourself! Check the `/proc/ioports` or `/proc/dma` or `/proc/iomem`.
 
 ## lsusb, lspci, lsblk, lshw
 Just like `ls` but for pci, usb, ... 
