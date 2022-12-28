@@ -13,7 +13,7 @@ Description: Candidates should be able to interact with shells and commands usin
 ## Objectives
 
 * Use single shell commands and one-line command sequences to perform basic tasks on the command line.
-* Use and modify the shell environment including defining, referencing and exporting environment variables.
+* Use and modify the shell environment including defining, referencing, and exporting environment variables.
 * Use and edit command history.
 * Invoke commands inside and outside the defined path.
 
@@ -39,7 +39,7 @@ Description: Candidates should be able to interact with shells and commands usin
 
 You issue your commands in a shell; it's your command line interface and you have various options for it. To reach your shell you should login into the system in the text mode or run one of the various *Terminal Emulators* in your GUI. Some samples are `gnome-terminal`, `konsole`, `xterm`, etc.
 
-After running the Terminal Emulator or logging into the text mode, you are in the shell and you can issue commands. Although `bash` (GNU Bourne Again shell) is the most common one, you might use `zsh`, `dash`, `ksh`, `csh` and others.
+After running the Terminal Emulator or logging into the text mode, you are in the shell and you can issue commands. Although `bash` (GNU Bourne Again shell) is the most common one, you might use `zsh`, `dash`, `ksh`, `csh`, and others.
 
 You can check where your general `sh` command links to via
 
@@ -73,7 +73,7 @@ You've already seen lots of `cd` commands :) it *changes directory*, including `
 You can point to directories in two ways:
 
 1. **Absolute Paths**: Like `/home/jadi/lpic1/lesson3.1`
-2. **Relative Paths**: Like `lpic1/lesson3.1`. In this case we are not adding the `/` in the beginning so the bash will try to to find `lpic1` directory where we are (local / relative)
+2. **Relative Paths**: Like `lpic1/lesson3.1`. In this case, we are not adding the `/` in the beginning so the bash will try to find `lpic1` directory where we are (local / relative)
 
 > The `~` characters means *home directory of the user issuing the command*
 
@@ -115,7 +115,7 @@ Linux fedora 5.14.0-60.fc35.aarch64 #1 SMP Mon Aug 30 16:30:42 UTC 2021 aarch64 
 
 
 ## Getting Help
-Most of the commands we use do have a cool and complete manual, accessible via the `man` command. It uses the `less` pager by default and contains the documentations, switches, parameters, ... of commands and utilities. 
+Most of the commands we use do have a cool and complete manual, accessible via the `man` command. It uses the `less` pager by default and contains the documentation, switches, parameters, ... of commands, and utilities. 
 
 Make yourself familiar with the man by reading the manual of the `yes` command:
 
@@ -141,13 +141,13 @@ $ echo 2 \* 3 = 6
 2 * 3 = 6
 ```
 
-These are the character with special meaning that you need to quote if you are using them in your commands:
+These are the character with special meanings that you need to quote if you are using them in your commands:
 
 `* ?[]'"\$;&()|^<>`
 
 Please note that there is a space character in the character list above.
 
-> As you can see, the `\` has an specific meaning so if you want to use the back-slash itself (without its escaping usage), you have to *quote* your back-slash with another back-slash `\\`.
+> As you can see, the `\` has a specific meaning so if you want to use the back-slash itself (without its escaping usage), you have to *quote* your back-slash with another back-slash `\\`.
 
 In addition to escaping, you can use `\` to create some special characters. For example, as you can not type a *return* character, you create it via `\n` (new line):
 
@@ -238,17 +238,17 @@ $ export MYMOOD
 $ export YOURMOOD="Not Confused"
 ```
 
-> Global bash configs are stored at `/etc/profile` and each user has her own config at `~/.profile` & `~/.bash\_profile` & `~/.bash\_logout`. If you need a permanent change, add your configs to these.
+> Global bash configs are stored at `/etc/profile` and each user has her config at `~/.profile` & `~/.bash\_profile` & `~/.bash\_logout`. If you need a permanent change, add your configs to these.
 
 ## Path
-When you issue a command, bash will run if it's an internal bash command. Otherwise, bash will go and check the `PATH` variables one by one and will try to find it there. If not, it will give you an error. If you want to run something on a specific path, you have to exclusively describe the location:
+When you issue a command, bash will run if it's an internal bash command. Otherwise, bash will go and check the `PATH` variables one by one and will try to find them there. If not, it will give you an error. If you want to run something on a specific path, you have to exclusively describe the location:
 
 ```text
 $ echo $PATH
 /home/jadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
 ```
 
-But what happens if I try to run `tar`? Let's check with `which`, `type` and `whereis` commands:
+But what happens if I try to run `tar`? Let's check with `which`, `type`, and `whereis` commands:
 
 ```
 jadi@funlife:~$ which tar
@@ -271,7 +271,7 @@ PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.
 64 bytes from 4.2.2.4: icmp_seq=1 ttl=50 time=160 ms
 ```
 
-> Thats why when you want to say "run this_program in this directory" you issue "./this_program". You are exclusively telling bash where the file is. In Linux, the current directory (.) is not part of the PATH by default.
+> That's why when you want to say "run this_program in this directory" you issue "./this_program". You are exclusively telling bash where the file is. In Linux, the current directory (.) is not part of the PATH by default.
 
 
 ## Command history
@@ -284,7 +284,7 @@ Bash saves its history in `~/.bash_history`. You can `cat` it and see its conten
 | Ctrl+O | Run the command you found with Ctrl+R |
 | !! | Run the last command |
 | !10 | Run command number 10 |
-| !text | search backwards for text, and run the first found command |
+| !text | search backward for text, and run the first found command |
 
 > If you want to clear your history, issue `HISTSIZE=0
 
