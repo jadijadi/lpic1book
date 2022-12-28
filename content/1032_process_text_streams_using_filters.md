@@ -42,7 +42,7 @@ Send text files and output streams through text utility filters to modify the ou
 
 In **UNIX** world a lot of data is in TEXT form. Log files, configurations, data, etc. **Filtering** this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a **streams** is nothing more than _"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"_.
 
-In simple words, a text stream is an input of text from a keyboard, a file, a network device, ... which can be viewed, changed, examined and ... via text util commands.
+In simple words, a text stream is an input of text from a keyboard, a file, a network device, ... which can be viewed, changed, examined, and ... via text util commands.
 
 Modern programming environments and shells \(including bash\) use three standard I/O streams:
 
@@ -55,7 +55,7 @@ Here we are talking about the **stdin** and viewing or manipulating it via diffe
 ## Viewing commands
 ### cat
 
-This command simply outputs its input stream \(or the filename you give it\). As you saw in the previous section. As most commands, if you do not give an input to it, it will read the data from the keyboard.
+This command simply outputs its input stream \(or the filename you give it\). As you saw in the previous section. As with most commands, if you do not give input to it, it will read the data from the keyboard.
 
 ```text
 jadi@funlife:~/w/lpic/101$ cat > mydata
@@ -87,17 +87,17 @@ total 0
 -rw-rw-r-- 1 jadi jadi 0 Jan  4 17:37 directory_data
 ```
 
-Some common cat switches are `-n` to show line numbers, `-s` to squeeze blanks, `-T` to show tabs and `-v` to show non-printing characters.
+Some common cat switches are `-n` to show line numbers, `-s` to squeeze blanks, `-T` to show tabs, and `-v` to show non-printing characters.
 
 ### bzcat, xzcat, zcat, gzcat
-There are used to directly `cat` the bz, xz and Z & gz compressed files. These let you see the contents of compressed files without uncompressing them first.
+There are used to directly `cat` the bz, xz, and Z & gz compressed files. These let you see the contents of compressed files without uncompressing them first.
 
 ### less
 This is a powerful tool to view larger text files. It can paginate, search and move in text files. 
 
-> There is another command called `more`. Its more familiar for people coming from the DOS environment and not very common in the Linux world. Do not use it. Remember: `less` is more than `more`.
+> There is another command called `more`. It's more familiar for people coming from the DOS environment and not very common in the Linux world. Do not use it. Remember: `less` is more than `more`.
 
-Some common less commands are as follow.
+Some less common commands are as follows.
 
 |Command|Usage|
 |-|-|
@@ -142,12 +142,12 @@ You can summarize the two above to `-a` and `-c`
 
 ### split
 
-Will split files. It is very useful for transferring HUGE files on smaller media \(say splitting a 3TB file into 8GB parts and moving them to another machine with a USB Disk\).
+Will split the files. It is very useful for transferring HUGE files on smaller media \(say splitting a 3TB file into 8GB parts and moving them to another machine with a USB Disk\).
 
 ```text
 jadi@funlife:~/w/lpic/101$ cat mydata
 hello
-this is second line
+this is the second line
 but as you can see we are
 still writing
 and this is getting longer
@@ -198,7 +198,7 @@ you
 
 > Default delimiter is TAB. use `-dx` to change it to "x" or `-d' '` to change it to space
 
-It is also possible to _cut_ fields 1, 2, 3 with `-f1-3` or only characters with index 4, 5, 7, 8 with from each line `-c4,5,7,8`.
+It is also possible to _cut_ fields 1, 2, and 3 with `-f1-3` or only characters with index 4, 5, 7, 8 from each line `-c4,5,7,8`.
 
 
 ## Modifying streams
@@ -212,7 +212,7 @@ This command is for showing line numbers.
 ```text
 jadi@funlife:~/w/lpic/101$ nl mydata  | head -3
      1    hello
-     2    this is second line
+     2    this is the second line
      3    but as you can see we are
 ```
 
@@ -316,12 +316,12 @@ you     12    neda mac
 ```
 
 ### tr
-The `tr` command _translates_ characters in the stream. For example `tr 'ABC' '123'` will replace A with 1, B with 2 and C with 3 in the provided stream. It is a pure filter and does not accept the input file name. If needed you can pipe the cat with it (see chapter 103.4).
+The `tr` command _translates_ characters in the stream. For example, `tr 'ABC' '123'` will replace A with 1, B with 2, and C with 3 in the provided stream. It is a pure filter and does not accept the input file name. If needed you can pipe the cat with it (see chapter 103.4).
 
 ```text
 jadi@funlife:~/w/lpic/101$ cat mydata
 hello
-this is second line
+this is the second line
 but as you can see we are
 still writing
 and this is getting longer
@@ -331,7 +331,7 @@ and longer
 and longer!
 jadi@funlife:~/w/lpic/101$ cat mydata | tr 'and' 'AND'
 hello
-this is second liNe
+this is the second liNe
 but As you cAN see we Are
 still writiNg
 AND this is gettiNg loNger
@@ -346,7 +346,7 @@ AND loNger!
 
 ### sed
 
-sed is **s**tream **ed**itor. It is POWERFUL and can do things that are not far from magic! Just like most of the tools we've seen far now, sed can work as a filter or take its input from a file. Sed is a great tool for replacing text with using **regular expressions** . If you need to replace A with B only once in each line in a stream just issue  `sed 's/A/B/'`:
+sed is **s**tream **ed**itor. It is POWERFUL and can do things that are not far from magic! Just like most of the tools we've seen far now, sed can work as a filter or take input from a file. Sed is a great tool for replacing text with using **regular expressions** . If you need to replace A with B only once in each line in a stream just issue  `sed 's/A/B/'`:
 
 ```text
 jadi@funlife:~/w/lpic/101$ cat uses
@@ -369,7 +369,7 @@ Remember escape characters? They also work here and this will remove every _new 
 ```text
 jadi@funlife:~/w/lpic/101$ cat mydata
 hello
-this is second line
+this is the second line
 but as you can see we are
 still writing
 and this is getting longer
@@ -380,7 +380,7 @@ and longer!
 jadi@funlife:~/w/lpic/101$ sed 's/ /\t/g' mydata > mydata.tab
 jadi@funlife:~/w/lpic/101$ cat mydata.tab
 hello
-this    is    second    line
+this    is the second    line
 but    as    you    can    see    we    are
 still    writing
 and    this    is    getting    longer
@@ -396,7 +396,7 @@ and    longer!
 
 ### wc
 
-The `wc` is _word count_. It counts the lines, words and bytes in the input stream.
+The `wc` is _word count_. It counts the lines, words, and bytes in the input stream.
 
 ```text
 jadi@funlife:~/w/lpic/101$ wc mydata
@@ -413,7 +413,7 @@ You should know that if you put `-` instead of a filename, the data will be repl
 ```text
 jadi@funlife:~/w/lpic/101$ wc -l mydata | cat mydata - mydata  
 hello
-this is second line
+this is the second line
 but as you can see we are
 still writing
 and this is getting longer
