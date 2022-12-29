@@ -1,4 +1,4 @@
-Title: 103.5 Create, monitor and kill processes
+Title: 103.5 Create, monitor, and kill processes
 Date: 2010-12-03 10:20
 Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
@@ -43,9 +43,9 @@ Candidates should be able to perform basic process management.
 ## Managing processes
 ### foreground and background jobs
 
-One of the great points of linux even from its beginning days, is the ability to run different programs and jobs at the same time. This is done with sending programs to the background.
+One of the great points of Linux even from its beginning days is the ability to run different programs and jobs at the same time. This is done by sending programs to the background.
 
-Normally if you run a program on the terminal, it _blocks_ your terminal while its running but sending a command to the background will prevent this:
+Normally if you run a program on the terminal, it _blocks_ your terminal while it's running but sending a command to the background will prevent this:
 
 ```
 xeyes &
@@ -55,7 +55,7 @@ Even when a program is running normally in the foreground, you can do two things
 - break it using `Ctrl+c`
 - *suspend* or pause it using `Ctrl+z`
 
-A *stopped* job can be brought to foreground using `fg` command (or background using `bg`). You can also list all the jobs by the `jobs` command.
+A *stopped* job can be brought to the foreground using `fg` command (or the background using `bg`). You can also list all the jobs by the `jobs` command.
 
 ```
 $ xeyes
@@ -91,7 +91,7 @@ $ jobs
 
 ### nohup
 
-The `nohup` command lets you run your commands even after you close the terminal or logout. By default it write its output to `nohup.out`:
+The `nohup` command lets you run your commands even after you close the terminal or logout. By default it writes its output to `nohup.out`:
 
 ```
 $ nohup ping 4.2.2.4
@@ -110,7 +110,7 @@ rtt min/avg/max/mdev = 223.584/224.767/225.950/1.183 ms
 
 ### kill
 
-Despite its frightening name, the `kill` command sends unix *signals* to processes. Actually pressing `Ctrl+c` and `Ctrl+z` is also sending signals. By default the `kill` command sends the signal **15** (which is TERM and tells to process to terminate itself).
+Despite its frightening name, the `kill` command sends unix *signals* to processes. Pressing `Ctrl+c` and `Ctrl+z` is also sending signals. By default, the `kill` command sends the signal **15** (which is TERM and tells to process to terminate itself).
 
 ```
 $ jobs
@@ -130,7 +130,7 @@ $ jobs
 [6]+  Running                 sleep 3000 &
 ```
 
-It is also possible to use PIDs instead of job number and kill other signals. The general format is `kill -SIGNAL_ID_OR_NAME process_id`:
+It is also possible to use PIDs instead of job numbers and kill other signals. The general format is `kill -SIGNAL_ID_OR_NAME process_id`:
 
 | signal number | signal name | meaning |
 | :---: | :---: | :--- |
@@ -146,7 +146,7 @@ So you can do a `kill -9 8733` to force process ID 8733 to close.
 
 ### killall
 
-This command Will send the given signal \(or by default 15\) to all processes with given name:
+This command Will send the given signal \(or by default 15\) to all processes with the given name:
 
 ```
 $ jobs
@@ -220,7 +220,7 @@ $ ps -aux | wc -l
 ```
 
 
-It is also possible to use the `--sort` switch to sort output based on different fields \(+ for ascending & - for descending\).
+It is also possible to use the `--sort` switch to sort the output based on different fields \(+ for ascending & - for descending\).
 
 ```
 $ ps -af --sort +comm,-sid
@@ -257,7 +257,7 @@ $ pgrep gedit
 ```
 
 ### top
-This is most common tool to do a simple monitoring on the system. It will update the status and will give you a good glance of the status:
+This is the most common tool to do simple monitoring of the system. It will update the status and will give you a good glance at the status:
 
 ```
 $top
@@ -301,20 +301,20 @@ Mem:          7871       5231       2640        332        169       2195
 Swap:         7627          0       7627
 ```
 
-> A general **hint**: If your system is using swap, you have memory issues.
+> A general **hint**: If your system is using Swap, you have memory issues.
 
 ### uptime
-The `uptime` command shows the time, systems uptime (how long system has been running), how many users are logged in and the load average of 1, 5 & 15 minutes:
+The `uptime` command shows the time, systems uptime (how long the system has been running), how many users are logged in, and the load average of 1, 5 & 15 minutes:
 
 ```
 $ uptime
  21:18:52 up  1:34,  5 users,  load average: 2.38, 2.64, 2.41
 ```
 
-> Although its one of the most important KPIs of the system status, some of the experienced linux admins don not know what the load average mean. The load average shows how many processes are in the **to be run** queue. If this number is higher than the number of your CPU cores, you are in a bad situation. If its close to the number of your cores constantly, its kind of dangerous and if its less than 1/10th of your core numbers, your system is kind of idle. Do you remember how to check the number of your cores? Its in `/proc/cpuinfo` or `nproc`.
+> Although it's one of the most important KPIs of the system status, some of the experienced Linux admins do not know what the load average means. The load average shows how many processes are in the **to be run** queue. If this number is higher than the number of your CPU cores, you are in a bad situation. If it's close to the number of your cores constantly, it's kind of dangerous, and if it's less than 1/10th of your core numbers, your system is kind of idle. Do you remember how to check the number of your cores? Its in `/proc/cpuinfo` or `nproc`.
 
 ### watch
-Sometimes you have a command which shows you an output but you want to keep running it and observing the output. In these cases the `watch` is your friend. It lets you run and check the output of a command in specific time intervals (default is 2 seconds). 
+Sometimes you have a command which shows you an output but you want to keep running it and observing the output. In these cases, the `watch` is your friend. It lets you run and check the output of a command in specific time intervals (default is 2 seconds). 
 
 ```
 $ watch free -h
@@ -326,33 +326,33 @@ If you have a pipe in your command, you have to quote the watched command in dou
 $ watch "ls -ltrh | wc -l"
 ```
 
-Thees are some of the switches:
+These are some of the switches:
 
 - `-n` To specify the interval in seconds
-- `-b` Beep if command has a non-zero exit
-- `-d` Shows difference between runs
+- `-b` Beep if the command has a non-zero exit
+- `-d` Shows the difference between runs
 
 <iframe width="560" height="315" src="https://www.youtube.com/watch?v=7SDvwr7jVU8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Terminal Multiplexers
 ### screen
-If you are used to GUI based system, its easy to run different terminals side to side and use them to run different programs. But if you are on a server, you need other tools to multiplex your terminal. One such a command is `screen`. 
+If you are used to GUI based system, it's easy to run different terminals side to side and use them to run different programs. But if you are on a server, you need other tools to multiplex your terminal. One such command is `screen`. 
 
-Run it with `screen` and press enter to exit the welcome window into a prompt. You can use it as normal terminal and detach from it (and let it run in the background) using the Ctrl + A and then D keys. Check the list of your screens with `screen -ls` and re-attach to any of them with `screen -r screen-id`. 
+Run it with `screen` and press enter to exit the welcome window into a prompt. You can use it as a normal terminal and detach from it (and let it run in the background) using the Ctrl + A and then D keys. Check the list of your screens with `screen -ls` and re-attach to any of them with `screen -r screen-id`. 
 
-Below you can see a few common switches, they all should be issues after the `Ctrl + A` combination.
+Below you can see a few common switches, they all should be issued after the `Ctrl + A` combination.
 
 | Key | Usage |
 |:---:|---|
 |\\ |Kill all processes windows and terminate the screen|
-|\||Split current window in two vertical focuses|
-|Shift+S|Split current window in two horizontal focuses|
-|C|Create a window in current focus|
+|\||Split current window into two vertical focuses|
+|Shift+S|Split current window into two horizontal focuses|
+|C|Create a window in the current focus|
 |Tab|Go to the next focus|
 |D|Detach from window|
 |K|Kill current window|
 |N|Move to Next window|
-|P|Move to Previous window|
+|P|Move to the Previous window|
 
 A great point about screen (and tmux) is the fact it remains running even after you logout of the system and its possible to relogin and re-attach to the same screen (or tmux)
 
@@ -363,11 +363,11 @@ Is a screen on steroids! It is not installed by default in most distributions an
 |:---:|---|
 |%|Split current window vertically|
 |"|Split current window horizontally|
-|D|Detach from current window|
+|D|Detach from the current window|
 |&|Kill current window|
 
 You can list the tmux sessions using `tmux ls` and re-attach to one using `tmux att` to connect to the last one or `tmux att -t session_name` to attach to a specific one.
 
-> I highly recommend being fluent in tmux. Its super useful even when you are working locally on your machine. watch the below video for more in-depth session:
+> I highly recommend being fluent in tmux. It's super useful even when you are working locally on your machine. watch the below video for the more in-depth session:
 
 <iframe width="560" height="315" src="https://youtu.be/RvsTIt7cjy0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
