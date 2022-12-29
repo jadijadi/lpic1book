@@ -16,7 +16,7 @@ Candidates should be able to use the basic Linux commands to manage files and di
 * Remove files and directories recursively.
 * Use simple and advanced wildcard specifications in commands.
 * Using find to locate and act on files based on type, size, or time.
-* Usage of tar, cpio and dd.
+* Usage of tar, cpio, and dd.
 
 ### Terms
 - cp
@@ -42,34 +42,34 @@ Candidates should be able to use the basic Linux commands to manage files and di
 <iframe width="560" height="315" src="https://www.youtube.com/embed/lTnkGg9o6u0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Wildcards and file globbing
-File globbing is shell capability which lets you tell things like :
+File globbing is a shell capability that lets you tell things like :
 - All files
 - everything which starts with A
-- all files with 3 letter names which end in A or B or C
+- all files with 3-letter names which end in A or B or C
 - ...
 
 To do so you need to know about these characters:
 
 * `*` means **any string**
 * `?` means any single character
-* `[ABC]` matches A, B or C
+* `[ABC]` matches A, B, or C
 * `[a-k]` matches a, b, c, ..., k \(both lower-case and upper-case\)
 * `[0-9a-z]` matches all digits and numbers
 * `[!x]` means NOT X.
 
-knowing these, you can create your own patterns. For example:
+knowing these, you can create your patterns. For example:
 
 | command | meaning |
 | :--- | :--- |
 | rm * | delete all files in this directory |
-| ls A*B | show all files starting with A ending with B |
+| ls A*B | show all files starting with A and ending with B |
 | cp ???.* /tmp | Copy all files with 3 characters, then a dot then whatever (even nothing) to /tmp |
 | rmdir [a-z\]* | remove all empty directories which start with a letter |
 
 ### general commands
 #### listing with `ls`
 
-`ls` used to _list_ directories & files. You can provide an absolute or relative path; if omitted the "." will be used as target.
+`ls` used to _list_ directories & files. You can provide an absolute or relative path; if omitted the "." will be used as a target.
 
 ```text
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
@@ -91,10 +91,10 @@ Some common switches are:
 
 > you can mix switches. A famous one is `-ltrh` (long + human readable sizes + reverse time).
 
-### Copy (`cp`), Move (`mv`) and Delete (`rm`)
+### Copy (`cp`), Move (`mv`), and Delete (`rm`)
 #### **cp**
 
-This will _copy_ files from one place / name to another place / name. If the target is a directory, all sources will be copied there.
+This will _copy_ files from one place/name to another place/name. If the target is a directory, all sources will be copied there.
 
 ```text
 cp source destination
@@ -106,7 +106,7 @@ A common switch is `-r` (or `-R`) which copies recursively (directories and thei
 #### **mv**
 
 
-Will _move_ or _rename_ files or directories. It works like `cp` command. If you are moving a file on the same file system, the **inode** wont change.
+Will _move_ or _rename_ files or directories. It works like `cp` command. If you are moving a file on the same file system, the **inode** won't change.
 
 In general:
 
@@ -122,9 +122,9 @@ Removes (Deletes) **files**. You can do this recursively using the `-r` switch o
 
 **notes**
 
-Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the `mv` will not move or rename a file if the target exists. Although this is highly dependent on your systems configuration. But in all cases you can overcome this using the `-f` switch.
+Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the `mv` will not move or rename a file if the target exists. Although this is highly dependent on your system's configuration. But in all cases, you can overcome this using the `-f` switch.
 
-* `-f` (--force) will cause cp to try overwrite the target.
+* `-f` (--force) will cause cp to try overwriting the target.
 * `-i` (--interactive) will ask Y/N question (deleting / overwriting).
 * `-b` (--backup) will make backups of overwritten files
 * `-p` will _preserve_ the attributes.
@@ -188,7 +188,7 @@ jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ tree
 0 directories, 4 files
 ```
 
-> If you are using `rmdir` to remove a directory, it *MUST BE EMPTY*! Thats why many people use `rm -rf directory_name` to delete not-empty directory and whatever is in it.
+> If you are using `rmdir` to remove a directory, it *MUST BE EMPTY*! That's why many people use `rm -rf directory_name` to delete the not-empty directory and whatever is in it.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/tSN1MSaFYEw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -239,7 +239,7 @@ $ ls -ltrh file?
 -rw-rw-r-- 1 jadi jadi 0 Nov  5  2022 file3
 ```
 
-Oh.. and its possible to use another file's time to set , with switch `-r` (for --reference)):
+Oh.. and it's possible to use another file's time to set, with switch `-r` (for --reference)):
 
 ```
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -l /etc/debian_version
@@ -252,7 +252,7 @@ total 20K
 
 #### **file**
 
-To determine the type of a file, you should use `file` command. It looks *into* the file and determine its type.
+To determine the type of a file, you should use `file` command. It looks *into* the file and determines its type.
 
 ```
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ file file1
@@ -278,10 +278,10 @@ I will continue learning... and if I get confused, I'll repeat the last section 
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$
 ```
 
-* `if` is Input File
-* `of` is Output File
+* `if` is the Input File
+* `of` is the Output File
 
-But commonly people use it to read / write from block devices. For example this will read all the sectors from the `/dev/sdb` and will write them to a file named`backup.dd`. Later you can restore this backup by swapping the `if` and `of` and write from the `backup.dd` to `/dev/sdb`. 
+But commonly people use it to read/write from block devices. For example, this will read all the sectors from the `/dev/sdb` and will write them to a file named`backup.dd`. Later you can restore this backup by swapping the `if` and `of` and writing from the `backup.dd` to `/dev/sdb`. 
 
 
 ```
@@ -294,7 +294,7 @@ or even:
 # dd if=/dev/sda2 | gzip > backup.dd.gzip
 ```
 
-Another common usage is creating files of specific size:
+Another common usage is creating files of specific sizes:
 
 ```
 $ dd if=/dev/zero of=1g.bin bs=1G count=1
@@ -306,7 +306,7 @@ or even *writing* your iso files to a USB disk to have a live bootable USB:
 $ sudo dd if=ubuntu.iso of=/dev/sdc bs=2048
 ```
 
-> Caution: here you are writing directly on a block devices. If you do something wrong... you will ruin your disk and need to reformat it.
+> Caution: here you are writing directly on a block device. If you do something wrong... you will ruin your disk and need to reformat it.
 #### **find**
 The `find` command helps us to find files based on different criteria. Look at this:
 
@@ -319,10 +319,10 @@ $ find . -iname "[a-j]*"
 ./howcool
 ```
 
-* the first parameter says where should we search (including subdirectories).
-* the `-name` switch indicates the criteria (here `iname` means search files with this name and ignore the character cases (z equals Z)). 
+* The first parameter says where should we search (including subdirectories).
+* The `-name` switch indicates the criteria (here `iname` means search files with this name and ignore the character cases (z equals Z)). 
 
-Another common switch is `-type` to indicate type we are searching for (`f` for regular files, `d` for directories and `l` for symbolic links):
+Another common switch is `-type` to indicate the type we are searching for (`f` for regular files, `d` for directories, and `l` for symbolic links):
 
 ```
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ find . -type d -iname "[a-j]*"
@@ -339,7 +339,7 @@ if you want to search for file sizes do as below:
 | -size -20M | files smaller than 20Megabytes |
 | -size +2G | files bigger than 2Gigabytes |
 
-So this will find all files ending in _tmp_ with size between 1M and 100M in /var/ directory:
+So this will find all files ending in _tmp_ with sizes between 1M and 100M in /var/ directory:
 
 ```text
 find /var -iname '*tmp' -size +1M -size -100M
@@ -348,11 +348,11 @@ find /var -iname '*tmp' -size +1M -size -100M
 > you can find all empty files with `find . -size 0b` or `find . -empty`
 
 
-Another useful search criteria is time. These are some of the options:
+Another useful search criterion is time. These are some of the options:
 
 | switch | meaning | samples |
 | :--- | :--- | :--- |
-| -amin | Access Minutes | `-amin 40` means "files accesses exactly 40min ago" or `-amin +40` mins files accessed more than 40min ago and `-amin -40` means files accessed less than 40min ago|
+| -amin | Access Minutes | `-amin 40` means "files accessed exactly 40min ago" or `-amin +40` mins files accessed more than 40min ago and `-amin -40` means files accessed less than 40min ago|
 | -cmin | Status Change Min | `-cmin +60` file status changed before last hour |
 | -mmin | Modified Minutes | `-mmin -60` will give us files modified in last hour |
 | -atime | access time in days | `-atime +1` means files access "more than 1 days ago (which means 2 days and more)|
@@ -375,7 +375,7 @@ We can execute commands or do other actions on files with various switches:
 
 But the best way to run commands on found files is `-exec` switch. You can point to the file with `'{}'` or `{}` and finish your command with `\;`.
 
-For example This will remove all empty files in this directory and its subdirectories:
+For example, This will remove all empty files in this directory and its subdirectories:
 
 ```
 find . -empty -exec rm '{}' \;
@@ -386,14 +386,14 @@ or this will rename all htm files to html
 ```
 find . -name "*.htm" -exec mv '{}' '{}l' \;
 ```
-> since deleting found files is a common task, there is switch for it: `-delete`
+> since deleting found files is a common task, there is a switch for it: `-delete`
 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/6MLaCDTRgis" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Compression
 #### **gzip & gunzip**
-Straight forward, one gzips files and one ungzips files; In place:
+Straight forward, one gzips file and one ungzips file; In place:
 ```
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
 total 20K
@@ -449,7 +449,7 @@ data.txt  directory  info.txt  new_file  note_to_self  tasks.txt
 
 #### **xz & unxz**
 
-Another compression / decompression tool just like `gzip` and `bzip2`. 
+Another compression/decompression tool is just like `gzip` and `bzip2`. 
 
 ```
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ xz tasks.txt
@@ -479,11 +479,11 @@ Please note that *compressing* a small text file makes it larger. This is *norma
 
 ### Archiving with tar & cpio
 
-Sometimes we need to create an archive file container of many other files. This operation is different than compressing, its combining files into one and then extracting them again. Archiving is  mostly used in backups, moving files to a new location (say via email) and such. This is done with `cpio` and `tar`.
+Sometimes we need to create an archive file container of many other files. This operation is different than compressing, it combines files into one and then extracts them again. Archiving is mostly used in backups, moving files to a new location (say via email), and such. This is done with `cpio` and `tar`.
 
 #### **tar**
 
-TapeARchive or tar is the most common archiving tool. In automatically create an archive file from a directory and all its subdirs.
+TapeARchive or tar is the most common archiving tool. It automatically creates an archive file from a directory and all its subdirs.
 
 Common switches are:
 
@@ -498,7 +498,7 @@ Common switches are:
 
 > If you issue absolute paths, tar removes the starting slash \(/\) for safety reasons when creating an archive. If you want to override, use -p option.
 >
-> tar can work with tapes and other storages. Thats why we use `-f` to tell it that we are working with files.
+> tar can work with tapes and other storages. That's why we use `-f` to tell it that we are working with files.
 
 #### **cpio**
 
@@ -511,7 +511,7 @@ $ ls | cpio -o > allfilesls.cpio
 
 * `-o` tells cpio to create an output from its input
 
-Please note that `cpio` does not looks into the folders. So mostly we use it with find:
+Please note that `cpio` does not look into the folders. So mostly we use it with find:
 
 ```
 find . -name "*" | cpio -o > myarchivefind.cpio
