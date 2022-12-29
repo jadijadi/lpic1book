@@ -1,4 +1,4 @@
-Title: 103.4 Use streams, pipes and redirects
+Title: 103.4 Use streams, pipes, and redirects
 Date: 2010-12-03 10:20
 Category: LPIC1
 Tags: LPIC1, 101, LPIC1-101-500
@@ -8,11 +8,11 @@ sortorder: 150
 
 _Weight: 4_
 
-Candidates should be able to redirect streams and connect them in order to efficiently process textual data. Tasks include redirecting standard input, standard output and standard error, piping the output of one command to the input of another command, using the output of one command as arguments to another command and sending output to both stdout and a file.
+Candidates should be able to redirect streams and connect them to efficiently process textual data. Tasks include redirecting standard input, standard output, and standard error, piping the output of one command to the input of another command, using the output of one command as arguments to another command, and sending output to both stdout and a file.
 
 
 ## Objectives
-* Redirecting standard input, standard output and standard error.
+* Redirecting standard input, standard output, and standard error.
 * Pipe the output of one command to the input of another command.
 * Use the output of one command as arguments to another command.
 * Send output to both stdout and a file.
@@ -21,23 +21,23 @@ Candidates should be able to redirect streams and connect them in order to effic
 * tee
 * xargs
 
-These features helps us to control the input / output of the commands and do things like saving the output of a command to a file, getting the input of a command from another command or separating the normal output from errors. We've already used them in previous sections but lets learn more and deepen our understanding of these.
+These features help us to control the input/output of the commands and do things like saving the output of a command to a file, getting the input of a command from another command, or separating the normal output from errors. We've already used them in previous sections but let's learn more and deepen our understanding of these.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PeUhwMoSCko" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Redirecting standard IO
 
-On a linux system most shells use streams for input and output. These streams can be from (and toward) various things including keyboard, block devices (hards, usb stick, ..), files and ...
+On a Linux system, most shells use streams for input and output. These streams can be from (and toward) various things including keyboards, block devices (hards, USB sticks, ..), files, and ...
 
 We have 3 different standard streams:
 
 <ol start="0">
 <li><b>STDIN</b> is the standard input stream, which provides input to a command.</li>
-<li><b>STDOUT</b> is the standard output stream, which includes output of a command.</li>
-<li><b>STDERR</b> is the standard error stream, which includes error output of a command.</li>
+<li><b>STDOUT</b> is the standard output stream, which includes the output of a command.</li>
+<li><b>STDERR</b> is the standard error stream, which includes the error output of a command.</li>
 </ol>
 
-> The `0`, `1` & `2` numbering, indicates the ***STDIN***, ***STDOUT*** and ***STDERR** accordingly. For example ff you want to redirect the stderror, you can use 2> and the STDERR will be redirected.
+> The `0`, `1` & `2` numbering, indicates the ***STDIN***, ***STDOUT*** and ***STDERR** accordingly. For example, if you want to redirect the stderror, you can use 2> and the STDERR will be redirected.
 
 These are the other redirections you can use:
 
@@ -87,11 +87,11 @@ sara| fedora
 
 It is also possible to use `&1` and `&2` and `&0` to refer to the **target** of STDOUT, STDERR & STDIN. In this case `ls > file1 2>&1` means _redirect output to file1 and output stderr to same place as stdout \(file1\)_
 
-> Be careful! `ls 2>&1 > file1` means _print stderr to current location of stdout (terminal) and then change the stdout to file1_
+> Be careful! `ls 2>&1 > file1` means _print stderr to the current location of stdout (terminal) and then change the stdout to file1_
 
 #### sending to null
 
-In linux **/dev/null** device works like an abyss. You can send anything there and it disappears without being any burden on your system. So it is normal to say:
+In Linux **/dev/null** device works like an abyss. You can send anything there and it disappears without being any burden on your system. So it is normal to say:
 
 ```
 $ ls j* x* > file1
@@ -105,7 +105,7 @@ jadi
 
 #### here-documents
 
-Many shells, have here-documents (also called here-docs) as a way of input. You use `<<` and a `WORD` and then whatever you input is considered stdin till you give only the WORD in one line.
+Many shells have here-documents (also called here-docs) as a way of input. You use `<<` and a `WORD` and then whatever you input is considered stdin till you give only the WORD in one line.
 
 ```
 $ tr ' ' '.' << END_OF_DATA
@@ -147,7 +147,7 @@ $ cut -f2 -d, who_uses_what.txt | sed -e 's/ //g' | sort  | uniq -c | sort -nr
 
 > If you need to start your pipeline with the contents of a file, start with `cat filename | ...` or use a `<` stdin redirect.
 
-Pipes are one of the super strong & super amazing features in the UNIX world. They let you create *new* tools via combining tools which do atomic things. As an example, check this out:
+Pipes are one of the super strong & super amazing features in the UNIX world. They let you create *new* tools by combining tools that do atomic things. As an example, check this out:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/86V5amp1u7U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -222,8 +222,6 @@ output
 sara
 who_uses_what.txt
 ```
-The `-a` switch will append to files if they exists.
+The `-a` switch will append to files if they exist.
 
 > If you need to save ***stderr*** too, first redirect it to ***stdout***
- 
- 
