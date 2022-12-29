@@ -136,7 +136,7 @@ N 3
 # telinit 5
 # runlevel
 3 5
-# init 0 # shutdow the system
+# init 0 # shutdown the system
 ```
 
 You can find the files in `/etc/init.d` and runlevels in `/etc/rc[0-6].d` directories where S indicates Start and K indicates Kill. 
