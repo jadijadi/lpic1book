@@ -87,11 +87,7 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>Weight: 3</em></p>
+            <p><em>Weight: 3</em></p>
 <p>Candidates should be able to manipulate files and text data using regular expressions. This objective includes creating simple regular expressions containing several notational elements as well as understanding the differences between basic and extended regular expressions. It also includes using regular expression tools to perform searches through a filesystem or file content.</p>
 <h2>Objectives</h2>
 <ul>
@@ -111,13 +107,10 @@
 <li>regex(7)</li>
 </ul>
 <h3>Regex</h3>
-<p>Regular expression, Regex, regexp is a pattern to describe what we want to <em>match</em> from a text. Here will discuss the form of regex which is used with the <strong>grep</strong> (generalised regular expression processor) command.</p>
-<blockquote>
-<p>There is two kind of regex in GNU grep: Basic an Extended.</p>
-</blockquote>
-<h4>Basic blocks</h4>
-<p><strong>Adding two expressions</strong></p>
-<p>If you need to add (concat) two expressions, just write them after each other.</p>
+<p>Regular expression, Regex, regex is a pattern to describe what you want to <em>match</em> from a text. For example <code>a</code> and <code>ad</code> both matches <code>jadi</code>. <code>d.</code> is a <em>deeper</em> example because <code>.</code> means <em>anything</em> so <code>d.</code> will match the last two characters of <code>jadi</code>. In this section we will cover the <em>grep</em>* (generalised regular expression processor) command. It has different regex <em>accents</em>; in short Basic regex and Extended regex.</p>
+<h4>Regex basics</h4>
+<p><strong>Simple match</strong>
+You can simply write down whatever you want to match and regex will search for that.</p>
 <table>
 <thead>
 <tr>
@@ -128,20 +121,20 @@
 <tbody>
 <tr>
 <td style="text-align: left;">a</td>
-<td style="text-align: left;">ali, mina, hamid, jadi</td>
+<td style="text-align: left;">after, mina, banana, jadi</td>
 </tr>
 <tr>
 <td style="text-align: left;">na</td>
-<td style="text-align: left;">nasim, mina, nananana batman, mona</td>
+<td style="text-align: left;">Narator, mina, nananana batman, sonar</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Repeating</strong></p>
 <ul>
-<li>The <strong>*</strong> means repeating the previous character for 0 or more</li>
-<li>The <strong>+</strong> means repeating the previous character for 1 or more</li>
+<li>The <strong>*</strong> means repeating the previous character for 0 or more times</li>
+<li>The <strong>+</strong> means repeating the previous character for 1 or more times</li>
 <li>the <strong>?</strong> means zero or one repeats</li>
-<li>{n,m}  The item is matched at least n times, but not more than m times</li>
+<li>{n,m} means the item needs to match at least n times, but not more than m times</li>
 </ul>
 <table>
 <thead>
@@ -159,13 +152,13 @@
 </tr>
 <tr>
 <td style="text-align: left;">a*b</td>
-<td style="text-align: left;">b, mobser</td>
-<td style="text-align: left;">Because there is a b here with zero <strong>a</strong> before it</td>
+<td style="text-align: left;">b, sober</td>
+<td style="text-align: left;">we should have zero or more <code>a</code>s and then a <code>b</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">a+b</td>
 <td style="text-align: left;">ab, aab, aaabenz</td>
-<td style="text-align: left;">wont match <strong>sober</strong> or <strong>b</strong> because there needs to be at lear one <strong>a</strong></td>
+<td style="text-align: left;">wont match <strong>sober</strong> or <strong>b</strong> because there needs to be at least one <strong>a</strong></td>
 </tr>
 <tr>
 <td style="text-align: left;">a?b</td>
@@ -175,12 +168,15 @@
 </tbody>
 </table>
 <p><strong>Alternation (|)</strong></p>
-<p>If you say <code>a\|b</code> it will match a or b.</p>
+<p>If you say <code>a|b</code> it will match <code>a</code> or <code>b</code>.</p>
 <p><strong>Character Classes</strong></p>
 <p>The dot (<strong>.</strong>) means any character. So <strong>..</strong> will match anything with at least two character in it. You can also create your own classes with [abc] which will match a or b or c and [a-z] which match a to z.</p>
-<p>You can also refer to digits with \d and</p>
+<p>You can also refer to digits with \d. </p>
+<blockquote>
+<p>regex is case sensitive.</p>
+</blockquote>
 <p><strong>Ranges</strong></p>
-<p>There are easy ways to commonly used classes. Named classes open with [: and close with :]</p>
+<p>There are short-hands for commonly used classes. Named classes start with <code>[:</code> and end in <code>:]</code>.</p>
 <table>
 <thead>
 <tr>
@@ -212,9 +208,9 @@
 </tbody>
 </table>
 <blockquote>
-<p>A common form is .* which matches any character (zero or any length).</p>
+<p>A common used regex is .* which matches any character (zero or any length).</p>
 </blockquote>
-<p><strong>Matching specific locations</strong></p>
+<p><strong>Matching at specific locations</strong></p>
 <ul>
 <li>The caret <strong>^</strong> means beginning of the string</li>
 <li>The dollar <strong>$</strong> means the end of the string</li>
@@ -223,19 +219,26 @@
 <ul>
 <li><code>^a.*</code> Matches anything that starts with a</li>
 <li><code>^a.*b$</code> Matches anything that starts with a and ends with b</li>
-<li><code>^a.*\d+.*b$</code> Matches anything starting with a, have some digits in the middle and end with b</li>
-<li><code>^(l|b)oo</code> Matches anything starts with l or b and then have oo</li>
+<li><code>^a.*\d+.*b$</code> Matches anything that starting with a, have some digits in the middle and end with b</li>
+<li><code>^(l|b)oo</code> Matches anything that starts with l or b and then have oo</li>
 <li><code>[f-h]|[A-K]$</code> The last character should be f to h (capital or small)</li>
 </ul>
 <h3>grep</h3>
 <p>The <code>grep</code> command can search inside the files.</p>
-<div class="highlight"><pre><span></span><code>$ grep p friends
-payam
-pedram
-$
+<div class="highlight"><pre><span></span><code>$ grep funk words 
+Garfunkel
+Garfunkel&#39;s
+funk
+funked
+funkier
+funkiest
+funking
+funk&#39;s
+funks
+funky
 </code></pre></div>
 
-<p>There are the most important switches:</p>
+<p>These are the most common switches:</p>
 <table>
 <thead>
 <tr>
@@ -264,48 +267,99 @@ $
 <td style="text-align: left;">-i</td>
 <td style="text-align: left;">case insensitive</td>
 </tr>
+<tr>
+<td style="text-align: left;">-r</td>
+<td style="text-align: left;">Read  all  files  under each directory, recursively</td>
+</tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code>$ grep p *
-friends:payam
-friends:pedram
-what_I_have.txt:laptop    2
-what_I_have.txt:pillow    5
-what_I_have.txt:apple    2
-$ grep p * -n
-friends:12:payam
-friends:15:pedram
-what_I_have.txt:2:laptop    2
-what_I_have.txt:3:pillow    5
-what_I_have.txt:4:apple    2
-$ grep p * -l
-friends
-what_I_have.txt
-$ grep p * -c
-friends:2
-what_I_have.txt:3
-$
+<div class="highlight"><pre><span></span><code>$ grep a *txt
+friends.txt:Rosha
+friends.txt:Xavier
+friends.txt:Krishna
+friends.txt:Mary
+my_thinkgs.txt:laptop
+$ grep z *txt
+$ grep z *txt -i 
+friends.txt:Zee
+$ grep x words -i -c 
+<span class="m">2264</span>
+$ grep z *txt -i -l
+friends.txt
+$ grep Z *txt -v
+friends.txt:Rosha
+friends.txt:Jim
+friends.txt:Xavier
+friends.txt:Krishna
+friends.txt:Mary
+my_thinkgs.txt:laptop
+my_thinkgs.txt:pillow
+my_thinkgs.txt:shorts
+my_thinkgs.txt:t-shirt
+$ grep Z friends.txt -v
+Rosha
+Jim
+Xavier
+Krishna
+Mary
+$ 
 </code></pre></div>
 
-<blockquote>
-<p>If is very common to combine grep and find: <code>find . -type f -print0 | xargs -0 grep -c a | grep -v ali</code> # find all files with <strong>a</strong> in them but not <strong>ali</strong>`</p>
-</blockquote>
+<p>As an another example, lets search all the <code>/etc</code> for all files containing an IP address and sending the errors (mostly "you do not have permission to read this") to <code>/dev/null</code>:</p>
+<div class="highlight"><pre><span></span><code>$ egrep -r <span class="s2">&quot;192.168.(1|0).&quot;</span> /etc/ <span class="m">2</span>&gt; /dev/null
+/etc/privoxy/config:#      address <span class="m">192</span>.168.0.1 on your <span class="nb">local</span> private network
+/etc/privoxy/config:#      <span class="o">(</span><span class="m">192</span>.168.0.0<span class="o">)</span> and has another outside connection with a
+/etc/privoxy/config:#        listen-address  <span class="m">192</span>.168.0.1:8118
+/etc/avahi/hosts:# <span class="m">192</span>.168.0.1 router.local
+/etc/dhcp/dhclient-exit-hooks.d/rfc3442-classless-routes:#   <span class="nv">new_rfc3442_classless_static_routes</span><span class="o">=</span><span class="s1">&#39;24 192 168 10 192 168 1 1 8 10 10 17 66 41&#39;</span>
+/etc/dhcp/dhclient-exit-hooks.d/rfc3442-classless-routes:#   <span class="m">192</span>.168.10.0/24 via <span class="m">192</span>.168.1.1
+/etc/hosts:192.168.1.22 atiteltestbed
+/etc/hosts:192.168.100.244 adpsms
+/etc/ppp/options:# ms-dns <span class="m">192</span>.168.1.1
+/etc/ppp/options:# ms-dns <span class="m">192</span>.168.1.2
+/etc/ppp/options:# ms-wins <span class="m">192</span>.168.1.50
+/etc/ppp/options:# ms-wins <span class="m">192</span>.168.1.51
+/etc/ssl/openssl.cnf:# <span class="nv">proxy</span> <span class="o">=</span> <span class="c1"># set this as far as needed, e.g., http://192.168.1.1:8080</span>
+/etc/cups/cups-browsed.conf:# BrowseAllow <span class="m">192</span>.168.1.12
+/etc/cups/cups-browsed.conf:# BrowseAllow <span class="m">192</span>.168.1.0/24
+/etc/cups/cups-browsed.conf:# BrowseAllow <span class="m">192</span>.168.1.0/255.255.255.0
+/etc/cups/cups-browsed.conf:# BrowseDeny <span class="m">192</span>.168.1.13
+/etc/proxychains4.conf:## Exclude connections to <span class="m">192</span>.168.1.0/24 with port <span class="m">80</span>
+/etc/proxychains4.conf:# localnet <span class="m">192</span>.168.1.0:80/255.255.255.0
+/etc/proxychains4.conf:## Exclude connections to <span class="m">192</span>.168.100.0/24
+/etc/proxychains4.conf:# localnet <span class="m">192</span>.168.100.0/255.255.255.0
+/etc/proxychains4.conf:# localnet <span class="m">192</span>.168.0.0/255.255.0.0
+/etc/proxychains4.conf:#        socks4  <span class="m">192</span>.168.1.49    <span class="m">1080</span>
+/etc/sane.d/kodakaio.conf:#net <span class="m">192</span>.168.1.2 0x4041
+/etc/sane.d/kodakaio.conf:#net <span class="m">192</span>.168.1.17 0x4067
+/etc/sane.d/epsonds.conf:# net <span class="m">192</span>.168.1.123
+/etc/sane.d/airscan.conf:#<span class="s2">&quot;Kyocera MFP Scanner&quot;</span> <span class="o">=</span> http://192.168.1.102:9095/eSCL
+/etc/sane.d/airscan.conf:#ip    <span class="o">=</span> <span class="m">192</span>.168.0.1    <span class="p">;</span> blacklist by address
+/etc/sane.d/airscan.conf:#ip    <span class="o">=</span> <span class="m">192</span>.168.0.0/24 <span class="p">;</span> blacklist the whole subnet
+/etc/sane.d/dell1600n_net.conf:#named_scanner: <span class="m">192</span>.168.0.20
+/etc/sane.d/epson2.conf:# net <span class="m">192</span>.168.1.123
+/etc/sane.d/magicolor.conf:# net <span class="m">192</span>.168.0.1
+/etc/sane.d/saned.conf:#192.168.0.1
+/etc/sane.d/saned.conf:#192.168.0.1/29
+/etc/fwupd/redfish.conf:# ex: https://192.168.0.133:443
+</code></pre></div>
+
 <h3>extended grep</h3>
-<p>Extended grep is a GNU extension. It does not need the escaping and much easier. It can be used with -E option or <strong>egrep</strong> command which equals to <code>grep -E</code>.</p>
+<p>Regex is cool and <code>grep</code> is awesome so many people have tried adding to them or invent their own variants. One is GNU Extended grep. This accent of regex, does not need much escaping and you can use it via <code>-E</code> switch or using <code>egrep</code> instead of the normal <code>grep</code>. For example, <code>|</code> in an extended regex means "or". So you can do a <code>egrep "a|b" words</code> to match anything with an <code>a</code> or a <code>b</code>. </p>
 <h3>Fixed grep</h3>
-<p>If you need to search the exact string (and not interpret it as a regex), use <code>grep -F</code> or <code>fgrep</code> so the <code>fgrep this$</code> wont go for the end of the line and will find <em>this$that</em> too.</p>
+<p>If you need to search for exact strings (and not interpret it as a regex), use <code>grep -F</code> or <code>fgrep</code> so the <code>fgrep this$</code> wont go for the end of the line and will find <em>this$that</em> instead.</p>
 <h3>sed</h3>
-<p>In previous lessons we saw simple <code>sed</code> usage. Here I have great news for you: <strong>sed understands regex</strong>! If is good to use <code>-r</code> switch to tell sed that we are using them.</p>
-<div class="highlight"><pre><span></span><code>$ sed -r &quot;s/^(a|b)/STARTS WITH A OR B/&quot; friends
-STARTS WITH A OR Bmir
-mina
-jadi
-STARTS WITH A OR Bita
-STARTS WITH A OR Bli
-hassan
+<p>In previous lessons we saw simple <code>sed</code> usage and now I have great news for you: <strong>sed understands regex</strong>! You can use <code>-r</code> switch to tell sed that we are using regexes.</p>
+<div class="highlight"><pre><span></span><code>$ sed -r <span class="s2">&quot;s/(Z|R|J)/starts with ZRJ/&quot;</span> friends.txt 
+starts with ZRJee
+starts with ZRJosha
+starts with ZRJim
+Xavier
+Krishna
+Mary
 </code></pre></div>
 
-<p>Main switches:</p>
+<p>Common switches:</p>
 <table>
 <thead>
 <tr>
@@ -324,24 +378,14 @@ hassan
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code>$ sed -rn &quot;/^(a|b)/p&quot; friends
-amir
-bita
-ali
+<div class="highlight"><pre><span></span><code>sed -rn &quot;s/happy/HAPPY/p&quot; words 
+HAPPY
+slapHAPPY
+unHAPPY
 </code></pre></div>
 
-<p>.</p>
-<p>.</p>
-<p>. .</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
+<p>Still eager to learn? See how you can solve the Wordle using regexes:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZbdTghkVM_4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
              
