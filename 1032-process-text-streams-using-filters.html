@@ -118,7 +118,7 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/2mTH7HbErh8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <p>In <strong>UNIX</strong> world a lot of data is in TEXT form. Log files, configurations, data, etc. <strong>Filtering</strong> this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a <strong>streams</strong> is nothing more than <em>"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"</em>.</p>
-<p>In simple words, a text stream is an input of text from a keyboard, a file, a network device, ... which can be viewed, changed, examined and ... via text util commands.</p>
+<p>In simple words, a text stream is an input of text from a keyboard, a file, a network device, ... which can be viewed, changed, examined, and ... via text util commands.</p>
 <p>Modern programming environments and shells (including bash) use three standard I/O streams:</p>
 <ul>
 <li><strong>stdin</strong> is the standard input stream, which provides input to commands.</li>
@@ -128,7 +128,7 @@
 <p>Here we are talking about the <strong>stdin</strong> and viewing or manipulating it via different commands and utilities. You will see more about these streams and will see how we can combine commands to <em>PIPE</em> inputs and outputs of different commands in chapter 103.4.</p>
 <h2>Viewing commands</h2>
 <h3>cat</h3>
-<p>This command simply outputs its input stream (or the filename you give it). As you saw in the previous section. As most commands, if you do not give an input to it, it will read the data from the keyboard.</p>
+<p>This command simply outputs its input stream (or the filename you give it). As you saw in the previous section. As with most commands, if you do not give input to it, it will read the data from the keyboard.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat &gt; mydata
 test
 this is the second line
@@ -157,15 +157,15 @@ total 0
 -rw-rw-r-- 1 jadi jadi 0 Jan  4 17:37 directory_data
 </code></pre></div>
 
-<p>Some common cat switches are <code>-n</code> to show line numbers, <code>-s</code> to squeeze blanks, <code>-T</code> to show tabs and <code>-v</code> to show non-printing characters.</p>
+<p>Some common cat switches are <code>-n</code> to show line numbers, <code>-s</code> to squeeze blanks, <code>-T</code> to show tabs, and <code>-v</code> to show non-printing characters.</p>
 <h3>bzcat, xzcat, zcat, gzcat</h3>
-<p>There are used to directly <code>cat</code> the bz, xz and Z &amp; gz compressed files. These let you see the contents of compressed files without uncompressing them first.</p>
+<p>There are used to directly <code>cat</code> the bz, xz, and Z &amp; gz compressed files. These let you see the contents of compressed files without uncompressing them first.</p>
 <h3>less</h3>
 <p>This is a powerful tool to view larger text files. It can paginate, search and move in text files. </p>
 <blockquote>
-<p>There is another command called <code>more</code>. Its more familiar for people coming from the DOS environment and not very common in the Linux world. Do not use it. Remember: <code>less</code> is more than <code>more</code>.</p>
+<p>There is another command called <code>more</code>. It's more familiar for people coming from the DOS environment and not very common in the Linux world. Do not use it. Remember: <code>less</code> is more than <code>more</code>.</p>
 </blockquote>
-<p>Some common less commands are as follow.</p>
+<p>Some less common commands are as follows.</p>
 <table>
 <thead>
 <tr>
@@ -236,10 +236,10 @@ You can summarize the two above to <code>-a</code> and <code>-c</code></li>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/nw3Ic3RxbVI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>split</h3>
-<p>Will split files. It is very useful for transferring HUGE files on smaller media (say splitting a 3TB file into 8GB parts and moving them to another machine with a USB Disk).</p>
+<p>Will split the files. It is very useful for transferring HUGE files on smaller media (say splitting a 3TB file into 8GB parts and moving them to another machine with a USB Disk).</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat mydata
 hello
-this is second line
+this is the second line
 but as you can see we are
 still writing
 and this is getting longer
@@ -288,7 +288,7 @@ you
 <blockquote>
 <p>Default delimiter is TAB. use <code>-dx</code> to change it to "x" or <code>-d' '</code> to change it to space</p>
 </blockquote>
-<p>It is also possible to <em>cut</em> fields 1, 2, 3 with <code>-f1-3</code> or only characters with index 4, 5, 7, 8 with from each line <code>-c4,5,7,8</code>.</p>
+<p>It is also possible to <em>cut</em> fields 1, 2, and 3 with <code>-f1-3</code> or only characters with index 4, 5, 7, 8 from each line <code>-c4,5,7,8</code>.</p>
 <h2>Modifying streams</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/IpJpI3CzN_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -296,7 +296,7 @@ you
 <p>This command is for showing line numbers.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ nl mydata  | head -3
      1    hello
-     2    this is second line
+     2    this is the second line
      3    but as you can see we are
 </code></pre></div>
 
@@ -392,10 +392,10 @@ you     12    neda mac
 </code></pre></div>
 
 <h3>tr</h3>
-<p>The <code>tr</code> command <em>translates</em> characters in the stream. For example <code>tr 'ABC' '123'</code> will replace A with 1, B with 2 and C with 3 in the provided stream. It is a pure filter and does not accept the input file name. If needed you can pipe the cat with it (see chapter 103.4).</p>
+<p>The <code>tr</code> command <em>translates</em> characters in the stream. For example, <code>tr 'ABC' '123'</code> will replace A with 1, B with 2, and C with 3 in the provided stream. It is a pure filter and does not accept the input file name. If needed you can pipe the cat with it (see chapter 103.4).</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat mydata
 hello
-this is second line
+this is the second line
 but as you can see we are
 still writing
 and this is getting longer
@@ -405,7 +405,7 @@ and longer
 and longer!
 jadi@funlife:~/w/lpic/101$ cat mydata | tr &#39;and&#39; &#39;AND&#39;
 hello
-this is second liNe
+this is the second liNe
 but As you cAN see we Are
 still writiNg
 AND this is gettiNg loNger
@@ -419,7 +419,7 @@ AND loNger!
 <p>Note: all <strong>'a'</strong>s are replaced with <strong>'A'</strong>.</p>
 </blockquote>
 <h3>sed</h3>
-<p>sed is <strong>s</strong>tream <strong>ed</strong>itor. It is POWERFUL and can do things that are not far from magic! Just like most of the tools we've seen far now, sed can work as a filter or take its input from a file. Sed is a great tool for replacing text with using <strong>regular expressions</strong> . If you need to replace A with B only once in each line in a stream just issue  <code>sed 's/A/B/'</code>:</p>
+<p>sed is <strong>s</strong>tream <strong>ed</strong>itor. It is POWERFUL and can do things that are not far from magic! Just like most of the tools we've seen far now, sed can work as a filter or take input from a file. Sed is a great tool for replacing text with using <strong>regular expressions</strong> . If you need to replace A with B only once in each line in a stream just issue  <code>sed 's/A/B/'</code>:</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat uses
 you fedora
 jadi ubuntu
@@ -437,7 +437,7 @@ jadi@funlife:~/w/lpic/101$
 <p>Remember escape characters? They also work here and this will remove every <em>new line</em> from a file and will replace it with a space:</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ cat mydata
 hello
-this is second line
+this is the second line
 but as you can see we are
 still writing
 and this is getting longer
@@ -448,7 +448,7 @@ and longer!
 jadi@funlife:~/w/lpic/101$ sed &#39;s/ /\t/g&#39; mydata &gt; mydata.tab
 jadi@funlife:~/w/lpic/101$ cat mydata.tab
 hello
-this    is    second    line
+this    is the second    line
 but    as    you    can    see    we    are
 still    writing
 and    this    is    getting    longer
@@ -462,7 +462,7 @@ and    longer!
 <iframe width="560" height="315" src="https://www.youtube.com/embed/wUi0lmmzm3k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>wc</h3>
-<p>The <code>wc</code> is <em>word count</em>. It counts the lines, words and bytes in the input stream.</p>
+<p>The <code>wc</code> is <em>word count</em>. It counts the lines, words, and bytes in the input stream.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ wc mydata
   9  25 121 mydata
 </code></pre></div>
@@ -474,7 +474,7 @@ and    longer!
 <p>You should know that if you put <code>-</code> instead of a filename, the data will be replaced from the pipe (or keyboard stdin).</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~/w/lpic/101$ wc -l mydata | cat mydata - mydata  
 hello
-this is second line
+this is the second line
 but as you can see we are
 still writing
 and this is getting longer

@@ -17,16 +17,16 @@
 
 <meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1, " />
 
-<meta property="og:title" content="103.5 Create, monitor and kill processes "/>
+<meta property="og:title" content="103.5 Create, monitor, and kill processes "/>
 <meta property="og:url" content="./1035-create-monitor-and-kill-processes.html" />
 <meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
 <meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
-<meta name="twitter:title" content="103.5 Create, monitor and kill processes ">
+<meta name="twitter:title" content="103.5 Create, monitor, and kill processes ">
 <meta name="twitter:description" content="">
 
-        <title>103.5 Create, monitor and kill processes  · lpic1book
+        <title>103.5 Create, monitor, and kill processes  · lpic1book
 </title>
 
 
@@ -78,7 +78,7 @@
     <header class="page-header span10 offset2">
         <h1>
             <a href="./1035-create-monitor-and-kill-processes.html">
-                103.5 Create, monitor and kill processes
+                103.5 Create, monitor, and kill processes
             </a>
         </h1>
     </header>
@@ -116,51 +116,53 @@
 <li>screen</li>
 <li>tmux</li>
 </ul>
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=PQp_YPGg7GQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <h2>Managing processes</h2>
 <h3>foreground and background jobs</h3>
-<p>One of the great points of linux even from its beginning days, is the ability to run different programs and jobs at the same time. This is done with sending programs to the background.</p>
-<p>Normally if you run a program on the terminal, it <em>blocks</em> your terminal while its running but sending a command to the background will prevent this:</p>
+<p>One of the great points of Linux even from its beginning days is the ability to run different programs and jobs at the same time. This is done by sending programs to the background.</p>
+<p>Normally if you run a program on the terminal, it <em>blocks</em> your terminal while it's running but sending a command to the background will prevent this:</p>
 <div class="highlight"><pre><span></span><code>xeyes &amp;
 </code></pre></div>
 
 <p>Even when a program is running normally in the foreground, you can do two things:
-- break if using <code>Ctrl+c</code>
-_ <em>suspend</em> or pause it using <code>Ctrl+z</code>
-A <em>stopped</em> jobs can be brought to foreground using <code>fg</code> command (or background using <code>bg</code>). You can also list all the jobs by the <code>jobs</code> command.</p>
+- break it using <code>Ctrl+c</code>
+- <em>suspend</em> or pause it using <code>Ctrl+z</code></p>
+<p>A <em>stopped</em> job can be brought to the foreground using <code>fg</code> command (or the background using <code>bg</code>). You can also list all the jobs by the <code>jobs</code> command.</p>
 <div class="highlight"><pre><span></span><code>$ xeyes
 ^Z
-[1]+  Stopped                 xeyes
-$ jobs
-[1]+  Stopped                 xeyes
-$ bg
-[1]+ xeyes &amp;
-$ jobs
-[1]+  Running                 xeyes &amp;
-$ sleep 1000 &amp;
-[2] 7395
-$ jobs
-[1]-  Running                 xeyes &amp;
-[2]+  Running                 sleep 1000 &amp;
-$ fg %2
-sleep 1000
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>+  Stopped                 xeyes
+$ <span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>+  Stopped                 xeyes
+$ <span class="nb">bg</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>+ xeyes <span class="p">&amp;</span>
+$ <span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>+  Running                 xeyes <span class="p">&amp;</span>
+$ sleep <span class="m">1000</span> <span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span> <span class="m">7395</span>
+$ <span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>-  Running                 xeyes <span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>+  Running                 sleep <span class="m">1000</span> <span class="p">&amp;</span>
+$ <span class="nb">fg</span> %2
+sleep <span class="m">1000</span>
 ^Z
-[2]+  Stopped                 sleep 1000
-$ jobs
-[1]-  Running                 xeyes &amp;
-[2]+  Stopped                 sleep 1000
-$ bg sle
-[2]+ sleep 1000 &amp;
-$ jobs
-[1]-  Running                 xeyes &amp;
-[2]+  Running                 sleep 1000 &amp;
-`
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>+  Stopped                 sleep <span class="m">1000</span>
+$ <span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>-  Running                 xeyes <span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>+  Stopped                 sleep <span class="m">1000</span>
+$ <span class="nb">bg</span> sle
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>+ sleep <span class="m">1000</span> <span class="p">&amp;</span>
+$ <span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>-  Running                 xeyes <span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>+  Running                 sleep <span class="m">1000</span> <span class="p">&amp;</span>
+<span class="sb">`</span>
 </code></pre></div>
 
 <blockquote>
-<p>-l switch of <code>jobs</code> will also show the process ID</p>
+<p><code>jobs -l</code> also shows the process ID of jobs</p>
 </blockquote>
 <h3>nohup</h3>
-<p>The <code>nohup</code> command lets you run your commands even after you close the terminal / logout. By default it write its output to <code>nohup.out</code>:</p>
+<p>The <code>nohup</code> command lets you run your commands even after you close the terminal or logout. By default it writes its output to <code>nohup.out</code>:</p>
 <div class="highlight"><pre><span></span><code>$ nohup ping <span class="m">4</span>.2.2.4
 nohup: ignoring input and appending output to ‘nohup.out’
 ^C$ cat nohup.out
@@ -177,7 +179,7 @@ rtt min/avg/max/mdev <span class="o">=</span> <span class="m">223</span>.584/224
 <p>It is common to use <code>2&gt;</code> to redirect the nohup errors to another file and use a <code>&amp;</code> to run it in the background: <code>nohup script.sh &gt; mynohup.out 2&gt;&amp;1 &amp;</code> </p>
 </blockquote>
 <h3>kill</h3>
-<p>Despite its frightening name, the <code>kill</code> command sends unix <em>signals</em> to processes. Actually pressing <code>Ctrl+c</code> and <code>Ctrl+z</code> is also sending signals. By default the <code>kill</code> command sends the signal <strong>15</strong> (which is TERM and tells to process to terminate itself)</p>
+<p>Despite its frightening name, the <code>kill</code> command sends unix <em>signals</em> to processes. Pressing <code>Ctrl+c</code> and <code>Ctrl+z</code> is also sending signals. By default, the <code>kill</code> command sends the signal <strong>15</strong> (which is TERM and tells to process to terminate itself).</p>
 <div class="highlight"><pre><span></span><code>$ <span class="nb">jobs</span>
 <span class="o">[</span><span class="m">3</span><span class="o">]</span>   Running                 xeyes <span class="p">&amp;</span>
 <span class="o">[</span><span class="m">4</span><span class="o">]</span>   Running                 sleep <span class="m">1000</span> <span class="p">&amp;</span>
@@ -195,120 +197,124 @@ $ <span class="nb">jobs</span>
 <span class="o">[</span><span class="m">6</span><span class="o">]</span>+  Running                 sleep <span class="m">3000</span> <span class="p">&amp;</span>
 </code></pre></div>
 
-<p>If is also possible to use PIDs instead of job numbers and kill other signals. The general format is <code>kill -SIGNAL_ID_OR_NAME process_id</code>:</p>
+<p>It is also possible to use PIDs instead of job numbers and kill other signals. The general format is <code>kill -SIGNAL_ID_OR_NAME process_id</code>:</p>
 <table>
 <thead>
 <tr>
-<th align="left">signal number</th>
-<th align="left">signal name</th>
-<th align="left">meaning</th>
+<th style="text-align: center;">signal number</th>
+<th style="text-align: center;">signal name</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">1</td>
-<td align="left">HUP</td>
-<td align="left">Informing the process that its controlling terminal (like an ssh connection) is terminated</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">HUP</td>
+<td style="text-align: left;">Informing the process that its controlling terminal (like an ssh connection) is terminated</td>
 </tr>
 <tr>
-<td align="left">15</td>
-<td align="left">TERM</td>
-<td align="left">normal termination request</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">TERM</td>
+<td style="text-align: left;">normal termination request</td>
 </tr>
 <tr>
-<td align="left">9</td>
-<td align="left">KILL</td>
-<td align="left">forcefully kills the proccess</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">KILL</td>
+<td style="text-align: left;">forcefully kills the proccess</td>
 </tr>
 </tbody>
 </table>
+<p></br></p>
 <p>So you can do a <code>kill -9 8733</code> to force process ID 8733 to close.</p>
 <blockquote>
-<p>Remember the <code>nohup</code> command? :) It is "do not answer to the hup signal".</p>
+<p>Remember the <code>nohup</code> command ? :) It means " do not respond to the hup signal ".</p>
 </blockquote>
 <h3>killall</h3>
-<p>Will send the given signal (or 15) to all the processes with the given name:</p>
-<div class="highlight"><pre><span></span><code>$ jobs
-[3]   Running                 xeyes &amp;
-[5]-  Running                 sleep 2000 &amp;
-[6]+  Running                 sleep 3000 &amp;
-$ ps -ef | grep sleep
-jadi      7864  7651  0 21:07 pts/1    00:00:00 sleep 2000
-jadi      7865  7651  0 21:07 pts/1    00:00:00 sleep 3000
-jadi      7977  7651  0 21:14 pts/1    00:00:00 grep sleep
+<p>This command Will send the given signal (or by default 15) to all processes with the given name:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">jobs</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span>   Running                 xeyes <span class="p">&amp;</span>
+<span class="o">[</span><span class="m">5</span><span class="o">]</span>-  Running                 sleep <span class="m">2000</span> <span class="p">&amp;</span>
+<span class="o">[</span><span class="m">6</span><span class="o">]</span>+  Running                 sleep <span class="m">3000</span> <span class="p">&amp;</span>
+$ ps -ef <span class="p">|</span> grep sleep
+jadi      <span class="m">7864</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:07 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">2000</span>
+jadi      <span class="m">7865</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:07 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">3000</span>
+jadi      <span class="m">7977</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:14 pts/1    <span class="m">00</span>:00:00 grep sleep
 $ killall sleep
-[5]-  Terminated              sleep 2000
-[6]+  Terminated              sleep 3000
-$ jobs
-[3]+  Running                 xeyes &amp;
-$ ps -ef | grep sleep
-jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep
+<span class="o">[</span><span class="m">5</span><span class="o">]</span>-  Terminated              sleep <span class="m">2000</span>
+<span class="o">[</span><span class="m">6</span><span class="o">]</span>+  Terminated              sleep <span class="m">3000</span>
+$ <span class="nb">jobs</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span>+  Running                 xeyes <span class="p">&amp;</span>
+$ ps -ef <span class="p">|</span> grep sleep
+jadi      <span class="m">7980</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:14 pts/1    <span class="m">00</span>:00:00 grep sleep
 </code></pre></div>
 
 <h3>pkill</h3>
 <p>Will send the given signal (or 15) to all the processes with a specific pattern in their name:</p>
-<div class="highlight"><pre><span></span><code>$ jobs
-[3]   Running                 xeyes &amp;
-[5]-  Running                 sleep 2000 &amp;
-[6]+  Running                 sleep 3000 &amp;
-$ ps -ef | grep sleep
-jadi      7864  7651  0 21:07 pts/1    00:00:00 sleep 2000
-jadi      7865  7651  0 21:07 pts/1    00:00:00 sleep 3000
-jadi      7977  7651  0 21:14 pts/1    00:00:00 grep sleep
+<div class="highlight"><pre><span></span><code>$ <span class="nb">jobs</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span>   Running                 xeyes <span class="p">&amp;</span>
+<span class="o">[</span><span class="m">5</span><span class="o">]</span>-  Running                 sleep <span class="m">2000</span> <span class="p">&amp;</span>
+<span class="o">[</span><span class="m">6</span><span class="o">]</span>+  Running                 sleep <span class="m">3000</span> <span class="p">&amp;</span>
+$ ps -ef <span class="p">|</span> grep sleep
+jadi      <span class="m">7864</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:07 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">2000</span>
+jadi      <span class="m">7865</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:07 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">3000</span>
+jadi      <span class="m">7977</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:14 pts/1    <span class="m">00</span>:00:00 grep sleep
 $ pkill sle
-[5]-  Terminated              sleep 2000
-[6]+  Terminated              sleep 3000
-$ jobs
-[3]+  Running                 xeyes &amp;
-$ ps -ef | grep sleep
-jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep
+<span class="o">[</span><span class="m">5</span><span class="o">]</span>-  Terminated              sleep <span class="m">2000</span>
+<span class="o">[</span><span class="m">6</span><span class="o">]</span>+  Terminated              sleep <span class="m">3000</span>
+$ <span class="nb">jobs</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span>+  Running                 xeyes <span class="p">&amp;</span>
+$ ps -ef <span class="p">|</span> grep sleep
+jadi      <span class="m">7980</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:14 pts/1    <span class="m">00</span>:00:00 grep sleep
 </code></pre></div>
+
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=wOXrckEQosU
+" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h2>Monitoring Processes</h2>
 <h3>ps</h3>
 <p>The <code>ps</code> command shows running processes on your computer. Each process has a process ID shown as <strong>PID</strong> and a Parent Process ID shown as PPID.</p>
-<div class="highlight"><pre><span></span><code>$ sleep 1000 &amp;
-[1] 7678
-$ sleep 1001 &amp;
-[2] 7679
-$ xeyes &amp;
-[3] 7680
+<div class="highlight"><pre><span></span><code>$ sleep <span class="m">1000</span> <span class="p">&amp;</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span> <span class="m">7678</span>
+$ sleep <span class="m">1001</span> <span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span> <span class="m">7679</span>
+$ xeyes <span class="p">&amp;</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span> <span class="m">7680</span>
 $ ps
   PID TTY          TIME CMD
- 7651 pts/1    00:00:00 bash
- 7678 pts/1    00:00:00 sleep
- 7679 pts/1    00:00:00 sleep
- 7680 pts/1    00:00:00 xeyes
- 7681 pts/1    00:00:00 ps
+ <span class="m">7651</span> pts/1    <span class="m">00</span>:00:00 bash
+ <span class="m">7678</span> pts/1    <span class="m">00</span>:00:00 sleep
+ <span class="m">7679</span> pts/1    <span class="m">00</span>:00:00 sleep
+ <span class="m">7680</span> pts/1    <span class="m">00</span>:00:00 xeyes
+ <span class="m">7681</span> pts/1    <span class="m">00</span>:00:00 ps
 </code></pre></div>
 
 <p>Two common switch combination is <code>ps aux</code> ( or <code>-aux</code>) and <code>ps ef</code> which shows ALL processes on a system:</p>
-<div class="highlight"><pre><span></span><code>$ ps -aux | wc -l
-293
+<div class="highlight"><pre><span></span><code>$ ps -aux <span class="p">|</span> wc -l
+<span class="m">293</span>
 </code></pre></div>
 
-<p>It is also possible to use the <code>--sort</code> switch to sort output based on different fields (+ for ascending &amp; - for descending).</p>
+<p>It is also possible to use the <code>--sort</code> switch to sort the output based on different fields (+ for ascending &amp; - for descending).</p>
 <div class="highlight"><pre><span></span><code>$ ps -af --sort +comm,-sid
 UID        PID  PPID  C STIME TTY          TIME CMD
-root      5486  5478  0 19:59 pts/12   00:00:00 -su
-root      4444  1169  0 19:56 tty4     00:00:00 -bash
-jadi      6638  5412  0 20:10 pts/0    00:00:04 node /usr/local/bin/sslocal
-jadi      7778  7651  0 20:58 pts/1    00:00:00 ps -af --sort +comm,-sid
-jadi      7678  7651  0 20:48 pts/1    00:00:00 sleep 1000
-jadi      7679  7651  0 20:48 pts/1    00:00:00 sleep 1001
-jadi      7775  7651  0 20:58 pts/1    00:00:00 sleep 1000
-jadi      7776  7651  0 20:58 pts/1    00:00:00 sleep 1000
-jadi      7777  7651  0 20:58 pts/1    00:00:00 sleep 1000
-root      5478  5477  0 19:59 pts/12   00:00:00 su -
-root      5477  5008  0 19:59 pts/12   00:00:00 sudo su -
-jadi      7680  7651  0 20:48 pts/1    00:00:01 xeyes
+root      <span class="m">5486</span>  <span class="m">5478</span>  <span class="m">0</span> <span class="m">19</span>:59 pts/12   <span class="m">00</span>:00:00 -su
+root      <span class="m">4444</span>  <span class="m">1169</span>  <span class="m">0</span> <span class="m">19</span>:56 tty4     <span class="m">00</span>:00:00 -bash
+jadi      <span class="m">6638</span>  <span class="m">5412</span>  <span class="m">0</span> <span class="m">20</span>:10 pts/0    <span class="m">00</span>:00:04 node /usr/local/bin/sslocal
+jadi      <span class="m">7778</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:58 pts/1    <span class="m">00</span>:00:00 ps -af --sort +comm,-sid
+jadi      <span class="m">7678</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:48 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">1000</span>
+jadi      <span class="m">7679</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:48 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">1001</span>
+jadi      <span class="m">7775</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:58 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">1000</span>
+jadi      <span class="m">7776</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:58 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">1000</span>
+jadi      <span class="m">7777</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:58 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">1000</span>
+root      <span class="m">5478</span>  <span class="m">5477</span>  <span class="m">0</span> <span class="m">19</span>:59 pts/12   <span class="m">00</span>:00:00 su -
+root      <span class="m">5477</span>  <span class="m">5008</span>  <span class="m">0</span> <span class="m">19</span>:59 pts/12   <span class="m">00</span>:00:00 sudo su -
+jadi      <span class="m">7680</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:48 pts/1    <span class="m">00</span>:00:01 xeyes
 </code></pre></div>
 
 <h3>pgrep</h3>
 <p>You've seen that <code>ps -ef</code> shows processes from all users. We can <code>grep</code> on that and see who is running <code>gedit</code> and what is its process ID:</p>
-<div class="highlight"><pre><span></span><code>$ ps -ef | grep gedit
-jadi      6213  4604  9 20:06 ?        00:04:43 gedit
-jadi      7725  7651  0 20:55 pts/1    00:00:00 grep gedit
+<div class="highlight"><pre><span></span><code>$ ps -ef <span class="p">|</span> grep gedit
+jadi      <span class="m">6213</span>  <span class="m">4604</span>  <span class="m">9</span> <span class="m">20</span>:06 ?        <span class="m">00</span>:04:43 gedit
+jadi      <span class="m">7725</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:55 pts/1    <span class="m">00</span>:00:00 grep gedit
 </code></pre></div>
 
 <p>but there is also a more direct way to check the PID of all gedit processes:</p>
@@ -317,55 +323,55 @@ jadi      7725  7651  0 20:55 pts/1    00:00:00 grep gedit
 </code></pre></div>
 
 <h3>top</h3>
-<p>This is most common tool to do a simple monitoring on the system. It will update the stats and will give you a good glance of the status:</p>
-<div class="highlight"><pre><span></span><code>$top
+<p>This is the most common tool to do simple monitoring of the system. It will update the status and will give you a good glance at the status:</p>
+<div class="highlight"><pre><span></span><code><span class="o">$</span><span class="n">top</span><span class="w"></span>
 
-top - 21:00:44 up  1:16,  5 users,  load average: 1.51, 1.65, 1.78
-Tasks: 293 total,   1 running, 292 sleeping,   0 stopped,   0 zombie
-%Cpu(s): 19.0 us,  5.0 sy,  0.0 ni, 70.9 id,  5.1 wa,  0.0 hi,  0.0 si,  0.0 st
-KiB Mem:   8060264 total,  5359812 used,  2700452 free,   169240 buffers
-KiB Swap:  7811068 total,        0 used,  7811068 free.  2250692 cached Mem
+<span class="n">top</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">21</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">44</span><span class="w"> </span><span class="n">up</span><span class="w">  </span><span class="mi">1</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="w">  </span><span class="mi">5</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w">  </span><span class="nb">load</span><span class="w"> </span><span class="n">average</span><span class="p">:</span><span class="w"> </span><span class="mf">1.51</span><span class="p">,</span><span class="w"> </span><span class="mf">1.65</span><span class="p">,</span><span class="w"> </span><span class="mf">1.78</span><span class="w"></span>
+<span class="n">Tasks</span><span class="p">:</span><span class="w"> </span><span class="mi">293</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w">   </span><span class="mi">1</span><span class="w"> </span><span class="n">running</span><span class="p">,</span><span class="w"> </span><span class="mi">292</span><span class="w"> </span><span class="n">sleeping</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="n">stopped</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="n">zombie</span><span class="w"></span>
+<span class="o">%</span><span class="n">Cpu</span><span class="p">(</span><span class="n">s</span><span class="p">):</span><span class="w"> </span><span class="mf">19.0</span><span class="w"> </span><span class="n">us</span><span class="p">,</span><span class="w">  </span><span class="mf">5.0</span><span class="w"> </span><span class="n">sy</span><span class="p">,</span><span class="w">  </span><span class="mf">0.0</span><span class="w"> </span><span class="n">ni</span><span class="p">,</span><span class="w"> </span><span class="mf">70.9</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w">  </span><span class="mf">5.1</span><span class="w"> </span><span class="n">wa</span><span class="p">,</span><span class="w">  </span><span class="mf">0.0</span><span class="w"> </span><span class="n">hi</span><span class="p">,</span><span class="w">  </span><span class="mf">0.0</span><span class="w"> </span><span class="n">si</span><span class="p">,</span><span class="w">  </span><span class="mf">0.0</span><span class="w"> </span><span class="n">st</span><span class="w"></span>
+<span class="n">KiB</span><span class="w"> </span><span class="n">Mem</span><span class="p">:</span><span class="w">   </span><span class="mi">8060264</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w">  </span><span class="mi">5359812</span><span class="w"> </span><span class="n">used</span><span class="p">,</span><span class="w">  </span><span class="mi">2700452</span><span class="w"> </span><span class="n">free</span><span class="p">,</span><span class="w">   </span><span class="mi">169240</span><span class="w"> </span><span class="n">buffers</span><span class="w"></span>
+<span class="n">KiB</span><span class="w"> </span><span class="n">Swap</span><span class="p">:</span><span class="w">  </span><span class="mi">7811068</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w">        </span><span class="mi">0</span><span class="w"> </span><span class="n">used</span><span class="p">,</span><span class="w">  </span><span class="mi">7811068</span><span class="w"> </span><span class="n">free</span><span class="o">.</span><span class="w">  </span><span class="mi">2250692</span><span class="w"> </span><span class="n">cached</span><span class="w"> </span><span class="n">Mem</span><span class="w"></span>
 
-  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND                                                                                                                
- 6570 jadi      20   0 1437752 546064  88312 S  18.4  6.8  12:00.96 firefox                                                                                                                
- 4870 jadi      20   0 1762516 299120  75664 S  12.2  3.7   7:37.05 compiz                                                                                                                 
- 4492 jadi       9 -11  455152  11516   8940 S   6.1  0.1   1:06.81 pulseaudio                                                                                                             
- 4532 root      20   0  389028  77116  60192 S   6.1  1.0  12:16.63 Xorg                                                                                                                   
- 4723 jadi      20   0  358936   8288   5512 S   6.1  0.1   9:51.52 ibus-daemon                                                                                                            
- 5648 jadi      20   0 1641556 203676 102840 S   6.1  2.5   3:20.88 chrome                                                                                                                 
- 7082 jadi      20   0 1210748  73136  42528 S   6.1  0.9   0:36.51 Telegram                                                                                                               
- 7806 jadi      20   0   33796   3004   2500 R   6.1  0.0   0:00.02 top                                                                                                                    
-    1 root      20   0   29528   4320   2584 S   0.0  0.1   0:01.71 init
+<span class="w">  </span><span class="n">PID</span><span class="w"> </span><span class="n">USER</span><span class="w">      </span><span class="n">PR</span><span class="w">  </span><span class="n">NI</span><span class="w">    </span><span class="n">VIRT</span><span class="w">    </span><span class="n">RES</span><span class="w">    </span><span class="n">SHR</span><span class="w"> </span><span class="n">S</span><span class="w">  </span><span class="o">%</span><span class="n">CPU</span><span class="w"> </span><span class="o">%</span><span class="n">MEM</span><span class="w">     </span><span class="n">TIME</span><span class="o">+</span><span class="w"> </span><span class="n">COMMAND</span><span class="w">                                                                                                                </span>
+<span class="w"> </span><span class="mi">6570</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="mi">1437752</span><span class="w"> </span><span class="mi">546064</span><span class="w">  </span><span class="mi">88312</span><span class="w"> </span><span class="n">S</span><span class="w">  </span><span class="mf">18.4</span><span class="w">  </span><span class="mf">6.8</span><span class="w">  </span><span class="mi">12</span><span class="p">:</span><span class="mf">00.96</span><span class="w"> </span><span class="n">firefox</span><span class="w">                                                                                                                </span>
+<span class="w"> </span><span class="mi">4870</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="mi">1762516</span><span class="w"> </span><span class="mi">299120</span><span class="w">  </span><span class="mi">75664</span><span class="w"> </span><span class="n">S</span><span class="w">  </span><span class="mf">12.2</span><span class="w">  </span><span class="mf">3.7</span><span class="w">   </span><span class="mi">7</span><span class="p">:</span><span class="mf">37.05</span><span class="w"> </span><span class="n">compiz</span><span class="w">                                                                                                                 </span>
+<span class="w"> </span><span class="mi">4492</span><span class="w"> </span><span class="n">jadi</span><span class="w">       </span><span class="mi">9</span><span class="w"> </span><span class="o">-</span><span class="mi">11</span><span class="w">  </span><span class="mi">455152</span><span class="w">  </span><span class="mi">11516</span><span class="w">   </span><span class="mi">8940</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">0.1</span><span class="w">   </span><span class="mi">1</span><span class="p">:</span><span class="mf">06.81</span><span class="w"> </span><span class="n">pulseaudio</span><span class="w">                                                                                                             </span>
+<span class="w"> </span><span class="mi">4532</span><span class="w"> </span><span class="n">root</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w">  </span><span class="mi">389028</span><span class="w">  </span><span class="mi">77116</span><span class="w">  </span><span class="mi">60192</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">1.0</span><span class="w">  </span><span class="mi">12</span><span class="p">:</span><span class="mf">16.63</span><span class="w"> </span><span class="n">Xorg</span><span class="w">                                                                                                                   </span>
+<span class="w"> </span><span class="mi">4723</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w">  </span><span class="mi">358936</span><span class="w">   </span><span class="mi">8288</span><span class="w">   </span><span class="mi">5512</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">0.1</span><span class="w">   </span><span class="mi">9</span><span class="p">:</span><span class="mf">51.52</span><span class="w"> </span><span class="n">ibus</span><span class="o">-</span><span class="n">daemon</span><span class="w">                                                                                                            </span>
+<span class="w"> </span><span class="mi">5648</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="mi">1641556</span><span class="w"> </span><span class="mi">203676</span><span class="w"> </span><span class="mi">102840</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">2.5</span><span class="w">   </span><span class="mi">3</span><span class="p">:</span><span class="mf">20.88</span><span class="w"> </span><span class="n">chrome</span><span class="w">                                                                                                                 </span>
+<span class="w"> </span><span class="mi">7082</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="mi">1210748</span><span class="w">  </span><span class="mi">73136</span><span class="w">  </span><span class="mi">42528</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">0.9</span><span class="w">   </span><span class="mi">0</span><span class="p">:</span><span class="mf">36.51</span><span class="w"> </span><span class="n">Telegram</span><span class="w">                                                                                                               </span>
+<span class="w"> </span><span class="mi">7806</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w">   </span><span class="mi">33796</span><span class="w">   </span><span class="mi">3004</span><span class="w">   </span><span class="mi">2500</span><span class="w"> </span><span class="n">R</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">0.0</span><span class="w">   </span><span class="mi">0</span><span class="p">:</span><span class="mf">00.02</span><span class="w"> </span><span class="n">top</span><span class="w">                                                                                                                    </span>
+<span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="n">root</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w">   </span><span class="mi">29528</span><span class="w">   </span><span class="mi">4320</span><span class="w">   </span><span class="mi">2584</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">0.0</span><span class="w">  </span><span class="mf">0.1</span><span class="w">   </span><span class="mi">0</span><span class="p">:</span><span class="mf">01.71</span><span class="w"> </span><span class="n">init</span><span class="w"></span>
 </code></pre></div>
 
 <p>You can see the processes, system load, uptime, CPU status, memory, ... and do some stuff:</p>
 <table>
 <thead>
 <tr>
-<th align="left">key during top</th>
-<th align="left">functionality</th>
+<th style="text-align: center;">key during top</th>
+<th style="text-align: left;">functionality</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">h</td>
-<td align="left">help</td>
+<td style="text-align: center;">h</td>
+<td style="text-align: left;">help</td>
 </tr>
 <tr>
-<td align="left">q</td>
-<td align="left">quit</td>
+<td style="text-align: center;">q</td>
+<td style="text-align: left;">quit</td>
 </tr>
 <tr>
-<td align="left">M</td>
-<td align="left">sort based on memory usage"</td>
+<td style="text-align: center;">M</td>
+<td style="text-align: left;">sort based on memory usage"</td>
 </tr>
 <tr>
-<td align="left">c</td>
-<td align="left">show full commands</td>
+<td style="text-align: center;">c</td>
+<td style="text-align: left;">show full commands</td>
 </tr>
 <tr>
-<td align="left">k</td>
-<td align="left">kill after asking pid and signal</td>
+<td style="text-align: center;">k</td>
+<td style="text-align: left;">kill after asking pid and signal</td>
 </tr>
 </tbody>
 </table>
@@ -373,86 +379,88 @@ KiB Swap:  7811068 total,        0 used,  7811068 free.  2250692 cached Mem
 <p>The <code>free</code> command will show you info about the system memory. The default is <em>kilobytes</em> but you can change it with <code>-m</code> for megabytes, <code>-g</code> for <em>gigabytes</em> or even <code>-b</code> for bytes. You can also use the <code>-h</code> for <strong>human readable</strong>. </p>
 <div class="highlight"><pre><span></span><code>$ free -m
              total       used       free     shared    buffers     cached
-Mem:          7871       5231       2640        332        169       2195
--/+ buffers/cache:       2866       5005
-Swap:         7627          0       7627
+Mem:          <span class="m">7871</span>       <span class="m">5231</span>       <span class="m">2640</span>        <span class="m">332</span>        <span class="m">169</span>       <span class="m">2195</span>
+-/+ buffers/cache:       <span class="m">2866</span>       <span class="m">5005</span>
+Swap:         <span class="m">7627</span>          <span class="m">0</span>       <span class="m">7627</span>
 </code></pre></div>
 
 <blockquote>
-<p>A general hint: If your system is using swap, you have memory issues.</p>
+<p>A general <strong>hint</strong>: If your system is using Swap, you have memory issues.</p>
 </blockquote>
 <h3>uptime</h3>
-<p>The <code>uptime</code> command shows the time, systems uptime (how long system has been running), how may users are logged in and the load average of 1, 5 &amp; 15 minutes:</p>
-<div class="highlight"><pre><span></span><code>$ uptime
- 21:18:52 up  1:34,  5 users,  load average: 2.38, 2.64, 2.41
+<p>The <code>uptime</code> command shows the time, systems uptime (how long the system has been running), how many users are logged in, and the load average of 1, 5 &amp; 15 minutes:</p>
+<div class="highlight"><pre><span></span><code><span class="o">$</span><span class="w"> </span><span class="n">uptime</span><span class="w"></span>
+<span class="w"> </span><span class="mi">21</span><span class="p">:</span><span class="mi">18</span><span class="p">:</span><span class="mi">52</span><span class="w"> </span><span class="n">up</span><span class="w">  </span><span class="mi">1</span><span class="p">:</span><span class="mi">34</span><span class="p">,</span><span class="w">  </span><span class="mi">5</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w">  </span><span class="nb">load</span><span class="w"> </span><span class="n">average</span><span class="p">:</span><span class="w"> </span><span class="mf">2.38</span><span class="p">,</span><span class="w"> </span><span class="mf">2.64</span><span class="p">,</span><span class="w"> </span><span class="mf">2.41</span><span class="w"></span>
 </code></pre></div>
 
 <blockquote>
-<p>Although its one of the most important KPIs of the system status, some of the experienced linux admins don not know what the load average mean. The load average show how many processes are in the <strong>to be run</strong> queue. If this number is higher than the number of your CPU cores, you are in a bad situation. If its close to the number of your cores constantly, its kind of dangerous and if its less than 1/10th of your core numbers, your system is kind of idle. Do you remember how to check the number of your cores? Its in <code>/proc/cpuinfo</code>.</p>
+<p>Although it's one of the most important KPIs of the system status, some of the experienced Linux admins do not know what the load average means. The load average shows how many processes are in the <strong>to be run</strong> queue. If this number is higher than the number of your CPU cores, you are in a bad situation. If it's close to the number of your cores constantly, it's kind of dangerous, and if it's less than 1/10th of your core numbers, your system is kind of idle. Do you remember how to check the number of your cores? Its in <code>/proc/cpuinfo</code> or <code>nproc</code>.</p>
 </blockquote>
 <h3>watch</h3>
-<p>Sometimes you have a command which shows you an output but you want to keep running it and observing the output. In these cases the <code>watch</code> is your friend. It lets you run and check the output of a command in specific time intervals (default is 5 seconds). </p>
+<p>Sometimes you have a command which shows you an output but you want to keep running it and observing the output. In these cases, the <code>watch</code> is your friend. It lets you run and check the output of a command in specific time intervals (default is 2 seconds). </p>
 <div class="highlight"><pre><span></span><code>$ watch free -h
 </code></pre></div>
 
-<p>If you have a pipe in your command, you have to quote the watched command in " or ':</p>
+<p>If you have a pipe in your command, you have to quote the watched command in double-quote <code>"</code> or single-quote <code>'</code>:</p>
 <div class="highlight"><pre><span></span><code>$ watch <span class="s2">&quot;ls -ltrh | wc -l&quot;</span>
 </code></pre></div>
 
-<p>Thees are some of the switches:</p>
+<p>These are some of the switches:</p>
 <ul>
 <li><code>-n</code> To specify the interval in seconds</li>
-<li><code>-b</code> Beep if command has a non-zero exit</li>
-<li><code>-d</code> Show difference between runs</li>
+<li><code>-b</code> Beep if the command has a non-zero exit</li>
+<li><code>-d</code> Shows the difference between runs</li>
 </ul>
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=7SDvwr7jVU8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <h2>Terminal Multiplexers</h2>
 <h3>screen</h3>
-<p>If you are used to GUI based system, its easy to run different terminals side to side and use them to run different programs. But if you are on a server, you need other tools to multiplex your terminal. One such a command is <code>screen</code>. </p>
-<p>Run it with <code>screen</code> and press enter to exit the welcome window into a prompt. You can use it as normal terminal and detach from it (and let it run in the background) using the Ctrl + A and then D keys. Check the list of your screens with <code>screen -ls</code> and re-attach to any of them with <code>screen -r screen-id</code>. </p>
-<p>Below you can see a few common switches, they all should be issues after the <code>Ctrl + A</code> combination.</p>
+<p>If you are used to GUI based system, it's easy to run different terminals side to side and use them to run different programs. But if you are on a server, you need other tools to multiplex your terminal. One such command is <code>screen</code>. </p>
+<p>Run it with <code>screen</code> and press enter to exit the welcome window into a prompt. You can use it as a normal terminal and detach from it (and let it run in the background) using the Ctrl + A and then D keys. Check the list of your screens with <code>screen -ls</code> and re-attach to any of them with <code>screen -r screen-id</code>. </p>
+<p>Below you can see a few common switches, they all should be issued after the <code>Ctrl + A</code> combination.</p>
 <table>
 <thead>
 <tr>
-<th>Key</th>
+<th style="text-align: center;">Key</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>\</td>
+<td style="text-align: center;">\</td>
 <td>Kill all processes windows and terminate the screen</td>
 </tr>
 <tr>
-<td>|</td>
-<td>Split current window in two vertical focuses</td>
+<td style="text-align: center;">|</td>
+<td>Split current window into two vertical focuses</td>
 </tr>
 <tr>
-<td>Shift+S</td>
-<td>Split current window in two horizontal focuses</td>
+<td style="text-align: center;">Shift+S</td>
+<td>Split current window into two horizontal focuses</td>
 </tr>
 <tr>
-<td>C</td>
-<td>Create a window in current focus</td>
+<td style="text-align: center;">C</td>
+<td>Create a window in the current focus</td>
 </tr>
 <tr>
-<td>Tab</td>
+<td style="text-align: center;">Tab</td>
 <td>Go to the next focus</td>
 </tr>
 <tr>
-<td>D</td>
+<td style="text-align: center;">D</td>
 <td>Detach from window</td>
 </tr>
 <tr>
-<td>K</td>
+<td style="text-align: center;">K</td>
 <td>Kill current window</td>
 </tr>
 <tr>
-<td>N</td>
+<td style="text-align: center;">N</td>
 <td>Move to Next window</td>
 </tr>
 <tr>
-<td>P</td>
-<td>Move to Previous window</td>
+<td style="text-align: center;">P</td>
+<td>Move to the Previous window</td>
 </tr>
 </tbody>
 </table>
@@ -462,34 +470,34 @@ Swap:         7627          0       7627
 <table>
 <thead>
 <tr>
-<th>Key</th>
+<th style="text-align: center;">Key</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>%</td>
+<td style="text-align: center;">%</td>
 <td>Split current window vertically</td>
 </tr>
 <tr>
-<td>"</td>
+<td style="text-align: center;">"</td>
 <td>Split current window horizontally</td>
 </tr>
 <tr>
-<td>D</td>
-<td>Detach from current window</td>
+<td style="text-align: center;">D</td>
+<td>Detach from the current window</td>
 </tr>
 <tr>
-<td>&amp;</td>
+<td style="text-align: center;">&amp;</td>
 <td>Kill current window</td>
 </tr>
 </tbody>
 </table>
 <p>You can list the tmux sessions using <code>tmux ls</code> and re-attach to one using <code>tmux att</code> to connect to the last one or <code>tmux att -t session_name</code> to attach to a specific one.</p>
 <blockquote>
-<p>I highly recommend being fluent in tmux. Its super useful even when you are working locally on your machine. Visit the below video for a more in-depth session:</p>
+<p>I highly recommend being fluent in tmux. It's super useful even when you are working locally on your machine. watch the below video for the more in-depth session:</p>
 </blockquote>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RvsTIt7cjy0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://youtu.be/RvsTIt7cjy0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
              
@@ -525,7 +533,7 @@ Swap:         7627          0       7627
                 
                 
                 <td style="background: white; border: 0;">
-                            <a href="./1034-use-streams-pipes-and-redirects.html">← 103.4 Use streams, pipes and redirects</a>
+                            <a href="./1034-use-streams-pipes-and-redirects.html">← 103.4 Use streams, pipes, and redirects</a>
                 </td>
                 <td style="background: white; border: 0;"><center ><a href="/archives.html">Chapter List</a></center></td>
                 <td style="background: white; border: 0; text-align: right;">

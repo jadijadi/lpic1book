@@ -17,16 +17,16 @@
 
 <meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1, " />
 
-<meta property="og:title" content="103.4 Use streams, pipes and redirects "/>
+<meta property="og:title" content="103.4 Use streams, pipes, and redirects "/>
 <meta property="og:url" content="./1034-use-streams-pipes-and-redirects.html" />
 <meta property="og:description" content="" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
 <meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
-<meta name="twitter:title" content="103.4 Use streams, pipes and redirects ">
+<meta name="twitter:title" content="103.4 Use streams, pipes, and redirects ">
 <meta name="twitter:description" content="">
 
-        <title>103.4 Use streams, pipes and redirects  · lpic1book
+        <title>103.4 Use streams, pipes, and redirects  · lpic1book
 </title>
 
 
@@ -78,7 +78,7 @@
     <header class="page-header span10 offset2">
         <h1>
             <a href="./1034-use-streams-pipes-and-redirects.html">
-                103.4 Use streams, pipes and redirects
+                103.4 Use streams, pipes, and redirects
             </a>
         </h1>
     </header>
@@ -88,10 +88,10 @@
         <div class="span8 offset2 article-content">
             
             <p><em>Weight: 4</em></p>
-<p>Candidates should be able to redirect streams and connect them in order to efficiently process textual data. Tasks include redirecting standard input, standard output and standard error, piping the output of one command to the input of another command, using the output of one command as arguments to another command and sending output to both stdout and a file.</p>
+<p>Candidates should be able to redirect streams and connect them to efficiently process textual data. Tasks include redirecting standard input, standard output, and standard error, piping the output of one command to the input of another command, using the output of one command as arguments to another command, and sending output to both stdout and a file.</p>
 <h2>Objectives</h2>
 <ul>
-<li>Redirecting standard input, standard output and standard error.</li>
+<li>Redirecting standard input, standard output, and standard error.</li>
 <li>Pipe the output of one command to the input of another command.</li>
 <li>Use the output of one command as arguments to another command.</li>
 <li>Send output to both stdout and a file.</li>
@@ -101,20 +101,20 @@
 <li>tee</li>
 <li>xargs</li>
 </ul>
-<p>These features helps us to control the input / output of the commands and do things like saving the output of a command to a file, getting the input of a command from another command or separating the normal output from errors. We've already used them in previous sections but lets learn more and deepen our understanding of these.</p>
+<p>These features help us to control the input/output of the commands and do things like saving the output of a command to a file, getting the input of a command from another command, or separating the normal output from errors. We've already used them in previous sections but let's learn more and deepen our understanding of these.</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PeUhwMoSCko" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h2>Redirecting standard IO</h2>
-<p>On a linux system most shells use streams for input and output. These streams can be from (and toward) various things including keyboard, block devices (hards, usb stick, ..), files and ...</p>
+<p>On a Linux system, most shells use streams for input and output. These streams can be from (and toward) various things including keyboards, block devices (hards, USB sticks, ..), files, and ...</p>
 <p>We have 3 different standard streams:</p>
 <ol start="0">
 <li><b>STDIN</b> is the standard input stream, which provides input to a command.</li>
-<li><b>STDOUT</b> is the standard output stream, which includes output of a command.</li>
-<li><b>STDERR</b> is the standard error stream, which includes error output of a command.</li>
+<li><b>STDOUT</b> is the standard output stream, which includes the output of a command.</li>
+<li><b>STDERR</b> is the standard error stream, which includes the error output of a command.</li>
 </ol>
 
 <blockquote>
-<p>The <code>0</code>, <code>1</code> &amp; <code>2</code> numbering, indicates the <strong><em>STDIN</em></strong>, <strong><em>STDOUT</em></strong> and <strong>*STDERR</strong> accordingly. For example ff you want to redirect the stderror, you can use 2&gt; and the STDERR will be redirected.</p>
+<p>The <code>0</code>, <code>1</code> &amp; <code>2</code> numbering, indicates the <strong><em>STDIN</em></strong>, <strong><em>STDOUT</em></strong> and <strong>*STDERR</strong> accordingly. For example, if you want to redirect the stderror, you can use 2&gt; and the STDERR will be redirected.</p>
 </blockquote>
 <p>These are the other redirections you can use:</p>
 <table>
@@ -192,10 +192,10 @@ sara<span class="p">|</span> fedora
 
 <p>It is also possible to use <code>&amp;1</code> and <code>&amp;2</code> and <code>&amp;0</code> to refer to the <strong>target</strong> of STDOUT, STDERR &amp; STDIN. In this case <code>ls &gt; file1 2&gt;&amp;1</code> means <em>redirect output to file1 and output stderr to same place as stdout (file1)</em></p>
 <blockquote>
-<p>Be careful! <code>ls 2&gt;&amp;1 &gt; file1</code> means <em>print stderr to current location of stdout (terminal) and then change the stdout to file1</em></p>
+<p>Be careful! <code>ls 2&gt;&amp;1 &gt; file1</code> means <em>print stderr to the current location of stdout (terminal) and then change the stdout to file1</em></p>
 </blockquote>
 <h4>sending to null</h4>
-<p>In linux <strong>/dev/null</strong> device works like an abyss. You can send anything there and it disappears without being any burden on your system. So it is normal to say:</p>
+<p>In Linux <strong>/dev/null</strong> device works like an abyss. You can send anything there and it disappears without being any burden on your system. So it is normal to say:</p>
 <div class="highlight"><pre><span></span><code>$ ls j* x* &gt; file1
 ls: x*: No such file or directory
 $ ls j* x* &gt; file1 <span class="m">2</span>&gt;/dev/null
@@ -205,7 +205,7 @@ jadi
 </code></pre></div>
 
 <h4>here-documents</h4>
-<p>Many shells, have here-documents (also called here-docs) as a way of input. You use <code>&lt;&lt;</code> and a <code>WORD</code> and then whatever you input is considered stdin till you give only the WORD in one line.</p>
+<p>Many shells have here-documents (also called here-docs) as a way of input. You use <code>&lt;&lt;</code> and a <code>WORD</code> and then whatever you input is considered stdin till you give only the WORD in one line.</p>
 <div class="highlight"><pre><span></span><code>$ tr <span class="s1">&#39; &#39;</span> <span class="s1">&#39;.&#39;</span> <span class="s">&lt;&lt; END_OF_DATA</span>
 <span class="s">&gt; this is a line</span>
 <span class="s">&gt; and then this</span>
@@ -243,7 +243,7 @@ $ cut -f2 -d, who_uses_what.txt <span class="p">|</span> sed -e <span class="s1"
 <blockquote>
 <p>If you need to start your pipeline with the contents of a file, start with <code>cat filename | ...</code> or use a <code>&lt;</code> stdin redirect.</p>
 </blockquote>
-<p>Pipes are one of the super strong &amp; super amazing features in the UNIX world. They let you create <em>new</em> tools via combining tools which do atomic things. As an example, check this out:</p>
+<p>Pipes are one of the super strong &amp; super amazing features in the UNIX world. They let you create <em>new</em> tools by combining tools that do atomic things. As an example, check this out:</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/86V5amp1u7U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>xargs</h3>
@@ -309,7 +309,7 @@ sara
 who_uses_what.txt
 </code></pre></div>
 
-<p>The <code>-a</code> switch will append to files if they exists.</p>
+<p>The <code>-a</code> switch will append to files if they exist.</p>
 <blockquote>
 <p>If you need to save <strong><em>stderr</em></strong> too, first redirect it to <strong><em>stdout</em></strong></p>
 </blockquote>
@@ -351,7 +351,7 @@ who_uses_what.txt
                 </td>
                 <td style="background: white; border: 0;"><center ><a href="/archives.html">Chapter List</a></center></td>
                 <td style="background: white; border: 0; text-align: right;">
-                            <a href="./1035-create-monitor-and-kill-processes.html">103.5 Create, monitor and kill processes →</a>
+                            <a href="./1035-create-monitor-and-kill-processes.html">103.5 Create, monitor, and kill processes →</a>
                 </td>
                 
                 

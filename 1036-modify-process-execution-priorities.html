@@ -102,7 +102,7 @@
 <li>renice</li>
 <li>top</li>
 </ul>
-<p>On a Linux machine, you might have 100s of processes running at the same time and competing for more CPU &amp; RAM. The good news is that you can give some of the processes higher or lower priority (or nice-ness) in this competition. Lets have a look at a sample <code>top</code> output:</p>
+<p>On a Linux machine, you might have 100s of processes running at the same time and competing for more CPU &amp; RAM. The good news is that you can give some of the processes higher or lower priority (or nice-ness) in this competition. Let's have a look at a sample <code>top</code> output:</p>
 <div class="highlight"><pre><span></span><code>$ top
 
 Tasks: 169 total,   1 running, 168 sleeping,   0 stopped,   0 zombie
@@ -123,8 +123,8 @@ MiB Swap:    975.0 total,    975.0 free,      0.0 used.   5210.3 avail Mem
      11 root      20   0       0      0      0 S   0.0   0.0   0:00.00 rcu_tasks_trace
 </code></pre></div>
 
-<p>The <strong>NI</strong> column shows how <strong>nice</strong> this process is. The nicer the process, the less CPU it asks. The <code>nice</code> values can be from -20 to 19. To interpret this value, look at it like this :a process with nice = <strong>-20</strong> is ANGRY and gets more priority for CPU and RAM while a process with nice = <strong>19</strong> is SUPER NICE and lets <strong>other</strong> processes use the resources before her).</p>
-<p>The default value for <code>nice</code> is normally set on 0; this can be checked with:</p>
+<p>The <strong>NI</strong> column shows how <strong>nice</strong> this process is. The nicer the process, the less CPU it asks. The <code>nice</code> values can be from -20 to 19. To interpret this value, look at it like this: a process with nice = <strong>-20</strong> is ANGRY and gets more priority for CPU and RAM while a process with nice = <strong>19</strong> is SUPER NICE and lets <strong>other</strong> processes use the resources before her).</p>
+<p>The default value for <code>nice</code> is normally set to 0; this can be checked with:</p>
 <div class="highlight"><pre><span></span><code>$ nice
 <span class="m">0</span>
 </code></pre></div>
@@ -138,7 +138,7 @@ F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 </code></pre></div>
 
 <h3>Setting nice-ness</h3>
-<p>If you need to change the niceness level of a program you can running it with <code>nice</code> command and <code>-n</code> switch (for nice):</p>
+<p>If you need to change the niceness level of a program you can run it with <code>nice</code> command and <code>-n</code> switch (for nice):</p>
 <div class="highlight"><pre><span></span><code>$ nice -n 19 echo &quot;I am running!&quot;
 I am running!
 $ nice -n -20 echo &quot;I am running!&quot;
@@ -148,7 +148,7 @@ $ sudo nice -n -20 echo &quot;I am running!&quot;
 I am running!
 </code></pre></div>
 
-<p>As you can in above example, only root can issue high priority niceness (below 0).</p>
+<p>As you can in the above example, only the root can issue high-priority niceness (below 0).</p>
 <blockquote>
 <p>If you run a command with <code>nice</code> without <code>-n</code>, the default will be <code>-n 10</code></p>
 </blockquote>
@@ -209,7 +209,7 @@ $ sudo renice -n -10 13605
                 
                 
                 <td style="background: white; border: 0;">
-                            <a href="./1035-create-monitor-and-kill-processes.html">← 103.5 Create, monitor and kill processes</a>
+                            <a href="./1035-create-monitor-and-kill-processes.html">← 103.5 Create, monitor, and kill processes</a>
                 </td>
                 <td style="background: white; border: 0;"><center ><a href="/archives.html">Chapter List</a></center></td>
                 <td style="background: white; border: 0; text-align: right;">
