@@ -7,6 +7,11 @@ sortorder: 220
 
 # 104.3. Control mounting and unmounting of filesystems
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
+</div>
+
+
 weight: 3
 
 **http://j.mp/jadilpic1**

@@ -7,6 +7,11 @@ sortorder: 340
 Summary: 
 ## 107.2 Automate system administration tasks by scheduling jobs
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
+</div>
+
+
 _Weight: 4_
 
 Candidates should be able to use cron or anacron to run jobs at regular intervals and to use at to run jobs at a specific time.

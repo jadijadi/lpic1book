@@ -7,6 +7,11 @@ sortorder: 260
 Summary: 
 ## 104.7 Find system files and place files in the correct location
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
+</div>
+
+
 _Weight: 2_
 
 Candidates should be thoroughly familiar with the **Filesystem Hierarchy Standard \(FHS\)**, including typical file locations and directory classifications.

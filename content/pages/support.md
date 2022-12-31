@@ -5,10 +5,13 @@ sortorder: 3
 
 You found this material helpful? You passed your LPIC? You feel generous? :) So here are different methods you can help.
 
-## Patreon
+### Patreon
 Um.. this is not that impressive to convince someone to become a Patreon! :D But ... patreons are the supporters who make things happen in a long run. So here is my [Patreon/jadijadi](https://patreon.com/jadijadi)
 
-## Paypal
+## BuyMeACoffee
+If you enjoyed / used / liked / or did anything else with my work and you wanted to give back but did not want to be a patreon, you can [BuyMeACoffee/jadijadi](https://buymeacoffee.com/jadijadi)
+
+# Paypal
 You can donate using the PayPal via my email address which is **jadijadi@gmail.com** .
 
 ## Crypto

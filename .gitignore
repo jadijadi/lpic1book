@@ -1,4 +1,5 @@
 /output/
+node_modules
 /_book/
 .*.swo
 .*.swp

@@ -93,8 +93,8 @@
                                 <li {% if page_name == 'archives' %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ ARCHIVES_URL }}">Chapters</a></li>
                                 {# <li {% if page_name == 'categories' %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ CATEGORIES_URL }}">Categories</a></li> #}
                                 <li {% if page_name == 'tags' %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ TAGS_URL }}">Tags</a></li>
+                                <li><form action="https://www.google.com/search" method="get" target="_blank" class="navbar-search"> <input type="hidden" name="sitesearch" value="https://linux1st.com/"/><input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
 
-                                <li><form class="navbar-search" action="{{ SITEURL }}/{{ SEARCH_URL }}" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>

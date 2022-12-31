@@ -10,6 +10,11 @@ Topic: User Interfaces and Desktops
 
 ## 106.1 Install and configure X11
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
+</div>
+
+
 _Weight: 2_
 
 Candidates should be able to install and configure X11.

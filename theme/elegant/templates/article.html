@@ -109,6 +109,44 @@
             </nav>
             </aside>
             {% endif %}
+
+            <!-- show next and previous links -->
+            <table style="background: white; border: 0; font-size: 0.8em;"><tr>
+            {% for check_article in articles|sort(attribute='sortorder') %}                
+                {% if check_article.title == article.title %}
+                <td style="background: white; border: 0;">
+                    {% if not loop.first %}
+                            <a href="{{ SITEURL }}/{{ loop.previtem.url }}">← {{ loop.previtem.title }}</a>
+                    {% endif %}
+                </td>
+                <td style="background: white; border: 0;"><center ><a href="/archives.html">Chapter List</a></center></td>
+                <td style="background: white; border: 0; text-align: right;">
+                    {% if not loop.last %}
+                            <a href="{{ SITEURL }}/{{ loop.nextitem.url }}">{{ loop.nextitem.title }} →</a>
+                    {% endif %}
+                </td>
+                {% endif %}
+            {% endfor %}
+            </tr></table>
+            
+            <hr />
+
+
+	<div class=comment>
+
+<div id="disqus_thread"></div>
+<script>
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://linux1st.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+	</div>
         </div>
         <section id="article-sidebar" class="span2">
             {% include '_includes/post_stats.html' %}
@@ -146,6 +184,9 @@
 </article>
 {% include '_includes/photoswipe.html' %}
 {% endblock content %}
+
+
+
 
 {% block script %}
     {{ super() }}

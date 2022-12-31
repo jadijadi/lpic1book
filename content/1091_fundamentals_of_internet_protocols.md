@@ -7,6 +7,11 @@ sortorder: 400
 Summary: 
 ## 109.1 Fundamentals of internet protocols
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
+</div>
+
+
 _Weight: 4_
 
 Candidates should demonstrate a proper understanding of TCP/IP network fundamentals.

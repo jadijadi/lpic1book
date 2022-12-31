@@ -9,6 +9,11 @@ Topic: User Interfaces and Desktops
 
 ## 106.2 Setup a display manager
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
+</div>
+
+
 _Weight: 1_
 
 Candidates should be able to describe the basic features and configuration of the LightDM display manager. This objective covers awareness of the display managers XDM \(X Display Manger\), GDM \(Gnome Display Manager\) and KDM \(KDE Display Manager\).

@@ -7,6 +7,11 @@ sortorder: 240
 Summary: 
 ## 104.5 Manage file permissions and ownership
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
+</div>
+
+
 _Weight: 3_
 
 Candidates should be able to control file access through the proper use of permissions and ownerships.

@@ -7,6 +7,11 @@ sortorder: 390
 Summary: 
 ## 108.4 Manage printers and printing
 
+<div class="alert alert-danger" role="alert">
+  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
+</div>
+
+
 _Weight: 2_
 
 Candidates should be able to manage print queues and user print jobs using CUPS and the LPD compatibility interface.
