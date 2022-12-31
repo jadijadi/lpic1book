@@ -81,7 +81,7 @@ Please note that these commands prevent the service from starting on system boot
 
 A super-server or sometimes called a service dispatcher is a type of daemon run generally on Unix-like systems for security reasons. It starts other servers when needed, normally with access to them checked by a TCP wrapper.
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Super-server.png/420px-Super-server.png)
+![Super Server](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Super-server.png/420px-Super-server.png)
 
 Practically no new linux is using a super server anymore but some traces of `xinetd` is still there in some systems in `/etc/xinet.d/`. This is a sample xinetd configuration:
 

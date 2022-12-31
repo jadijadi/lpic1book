@@ -1,7 +1,6 @@
 Title: 104.3 Control mounting and unmounting of filesystems
 Date: 2010-12-03 10:20
 Category: LPIC1
-Category: lpic102
 sortorder: 220
 
 

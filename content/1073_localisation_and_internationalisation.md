@@ -157,7 +157,7 @@ It had more characters and a lots of sets for Thai, Arabic and other languages b
 
 The `Unicode Transformation Format` is the newest encoding method. It is a real universal encoding with characters not only for all written languages but also for fun characters like ¾, ♠, π and ⚤. It is backward compatible with the ASCII and uses 8 bit code units \(**not 8 bit coding!**\). In most cases it is a good idea to use UTF-8 and be sure that your system will work in practically all cases.
 
-![](../.gitbook/assets/UnicodeGrow.png)
+![Unicode Grow](../.gitbook/assets/UnicodeGrow.png)
 
 Above table shows how UTF8 is the leader compared with ASCII and ISO-8859.
 

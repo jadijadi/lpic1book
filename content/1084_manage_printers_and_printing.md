@@ -37,7 +37,7 @@ Most Linux distros use CUPS for printing. CUPS stands for Common Unix Printing S
 
 The general way to access the CUPS configuration and info page is going to the servers IP on port **631** from a browser. That will be **localhost:631** or **127.0.0.1:631** from your browser.
 
-![](../.gitbook/assets/cups.png)
+![CUPs printing system](../.gitbook/assets/cups.png)
 
 Important parts on this webpage are:
 
