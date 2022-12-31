@@ -151,7 +151,7 @@ lrwxrwxrwx 1 root root    16 Nov 13 23:05 /lib/i386-linux-gnu/libudev.so.1 -&gt;
 
 <p>As you can see, this is a symbolic link pointing to the version of libudev I have installed (1.4.0) so even if a software says it needs libudev.so.1, my system will use its libusdev.so.1.4.0.</p>
 <h3>Dynamic library configs and cache</h3>
-<p>Like most of the other Linux tools, dynamic linking is also configured by a textual configuration file. It is located at <code>/etc/ld.so.conf</code> and it might load more config files from <code>/etc/ld.so.conf.d/*.conf</code>. Please note that this <em>including other files from</em> <code>/etc/ld.so.conf.d/</code> is a common practice to keep config files separated and clean. You will see the same pattern in many other places too and technically we were able to add whatever is needed in the original file.</p>
+<p>As with most other Linux tools, dynamic linking is also configured using a text config file. It is located at <em>/etc/ld.so.conf</em>. On an Ubuntu system it just points to other config files in <code>/etc/ld.so.conf.d/</code> but all those lines can be included in the main file too:</p>
 <div class="highlight"><pre><span></span><code>[jadi@fedora ~]$ cat /etc/ld.so.conf
 include ld.so.conf.d/*.conf
 [jadi@fedora ~]$ ls /etc/ld.so.conf.d/
@@ -164,7 +164,7 @@ llvm13-x86_64.conf  pipewire-jack-x86_64.conf
 <blockquote>
 <p>If you change the <code>ld.so.conf</code> (or sub-directories) you need to run <code>ldconfig</code>. Try it with <code>-v</code> switch to see the progress / data.</p>
 </blockquote>
-<p>To close this section lets run ldconfig with the <strong>-p</strong> switch to see what is saved in ld.so.cache:</p>
+<p>To close this section, let's run ldconfig with the <strong>-p</strong> switch to see what is saved in ld.so.cache:</p>
 <div class="highlight"><pre><span></span><code>[jadi@fedora ~]$ ldconfig -p | head
 1373 libs found in cache `/etc/ld.so.cache&#39;
     libzstd.so.1 (libc6,x86-64) =&gt; /lib64/libzstd.so.1

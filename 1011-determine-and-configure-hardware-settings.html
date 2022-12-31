@@ -111,9 +111,9 @@
 <p>An operating system (OS) is system software that manages computer hardware, and software resources, and provides common services for computer programs. It sits on top of the hardware and manages the resources when other software (Sometimes called a userspace program) asks for it. </p>
 <p>Firmware is the software <em>on</em> your hardware that runs it; Think of it as a built-in os or driver for your hardware. Motherboards need some firmware to be able to work too. </p>
 <p><img alt="BIOS" src="/images/bios.png">
-1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu-based system and boot the computer from a boot loader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two-step boot procedure.</p>
+1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu-based system and boot the computer from a bootloader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two-step boot procedure.</p>
 <p><img alt="UEFI" src="/images/uefi.jpeg">
-2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in Intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On Linux it is on /boot and files are .efi. You need to register each boot loader.</p>
+2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in Intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On Linux it is on /boot and files are .efi. You need to register each bootloader.</p>
 <h2>Peripheral Devices</h2>
 <p>These are device interfaces.</p>
 <h3>PCI</h3>
@@ -153,7 +153,7 @@
 <span class="n">block</span><span class="w">  </span><span class="n">bus</span><span class="w">  </span><span class="k">class</span><span class="w">  </span><span class="n">dev</span><span class="w">  </span><span class="n">devices</span><span class="w">  </span><span class="n">firmware</span><span class="w">  </span><span class="n">fs</span><span class="w">  </span><span class="n">hypervisor</span><span class="w">  </span><span class="n">kernel</span><span class="w">  </span><span class="k">module</span><span class="w">  </span><span class="nf">power</span><span class="w"></span>
 </code></pre></div>
 
-<p>All block devices are at the <code>block</code> and <code>bus</code> directory has all the connected PCI, USB, serial, .. devices. Note that here in <code>sys</code> we have the devices based on their technology but <code>/dev/</code> is abstracted.</p>
+<p>All block devices are at the <code>block</code> and <code>bus</code> directory has all the connected PCI, USB, serial, ... devices. Note that here in <code>sys</code> we have the devices based on their technology but <code>/dev/</code> is abstracted.</p>
 <h2>udev</h2>
 <p>udev (userspace <code>/dev</code>) is a device manager for the Linux kernel. As the successor of devfsd and hotplug, udev primarily manages device nodes in the <code>/dev</code> directory. At the same time, udev also handles all user space events raised when hardware devices are added into the system or removed from it, including firmware loading as required by certain devices.</p>
 <p>There are a lot of devices in <code>/dev/</code> and if you plug in any device, it will be assigned a file in <code>/dev</code> (say <code>/dev/sdb2</code>). <strong>udev</strong> lets you control what will be what in <code>/dev</code>. For example, you can use a rule to force your 128GB flash drive with one specific vendor to be <code>/dev/mybackup</code> every single time you connect it and you can even start a backprocess as soon as it connects.</p>
@@ -274,7 +274,7 @@ power management:
 <blockquote>
 <p>All these changes will be reverted after a boot. You have to write into config files in <code>/etc/</code> to make these changes permanent</p>
 </blockquote>
-<p>Try youself! Check the <code>/proc/ioports</code> or <code>/proc/dma</code> or <code>/proc/iomem</code>.</p>
+<p>Try yourself! Check the <code>/proc/ioports</code> or <code>/proc/dma</code> or <code>/proc/iomem</code>.</p>
 <h2>lsusb, lspci, lsblk, lshw</h2>
 <p>Just like <code>ls</code> but for pci, usb, ... </p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/b5bAXRSYmoA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
