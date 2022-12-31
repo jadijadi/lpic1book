@@ -88,7 +88,7 @@ As you can see, this is a symbolic link pointing to the version of libudev I hav
 
 ### Dynamic library configs and cache
 
-Like most of the other Linux tools, dynamic linking is also configured by a textual configuration file. It is located at `/etc/ld.so.conf` and it might load more config files from `/etc/ld.so.conf.d/*.conf`. Please note that this _including other files from_ `/etc/ld.so.conf.d/` is a common practice to keep config files separated and clean. You will see the same pattern in many other places too and technically we were able to add whatever is needed in the original file.
+As with most other Linux tools, dynamic linking is also configured using a text config file. It is located at _/etc/ld.so.conf_. On an Ubuntu system it just points to other config files in `/etc/ld.so.conf.d/` but all those lines can be included in the main file too:
 
 ```text
 [jadi@fedora ~]$ cat /etc/ld.so.conf
@@ -103,7 +103,7 @@ The `ldconfig` commands processed all these files to make the loading of librari
 
 > If you change the `ld.so.conf` \(or sub-directories\) you need to run `ldconfig`. Try it with `-v` switch to see the progress / data.
 
-To close this section lets run ldconfig with the **-p** switch to see what is saved in ld.so.cache:
+To close this section, let's run ldconfig with the **-p** switch to see what is saved in ld.so.cache:
 
 ```text
 [jadi@fedora ~]$ ldconfig -p | head
