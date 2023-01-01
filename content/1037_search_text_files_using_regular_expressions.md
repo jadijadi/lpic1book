@@ -28,7 +28,7 @@ Candidates should be able to manipulate files and text data using regular expres
 
 ### Regex
 
-Regular expression, Regex, regex is a pattern to describe what you want to _match_ from a text. For example `a` and `ad` both matches `jadi`. `d.` is a _deeper_ example because `.` means _anything_ so `d.` will match the last two characters of `jadi`. In this section we will cover the *grep** \(generalised regular expression processor\) command. It has different regex _accents_; in short Basic regex and Extended regex.
+Regular expression, Regex, regex is a pattern to describe what you want to _match_ from a text. For example `a` and `ad` both matches `jadi`. `d.` is a _deeper_ example because `.` means _anything_ so `d.` will match the last two characters of `jadi`. In this section we will cover the *grep** \(generalised regular expression processor\) command. It has different regex _dialect_; in short Basic regex and Extended regex.
 
 #### Regex basics
 
@@ -198,7 +198,7 @@ $ egrep -r "192.168.(1|0)." /etc/ 2> /dev/null
 ```
 
 ### extended grep
-Regex is cool and `grep` is awesome so many people have tried adding to them or invent their own variants. One is GNU Extended grep. This accent of regex, does not need much escaping and you can use it via `-E` switch or using `egrep` instead of the normal `grep`. For example, `|` in an extended regex means "or". So you can do a `egrep "a|b" words` to match anything with an `a` or a `b`. 
+Regex is cool and `grep` is awesome so many people have tried adding to them or invent their own variants. One is GNU Extended grep. This dialect of regex, does not need much escaping and you can use it via `-E` switch or using `egrep` instead of the normal `grep`. For example, `|` in an extended regex means "or". So you can do a `egrep "a|b" words` to match anything with an `a` or a `b`. 
 
 ### Fixed grep
 
