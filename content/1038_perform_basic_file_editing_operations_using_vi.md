@@ -6,47 +6,88 @@ Authors: Jadi
 Summary: 
 sortorder: 190
 
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
 
 _Weight: 3_
 
-Candidates should be able to edit text files using vi. This objective includes vi navigation, basic vi modes, inserting, editing, deleting, copying and finding text.
+Candidates should be able to edit text files using vi. This objective includes vi navigation, vi modes, inserting, editing, deleting, copying and finding text. It also includes awareness of other common editors and setting the default editor.
 
 ### Objectives
 
 * Navigate a document using vi.
-* Use basic vi modes.
-* Insert, edit, delete, copy and find text.
+* Understand and use vi modes.
+* Insert, edit, delete, copy and find text in vi.
+* Awareness of Emacs, nano and vim.
+* Configure the standard editor.
+
 * vi
 * /, ?
 * h,j,k,l
 * i, o, a
-* c, d, p, y, dd, yy
-* ZZ, :w!, :q!, :e!
+* d, p, y, dd, yy
+* ZZ, :w!, :q!
+* EDITOR
 
 ### Introduction
+As any other tool, we have a wide range of selection when it comes to text editors. One of the most common and super powerful choices is the `vi` editor. It is pre-installed on all major Linux distributions and you can be sure that knowing it, will let you edit your files on all environments, let it be a remote server over SSH or a coding environment on your desktop machine or a CyberDeck machine with a minimal keyboard. Its only _drawback_ might be its kind of slow learning curve but I'm sure after a 1 hour session with it, you will manage to find your way in `vi`.
 
-`vi` is a great tool! The best editor ever \(some say after Emacs\) and it is installed on all linux systems. Some say it is difficult to use and _abnormal_ and some say it is the most natural editor there can be. Lets see.
+There is an _Improved_ version of `vi` which is called _VIMproved_ or `vim`. Sometimes thats what you will find on your system and sometimes the `vi` command is aliased or linked to `vim`. Lets check this on our system (Ubuntu 22.04):
 
-> vi can be used with simplest keyboards and over network on ssh terminals
-
-In many systems, `vi` command is a link / alias to `vim` and there are many versions of vi. Check with `--version` switch:
-
-```text
-$ vi --version
-VIM - Vi IMproved 7.4 (2013 Aug 10, compiled Oct 20 2014 16:08:47)
-Included patches: 1-273
-Modified by pkg-vim-maintainers@lists.alioth.debian.org
-Compiled by buildd@
-Small version without GUI.  Features included (+) or not (-):
-+acl             -farsi           -mouse_sgr       -tag_old_static
--arabic          -file_in_path    -mouse_sysmouse  -tag_any_white
--autocmd         -find_in_path    -mouse_urxvt     -tcl
--balloon_eval    -float           -mouse_xterm     +terminfo
-...
+```
+jadi@funlife:~$ whatis vi
+vi (1)               - Vi IMproved, a programmer's text editor
+jadi@funlife:~$ whereis vi
+vi: /usr/bin/vi /usr/share/man/man1/vi.1.gz
+jadi@funlife:~$ whatis vim
+vim (1)              - Vi IMproved, a programmer's text editor
+jadi@funlife:~$ whereis vim
+vim: /usr/bin/vim /etc/vim /usr/share/vim /usr/share/man/man1/vim.1.gz
+jadi@funlife:~$ vi --version
+VIM - Vi IMproved 9.0 (2022 Jun 28, compiled Aug 23 2022 20:18:58)
+Included patches: 1-242
+Modified by team+vim@tracker.debian.org
+Compiled by team+vim@tracker.debian.org
+Huge version without GUI.  Features included (+) or not (-):
++acl               +file_in_path      +mouse_urxvt       -tag_any_white
++arabic            +find_in_path      +mouse_xterm       -tcl
++autocmd           +float             +multi_byte        +termguicolors
++autochdir         +folding           +multi_lang        +terminal
+-autoservername    -footer            -mzscheme          +terminfo
+-balloon_eval      +fork()            +netbeans_intg     +termresponse
++balloon_eval_term +gettext           +num64             +textobjects
+-browse            -hangul_input      +packages          +textprop
+++builtin_terms    +iconv             +path_extra        +timers
++byte_offset       +insert_expand     -perl              +title
++channel           +ipv6              +persistent_undo   -toolbar
++cindent           +job               +popupwin          +user_commands
+-clientserver      +jumplist          +postscript        +vartabs
+-clipboard         +keymap            +printer           +vertsplit
++cmdline_compl     +lambda            +profile           +vim9script
++cmdline_hist      +langmap           -python            +viminfo
++cmdline_info      +libcall           +python3           +virtualedit
++comments          +linebreak         +quickfix          +visual
++conceal           +lispindent        +reltime           +visualextra
++cryptv            +listcmds          +rightleft         +vreplace
++cscope            +localmap          -ruby              +wildignore
++cursorbind        -lua               +scrollbind        +wildmenu
++cursorshape       +menu              +signs             +windows
++dialog_con        +mksession         +smartindent       +writebackup
++diff              +modify_fname      +sodium            -X11
++digraphs          +mouse             -sound             -xfontset
+-dnd               -mouseshape        +spell             -xim
+-ebcdic            +mouse_dec         +startuptime       -xpm
++emacs_tags        +mouse_gpm         +statusline        -xsmp
++eval              -mouse_jsbterm     -sun_workshop      -xterm_clipboard
++ex_extra          +mouse_netterm     +syntax            -xterm_save
++extra_search      +mouse_sgr         +tag_binary        
+-farsi             -mouse_sysmouse    -tag_old_static    
+   system vimrc file: "/etc/vim/vimrc"
+     user vimrc file: "$HOME/.vimrc"
+ 2nd user vimrc file: "~/.vim/vimrc"
+      user exrc file: "$HOME/.exrc"
+       defaults file: "$VIMRUNTIME/defaults.vim"
+  fall-back for $VIM: "/usr/share/vim"
+Compilation: gcc -c -I. -Iproto -DHAVE_CONFIG_H -Wdate-time -g -O2 -ffile-prefix-map=/build/vim-Oy69Mt/vim-9.0.0242=. -flto=auto -ffat-lto-objects -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security -DSYS_VIMRC_FILE=\"/etc/vim/vimrc\" -DSYS_GVIMRC_FILE=\"/etc/vim/gvimrc\" -D_REENTRANT -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1 
+Linking: gcc -Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -flto=auto -Wl,-z,relro -Wl,-z,now -Wl,--as-needed -o vim -lm -ltinfo -lselinux -lsodium -lacl -lattr -lgpm -L/usr/lib/python3.10/config-3.10-x86_64-linux-gnu -lpython3.10 -lcrypt -ldl -lm -lm 
 ```
 
 To edit a file with vi, just give the file name to it:
@@ -55,18 +96,18 @@ To edit a file with vi, just give the file name to it:
 $ vi file.txt
 ```
 
-### vi moded
+### vi modes
 
-`vi` has 2 different modes:
+`vi` works in two modes:
 
-* **Command mode** is where you go around the file, search, delete text, copy paste, replace, ... and give other commands to the vi. Some commands start with a `:` and some are only a keypress.
-* **Insert mode** is where what you type, goes into the file at the cursors position.
+1. **Command mode** is where you go around the file, search, delete text, copy paste, replace, ... and give other commands to the vi. Some commands start with a `:` and some are only a keypress.
+2. **Insert mode** is where what you type, goes into the file at the cursors position.
 
-> If you want to go to the Command mode from the Insert mode, press ESC key. There are several ways to go to the Insert mode from Command mode \(including the 'i' key\).
+> To switch to the Command mode, press the ESC key. To go back to the Insert mode, you can use several commands but one common one is pressing the `i` key.
 
 ### Moving the cursor
 
-If you need to move around, use these keys:
+To move around a text file, use these keys in Command mode:
 
 | key | function |
 | :--- | :--- |
@@ -80,9 +121,9 @@ If you need to move around, use these keys:
 | Ctrl-f | Scroll forward one page |
 | Ctrl-b | Scroll backward one page |
 
-> you can type a number before most commands and that command will be repeated that many times \(i.e. `6h` will go 6 characters to the left\)
+> Typing a number before most commands will repeat the command that many times \(i.e. `6h` will go 6 characters to the left\)
 
-#### Jumping
+#### Jumping around
 
 | key | function |
 | :--- | :--- |
@@ -92,7 +133,7 @@ If you need to move around, use these keys:
 
 ### Editing text
 
-These command during the _command mode_ will help you enter, edit, replace, .. test:
+These command during the _command mode_ will help you enter, edit, replace and text:
 
 | key | function |
 | :--- | :--- |
@@ -121,7 +162,7 @@ These command during the _command mode_ will help you enter, edit, replace, .. t
 
 ### Exiting
 
-It is always funny when you see someone entering to the vi and now knowing how to exit! Learn these and prevent the laughter:
+It is always funny when you see someone entering to the vi and not knowing how to exit! Learn these and prevent the laughter:
 
 | key | function |
 | :--- | :--- |
@@ -136,25 +177,19 @@ Entering colon \(`:`\) during _command mode_ will move the cursor to the bottom 
 
 > The exclamation mark in most commands will say "I know what I'm doing" and will write on read-only files if you have access and will exit without asking
 
+> it is possible to combine commands. For example you can combine `:w` and `:q` and just say `:wq` (write and exit).
 ### help
 
 You can always ask for help with `:help` or `:help subject`. This way vi will open a help text which you can use / search just like any other text. Close it with `:q` command.
 
-.
+## Other editors
+You can also use other editors if you want. One easy to use and common option is `nano` and some other choices are `micro`, `emacs` (full featured) and `neovim` (an update to vim).
 
-.
+## Default editor
+The default editor in `bash` is set using the `EDITOR` environment variable. You can change it with:
 
-.
+```
+$ export EDITOR='vim'
+```
 
-.
-
-.
-
-.
-
-.
-
-. .
-
-.
-
+or by adding the above line to the `.bashrc` file. We will see these in more details in next chapters.
