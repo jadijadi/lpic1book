@@ -107,7 +107,7 @@
 <li>regex(7)</li>
 </ul>
 <h3>Regex</h3>
-<p>Regular expression, Regex, regex is a pattern to describe what you want to <em>match</em> from a text. For example <code>a</code> and <code>ad</code> both matches <code>jadi</code>. <code>d.</code> is a <em>deeper</em> example because <code>.</code> means <em>anything</em> so <code>d.</code> will match the last two characters of <code>jadi</code>. In this section we will cover the <em>grep</em>* (generalised regular expression processor) command. It has different regex <em>accents</em>; in short Basic regex and Extended regex.</p>
+<p>Regular expression, Regex, regex is a pattern to describe what you want to <em>match</em> from a text. For example <code>a</code> and <code>ad</code> both matches <code>jadi</code>. <code>d.</code> is a <em>deeper</em> example because <code>.</code> means <em>anything</em> so <code>d.</code> will match the last two characters of <code>jadi</code>. In this section we will cover the <em>grep</em>* (generalised regular expression processor) command. It has different regex <em>dialect</em>; in short Basic regex and Extended regex.</p>
 <h4>Regex basics</h4>
 <p><strong>Simple match</strong>
 You can simply write down whatever you want to match and regex will search for that.</p>
@@ -345,7 +345,7 @@ $
 </code></pre></div>
 
 <h3>extended grep</h3>
-<p>Regex is cool and <code>grep</code> is awesome so many people have tried adding to them or invent their own variants. One is GNU Extended grep. This accent of regex, does not need much escaping and you can use it via <code>-E</code> switch or using <code>egrep</code> instead of the normal <code>grep</code>. For example, <code>|</code> in an extended regex means "or". So you can do a <code>egrep "a|b" words</code> to match anything with an <code>a</code> or a <code>b</code>. </p>
+<p>Regex is cool and <code>grep</code> is awesome so many people have tried adding to them or invent their own variants. One is GNU Extended grep. This dialect of regex, does not need much escaping and you can use it via <code>-E</code> switch or using <code>egrep</code> instead of the normal <code>grep</code>. For example, <code>|</code> in an extended regex means "or". So you can do a <code>egrep "a|b" words</code> to match anything with an <code>a</code> or a <code>b</code>. </p>
 <h3>Fixed grep</h3>
 <p>If you need to search for exact strings (and not interpret it as a regex), use <code>grep -F</code> or <code>fgrep</code> so the <code>fgrep this$</code> wont go for the end of the line and will find <em>this$that</em> instead.</p>
 <h3>sed</h3>
