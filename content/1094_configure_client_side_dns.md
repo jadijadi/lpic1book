@@ -53,7 +53,7 @@ rtt min/avg/max/mdev = 333.088/335.612/338.136/2.524 ms
 
 ### dig
 
-The `dig` tool is specificly build to query DNS. If you want to find out where x.org points to, you can do:
+The `dig` tool is specifically build to query DNS. If you want to find out where x.org points to, you can do:
 
 ```text
 $ dig x.org
@@ -78,7 +78,7 @@ x.org.            1625    IN    A    131.252.210.176
 ;; MSG SIZE  rcvd: 50
 ```
 
-As you can see, `dig` did a **ip lookup** for x.org and told me that the IP is 131.252.210.176. The `1625` is called the TTL or _Time To Live_ and show how many secconds before this answer expires. This command also tells us which server is used to find the answer \(last 4 lines\) and when and how long it took.
+As you can see, `dig` did a **ip lookup** for x.org and told me that the IP is 131.252.210.176. The `1625` is called the TTL or _Time To Live_ and show how many seconds before this answer expires. This command also tells us which server is used to find the answer \(last 4 lines\) and when and how long it took.
 
 There is also a way to tell `dig` command what server it should use as the DNS:
 
@@ -116,7 +116,7 @@ google.com.        112    IN    A    173.194.32.142
 ;; MSG SIZE  rcvd: 215
 ```
 
-Here I haved asked dig to use 8.8.8.8 as its DNS and query google.com. You can see that I've got more than 1 answer \(actually much more than 1 answer\). My computer can randomly contact any of those IPs to reach the google.com. In other words, google.com is using more than 1 server/IP and 8.8.8.8 provides all of them when queried for that domain.
+Here I have asked dig to use 8.8.8.8 as its DNS and query google.com. You can see that I've got more than 1 answer \(actually much more than 1 answer\). My computer can randomly contact any of those IPs to reach the google.com. In other words, google.com is using more than 1 server/IP and 8.8.8.8 provides all of them when queried for that domain.
 
 ### /etc/hosts
 
@@ -166,7 +166,7 @@ From 85-15-16-103.shatel.ir (85.15.16.103) icmp_seq=1 Packet filtered
 From 85-15-16-103.shatel.ir (85.15.16.103) icmp_seq=2 Packet filtered
 ```
 
-My computer pings 192.168.59.231 when I go for mass1 even when the DNS can not finds this name because that is defined in `/etc/hosts`.
+My computer pings 192.168.59.231 when I go for mass1 even when the DNS can not find this name because that is defined in `/etc/hosts`.
 
 ### nsswitch
 
@@ -244,7 +244,7 @@ On the DNS line I have `hosts: files mdns4_minimal [NOTFOUND=return] dns myhostn
 127.0.0.1 facebook.com
 ```
 
-and then point my browser to facebook.com, my computer will try to open a webserver on 127.0.0.1 instead of the real IP of facebook.
+And then point my browser to facebook.com, my computer will try to open a webserver on 127.0.0.1 instead of the real IP of Facebook.
 
 ### getent
 
