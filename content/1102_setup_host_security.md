@@ -38,7 +38,7 @@ Candidates should know how to set up a basic level of host security.
 
 #### shadow passwords
 
-The `/dev/passwd` is already discussed. It contains the passwords of the users but there is a logical problem: if a user should be able to change her own password, he should have access to this file and if this is the case, he can see other peoples passwords. This is not interesting even when the passwords are hashed \(shown as a more complex form using a one way function\).
+The `/dev/passwd` is already discussed. It contains the passwords of the users but there is a logical problem: if a user should be able to change her own password, he should have access to this file and if this is the case, he can see other people's passwords. This is not interesting even when the passwords are hashed \(shown as a more complex form using a one way function\).
 
 ```text
 $ ls -ltrh /etc/passwd
@@ -83,7 +83,7 @@ A super-server or sometimes called a service dispatcher is a type of daemon run 
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Super-server.png/420px-Super-server.png)
 
-Practically no new linux is using a super server anymore but some traces of `xinetd` is still there in some systems in `/etc/xinet.d/`. This is a sample xinetd configuration:
+Practically no new Linux is using a super server anymore but some traces of `xinetd` is still there in some systems in `/etc/xinet.d/`. This is a sample xinetd configuration:
 
 ```text
 service telnet
@@ -105,7 +105,7 @@ If we change the `disable` to `yes` and restart the xinetd, the telnet daemon wi
 
 **/etc/hosts.allow & /etc/hosts.deny**
 
-These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowd, everything else is denied but if you add something to the /etc/hosts.deny, only that specific thing is denied \(and every other thing is allowed\).
+These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowed, everything else is denied but if you add something to the /etc/hosts.deny, only that specific thing is denied \(and every other thing is allowed\).
 
 ```text
 jadi@funlife ~$ cat /etc/hosts.allow
