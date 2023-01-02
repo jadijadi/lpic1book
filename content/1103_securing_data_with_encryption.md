@@ -40,7 +40,7 @@ The candidate should be able to use public key techniques to secure data and com
 
 #### Key Pairs
 
-In traditional cryptography the symetric keys were used: both parties had a shared password; the files were encrypted with that password and then decrypted using the same password. These years the KeyPairs are becomming more and more common. When generating a key pair, we generate two keys using a computer algorithm in the way that any message which is encrypted using one, can be opened only using the other key. These are called Public & Private key. You publish the public key to your friends and even the strangers and if they need to send an ecrypted message to you, scramble it using YOUR public key and send it to you. After receiving it, you open the file using your PRIVATE key.
+In traditional cryptography, the symmetric keys were used: both parties had a shared password; the files were encrypted with that password and then decrypted using the same password. These years, the KeyPairs are becoming more and more common. When generating a key pair, we generate two keys using a computer algorithm in the way that any message which is encrypted using one, can be opened only using the other key. These are called Public & Private key. You publish the public key to your friends and even the strangers and if they need to send an encrypted message to you, scramble it using YOUR public key and send it to you. After receiving it, you open the file using your PRIVATE key.
 
 > great point about Public / Private key is that the data can be transmitted over the internet with no fear of hackers or governments. You are publishing your key to the world, some one picks it and uses it to encrypt some data and sent the result to you. People can see that you are receiving "some data" but they can not encrypt it because they do not have the private key needed to decrypt it.
 
@@ -75,7 +75,7 @@ The key's randomart image is:
 
 > The above process asked for a prassphrase. It is used to secure our key. You can create a password and it will be asked each time you want to use this key.
 
-We have the option to generate keys using different algorithsm, here I used the default RSA and these two keys are created in `~/.ssh/`:
+We have the option to generate keys using different algorithms, here I used the default RSA and these two keys are created in `~/.ssh/`:
 
 ```text
 [jadi@localhost ~]$ ls .ssh -ltrh
@@ -84,7 +84,7 @@ total 8.0K
 -rw-------. 1 jadi jadi 1.7K Jun 15 13:58 id_rsa
 ```
 
-As soon as we ssh to any server, a file called `known_hosts` will save that sites public keys. The next step is copying our public key there. For this task there is command called `ssh-copyid`. It works like this:
+As soon as we ssh to any server, a file called `known_hosts` will save that site's public keys. The next step is copying our public key there. For this task there is a command called `ssh-copyid`. It works like this:
 
 ```text
  ssh-copy-id 10.0.2.15
@@ -106,13 +106,13 @@ We have already discussed X forwarding.
 
 #### encryption using gpg
 
-A software called `gpg` lets us use public and private keys to encrypt our data. At the beginning we have to create a key pair:
+A software called `gpg` lets us use public and private keys to encrypt our data. At the beginning, we have to create a key pair:
 
 ```text
 gpg --gen-key
 ```
 
-Then we need to share our public key to other people. To export our public key file we need to run:
+Then we need to share our public key to other people. To export our public key file, we need to run:
 
 ```text
 gpg --export name > gpg.pub
@@ -130,7 +130,7 @@ At this stage, if he wants to encrypt some data to us \(say the file file.txt\) 
 gpg --out file.txt.encrypted --recipient jadijdai@gmail.com --encrypt file.txt
 ```
 
-and give the `file.txt.encrypted` to us. For openning it, we just need to:
+and give the `file.txt.encrypted` to us. For opening it, we just need to:
 
 ```text
 gpg --out out.txt --decrypt file.txt.encrypted
@@ -142,19 +142,19 @@ and Done!
 
 #### revoking keys
 
-What happens if you forget your key password or someone hacked your computer and acquired your private key? In this case you have to announce to the world that "I'm hacked! Do not use that public key of mine anymore!". This is called revoking. To create a revoke key, run:
+What happens if you forget your key password or someone hacked your computer and acquired your private key? In this case, you have to announce to the world that "I'm hacked! Do not use that public key of mine anymore!". This is called revoking. To create a revoke key, run:
 
 ```text
 gpg --output revoke.asc --gen-revoke jadijadi@gmail.com
 ```
 
-This tells gpg to create a revoke file called revoke.asc for the identity jadijadi@gmail.com. If jadijadi@gmail.com needs to invalidate his public key, he have to publish this file to the intenet or key servers.
+This tells gpg to create a revoke file called revoke.asc for the identity jadijadi@gmail.com. If jadijadi@gmail.com needs to invalidate his public key, he has to publish this file to the Internet or key servers.
 
 #### signing
 
-In the previous section we used gpg to ecrypt the data. We used someones Public key to sign and she used her own Private key to decrypt the text. What happens if we do this in the reverse? I mean what happens if I encrypt something with my Private key, send it on the internet and everyone on the internet will be able to decrypt it using my Public key which is shared with everyone - since it is Public. This is signing!
+In the previous section, we used gpg to encrypt the data. We used someone's Public key to sign and she used her own Private key to decrypt the text. What happens if we do this in the reverse? I mean what happens if I encrypt something with my Private key, send it on the internet and everyone on the internet will be able to decrypt it using my Public key which is shared with everyone - since it is Public. This is signing!
 
-By encrypting a document using your private key, you let everyone to try to open it using your public key and if they succeed, they will be sure that you have signed it using YOUR private key! `gpg` has a specific command to sign documents:
+By encrypting a document using your private key, you let everyone try to open it using your public key and if they succeed, they will be sure that you have signed it using YOUR private key! `gpg` has a specific command to sign documents:
 
 ```text
 gpg --clearsign originalfile
