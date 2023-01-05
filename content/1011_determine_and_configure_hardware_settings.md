@@ -65,7 +65,7 @@ Universal Serial Bus. Serial and need fewer connections.
 
 ![USB Interfaces](/images/usb.png)
 
-- 1 (12Mbps), 2 (480Mbps), 3 (20Gbps)
+- 1 (12Mbps), 2 (480Mbps), 3 (PCI.e 2.0 Bus:5Gbps, PCI.e 3.0 Bus:10Gbps, PCI.e 4.0 Bus:20Gbps)
 - A, B, C
 
 ### GPIO
