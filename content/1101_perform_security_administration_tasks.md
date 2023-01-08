@@ -52,7 +52,7 @@ jadi@funlife ~$ ls -ltrh /bin/ping
 -rwsr-xr-x 1 root root 44K May  8  2014 /bin/ping
 ```
 
-The `s` on the access rights part, tells us that whoever runs the ping command, the ping command will be run with root access. This is neede by root and is OK on my distro but what happens if someone changes the suid of the vi command? lets see who own vi:
+The `s` on the access rights part, tells us that whoever runs the ping command, the ping command will be run with root access. This is needed by root and is OK on my distro but what happens if someone changes the suid of the vi command? lets see who own vi:
 
 ```text
 jadi@funlife ~$ type vi
@@ -61,7 +61,7 @@ jadi@funlife ~$ ls -ltrh /usr/bin/vi
 lrwxrwxrwx 1 root root 20 Jun  1 12:52 /usr/bin/vi -> /etc/alternatives/vi
 ```
 
-at the moment, the `vi` is owned by root, so if the suid bit is set, vi will always be run as root! In that case anybody will be able to edit any file! You can see why it is important to check for suid files on your system:
+at the moment, the `vi` is owned by root, so if the suid bit is set, vi will always be run as root! In that case, anybody will be able to edit any file! You can see why it is important to check for suid files on your system:
 
 ```text
 $sudo find / -perm -u+s
@@ -124,7 +124,7 @@ chrome    14264       jadi  126u  IPv4 1872872      0t0  TCP funlife:60370->funl
 chrome    14264       jadi  138u  IPv4 1908382      0t0  TCP funlife:60408->funlife:socks (ESTABLISHED)
 ```
 
-Wow! this command shows the command, PID, user running it and source and destination IP and tells of if this is a LISTENING or STABLISHED connection.
+Wow! This command shows the command, PID, user running it and source and destination IP and tells of if this is a LISTENING or STABLISHED connection.
 
 If you want to check which process is using port 80, you can grep the output of any above commands or simply use the `fuser` command to find all the PIDs related to that specific port:
 
@@ -187,7 +187,7 @@ jadi@funlife ~$
 
 Note that when running `su` you have to **provide the root password** to become root; or any other users password to become that user!
 
-On the other hand, sudo asks for your own password and runs the command you gave it, with the root privileges. So `sudo ls` runs the ls command with the root privileges after asking for **your passowrd**. Obviously you should have the _sudo right_ to issue sudo. This is defined in /etc/sudoers file:
+On the other hand, sudo asks for your own password and runs the command you gave it, with the root privileges. So `sudo ls` runs the ls command with the root privileges after asking for **your password**. Obviously you should have the _sudo right_ to issue sudo. This is defined in /etc/sudoers file:
 
 ```text
 $ sudo cat /etc/sudoers
@@ -259,7 +259,7 @@ and you can change them like this:
 $ ulimit -t 1
 ```
 
-This will limit the CPU TIME of any process to 1 seconds. If you use more than that, the process will be killed automatically \(by PAM module\). Please note that clock time is different than CPU time. To see how much CPU time a process uses run it like this:
+This will limit the CPU TIME of any process to 1 second. If you use more than that, the process will be killed automatically \(by PAM module\). Please note that clock time is different than CPU time. To see how much CPU time a process uses run it like this:
 
 ```text
 $ time firefox
