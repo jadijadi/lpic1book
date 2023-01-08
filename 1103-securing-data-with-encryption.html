@@ -117,7 +117,7 @@
 <li>~/.gnupg/</li>
 </ul>
 <h4>Key Pairs</h4>
-<p>In traditional cryptography the symetric keys were used: both parties had a shared password; the files were encrypted with that password and then decrypted using the same password. These years the KeyPairs are becomming more and more common. When generating a key pair, we generate two keys using a computer algorithm in the way that any message which is encrypted using one, can be opened only using the other key. These are called Public &amp; Private key. You publish the public key to your friends and even the strangers and if they need to send an ecrypted message to you, scramble it using YOUR public key and send it to you. After receiving it, you open the file using your PRIVATE key.</p>
+<p>In traditional cryptography, the symmetric keys were used: both parties had a shared password; the files were encrypted with that password and then decrypted using the same password. These years, the KeyPairs are becoming more and more common. When generating a key pair, we generate two keys using a computer algorithm in the way that any message which is encrypted using one, can be opened only using the other key. These are called Public &amp; Private key. You publish the public key to your friends and even the strangers and if they need to send an encrypted message to you, scramble it using YOUR public key and send it to you. After receiving it, you open the file using your PRIVATE key.</p>
 <blockquote>
 <p>great point about Public / Private key is that the data can be transmitted over the internet with no fear of hackers or governments. You are publishing your key to the world, some one picks it and uses it to encrypt some data and sent the result to you. People can see that you are receiving "some data" but they can not encrypt it because they do not have the private key needed to decrypt it.</p>
 </blockquote>
@@ -150,14 +150,14 @@ The key&#39;s randomart image is:
 <blockquote>
 <p>The above process asked for a prassphrase. It is used to secure our key. You can create a password and it will be asked each time you want to use this key.</p>
 </blockquote>
-<p>We have the option to generate keys using different algorithsm, here I used the default RSA and these two keys are created in <code>~/.ssh/</code>:</p>
+<p>We have the option to generate keys using different algorithms, here I used the default RSA and these two keys are created in <code>~/.ssh/</code>:</p>
 <div class="highlight"><pre><span></span><code>[jadi@localhost ~]$ ls .ssh -ltrh
 total 8.0K
 -rw-r--r--. 1 jadi jadi  408 Jun 15 13:58 id_rsa.pubss
 -rw-------. 1 jadi jadi 1.7K Jun 15 13:58 id_rsa
 </code></pre></div>
 
-<p>As soon as we ssh to any server, a file called <code>known_hosts</code> will save that sites public keys. The next step is copying our public key there. For this task there is command called <code>ssh-copyid</code>. It works like this:</p>
+<p>As soon as we ssh to any server, a file called <code>known_hosts</code> will save that site's public keys. The next step is copying our public key there. For this task there is a command called <code>ssh-copyid</code>. It works like this:</p>
 <div class="highlight"><pre><span></span><code> ssh-copy-id 10.0.2.15
 jadi@10.0.2.15&#39;s password:
 Now try logging into the machine, with &quot;ssh &#39;10.0.2.15&#39;&quot;, and check in:
@@ -172,11 +172,11 @@ to make sure we haven&#39;t added extra keys that you weren&#39;t expecting.
 <h4>ssh tunnels</h4>
 <p>We have already discussed X forwarding.</p>
 <h4>encryption using gpg</h4>
-<p>A software called <code>gpg</code> lets us use public and private keys to encrypt our data. At the beginning we have to create a key pair:</p>
+<p>A software called <code>gpg</code> lets us use public and private keys to encrypt our data. At the beginning, we have to create a key pair:</p>
 <div class="highlight"><pre><span></span><code>gpg --gen-key
 </code></pre></div>
 
-<p>Then we need to share our public key to other people. To export our public key file we need to run:</p>
+<p>Then we need to share our public key to other people. To export our public key file, we need to run:</p>
 <div class="highlight"><pre><span></span><code>gpg --export name &gt; gpg.pub
 </code></pre></div>
 
@@ -188,7 +188,7 @@ to make sure we haven&#39;t added extra keys that you weren&#39;t expecting.
 <div class="highlight"><pre><span></span><code>gpg --out file.txt.encrypted --recipient jadijdai@gmail.com --encrypt file.txt
 </code></pre></div>
 
-<p>and give the <code>file.txt.encrypted</code> to us. For openning it, we just need to:</p>
+<p>and give the <code>file.txt.encrypted</code> to us. For opening it, we just need to:</p>
 <div class="highlight"><pre><span></span><code>gpg --out out.txt --decrypt file.txt.encrypted
 </code></pre></div>
 
@@ -197,14 +197,14 @@ to make sure we haven&#39;t added extra keys that you weren&#39;t expecting.
 <p>As you saw, the public keys should be shared. The B party uses A parties public key to encrypt a data and A party uses his Private key to open it.</p>
 </blockquote>
 <h4>revoking keys</h4>
-<p>What happens if you forget your key password or someone hacked your computer and acquired your private key? In this case you have to announce to the world that "I'm hacked! Do not use that public key of mine anymore!". This is called revoking. To create a revoke key, run:</p>
+<p>What happens if you forget your key password or someone hacked your computer and acquired your private key? In this case, you have to announce to the world that "I'm hacked! Do not use that public key of mine anymore!". This is called revoking. To create a revoke key, run:</p>
 <div class="highlight"><pre><span></span><code>gpg --output revoke.asc --gen-revoke jadijadi@gmail.com
 </code></pre></div>
 
-<p>This tells gpg to create a revoke file called revoke.asc for the identity jadijadi@gmail.com. If jadijadi@gmail.com needs to invalidate his public key, he have to publish this file to the intenet or key servers.</p>
+<p>This tells gpg to create a revoke file called revoke.asc for the identity jadijadi@gmail.com. If jadijadi@gmail.com needs to invalidate his public key, he has to publish this file to the Internet or key servers.</p>
 <h4>signing</h4>
-<p>In the previous section we used gpg to ecrypt the data. We used someones Public key to sign and she used her own Private key to decrypt the text. What happens if we do this in the reverse? I mean what happens if I encrypt something with my Private key, send it on the internet and everyone on the internet will be able to decrypt it using my Public key which is shared with everyone - since it is Public. This is signing!</p>
-<p>By encrypting a document using your private key, you let everyone to try to open it using your public key and if they succeed, they will be sure that you have signed it using YOUR private key! <code>gpg</code> has a specific command to sign documents:</p>
+<p>In the previous section, we used gpg to encrypt the data. We used someone's Public key to sign and she used her own Private key to decrypt the text. What happens if we do this in the reverse? I mean what happens if I encrypt something with my Private key, send it on the internet and everyone on the internet will be able to decrypt it using my Public key which is shared with everyone - since it is Public. This is signing!</p>
+<p>By encrypting a document using your private key, you let everyone try to open it using your public key and if they succeed, they will be sure that you have signed it using YOUR private key! <code>gpg</code> has a specific command to sign documents:</p>
 <div class="highlight"><pre><span></span><code>gpg --clearsign originalfile
 </code></pre></div>
 

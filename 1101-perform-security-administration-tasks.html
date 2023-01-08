@@ -127,14 +127,14 @@ jadi@funlife ~$ ls -ltrh /bin/ping
 -rwsr-xr-x 1 root root 44K May  8  2014 /bin/ping
 </code></pre></div>
 
-<p>The <code>s</code> on the access rights part, tells us that whoever runs the ping command, the ping command will be run with root access. This is neede by root and is OK on my distro but what happens if someone changes the suid of the vi command? lets see who own vi:</p>
+<p>The <code>s</code> on the access rights part, tells us that whoever runs the ping command, the ping command will be run with root access. This is needed by root and is OK on my distro but what happens if someone changes the suid of the vi command? lets see who own vi:</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife ~$ type vi
 vi is /usr/bin/vi
 jadi@funlife ~$ ls -ltrh /usr/bin/vi
 lrwxrwxrwx 1 root root 20 Jun  1 12:52 /usr/bin/vi -&gt; /etc/alternatives/vi
 </code></pre></div>
 
-<p>at the moment, the <code>vi</code> is owned by root, so if the suid bit is set, vi will always be run as root! In that case anybody will be able to edit any file! You can see why it is important to check for suid files on your system:</p>
+<p>at the moment, the <code>vi</code> is owned by root, so if the suid bit is set, vi will always be run as root! In that case, anybody will be able to edit any file! You can see why it is important to check for suid files on your system:</p>
 <div class="highlight"><pre><span></span><code>$sudo find / -perm -u+s
 </code></pre></div>
 
@@ -189,7 +189,7 @@ chrome    14264       jadi  126u  IPv4 1872872      0t0  TCP funlife:60370-&gt;f
 chrome    14264       jadi  138u  IPv4 1908382      0t0  TCP funlife:60408-&gt;funlife:socks (ESTABLISHED)
 </code></pre></div>
 
-<p>Wow! this command shows the command, PID, user running it and source and destination IP and tells of if this is a LISTENING or STABLISHED connection.</p>
+<p>Wow! This command shows the command, PID, user running it and source and destination IP and tells of if this is a LISTENING or STABLISHED connection.</p>
 <p>If you want to check which process is using port 80, you can grep the output of any above commands or simply use the <code>fuser</code> command to find all the PIDs related to that specific port:</p>
 <div class="highlight"><pre><span></span><code>root@funlife:/bin# fuser 80/tcp
 80/tcp:              11095 11096 11097 11098 11099
@@ -241,7 +241,7 @@ jadi@funlife ~$
 </code></pre></div>
 
 <p>Note that when running <code>su</code> you have to <strong>provide the root password</strong> to become root; or any other users password to become that user!</p>
-<p>On the other hand, sudo asks for your own password and runs the command you gave it, with the root privileges. So <code>sudo ls</code> runs the ls command with the root privileges after asking for <strong>your passowrd</strong>. Obviously you should have the <em>sudo right</em> to issue sudo. This is defined in /etc/sudoers file:</p>
+<p>On the other hand, sudo asks for your own password and runs the command you gave it, with the root privileges. So <code>sudo ls</code> runs the ls command with the root privileges after asking for <strong>your password</strong>. Obviously you should have the <em>sudo right</em> to issue sudo. This is defined in /etc/sudoers file:</p>
 <div class="highlight"><pre><span></span><code>$ sudo cat /etc/sudoers
 #
 # This file MUST be edited with the &#39;visudo&#39; command as root.
@@ -305,7 +305,7 @@ file locks                      (-x) unlimited
 <div class="highlight"><pre><span></span><code>$ ulimit -t 1
 </code></pre></div>
 
-<p>This will limit the CPU TIME of any process to 1 seconds. If you use more than that, the process will be killed automatically (by PAM module). Please note that clock time is different than CPU time. To see how much CPU time a process uses run it like this:</p>
+<p>This will limit the CPU TIME of any process to 1 second. If you use more than that, the process will be killed automatically (by PAM module). Please note that clock time is different than CPU time. To see how much CPU time a process uses run it like this:</p>
 <div class="highlight"><pre><span></span><code>$ time firefox
 </code></pre></div>
 

@@ -115,7 +115,7 @@
 <li>/etc/hosts.deny</li>
 </ul>
 <h4>shadow passwords</h4>
-<p>The <code>/dev/passwd</code> is already discussed. It contains the passwords of the users but there is a logical problem: if a user should be able to change her own password, he should have access to this file and if this is the case, he can see other peoples passwords. This is not interesting even when the passwords are hashed (shown as a more complex form using a one way function).</p>
+<p>The <code>/dev/passwd</code> is already discussed. It contains the passwords of the users but there is a logical problem: if a user should be able to change her own password, he should have access to this file and if this is the case, he can see other people's passwords. This is not interesting even when the passwords are hashed (shown as a more complex form using a one way function).</p>
 <div class="highlight"><pre><span></span><code>$ ls -ltrh /etc/passwd
 -rw-r--r-- 1 root root 2.5K Jun  5 19:14 /etc/passwd
 </code></pre></div>
@@ -169,7 +169,7 @@ jadi@funlife ~$ sudo ls -ltrh /etc/shadow
 <h4>super-servers</h4>
 <p>A super-server or sometimes called a service dispatcher is a type of daemon run generally on Unix-like systems for security reasons. It starts other servers when needed, normally with access to them checked by a TCP wrapper.</p>
 <p><img alt="Super Server" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Super-server.png/420px-Super-server.png"></p>
-<p>Practically no new linux is using a super server anymore but some traces of <code>xinetd</code> is still there in some systems in <code>/etc/xinet.d/</code>. This is a sample xinetd configuration:</p>
+<p>Practically no new Linux is using a super server anymore but some traces of <code>xinetd</code> is still there in some systems in <code>/etc/xinet.d/</code>. This is a sample xinetd configuration:</p>
 <div class="highlight"><pre><span></span><code>service telnet
 {
         disable         = no
@@ -187,7 +187,7 @@ jadi@funlife ~$ sudo ls -ltrh /etc/shadow
 
 <p>If we change the <code>disable</code> to <code>yes</code> and restart the xinetd, the telnet daemon will start running. There are a few files to control to xinetd related files.</p>
 <p><strong>/etc/hosts.allow &amp; /etc/hosts.deny</strong></p>
-<p>These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowd, everything else is denied but if you add something to the /etc/hosts.deny, only that specific thing is denied (and every other thing is allowed).</p>
+<p>These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowed, everything else is denied but if you add something to the /etc/hosts.deny, only that specific thing is denied (and every other thing is allowed).</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife ~$ cat /etc/hosts.allow
 # /etc/hosts.allow: list of hosts that are allowed to access the system.
 #                   See the manual pages hosts_access(5) and hosts_options(5).

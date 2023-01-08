@@ -127,7 +127,7 @@ rtt min/avg/max/mdev = 333.088/335.612/338.136/2.524 ms
 </code></pre></div>
 
 <h3>dig</h3>
-<p>The <code>dig</code> tool is specificly build to query DNS. If you want to find out where x.org points to, you can do:</p>
+<p>The <code>dig</code> tool is specifically build to query DNS. If you want to find out where x.org points to, you can do:</p>
 <div class="highlight"><pre><span></span><code>$ dig x.org
 
 ; &lt;&lt;&gt;&gt; DiG 9.10.3-P4-RedHat-9.10.3-12.P4.fc23 &lt;&lt;&gt;&gt; x.org
@@ -150,7 +150,7 @@ x.org.            1625    IN    A    131.252.210.176
 ;; MSG SIZE  rcvd: 50
 </code></pre></div>
 
-<p>As you can see, <code>dig</code> did a <strong>ip lookup</strong> for x.org and told me that the IP is 131.252.210.176. The <code>1625</code> is called the TTL or <em>Time To Live</em> and show how many secconds before this answer expires. This command also tells us which server is used to find the answer (last 4 lines) and when and how long it took.</p>
+<p>As you can see, <code>dig</code> did a <strong>ip lookup</strong> for x.org and told me that the IP is 131.252.210.176. The <code>1625</code> is called the TTL or <em>Time To Live</em> and show how many seconds before this answer expires. This command also tells us which server is used to find the answer (last 4 lines) and when and how long it took.</p>
 <p>There is also a way to tell <code>dig</code> command what server it should use as the DNS:</p>
 <div class="highlight"><pre><span></span><code>$ dig @8.8.8.8 google.com
 
@@ -185,7 +185,7 @@ google.com.        112    IN    A    173.194.32.142
 ;; MSG SIZE  rcvd: 215
 </code></pre></div>
 
-<p>Here I haved asked dig to use 8.8.8.8 as its DNS and query google.com. You can see that I've got more than 1 answer (actually much more than 1 answer). My computer can randomly contact any of those IPs to reach the google.com. In other words, google.com is using more than 1 server/IP and 8.8.8.8 provides all of them when queried for that domain.</p>
+<p>Here I have asked dig to use 8.8.8.8 as its DNS and query google.com. You can see that I've got more than 1 answer (actually much more than 1 answer). My computer can randomly contact any of those IPs to reach the google.com. In other words, google.com is using more than 1 server/IP and 8.8.8.8 provides all of them when queried for that domain.</p>
 <h3>/etc/hosts</h3>
 <p>This is a file containing IP addresses and their domain names - statically saved! Lets have a look:</p>
 <div class="highlight"><pre><span></span><code>$ head /etc/hosts
@@ -229,7 +229,7 @@ From 85-15-16-103.shatel.ir (85.15.16.103) icmp_seq=1 Packet filtered
 From 85-15-16-103.shatel.ir (85.15.16.103) icmp_seq=2 Packet filtered
 </code></pre></div>
 
-<p>My computer pings 192.168.59.231 when I go for mass1 even when the DNS can not finds this name because that is defined in <code>/etc/hosts</code>.</p>
+<p>My computer pings 192.168.59.231 when I go for mass1 even when the DNS can not find this name because that is defined in <code>/etc/hosts</code>.</p>
 <h3>nsswitch</h3>
 <p>The <code>/etc/nsswitch.conf</code> file tells the system about the priority of lookups, password checks, .... Lets have a look to make it clear:</p>
 <div class="highlight"><pre><span></span><code>$ cat /etc/nsswitch.conf
@@ -301,7 +301,7 @@ aliases:    files nisplus
 <div class="highlight"><pre><span></span><code>127.0.0.1 facebook.com
 </code></pre></div>
 
-<p>and then point my browser to facebook.com, my computer will try to open a webserver on 127.0.0.1 instead of the real IP of facebook.</p>
+<p>And then point my browser to facebook.com, my computer will try to open a webserver on 127.0.0.1 instead of the real IP of Facebook.</p>
 <h3>getent</h3>
 <p>The <code>getent</code> command is a utility to get entries from Name Service Switch libraries (read /etc/nsswitch.conf). If you want to check what is the config of your hosts, you can do as follow.</p>
 <div class="highlight"><pre><span></span><code>$ getent hosts
