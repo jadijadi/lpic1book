@@ -40,12 +40,14 @@ You can simply write down whatever you want to match and regex will search for t
 | a | after, mina, banana, jadi |
 | na | Narator, mina, nananana batman, sonar |
 
+</br>
+
 **Repeating**
 
-* The **\*** means repeating the previous character for 0 or more times
-* The **+** means repeating the previous character for 1 or more times
-* the **?** means zero or one repeats
-* {n,m} means the item needs to match at least n times, but not more than m times
+* The **`\*`** means repeating the previous character for 0 or more times.
+* The **`+`** means repeating the previous character for 1 or more times.
+* the **`?`** means zero or one repeats.
+* **`{n,m}`** means the item needs to match at least n times, but not more than m times.
 
 | Regex | Will match | Note |
 | :--- | :--- | :--- |
@@ -54,13 +56,17 @@ You can simply write down whatever you want to match and regex will search for t
 | a+b | ab, aab, aaabenz | wont match **sober** or **b** because there needs to be at least one **a** |
 | a?b | ab, a**ab**, b, batman \(zero a then b\), ... | . |
 
+</br>
+
 **Alternation \(\|\)**
 
 If you say `a|b` it will match `a` or `b`.
 
+</br>
+
 **Character Classes**
 
-The dot \(**.**\) means any character. So **..** will match anything with at least two character in it. You can also create your own classes with \[abc\] which will match a or b or c and \[a-z\] which match a to z.
+The dot \(**`.`**\) means any character. So **`..`** will match anything with at least two character in it. You can also create your own classes with \[abc\] which will match a or b or c and \[a-z\] which match a to z.
 
 You can also refer to digits with \d. 
 
@@ -82,16 +88,16 @@ There are short-hands for commonly used classes. Named classes start with `[:` a
 
 **Matching at specific locations**
 
-* The caret **^** means beginning of the string
-* The dollar **$** means the end of the string
+* The caret **`^`** means beginning of the string.
+* The dollar **`$`** means the end of the string.
 
 #### Samples
 
-* `^a.*` Matches anything that starts with a
-* `^a.*b$` Matches anything that starts with a and ends with b
-* `^a.*\d+.*b$` Matches anything that starting with a, have some digits in the middle and end with b
-* `^(l|b)oo` Matches anything that starts with l or b and then have oo
-* `[f-h]|[A-K]$` The last character should be f to h \(capital or small\)
+* `^a.*` Matches anything that starts with **a**.
+* `^a.*b$` Matches anything that starts with **a** and ends with **b**.
+* `^a.*\d+.*b$` Matches anything that starting with **a**, have some digits in the middle and ends with **b**.
+* `^(l|b)oo` Matches anything that starts with **l** or **b** and then have **oo**
+* `[f-h]|[A-K]$` The last character should be **f** to **h** \(small\) or **A** to **K** \(capital\)
 
 ### grep
 
@@ -122,6 +128,8 @@ These are the most common switches:
 | -l | show only file names |
 | -i | case insensitive |
 | -r | Read  all  files  under each directory, recursively |
+
+</br>
 
 ```
 $ grep a *txt
@@ -197,7 +205,7 @@ $ egrep -r "192.168.(1|0)." /etc/ 2> /dev/null
 /etc/fwupd/redfish.conf:# ex: https://192.168.0.133:443
 ```
 
-### extended grep
+### Extended grep
 Regex is cool and `grep` is awesome so many people have tried adding to them or invent their own variants. One is GNU Extended grep. This dialect of regex, does not need much escaping and you can use it via `-E` switch or using `egrep` instead of the normal `grep`. For example, `|` in an extended regex means "or". So you can do a `egrep "a|b" words` to match anything with an `a` or a `b`. 
 
 ### Fixed grep
@@ -224,6 +232,8 @@ Common switches:
 | :--- | :--- |
 | -r | use advanced regex |
 | -n | suppress output, you can use p at the end of your regex \( /something/p \) to print the output |
+
+</br>
 
 ```
 sed -rn "s/happy/HAPPY/p" words 
