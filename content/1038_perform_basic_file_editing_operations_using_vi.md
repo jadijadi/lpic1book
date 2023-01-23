@@ -110,7 +110,7 @@ $ vi file.txt
 To move around a text file, use these keys in Command mode:
 
 | key | function |
-| :--- | :--- |
+| :---: | :--- |
 | h | One character to the left \(only current line\) |
 | j | One line down |
 | k | One line up |
@@ -126,7 +126,7 @@ To move around a text file, use these keys in Command mode:
 #### Jumping around
 
 | key | function |
-| :--- | :--- |
+| :---: | :--- |
 | G | With no number, will jump to the end & 10G will jump to line 10 |
 | H | 5H will go to the 5th line from the top of the screen |
 | L | 3L will move the cursor to the 3rd line to the last line of the screen |
@@ -136,7 +136,7 @@ To move around a text file, use these keys in Command mode:
 These command during the _command mode_ will help you enter, edit, replace and text:
 
 | key | function |
-| :--- | :--- |
+| :---: | :--- |
 | i | Enter the insert mode |
 | a | Enter the insert mode after the current position of the cursor |
 | r | replace only one character |
@@ -153,7 +153,7 @@ These command during the _command mode_ will help you enter, edit, replace and t
 ### Searching
 
 | key | function |
-| :--- | :--- |
+| :---: | :--- |
 | / | Search forward \(`/happiness` will find the next happiness\) |
 | ? | Search backward |
 | n | repeat previous search. You can also use `/` and `?` without any parameters\) |
@@ -165,7 +165,7 @@ These command during the _command mode_ will help you enter, edit, replace and t
 It is always funny when you see someone entering to the vi and not knowing how to exit! Learn these and prevent the laughter:
 
 | key | function |
-| :--- | :--- |
+| :---: | :--- |
 | :q! | Quit editing without saving = runaway after any mistake |
 | :w! | Write the file \(whether modified or not\). Attempt to overwrite existing files or read-only or other unwritable files |
 | :w myfile.txt | Write to a new name |
