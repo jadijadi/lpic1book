@@ -129,12 +129,13 @@ You can simply write down whatever you want to match and regex will search for t
 </tr>
 </tbody>
 </table>
+<p></br></p>
 <p><strong>Repeating</strong></p>
 <ul>
-<li>The <strong>*</strong> means repeating the previous character for 0 or more times</li>
-<li>The <strong>+</strong> means repeating the previous character for 1 or more times</li>
-<li>the <strong>?</strong> means zero or one repeats</li>
-<li>{n,m} means the item needs to match at least n times, but not more than m times</li>
+<li>The <strong><code>\*</code></strong> means repeating the previous character for 0 or more times.</li>
+<li>The <strong><code>+</code></strong> means repeating the previous character for 1 or more times.</li>
+<li>the <strong><code>?</code></strong> means zero or one repeats.</li>
+<li><strong><code>{n,m}</code></strong> means the item needs to match at least n times, but not more than m times.</li>
 </ul>
 <table>
 <thead>
@@ -167,10 +168,12 @@ You can simply write down whatever you want to match and regex will search for t
 </tr>
 </tbody>
 </table>
+<p></br></p>
 <p><strong>Alternation (|)</strong></p>
 <p>If you say <code>a|b</code> it will match <code>a</code> or <code>b</code>.</p>
+<p></br></p>
 <p><strong>Character Classes</strong></p>
-<p>The dot (<strong>.</strong>) means any character. So <strong>..</strong> will match anything with at least two character in it. You can also create your own classes with [abc] which will match a or b or c and [a-z] which match a to z.</p>
+<p>The dot (<strong><code>.</code></strong>) means any character. So <strong><code>..</code></strong> will match anything with at least two character in it. You can also create your own classes with [abc] which will match a or b or c and [a-z] which match a to z.</p>
 <p>You can also refer to digits with \d. </p>
 <blockquote>
 <p>regex is case sensitive.</p>
@@ -212,16 +215,16 @@ You can simply write down whatever you want to match and regex will search for t
 </blockquote>
 <p><strong>Matching at specific locations</strong></p>
 <ul>
-<li>The caret <strong>^</strong> means beginning of the string</li>
-<li>The dollar <strong>$</strong> means the end of the string</li>
+<li>The caret <strong><code>^</code></strong> means beginning of the string.</li>
+<li>The dollar <strong><code>$</code></strong> means the end of the string.</li>
 </ul>
 <h4>Samples</h4>
 <ul>
-<li><code>^a.*</code> Matches anything that starts with a</li>
-<li><code>^a.*b$</code> Matches anything that starts with a and ends with b</li>
-<li><code>^a.*\d+.*b$</code> Matches anything that starting with a, have some digits in the middle and end with b</li>
-<li><code>^(l|b)oo</code> Matches anything that starts with l or b and then have oo</li>
-<li><code>[f-h]|[A-K]$</code> The last character should be f to h (capital or small)</li>
+<li><code>^a.*</code> Matches anything that starts with <strong>a</strong>.</li>
+<li><code>^a.*b$</code> Matches anything that starts with <strong>a</strong> and ends with <strong>b</strong>.</li>
+<li><code>^a.*\d+.*b$</code> Matches anything that starting with <strong>a</strong>, have some digits in the middle and ends with <strong>b</strong>.</li>
+<li><code>^(l|b)oo</code> Matches anything that starts with <strong>l</strong> or <strong>b</strong> and then have <strong>oo</strong></li>
+<li><code>[f-h]|[A-K]$</code> The last character should be <strong>f</strong> to <strong>h</strong> (small) or <strong>A</strong> to <strong>K</strong> (capital)</li>
 </ul>
 <h3>grep</h3>
 <p>The <code>grep</code> command can search inside the files.</p>
@@ -273,6 +276,7 @@ funky
 </tr>
 </tbody>
 </table>
+<p></br></p>
 <div class="highlight"><pre><span></span><code>$ grep a *txt
 friends.txt:Rosha
 friends.txt:Xavier
@@ -344,7 +348,7 @@ $
 /etc/fwupd/redfish.conf:# ex: https://192.168.0.133:443
 </code></pre></div>
 
-<h3>extended grep</h3>
+<h3>Extended grep</h3>
 <p>Regex is cool and <code>grep</code> is awesome so many people have tried adding to them or invent their own variants. One is GNU Extended grep. This dialect of regex, does not need much escaping and you can use it via <code>-E</code> switch or using <code>egrep</code> instead of the normal <code>grep</code>. For example, <code>|</code> in an extended regex means "or". So you can do a <code>egrep "a|b" words</code> to match anything with an <code>a</code> or a <code>b</code>. </p>
 <h3>Fixed grep</h3>
 <p>If you need to search for exact strings (and not interpret it as a regex), use <code>grep -F</code> or <code>fgrep</code> so the <code>fgrep this$</code> wont go for the end of the line and will find <em>this$that</em> instead.</p>
@@ -378,6 +382,7 @@ Mary
 </tr>
 </tbody>
 </table>
+<p></br></p>
 <div class="highlight"><pre><span></span><code>sed -rn &quot;s/happy/HAPPY/p&quot; words 
 HAPPY
 slapHAPPY
