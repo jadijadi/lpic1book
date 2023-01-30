@@ -107,7 +107,7 @@ This will check all the sources in the configs and update the information about 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/IBnxIX_WceI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Say you have heard about this retro source control software called `tmux` and you want to give it a try.
+Say you have heard about this amazing terminal multiplexer called `tmux` and you want to give it a try.
 
 ```text
 $ tmux
