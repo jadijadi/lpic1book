@@ -38,7 +38,7 @@ Candidates should be able to perform basic process management.
 * screen
 * tmux
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=PQp_YPGg7GQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PQp_YPGg7GQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Managing processes
 ### foreground and background jobs
@@ -188,7 +188,7 @@ $ ps -ef | grep sleep
 jadi      7980  7651  0 21:14 pts/1    00:00:00 grep sleep
 ```
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=wOXrckEQosU
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wOXrckEQosU
 " title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Monitoring Processes
@@ -332,7 +332,7 @@ These are some of the switches:
 - `-b` Beep if the command has a non-zero exit
 - `-d` Shows the difference between runs
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=7SDvwr7jVU8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7SDvwr7jVU8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Terminal Multiplexers
 ### screen
@@ -370,4 +370,4 @@ You can list the tmux sessions using `tmux ls` and re-attach to one using `tmux 
 
 > I highly recommend being fluent in tmux. It's super useful even when you are working locally on your machine. watch the below video for the more in-depth session:
 
-<iframe width="560" height="315" src="https://youtu.be/RvsTIt7cjy0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RvsTIt7cjy0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
