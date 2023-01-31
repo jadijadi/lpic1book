@@ -338,38 +338,38 @@ The kernel still uses the old table. The new table will be used at the next rebo
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Format</th>
-<th style="text-align: left;">Description</th>
+<th align="left">Format</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">ext2</td>
-<td style="text-align: left;">second extended filesystem was developed to address shortcomings in the Minix filesystem used in early versions of Linux. It has been used extensively on Linux for many years. There is no journaling in ext2, and it has largely been replaced by ext3 and more recently ext4.</td>
+<td align="left">ext2</td>
+<td align="left">second extended filesystem was developed to address shortcomings in the Minix filesystem used in early versions of Linux. It has been used extensively on Linux for many years. There is no journaling in ext2, and it has largely been replaced by ext3 and more recently ext4.</td>
 </tr>
 <tr>
-<td style="text-align: left;">ext3</td>
-<td style="text-align: left;">ext2 + journaling, total storage can be 1EXAByte and each file can be 16TB, ...</td>
+<td align="left">ext3</td>
+<td align="left">ext2 + journaling, total storage can be 1EXAByte and each file can be 16TB, ...</td>
 </tr>
 <tr>
-<td style="text-align: left;">ReiserFS</td>
-<td style="text-align: left;">ReiserFS is a B-tree-based filesystem, great for large numbers of small files, journaling, no longer in active development &amp; does not support SELinux, replaced with Reiser4.</td>
+<td align="left">ReiserFS</td>
+<td align="left">ReiserFS is a B-tree-based filesystem, great for large numbers of small files, journaling, no longer in active development &amp; does not support SELinux, replaced with Reiser4.</td>
 </tr>
 <tr>
-<td style="text-align: left;">XFS</td>
-<td style="text-align: left;">journaling, caches to RAM, great for uninterruptible power supplies</td>
+<td align="left">XFS</td>
+<td align="left">journaling, caches to RAM, great for uninterruptible power supplies</td>
 </tr>
 <tr>
-<td style="text-align: left;">swap</td>
-<td style="text-align: left;">Swap space must be formatted for use as swap space, but it is not generally considered a filesystem.</td>
+<td align="left">swap</td>
+<td align="left">Swap space must be formatted for use as swap space, but it is not generally considered a filesystem.</td>
 </tr>
 <tr>
-<td style="text-align: left;">vfat</td>
-<td style="text-align: left;">FAT32, no journaling, good for data exchange with windows, does not understand permissions and symbolic links</td>
+<td align="left">vfat</td>
+<td align="left">FAT32, no journaling, good for data exchange with windows, does not understand permissions and symbolic links</td>
 </tr>
 <tr>
-<td style="text-align: left;">ext4</td>
-<td style="text-align: left;">newer than ext3</td>
+<td align="left">ext4</td>
+<td align="left">newer than ext3</td>
 </tr>
 </tbody>
 </table>
@@ -431,42 +431,42 @@ to GPT format!
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Partition</th>
-<th style="text-align: left;">Format type</th>
-<th style="text-align: left;">Sample Command</th>
-<th style="text-align: left;">Notes</th>
+<th align="left">Partition</th>
+<th align="left">Format type</th>
+<th align="left">Sample Command</th>
+<th align="left">Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">/dev/sda3</td>
-<td style="text-align: left;">ext4</td>
-<td style="text-align: left;"><code>mkfs -t ext4 -L data</code>/dev/sda3</td>
-<td style="text-align: left;">Named it <em>dafa</em>. Or use the <code>mkfs.ext4</code> command</td>
+<td align="left">/dev/sda3</td>
+<td align="left">ext4</td>
+<td align="left"><code>mkfs -t ext4 -L data</code>/dev/sda3</td>
+<td align="left">Named it <em>dafa</em>. Or use the <code>mkfs.ext4</code> command</td>
 </tr>
 <tr>
-<td style="text-align: left;">/dev/sdb2</td>
-<td style="text-align: left;">xfs</td>
-<td style="text-align: left;"><code>mkfs -t xfs -i size=512 /dev/sdb2</code></td>
-<td style="text-align: left;">telling it to have larger inodes (normal is 256)</td>
+<td align="left">/dev/sdb2</td>
+<td align="left">xfs</td>
+<td align="left"><code>mkfs -t xfs -i size=512 /dev/sdb2</code></td>
+<td align="left">telling it to have larger inodes (normal is 256)</td>
 </tr>
 <tr>
-<td style="text-align: left;">/dev/sda8</td>
-<td style="text-align: left;">ReiserFS</td>
-<td style="text-align: left;"><code>mkfs -t reiserfs /dev/sda8</code></td>
-<td style="text-align: left;">Or you can use <code>mkreiserfs</code> command.</td>
+<td align="left">/dev/sda8</td>
+<td align="left">ReiserFS</td>
+<td align="left"><code>mkfs -t reiserfs /dev/sda8</code></td>
+<td align="left">Or you can use <code>mkreiserfs</code> command.</td>
 </tr>
 <tr>
-<td style="text-align: left;">/dev/sdc</td>
-<td style="text-align: left;">FAT32</td>
-<td style="text-align: left;"><code>mkfs -t vfat /dev/sdc</code></td>
-<td style="text-align: left;">Or you can use <code>mkfs.vfat</code> command</td>
+<td align="left">/dev/sdc</td>
+<td align="left">FAT32</td>
+<td align="left"><code>mkfs -t vfat /dev/sdc</code></td>
+<td align="left">Or you can use <code>mkfs.vfat</code> command</td>
 </tr>
 <tr>
-<td style="text-align: left;">/dev/sda2</td>
-<td style="text-align: left;">swap</td>
-<td style="text-align: left;"><code>mkswap /dev/sda2</code></td>
-<td style="text-align: left;">will be used as swap space</td>
+<td align="left">/dev/sda2</td>
+<td align="left">swap</td>
+<td align="left"><code>mkswap /dev/sda2</code></td>
+<td align="left">will be used as swap space</td>
 </tr>
 </tbody>
 </table>

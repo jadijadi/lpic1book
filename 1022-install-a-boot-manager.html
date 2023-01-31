@@ -123,46 +123,46 @@
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Config</th>
-<th style="text-align: left;">Description</th>
+<th align="left">Config</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">#</td>
-<td style="text-align: left;">Comment</td>
+<td align="left">#</td>
+<td align="left">Comment</td>
 </tr>
 <tr>
-<td style="text-align: left;">color</td>
-<td style="text-align: left;">Foreground and background colors for normal and active items</td>
+<td align="left">color</td>
+<td align="left">Foreground and background colors for normal and active items</td>
 </tr>
 <tr>
-<td style="text-align: left;">default</td>
-<td style="text-align: left;">Which boot menu item is the default</td>
+<td align="left">default</td>
+<td align="left">Which boot menu item is the default</td>
 </tr>
 <tr>
-<td style="text-align: left;">fallback</td>
-<td style="text-align: left;">Which boot menu should be used if the <em>default</em> fails</td>
+<td align="left">fallback</td>
+<td align="left">Which boot menu should be used if the <em>default</em> fails</td>
 </tr>
 <tr>
-<td style="text-align: left;">hiddenmenu</td>
-<td style="text-align: left;">Hide the menu options</td>
+<td align="left">hiddenmenu</td>
+<td align="left">Hide the menu options</td>
 </tr>
 <tr>
-<td style="text-align: left;">splashimage</td>
-<td style="text-align: left;">Show this image in the background!</td>
+<td align="left">splashimage</td>
+<td align="left">Show this image in the background!</td>
 </tr>
 <tr>
-<td style="text-align: left;">timeout</td>
-<td style="text-align: left;">Wait this much and then start the default</td>
+<td align="left">timeout</td>
+<td align="left">Wait this much and then start the default</td>
 </tr>
 <tr>
-<td style="text-align: left;">password</td>
-<td style="text-align: left;">Security is important! Will ask this password</td>
+<td align="left">password</td>
+<td align="left">Security is important! Will ask this password</td>
 </tr>
 <tr>
-<td style="text-align: left;">savedefault</td>
-<td style="text-align: left;">Remember the last booted item</td>
+<td align="left">savedefault</td>
+<td align="left">Remember the last booted item</td>
 </tr>
 </tbody>
 </table>
@@ -170,34 +170,34 @@
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Config</th>
-<th style="text-align: left;">Description</th>
+<th align="left">Config</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">title</td>
-<td style="text-align: left;">Defines the section name</td>
+<td align="left">title</td>
+<td align="left">Defines the section name</td>
 </tr>
 <tr>
-<td style="text-align: left;">root</td>
-<td style="text-align: left;">Disk and partition where <code>/boot</code> directory is. In the form of (hddrive, partition), say (hd0, 0) or (hd0, msdos0)</td>
+<td align="left">root</td>
+<td align="left">Disk and partition where <code>/boot</code> directory is. In the form of (hddrive, partition), say (hd0, 0) or (hd0, msdos0)</td>
 </tr>
 <tr>
-<td style="text-align: left;">kernel</td>
-<td style="text-align: left;">Kernel image file name in <code>/boot</code></td>
+<td align="left">kernel</td>
+<td align="left">Kernel image file name in <code>/boot</code></td>
 </tr>
 <tr>
-<td style="text-align: left;">initrd</td>
-<td style="text-align: left;">Initramfs file in <code>/boot</code></td>
+<td align="left">initrd</td>
+<td align="left">Initramfs file in <code>/boot</code></td>
 </tr>
 <tr>
-<td style="text-align: left;">rootnoverify</td>
-<td style="text-align: left;">Defines a non-Linux root partition</td>
+<td align="left">rootnoverify</td>
+<td align="left">Defines a non-Linux root partition</td>
 </tr>
 <tr>
-<td style="text-align: left;">chainloader</td>
-<td style="text-align: left;">Another file will act as stage 1 loader. Used for booting Windows systems</td>
+<td align="left">chainloader</td>
+<td align="left">Another file will act as stage 1 loader. Used for booting Windows systems</td>
 </tr>
 </tbody>
 </table>
@@ -253,15 +253,15 @@ title Windows
 
 <p>This is the most common boot loader these days. On BIOS systems it is installed on <code>/boot/grub/</code> or <code>/boot/grub2/</code> and under UEFI it goes in <code>/boot/efi/EFI/distro-name/</code> (say <code>/boot/efi/EFI/fedora/</code>). GRUB2's configuration file is called <code>grub.cfg</code>.</p>
 <p>Here is a simplified <code>grub.cfg</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="n">set</span><span class="w"> </span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="w"></span>
-<span class="n">menuentry</span><span class="w"> </span><span class="s2">&quot;Fedora&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
-<span class="w">  </span><span class="n">set</span><span class="w"> </span><span class="n">root</span><span class="o">=</span><span class="p">(</span><span class="n">hd0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-<span class="w">  </span><span class="n">linux</span><span class="w"> </span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span><span class="w"> </span><span class="n">ro</span><span class="w"> </span><span class="n">quiet</span><span class="w"></span>
-<span class="w">  </span><span class="n">initrd</span><span class="w"> </span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="o">.</span><span class="n">img</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="n">menuentry</span><span class="w"> </span><span class="s2">&quot;Windows&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">chainloader</span><span class="w"> </span><span class="p">(</span><span class="n">hd1</span><span class="p">,</span><span class="n">msdos2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">set</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;0&quot;</span>
+<span class="n">menuentry</span> <span class="s2">&quot;Fedora&quot;</span> <span class="p">{</span> 
+  <span class="n">set</span> <span class="n">root</span><span class="o">=</span><span class="p">(</span><span class="n">hd0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">linux</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span> <span class="n">ro</span> <span class="n">quiet</span>
+  <span class="n">initrd</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="o">.</span><span class="n">img</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span>
+<span class="p">}</span>
+<span class="n">menuentry</span> <span class="s2">&quot;Windows&quot;</span> <span class="p">{</span>
+  <span class="n">chainloader</span> <span class="p">(</span><span class="n">hd1</span><span class="p">,</span><span class="n">msdos2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+<span class="p">}</span>
 </code></pre></div>
 
 <p>As you can see, GRUB uses Linux-style numbering for partitions, so the first partition on the first hard disk is <code>(hd0,1)</code> or <code>(hd0,msdos1)</code> for DOS partitions or <code>(hd0,gpt1)</code> for GPT drives.</p>
@@ -269,234 +269,234 @@ title Windows
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Option</th>
-<th style="text-align: left;">Description</th>
+<th align="left">Option</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">menuentry</td>
-<td style="text-align: left;">Defines a new menuentry</td>
+<td align="left">menuentry</td>
+<td align="left">Defines a new menuentry</td>
 </tr>
 <tr>
-<td style="text-align: left;">set root</td>
-<td style="text-align: left;">Defines the root where <code>/boot</code> located</td>
+<td align="left">set root</td>
+<td align="left">Defines the root where <code>/boot</code> located</td>
 </tr>
 <tr>
-<td style="text-align: left;">linux, linux16</td>
-<td style="text-align: left;">Defines the location of the Linux kernel on BIOS systems</td>
+<td align="left">linux, linux16</td>
+<td align="left">Defines the location of the Linux kernel on BIOS systems</td>
 </tr>
 <tr>
-<td style="text-align: left;">linuxefi</td>
-<td style="text-align: left;">Defines the Linux kernel on UEFI systems</td>
+<td align="left">linuxefi</td>
+<td align="left">Defines the Linux kernel on UEFI systems</td>
 </tr>
 <tr>
-<td style="text-align: left;">initrd</td>
-<td style="text-align: left;">Defines the initramfs image for BIOS systems</td>
+<td align="left">initrd</td>
+<td align="left">Defines the initramfs image for BIOS systems</td>
 </tr>
 <tr>
-<td style="text-align: left;">initrdefi</td>
-<td style="text-align: left;">Defines the initramfs image for UEFI systems</td>
+<td align="left">initrdefi</td>
+<td align="left">Defines the initramfs image for UEFI systems</td>
 </tr>
 </tbody>
 </table>
 <p>And here is a real-world <code>grub.cfg</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="c1">#</span><span class="w"></span>
-<span class="c1"># DO NOT EDIT THIS FILE</span><span class="w"></span>
-<span class="c1">#</span><span class="w"></span>
-<span class="c1"># It is automatically generated by grub-mkconfig using templates</span><span class="w"></span>
-<span class="c1"># from /etc/grub.d and settings from /etc/default/grub</span><span class="w"></span>
-<span class="c1">#</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="c1">#</span>
+<span class="c1"># DO NOT EDIT THIS FILE</span>
+<span class="c1">#</span>
+<span class="c1"># It is automatically generated by grub-mkconfig using templates</span>
+<span class="c1"># from /etc/grub.d and settings from /etc/default/grub</span>
+<span class="c1">#</span>
 
-<span class="c1">### BEGIN /etc/grub.d/00_header ###</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="o">$</span><span class="n">prefix</span><span class="o">/</span><span class="n">grubenv</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">  </span><span class="n">set</span><span class="w"> </span><span class="n">have_grubenv</span><span class="o">=</span><span class="bp">true</span><span class="w"></span>
-<span class="w">  </span><span class="n">load_env</span><span class="w"></span>
-<span class="n">fi</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;${next_entry}&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">   </span><span class="n">set</span><span class="w"> </span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;${next_entry}&quot;</span><span class="w"></span>
-<span class="w">   </span><span class="n">set</span><span class="w"> </span><span class="n">next_entry</span><span class="o">=</span><span class="w"></span>
-<span class="w">   </span><span class="n">save_env</span><span class="w"> </span><span class="n">next_entry</span><span class="w"></span>
-<span class="w">   </span><span class="n">set</span><span class="w"> </span><span class="n">boot_once</span><span class="o">=</span><span class="bp">true</span><span class="w"></span>
-<span class="k">else</span><span class="w"></span>
-<span class="w">   </span><span class="n">set</span><span class="w"> </span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="w"></span>
-<span class="n">fi</span><span class="w"></span>
+<span class="c1">### BEGIN /etc/grub.d/00_header ###</span>
+<span class="k">if</span> <span class="p">[</span> <span class="o">-</span><span class="n">s</span> <span class="o">$</span><span class="n">prefix</span><span class="o">/</span><span class="n">grubenv</span> <span class="p">];</span> <span class="n">then</span>
+  <span class="n">set</span> <span class="n">have_grubenv</span><span class="o">=</span><span class="bp">true</span>
+  <span class="n">load_env</span>
+<span class="n">fi</span>
+<span class="k">if</span> <span class="p">[</span> <span class="s2">&quot;${next_entry}&quot;</span> <span class="p">]</span> <span class="p">;</span> <span class="n">then</span>
+   <span class="n">set</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;${next_entry}&quot;</span>
+   <span class="n">set</span> <span class="n">next_entry</span><span class="o">=</span>
+   <span class="n">save_env</span> <span class="n">next_entry</span>
+   <span class="n">set</span> <span class="n">boot_once</span><span class="o">=</span><span class="bp">true</span>
+<span class="k">else</span>
+   <span class="n">set</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;0&quot;</span>
+<span class="n">fi</span>
 
-<span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">x</span><span class="s2">&quot;${feature_menuentry_id}&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xy</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">  </span><span class="n">menuentry_id_option</span><span class="o">=</span><span class="s2">&quot;--id&quot;</span><span class="w"></span>
-<span class="k">else</span><span class="w"></span>
-<span class="w">  </span><span class="n">menuentry_id_option</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"></span>
-<span class="n">fi</span><span class="w"></span>
+<span class="k">if</span> <span class="p">[</span> <span class="n">x</span><span class="s2">&quot;${feature_menuentry_id}&quot;</span> <span class="o">=</span> <span class="n">xy</span> <span class="p">];</span> <span class="n">then</span>
+  <span class="n">menuentry_id_option</span><span class="o">=</span><span class="s2">&quot;--id&quot;</span>
+<span class="k">else</span>
+  <span class="n">menuentry_id_option</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<span class="n">fi</span>
 
-<span class="k">export</span><span class="w"> </span><span class="n">menuentry_id_option</span><span class="w"></span>
+<span class="k">export</span> <span class="n">menuentry_id_option</span>
 
-<span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;${prev_saved_entry}&quot;</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">  </span><span class="n">set</span><span class="w"> </span><span class="n">saved_entry</span><span class="o">=</span><span class="s2">&quot;${prev_saved_entry}&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">save_env</span><span class="w"> </span><span class="n">saved_entry</span><span class="w"></span>
-<span class="w">  </span><span class="n">set</span><span class="w"> </span><span class="n">prev_saved_entry</span><span class="o">=</span><span class="w"></span>
-<span class="w">  </span><span class="n">save_env</span><span class="w"> </span><span class="n">prev_saved_entry</span><span class="w"></span>
-<span class="w">  </span><span class="n">set</span><span class="w"> </span><span class="n">boot_once</span><span class="o">=</span><span class="bp">true</span><span class="w"></span>
-<span class="n">fi</span><span class="w"></span>
+<span class="k">if</span> <span class="p">[</span> <span class="s2">&quot;${prev_saved_entry}&quot;</span> <span class="p">];</span> <span class="n">then</span>
+  <span class="n">set</span> <span class="n">saved_entry</span><span class="o">=</span><span class="s2">&quot;${prev_saved_entry}&quot;</span>
+  <span class="n">save_env</span> <span class="n">saved_entry</span>
+  <span class="n">set</span> <span class="n">prev_saved_entry</span><span class="o">=</span>
+  <span class="n">save_env</span> <span class="n">prev_saved_entry</span>
+  <span class="n">set</span> <span class="n">boot_once</span><span class="o">=</span><span class="bp">true</span>
+<span class="n">fi</span>
 
-<span class="n">function</span><span class="w"> </span><span class="n">savedefault</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">-</span><span class="n">z</span><span class="w"> </span><span class="s2">&quot;${boot_once}&quot;</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">    </span><span class="n">saved_entry</span><span class="o">=</span><span class="s2">&quot;${chosen}&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">save_env</span><span class="w"> </span><span class="n">saved_entry</span><span class="w"></span>
-<span class="w">  </span><span class="n">fi</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="n">function</span><span class="w"> </span><span class="n">load_video</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">x</span><span class="o">$</span><span class="n">feature_all_video_module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xy</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">    </span><span class="n">insmod</span><span class="w"> </span><span class="n">all_video</span><span class="w"></span>
-<span class="w">  </span><span class="k">else</span><span class="w"></span>
-<span class="w">    </span><span class="n">insmod</span><span class="w"> </span><span class="n">efi_gop</span><span class="w"></span>
-<span class="w">    </span><span class="n">insmod</span><span class="w"> </span><span class="n">efi_uga</span><span class="w"></span>
-<span class="w">    </span><span class="n">insmod</span><span class="w"> </span><span class="n">ieee1275_fb</span><span class="w"></span>
-<span class="w">    </span><span class="n">insmod</span><span class="w"> </span><span class="n">vbe</span><span class="w"></span>
-<span class="w">    </span><span class="n">insmod</span><span class="w"> </span><span class="n">vga</span><span class="w"></span>
-<span class="w">    </span><span class="n">insmod</span><span class="w"> </span><span class="n">video_bochs</span><span class="w"></span>
-<span class="w">    </span><span class="n">insmod</span><span class="w"> </span><span class="n">video_cirrus</span><span class="w"></span>
-<span class="w">  </span><span class="n">fi</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="n">function</span> <span class="n">savedefault</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">[</span> <span class="o">-</span><span class="n">z</span> <span class="s2">&quot;${boot_once}&quot;</span> <span class="p">];</span> <span class="n">then</span>
+    <span class="n">saved_entry</span><span class="o">=</span><span class="s2">&quot;${chosen}&quot;</span>
+    <span class="n">save_env</span> <span class="n">saved_entry</span>
+  <span class="n">fi</span>
+<span class="p">}</span>
+<span class="n">function</span> <span class="n">load_video</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">[</span> <span class="n">x</span><span class="o">$</span><span class="n">feature_all_video_module</span> <span class="o">=</span> <span class="n">xy</span> <span class="p">];</span> <span class="n">then</span>
+    <span class="n">insmod</span> <span class="n">all_video</span>
+  <span class="k">else</span>
+    <span class="n">insmod</span> <span class="n">efi_gop</span>
+    <span class="n">insmod</span> <span class="n">efi_uga</span>
+    <span class="n">insmod</span> <span class="n">ieee1275_fb</span>
+    <span class="n">insmod</span> <span class="n">vbe</span>
+    <span class="n">insmod</span> <span class="n">vga</span>
+    <span class="n">insmod</span> <span class="n">video_bochs</span>
+    <span class="n">insmod</span> <span class="n">video_cirrus</span>
+  <span class="n">fi</span>
+<span class="p">}</span>
 
-<span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">x</span><span class="o">$</span><span class="n">feature_default_font_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xy</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">   </span><span class="n">font</span><span class="o">=</span><span class="n">unicode</span><span class="w"></span>
-<span class="k">else</span><span class="w"></span>
-<span class="n">insmod</span><span class="w"> </span><span class="n">part_gpt</span><span class="w"></span>
-<span class="n">insmod</span><span class="w"> </span><span class="n">ext2</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">x</span><span class="o">$</span><span class="n">feature_platform_search_hint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xy</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">  </span><span class="n">search</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span><span class="w"> </span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span><span class="w"> </span><span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span><span class="w">  </span><span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span><span class="w"></span>
-<span class="k">else</span><span class="w"></span>
-<span class="w">  </span><span class="n">search</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span><span class="w"> </span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span><span class="w"> </span><span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span><span class="w"> </span><span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span><span class="w"></span>
-<span class="n">fi</span><span class="w"></span>
-<span class="w">    </span><span class="n">font</span><span class="o">=</span><span class="s2">&quot;/usr/share/grub/unicode.pf2&quot;</span><span class="w"></span>
-<span class="n">fi</span><span class="w"></span>
+<span class="k">if</span> <span class="p">[</span> <span class="n">x</span><span class="o">$</span><span class="n">feature_default_font_path</span> <span class="o">=</span> <span class="n">xy</span> <span class="p">]</span> <span class="p">;</span> <span class="n">then</span>
+   <span class="n">font</span><span class="o">=</span><span class="n">unicode</span>
+<span class="k">else</span>
+<span class="n">insmod</span> <span class="n">part_gpt</span>
+<span class="n">insmod</span> <span class="n">ext2</span>
+<span class="k">if</span> <span class="p">[</span> <span class="n">x</span><span class="o">$</span><span class="n">feature_platform_search_hint</span> <span class="o">=</span> <span class="n">xy</span> <span class="p">];</span> <span class="n">then</span>
+  <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span>  <span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span>
+<span class="k">else</span>
+  <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span> <span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span>
+<span class="n">fi</span>
+    <span class="n">font</span><span class="o">=</span><span class="s2">&quot;/usr/share/grub/unicode.pf2&quot;</span>
+<span class="n">fi</span>
 
-<span class="k">if</span><span class="w"> </span><span class="n">loadfont</span><span class="w"> </span><span class="o">$</span><span class="n">font</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">  </span><span class="n">set</span><span class="w"> </span><span class="n">gfxmode</span><span class="o">=</span><span class="n">auto</span><span class="w"></span>
-<span class="w">  </span><span class="n">load_video</span><span class="w"></span>
-<span class="w">  </span><span class="n">insmod</span><span class="w"> </span><span class="n">gfxterm</span><span class="w"></span>
-<span class="w">  </span><span class="n">set</span><span class="w"> </span><span class="n">locale_dir</span><span class="o">=$</span><span class="n">prefix</span><span class="o">/</span><span class="n">locale</span><span class="w"></span>
-<span class="w">  </span><span class="n">set</span><span class="w"> </span><span class="n">lang</span><span class="o">=</span><span class="n">en_US</span><span class="w"></span>
-<span class="w">  </span><span class="n">insmod</span><span class="w"> </span><span class="n">gettext</span><span class="w"></span>
-<span class="n">fi</span><span class="w"></span>
-<span class="n">terminal_output</span><span class="w"> </span><span class="n">gfxterm</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;${recordfail}&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">  </span><span class="n">set</span><span class="w"> </span><span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="w"></span>
-<span class="k">else</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">x</span><span class="o">$</span><span class="n">feature_timeout_style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xy</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">    </span><span class="n">set</span><span class="w"> </span><span class="n">timeout_style</span><span class="o">=</span><span class="n">menu</span><span class="w"></span>
-<span class="w">    </span><span class="n">set</span><span class="w"> </span><span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Fallback normal timeout code in case the timeout_style feature is</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># unavailable.</span><span class="w"></span>
-<span class="w">  </span><span class="k">else</span><span class="w"></span>
-<span class="w">    </span><span class="n">set</span><span class="w"> </span><span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="w"></span>
-<span class="w">  </span><span class="n">fi</span><span class="w"></span>
-<span class="n">fi</span><span class="w"></span>
-<span class="c1">### END /etc/grub.d/00_header ###</span><span class="w"></span>
+<span class="k">if</span> <span class="n">loadfont</span> <span class="o">$</span><span class="n">font</span> <span class="p">;</span> <span class="n">then</span>
+  <span class="n">set</span> <span class="n">gfxmode</span><span class="o">=</span><span class="n">auto</span>
+  <span class="n">load_video</span>
+  <span class="n">insmod</span> <span class="n">gfxterm</span>
+  <span class="n">set</span> <span class="n">locale_dir</span><span class="o">=$</span><span class="n">prefix</span><span class="o">/</span><span class="n">locale</span>
+  <span class="n">set</span> <span class="n">lang</span><span class="o">=</span><span class="n">en_US</span>
+  <span class="n">insmod</span> <span class="n">gettext</span>
+<span class="n">fi</span>
+<span class="n">terminal_output</span> <span class="n">gfxterm</span>
+<span class="k">if</span> <span class="p">[</span> <span class="s2">&quot;${recordfail}&quot;</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">]</span> <span class="p">;</span> <span class="n">then</span>
+  <span class="n">set</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span>
+<span class="k">else</span>
+  <span class="k">if</span> <span class="p">[</span> <span class="n">x</span><span class="o">$</span><span class="n">feature_timeout_style</span> <span class="o">=</span> <span class="n">xy</span> <span class="p">]</span> <span class="p">;</span> <span class="n">then</span>
+    <span class="n">set</span> <span class="n">timeout_style</span><span class="o">=</span><span class="n">menu</span>
+    <span class="n">set</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span>
+  <span class="c1"># Fallback normal timeout code in case the timeout_style feature is</span>
+  <span class="c1"># unavailable.</span>
+  <span class="k">else</span>
+    <span class="n">set</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span>
+  <span class="n">fi</span>
+<span class="n">fi</span>
+<span class="c1">### END /etc/grub.d/00_header ###</span>
 
-<span class="c1">### BEGIN /etc/grub.d/05_debian_theme ###</span><span class="w"></span>
-<span class="n">insmod</span><span class="w"> </span><span class="n">part_gpt</span><span class="w"></span>
-<span class="n">insmod</span><span class="w"> </span><span class="n">ext2</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">x</span><span class="o">$</span><span class="n">feature_platform_search_hint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xy</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">  </span><span class="n">search</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span><span class="w"> </span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span><span class="w"> </span><span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span><span class="w">  </span><span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span><span class="w"></span>
-<span class="k">else</span><span class="w"></span>
-<span class="w">  </span><span class="n">search</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span><span class="w"> </span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span><span class="w"> </span><span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span><span class="w"> </span><span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span><span class="w"></span>
-<span class="n">fi</span><span class="w"></span>
-<span class="n">insmod</span><span class="w"> </span><span class="n">png</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="n">background_image</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">desktop</span><span class="o">-</span><span class="n">base</span><span class="o">/</span><span class="n">homeworld</span><span class="o">-</span><span class="n">theme</span><span class="o">/</span><span class="n">grub</span><span class="o">/</span><span class="n">grub</span><span class="o">-</span><span class="mi">4</span><span class="n">x3</span><span class="o">.</span><span class="n">png</span><span class="p">;</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">  </span><span class="n">set</span><span class="w"> </span><span class="n">color_normal</span><span class="o">=</span><span class="n">white</span><span class="o">/</span><span class="n">black</span><span class="w"></span>
-<span class="w">  </span><span class="n">set</span><span class="w"> </span><span class="n">color_highlight</span><span class="o">=</span><span class="n">black</span><span class="o">/</span><span class="n">white</span><span class="w"></span>
-<span class="k">else</span><span class="w"></span>
-<span class="w">  </span><span class="n">set</span><span class="w"> </span><span class="n">menu_color_normal</span><span class="o">=</span><span class="n">cyan</span><span class="o">/</span><span class="n">blue</span><span class="w"></span>
-<span class="w">  </span><span class="n">set</span><span class="w"> </span><span class="n">menu_color_highlight</span><span class="o">=</span><span class="n">white</span><span class="o">/</span><span class="n">blue</span><span class="w"></span>
-<span class="n">fi</span><span class="w"></span>
-<span class="c1">### END /etc/grub.d/05_debian_theme ###</span><span class="w"></span>
+<span class="c1">### BEGIN /etc/grub.d/05_debian_theme ###</span>
+<span class="n">insmod</span> <span class="n">part_gpt</span>
+<span class="n">insmod</span> <span class="n">ext2</span>
+<span class="k">if</span> <span class="p">[</span> <span class="n">x</span><span class="o">$</span><span class="n">feature_platform_search_hint</span> <span class="o">=</span> <span class="n">xy</span> <span class="p">];</span> <span class="n">then</span>
+  <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span>  <span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span>
+<span class="k">else</span>
+  <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span> <span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span>
+<span class="n">fi</span>
+<span class="n">insmod</span> <span class="n">png</span>
+<span class="k">if</span> <span class="n">background_image</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">desktop</span><span class="o">-</span><span class="n">base</span><span class="o">/</span><span class="n">homeworld</span><span class="o">-</span><span class="n">theme</span><span class="o">/</span><span class="n">grub</span><span class="o">/</span><span class="n">grub</span><span class="o">-</span><span class="mi">4</span><span class="n">x3</span><span class="o">.</span><span class="n">png</span><span class="p">;</span> <span class="n">then</span>
+  <span class="n">set</span> <span class="n">color_normal</span><span class="o">=</span><span class="n">white</span><span class="o">/</span><span class="n">black</span>
+  <span class="n">set</span> <span class="n">color_highlight</span><span class="o">=</span><span class="n">black</span><span class="o">/</span><span class="n">white</span>
+<span class="k">else</span>
+  <span class="n">set</span> <span class="n">menu_color_normal</span><span class="o">=</span><span class="n">cyan</span><span class="o">/</span><span class="n">blue</span>
+  <span class="n">set</span> <span class="n">menu_color_highlight</span><span class="o">=</span><span class="n">white</span><span class="o">/</span><span class="n">blue</span>
+<span class="n">fi</span>
+<span class="c1">### END /etc/grub.d/05_debian_theme ###</span>
 
-<span class="c1">### BEGIN /etc/grub.d/10_linux ###</span><span class="w"></span>
-<span class="n">function</span><span class="w"> </span><span class="n">gfxmode</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">set</span><span class="w"> </span><span class="n">gfxpayload</span><span class="o">=</span><span class="s2">&quot;${1}&quot;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="n">set</span><span class="w"> </span><span class="n">linux_gfx_mode</span><span class="o">=</span><span class="w"></span>
-<span class="k">export</span><span class="w"> </span><span class="n">linux_gfx_mode</span><span class="w"></span>
-<span class="n">menuentry</span><span class="w"> </span><span class="s1">&#39;Debian GNU/Linux&#39;</span><span class="w"> </span><span class="o">--</span><span class="k">class</span><span class="w"> </span><span class="n">debian</span><span class="w"> </span><span class="o">--</span><span class="k">class</span><span class="w"> </span><span class="n">gnu</span><span class="o">-</span><span class="n">linux</span><span class="w"> </span><span class="o">--</span><span class="k">class</span><span class="w"> </span><span class="n">gnu</span><span class="w"> </span><span class="o">--</span><span class="k">class</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">$</span><span class="n">menuentry_id_option</span><span class="w"> </span><span class="s1">&#39;gnulinux-simple-df2d9e14-f1e9-4b1b-95d4-0167caa2461e&#39;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">load_video</span><span class="w"></span>
-<span class="w">    </span><span class="n">insmod</span><span class="w"> </span><span class="n">gzio</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">x</span><span class="o">$</span><span class="n">grub_platform</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xxen</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span><span class="w"> </span><span class="n">insmod</span><span class="w"> </span><span class="n">xzio</span><span class="p">;</span><span class="w"> </span><span class="n">insmod</span><span class="w"> </span><span class="n">lzopio</span><span class="p">;</span><span class="w"> </span><span class="n">fi</span><span class="w"></span>
-<span class="w">    </span><span class="n">insmod</span><span class="w"> </span><span class="n">part_gpt</span><span class="w"></span>
-<span class="w">    </span><span class="n">insmod</span><span class="w"> </span><span class="n">ext2</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">x</span><span class="o">$</span><span class="n">feature_platform_search_hint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xy</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">      </span><span class="n">search</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span><span class="w"> </span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span><span class="w"> </span><span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span><span class="w">  </span><span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span><span class="w"></span>
-<span class="w">    </span><span class="k">else</span><span class="w"></span>
-<span class="w">      </span><span class="n">search</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span><span class="w"> </span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span><span class="w"> </span><span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span><span class="w"> </span><span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span><span class="w"></span>
-<span class="w">    </span><span class="n">fi</span><span class="w"></span>
-<span class="w">    </span><span class="n">echo</span><span class="w">    </span><span class="s1">&#39;Loading Linux 5.10.0-9-arm64 ...&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="n">linux</span><span class="w">   </span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span><span class="w"> </span><span class="n">root</span><span class="o">=</span><span class="n">UUID</span><span class="o">=</span><span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span><span class="w"> </span><span class="n">ro</span><span class="w">  </span><span class="n">quiet</span><span class="w"></span>
-<span class="w">    </span><span class="n">echo</span><span class="w">    </span><span class="s1">&#39;Loading initial ramdisk ...&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="n">initrd</span><span class="w">  </span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="o">.</span><span class="n">img</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="n">submenu</span><span class="w"> </span><span class="s1">&#39;Advanced options for Debian GNU/Linux&#39;</span><span class="w"> </span><span class="o">$</span><span class="n">menuentry_id_option</span><span class="w"> </span><span class="s1">&#39;gnulinux-advanced-df2d9e14-f1e9-4b1b-95d4-0167caa2461e&#39;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">menuentry</span><span class="w"> </span><span class="s1">&#39;Debian GNU/Linux, with Linux 5.10.0-9-arm64&#39;</span><span class="w"> </span><span class="o">--</span><span class="k">class</span><span class="w"> </span><span class="n">debian</span><span class="w"> </span><span class="o">--</span><span class="k">class</span><span class="w"> </span><span class="n">gnu</span><span class="o">-</span><span class="n">linux</span><span class="w"> </span><span class="o">--</span><span class="k">class</span><span class="w"> </span><span class="n">gnu</span><span class="w"> </span><span class="o">--</span><span class="k">class</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">$</span><span class="n">menuentry_id_option</span><span class="w"> </span><span class="s1">&#39;gnulinux-5.10.0-9-arm64-advanced-df2d9e14-f1e9-4b1b-95d4-0167caa2461e&#39;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">load_video</span><span class="w"></span>
-<span class="w">        </span><span class="n">insmod</span><span class="w"> </span><span class="n">gzio</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">x</span><span class="o">$</span><span class="n">grub_platform</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xxen</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span><span class="w"> </span><span class="n">insmod</span><span class="w"> </span><span class="n">xzio</span><span class="p">;</span><span class="w"> </span><span class="n">insmod</span><span class="w"> </span><span class="n">lzopio</span><span class="p">;</span><span class="w"> </span><span class="n">fi</span><span class="w"></span>
-<span class="w">        </span><span class="n">insmod</span><span class="w"> </span><span class="n">part_gpt</span><span class="w"></span>
-<span class="w">        </span><span class="n">insmod</span><span class="w"> </span><span class="n">ext2</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">x</span><span class="o">$</span><span class="n">feature_platform_search_hint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xy</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">          </span><span class="n">search</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span><span class="w"> </span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span><span class="w"> </span><span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span><span class="w">  </span><span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span><span class="w"></span>
-<span class="w">        </span><span class="k">else</span><span class="w"></span>
-<span class="w">          </span><span class="n">search</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span><span class="w"> </span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span><span class="w"> </span><span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span><span class="w"> </span><span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span><span class="w"></span>
-<span class="w">        </span><span class="n">fi</span><span class="w"></span>
-<span class="w">        </span><span class="n">echo</span><span class="w">    </span><span class="s1">&#39;Loading Linux 5.10.0-9-arm64 ...&#39;</span><span class="w"></span>
-<span class="w">        </span><span class="n">linux</span><span class="w">   </span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span><span class="w"> </span><span class="n">root</span><span class="o">=</span><span class="p">(</span><span class="n">hd0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">ro</span><span class="w">  </span><span class="n">quiet</span><span class="w"></span>
-<span class="w">        </span><span class="n">echo</span><span class="w">    </span><span class="s1">&#39;Loading initial ramdisk ...&#39;</span><span class="w"></span>
-<span class="w">        </span><span class="n">initrd</span><span class="w">  </span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="o">.</span><span class="n">img</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="n">menuentry</span><span class="w"> </span><span class="s1">&#39;Debian GNU/Linux, with Linux 5.10.0-8-arm64 (recovery mode)&#39;</span><span class="w"> </span><span class="o">--</span><span class="k">class</span><span class="w"> </span><span class="n">debian</span><span class="w"> </span><span class="o">--</span><span class="k">class</span><span class="w"> </span><span class="n">gnu</span><span class="o">-</span><span class="n">linux</span><span class="w"> </span><span class="o">--</span><span class="k">class</span><span class="w"> </span><span class="n">gnu</span><span class="w"> </span><span class="o">--</span><span class="k">class</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">$</span><span class="n">menuentry_id_option</span><span class="w"> </span><span class="s1">&#39;gnulinux-5.10.0-8-arm64-recovery-df2d9e14-f1e9-4b1b-95d4-0167caa2461e&#39;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">load_video</span><span class="w"></span>
-<span class="w">        </span><span class="n">insmod</span><span class="w"> </span><span class="n">gzio</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">x</span><span class="o">$</span><span class="n">grub_platform</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xxen</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span><span class="w"> </span><span class="n">insmod</span><span class="w"> </span><span class="n">xzio</span><span class="p">;</span><span class="w"> </span><span class="n">insmod</span><span class="w"> </span><span class="n">lzopio</span><span class="p">;</span><span class="w"> </span><span class="n">fi</span><span class="w"></span>
-<span class="w">        </span><span class="n">insmod</span><span class="w"> </span><span class="n">part_gpt</span><span class="w"></span>
-<span class="w">        </span><span class="n">insmod</span><span class="w"> </span><span class="n">ext2</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">x</span><span class="o">$</span><span class="n">feature_platform_search_hint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xy</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">          </span><span class="n">search</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span><span class="w"> </span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span><span class="w"> </span><span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span><span class="w">  </span><span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span><span class="w"></span>
-<span class="w">        </span><span class="k">else</span><span class="w"></span>
-<span class="w">          </span><span class="n">search</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span><span class="w"> </span><span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span><span class="w"> </span><span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span><span class="w"> </span><span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span><span class="w"></span>
-<span class="w">        </span><span class="n">fi</span><span class="w"></span>
-<span class="w">        </span><span class="n">echo</span><span class="w">    </span><span class="s1">&#39;Loading Linux 5.10.0-8-arm64 ...&#39;</span><span class="w"></span>
-<span class="w">        </span><span class="n">linux</span><span class="w">   </span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">8</span><span class="o">-</span><span class="n">arm64</span><span class="w"> </span><span class="n">root</span><span class="o">=</span><span class="n">UUID</span><span class="o">=</span><span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span><span class="w"> </span><span class="n">ro</span><span class="w"> </span><span class="n">single</span><span class="w"> </span>
-<span class="w">        </span><span class="n">echo</span><span class="w">    </span><span class="s1">&#39;Loading initial ramdisk ...&#39;</span><span class="w"></span>
-<span class="w">        </span><span class="n">initrd</span><span class="w">  </span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="o">.</span><span class="n">img</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">8</span><span class="o">-</span><span class="n">arm64</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="c1">### BEGIN /etc/grub.d/10_linux ###</span>
+<span class="n">function</span> <span class="n">gfxmode</span> <span class="p">{</span>
+    <span class="n">set</span> <span class="n">gfxpayload</span><span class="o">=</span><span class="s2">&quot;${1}&quot;</span>
+<span class="p">}</span>
+<span class="n">set</span> <span class="n">linux_gfx_mode</span><span class="o">=</span>
+<span class="k">export</span> <span class="n">linux_gfx_mode</span>
+<span class="n">menuentry</span> <span class="s1">&#39;Debian GNU/Linux&#39;</span> <span class="o">--</span><span class="k">class</span> <span class="n">debian</span> <span class="o">--</span><span class="k">class</span> <span class="n">gnu</span><span class="o">-</span><span class="n">linux</span> <span class="o">--</span><span class="k">class</span> <span class="n">gnu</span> <span class="o">--</span><span class="k">class</span> <span class="n">os</span> <span class="o">$</span><span class="n">menuentry_id_option</span> <span class="s1">&#39;gnulinux-simple-df2d9e14-f1e9-4b1b-95d4-0167caa2461e&#39;</span> <span class="p">{</span>
+    <span class="n">load_video</span>
+    <span class="n">insmod</span> <span class="n">gzio</span>
+    <span class="k">if</span> <span class="p">[</span> <span class="n">x</span><span class="o">$</span><span class="n">grub_platform</span> <span class="o">=</span> <span class="n">xxen</span> <span class="p">];</span> <span class="n">then</span> <span class="n">insmod</span> <span class="n">xzio</span><span class="p">;</span> <span class="n">insmod</span> <span class="n">lzopio</span><span class="p">;</span> <span class="n">fi</span>
+    <span class="n">insmod</span> <span class="n">part_gpt</span>
+    <span class="n">insmod</span> <span class="n">ext2</span>
+    <span class="k">if</span> <span class="p">[</span> <span class="n">x</span><span class="o">$</span><span class="n">feature_platform_search_hint</span> <span class="o">=</span> <span class="n">xy</span> <span class="p">];</span> <span class="n">then</span>
+      <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span>  <span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span>
+    <span class="k">else</span>
+      <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span> <span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span>
+    <span class="n">fi</span>
+    <span class="n">echo</span>    <span class="s1">&#39;Loading Linux 5.10.0-9-arm64 ...&#39;</span>
+    <span class="n">linux</span>   <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span> <span class="n">root</span><span class="o">=</span><span class="n">UUID</span><span class="o">=</span><span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span> <span class="n">ro</span>  <span class="n">quiet</span>
+    <span class="n">echo</span>    <span class="s1">&#39;Loading initial ramdisk ...&#39;</span>
+    <span class="n">initrd</span>  <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="o">.</span><span class="n">img</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span>
+<span class="p">}</span>
+<span class="n">submenu</span> <span class="s1">&#39;Advanced options for Debian GNU/Linux&#39;</span> <span class="o">$</span><span class="n">menuentry_id_option</span> <span class="s1">&#39;gnulinux-advanced-df2d9e14-f1e9-4b1b-95d4-0167caa2461e&#39;</span> <span class="p">{</span>
+    <span class="n">menuentry</span> <span class="s1">&#39;Debian GNU/Linux, with Linux 5.10.0-9-arm64&#39;</span> <span class="o">--</span><span class="k">class</span> <span class="n">debian</span> <span class="o">--</span><span class="k">class</span> <span class="n">gnu</span><span class="o">-</span><span class="n">linux</span> <span class="o">--</span><span class="k">class</span> <span class="n">gnu</span> <span class="o">--</span><span class="k">class</span> <span class="n">os</span> <span class="o">$</span><span class="n">menuentry_id_option</span> <span class="s1">&#39;gnulinux-5.10.0-9-arm64-advanced-df2d9e14-f1e9-4b1b-95d4-0167caa2461e&#39;</span> <span class="p">{</span>
+        <span class="n">load_video</span>
+        <span class="n">insmod</span> <span class="n">gzio</span>
+        <span class="k">if</span> <span class="p">[</span> <span class="n">x</span><span class="o">$</span><span class="n">grub_platform</span> <span class="o">=</span> <span class="n">xxen</span> <span class="p">];</span> <span class="n">then</span> <span class="n">insmod</span> <span class="n">xzio</span><span class="p">;</span> <span class="n">insmod</span> <span class="n">lzopio</span><span class="p">;</span> <span class="n">fi</span>
+        <span class="n">insmod</span> <span class="n">part_gpt</span>
+        <span class="n">insmod</span> <span class="n">ext2</span>
+        <span class="k">if</span> <span class="p">[</span> <span class="n">x</span><span class="o">$</span><span class="n">feature_platform_search_hint</span> <span class="o">=</span> <span class="n">xy</span> <span class="p">];</span> <span class="n">then</span>
+          <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span>  <span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span>
+        <span class="k">else</span>
+          <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span> <span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span>
+        <span class="n">fi</span>
+        <span class="n">echo</span>    <span class="s1">&#39;Loading Linux 5.10.0-9-arm64 ...&#39;</span>
+        <span class="n">linux</span>   <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span> <span class="n">root</span><span class="o">=</span><span class="p">(</span><span class="n">hd0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="n">ro</span>  <span class="n">quiet</span>
+        <span class="n">echo</span>    <span class="s1">&#39;Loading initial ramdisk ...&#39;</span>
+        <span class="n">initrd</span>  <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="o">.</span><span class="n">img</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="n">arm64</span>
+    <span class="p">}</span>
+    <span class="n">menuentry</span> <span class="s1">&#39;Debian GNU/Linux, with Linux 5.10.0-8-arm64 (recovery mode)&#39;</span> <span class="o">--</span><span class="k">class</span> <span class="n">debian</span> <span class="o">--</span><span class="k">class</span> <span class="n">gnu</span><span class="o">-</span><span class="n">linux</span> <span class="o">--</span><span class="k">class</span> <span class="n">gnu</span> <span class="o">--</span><span class="k">class</span> <span class="n">os</span> <span class="o">$</span><span class="n">menuentry_id_option</span> <span class="s1">&#39;gnulinux-5.10.0-8-arm64-recovery-df2d9e14-f1e9-4b1b-95d4-0167caa2461e&#39;</span> <span class="p">{</span>
+        <span class="n">load_video</span>
+        <span class="n">insmod</span> <span class="n">gzio</span>
+        <span class="k">if</span> <span class="p">[</span> <span class="n">x</span><span class="o">$</span><span class="n">grub_platform</span> <span class="o">=</span> <span class="n">xxen</span> <span class="p">];</span> <span class="n">then</span> <span class="n">insmod</span> <span class="n">xzio</span><span class="p">;</span> <span class="n">insmod</span> <span class="n">lzopio</span><span class="p">;</span> <span class="n">fi</span>
+        <span class="n">insmod</span> <span class="n">part_gpt</span>
+        <span class="n">insmod</span> <span class="n">ext2</span>
+        <span class="k">if</span> <span class="p">[</span> <span class="n">x</span><span class="o">$</span><span class="n">feature_platform_search_hint</span> <span class="o">=</span> <span class="n">xy</span> <span class="p">];</span> <span class="n">then</span>
+          <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span>  <span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span>
+        <span class="k">else</span>
+          <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span> <span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span>
+        <span class="n">fi</span>
+        <span class="n">echo</span>    <span class="s1">&#39;Loading Linux 5.10.0-8-arm64 ...&#39;</span>
+        <span class="n">linux</span>   <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">8</span><span class="o">-</span><span class="n">arm64</span> <span class="n">root</span><span class="o">=</span><span class="n">UUID</span><span class="o">=</span><span class="n">df2d9e14</span><span class="o">-</span><span class="n">f1e9</span><span class="o">-</span><span class="mi">4</span><span class="n">b1b</span><span class="o">-</span><span class="mi">95</span><span class="n">d4</span><span class="o">-</span><span class="mi">0167</span><span class="n">caa2461e</span> <span class="n">ro</span> <span class="n">single</span> 
+        <span class="n">echo</span>    <span class="s1">&#39;Loading initial ramdisk ...&#39;</span>
+        <span class="n">initrd</span>  <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="o">.</span><span class="n">img</span><span class="o">-</span><span class="mf">5.10</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">8</span><span class="o">-</span><span class="n">arm64</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-<span class="c1">### END /etc/grub.d/10_linux ###</span><span class="w"></span>
+<span class="c1">### END /etc/grub.d/10_linux ###</span>
 
-<span class="c1">### BEGIN /etc/grub.d/20_linux_xen ###</span><span class="w"></span>
+<span class="c1">### BEGIN /etc/grub.d/20_linux_xen ###</span>
 
-<span class="c1">### END /etc/grub.d/20_linux_xen ###</span><span class="w"></span>
+<span class="c1">### END /etc/grub.d/20_linux_xen ###</span>
 
-<span class="c1">### BEGIN /etc/grub.d/30_os-prober ###</span><span class="w"></span>
-<span class="c1">### END /etc/grub.d/30_os-prober ###</span><span class="w"></span>
+<span class="c1">### BEGIN /etc/grub.d/30_os-prober ###</span>
+<span class="c1">### END /etc/grub.d/30_os-prober ###</span>
 
-<span class="c1">### BEGIN /etc/grub.d/30_uefi-firmware ###</span><span class="w"></span>
-<span class="n">menuentry</span><span class="w"> </span><span class="s1">&#39;System setup&#39;</span><span class="w"> </span><span class="o">$</span><span class="n">menuentry_id_option</span><span class="w"> </span><span class="s1">&#39;uefi-firmware&#39;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">fwsetup</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="c1">### END /etc/grub.d/30_uefi-firmware ###</span><span class="w"></span>
+<span class="c1">### BEGIN /etc/grub.d/30_uefi-firmware ###</span>
+<span class="n">menuentry</span> <span class="s1">&#39;System setup&#39;</span> <span class="o">$</span><span class="n">menuentry_id_option</span> <span class="s1">&#39;uefi-firmware&#39;</span> <span class="p">{</span>
+    <span class="n">fwsetup</span>
+<span class="p">}</span>
+<span class="c1">### END /etc/grub.d/30_uefi-firmware ###</span>
 
-<span class="c1">### BEGIN /etc/grub.d/40_custom ###</span><span class="w"></span>
-<span class="c1"># This file provides an easy way to add custom menu entries.  Simply type the</span><span class="w"></span>
-<span class="c1"># menu entries you want to add after this comment.  Be careful not to change</span><span class="w"></span>
-<span class="c1"># the &#39;exec tail&#39; line above.</span><span class="w"></span>
-<span class="c1">### END /etc/grub.d/40_custom ###</span><span class="w"></span>
+<span class="c1">### BEGIN /etc/grub.d/40_custom ###</span>
+<span class="c1"># This file provides an easy way to add custom menu entries.  Simply type the</span>
+<span class="c1"># menu entries you want to add after this comment.  Be careful not to change</span>
+<span class="c1"># the &#39;exec tail&#39; line above.</span>
+<span class="c1">### END /etc/grub.d/40_custom ###</span>
 
-<span class="c1">### BEGIN /etc/grub.d/41_custom ###</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w">  </span><span class="o">$</span><span class="p">{</span><span class="n">config_directory</span><span class="p">}</span><span class="o">/</span><span class="n">custom</span><span class="o">.</span><span class="n">cfg</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">  </span><span class="n">source</span><span class="w"> </span><span class="o">$</span><span class="p">{</span><span class="n">config_directory</span><span class="p">}</span><span class="o">/</span><span class="n">custom</span><span class="o">.</span><span class="n">cfg</span><span class="w"></span>
-<span class="k">elif</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">-</span><span class="n">z</span><span class="w"> </span><span class="s2">&quot;${config_directory}&quot;</span><span class="w"> </span><span class="o">-</span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w">  </span><span class="o">$</span><span class="n">prefix</span><span class="o">/</span><span class="n">custom</span><span class="o">.</span><span class="n">cfg</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span><span class="w"></span>
-<span class="w">  </span><span class="n">source</span><span class="w"> </span><span class="o">$</span><span class="n">prefix</span><span class="o">/</span><span class="n">custom</span><span class="o">.</span><span class="n">cfg</span><span class="p">;</span><span class="w"></span>
-<span class="n">fi</span><span class="w"></span>
-<span class="c1">### END /etc/grub.d/41_custom ###</span><span class="w"></span>
+<span class="c1">### BEGIN /etc/grub.d/41_custom ###</span>
+<span class="k">if</span> <span class="p">[</span> <span class="o">-</span><span class="n">f</span>  <span class="o">$</span><span class="p">{</span><span class="n">config_directory</span><span class="p">}</span><span class="o">/</span><span class="n">custom</span><span class="o">.</span><span class="n">cfg</span> <span class="p">];</span> <span class="n">then</span>
+  <span class="n">source</span> <span class="o">$</span><span class="p">{</span><span class="n">config_directory</span><span class="p">}</span><span class="o">/</span><span class="n">custom</span><span class="o">.</span><span class="n">cfg</span>
+<span class="k">elif</span> <span class="p">[</span> <span class="o">-</span><span class="n">z</span> <span class="s2">&quot;${config_directory}&quot;</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">f</span>  <span class="o">$</span><span class="n">prefix</span><span class="o">/</span><span class="n">custom</span><span class="o">.</span><span class="n">cfg</span> <span class="p">];</span> <span class="n">then</span>
+  <span class="n">source</span> <span class="o">$</span><span class="n">prefix</span><span class="o">/</span><span class="n">custom</span><span class="o">.</span><span class="n">cfg</span><span class="p">;</span>
+<span class="n">fi</span>
+<span class="c1">### END /etc/grub.d/41_custom ###</span>
 </code></pre></div>
 
 <h4>GRUB2 commands</h4>
@@ -524,50 +524,50 @@ title Windows
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Option</th>
-<th style="text-align: left;">Description</th>
+<th align="left">Option</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">console=</td>
-<td style="text-align: left;">Set the console</td>
+<td align="left">console=</td>
+<td align="left">Set the console</td>
 </tr>
 <tr>
-<td style="text-align: left;">debug</td>
-<td style="text-align: left;">Start in debug mode</td>
+<td align="left">debug</td>
+<td align="left">Start in debug mode</td>
 </tr>
 <tr>
-<td style="text-align: left;">init=</td>
-<td style="text-align: left;">Run an specific program instead of the default init</td>
+<td align="left">init=</td>
+<td align="left">Run an specific program instead of the default init</td>
 </tr>
 <tr>
-<td style="text-align: left;">initrd=</td>
-<td style="text-align: left;">Use this initrd</td>
+<td align="left">initrd=</td>
+<td align="left">Use this initrd</td>
 </tr>
 <tr>
-<td style="text-align: left;">ro</td>
-<td style="text-align: left;">Mount the root filesystem read only</td>
+<td align="left">ro</td>
+<td align="left">Mount the root filesystem read only</td>
 </tr>
 <tr>
-<td style="text-align: left;">rw</td>
-<td style="text-align: left;">Mount the root filesystem for read and write</td>
+<td align="left">rw</td>
+<td align="left">Mount the root filesystem for read and write</td>
 </tr>
 <tr>
-<td style="text-align: left;">root=</td>
-<td style="text-align: left;">Use this as the root filesystem</td>
+<td align="left">root=</td>
+<td align="left">Use this as the root filesystem</td>
 </tr>
 <tr>
-<td style="text-align: left;">selinux</td>
-<td style="text-align: left;">Disable <code>selinux</code> on boot</td>
+<td align="left">selinux</td>
+<td align="left">Disable <code>selinux</code> on boot</td>
 </tr>
 <tr>
-<td style="text-align: left;">single,S,1,Single</td>
-<td style="text-align: left;">Boot in single user mode for troubleshooting (SysV)</td>
+<td align="left">single,S,1,Single</td>
+<td align="left">Boot in single user mode for troubleshooting (SysV)</td>
 </tr>
 <tr>
-<td style="text-align: left;">systemd.unit=</td>
-<td style="text-align: left;">Boot in this systemd target</td>
+<td align="left">systemd.unit=</td>
+<td align="left">Boot in this systemd target</td>
 </tr>
 </tbody>
 </table>

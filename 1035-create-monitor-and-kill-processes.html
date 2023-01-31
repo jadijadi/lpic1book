@@ -201,26 +201,26 @@ $ <span class="nb">jobs</span>
 <table>
 <thead>
 <tr>
-<th style="text-align: center;">signal number</th>
-<th style="text-align: center;">signal name</th>
-<th style="text-align: left;">meaning</th>
+<th align="center">signal number</th>
+<th align="center">signal name</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">HUP</td>
-<td style="text-align: left;">Informing the process that its controlling terminal (like an ssh connection) is terminated</td>
+<td align="center">1</td>
+<td align="center">HUP</td>
+<td align="left">Informing the process that its controlling terminal (like an ssh connection) is terminated</td>
 </tr>
 <tr>
-<td style="text-align: center;">15</td>
-<td style="text-align: center;">TERM</td>
-<td style="text-align: left;">normal termination request</td>
+<td align="center">15</td>
+<td align="center">TERM</td>
+<td align="left">normal termination request</td>
 </tr>
 <tr>
-<td style="text-align: center;">9</td>
-<td style="text-align: center;">KILL</td>
-<td style="text-align: left;">forcefully kills the proccess</td>
+<td align="center">9</td>
+<td align="center">KILL</td>
+<td align="left">forcefully kills the proccess</td>
 </tr>
 </tbody>
 </table>
@@ -324,54 +324,54 @@ jadi      <span class="m">7725</span>  <span class="m">7651</span>  <span class=
 
 <h3>top</h3>
 <p>This is the most common tool to do simple monitoring of the system. It will update the status and will give you a good glance at the status:</p>
-<div class="highlight"><pre><span></span><code><span class="o">$</span><span class="n">top</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="o">$</span><span class="n">top</span>
 
-<span class="n">top</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">21</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">44</span><span class="w"> </span><span class="n">up</span><span class="w">  </span><span class="mi">1</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="w">  </span><span class="mi">5</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w">  </span><span class="nb">load</span><span class="w"> </span><span class="n">average</span><span class="p">:</span><span class="w"> </span><span class="mf">1.51</span><span class="p">,</span><span class="w"> </span><span class="mf">1.65</span><span class="p">,</span><span class="w"> </span><span class="mf">1.78</span><span class="w"></span>
-<span class="n">Tasks</span><span class="p">:</span><span class="w"> </span><span class="mi">293</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w">   </span><span class="mi">1</span><span class="w"> </span><span class="n">running</span><span class="p">,</span><span class="w"> </span><span class="mi">292</span><span class="w"> </span><span class="n">sleeping</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="n">stopped</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="n">zombie</span><span class="w"></span>
-<span class="o">%</span><span class="n">Cpu</span><span class="p">(</span><span class="n">s</span><span class="p">):</span><span class="w"> </span><span class="mf">19.0</span><span class="w"> </span><span class="n">us</span><span class="p">,</span><span class="w">  </span><span class="mf">5.0</span><span class="w"> </span><span class="n">sy</span><span class="p">,</span><span class="w">  </span><span class="mf">0.0</span><span class="w"> </span><span class="n">ni</span><span class="p">,</span><span class="w"> </span><span class="mf">70.9</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w">  </span><span class="mf">5.1</span><span class="w"> </span><span class="n">wa</span><span class="p">,</span><span class="w">  </span><span class="mf">0.0</span><span class="w"> </span><span class="n">hi</span><span class="p">,</span><span class="w">  </span><span class="mf">0.0</span><span class="w"> </span><span class="n">si</span><span class="p">,</span><span class="w">  </span><span class="mf">0.0</span><span class="w"> </span><span class="n">st</span><span class="w"></span>
-<span class="n">KiB</span><span class="w"> </span><span class="n">Mem</span><span class="p">:</span><span class="w">   </span><span class="mi">8060264</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w">  </span><span class="mi">5359812</span><span class="w"> </span><span class="n">used</span><span class="p">,</span><span class="w">  </span><span class="mi">2700452</span><span class="w"> </span><span class="n">free</span><span class="p">,</span><span class="w">   </span><span class="mi">169240</span><span class="w"> </span><span class="n">buffers</span><span class="w"></span>
-<span class="n">KiB</span><span class="w"> </span><span class="n">Swap</span><span class="p">:</span><span class="w">  </span><span class="mi">7811068</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w">        </span><span class="mi">0</span><span class="w"> </span><span class="n">used</span><span class="p">,</span><span class="w">  </span><span class="mi">7811068</span><span class="w"> </span><span class="n">free</span><span class="o">.</span><span class="w">  </span><span class="mi">2250692</span><span class="w"> </span><span class="n">cached</span><span class="w"> </span><span class="n">Mem</span><span class="w"></span>
+<span class="n">top</span> <span class="o">-</span> <span class="mi">21</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">44</span> <span class="n">up</span>  <span class="mi">1</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span>  <span class="mi">5</span> <span class="n">users</span><span class="p">,</span>  <span class="nb">load</span> <span class="n">average</span><span class="p">:</span> <span class="mf">1.51</span><span class="p">,</span> <span class="mf">1.65</span><span class="p">,</span> <span class="mf">1.78</span>
+<span class="n">Tasks</span><span class="p">:</span> <span class="mi">293</span> <span class="n">total</span><span class="p">,</span>   <span class="mi">1</span> <span class="n">running</span><span class="p">,</span> <span class="mi">292</span> <span class="n">sleeping</span><span class="p">,</span>   <span class="mi">0</span> <span class="n">stopped</span><span class="p">,</span>   <span class="mi">0</span> <span class="n">zombie</span>
+<span class="o">%</span><span class="n">Cpu</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="mf">19.0</span> <span class="n">us</span><span class="p">,</span>  <span class="mf">5.0</span> <span class="n">sy</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">ni</span><span class="p">,</span> <span class="mf">70.9</span> <span class="n">id</span><span class="p">,</span>  <span class="mf">5.1</span> <span class="n">wa</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">hi</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">si</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">st</span>
+<span class="n">KiB</span> <span class="n">Mem</span><span class="p">:</span>   <span class="mi">8060264</span> <span class="n">total</span><span class="p">,</span>  <span class="mi">5359812</span> <span class="n">used</span><span class="p">,</span>  <span class="mi">2700452</span> <span class="n">free</span><span class="p">,</span>   <span class="mi">169240</span> <span class="n">buffers</span>
+<span class="n">KiB</span> <span class="n">Swap</span><span class="p">:</span>  <span class="mi">7811068</span> <span class="n">total</span><span class="p">,</span>        <span class="mi">0</span> <span class="n">used</span><span class="p">,</span>  <span class="mi">7811068</span> <span class="n">free</span><span class="o">.</span>  <span class="mi">2250692</span> <span class="n">cached</span> <span class="n">Mem</span>
 
-<span class="w">  </span><span class="n">PID</span><span class="w"> </span><span class="n">USER</span><span class="w">      </span><span class="n">PR</span><span class="w">  </span><span class="n">NI</span><span class="w">    </span><span class="n">VIRT</span><span class="w">    </span><span class="n">RES</span><span class="w">    </span><span class="n">SHR</span><span class="w"> </span><span class="n">S</span><span class="w">  </span><span class="o">%</span><span class="n">CPU</span><span class="w"> </span><span class="o">%</span><span class="n">MEM</span><span class="w">     </span><span class="n">TIME</span><span class="o">+</span><span class="w"> </span><span class="n">COMMAND</span><span class="w">                                                                                                                </span>
-<span class="w"> </span><span class="mi">6570</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="mi">1437752</span><span class="w"> </span><span class="mi">546064</span><span class="w">  </span><span class="mi">88312</span><span class="w"> </span><span class="n">S</span><span class="w">  </span><span class="mf">18.4</span><span class="w">  </span><span class="mf">6.8</span><span class="w">  </span><span class="mi">12</span><span class="p">:</span><span class="mf">00.96</span><span class="w"> </span><span class="n">firefox</span><span class="w">                                                                                                                </span>
-<span class="w"> </span><span class="mi">4870</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="mi">1762516</span><span class="w"> </span><span class="mi">299120</span><span class="w">  </span><span class="mi">75664</span><span class="w"> </span><span class="n">S</span><span class="w">  </span><span class="mf">12.2</span><span class="w">  </span><span class="mf">3.7</span><span class="w">   </span><span class="mi">7</span><span class="p">:</span><span class="mf">37.05</span><span class="w"> </span><span class="n">compiz</span><span class="w">                                                                                                                 </span>
-<span class="w"> </span><span class="mi">4492</span><span class="w"> </span><span class="n">jadi</span><span class="w">       </span><span class="mi">9</span><span class="w"> </span><span class="o">-</span><span class="mi">11</span><span class="w">  </span><span class="mi">455152</span><span class="w">  </span><span class="mi">11516</span><span class="w">   </span><span class="mi">8940</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">0.1</span><span class="w">   </span><span class="mi">1</span><span class="p">:</span><span class="mf">06.81</span><span class="w"> </span><span class="n">pulseaudio</span><span class="w">                                                                                                             </span>
-<span class="w"> </span><span class="mi">4532</span><span class="w"> </span><span class="n">root</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w">  </span><span class="mi">389028</span><span class="w">  </span><span class="mi">77116</span><span class="w">  </span><span class="mi">60192</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">1.0</span><span class="w">  </span><span class="mi">12</span><span class="p">:</span><span class="mf">16.63</span><span class="w"> </span><span class="n">Xorg</span><span class="w">                                                                                                                   </span>
-<span class="w"> </span><span class="mi">4723</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w">  </span><span class="mi">358936</span><span class="w">   </span><span class="mi">8288</span><span class="w">   </span><span class="mi">5512</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">0.1</span><span class="w">   </span><span class="mi">9</span><span class="p">:</span><span class="mf">51.52</span><span class="w"> </span><span class="n">ibus</span><span class="o">-</span><span class="n">daemon</span><span class="w">                                                                                                            </span>
-<span class="w"> </span><span class="mi">5648</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="mi">1641556</span><span class="w"> </span><span class="mi">203676</span><span class="w"> </span><span class="mi">102840</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">2.5</span><span class="w">   </span><span class="mi">3</span><span class="p">:</span><span class="mf">20.88</span><span class="w"> </span><span class="n">chrome</span><span class="w">                                                                                                                 </span>
-<span class="w"> </span><span class="mi">7082</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="mi">1210748</span><span class="w">  </span><span class="mi">73136</span><span class="w">  </span><span class="mi">42528</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">0.9</span><span class="w">   </span><span class="mi">0</span><span class="p">:</span><span class="mf">36.51</span><span class="w"> </span><span class="n">Telegram</span><span class="w">                                                                                                               </span>
-<span class="w"> </span><span class="mi">7806</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w">   </span><span class="mi">33796</span><span class="w">   </span><span class="mi">3004</span><span class="w">   </span><span class="mi">2500</span><span class="w"> </span><span class="n">R</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">0.0</span><span class="w">   </span><span class="mi">0</span><span class="p">:</span><span class="mf">00.02</span><span class="w"> </span><span class="n">top</span><span class="w">                                                                                                                    </span>
-<span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="n">root</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w">   </span><span class="mi">29528</span><span class="w">   </span><span class="mi">4320</span><span class="w">   </span><span class="mi">2584</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">0.0</span><span class="w">  </span><span class="mf">0.1</span><span class="w">   </span><span class="mi">0</span><span class="p">:</span><span class="mf">01.71</span><span class="w"> </span><span class="n">init</span><span class="w"></span>
+  <span class="n">PID</span> <span class="n">USER</span>      <span class="n">PR</span>  <span class="n">NI</span>    <span class="n">VIRT</span>    <span class="n">RES</span>    <span class="n">SHR</span> <span class="n">S</span>  <span class="o">%</span><span class="n">CPU</span> <span class="o">%</span><span class="n">MEM</span>     <span class="n">TIME</span><span class="o">+</span> <span class="n">COMMAND</span>                                                                                                                
+ <span class="mi">6570</span> <span class="n">jadi</span>      <span class="mi">20</span>   <span class="mi">0</span> <span class="mi">1437752</span> <span class="mi">546064</span>  <span class="mi">88312</span> <span class="n">S</span>  <span class="mf">18.4</span>  <span class="mf">6.8</span>  <span class="mi">12</span><span class="p">:</span><span class="mf">00.96</span> <span class="n">firefox</span>                                                                                                                
+ <span class="mi">4870</span> <span class="n">jadi</span>      <span class="mi">20</span>   <span class="mi">0</span> <span class="mi">1762516</span> <span class="mi">299120</span>  <span class="mi">75664</span> <span class="n">S</span>  <span class="mf">12.2</span>  <span class="mf">3.7</span>   <span class="mi">7</span><span class="p">:</span><span class="mf">37.05</span> <span class="n">compiz</span>                                                                                                                 
+ <span class="mi">4492</span> <span class="n">jadi</span>       <span class="mi">9</span> <span class="o">-</span><span class="mi">11</span>  <span class="mi">455152</span>  <span class="mi">11516</span>   <span class="mi">8940</span> <span class="n">S</span>   <span class="mf">6.1</span>  <span class="mf">0.1</span>   <span class="mi">1</span><span class="p">:</span><span class="mf">06.81</span> <span class="n">pulseaudio</span>                                                                                                             
+ <span class="mi">4532</span> <span class="n">root</span>      <span class="mi">20</span>   <span class="mi">0</span>  <span class="mi">389028</span>  <span class="mi">77116</span>  <span class="mi">60192</span> <span class="n">S</span>   <span class="mf">6.1</span>  <span class="mf">1.0</span>  <span class="mi">12</span><span class="p">:</span><span class="mf">16.63</span> <span class="n">Xorg</span>                                                                                                                   
+ <span class="mi">4723</span> <span class="n">jadi</span>      <span class="mi">20</span>   <span class="mi">0</span>  <span class="mi">358936</span>   <span class="mi">8288</span>   <span class="mi">5512</span> <span class="n">S</span>   <span class="mf">6.1</span>  <span class="mf">0.1</span>   <span class="mi">9</span><span class="p">:</span><span class="mf">51.52</span> <span class="n">ibus</span><span class="o">-</span><span class="n">daemon</span>                                                                                                            
+ <span class="mi">5648</span> <span class="n">jadi</span>      <span class="mi">20</span>   <span class="mi">0</span> <span class="mi">1641556</span> <span class="mi">203676</span> <span class="mi">102840</span> <span class="n">S</span>   <span class="mf">6.1</span>  <span class="mf">2.5</span>   <span class="mi">3</span><span class="p">:</span><span class="mf">20.88</span> <span class="n">chrome</span>                                                                                                                 
+ <span class="mi">7082</span> <span class="n">jadi</span>      <span class="mi">20</span>   <span class="mi">0</span> <span class="mi">1210748</span>  <span class="mi">73136</span>  <span class="mi">42528</span> <span class="n">S</span>   <span class="mf">6.1</span>  <span class="mf">0.9</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">36.51</span> <span class="n">Telegram</span>                                                                                                               
+ <span class="mi">7806</span> <span class="n">jadi</span>      <span class="mi">20</span>   <span class="mi">0</span>   <span class="mi">33796</span>   <span class="mi">3004</span>   <span class="mi">2500</span> <span class="n">R</span>   <span class="mf">6.1</span>  <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.02</span> <span class="n">top</span>                                                                                                                    
+    <span class="mi">1</span> <span class="n">root</span>      <span class="mi">20</span>   <span class="mi">0</span>   <span class="mi">29528</span>   <span class="mi">4320</span>   <span class="mi">2584</span> <span class="n">S</span>   <span class="mf">0.0</span>  <span class="mf">0.1</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">01.71</span> <span class="n">init</span>
 </code></pre></div>
 
 <p>You can see the processes, system load, uptime, CPU status, memory, ... and do some stuff:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: center;">key during top</th>
-<th style="text-align: left;">functionality</th>
+<th align="center">key during top</th>
+<th align="left">functionality</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;">h</td>
-<td style="text-align: left;">help</td>
+<td align="center">h</td>
+<td align="left">help</td>
 </tr>
 <tr>
-<td style="text-align: center;">q</td>
-<td style="text-align: left;">quit</td>
+<td align="center">q</td>
+<td align="left">quit</td>
 </tr>
 <tr>
-<td style="text-align: center;">M</td>
-<td style="text-align: left;">sort based on memory usage"</td>
+<td align="center">M</td>
+<td align="left">sort based on memory usage"</td>
 </tr>
 <tr>
-<td style="text-align: center;">c</td>
-<td style="text-align: left;">show full commands</td>
+<td align="center">c</td>
+<td align="left">show full commands</td>
 </tr>
 <tr>
-<td style="text-align: center;">k</td>
-<td style="text-align: left;">kill after asking pid and signal</td>
+<td align="center">k</td>
+<td align="left">kill after asking pid and signal</td>
 </tr>
 </tbody>
 </table>
@@ -389,8 +389,8 @@ Swap:         <span class="m">7627</span>          <span class="m">0</span>     
 </blockquote>
 <h3>uptime</h3>
 <p>The <code>uptime</code> command shows the time, systems uptime (how long the system has been running), how many users are logged in, and the load average of 1, 5 &amp; 15 minutes:</p>
-<div class="highlight"><pre><span></span><code><span class="o">$</span><span class="w"> </span><span class="n">uptime</span><span class="w"></span>
-<span class="w"> </span><span class="mi">21</span><span class="p">:</span><span class="mi">18</span><span class="p">:</span><span class="mi">52</span><span class="w"> </span><span class="n">up</span><span class="w">  </span><span class="mi">1</span><span class="p">:</span><span class="mi">34</span><span class="p">,</span><span class="w">  </span><span class="mi">5</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w">  </span><span class="nb">load</span><span class="w"> </span><span class="n">average</span><span class="p">:</span><span class="w"> </span><span class="mf">2.38</span><span class="p">,</span><span class="w"> </span><span class="mf">2.64</span><span class="p">,</span><span class="w"> </span><span class="mf">2.41</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="o">$</span> <span class="n">uptime</span>
+ <span class="mi">21</span><span class="p">:</span><span class="mi">18</span><span class="p">:</span><span class="mi">52</span> <span class="n">up</span>  <span class="mi">1</span><span class="p">:</span><span class="mi">34</span><span class="p">,</span>  <span class="mi">5</span> <span class="n">users</span><span class="p">,</span>  <span class="nb">load</span> <span class="n">average</span><span class="p">:</span> <span class="mf">2.38</span><span class="p">,</span> <span class="mf">2.64</span><span class="p">,</span> <span class="mf">2.41</span>
 </code></pre></div>
 
 <blockquote>
@@ -421,45 +421,45 @@ Swap:         <span class="m">7627</span>          <span class="m">0</span>     
 <table>
 <thead>
 <tr>
-<th style="text-align: center;">Key</th>
+<th align="center">Key</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;">\</td>
+<td align="center">\</td>
 <td>Kill all processes windows and terminate the screen</td>
 </tr>
 <tr>
-<td style="text-align: center;">|</td>
+<td align="center">|</td>
 <td>Split current window into two vertical focuses</td>
 </tr>
 <tr>
-<td style="text-align: center;">Shift+S</td>
+<td align="center">Shift+S</td>
 <td>Split current window into two horizontal focuses</td>
 </tr>
 <tr>
-<td style="text-align: center;">C</td>
+<td align="center">C</td>
 <td>Create a window in the current focus</td>
 </tr>
 <tr>
-<td style="text-align: center;">Tab</td>
+<td align="center">Tab</td>
 <td>Go to the next focus</td>
 </tr>
 <tr>
-<td style="text-align: center;">D</td>
+<td align="center">D</td>
 <td>Detach from window</td>
 </tr>
 <tr>
-<td style="text-align: center;">K</td>
+<td align="center">K</td>
 <td>Kill current window</td>
 </tr>
 <tr>
-<td style="text-align: center;">N</td>
+<td align="center">N</td>
 <td>Move to Next window</td>
 </tr>
 <tr>
-<td style="text-align: center;">P</td>
+<td align="center">P</td>
 <td>Move to the Previous window</td>
 </tr>
 </tbody>
@@ -470,25 +470,25 @@ Swap:         <span class="m">7627</span>          <span class="m">0</span>     
 <table>
 <thead>
 <tr>
-<th style="text-align: center;">Key</th>
+<th align="center">Key</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;">%</td>
+<td align="center">%</td>
 <td>Split current window vertically</td>
 </tr>
 <tr>
-<td style="text-align: center;">"</td>
+<td align="center">"</td>
 <td>Split current window horizontally</td>
 </tr>
 <tr>
-<td style="text-align: center;">D</td>
+<td align="center">D</td>
 <td>Detach from the current window</td>
 </tr>
 <tr>
-<td style="text-align: center;">&amp;</td>
+<td align="center">&amp;</td>
 <td>Kill current window</td>
 </tr>
 </tbody>
