@@ -66,7 +66,7 @@ This might be your enlightening moment in your Linux journey. Understanding **Fi
 
 In the Linux world, devices are defined at `/dev/`. First SATA or SCSI disks you will have `/dev/sda`, For newer NVME drives you can see `/dev/nvme0` and partitions are available as `/dev/nvme0n1`, and for the 3rd PATA (super old) disk you will see `/dev/hdc`, also for SD/eMMC/bare NAND/NOR devices you will have `/dev/mmcblk0` and partitions are seen as `/dev/mmcblk0p0`.
 
-You have to _PARTITION_ the disks, that is create smaller parts on a big disk. These are self-contained sections on the main drive. OS sees these as standalone disks.  We call them /dev/sd**a**1 \(first partition of the first SCSI disk\) or /dev/hd**b**3 \(3rd partition on the second disk.
+You have to _PARTITION_ the disks, that is create smaller parts on a big disk. These are self-contained sections on the main drive. OS sees these as standalone disks.  We call them /dev/sd**a**1 \(first partition of the first SCSI disk\) or /dev/hd**b**3 (3rd partition on the second disk).
 
 BIOS systems were using MBR and could have up to 4 partitions on each disk, although instead of creating 4 Primary partitions, you could create an Extended partition and define more Logical partitions inside it.  
 

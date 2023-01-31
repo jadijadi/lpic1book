@@ -27,6 +27,8 @@ Candidates should be able to edit text files using vi. This objective includes v
 * ZZ, :w!, :q!
 * EDITOR
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7S5RaX1OsTE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ### Introduction
 As any other tool, we have a wide range of selection when it comes to text editors. One of the most common and super powerful choices is the `vi` editor. It is pre-installed on all major Linux distributions and you can be sure that knowing it, will let you edit your files on all environments, let it be a remote server over SSH or a coding environment on your desktop machine or a CyberDeck machine with a minimal keyboard. Its only _drawback_ might be its kind of slow learning curve but I'm sure after a 1 hour session with it, you will manage to find your way in `vi`.
 

@@ -26,6 +26,8 @@ Candidates should be able to manipulate files and text data using regular expres
 * sed
 * regex(7)
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wa1OFZ-Ck-0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ### Regex
 
 Regular expression, Regex, regex is a pattern to describe what you want to _match_ from a text. For example `a` and `ad` both matches `jadi`. `d.` is a _deeper_ example because `.` means _anything_ so `d.` will match the last two characters of `jadi`. In this section we will cover the *grep** \(generalised regular expression processor\) command. It has different regex _dialect_; in short Basic regex and Extended regex.
@@ -37,8 +39,8 @@ You can simply write down whatever you want to match and regex will search for t
 
 | Regex | Will match |
 | :--- | :--- |
-| a | after, mina, banana, jadi |
-| na | Narator, mina, nananana batman, sonar |
+| a | **a**fter, min**a**, b**a**nana, j**a**di |
+| na | **na**rator, mi**na**, **na**nanana batman, so**na**r |
 
 </br>
 
