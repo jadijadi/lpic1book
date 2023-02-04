@@ -26,7 +26,7 @@ Description: Candidates should be able to configure disk partitions and then cre
 * mkfs
 * mkswap
 
-### Blocked devices
+### Block devices
 A block device is a nonvolatile mass storage device whose information can be accessed in any order; like hard disks, USB memories, floppy disks, and CD-ROMs. We *format* these devices to fixed sized blocks.
 
 We can check all block devices using `lsblk` command. In addition on a long ls format (`-l`), block devices are shown with a `b` at the first column:
@@ -433,7 +433,7 @@ Welcome to GNU Parted! Type 'help' to view a list of commands.
 ```
 
 #### hint? use gparted
-The `gparted` tool is a graphical tool to manage your partitioned. It has the ability to resize partitions and is super easy to use. Its not part of the LPIC exam but its good to know about it; just in case ;)
+The `gparted` tool is a graphical tool to manage your partitioned. It has the ability to resize partitions and is super easy to use. Its not part of the LPIC exam but its good to know about it; just in case ;) ([https://gparted.org/](official site))
 
 ### Formatting the partition
 
