@@ -392,7 +392,7 @@ Awareness of dnf</li>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/0E_EuBUSuz4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <p>The <code>rpm</code> command can run ACTIONs on individual RPM files. You can use it like <code>rpm ACTION [OPTION] rpm_file.rpm</code></p>
-<p>One of the most used options is <code>-v</code> for verbose output and these are the common ACTIONs:</p>
+<p>One of common options is <code>-v</code> for verbose output and these are the common ACTIONs:</p>
 <table>
 <thead>
 <tr>
@@ -443,9 +443,10 @@ Awareness of dnf</li>
 <h3>Install and update</h3>
 <p>In most cases, we use <code>-U</code> which Installs or upgrades a package. </p>
 <ul>
-<li>RPM does not have a database of automatic package installation, so it can not remove automatically installed dependencies.</li>
+<li>RPM does not have a database of automatic package installation, so it can not remove the automatically installed dependencies.</li>
 </ul>
 <p>If you have an rpm with all of its dependencies, you can install them using <code>rpm -Uvh *.rpm</code>. This will tell rpm not to complain about the dependencies if it is presented in other files. Here the <code>-h</code> creates 50 hash signs to show the progress.</p>
+<p>In some cases - if you know what you are doing - you can use <code>--nodeps</code> to prevent the dependency check or even use <code>--force</code> to force the install / upgrade despite all the issues &amp; complains.</p>
 <h3>Query</h3>
 <p>A normal query is like this:</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">root@fedora tmp</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">-</span><span class="n">q</span><span class="w"> </span><span class="n">breezy</span><span class="o">-</span><span class="mf">3.2.1</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="p">.</span><span class="n">x86_64</span><span class="p">.</span><span class="n">rpm</span><span class="w"></span>
