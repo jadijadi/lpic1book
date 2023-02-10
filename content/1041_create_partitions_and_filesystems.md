@@ -26,6 +26,8 @@ Description: Candidates should be able to configure disk partitions and then cre
 * mkfs
 * mkswap
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xSQdIIMGG2g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ### Block devices
 A block device is a nonvolatile mass storage device whose information can be accessed in any order; like hard disks, USB memories, floppy disks, and CD-ROMs. We *format* these devices to fixed sized blocks.
 
@@ -436,6 +438,8 @@ Welcome to GNU Parted! Type 'help' to view a list of commands.
 The `gparted` tool is a graphical tool to manage your partitioned. It has the ability to resize partitions and is super easy to use. Its not part of the LPIC exam but its good to know about it; just in case ;) ([https://gparted.org/](official site))
 
 ### Formatting the partition
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rQZVYtVOEhU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### Filesystems
 After you partitioned your block devices, you have to format them to make them usable to store files and directories. Formatting a file system, creates a map which stores the location and name of files and directories and make it possible to move files between folders, deleting them or renaming them; think of it as the index of a book. 
