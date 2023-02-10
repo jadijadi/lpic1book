@@ -87,26 +87,26 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>Weight: 2</em></p>
+            <p><em>Weight: 2</em></p>
 <p>Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem.</p>
 <h2>Objectives</h2>
 <ul>
 <li>Verify the integrity of filesystems.</li>
 <li>Monitor free space and inodes.</li>
-<li>Repair simple filesystem problems.</li>
-<li>du</li>
+<li>
+<p>Repair simple filesystem problems.</p>
+</li>
+<li>
+<p>du</p>
+</li>
 <li>df</li>
 <li>fsck</li>
 <li>e2fsck</li>
 <li>mke2fs</li>
-<li>debugfs</li>
-<li>dumpe2fs</li>
 <li>tune2fs</li>
-<li>xfs tools</li>
+<li>xfs_repair</li>
+<li>xfs_fsr</li>
+<li>xfs_db</li>
 </ul>
 <h2>fsck</h2>
 <p>If anything bad happens for your filesystem (say power suddenly goes down) you will have a corrupted file system. The command to fix this is <code>fsck</code>. Technically this command is a front end for many commands:</p>
@@ -233,11 +233,17 @@ Directory Hash Seed:      16c38a41-e709-4e04-b1c2-8a79d71ea7e8
 Journal backup:           inode blocks
 </code></pre></div>
 
-<h4>xfs_info</h4>
+<h4>xfs tools</h4>
+<p>xfs_repair, xfs_fsr, xfs_db</p>
 <p>This is same as the <code>tune2fs</code> but for xfs file systems.</p>
 <blockquote>
 <p>xfs_info should be used on mounted file systems</p>
 </blockquote>
+<p>| xfs_info | display information |
+| xfs_growfs | expand file system |
+| xfs_admin | change parameters on XFS file systems |
+| xfs_repair | repair the problems |
+| xfs_db | checks and debugs the filesystem |</p>
 <h2>du &amp; df</h2>
 <p>In many cases you want to find out about the free space of a disk or find how much space a directory is using. This space can be used by the blocks of files or inodes.</p>
 <blockquote>
@@ -447,17 +453,6 @@ Superblock backups stored on blocks:
 </tr>
 </tbody>
 </table>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
 
 
              
