@@ -124,7 +124,7 @@
 <span class="n">brw</span><span class="o">-</span><span class="n">rw</span><span class="c1">----+ 1 root cdrom    11,   0 Feb  3  2023 sr0</span>
 </code></pre></div>
 
-<p>It is possible to craete <strong>partitions</strong> on a block device and even split it and use it as multiple disks. Systems with old BIOS boot loaders use the <strong>Master Boot Record (MBR)</strong> method for patitioning and newer UEFI systems, do you <strong>GUID Parition Table (GPT)</strong> formats.</p>
+<p>It is possible to create <strong>partitions</strong> on a block device and even split it and use it as multiple disks. Systems with old BIOS boot loaders use the <strong>Master Boot Record (MBR)</strong> method for patitioning and newer UEFI systems, do you <strong>GUID Parition Table (GPT)</strong> formats.</p>
 <p>Linux systems use <code>udev</code> to add block devices and their paritions to the <code>/dev</code> in the form of <code>/dev/sdb1</code> (2nd disk (b) and first parition (1)). </p>
 <h3>Editing Partition Tables</h3>
 <h4>fdisk</h4>
