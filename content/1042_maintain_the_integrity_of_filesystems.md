@@ -27,6 +27,8 @@ Candidates should be able to maintain a standard filesystem, as well as the extr
 * xfs_db
 
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qcAZ7vr6W9U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## du & df
 
 In many cases you want to find out about the free space of a disk or find how much space a directory is using or check how many inodes you have to use.
@@ -108,6 +110,9 @@ jadi@funlife:~/w/lpic$ du -hs
 > in many cases when I want to see what uses my serers space, I use something like `$sudo du /home -h --max-depth 1`
 
 ## checking file systems
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VjnBzwDYbIY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ### fsck
 
 If anything bad happens for your filesystem \(say power suddenly goes down\) you will have a corrupted file system. The general command to fix this is `fsck`. Technically this command is a front end for many commands:
