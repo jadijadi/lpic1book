@@ -108,6 +108,8 @@
 <li>blkid</li>
 <li>lsblk</li>
 </ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dod65eKzWtw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <h2>Mounting and Unmounting</h2>
 <p>When we have a formatted partition and need to use it, we have to <code>mount</code> it somewhere in the Linux directory hierarchy. Unlike Windows, the new <em>driver</em> do now show up as separated disks, but like <em>virtual subdirectories</em> somewhere in your <code>/</code> tree. </p>
 <p>Say we want to <em>mount</em> the /dev/sda3 on /media/mydisk. The directory <code>/media/mydisk</code> should be there and then, we just run:</p>
@@ -161,6 +163,8 @@ mount -o remount,ro /dev/sda1
 </code></pre></div>
 
 <h3>fstab</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lQGvxIkdcSE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <p>For automatic mounting, Linux uses the <code>/etc/fstab</code> file. Its like a table which shows what file system should be mounted where during the boot. This is my the /etc/fstab of my Fedora:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># cat /etc/fstab</span>
 
