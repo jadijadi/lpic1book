@@ -4,13 +4,8 @@ Category: LPIC1
 sortorder: 220
 
 
-# 104.3. Control mounting and unmounting of filesystems
 
-
-
-weight: 3
-
-**http://j.mp/jadilpic1**
+_weight: 3_
 
 Candidates should be able to configure the mounting of a filesystem.
 
