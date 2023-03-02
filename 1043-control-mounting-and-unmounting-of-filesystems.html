@@ -180,13 +180,15 @@ mount -o remount,ro /dev/sda1
 <span class="n">UUID</span><span class="o">=</span><span class="mi">076766</span><span class="n">a5</span><span class="o">-</span><span class="mi">8864</span><span class="o">-</span><span class="mf">4e35</span><span class="o">-</span><span class="n">a632</span><span class="o">-</span><span class="mi">464</span><span class="n">b03396f7a</span> <span class="o">/</span><span class="n">home</span>                   <span class="n">btrfs</span>   <span class="n">subvol</span><span class="o">=</span><span class="n">home</span><span class="p">,</span><span class="n">compress</span><span class="o">=</span><span class="n">zstd</span><span class="p">:</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span>
 </code></pre></div>
 
-<p>These are the columns:
-- file system: Label, UUID, device
-- mount point: swap or none for swap
-- type: can be auto
-- options:  defaults, rw / ro, noauto, user, exec / noexec, noatime, umask
-- dump: do dump command backup this? mostly 0
-- pass: Non-zero values of pass specify the order of checking filesystems at boot time</p>
+<p>These are the columns:</p>
+<ul>
+<li>file system: Label, UUID, device</li>
+<li>mount point: swap or none for swap</li>
+<li>type: can be auto</li>
+<li>options:  defaults, rw / ro, noauto, user, exec / noexec, noatime, umask</li>
+<li>dump: do dump command backup this? mostly 0</li>
+<li>pass: Non-zero values of pass specify the order of checking filesystems at boot time</li>
+</ul>
 <p><strong>note:</strong>
 - User-mounted filesystems default to noexec unless exec is specified after user.
 - noatime will disable recording of access times. Not using access times may improve performance.</p>
