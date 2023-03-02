@@ -6,63 +6,92 @@ sortorder: 220
 
 # 104.3. Control mounting and unmounting of filesystems
 
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
 
 
 weight: 3
 
 **http://j.mp/jadilpic1**
 
-Configure the mounting of a filesystem. Tasks include manually mounting and unmounting filesystems, configuring filesystem mounting on bootup, and configuring user-mountable removable filesystems.
+Candidates should be able to configure the mounting of a filesystem.
 
-- Mount and unmount filesystems manually
-- Configure filesystem mounting on bootup
-- Configure user-mountable, removable filesystems
+- Manually mount and unmount filesystems.
+- Configure filesystem mounting on bootup.
+- Configure user mountable removable filesystems.
+- Use of labels and UUIDs for identifying and mounting file systems.
+- Awareness of systemd mount units.
 
-## A note about Device UUIDs
-As you saw, on /dev/ we can see hard disks, usb disks and such. But the there is an problem. When you refer to a disk ask /dev/sda2, you kind of say _the second partition on the firsrt disk_. If you disconnect this device and connect another disk and then connect back the device, it might become /dev/sdc2 or even /dev/sde2. We need a way to point to the exact drive with a persistant name. This is done via UUIDs.
+- /etc/fstab
+- /media/
+- mount
+- umount
+- blkid
+- lsblk
 
-````
-root@funlife:/dev# cat /proc/mounts
-rootfs / rootfs rw 0 0
-sysfs /sys sysfs rw,nosuid,nodev,noexec,relatime 0 0
-proc /proc proc rw,nosuid,nodev,noexec,relatime 0 0
-udev /dev devtmpfs rw,relatime,size=4014804k,nr_inodes=1003701,mode=755 0 0
-devpts /dev/pts devpts rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000 0 0
-tmpfs /run tmpfs rw,nosuid,noexec,relatime,size=806028k,mode=755 0 0
-/dev/disk/by-uuid/1651a94e-0b4e-47fb-aca0-f77e05714617 / ext4 rw,relatime,errors=remount-ro,data=ordered 0 0
-````
 
-This UUID is uniq among all devices and this makes it much easier to work with it not only on different sessions on a same machine, but even after connecting it to another computer.
+
+
 
 
 ### Mounting and Unmounting
+When we have a formatted partition and need to use it, we have to `mount` it somewhere in the Linux directory hierarchy. Unlike Windows, the new *driver* do now show up as separated disks, but like *virtual subdirectories* somewhere in your `/` tree. 
 
-- Describe the linux filesystem concept. A huge tree.
-- There are other kinds of mountings: tmpfs, NFS, ..
-- It is better to mount on empty directories
+Say we want to *mount* the /dev/sda3 on /media/mydisk. The directory `/media/mydisk` should be there and then, we just run:
 
-#### Basic commands
 ```
-cat /etc/fstab
-mount /dev/sda1 /media
-umount /media
+sudo mount -t ext4 /dev/sda3 /media/mydisk
 ```
 
-#### Some switches
+and all files and folders in /dev/sda3 will be accessible from /media/mydisk.
+
+Run `mount` with no parameter to see all mounted devices. To **un mount**, simply use the `umount` on the drive or the directory. These two are equivalent:
+
+```
+sudo umount /dev/sda3
+sudo umount /media/mydisk
+```
+
+Mounting and umounting can happen on many different storage types, for example on NFS storages or even an tmpfs. 
+
+> swap disks do not need mounting. You should use `swapon` and `swapoff` to use them.
+
+The `-t` switch indicates the type of the filesystem and `-o` passes some options (say ro for readonly)
+
 ```
 mount -t ext4 /dev/sda1 /media
 mount -o remount,ro /dev/sda1
 ```
 
 #### Get info on UUID and Label and Format
+As you already know, there is a problem when working with classical device names like `/dev/vdb1`: they change! The current /dev/sdb might be seen as /dev/sdd after you remove / reconnect it. To solve this, its better to work with UUIDs (Universal Unique Identifiers). Check them with `lsblk` (-O will show all available columns or specify with -o as below) and `blkid`.
+
 ```
-blkid /dev/sda2
+# lsblk -o +UUID
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS                             UUID
+sr0     11:0    1  1.8G  0 rom  /run/media/jadi/Fedora-WS-Live-35_B-1-2 2021-09-22-21-47-34-00
+zram0  251:0    0  1.9G  0 disk [SWAP]                                  
+vda    252:0    0   20G  0 disk                                         
+├─vda1 252:1    0  600M  0 part /boot/efi                               E13A-EF36
+├─vda2 252:2    0    1G  0 part /boot                                   19ed96a1-3b36-4202-81bb-349f7adfb8b1
+└─vda3 252:3    0 18.4G  0 part /home                                   076766a5-8864-4e35-a632-464b03396f7a
+                                /                                       
+vdb    252:16   0    2G  0 disk                                         
+└─vdb1 252:17   0    2G  0 part /tmp/lkj                                4c1a51e6-47bf-4a34-84a2-87027c91e14a
+
+# blkid
+/dev/vdb1: UUID="4c1a51e6-47bf-4a34-84a2-87027c91e14a" BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="5415e516-01"
+/dev/sr0: BLOCK_SIZE="2048" UUID="2021-09-22-21-47-34-00" LABEL="Fedora-WS-Live-35_B-1-2" TYPE="iso9660"
+/dev/zram0: LABEL="zram0" UUID="e459f522-1675-40d2-b318-51d9bd16d7bb" TYPE="swap"
+/dev/vda2: UUID="19ed96a1-3b36-4202-81bb-349f7adfb8b1" BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="5f4ee154-3ade-4af6-8809-6d90d5827d39"
+/dev/vda3: LABEL="fedora_localhost-live" UUID="076766a5-8864-4e35-a632-464b03396f7a" UUID_SUB="a4340a29-6d9b-4c28-a7c8-b4aab5d08893" BLOCK_SIZE="4096" TYPE="btrfs" PARTUUID="a46e64aa-65ef-4a62-9bf8-96fd19aee353"
+/dev/vda1: UUID="E13A-EF36" BLOCK_SIZE="512" TYPE="vfat" PARTLABEL="EFI System Partition" PARTUUID="a7a2b260-0302-45bc-a4db-42bd2e0ee7f2"
+
+# blkid /dev/vdb1
+/dev/vdb1: UUID="4c1a51e6-47bf-4a34-84a2-87027c91e14a" BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="5415e516-01"
+
+# mount UUID="4c1a51e6-47bf-4a34-84a2-87027c91e14a" /tmp/lkj/
 ```
 
-### Bootup
+### fstab
 /etc/fstab
 
 - file system: Label, UUID, device
@@ -76,9 +105,3 @@ blkid /dev/sda2
 - User-mounted filesystems default to noexec unless exec is specified after user.
 - noatime will disable recording of access times. Not using access times may improve performance.
 
-### swap
-```
-swapon
-swapoff
-swapon -s
-```
