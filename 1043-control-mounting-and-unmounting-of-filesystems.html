@@ -19,12 +19,12 @@
 
 <meta property="og:title" content="104.3 Control mounting and unmounting of filesystems "/>
 <meta property="og:url" content="./1043-control-mounting-and-unmounting-of-filesystems.html" />
-<meta property="og:description" content="104.3. Control mounting and unmounting of filesystems This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks. weight: 3 http://j.mp/jadilpic1 Configure the mounting of a filesystem. Tasks include manually mounting and …" />
+<meta property="og:description" content="104.3. Control mounting and unmounting of filesystems weight: 3 http://j.mp/jadilpic1 Candidates should be able to configure the mounting of a filesystem. Manually mount and unmount filesystems. Configure filesystem mounting on bootup. Configure user mountable removable filesystems. Use of labels and UUIDs for identifying and mounting file …" />
 <meta property="og:site_name" content="lpic1book" />
 <meta property="og:article:author" content="Jadi" />
 <meta property="og:article:published_time" content="2010-12-03T10:20:00+01:00" />
 <meta name="twitter:title" content="104.3 Control mounting and unmounting of filesystems ">
-<meta name="twitter:description" content="104.3. Control mounting and unmounting of filesystems This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks. weight: 3 http://j.mp/jadilpic1 Configure the mounting of a filesystem. Tasks include manually mounting and …">
+<meta name="twitter:description" content="104.3. Control mounting and unmounting of filesystems weight: 3 http://j.mp/jadilpic1 Candidates should be able to configure the mounting of a filesystem. Manually mount and unmount filesystems. Configure filesystem mounting on bootup. Configure user mountable removable filesystems. Use of labels and UUIDs for identifying and mounting file …">
 
         <title>104.3 Control mounting and unmounting of filesystems  · lpic1book
 </title>
@@ -88,53 +88,76 @@
         <div class="span8 offset2 article-content">
             
             <h1>104.3. Control mounting and unmounting of filesystems</h1>
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
 <p>weight: 3</p>
 <p><strong>http://j.mp/jadilpic1</strong></p>
-<p>Configure the mounting of a filesystem. Tasks include manually mounting and unmounting filesystems, configuring filesystem mounting on bootup, and configuring user-mountable removable filesystems.</p>
+<p>Candidates should be able to configure the mounting of a filesystem.</p>
 <ul>
-<li>Mount and unmount filesystems manually</li>
-<li>Configure filesystem mounting on bootup</li>
-<li>Configure user-mountable, removable filesystems</li>
+<li>Manually mount and unmount filesystems.</li>
+<li>Configure filesystem mounting on bootup.</li>
+<li>Configure user mountable removable filesystems.</li>
+<li>Use of labels and UUIDs for identifying and mounting file systems.</li>
+<li>
+<p>Awareness of systemd mount units.</p>
+</li>
+<li>
+<p>/etc/fstab</p>
+</li>
+<li>/media/</li>
+<li>mount</li>
+<li>umount</li>
+<li>blkid</li>
+<li>lsblk</li>
 </ul>
-<h2>A note about Device UUIDs</h2>
-<p>As you saw, on /dev/ we can see hard disks, usb disks and such. But the there is an problem. When you refer to a disk ask /dev/sda2, you kind of say <em>the second partition on the firsrt disk</em>. If you disconnect this device and connect another disk and then connect back the device, it might become /dev/sdc2 or even /dev/sde2. We need a way to point to the exact drive with a persistant name. This is done via UUIDs.</p>
-<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">/</span><span class="n">dev</span><span class="err">#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="o">/</span><span class="k">proc</span><span class="o">/</span><span class="n">mounts</span><span class="w"></span>
-<span class="n">rootfs</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">rootfs</span><span class="w"> </span><span class="n">rw</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-<span class="n">sysfs</span><span class="w"> </span><span class="o">/</span><span class="n">sys</span><span class="w"> </span><span class="n">sysfs</span><span class="w"> </span><span class="n">rw</span><span class="p">,</span><span class="n">nosuid</span><span class="p">,</span><span class="n">nodev</span><span class="p">,</span><span class="n">noexec</span><span class="p">,</span><span class="n">relatime</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-<span class="k">proc</span><span class="w"> </span><span class="o">/</span><span class="k">proc</span><span class="w"> </span><span class="k">proc</span><span class="w"> </span><span class="n">rw</span><span class="p">,</span><span class="n">nosuid</span><span class="p">,</span><span class="n">nodev</span><span class="p">,</span><span class="n">noexec</span><span class="p">,</span><span class="n">relatime</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-<span class="n">udev</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="w"> </span><span class="n">devtmpfs</span><span class="w"> </span><span class="n">rw</span><span class="p">,</span><span class="n">relatime</span><span class="p">,</span><span class="k">size</span><span class="o">=</span><span class="mi">4014804</span><span class="n">k</span><span class="p">,</span><span class="n">nr_inodes</span><span class="o">=</span><span class="mi">1003701</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="mi">755</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-<span class="n">devpts</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">pts</span><span class="w"> </span><span class="n">devpts</span><span class="w"> </span><span class="n">rw</span><span class="p">,</span><span class="n">nosuid</span><span class="p">,</span><span class="n">noexec</span><span class="p">,</span><span class="n">relatime</span><span class="p">,</span><span class="n">gid</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="mi">620</span><span class="p">,</span><span class="n">ptmxmode</span><span class="o">=</span><span class="mi">000</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-<span class="n">tmpfs</span><span class="w"> </span><span class="o">/</span><span class="n">run</span><span class="w"> </span><span class="n">tmpfs</span><span class="w"> </span><span class="n">rw</span><span class="p">,</span><span class="n">nosuid</span><span class="p">,</span><span class="n">noexec</span><span class="p">,</span><span class="n">relatime</span><span class="p">,</span><span class="k">size</span><span class="o">=</span><span class="mi">806028</span><span class="n">k</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="mi">755</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="k">disk</span><span class="o">/</span><span class="k">by</span><span class="o">-</span><span class="n">uuid</span><span class="o">/</span><span class="mi">1651</span><span class="n">a94e</span><span class="o">-</span><span class="mi">0</span><span class="n">b4e</span><span class="o">-</span><span class="mi">47</span><span class="n">fb</span><span class="o">-</span><span class="n">aca0</span><span class="o">-</span><span class="n">f77e05714617</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">ext4</span><span class="w"> </span><span class="n">rw</span><span class="p">,</span><span class="n">relatime</span><span class="p">,</span><span class="n">errors</span><span class="o">=</span><span class="n">remount</span><span class="o">-</span><span class="n">ro</span><span class="p">,</span><span class="k">data</span><span class="o">=</span><span class="n">ordered</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-</code></pre></div>
-
-<p>This UUID is uniq among all devices and this makes it much easier to work with it not only on different sessions on a same machine, but even after connecting it to another computer.</p>
 <h3>Mounting and Unmounting</h3>
-<ul>
-<li>Describe the linux filesystem concept. A huge tree.</li>
-<li>There are other kinds of mountings: tmpfs, NFS, ..</li>
-<li>It is better to mount on empty directories</li>
-</ul>
-<h4>Basic commands</h4>
-<div class="highlight"><pre><span></span><code>cat /etc/fstab
-mount /dev/sda1 /media
-umount /media
+<p>When we have a formatted partition and need to use it, we have to <code>mount</code> it somewhere in the Linux directory hierarchy. Unlike Windows, the new <em>driver</em> do now show up as separated disks, but like <em>virtual subdirectories</em> somewhere in your <code>/</code> tree. </p>
+<p>Say we want to <em>mount</em> the /dev/sda3 on /media/mydisk. The directory <code>/media/mydisk</code> should be there and then, we just run:</p>
+<div class="highlight"><pre><span></span><code>sudo mount -t ext4 /dev/sda3 /media/mydisk
 </code></pre></div>
 
-<h4>Some switches</h4>
+<p>and all files and folders in /dev/sda3 will be accessible from /media/mydisk.</p>
+<p>Run <code>mount</code> with no parameter to see all mounted devices. To <strong>un mount</strong>, simply use the <code>umount</code> on the drive or the directory. These two are equivalent:</p>
+<div class="highlight"><pre><span></span><code>sudo umount /dev/sda3
+sudo umount /media/mydisk
+</code></pre></div>
+
+<p>Mounting and umounting can happen on many different storage types, for example on NFS storages or even an tmpfs. </p>
+<blockquote>
+<p>swap disks do not need mounting. You should use <code>swapon</code> and <code>swapoff</code> to use them.</p>
+</blockquote>
+<p>The <code>-t</code> switch indicates the type of the filesystem and <code>-o</code> passes some options (say ro for readonly)</p>
 <div class="highlight"><pre><span></span><code>mount -t ext4 /dev/sda1 /media
 mount -o remount,ro /dev/sda1
 </code></pre></div>
 
 <h4>Get info on UUID and Label and Format</h4>
-<div class="highlight"><pre><span></span><code>blkid /dev/sda2
+<p>As you already know, there is a problem when working with classical device names like <code>/dev/vdb1</code>: they change! The current /dev/sdb might be seen as /dev/sdd after you remove / reconnect it. To solve this, its better to work with UUIDs (Universal Unique Identifiers). Check them with <code>lsblk</code> (-O will show all available columns or specify with -o as below) and <code>blkid</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">lsblk</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="o">+</span><span class="n">UUID</span><span class="w"></span>
+<span class="n">NAME</span><span class="w">   </span><span class="nl">MAJ</span><span class="p">:</span><span class="nf">MIN</span><span class="w"> </span><span class="n">RM</span><span class="w">  </span><span class="k">SIZE</span><span class="w"> </span><span class="n">RO</span><span class="w"> </span><span class="n">TYPE</span><span class="w"> </span><span class="n">MOUNTPOINTS</span><span class="w">                             </span><span class="n">UUID</span><span class="w"></span>
+<span class="n">sr0</span><span class="w">     </span><span class="mi">11</span><span class="err">:</span><span class="mi">0</span><span class="w">    </span><span class="mi">1</span><span class="w">  </span><span class="mf">1.8</span><span class="n">G</span><span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="n">rom</span><span class="w">  </span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">media</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="n">Fedora</span><span class="o">-</span><span class="n">WS</span><span class="o">-</span><span class="n">Live</span><span class="o">-</span><span class="mi">35</span><span class="n">_B</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="w"> </span><span class="mi">2021</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">22</span><span class="o">-</span><span class="mi">21</span><span class="o">-</span><span class="mi">47</span><span class="o">-</span><span class="mi">34</span><span class="o">-</span><span class="mi">00</span><span class="w"></span>
+<span class="n">zram0</span><span class="w">  </span><span class="mi">251</span><span class="err">:</span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">  </span><span class="mf">1.9</span><span class="n">G</span><span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="k">disk</span><span class="w"> </span><span class="o">[</span><span class="n">SWAP</span><span class="o">]</span><span class="w">                                  </span>
+<span class="n">vda</span><span class="w">    </span><span class="mi">252</span><span class="err">:</span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">   </span><span class="mi">20</span><span class="n">G</span><span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="k">disk</span><span class="w">                                         </span>
+<span class="err">├─</span><span class="n">vda1</span><span class="w"> </span><span class="mi">252</span><span class="err">:</span><span class="mi">1</span><span class="w">    </span><span class="mi">0</span><span class="w">  </span><span class="mi">600</span><span class="n">M</span><span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="n">part</span><span class="w"> </span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">efi</span><span class="w">                               </span><span class="n">E13A</span><span class="o">-</span><span class="n">EF36</span><span class="w"></span>
+<span class="err">├─</span><span class="n">vda2</span><span class="w"> </span><span class="mi">252</span><span class="err">:</span><span class="mi">2</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">1</span><span class="n">G</span><span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="n">part</span><span class="w"> </span><span class="o">/</span><span class="n">boot</span><span class="w">                                   </span><span class="mi">19</span><span class="n">ed96a1</span><span class="o">-</span><span class="mi">3</span><span class="n">b36</span><span class="o">-</span><span class="mi">4202</span><span class="o">-</span><span class="mi">81</span><span class="n">bb</span><span class="o">-</span><span class="mi">349</span><span class="n">f7adfb8b1</span><span class="w"></span>
+<span class="err">└─</span><span class="n">vda3</span><span class="w"> </span><span class="mi">252</span><span class="err">:</span><span class="mi">3</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="mf">18.4</span><span class="n">G</span><span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="n">part</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="w">                                   </span><span class="mi">076766</span><span class="n">a5</span><span class="o">-</span><span class="mi">8864</span><span class="o">-</span><span class="mf">4e35</span><span class="o">-</span><span class="n">a632</span><span class="o">-</span><span class="mi">464</span><span class="n">b03396f7a</span><span class="w"></span>
+<span class="w">                                </span><span class="o">/</span><span class="w">                                       </span>
+<span class="n">vdb</span><span class="w">    </span><span class="mi">252</span><span class="err">:</span><span class="mi">16</span><span class="w">   </span><span class="mi">0</span><span class="w">    </span><span class="mi">2</span><span class="n">G</span><span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="k">disk</span><span class="w">                                         </span>
+<span class="err">└─</span><span class="n">vdb1</span><span class="w"> </span><span class="mi">252</span><span class="err">:</span><span class="mi">17</span><span class="w">   </span><span class="mi">0</span><span class="w">    </span><span class="mi">2</span><span class="n">G</span><span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="n">part</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lkj</span><span class="w">                                </span><span class="mi">4</span><span class="n">c1a51e6</span><span class="o">-</span><span class="mi">47</span><span class="n">bf</span><span class="o">-</span><span class="mi">4</span><span class="n">a34</span><span class="o">-</span><span class="mi">84</span><span class="n">a2</span><span class="o">-</span><span class="mi">87027</span><span class="n">c91e14a</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">blkid</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nl">vdb1</span><span class="p">:</span><span class="w"> </span><span class="n">UUID</span><span class="o">=</span><span class="ss">&quot;4c1a51e6-47bf-4a34-84a2-87027c91e14a&quot;</span><span class="w"> </span><span class="n">BLOCK_SIZE</span><span class="o">=</span><span class="ss">&quot;4096&quot;</span><span class="w"> </span><span class="n">TYPE</span><span class="o">=</span><span class="ss">&quot;ext4&quot;</span><span class="w"> </span><span class="n">PARTUUID</span><span class="o">=</span><span class="ss">&quot;5415e516-01&quot;</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nl">sr0</span><span class="p">:</span><span class="w"> </span><span class="n">BLOCK_SIZE</span><span class="o">=</span><span class="ss">&quot;2048&quot;</span><span class="w"> </span><span class="n">UUID</span><span class="o">=</span><span class="ss">&quot;2021-09-22-21-47-34-00&quot;</span><span class="w"> </span><span class="n">LABEL</span><span class="o">=</span><span class="ss">&quot;Fedora-WS-Live-35_B-1-2&quot;</span><span class="w"> </span><span class="n">TYPE</span><span class="o">=</span><span class="ss">&quot;iso9660&quot;</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nl">zram0</span><span class="p">:</span><span class="w"> </span><span class="n">LABEL</span><span class="o">=</span><span class="ss">&quot;zram0&quot;</span><span class="w"> </span><span class="n">UUID</span><span class="o">=</span><span class="ss">&quot;e459f522-1675-40d2-b318-51d9bd16d7bb&quot;</span><span class="w"> </span><span class="n">TYPE</span><span class="o">=</span><span class="ss">&quot;swap&quot;</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nl">vda2</span><span class="p">:</span><span class="w"> </span><span class="n">UUID</span><span class="o">=</span><span class="ss">&quot;19ed96a1-3b36-4202-81bb-349f7adfb8b1&quot;</span><span class="w"> </span><span class="n">BLOCK_SIZE</span><span class="o">=</span><span class="ss">&quot;4096&quot;</span><span class="w"> </span><span class="n">TYPE</span><span class="o">=</span><span class="ss">&quot;ext4&quot;</span><span class="w"> </span><span class="n">PARTUUID</span><span class="o">=</span><span class="ss">&quot;5f4ee154-3ade-4af6-8809-6d90d5827d39&quot;</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nl">vda3</span><span class="p">:</span><span class="w"> </span><span class="n">LABEL</span><span class="o">=</span><span class="ss">&quot;fedora_localhost-live&quot;</span><span class="w"> </span><span class="n">UUID</span><span class="o">=</span><span class="ss">&quot;076766a5-8864-4e35-a632-464b03396f7a&quot;</span><span class="w"> </span><span class="n">UUID_SUB</span><span class="o">=</span><span class="ss">&quot;a4340a29-6d9b-4c28-a7c8-b4aab5d08893&quot;</span><span class="w"> </span><span class="n">BLOCK_SIZE</span><span class="o">=</span><span class="ss">&quot;4096&quot;</span><span class="w"> </span><span class="n">TYPE</span><span class="o">=</span><span class="ss">&quot;btrfs&quot;</span><span class="w"> </span><span class="n">PARTUUID</span><span class="o">=</span><span class="ss">&quot;a46e64aa-65ef-4a62-9bf8-96fd19aee353&quot;</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nl">vda1</span><span class="p">:</span><span class="w"> </span><span class="n">UUID</span><span class="o">=</span><span class="ss">&quot;E13A-EF36&quot;</span><span class="w"> </span><span class="n">BLOCK_SIZE</span><span class="o">=</span><span class="ss">&quot;512&quot;</span><span class="w"> </span><span class="n">TYPE</span><span class="o">=</span><span class="ss">&quot;vfat&quot;</span><span class="w"> </span><span class="n">PARTLABEL</span><span class="o">=</span><span class="ss">&quot;EFI System Partition&quot;</span><span class="w"> </span><span class="n">PARTUUID</span><span class="o">=</span><span class="ss">&quot;a7a2b260-0302-45bc-a4db-42bd2e0ee7f2&quot;</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">blkid</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">vdb1</span><span class="w"></span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nl">vdb1</span><span class="p">:</span><span class="w"> </span><span class="n">UUID</span><span class="o">=</span><span class="ss">&quot;4c1a51e6-47bf-4a34-84a2-87027c91e14a&quot;</span><span class="w"> </span><span class="n">BLOCK_SIZE</span><span class="o">=</span><span class="ss">&quot;4096&quot;</span><span class="w"> </span><span class="n">TYPE</span><span class="o">=</span><span class="ss">&quot;ext4&quot;</span><span class="w"> </span><span class="n">PARTUUID</span><span class="o">=</span><span class="ss">&quot;5415e516-01&quot;</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">mount</span><span class="w"> </span><span class="n">UUID</span><span class="o">=</span><span class="ss">&quot;4c1a51e6-47bf-4a34-84a2-87027c91e14a&quot;</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lkj</span><span class="o">/</span><span class="w"></span>
 </code></pre></div>
 
-<h3>Bootup</h3>
+<h3>fstab</h3>
 <p>/etc/fstab</p>
 <ul>
 <li>file system: Label, UUID, device</li>
@@ -147,11 +170,6 @@ mount -o remount,ro /dev/sda1
 <p><strong>note:</strong>
 - User-mounted filesystems default to noexec unless exec is specified after user.
 - noatime will disable recording of access times. Not using access times may improve performance.</p>
-<h3>swap</h3>
-<div class="highlight"><pre><span></span><code>swapon
-swapoff
-swapon -s
-</code></pre></div>
 
 
              
