@@ -26,6 +26,8 @@ Description: Candidates should be able to configure disk partitions and then cre
 * mkfs
 * mkswap
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xSQdIIMGG2g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ### Block devices
 A block device is a nonvolatile mass storage device whose information can be accessed in any order; like hard disks, USB memories, floppy disks, and CD-ROMs. We *format* these devices to fixed sized blocks.
 
@@ -41,7 +43,8 @@ brw-rw----  1 root disk      8,  19 Feb  3  2023 sdb3
 brw-rw----+ 1 root cdrom    11,   0 Feb  3  2023 sr0
 ```
 
-It is possible to craete **partitions** on a block device and even split it and use it as multiple disks. Systems with old BIOS boot loaders use the **Master Boot Record (MBR)** method for patitioning and newer UEFI systems, use the **GUID Parition Table (GPT)** formats.
+
+It is possible to create **partitions** on a block device and even split it and use it as multiple disks. Systems with old BIOS boot loaders use the **Master Boot Record (MBR)** method for patitioning and newer UEFI systems, do you **GUID Parition Table (GPT)** formats.
 
 Linux systems use `udev` to add block devices and their paritions to the `/dev` in the form of `/dev/sdb1` (2nd disk (b) and first parition (1)). 
 
@@ -436,6 +439,8 @@ Welcome to GNU Parted! Type 'help' to view a list of commands.
 The `gparted` tool is a graphical tool to manage your partitioned. It has the ability to resize partitions and is super easy to use. Its not part of the LPIC exam but its good to know about it. just in case ;) [gparted.org](https://gparted.org/)
 
 ### Formatting the partition
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rQZVYtVOEhU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### Filesystems
 After you partitioned your block devices, you have to format them to make them usable to store files and directories. Formatting a file system, creates a map which stores the location and name of files and directories and make it possible to move files between folders, deleting them or renaming them; think of it as the index of a book. 
