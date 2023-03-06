@@ -5,12 +5,10 @@ Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 sortorder: 250
 Summary: 
-## 104.6. Create and change hard & symbolic links
+
+_weight: 2_
 
 Candidates should be able to create and manage hard and symbolic links to a file.
-
-
-weight: 2
 
 ### Key Knowledge Areas
 
@@ -23,7 +21,7 @@ weight: 2
 * ln
 * unlink
 
-#### links
+## links
 
 On a storage device, a file or directory is save on some black and a reference to is is saved in the FAT, ext, ... allocation table alongside data about its owner, permissions, when it was last accessed, its size and such. As you already know, we can check this using the `ls` command.
 

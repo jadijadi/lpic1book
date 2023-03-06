@@ -5,18 +5,13 @@ Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 sortorder: 260
 Summary: 
-## 104.7 Find system files and place files in the correct location
-
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
 
 
 _Weight: 2_
 
 Candidates should be thoroughly familiar with the **Filesystem Hierarchy Standard \(FHS\)**, including typical file locations and directory classifications.
 
-### Objectives
+### Key Knowledge Areas
 
 * Understand the correct locations of files under the FHS.
 * Find files and commands on a Linux system.
@@ -31,7 +26,7 @@ Candidates should be thoroughly familiar with the **Filesystem Hierarchy Standar
 * type
 * /etc/updatedb.conf
 
-### FHS
+## FHS
 
 Filesystem Hierarchy Standard \(FHS\) is a document describing the Linux / Unix file hierarchy. It is very useful to know these because it lets you easily find what you are looking for as a system admin.
 
@@ -59,7 +54,7 @@ The `/usr` is the second level of the hierarchy. It containins shareable, read-o
 
 The `/var` filesystem contains variable data files, including spool directories and files, administrative and logging data, and transient and temporary files. Some portions of /var are not shareable between different systems, but others, such as /var/mail, /var/cache/man, /var/cache/fonts, and /var/spool/news, may be shared.
 
-### Path
+## Path
 
 A general linux install has a lot of files; 741341 files in my case. So how the shell finds and runs a command? This is done by a variable called PATH:
 
@@ -77,6 +72,7 @@ And for the root user:
 
 As you can see, this is the list of directories separated with a colon. Obviously you can change your path with `export PATH=$PATH:/usr/new/dir` or put this in `.bashrc` to make it permanent.
 
+## Locating files
 ### which, type and whereis
 
 The `which` command shows the first appearance of the command given in the path. In other words the  `which mkfs` will tell you what will be run if you issue this `mkfs` command.

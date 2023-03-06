@@ -5,13 +5,12 @@ Tags: LPIC1, 101, LPIC1-101-500
 Authors: Jadi
 sortorder: 240
 Summary: 
-## 104.5 Manage file permissions and ownership
 
 _Weight: 3_
 
 Candidates should be able to control file access through the proper use of permissions and ownerships.
 
-### Objectives
+### Key Knowledge Areas
 
 * Manage access permissions on regular and special files as well as directories.
 * Use access modes such as suid, sgid and the sticky bit to maintain security.
@@ -23,7 +22,7 @@ Candidates should be able to control file access through the proper use of permi
 * chown
 * chgrp
 
-### Users and Groups
+## Users and Groups
 
 A linux system can have many users and many groups. You can login with one user and use `su` command to change to another group. Each user belongs to one primary group and can be a member of other groups too.
 
@@ -58,7 +57,7 @@ adm:x:4:syslog,jadi
 lpadmin:x:108:jadi
 ```
 
-### File ownership & permissions
+## File ownership & permissions
 Linux uses three layers of access / permissions for each file or directory: User, Group & Others.
 
 Each file belongs to one user and one group and this user and the members of that group will have specific read/write/execute accesses on it. Have a look:
@@ -204,7 +203,7 @@ $ ls -ltrh new*
 -rw------- 1 jadi adm  0 Feb  8 21:54 newerfile
 ```
 
-### Access modes
+## Access modes
 
 A question for you: If we do not have write access to /etc/passwd or /etc/shadow, how is it possible to change our password there?
 
@@ -240,7 +239,7 @@ Lets review how you can set these access modes:
 
 > guid on a directory will force any new file in that directory to have the guid of the directory itself.
 
-### umask
+## umask
 
 Another tricky question: what is the permissions of a newly created file? What happens if you `touch` a non-existing file? What will be its permissions? This is set by the `umask`. This command tells the system what permissions (in addition to execute) **should not be given to** new files. In other words, imagine that all new files will have `666` octal permission (write + read for user, group & others), so a umask of 0002 (yes! 4 digits) will remote the 2 (write) for others (666-0002=664):
 
