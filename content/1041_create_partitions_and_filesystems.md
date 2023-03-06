@@ -43,6 +43,7 @@ brw-rw----  1 root disk      8,  19 Feb  3  2023 sdb3
 brw-rw----+ 1 root cdrom    11,   0 Feb  3  2023 sr0
 ```
 
+
 It is possible to create **partitions** on a block device and even split it and use it as multiple disks. Systems with old BIOS boot loaders use the **Master Boot Record (MBR)** method for patitioning and newer UEFI systems, do you **GUID Parition Table (GPT)** formats.
 
 Linux systems use `udev` to add block devices and their paritions to the `/dev` in the form of `/dev/sdb1` (2nd disk (b) and first parition (1)). 
@@ -50,7 +51,7 @@ Linux systems use `udev` to add block devices and their paritions to the `/dev` 
 ### Editing Partition Tables
 #### fdisk
 
-`fdisk` is the main command for viewing / changing and creating partitions on MBR systems. Its `-l` switch lists the partitions:
+`fdisk` is the main command for viewing / changing and creating partitions on MBR systems. the `-l` switch lists the partitions:
 
 ```
 # fdisk -l /dev/sdb
@@ -69,11 +70,11 @@ Device        Start      End  Sectors  Size Type
 ```
 
 * The **Boot** flag shows which partition starts the boot on DOS PCs and has no importance on LILO & GRUB
-* Start and End shows the where this partition is located on the disk
-* Size is size.
-* ID indicated the partition format \(82 is swap, 83 is linux data, ... check all with `l` in interactive mode\)
+* Start and End shows where this partition is located on the disk.
+* Size shows each partition size .
+* ID indicates the partition format \(82 is swap, 83 is linux data, ... check all with `l` in interactive mode\)
 
-It is also possible to run fdisk in interactive mode. `m` will show you the help:
+It is also possible to run fdisk in interactive mode. `m` will show you the help menu:
 
 ```
 ~# fdisk /dev/sda
@@ -145,7 +146,7 @@ Device        Start      End  Sectors  Size Type
 /dev/sdb3  39942144 41940991  1998848  976M Linux swap
 ```
 
-You should remember the disk layouts concepts from the [chapter 102.1](/1021-design-hard-disk-layout.html). So lets create a some paritions using `fdisk`. I will use the `n` for *new*:
+You should remember the disk layouts concepts from the [chapter 102.1](/1021-design-hard-disk-layout.html). So lets create some paritions using `fdisk`. I will use the `n` for *new*:
 
 ```
 # fdisk /dev/sda
@@ -181,7 +182,7 @@ Device     Boot Start     End Sectors Size Id Type
 /dev/sda1        2048 2099199 2097152   1G 83 Linux
 ```
 
-Lets  create another Extened parition and add a Linux and a Swap parition there. 
+Lets  create another Extened parition and add a Linux (83) and a Swap (82) parition there. 
 
 ```
 Command (m for help): n
@@ -359,11 +360,11 @@ Device     Boot   Start     End Sectors Size Id Type
 /dev/sda6       4200448 8388607 4188160   2G 82 Linux swap / Solaris
 ```
 #### gdisk
-As seen on [chapter 102.1](/1021-design-hard-disk-layout.html), we have to used `gdisk` on GPT machines. Its not that different from `fdisk`. Lets have a look at its main commands:
+As seen on [chapter 102.1](/1021-design-hard-disk-layout.html), we have used `gdisk` on GPT machines. Its not that different from `fdisk`. Lets have a look at its main commands:
 
-```
+```txt
 root@debianamd:~# gdisk /dev/sda
-GPT fdisk (gdisk) version 1.0.6
+GPT fdisk (gdisk) version 1.0.6  
 
 Warning: Partition table header claims that the size of partition table
 entries is 0 bytes, but this program  supports only 128-byte entries.
@@ -409,7 +410,7 @@ As you can see, the partition table have to be compatible with your BIOS/UEFI se
 #### parted
 `parted` is the GNU tool to edit partitions. Its main advantage is the ability to resize currently defined partitions but using it is a bit trickier than `fdisk` and `gdisk`:
 
-```
+```txt
 # parted
 GNU Parted 3.4
 Using /dev/sda
@@ -435,7 +436,7 @@ Welcome to GNU Parted! Type 'help' to view a list of commands.
 ```
 
 #### hint? use gparted
-The `gparted` tool is a graphical tool to manage your partitioned. It has the ability to resize partitions and is super easy to use. Its not part of the LPIC exam but its good to know about it; just in case ;) ([https://gparted.org/](official site))
+The `gparted` tool is a graphical tool to manage your partitioned. It has the ability to resize partitions and is super easy to use. Its not part of the LPIC exam but its good to know about it. just in case ;) [gparted.org](https://gparted.org/)
 
 ### Formatting the partition
 
@@ -444,21 +445,21 @@ The `gparted` tool is a graphical tool to manage your partitioned. It has the ab
 #### Filesystems
 After you partitioned your block devices, you have to format them to make them usable to store files and directories. Formatting a file system, creates a map which stores the location and name of files and directories and make it possible to move files between folders, deleting them or renaming them; think of it as the index of a book. 
 
-There are several filesystems in the linux world but these are the most commonly used ones:
+There are several filesystems in the linux world but, these are the most commonly used ones:
 
 | Format | Description |
-| :--- | :--- |
+| :---: | :--- |
 | ext2 | second extended filesystem was developed to address shortcomings in the older Unix/Minix filesystem used in early versions of Linux. It has been used extensively on Linux for many years. There is no journaling in ext2, and it has largely been replaced by ext3 and more recently ext4. |
 | ext3 | ext2 + journaling, max file size is 2TB and max filesystem size is 16TB |
 | ext4 | current version of ext, max file size is 16TB and max filesystem size is 1EB (1000*1000TB) |
 | XFS | journaling, caches to RAM, great for uninterruptible power supplies, Max file and filesystem size is 8EB |
 | swap | Swap is used when the system needs to use more ram than what is has. It's like an extra ram on disk |
-| VFAT | FAT32, no journaling, good for data exchange with windows, does not understand permissions and symbolic links |
+| VFAT | FAT32, no journaling, good for data exchange with windows, does not understand **permissions** and symbolic links |
 | exFAT | Extended FAT. A newer version of FAT which is used mainly for extended device which should work on all machines; like USB disks |
-| btrfs | A new high performance file system. Max file and filesize is 16 EB. Has its own form of RAID and LVM and build-in snapshots and fault tolerance and data compression on the fly |
+| btrfs | A new high performance file system. Max file and filesize is 16 EB. Has its own form of RAID and LVM and build-in snapshots and fault tolerance and data compression on the fly. |
 
 #### Creating filesystems
-You can format your partitions with `mkfs` command \(and `mkswap` for swap\). This is a front end to commands like mkfs.ext3 for ext3, mkfs.ext4 for ext4 and mkfs.reiserfs for ReiserFS. full list of installed on your system is here:
+You can format your partitions with `mkfs` command \(and `mkswap` for swap\). This is a front end to commands like `mkfs.ext3` for *ext3*, `mkfs.ext4` for *ext4* and `mkfs.reiserfs` for *ReiserFS*. full list of installed on your system is here:
 
 ```
 # ls /sbin/mk*
@@ -491,7 +492,7 @@ File system created successfully.
 
 If you need to assign a lable to the partition, you have to use the `-L lable_name` option. Please note that in recent system, people use UUIDs instead of labels. UUID of a disk can be viewed with:
 
-```
+```   
 # blkid /dev/sda1
 /dev/sda1: UUID="63625ecd-857a-419f-a300-12395aaad89f" BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="40bd0f72-01"
 ```
@@ -504,4 +505,10 @@ Setting up swapspace version 1, size = 2 GiB (2144333824 bytes)
 no label, UUID=6a59cf20-8fd6-4d86-b044-89f7bc67993b
 ```
 
-On chapter 14.3 we will see how we can mount / unmount these filesystems.
+and then 
+
+```
+# swapon /dev/sda6
+```
+
+On chapter 14.3 we will see how we can *mount* / *unmount* these filesystems.

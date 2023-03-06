@@ -31,7 +31,7 @@ Candidates should be able to maintain a standard filesystem, as well as the extr
 
 ## du & df
 
-In many cases you want to find out about the free space of a disk or find how much space a directory is using or check how many inodes you have to use.
+In many cases you want to find out about the free space of a disk or find how much space a directory is using or check how many inodes left.
 
 > The inode (index node) is a data structure in a Unix-style file system that describes a file-system object such as a file or a directory. Each inode stores the attributes and disk block locations of the object's data. File-system object attributes may include metadata (times of last change, access, modification), as well as owner and permission data. A directory is a list of inodes with their assigned names. The list includes an entry for itself, its parent, and each of its children. <small>([wikipedia](https://en.wikipedia.org/wiki/Inode))</small>
 
@@ -53,7 +53,7 @@ none              tmpfs     100M   28K  100M   1% /run/user
 /dev/sdb1         vfat      3.7G  7.8M  3.6G   1% /media/jadi/BA82-BECD
 ```
 
-Here, the `-T` switch tells `df` to show the file system types and \`-H\` make numbers human readable \(in powers of 1000\, for powers of 2, use `-h`).
+Here, the `-T` switch tells `df` to show the file system types and \`-H\` make numbers human readable (in powers of 1000 , for powers of 2, use `-h`).
 
 On some filesystems (like ext2-4) we have a fixed number of inoes, so you may need to check the number of remaining inodes too. To do so, use the `-i` switch:
 
@@ -78,7 +78,7 @@ none               1007533     33  1007500    1% /run/user
 The **d**isk**u**sage command shows the used space of **directories and files**. The common switches are:
 
 | switch | usage |
-| :--- | :--- |
+| :---: | :--- |
 | -h | print sizes in powers of 1024 \(e.g., 1023M\) |
 | -H | print sizes in powers of 1000 \(e.g., 1.1G\) |
 | -c | show the grand total |
@@ -127,7 +127,7 @@ jadi@funlife:~$ ls /sbin/*fsck*
 
 > Some of these are just hardlinks to `e2fsck` command
 
-A common switch during boot is `-A` which tells fsck to check all file systems in /etc/fstab ordered by _passno_ in that file which is 6th field \(File systems with _passno_ of 0, wont be checked during the boot.
+A common switch during boot is `-A` which tells `fsck` to check all file systems in /etc/fstab ordered by _passno_ in that file which is 6th field \(File systems with _passno_ of 0, wont be checked during the boot.
 
 ```text
 root@funlife:~# fsck /dev/sdb
@@ -156,7 +156,7 @@ is corrupt, and you might try running e2fsck with an alternate superblock:
     e2fsck -b 32768 <device>
 ```
 
-You can also check filesystems with UUID \(find them with `blkid` command or with labels\):
+You can also check filesystems with UUID \(find them with `blkid` command or with labels\) :
 
 ```text
 root@funlife:~# fsck /dev/sdb
@@ -198,37 +198,16 @@ fsck from util-linux 2.25.1
 Some version do have a `-a` for automatic fixing all found issues but its not recommended. 
 ### e2fsck
 
-e2fsck is used to check the ext2/ext3/ext4 family of file
-systems.  For ext3 and ext4 file systems that use a journal, if
-the system has been shut down uncleanly without any errors,
-normally, after replaying the committed transactions  in the
-journal, the file system should be marked as clean.   Hence, for
-file systems that use journaling, e2fsck will normally replay the
-journal and exit, unless its superblock indicates that further
-checking is required.
+`e2fsck` is used to check the ext2/ext3/ext4 family of file systems.  For ext3 and ext4 file systems that use a `journal`, if the system has been shutdown uncleanly without any errors,normally, after replaying the committed transactions  in the journal, the file system should be marked as clean. Hence, forfile systems that use **journaling** , e2fsck will normally replay the journal and exit, unless its superblock indicates that further checking is required.
 
-device is a block device (e.g., /dev/sdc1) or file containing the
-file system.
+device is a block device (e.g., `/dev/sdc1`) or file containing the file system.
 
-Note that in general it is not safe to run e2fsck on mounted file
-systems.  The only exception is if the -n option is specified,
-and -c, -l, or -L options are not specified.   However, even if
-it is safe to do so, the results printed by e2fsck are not valid
-if the file system is mounted.   If e2fsck asks whether or not
-you should check a file system which is mounted, the only correct
-answer is ``no''.  Only experts who really know what they are
-doing should consider answering this question in any other way.
+Note that in general it is not safe to run `e2fsck` on  ***mounted*** file systems.  The only exception is if the `-n` option is specified, and `-c`, `-l`, or `-L` options are not specified. However, even if it is safe to do so, the results printed by `e2fsck` are not valid if the file system is ***mounted*** . If `e2fsck` asks whether or not you should check a file system which is mounted, the only correct answer is ``no''.  Only experts who really know what they are doing should consider answering this question in any other way.
 
-If e2fsck is run in interactive mode (meaning that none of -y,
--n, or -p are specified), the program will ask the user to fix
-each problem found in the file system.  A response of 'y' will
-fix the error; 'n' will leave the error unfixed; and 'a' will fix
-the problem and all subsequent problems; pressing Enter will
-proceed with the default response, which is printed before the
-question mark.  Pressing Control-C terminates e2fsck immediately.
+If `e2fsck` is run in interactive mode (meaning that none of `-y`, `-n`, or `-p` are specified), the program will ask the user to fix each problem found in the file system. A response of `'y'` will fix the error; `'n'` will leave the error unfixed; and `'a'` will fix the problem and all subsequent problems; pressing Enter will proceed with the default response, which is printed before the question mark.  Pressing `Control-C` terminates `e2fsck` immediately.
 
-### mk2efs
-mke2fs is used to create an ext2, ext3, or ext4 filesystem, usually in a disk partition. device is the special file corresponding to the device (e.g /dev/hdXX). blocks-count is the number of blocks on the device. If omitted, mke2fs automagically figures the file system size. If called as mkfs.ext3 a journal is created as if the -j option was specified.
+### mke2fs
+mke2fs is used to create an ext2, ext3, or ext4 filesystem, usually in a disk partition. device is the special file corresponding to the device (e.g /dev/hdXX). blocks-count is the number of blocks on the device. If omitted, mke2fs automagically figures the file system size. If called as mkfs.ext3 a journal is created as if the `-j` option was specified.
 
 The defaults of the parameters for the newly created filesystem, if not overridden by the options listed below, are controlled by the /etc/mke2fs.conf configuration file. See the mke2fs.conf(5) manual page for more details.
 
@@ -348,7 +327,7 @@ This is same as the `tune2fs` but for xfs file systems.
 > xfs_info should be used on mounted file systems
 
 | Command | usage |
-| :--- | :--- |
+| :---: | :--- |
 | xfs_info | display information |
 | xfs_growfs | expand file system |
 | xfs_admin | change parameters on XFS file systems |
@@ -374,11 +353,10 @@ An important switch is `-n` which causes these commands **not to fix** anything 
 For the LPIC exam, it is good to know about these commands.
 
 | filesystem | command | usage |
-| :--- | :--- | :--- |
+| :---: | :---: | :--- |
 | ext | tune2fs | Show or set ext2 and ext3 parameters or even set the journaling options |
 | ext | dumpe2fs | Prints the super block and block group descriptor information for an ext2 or ext3 filesystem. |
 | ext | debugfs | Is an interactive file system debugger. Use it to examine or change the state of an ext2 or ext3file system. |
-| ext | 
 | reiserfs | reiserfstune | show and set parameters |
 | reiserfs | debugreiserfs | Prints the super block and block group descriptor information for an ext2 or ext3 filesystem. |
 | XFS | xfs\_info | display information |
