@@ -98,8 +98,12 @@
 <ul>
 <li>Understand the correct locations of files under the FHS.</li>
 <li>Find files and commands on a Linux system.</li>
-<li>Know the location and purpose of important file and directories as defined in the FHS.</li>
-<li>find</li>
+<li>
+<p>Know the location and purpose of important file and directories as defined in the FHS.</p>
+</li>
+<li>
+<p>find</p>
+</li>
 <li>locate</li>
 <li>updatedb</li>
 <li>whereis</li>
@@ -108,7 +112,7 @@
 <li>/etc/updatedb.conf</li>
 </ul>
 <h3>FHS</h3>
-<p>Filesystem Hierarchy Standard (FHS) is a document describing the Linux / Unix file hierarchy. It is very useful to know these because it lets you easily find what you are looking for:</p>
+<p>Filesystem Hierarchy Standard (FHS) is a document describing the Linux / Unix file hierarchy. It is very useful to know these because it lets you easily find what you are looking for as a system admin.</p>
 <table>
 <thead>
 <tr>
@@ -117,6 +121,10 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td align="left">/</td>
+<td align="left">Primary hierarchy root and root directory of the entire file system hierarchy</td>
+</tr>
 <tr>
 <td align="left">bin</td>
 <td align="left">Essential command binaries</td>
@@ -183,133 +191,113 @@
 </tr>
 </tbody>
 </table>
-<p>The <code>/usr</code> filesystem is the second major section of the filesystem, containing shareable, read-only data. It can be shared between systems, although present practice does not often do this.</p>
+<p>The <code>/usr</code> is the second level of the hierarchy. It containins shareable, read-only data. It can be shared between systems, although present practice does not often do this.</p>
 <p>The <code>/var</code> filesystem contains variable data files, including spool directories and files, administrative and logging data, and transient and temporary files. Some portions of /var are not shareable between different systems, but others, such as /var/mail, /var/cache/man, /var/cache/fonts, and /var/spool/news, may be shared.</p>
 <h3>Path</h3>
-<p>A general linux install has a lot of files; 741341 files in my case. So how it find out where to look when you type a command? This is done by a variable called PATH:</p>
+<p>A general linux install has a lot of files; 741341 files in my case. So how the shell finds and runs a command? This is done by a variable called PATH:</p>
 <div class="highlight"><pre><span></span><code>$ echo $PATH
 /home/jadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games;/home/jadi/bin/
 </code></pre></div>
 
-<p>And for root user:</p>
+<p>And for the root user:</p>
 <div class="highlight"><pre><span></span><code># echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 </code></pre></div>
 
 <p>As you can see, this is the list of directories separated with a colon. Obviously you can change your path with <code>export PATH=$PATH:/usr/new/dir</code> or put this in <code>.bashrc</code> to make it permanent.</p>
 <h3>which, type and whereis</h3>
-<p>The <code>which</code> command shows the first appearance of the command given in path:</p>
-<div class="highlight"><pre><span></span><code>$ which mkfd
-$ which mkfs
-/sbin/mkfs
+<p>The <code>which</code> command shows the first appearance of the command given in the path. In other words the  <code>which mkfs</code> will tell you what will be run if you issue this <code>mkfs</code> command.</p>
+<div class="highlight"><pre><span></span><code>$ which mkfs
+/usr/bin/mkfs
+jadi@ubuntuserver:~$ which ping
+/usr/bin/ping
+jadi@ubuntuserver:~$ which -a ping
+/usr/bin/ping
+/bin/ping
 </code></pre></div>
 
 <blockquote>
 <p>use the <code>-a</code> switch to show all appearance in the path and not only the first one.</p>
 </blockquote>
-<p>But what happens if you <code>which for</code> ?</p>
-<div class="highlight"><pre><span></span><code>$ which for
-$ type for
-for is a shell keyword
+<p>But where is the <code>cd</code> command?</p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@ubuntuserver</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">cd</span><span class="w"></span>
+<span class="n">jadi</span><span class="nv">@ubuntuserver</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">cd</span><span class="w"></span>
+<span class="n">cd</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">shell</span><span class="w"> </span><span class="n">builtin</span><span class="w"></span>
 </code></pre></div>
 
-<p>As you can see, <code>which</code> did not found anything for <code>for</code> and we used <code>type</code>.</p>
+<p>As you can see, <code>which</code> did not find anything for <code>cd</code>, so we tried it with <code>type</code> to see what the h**l it is.</p>
 <div class="highlight"><pre><span></span><code>$ type type
 type is a shell builtin
 $ type for
 for is a shell keyword
 $ type mkfs
 mkfs is /sbin/mkfs
-$ type mkfd
-bash: type: mkfd: not found
+$ type chert
+bash: type: chert: not found
 </code></pre></div>
 
-<p>The <code>type</code> command is more general that <code>which</code> and also understand and shows the <em>bash keywords</em>.</p>
+<p>The <code>type</code> command is more general than <code>which</code> and also understand and shows the <em>bash keywords</em>.</p>
 <p>Another useful command in this category is <code>whereis</code>. Unlike <code>which</code>, <code>whereis</code> shows man pages and source codes of programs alongside their binary location.</p>
 <div class="highlight"><pre><span></span><code>$ whereis mkfs
-mkfs: /sbin/mkfs.bfs /sbin/mkfs.ext3 /sbin/mkfs.ext4 /sbin/mkfs.vfat /sbin/mkfs.cramfs /sbin/mkfs.minix /sbin/mkfs.ext2 /sbin/mkfs.msdos /sbin/mkfs.fat /sbin/mkfs.ntfs /sbin/mkfs.ext4dev /sbin/mkfs /usr/share/man/man8/mkfs.8.gz
-$ whereis ping
-ping: /bin/ping /usr/share/man/man8/ping.8.gz
-$ whereis chert
-chert:
-$
+mkfs: /usr/sbin/mkfs /usr/share/man/man8/mkfs.8.gz
 </code></pre></div>
 
+<blockquote>
+<p>tip: there is also a <code>whatis</code> command, try it.</p>
+</blockquote>
 <h3>find</h3>
-<p>We have already seen this command in detail but lets see a couple of new switches.</p>
+<p>We have already seen this command in <a href="/1037-search-text-files-using-regular-expressions.html">chapter 103.7</a> but let's see a couple of new switches.</p>
 <ul>
 <li>The <code>-user</code> and <code>-group</code> specifies a specific user &amp; group</li>
 <li>The <code>-maxdepth</code> tells the find how deep it should go into the directories.</li>
 </ul>
 <div class="highlight"><pre><span></span><code>$ find /tmp/ -maxdepth 1 -user jadi | head
-$ find /tmp/ -maxdepth 1 -user jadi | head
-/tmp/asheghloo.png
-/tmp/tmpAN6Drb
-/tmp/wrapper-24115-2-out
-/tmp/sni-qt_goldendict_20048-sRlmvN
-/tmp/asheghloo.gif
-/tmp/zim-jadi
-/tmp/3la.txt
-/tmp/unity_support_test.0
-/tmp/batman.jpg
+/tmp/1
+/tmp/2
 </code></pre></div>
 
 <p>Or even find the files not belonging to any user / group with <code>-nouser</code> and <code>-nogroup</code>.</p>
 <blockquote>
 <p>Like other <em>tests</em>, you can add a <code>!</code> just before any phrase to negate it. So this will find files <strong>not belonging</strong> to jadi: <code>find . ! -user jadi</code></p>
 </blockquote>
+<p>It is also very common to use for files with specific strings in their names:</p>
+<div class="highlight"><pre><span></span><code>$ sudo find /etc -iname <span class="s2">&quot;*vmware*&quot;</span>
+/etc/vmware-tools
+/etc/vmware-tools/scripts/vmware
+</code></pre></div>
+
 <h3>locate &amp; updatedb</h3>
-<p>You tries <code>find</code> and know that it is slowwwww... It searches the file system on each run but lets see the fastest command:</p>
-<div class="highlight"><pre><span></span><code>$ locate happy
-/home/jadi/.Spark/xtra/emoticons/Default.adiumemoticonset/happy.png
-/home/jadi/.Spark/xtra/emoticons/sparkEmoticonSet/happy.png
-/home/jadi/Downloads/jadi-net_radio-geek_040_antihappy.mp3
-/usr/share/emoticons/kde4/unhappy.png
-/usr/share/pixmaps/fvwm/mini.happy.xpm
-/usr/share/pixmaps/pidgin/emotes/default/happy.png
-/usr/share/pixmaps/pidgin/emotes/small/happy.png
-/usr/src/linux-headers-3.13.0-40-generic/include/config/happymeal.h
-/usr/src/linux-headers-3.16.0-25-generic/include/config/happymeal.h
-/usr/src/linux-headers-3.16.0-28-generic/include/config/happymeal.h
-/usr/src/linux-headers-3.16.0-29-generic/include/config/happymeal.h
+<p>You tries <code>find</code> and loved it but there is an issue with it: it do a live active search! This can slow down your system or push too much pressure on your hard or on larger file systems take too long. To solve this, there is a faster command:</p>
+<div class="highlight"><pre><span></span><code>$ locate networking
+/etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg
+/snap/core20/1408/usr/lib/python3/dist-packages/cloudinit/distros/networking.py
+/snap/core20/1408/usr/lib/python3/dist-packages/cloudinit/distros/__pycache__/networking.cpython-38.pyc
+/snap/core20/1826/usr/lib/python3/dist-packages/cloudinit/distros/networking.py
+/snap/core20/1826/usr/lib/python3/dist-packages/cloudinit/distros/__pycache__/networking.cpython-38.pyc
+/usr/lib/python3/dist-packages/cloudinit/distros/networking.py
+/usr/lib/python3/dist-packages/cloudinit/distros/__pycache__/networking.cpython-310.pyc
+/usr/lib/python3/dist-packages/sos/report/plugins/networking.py
+/usr/lib/python3/dist-packages/sos/report/plugins/__pycache__/networking.cpython-310.pyc
 </code></pre></div>
 
 <p>And it is fast:</p>
-<div class="highlight"><pre><span></span><code>$ time locate kernel | wc -l
-11235
+<div class="highlight"><pre><span></span><code>$ <span class="nb">time</span> locate kernel / <span class="p">|</span> wc -l
+<span class="m">16989</span>
 
-real    0m0.341s
-user    0m0.322s
-sys    0m0.015s
+real    0m0.091s
+user    0m0.094s
+sys 0m0.034s
 </code></pre></div>
 
-<p>This is fast because its data comes from a database created with <code>updatedb</code> command which is usually run on a daily basis with a cron job. Its configuration file is <code>/etc/updatedb.conf</code> or <code>/etc/sysconfig/locate</code>:</p>
+<p>This is fast because its data comes from a database created with <code>updatedb</code> (its package is called <code>plocate</code> on debian). Usually this command runs automatically (with a cronjob) on a daily basis. Its configuration file is <code>/etc/updatedb.conf</code> or <code>/etc/sysconfig/locate</code>:</p>
 <div class="highlight"><pre><span></span><code>$ cat /etc/updatedb.conf
-PRUNE_BIND_MOUNTS=&quot;yes&quot;
-# PRUNENAMES=&quot;.git .bzr .hg .svn&quot;
-PRUNEPATHS=&quot;/tmp /var/spool /media /home/.ecryptfs&quot;
-PRUNEFS=&quot;NFS nfs nfs4 rpc_pipefs afs binfmt_misc proc smbfs autofs iso9660 ncpfs coda devpts ftpfs devfs mfs shfs sysfs cifs lustre tmpfs usbfs udf fuse.glusterfs fuse.sshfs curlftpfs ecryptfs fusesmb devtmpfs&quot;
+<span class="nv">PRUNE_BIND_MOUNTS</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span>
+<span class="c1"># PRUNENAMES=&quot;.git .bzr .hg .svn&quot;</span>
+<span class="nv">PRUNEPATHS</span><span class="o">=</span><span class="s2">&quot;/tmp /var/spool /media /home/.ecryptfs&quot;</span>
+<span class="nv">PRUNEFS</span><span class="o">=</span><span class="s2">&quot;NFS nfs nfs4 rpc_pipefs afs binfmt_misc proc smbfs autofs iso9660 ncpfs coda devpts ftpfs devfs mfs shfs sysfs cifs lustre tmpfs usbfs udf fuse.glusterfs fuse.sshfs curlftpfs ecryptfs fusesmb devtmpfs&quot;</span>
 </code></pre></div>
 
-<p>Please note that you can update the db by running <code>updatedb</code> as root and get some info about it by <code>-S</code> switch of <code>locate</code> command:</p>
-<div class="highlight"><pre><span></span><code>$ locate -S
-Database /var/lib/mlocate/mlocate.db:
-    73,602 directories
-    711,894 files
-    46,160,154 bytes in file names
-    18,912,999 bytes used to store database
-</code></pre></div>
-
-<h2>And... the LPIC1 exam 101 is DONE! Congrats.</h2>
-<p><a href="http://j.mp/jadilpic1">http://j.mp/jadilpic1</a></p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
+<p>You can update the  db by running <code>updatedb</code> as root. </p>
 
 
              

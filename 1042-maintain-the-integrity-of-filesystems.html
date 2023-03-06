@@ -111,7 +111,7 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qcAZ7vr6W9U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <h2>du &amp; df</h2>
-<p>In many cases you want to find out about the free space of a disk or find how much space a directory is using or check how many inodes you have to use.</p>
+<p>In many cases you want to find out about the free space of a disk or find how much space a directory is using or check how many inodes left.</p>
 <blockquote>
 <p>The inode (index node) is a data structure in a Unix-style file system that describes a file-system object such as a file or a directory. Each inode stores the attributes and disk block locations of the object's data. File-system object attributes may include metadata (times of last change, access, modification), as well as owner and permission data. A directory is a list of inodes with their assigned names. The list includes an entry for itself, its parent, and each of its children. <small>(<a href="https://en.wikipedia.org/wiki/Inode">wikipedia</a>)</small></p>
 </blockquote>
@@ -130,7 +130,7 @@ none              tmpfs     100M   28K  100M   1% /run/user
 /dev/sdb1         vfat      3.7G  7.8M  3.6G   1% /media/jadi/BA82-BECD
 </code></pre></div>
 
-<p>Here, the <code>-T</code> switch tells <code>df</code> to show the file system types and `-H` make numbers human readable (in powers of 1000\, for powers of 2, use <code>-h</code>).</p>
+<p>Here, the <code>-T</code> switch tells <code>df</code> to show the file system types and `-H` make numbers human readable (in powers of 1000 , for powers of 2, use <code>-h</code>).</p>
 <p>On some filesystems (like ext2-4) we have a fixed number of inoes, so you may need to check the number of remaining inodes too. To do so, use the <code>-i</code> switch:</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~$ df -i
 Filesystem          Inodes  IUsed    IFree IUse% Mounted on
@@ -153,29 +153,29 @@ none               1007533     33  1007500    1% /run/user
 <table>
 <thead>
 <tr>
-<th align="left">switch</th>
+<th align="center">switch</th>
 <th align="left">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-h</td>
+<td align="center">-h</td>
 <td align="left">print sizes in powers of 1024 (e.g., 1023M)</td>
 </tr>
 <tr>
-<td align="left">-H</td>
+<td align="center">-H</td>
 <td align="left">print sizes in powers of 1000 (e.g., 1.1G)</td>
 </tr>
 <tr>
-<td align="left">-c</td>
+<td align="center">-c</td>
 <td align="left">show the grand total</td>
 </tr>
 <tr>
-<td align="left">--max-depth 2</td>
+<td align="center">--max-depth 2</td>
 <td align="left">Calculate all but show only 2 directories deep</td>
 </tr>
 <tr>
-<td align="left">-s</td>
+<td align="center">-s</td>
 <td align="left">Only shows the summary and not all the directories one by one</td>
 </tr>
 </tbody>
@@ -219,7 +219,7 @@ jadi@funlife:~/w/lpic$ du -hs
 <blockquote>
 <p>Some of these are just hardlinks to <code>e2fsck</code> command</p>
 </blockquote>
-<p>A common switch during boot is <code>-A</code> which tells fsck to check all file systems in /etc/fstab ordered by <em>passno</em> in that file which is 6th field (File systems with <em>passno</em> of 0, wont be checked during the boot.</p>
+<p>A common switch during boot is <code>-A</code> which tells <code>fsck</code> to check all file systems in /etc/fstab ordered by <em>passno</em> in that file which is 6th field (File systems with <em>passno</em> of 0, wont be checked during the boot.</p>
 <div class="highlight"><pre><span></span><code>root@funlife:~# fsck /dev/sdb
 fsck from util-linux 2.25.1
 e2fsck 1.42.10 (18-May-2014)
@@ -246,7 +246,7 @@ is corrupt, and you might try running e2fsck with an alternate superblock:
     e2fsck -b 32768 &lt;device&gt;
 </code></pre></div>
 
-<p>You can also check filesystems with UUID (find them with <code>blkid</code> command or with labels):</p>
+<p>You can also check filesystems with UUID (find them with <code>blkid</code> command or with labels) :</p>
 <div class="highlight"><pre><span></span><code>root@funlife:~# fsck /dev/sdb
 fsck from util-linux 2.25.1
 e2fsck 1.42.10 (18-May-2014)
@@ -284,33 +284,12 @@ fsck from util-linux 2.25.1
 </blockquote>
 <p>Some version do have a <code>-a</code> for automatic fixing all found issues but its not recommended. </p>
 <h3>e2fsck</h3>
-<p>e2fsck is used to check the ext2/ext3/ext4 family of file
-systems.  For ext3 and ext4 file systems that use a journal, if
-the system has been shut down uncleanly without any errors,
-normally, after replaying the committed transactions  in the
-journal, the file system should be marked as clean.   Hence, for
-file systems that use journaling, e2fsck will normally replay the
-journal and exit, unless its superblock indicates that further
-checking is required.</p>
-<p>device is a block device (e.g., /dev/sdc1) or file containing the
-file system.</p>
-<p>Note that in general it is not safe to run e2fsck on mounted file
-systems.  The only exception is if the -n option is specified,
-and -c, -l, or -L options are not specified.   However, even if
-it is safe to do so, the results printed by e2fsck are not valid
-if the file system is mounted.   If e2fsck asks whether or not
-you should check a file system which is mounted, the only correct
-answer is ``no''.  Only experts who really know what they are
-doing should consider answering this question in any other way.</p>
-<p>If e2fsck is run in interactive mode (meaning that none of -y,
--n, or -p are specified), the program will ask the user to fix
-each problem found in the file system.  A response of 'y' will
-fix the error; 'n' will leave the error unfixed; and 'a' will fix
-the problem and all subsequent problems; pressing Enter will
-proceed with the default response, which is printed before the
-question mark.  Pressing Control-C terminates e2fsck immediately.</p>
-<h3>mk2efs</h3>
-<p>mke2fs is used to create an ext2, ext3, or ext4 filesystem, usually in a disk partition. device is the special file corresponding to the device (e.g /dev/hdXX). blocks-count is the number of blocks on the device. If omitted, mke2fs automagically figures the file system size. If called as mkfs.ext3 a journal is created as if the -j option was specified.</p>
+<p><code>e2fsck</code> is used to check the ext2/ext3/ext4 family of file systems.  For ext3 and ext4 file systems that use a <code>journal</code>, if the system has been shutdown uncleanly without any errors,normally, after replaying the committed transactions  in the journal, the file system should be marked as clean. Hence, forfile systems that use <strong>journaling</strong> , e2fsck will normally replay the journal and exit, unless its superblock indicates that further checking is required.</p>
+<p>device is a block device (e.g., <code>/dev/sdc1</code>) or file containing the file system.</p>
+<p>Note that in general it is not safe to run <code>e2fsck</code> on  <strong><em>mounted</em></strong> file systems.  The only exception is if the <code>-n</code> option is specified, and <code>-c</code>, <code>-l</code>, or <code>-L</code> options are not specified. However, even if it is safe to do so, the results printed by <code>e2fsck</code> are not valid if the file system is <strong><em>mounted</em></strong> . If <code>e2fsck</code> asks whether or not you should check a file system which is mounted, the only correct answer is ``no''.  Only experts who really know what they are doing should consider answering this question in any other way.</p>
+<p>If <code>e2fsck</code> is run in interactive mode (meaning that none of <code>-y</code>, <code>-n</code>, or <code>-p</code> are specified), the program will ask the user to fix each problem found in the file system. A response of <code>'y'</code> will fix the error; <code>'n'</code> will leave the error unfixed; and <code>'a'</code> will fix the problem and all subsequent problems; pressing Enter will proceed with the default response, which is printed before the question mark.  Pressing <code>Control-C</code> terminates <code>e2fsck</code> immediately.</p>
+<h3>mke2fs</h3>
+<p>mke2fs is used to create an ext2, ext3, or ext4 filesystem, usually in a disk partition. device is the special file corresponding to the device (e.g /dev/hdXX). blocks-count is the number of blocks on the device. If omitted, mke2fs automagically figures the file system size. If called as mkfs.ext3 a journal is created as if the <code>-j</code> option was specified.</p>
 <p>The defaults of the parameters for the newly created filesystem, if not overridden by the options listed below, are controlled by the /etc/mke2fs.conf configuration file. See the mke2fs.conf(5) manual page for more details.</p>
 <h3>tune2fs</h3>
 <p>This is a command to tune <em>ext</em> file systems. It can show information and set many options. The <code>-l</code> option lists the current configs:</p>
@@ -419,33 +398,33 @@ Superblock backups stored on blocks:
 <table>
 <thead>
 <tr>
-<th align="left">Command</th>
+<th align="center">Command</th>
 <th align="left">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">xfs_info</td>
+<td align="center">xfs_info</td>
 <td align="left">display information</td>
 </tr>
 <tr>
-<td align="left">xfs_growfs</td>
+<td align="center">xfs_growfs</td>
 <td align="left">expand file system</td>
 </tr>
 <tr>
-<td align="left">xfs_admin</td>
+<td align="center">xfs_admin</td>
 <td align="left">change parameters on XFS file systems</td>
 </tr>
 <tr>
-<td align="left">xfs_repair</td>
+<td align="center">xfs_repair</td>
 <td align="left">repair the problems. Please note that the filesytem under repair should be unmounted</td>
 </tr>
 <tr>
-<td align="left">xfs_db</td>
+<td align="center">xfs_db</td>
 <td align="left">checks and debug the filesystem. xfs_db is used to examine an XFS filesystem. Under rare circumstances it can also be used to modify an XFS filesystem, but that task is normally left to xfs_repair or to scripts such as xfs_admin that run xfs_db.</td>
 </tr>
 <tr>
-<td align="left">xfs_fsr</td>
+<td align="center">xfs_fsr</td>
 <td align="left">filesystem reorganizer for XFS. When invoked with no arguments xfs_fsr reorganizes all regular files in all mounted filesystems. xfs_fsr makes many cycles over /etc/mtab each time making a single pass over each XFS filesystem. Each pass goes through and selects files that have the largest number of extents. It attempts to defragment the top 10% of these files on each pass.</td>
 </tr>
 </tbody>
@@ -462,65 +441,60 @@ Superblock backups stored on blocks:
 <table>
 <thead>
 <tr>
-<th align="left">filesystem</th>
-<th align="left">command</th>
+<th align="center">filesystem</th>
+<th align="center">command</th>
 <th align="left">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">ext</td>
-<td align="left">tune2fs</td>
+<td align="center">ext</td>
+<td align="center">tune2fs</td>
 <td align="left">Show or set ext2 and ext3 parameters or even set the journaling options</td>
 </tr>
 <tr>
-<td align="left">ext</td>
-<td align="left">dumpe2fs</td>
+<td align="center">ext</td>
+<td align="center">dumpe2fs</td>
 <td align="left">Prints the super block and block group descriptor information for an ext2 or ext3 filesystem.</td>
 </tr>
 <tr>
-<td align="left">ext</td>
-<td align="left">debugfs</td>
+<td align="center">ext</td>
+<td align="center">debugfs</td>
 <td align="left">Is an interactive file system debugger. Use it to examine or change the state of an ext2 or ext3file system.</td>
 </tr>
 <tr>
-<td align="left">ext</td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">reiserfs</td>
-<td align="left">reiserfstune</td>
+<td align="center">reiserfs</td>
+<td align="center">reiserfstune</td>
 <td align="left">show and set parameters</td>
 </tr>
 <tr>
-<td align="left">reiserfs</td>
-<td align="left">debugreiserfs</td>
+<td align="center">reiserfs</td>
+<td align="center">debugreiserfs</td>
 <td align="left">Prints the super block and block group descriptor information for an ext2 or ext3 filesystem.</td>
 </tr>
 <tr>
-<td align="left">XFS</td>
-<td align="left">xfs_info</td>
+<td align="center">XFS</td>
+<td align="center">xfs_info</td>
 <td align="left">display information</td>
 </tr>
 <tr>
-<td align="left">XFS</td>
-<td align="left">xfs_growfs</td>
+<td align="center">XFS</td>
+<td align="center">xfs_growfs</td>
 <td align="left">expand file system</td>
 </tr>
 <tr>
-<td align="left">XFS</td>
-<td align="left">xfs_admin</td>
+<td align="center">XFS</td>
+<td align="center">xfs_admin</td>
 <td align="left">change parameters on XFS file systems</td>
 </tr>
 <tr>
-<td align="left">XFS</td>
-<td align="left">xfs_repair</td>
+<td align="center">XFS</td>
+<td align="center">xfs_repair</td>
 <td align="left">repair the problems</td>
 </tr>
 <tr>
-<td align="left">XFS</td>
-<td align="left">xfs_db</td>
+<td align="center">XFS</td>
+<td align="center">xfs_db</td>
 <td align="left">checks and debugs the filesystem</td>
 </tr>
 </tbody>

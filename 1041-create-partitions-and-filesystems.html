@@ -128,7 +128,7 @@
 <p>Linux systems use <code>udev</code> to add block devices and their paritions to the <code>/dev</code> in the form of <code>/dev/sdb1</code> (2nd disk (b) and first parition (1)). </p>
 <h3>Editing Partition Tables</h3>
 <h4>fdisk</h4>
-<p><code>fdisk</code> is the main command for viewing / changing and creating partitions on MBR systems. Its <code>-l</code> switch lists the partitions:</p>
+<p><code>fdisk</code> is the main command for viewing / changing and creating partitions on MBR systems. the <code>-l</code> switch lists the partitions:</p>
 <div class="highlight"><pre><span></span><code># <span class="nv">fdisk</span> <span class="o">-</span><span class="nv">l</span> <span class="o">/</span><span class="nv">dev</span><span class="o">/</span><span class="nv">sdb</span>
 <span class="nv">Disk</span> <span class="o">/</span><span class="nv">dev</span><span class="o">/</span><span class="nv">sdb</span>: <span class="mi">20</span> <span class="nv">GiB</span>, <span class="mi">21474836480</span> <span class="nv">bytes</span>, <span class="mi">41943040</span> <span class="nv">sectors</span>
 <span class="nv">Disk</span> <span class="nv">model</span>: <span class="nv">QEMU</span> <span class="nv">HARDDISK</span>
@@ -146,11 +146,11 @@
 
 <ul>
 <li>The <strong>Boot</strong> flag shows which partition starts the boot on DOS PCs and has no importance on LILO &amp; GRUB</li>
-<li>Start and End shows the where this partition is located on the disk</li>
-<li>Size is size.</li>
-<li>ID indicated the partition format (82 is swap, 83 is linux data, ... check all with <code>l</code> in interactive mode)</li>
+<li>Start and End shows where this partition is located on the disk.</li>
+<li>Size shows each partition size .</li>
+<li>ID indicates the partition format (82 is swap, 83 is linux data, ... check all with <code>l</code> in interactive mode)</li>
 </ul>
-<p>It is also possible to run fdisk in interactive mode. <code>m</code> will show you the help:</p>
+<p>It is also possible to run fdisk in interactive mode. <code>m</code> will show you the help menu:</p>
 <div class="highlight"><pre><span></span><code><span class="o">~</span><span class="c1"># fdisk /dev/sda</span>
 
 <span class="n">Welcome</span> <span class="n">to</span> <span class="n">fdisk</span> <span class="p">(</span><span class="n">util</span><span class="o">-</span><span class="n">linux</span> <span class="mf">2.36</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span>
@@ -218,7 +218,7 @@
 <span class="o">/</span><span class="nv">dev</span><span class="o">/</span><span class="nv">sdb3</span>  <span class="mi">39942144</span> <span class="mi">41940991</span>  <span class="mi">1998848</span>  <span class="mi">976</span><span class="nv">M</span> <span class="nv">Linux</span> <span class="nv">swap</span>
 </code></pre></div>
 
-<p>You should remember the disk layouts concepts from the <a href="/1021-design-hard-disk-layout.html">chapter 102.1</a>. So lets create a some paritions using <code>fdisk</code>. I will use the <code>n</code> for <em>new</em>:</p>
+<p>You should remember the disk layouts concepts from the <a href="/1021-design-hard-disk-layout.html">chapter 102.1</a>. So lets create some paritions using <code>fdisk</code>. I will use the <code>n</code> for <em>new</em>:</p>
 <div class="highlight"><pre><span></span><code># <span class="nv">fdisk</span> <span class="o">/</span><span class="nv">dev</span><span class="o">/</span><span class="nv">sda</span>
 
 <span class="nv">Welcome</span> <span class="nv">to</span> <span class="nv">fdisk</span> <span class="ss">(</span><span class="nv">util</span><span class="o">-</span><span class="nv">linux</span> <span class="mi">2</span>.<span class="mi">36</span>.<span class="mi">1</span><span class="ss">)</span>.
@@ -252,7 +252,7 @@
 <span class="o">/</span><span class="nv">dev</span><span class="o">/</span><span class="nv">sda1</span>        <span class="mi">2048</span> <span class="mi">2099199</span> <span class="mi">2097152</span>   <span class="mi">1</span><span class="nv">G</span> <span class="mi">83</span> <span class="nv">Linux</span>
 </code></pre></div>
 
-<p>Lets  create another Extened parition and add a Linux and a Swap parition there. </p>
+<p>Lets  create another Extened parition and add a Linux (83) and a Swap (82) parition there. </p>
 <div class="highlight"><pre><span></span><code><span class="nv">Command</span> <span class="ss">(</span><span class="nv">m</span> <span class="k">for</span> <span class="nv">help</span><span class="ss">)</span>: <span class="nv">n</span>
 <span class="nv">Partition</span> <span class="nv">type</span>
    <span class="nv">p</span>   <span class="nv">primary</span> <span class="ss">(</span><span class="mi">1</span> <span class="nv">primary</span>, <span class="mi">0</span> <span class="nv">extended</span>, <span class="mi">3</span> <span class="nv">free</span><span class="ss">)</span>
@@ -423,9 +423,9 @@
 </code></pre></div>
 
 <h4>gdisk</h4>
-<p>As seen on <a href="/1021-design-hard-disk-layout.html">chapter 102.1</a>, we have to used <code>gdisk</code> on GPT machines. Its not that different from <code>fdisk</code>. Lets have a look at its main commands:</p>
+<p>As seen on <a href="/1021-design-hard-disk-layout.html">chapter 102.1</a>, we have used <code>gdisk</code> on GPT machines. Its not that different from <code>fdisk</code>. Lets have a look at its main commands:</p>
 <div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@debianamd</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">gdisk</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="w"></span>
-<span class="n">GPT</span><span class="w"> </span><span class="n">fdisk</span><span class="w"> </span><span class="p">(</span><span class="n">gdisk</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="mf">1.0.6</span><span class="w"></span>
+<span class="n">GPT</span><span class="w"> </span><span class="n">fdisk</span><span class="w"> </span><span class="p">(</span><span class="n">gdisk</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="mf">1.0.6</span><span class="w">  </span>
 
 <span class="nl">Warning</span><span class="p">:</span><span class="w"> </span><span class="k">Partition</span><span class="w"> </span><span class="nc">table</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="n">claims</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">partition</span><span class="w"> </span><span class="nc">table</span><span class="w"></span>
 <span class="n">entries</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">bytes</span><span class="p">,</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">program</span><span class="w">  </span><span class="n">supports</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="mi">128</span><span class="o">-</span><span class="n">byte</span><span class="w"> </span><span class="n">entries</span><span class="p">.</span><span class="w"></span>
@@ -494,57 +494,57 @@
 </code></pre></div>
 
 <h4>hint? use gparted</h4>
-<p>The <code>gparted</code> tool is a graphical tool to manage your partitioned. It has the ability to resize partitions and is super easy to use. Its not part of the LPIC exam but its good to know about it; just in case ;) (<a href="official site">https://gparted.org/</a>)</p>
+<p>The <code>gparted</code> tool is a graphical tool to manage your partitioned. It has the ability to resize partitions and is super easy to use. Its not part of the LPIC exam but its good to know about it. just in case ;) <a href="https://gparted.org/">gparted.org</a></p>
 <h3>Formatting the partition</h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rQZVYtVOEhU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <h4>Filesystems</h4>
 <p>After you partitioned your block devices, you have to format them to make them usable to store files and directories. Formatting a file system, creates a map which stores the location and name of files and directories and make it possible to move files between folders, deleting them or renaming them; think of it as the index of a book. </p>
-<p>There are several filesystems in the linux world but these are the most commonly used ones:</p>
+<p>There are several filesystems in the linux world but, these are the most commonly used ones:</p>
 <table>
 <thead>
 <tr>
-<th align="left">Format</th>
+<th align="center">Format</th>
 <th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">ext2</td>
+<td align="center">ext2</td>
 <td align="left">second extended filesystem was developed to address shortcomings in the older Unix/Minix filesystem used in early versions of Linux. It has been used extensively on Linux for many years. There is no journaling in ext2, and it has largely been replaced by ext3 and more recently ext4.</td>
 </tr>
 <tr>
-<td align="left">ext3</td>
+<td align="center">ext3</td>
 <td align="left">ext2 + journaling, max file size is 2TB and max filesystem size is 16TB</td>
 </tr>
 <tr>
-<td align="left">ext4</td>
+<td align="center">ext4</td>
 <td align="left">current version of ext, max file size is 16TB and max filesystem size is 1EB (1000*1000TB)</td>
 </tr>
 <tr>
-<td align="left">XFS</td>
+<td align="center">XFS</td>
 <td align="left">journaling, caches to RAM, great for uninterruptible power supplies, Max file and filesystem size is 8EB</td>
 </tr>
 <tr>
-<td align="left">swap</td>
+<td align="center">swap</td>
 <td align="left">Swap is used when the system needs to use more ram than what is has. It's like an extra ram on disk</td>
 </tr>
 <tr>
-<td align="left">VFAT</td>
-<td align="left">FAT32, no journaling, good for data exchange with windows, does not understand permissions and symbolic links</td>
+<td align="center">VFAT</td>
+<td align="left">FAT32, no journaling, good for data exchange with windows, does not understand <strong>permissions</strong> and symbolic links</td>
 </tr>
 <tr>
-<td align="left">exFAT</td>
+<td align="center">exFAT</td>
 <td align="left">Extended FAT. A newer version of FAT which is used mainly for extended device which should work on all machines; like USB disks</td>
 </tr>
 <tr>
-<td align="left">btrfs</td>
-<td align="left">A new high performance file system. Max file and filesize is 16 EB. Has its own form of RAID and LVM and build-in snapshots and fault tolerance and data compression on the fly</td>
+<td align="center">btrfs</td>
+<td align="left">A new high performance file system. Max file and filesize is 16 EB. Has its own form of RAID and LVM and build-in snapshots and fault tolerance and data compression on the fly.</td>
 </tr>
 </tbody>
 </table>
 <h4>Creating filesystems</h4>
-<p>You can format your partitions with <code>mkfs</code> command (and <code>mkswap</code> for swap). This is a front end to commands like mkfs.ext3 for ext3, mkfs.ext4 for ext4 and mkfs.reiserfs for ReiserFS. full list of installed on your system is here:</p>
+<p>You can format your partitions with <code>mkfs</code> command (and <code>mkswap</code> for swap). This is a front end to commands like <code>mkfs.ext3</code> for <em>ext3</em>, <code>mkfs.ext4</code> for <em>ext4</em> and <code>mkfs.reiserfs</code> for <em>ReiserFS</em>. full list of installed on your system is here:</p>
 <div class="highlight"><pre><span></span><code># ls /sbin/mk*
 /sbin/mkdosfs  /sbin/mkexfatfs  /sbin/mkfs.bfs     /sbin/mkfs.exfat  /sbin/mkfs.ext3  /sbin/mkfs.fat    /sbin/mkfs.msdos  /sbin/mkfs.vfat     /sbin/mkinitramfs   /sbin/mkntfs
 /sbin/mke2fs   /sbin/mkfs   /sbin/mkfs.cramfs  /sbin/mkfs.ext2   /sbin/mkfs.ext4  /sbin/mkfs.minix  /sbin/mkfs.ntfs   /sbin/mkhomedir_helper  /sbin/mklost+found  /sbin/mkswap
@@ -582,7 +582,11 @@ Setting up swapspace version 1, size = 2 GiB (2144333824 bytes)
 no label, UUID=6a59cf20-8fd6-4d86-b044-89f7bc67993b
 </code></pre></div>
 
-<p>On chapter 14.3 we will see how we can mount / unmount these filesystems.</p>
+<p>and then </p>
+<div class="highlight"><pre><span></span><code># swapon /dev/sda6
+</code></pre></div>
+
+<p>On chapter 14.3 we will see how we can <em>mount</em> / <em>unmount</em> these filesystems.</p>
 
 
              

@@ -88,10 +88,6 @@
         <div class="span8 offset2 article-content">
             
             <h2>104.5 Manage file permissions and ownership</h2>
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
 <p><em>Weight: 3</em></p>
 <p>Candidates should be able to control file access through the proper use of permissions and ownerships.</p>
 <h3>Objectives</h3>
@@ -99,15 +95,19 @@
 <li>Manage access permissions on regular and special files as well as directories.</li>
 <li>Use access modes such as suid, sgid and the sticky bit to maintain security.</li>
 <li>Know how to change the file creation mask.</li>
-<li>Use the group field to grant file access to group members.</li>
-<li>chmod</li>
+<li>
+<p>Use the group field to grant file access to group members.</p>
+</li>
+<li>
+<p>chmod</p>
+</li>
 <li>umask</li>
 <li>chown</li>
 <li>chgrp</li>
 </ul>
 <h3>Users and Groups</h3>
 <p>A linux system can have many users and many groups. You can login with one user and use <code>su</code> command to change to another group. Each user belongs to one primary group and can be a member of other groups too.</p>
-<p>There commands like <code>whoami</code>, <code>groups</code> and <code>id</code> to determine who you are.</p>
+<p>To check your user and group use the <code>whoami</code>, <code>groups</code> and <code>id</code> commands.</p>
 <div class="highlight"><pre><span></span><code>- $ whoami
 jadi
 - $ groups
@@ -116,8 +116,6 @@ jadi adm cdrom sudo dip plugdev netdev lpadmin sambashare debian-tor
 uid=1000(jadi) gid=1000(jadi) groups=1000(jadi),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),102(netdev),108(lpadmin),124(sambashare),125(debian-tor)
 - $ su root -
 Password:
-bash: cannot set terminal process group (-1): Inappropriate ioctl for device
-bash: no job control in this shell
 - # id
 uid=0(root) gid=0(root) groups=0(root)
 - # exit
@@ -126,31 +124,33 @@ exit
 jadi
 </code></pre></div>
 
+<p>As you can see <code>id</code> shows both user and group information.</p>
 <blockquote>
-<p><code>id</code> shows both user and group information</p>
+<p>Note the 0 UID of 0 GID of the root user and root group</p>
 </blockquote>
-<p>There info are stored in <code>/etc/passwd</code> and <code>/etc/group</code></p>
+<p>These are stored in <code>/etc/passwd</code> and <code>/etc/group</code> files.</p>
 <div class="highlight"><pre><span></span><code>$ cat /etc/group | grep adm
 adm:x:4:syslog,jadi
 lpadmin:x:108:jadi
 </code></pre></div>
 
 <h3>File ownership &amp; permissions</h3>
-<p>Files are also belong to one user and one group.</p>
-<div class="highlight"><pre><span></span><code>$ ls -l /sbin/fdisk ~/w/lpic/notes.txt
--rw-rw-r-- 1 jadi users    576 Dec  7 22:30 /home/jadi/w/lpic/notes.txt
--rwxr-xr-x 1 root root 267176 Oct 15 18:58 /sbin/fdisk
+<p>Linux uses three layers of access / permissions for each file or directory: User, Group &amp; Others.</p>
+<p>Each file belongs to one user and one group and this user and the members of that group will have specific read/write/execute accesses on it. Have a look:</p>
+<div class="highlight"><pre><span></span><code>$ ls -ltrh script.sh
+-rwxr-xr-x 1 jadi adm 34 Mar  5  2023 script.sh
 </code></pre></div>
 
-<p>As you can see, the notes.txt belongs to jadi and a group called <em>users</em>.</p>
+<p>In above example, <code>jadi</code> is the owner of the file. The file belongs to the <code>adm</code> group and the owner (jadi here) has  <strong>r</strong>ead, <strong>w</strong>rite (including deletion and edit) &amp; <strong>e</strong>xecute (reading directory content) permissions on the file while the <code>adm</code> group members and <strong>others</strong> only have read &amp; execute access.</p>
+<p><img alt="" src="/images/file_permissions.png"></p>
 <blockquote>
 <p>In many distros, when you create a user, system creates a group with same name and assign that users files to that group</p>
 </blockquote>
-<p>Another part of the <code>ls -l</code> command shows the permissions on that file. Linux system users a 3 layer permission: permissions for the owner, for the group member and for <em>others</em>. Each layer also has 3 different parts: <strong>r</strong>ead, <strong>w</strong>rite (including deletion and edit) &amp; <strong>e</strong>xecute (reading directory content). These are shown at the first column of <code>ls -</code> command as <code>-rw-rw-r--</code>. The character meanings are as follow:</p>
+<p>The below table shows some more information regarding the first part of the <code>ls -l</code> command:</p>
 <table>
 <thead>
 <tr>
-<th align="left">bit</th>
+<th align="left">location</th>
 <th align="left">meaning</th>
 </tr>
 </thead>
@@ -173,17 +173,16 @@ lpadmin:x:108:jadi
 </tr>
 <tr>
 <td align="left">11</td>
-<td align="left">Indicated if any other access methos (such as SELinux) applies to this file - not part of the 101 exam</td>
+<td align="left">Indicated if any other access methods (such as SELinux) are applies to this file - not part of the LPIC 101 exam</td>
 </tr>
 </tbody>
 </table>
-<p>As you can see in our example, characters 2 to 10 show the accesses. A <code>-</code> there means "no access on this part" and read, write and execute are shown by r, w &amp; x.</p>
-<p>In the following line:</p>
+<p>Lets check another example.</p>
 <div class="highlight"><pre><span></span><code>$ ls -l /sbin/fdisk
 -rwxr-xr-x 1 root root 267176 Oct 15 18:58 /sbin/fdisk
 </code></pre></div>
 
-<p>We can see that the fdisk can be read, written and and be executed by its owner (root), only be read and executed by whoever is part of group root and be read and executed by all other users.</p>
+<p>We can see that the <code>fdisk</code> can be read, be written and be executed by its owner (root). Other users (even if they belong to the gropu <code>root</code>) can only read and execute it.</p>
 <blockquote>
 <p>although non-root users can execute the fdisk, this program wont do much if it sees that a non root user is running it.</p>
 </blockquote>
@@ -193,14 +192,14 @@ total 12
 drwxr-xr-x 160 jadi jadi 12288 Feb  7 11:44 jadi
 </code></pre></div>
 
-<p>The first character is a <code>d</code> so this is a directory! The owner (jadi) has read, write and execute access but other members of the <strong>group</strong> jadi and <strong>others</strong> only have read and execute access on this directory (execute means that they can see the files inside it).</p>
-<h3>Chanhging permissions</h3>
-<p>It is possible to change the permissions on files &amp; directories using the <code>chmod</code> command. There are to ways to tell this command what you want to do:</p>
+<p>The first character is a <code>d</code> so this is a directory. The owner (jadi) has read, write and execute access but other members of the <strong>group</strong> jadi and <strong>others</strong> only have read and execute access on this directory (execute means that they can see the files inside it).</p>
+<h3>Changing permissions</h3>
+<p>It is possible to change the permissions on files &amp; directories using the <code>chmod</code> command. There are two ways to tell this command what you want to do:</p>
 <ol>
-<li>using octal codes</li>
+<li>using octal (base 8) codes</li>
 <li>using short coeds</li>
 </ol>
-<p>When using octal codes, you have to to create an octal string to tell chmod what you want to do. This way, 0 means no access, 1 means execute, 2 means write and 4 means read. So if you want to give read+execute, you have to give 4+1 which is 5. This table shows every possible combination:</p>
+<p>When using octal codes, you have to to create an octal number to tell chmod what you want to do. In this method, 0 means no access, 1 means execute, 2 means write and 4 means read. So if you want to give read+execute, you have to give 4+1 which is 5. This table shows every possible combination:</p>
 <table>
 <thead>
 <tr>
@@ -243,7 +242,7 @@ drwxr-xr-x 160 jadi jadi 12288 Feb  7 11:44 jadi
 </tr>
 </tbody>
 </table>
-<p>So if you want to give rwx to owner, rx to group and only x to others, you have to use 751:</p>
+<p>So if you want to give rwx to the owner, rx to the group and only x to others, you have to use 751:</p>
 <div class="highlight"><pre><span></span><code>$ ls -ltrh myfile
 -rw-rw-r-- 1 jadi jadi 0 Feb  8 21:01 myfile
 $ chmod 751 myfile
@@ -251,7 +250,8 @@ $ ls -ltrh myfile
 -rwxr-x--x 1 jadi jadi 0 Feb  8 21:01 myfile
 </code></pre></div>
 
-<p>But there is also an <em>easier</em> method. You can use <code>+x</code> to give execute permission, <code>+r</code> to give read permission and <code>+w</code> to give read permission. Removing these permissions will be like <code>-r</code>.</p>
+<p>This might look difficult but there are some commonly used combinations like 755 for general executable files or 600 for personal files.</p>
+<p>There is also an <em>easier</em> method. In this method <code>u</code> means user, <code>g</code> means group and <code>o</code> means others. You can append <code>+x</code> to give execute permission, <code>+r</code> to give read permission and <code>+w</code> to give read permission. For example <code>u+x</code> will grant execute permission to user. If you want to remove a permission, use a <code>-</code> sign. For example <code>g-r</code> to prevent <code>group</code> members from <code>read</code>ing the file.</p>
 <div class="highlight"><pre><span></span><code>$ ls -ltrh myfile
 -rwxr-x--x 1 jadi jadi 0 Feb  8 21:01 myfile
 $ chmod u-x myfile
@@ -263,24 +263,57 @@ $ ls -ltrh myfile
 -rwxr-xr-x 1 jadi jadi 0 Feb  8 21:01 myfile
 </code></pre></div>
 
-<blockquote>
-<p>you can tell <code>chmod</code> whos permission should be granted or removed by doing things like <code>u+r</code> (give read to user), <code>og-w</code> (remove write for other and group).</p>
-</blockquote>
 <p>One very common switch on <code>chmod</code> is <code>-R</code> for recursive chmoding on files. This will give read permission of all files inside /tmp/ to any user:</p>
 <div class="highlight"><pre><span></span><code># chmod -R o+r /tmp
 </code></pre></div>
 
+<h3>Changing owner and groups</h3>
+<p>If you need to change the ownership or group of a file or directory, use the <code>chown</code> command:</p>
+<div class="highlight"><pre><span></span><code>$ ls -ltrh newfile
+-rw-rw-r-- 1 jadi jadi 0 Feb  8 21:38 newfile
+$ chown root:root newfile
+chown: changing ownership of ‘newfile’: Operation not permitted
+$ sudo chown root:root newfile
+[sudo] password for jadi:
+$ ls -ltrh newfile
+-rw-rw-r-- 1 root root 0 Feb  8 21:38 newfile
+</code></pre></div>
+
+<p>A common switch is <code>-R</code> to <code>chown</code> recursively.</p>
+<p>If need to only change the group you may use <code>chgrp</code> command:</p>
+<div class="highlight"><pre><span></span><code>$ sudo chgrp postgres newfile
+$ ls -ltrh newfile
+-rw-rw-r-- 1 root postgres 0 Feb  8 21:38 newfile
+</code></pre></div>
+
+<p>It is possible to assign more groups to a user via <code>usermod</code> command:</p>
+<div class="highlight"><pre><span></span><code>$ sudo usermod -aG sudo jadi <span class="c1"># will add jadi to the sudo group</span>
+</code></pre></div>
+
+<p>Since users can be a member of many groups, they might need to change their <strong>default group</strong> when creating files. To do so, check the groups with <code>groups</code> command and set the default one with <code>newggrp</code>:</p>
+<div class="highlight"><pre><span></span><code>$ touch newfile
+$ ls -ltrh newfile
+-rw------- 1 jadi jadi 0 Feb  8 21:53 newfile
+$ groups
+jadi adm cdrom sudo dip plugdev netdev lpadmin sambashare debian-tor
+$ newgrp adm
+$ touch newerfile
+$ ls -ltrh new*
+-rw------- 1 jadi jadi 0 Feb  8 21:53 newfile
+-rw------- 1 jadi adm  0 Feb  8 21:54 newerfile
+</code></pre></div>
+
 <h3>Access modes</h3>
-<p>So you have access only to your files. But how you should change your password? or use programs which needs access to system files? You should be able to access /etc/passwd or /etc/shadow to change your password but you should not be able to access other people files!</p>
-<p>Normally when you run a program, it runs with <em>your</em> access levels but linux has two special bits on each file; <strong>suid</strong> (set user id) and <strong>guid</strong> (set group id). If these are set on a file, that file be will be executed with the access of the <strong>owner</strong> of the file and not the user who is running it.</p>
+<p>A question for you: If we do not have write access to /etc/passwd or /etc/shadow, how is it possible to change our password there?</p>
+<p>Normally when you run a program, it runs with <em>your</em> access level. But what happens if you need to run a program with a higher access level? say to do changes in the password files? For this Linux sets two special bits for each file; <strong>suid</strong> (set user id) and <strong>guid</strong> (set group id). If these bits are set on a file, that file be will be executed with the access of the <strong>owner</strong> (or <strong>group</strong>) of the file and not the user who is running it.</p>
 <div class="highlight"><pre><span></span><code>$ ls -ltrh /usr/bin/passwd
 -rwsr-xr-x 1 root root 50K Jul 18  2014 /usr/bin/passwd
 </code></pre></div>
 
-<p>Did you note the <code>s</code> in the place of <em>executable bit</em> for the user and for the group? That means when any user runs this program, it will be run be the access of the owner of the file (which is root) instead of that users id.</p>
+<p>Kindly note the <code>s</code> in the <em>executable bit</em> for the user permissions and also for the group? That means when any user runs this program, it will be run with the access level of the owner of the file (which is root) instead of that users id.</p>
 <p>It is possible to set / unser the suid and sgid using <code>chmod</code> and <code>+s</code> or <code>-s</code> instead of <code>x</code>.</p>
-<p>The last special option is <code>chmod</code> is the <strong>sticky bit</strong> which lets only the owner of the file to delete it, even if other users have write (delete) access on that directory. This is good for places like /tmp.</p>
-<p>Sticky bit is identified by <code>t</code> and will be shown on the last bit of a directory:</p>
+<p>While we are on this, let me introduce you to the last special bit. It is called <strong>sticky bit</strong> and if set, makes the file resistant to deletion. If the sticky bit is set, ONLY the owner of the file will be able to delete it, even if others do have write access to it. This is useful for places like /tmp (everybody has write access on /tmp directory but we do not want others to delete our files).</p>
+<p>Sticky bit is identified by <code>t</code> and will be shown on the last bit of a <code>ls -l</code>:</p>
 <div class="highlight"><pre><span></span><code>$ ls -dl /tmp
 drwxrwxrwt 13 root root 77824 Feb  8 21:27 /tmp
 </code></pre></div>
@@ -309,7 +342,7 @@ drwxrwxrwt 13 root root 77824 Feb  8 21:27 /tmp
 <tr>
 <td align="left">sticky</td>
 <td align="left">1000</td>
-<td align="left">t</td>
+<td align="left">+t</td>
 </tr>
 </tbody>
 </table>
@@ -317,12 +350,11 @@ drwxrwxrwt 13 root root 77824 Feb  8 21:27 /tmp
 <p>guid on a directory will force any new file in that directory to have the guid of the directory itself.</p>
 </blockquote>
 <h3>umask</h3>
-<p>But what will be the access of the new files? What happens when you <code>touch</code> a new file? This is set with <code>umask</code>. This command tells the system what permissions <strong>should not be given to</strong> new files:</p>
+<p>Another tricky question: what is the permissions of a newly created file? What happens if you <code>touch</code> a non-existing file? What will be its permissions? This is set by the <code>umask</code>. This command tells the system what permissions (in addition to execute) <strong>should not be given to</strong> new files. In other words, imagine that all new files will have <code>666</code> octal permission (write + read for user, group &amp; others), so a umask of 0002 (yes! 4 digits) will remote the 2 (write) for others (666-0002=664):</p>
 <div class="highlight"><pre><span></span><code>$ umask
 0002
 </code></pre></div>
 
-<p>Which removes write (2) permissions from files.</p>
 <p>If we need to change umask, it can be done with the same command:</p>
 <div class="highlight"><pre><span></span><code>$ umask
 0002
@@ -341,39 +373,8 @@ $ umask
 </code></pre></div>
 
 <blockquote>
-<p>Note how we use <code>u=rw,g=,o=</code> to tell umask or chomd what we exactly need.</p>
+<p>Note how I used <code>u=rw,g=,o=</code> to tell <code>umask</code> or <code>chomd</code> what I exactly wanted from it.</p>
 </blockquote>
-<h3>Changing owner and groups</h3>
-<p>If you need to change the ownership or group belonging of a file or directory, use the <code>chown</code> command:</p>
-<div class="highlight"><pre><span></span><code>$ ls -ltrh newfile
--rw-rw-r-- 1 jadi jadi 0 Feb  8 21:38 newfile
-$ chown root:root newfile
-chown: changing ownership of ‘newfile’: Operation not permitted
-$ sudo chown root:root newfile
-[sudo] password for jadi:
-$ ls -ltrh newfile
--rw-rw-r-- 1 root root 0 Feb  8 21:38 newfile
-</code></pre></div>
-
-<p>A common switch is <code>-R</code> to do the chown recursively and the general style is <code>chown newuser:newgroup file</code>.</p>
-<p>There is also a command specially for changing the group:</p>
-<div class="highlight"><pre><span></span><code>$ sudo chgrp postgres newfile
-$ ls -ltrh newfile
--rw-rw-r-- 1 root postgres 0 Feb  8 21:38 newfile
-</code></pre></div>
-
-<p>If a user is member of different groups, she can change her <strong>default group</strong> using the <code>newggrp</code> command:</p>
-<div class="highlight"><pre><span></span><code>$ touch newfile
-$ ls -ltrh newfile
--rw------- 1 jadi jadi 0 Feb  8 21:53 newfile
-$ groups
-jadi adm cdrom sudo dip plugdev netdev lpadmin sambashare debian-tor
-$ newgrp adm
-$ touch newerfile
-$ ls -ltrh new*
--rw------- 1 jadi jadi 0 Feb  8 21:53 newfile
--rw------- 1 jadi adm  0 Feb  8 21:54 newerfile
-</code></pre></div>
 
 
              
