@@ -87,14 +87,9 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h2>104.7 Find system files and place files in the correct location</h2>
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>Weight: 2</em></p>
+            <p><em>Weight: 2</em></p>
 <p>Candidates should be thoroughly familiar with the <strong>Filesystem Hierarchy Standard (FHS)</strong>, including typical file locations and directory classifications.</p>
-<h3>Objectives</h3>
+<h3>Key Knowledge Areas</h3>
 <ul>
 <li>Understand the correct locations of files under the FHS.</li>
 <li>Find files and commands on a Linux system.</li>
@@ -111,7 +106,7 @@
 <li>type</li>
 <li>/etc/updatedb.conf</li>
 </ul>
-<h3>FHS</h3>
+<h2>FHS</h2>
 <p>Filesystem Hierarchy Standard (FHS) is a document describing the Linux / Unix file hierarchy. It is very useful to know these because it lets you easily find what you are looking for as a system admin.</p>
 <table>
 <thead>
@@ -193,7 +188,7 @@
 </table>
 <p>The <code>/usr</code> is the second level of the hierarchy. It containins shareable, read-only data. It can be shared between systems, although present practice does not often do this.</p>
 <p>The <code>/var</code> filesystem contains variable data files, including spool directories and files, administrative and logging data, and transient and temporary files. Some portions of /var are not shareable between different systems, but others, such as /var/mail, /var/cache/man, /var/cache/fonts, and /var/spool/news, may be shared.</p>
-<h3>Path</h3>
+<h2>Path</h2>
 <p>A general linux install has a lot of files; 741341 files in my case. So how the shell finds and runs a command? This is done by a variable called PATH:</p>
 <div class="highlight"><pre><span></span><code>$ echo $PATH
 /home/jadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games;/home/jadi/bin/
@@ -205,6 +200,7 @@
 </code></pre></div>
 
 <p>As you can see, this is the list of directories separated with a colon. Obviously you can change your path with <code>export PATH=$PATH:/usr/new/dir</code> or put this in <code>.bashrc</code> to make it permanent.</p>
+<h2>Locating files</h2>
 <h3>which, type and whereis</h3>
 <p>The <code>which</code> command shows the first appearance of the command given in the path. In other words the  <code>which mkfs</code> will tell you what will be run if you issue this <code>mkfs</code> command.</p>
 <div class="highlight"><pre><span></span><code>$ which mkfs

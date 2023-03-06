@@ -87,10 +87,9 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h2>104.5 Manage file permissions and ownership</h2>
-<p><em>Weight: 3</em></p>
+            <p><em>Weight: 3</em></p>
 <p>Candidates should be able to control file access through the proper use of permissions and ownerships.</p>
-<h3>Objectives</h3>
+<h3>Key Knowledge Areas</h3>
 <ul>
 <li>Manage access permissions on regular and special files as well as directories.</li>
 <li>Use access modes such as suid, sgid and the sticky bit to maintain security.</li>
@@ -105,7 +104,7 @@
 <li>chown</li>
 <li>chgrp</li>
 </ul>
-<h3>Users and Groups</h3>
+<h2>Users and Groups</h2>
 <p>A linux system can have many users and many groups. You can login with one user and use <code>su</code> command to change to another group. Each user belongs to one primary group and can be a member of other groups too.</p>
 <p>To check your user and group use the <code>whoami</code>, <code>groups</code> and <code>id</code> commands.</p>
 <div class="highlight"><pre><span></span><code>- $ whoami
@@ -134,7 +133,7 @@ adm:x:4:syslog,jadi
 lpadmin:x:108:jadi
 </code></pre></div>
 
-<h3>File ownership &amp; permissions</h3>
+<h2>File ownership &amp; permissions</h2>
 <p>Linux uses three layers of access / permissions for each file or directory: User, Group &amp; Others.</p>
 <p>Each file belongs to one user and one group and this user and the members of that group will have specific read/write/execute accesses on it. Have a look:</p>
 <div class="highlight"><pre><span></span><code>$ ls -ltrh script.sh
@@ -303,7 +302,7 @@ $ ls -ltrh new*
 -rw------- 1 jadi adm  0 Feb  8 21:54 newerfile
 </code></pre></div>
 
-<h3>Access modes</h3>
+<h2>Access modes</h2>
 <p>A question for you: If we do not have write access to /etc/passwd or /etc/shadow, how is it possible to change our password there?</p>
 <p>Normally when you run a program, it runs with <em>your</em> access level. But what happens if you need to run a program with a higher access level? say to do changes in the password files? For this Linux sets two special bits for each file; <strong>suid</strong> (set user id) and <strong>guid</strong> (set group id). If these bits are set on a file, that file be will be executed with the access of the <strong>owner</strong> (or <strong>group</strong>) of the file and not the user who is running it.</p>
 <div class="highlight"><pre><span></span><code>$ ls -ltrh /usr/bin/passwd
@@ -349,7 +348,7 @@ drwxrwxrwt 13 root root 77824 Feb  8 21:27 /tmp
 <blockquote>
 <p>guid on a directory will force any new file in that directory to have the guid of the directory itself.</p>
 </blockquote>
-<h3>umask</h3>
+<h2>umask</h2>
 <p>Another tricky question: what is the permissions of a newly created file? What happens if you <code>touch</code> a non-existing file? What will be its permissions? This is set by the <code>umask</code>. This command tells the system what permissions (in addition to execute) <strong>should not be given to</strong> new files. In other words, imagine that all new files will have <code>666</code> octal permission (write + read for user, group &amp; others), so a umask of 0002 (yes! 4 digits) will remote the 2 (write) for others (666-0002=664):</p>
 <div class="highlight"><pre><span></span><code>$ umask
 0002
