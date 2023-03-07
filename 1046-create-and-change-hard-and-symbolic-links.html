@@ -155,6 +155,9 @@ $ cat soft_link
 cat: soft_link: No such file or directory
 </code></pre></div>
 
+<blockquote>
+<p>Note the <code>l</code> as the first character in <code>ls -l</code>'s permission list when we have a symbolic link</p>
+</blockquote>
 <p>You can create hard links only for files and not for directories. The exception is the special directory entries in a directory for the directory itself and for its parent (. and ..)</p>
 <blockquote>
 <p>You will get an error if you attempt to create hard links that cross file systems or that are for directories.</p>
@@ -178,6 +181,8 @@ $ <span class="nb">cd</span> mydir $ ln -s ../myfile.txt .
 $ ls -l /usr/bin/python3
 lrwxrwxrwx <span class="m">1</span> root root <span class="m">10</span> Mar <span class="m">25</span>  <span class="m">2022</span> /usr/bin/python3 -&gt; python3.10
 </code></pre></div>
+
+<p>To remove links, you can use the <code>rm</code> or <code>unlnk</code> command.</p>
 
 
              
