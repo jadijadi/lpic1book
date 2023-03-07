@@ -82,6 +82,8 @@ $ cat soft_link
 cat: soft_link: No such file or directory
 ```
 
+> Note the `l` as the first character in `ls -l`'s permission list when we have a symbolic link
+
 You can create hard links only for files and not for directories. The exception is the special directory entries in a directory for the directory itself and for its parent \(. and ..\)
 
 
@@ -114,3 +116,5 @@ $ which python3
 $ ls -l /usr/bin/python3
 lrwxrwxrwx 1 root root 10 Mar 25  2022 /usr/bin/python3 -> python3.10
 ```
+
+To remove links, you can use the `rm` or `unlnk` command.
