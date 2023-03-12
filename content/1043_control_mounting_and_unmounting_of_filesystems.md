@@ -30,13 +30,13 @@ Candidates should be able to configure the mounting of a filesystem.
 ## Mounting and Unmounting
 When we have a formatted partition and need to use it, we have to `mount` it somewhere in the Linux directory hierarchy. Unlike Windows, the new *driver* do now show up as separated disks, but like *virtual subdirectories* somewhere in your `/` tree. 
 
-Say we want to *mount* the /dev/sda3 on /media/mydisk. The directory `/media/mydisk` should be there and then, we just run:
+Say we want to *mount* the `/dev/sda3` on `/media/mydisk`. The directory `/media/mydisk` should be there and then, we just run:
 
 ```
 sudo mount -t ext4 /dev/sda3 /media/mydisk
 ```
 
-and all files and folders in /dev/sda3 will be accessible from /media/mydisk.
+All files and folders in /dev/sda3 will be accessible from /media/mydisk.
 
 Run `mount` with no parameter to see all mounted devices. To **un mount**, simply use the `umount` on the drive or the directory. These two are equivalent:
 
@@ -49,19 +49,29 @@ Mounting and umounting can happen on many different storage types, for example o
 
 > swap disks do not need mounting. You should use `swapon` and `swapoff` to use them.
 
-The `-t` switch indicates the type of the filesystem and `-o` passes some options (say ro for readonly)
-
 ```
 mount -t ext4 /dev/sda1 /media
+```
+The `-t` switch indicates the type of the filesystem .
+
+```
 mount -o remount,ro /dev/sda1
 ```
 
-> The `/media` and `/mnt` directories are used to mount filesystems, although you can use any directory for this purpose
+The `-o` switch passes some options (say `ro` for readonly)
 
-### UUID & Labels
-As you already know, there is a problem when working with classical device names like `/dev/vdb1`: they change! The current /dev/sdb might be seen as /dev/sdd after you remove / reconnect it. To solve this, its better to work with UUIDs (Universal Unique Identifiers). Check them with `lsblk` (-O will show all available columns or specify with -o as below) and `blkid`.
+It's usually used as one-line command:
 
 ```
+mount -t ext4 -o remount,ro /dev/sda1 /media 
+```
+
+> The `/media` and `/mnt` directories are used to mount filesystems, even though you can use any directory for this purpose.
+
+### UUID & Labels
+As you already know, there is a problem when working with classical device names like `/dev/vdb1`: they change! The current `/dev/sdb` might be seen as `/dev/sdd` after you remove / reconnect it. To solve this, its better to work with UUIDs (Universal Unique Identifiers). Check them with `lsblk` ( `-O` will show all available columns or specify with -o as below) and `blkid`.
+
+```txt
 # lsblk -o +UUID
 NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS                             UUID
 sr0     11:0    1  1.8G  0 rom  /run/media/jadi/Fedora-WS-Live-35_B-1-2 2021-09-22-21-47-34-00
@@ -92,7 +102,7 @@ vdb    252:16   0    2G  0 disk
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/lQGvxIkdcSE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-For automatic mounting, Linux uses the `/etc/fstab` file. Its like a table which shows what file system should be mounted where during the boot. This is my the /etc/fstab of my Fedora:
+For automatic mounting, Linux uses the `/etc/fstab` file. Its like a table which shows what file system should be mounted where during the boot. This is my the `/etc/fstab` of my Fedora:
 
 ```
 # cat /etc/fstab
@@ -118,7 +128,7 @@ These are the columns:
 
 - file system: Label, UUID, device
 - mount point: swap or none for swap
-- type: can be auto
+- type: can be ext4 , xfs ,nfs or other types of filesystem
 - options:  defaults, rw / ro, noauto, user, exec / noexec, noatime, umask
 - dump: do dump command backup this? mostly 0
 - pass: Non-zero values of pass specify the order of checking filesystems at boot time
@@ -130,5 +140,5 @@ These are the columns:
 
 ## Systemd mount units
 
-When using systemd, a unit configuration file whose name ends in ".mount" encodes information about a file system mount point controlled and supervised by systemd. You can 
+When using systemd, a unit configuration file whose name ends in ".mount" encodes information about a file system mount point controlled and supervised by systemd.
 
