@@ -350,8 +350,7 @@ But nobody uses `insmod` because it does not understand dependencies and you nee
 # modprobe iwlwifi
 ````
 
-> you can use `-f` switch to FORCE `rmmod` to remove the module even if it is in use
-
+> you can use `-f` switch to FORCE `rmmod` to remove the module even if it is not in use
 If you need to load some modules every time your system boots do one of the following:
 
 1. Add their name to this file `/etc/modules`
