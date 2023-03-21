@@ -286,7 +286,7 @@ You can see the processes, system load, uptime, CPU status, memory, ... and do s
 | :---: | :--- |
 | h | help |
 | q | quit |
-| M | sort based on memory usage" |
+| M | sort based on memory usage |
 | c | show full commands |
 | k | kill after asking pid and signal |
 
