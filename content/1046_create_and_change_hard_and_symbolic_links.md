@@ -23,7 +23,7 @@ Candidates should be able to create and manage hard and symbolic links to a file
 
 ## links
 
-On a storage device, a file or directory is save on some black and a reference to is is saved in the FAT, ext, ... allocation table alongside data about its owner, permissions, when it was last accessed, its size and such. As you already know, we can check this using the `ls` command.
+On a storage device, a file or directory is saved on some block and a reference to is is saved in the FAT, ext, ... allocation table alongside data about its owner, permissions, when it was last accessed, its size and such. As you already know, we can check this using the `ls` command.
 
 ```
 $ ls -i script.sh
