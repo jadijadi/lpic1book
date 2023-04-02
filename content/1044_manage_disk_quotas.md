@@ -11,6 +11,9 @@ sortorder: 230
   This chapter is removed in the latest version (500) of LPIC1 and is kept here as a reference.
 </div>
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KJPvfqe-Bls" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+
 ## 104.4 Manage disk quotas
 
 _Weight: 1_

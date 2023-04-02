@@ -109,7 +109,7 @@ The first character is a `d` so this is a directory. The owner \(jadi\) has read
 It is possible to change the permissions on files & directories using the `chmod` command. There are two ways to tell this command what you want to do:
 
 1. using octal (base 8) codes
-2. using short coeds
+2. using short codes 
 
 When using octal codes, you have to to create an octal number to tell chmod what you want to do. In this method, 0 means no access, 1 means execute, 2 means write and 4 means read. So if you want to give read+execute, you have to give 4+1 which is 5. This table shows every possible combination:
 
