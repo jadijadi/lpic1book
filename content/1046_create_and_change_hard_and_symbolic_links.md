@@ -18,8 +18,8 @@ Candidates should be able to create and manage hard and symbolic links to a file
 * Use links to support system administration tasks.
 
 
-* ln
-* unlink
+* `ln`
+* `unlink`
 
 ## links
 
@@ -82,9 +82,9 @@ $ cat soft_link
 cat: soft_link: No such file or directory
 ```
 
-> Note the `l` as the first character in `ls -l`'s permission list when we have a symbolic link
+> Note the `l` as the first character in `ls -l`'s permission list when we have a symbolic link.
 
-You can create hard links only for files and not for directories. The exception is the special directory entries in a directory for the directory itself and for its parent \(. and ..\)
+You can create hard links only for files, not for directories. The exception is the special directory entries in a directory for the directory itself and for its parent \(`.` and `..`\)
 
 
 
@@ -98,8 +98,18 @@ $ ln -s mydir link2dir # works just fine
 If you are using relative names, you will usually want the current working directory to be the directory where you are creating the link; otherwise, the link you create will be relative to another point in the file system.
 
 ```
-$ ln -s myfile.txt mydir/ \#broken link
-$ cd mydir $ ln -s ../myfile.txt .
+$ ln -s myfile.txt mydir/ #broken link
+$ cd mydir 
+$ ln -s ../myfile.txt .
+```
+
+It's recommended to use exact path for links.
+
+```
+$ ln -s /tmp/myfile.txt /tmp/Foo/Bar/myfile.txt
+$ ls -l /tmp/Foo/Bar/myfile.txt 
+lrwxrwxrwx. 1 jadi jadi 9 Mar  6 12:37 /tmp/Foo/Bar/myfile.txt -> /tmp/myfile.txt
+
 ```
 
 we can find symbolic links using the `find` command:
