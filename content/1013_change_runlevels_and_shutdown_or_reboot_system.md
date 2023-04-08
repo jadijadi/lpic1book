@@ -37,7 +37,7 @@ Description: Candidates should be able to manage the SysVinit runlevel or system
 
 ## runlevels
 
-Runlevels define what tasks can be accomplished in the current state \(or runlevel\) of a Linux system. This of it as different stages of *being alive*. 
+Runlevels define what tasks can be accomplished in the current state \(or runlevel\) of a Linux system. Think of it as different stages of *being alive*.
 
 ### systemd
 On systemd, we have different targets which are groups of services:
