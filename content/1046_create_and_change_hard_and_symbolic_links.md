@@ -23,7 +23,7 @@ Candidates should be able to create and manage hard and symbolic links to a file
 
 ## links
 
-On a storage device, a file or directory is save on some black and a reference to is is saved in the FAT, ext, ... allocation table alongside data about its owner, permissions, when it was last accessed, its size and such. As you already know, we can check this using the `ls` command.
+On a storage device, a file or directory is saved on some block and a reference to it is saved in the FAT, ext, ... allocation table alongside data about its owner, permissions, when it was last accessed, its size and such. As you already know, we can check this using the `ls` command.
 
 ```
 $ ls -i script.sh
@@ -117,4 +117,4 @@ $ ls -l /usr/bin/python3
 lrwxrwxrwx 1 root root 10 Mar 25  2022 /usr/bin/python3 -> python3.10
 ```
 
-To remove links, you can use the `rm` or `unlnk` command.
+To remove links, you can use the `rm` or `unlink` command.
