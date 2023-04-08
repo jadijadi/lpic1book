@@ -72,6 +72,8 @@ echo "We are learning! Wowww..."
 echo
 ```
 
+> The `sh` is a more basic shell but it is compatible with most of the things we talk about. There are also options like `zsh` and `csh` but the LPIC is based on `bash`.
+
 ### Variables
 Already seen in the previous section. You can define variables like this `VARNAME=VALUE`. Here is a sample:
 
