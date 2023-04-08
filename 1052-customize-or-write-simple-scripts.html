@@ -87,12 +87,7 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h2>105.2 Customize or write simple scripts</h2>
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>Weight: 4</em></p>
+            <p><em>Weight: 4</em></p>
 <h4>Description</h4>
 <p>Candidates should be able to customize existing scripts, or write simple new Bash scripts.</p>
 <h4>Key Knowledge Areas:</h4>
@@ -100,6 +95,7 @@
 <li>Use standard sh syntax (loops, tests)</li>
 <li>Use command substitution</li>
 <li>Test return values for success or failure or other information provided by a command</li>
+<li>Execute chained commands.</li>
 <li>Perform conditional mailing to the superuser</li>
 <li>Correctly select the script interpreter through the shebang (#!) line</li>
 <li>Manage the location, ownership, execution and suid-rights of scripts</li>
@@ -113,16 +109,26 @@
 <li>read</li>
 <li>seq</li>
 <li>exec</li>
+<li>||</li>
+<li>&amp;&amp;</li>
 </ul>
+<h2>combining commands</h2>
+<p>You can use <code>&amp;&amp;</code> and <code>||</code> as logical and / or chaining. In case of And, the execution will stop as soon as the first one fails to execute. In case of Or, the next command will only run if the first one fails. Just like in logic boards.</p>
+<p>Confusing? Let me explain again. The system will always tried to <em>evaluate</em> the outcome of your chain. So if you have <code>A &amp;&amp; B</code> and A fails, the system does not need to test B (because the overall result will be False anyway). Same logic works for <code>A || B || C</code>. If A works fine, the overall evaluation will be True so no need for testing B or C. But if A fails, system will try B and if B fails, we have to try C. </p>
+<p>We use chaining to create logical flows. For example:</p>
+<div class="highlight"><pre><span></span><code>$ cp backup.gzip /backups/ <span class="o">&amp;&amp;</span> rm backup.gzip
+</code></pre></div>
+
+<p>works like this: copy the backup to this location and delete the file ONLY IF the previous copy was successful. </p>
 <h3>Shell Scripts</h3>
-<p>Are a way of automating tasks.</p>
+<p>We can combine shell commands or programs and or some logic or loops to write large or small scripts. Shell scripts are useful when you want to <em>automate</em> some tasks in one larger command. Say a shell script called "do_backup.sh" may compress some files into a file, rename this file based on the current date and time and then save it on a remote site and at last delete the ones older than 1 month. </p>
 <h3>Shebang</h3>
-<p>If a line starts with <code>#!</code> it is called shebang and tells the shell what <em>interpreter</em> to use for running this script.</p>
+<p>There is a line at the beginning of scripts which starts with <code>#!</code> and continues with an executable who needs to run this script. It is called shebang and as mentioned, tells the shell which <em>interpreter</em> must be used to run this script.</p>
 <blockquote>
-<p>Note: Normally a <code>#</code> at the beginning of a script is for showing <em>comments</em>. Do not confuse it with <em>Shebang</em> (#!)</p>
+<p>Note: In many programming languages (including bash &amp; python), a <code>#</code> at the beginning of a script indicates <em>comments</em>. Do not confuse it with the <em>Shebang</em> (#!)</p>
 </blockquote>
-<p>In many cases we run shells with <code>#!/bin/bash</code> or <code>#!/bin/sh</code></p>
-<p>We can use the command we already know in our shell scripts. A sample is:</p>
+<p>Commonly we run shells using <code>#!/bin/bash</code> or <code>#!/bin/sh</code></p>
+<p>The rest of a shell script can use most of the commands you already now in addition with some more "programming" specific commands like loops, tests and such. Here is a primitive sample:</p>
 <div class="highlight"><pre><span></span><code>#!/bin/bash
 
 echo
@@ -131,7 +137,7 @@ echo
 </code></pre></div>
 
 <h3>Variables</h3>
-<p>Already seen in some parts. You can define variables like this <code>VARNAME=VALUE</code>. A sample:</p>
+<p>Already seen in the previous section. You can define variables like this <code>VARNAME=VALUE</code>. Here is a sample:</p>
 <div class="highlight"><pre><span></span><code>#!/bin/bash
 
 NAME=Jadi
@@ -142,19 +148,23 @@ echo
 </code></pre></div>
 
 <blockquote>
-<p>Note: you can also do NAME="Jadi"</p>
+<p>Note: you can also do NAME="Jadi the geeking guy" if you need to have spaces in your values</p>
 </blockquote>
-<h4>Command substitution</h4>
-<p>Sometimes you need to have a variable with the result of something to a variable. In this case you can use $() construct:</p>
-<div class="highlight"><pre><span></span><code>FILES=$(ls -1)
+<h3>Command substitution</h3>
+<p>Sometimes you need to save the output of a command in a variable or use it in some way. To do so you can use <code>$(command)</code> or simply <code>\</code>command``. Look at these two samples:</p>
+<div class="highlight"><pre><span></span><code>➜  FILES=$(ls -1) # the $FILES variable contains the list of all files
+
+➜  ~ date +&#39;%Y%m%d-%H%m&#39;
+20230408-1604
+➜  ~ touch backup_`date +&#39;%Y%m%d-%H%m&#39;`.tar
+➜  ~ ls
+backup_20230408-1604.tar
 </code></pre></div>
 
 <h3>executing scripts</h3>
-<p>If the file is executable, we can run them using the ./script_name.sh if we are in the same directory, or give the complete path or include their directory ine $PATH variable. As you can see they are just normal programs.</p>
-<p>Another way is giving our scripts name as a parameter to the <code>bash</code> or <code>sh</code> commands.</p>
-<blockquote>
-<p>Note: you know that for making a file executable we can do <code>chmod 755 filename</code> or <code>chmod +x fiename</code>.</p>
-</blockquote>
+<p>In the Unix / Linux world, file should be executable to be executable! :D To do so use the <code>chmod</code> command with <code>+x</code>. After this step you can run your script by giving its path to shell. Please note that Linux by default does not looks into the current directory so if you are going to run a script at the current directory, you have to run <code>./script_name.sh</code>.</p>
+<p>Another way to run a script is running <code>sh</code> or <code>bash</code> with the shell scripts name as its argument. That is <code>sh my_script.sh</code>.</p>
+<p>In both above methods, the scripts runs inside a child bash process and <em>returns</em> back afterwards to the same shell. If want to override this and <em>replace</em> your current shell with the program you are going to run, use the <code>exec</code> build-in command. The <code>-c</code> switch will run the command in a clean environment.</p>
 <h3>Conditions</h3>
 <p>Up to now, we were just running commands one by one. That is not very <em>programmatic</em>. If we are going to have some <em>logic</em> in our programs, we need <em>conditions</em> and <em>loops</em>. First we will cover conditions, using the <code>if</code> command. Its usage is like this:</p>
 <div class="highlight"><pre><span></span><code>if [condition]
@@ -170,7 +180,7 @@ fi
 <blockquote>
 <p>Note: else part is optional, <code>if</code>, <code>then</code>, <code>fi</code> is enough.</p>
 </blockquote>
-<p>Conditions can be TRUE or FALSE. A very simple conditions is <code>if [ "Linux" = "Linux" ]</code>. Silly? I know but we will change it soon but for now, learn the syntax! Specially the <em>spaces</em> and <em>=</em> for checking if two strings are equal.</p>
+<p>Conditions can be TRUE or FALSE. A very simple conditions is <code>if [ "Linux" = "Linux" ]</code>. Silly? I know but wait; we are learning the syntax only. Please give special attention to the <em>spaces</em> and <em>=</em> for checking if two strings are equal.</p>
 <div class="highlight"><pre><span></span><code>#!/bin/bash
 
 kernel=$(uname -s)
@@ -182,10 +192,7 @@ else
 fi
 </code></pre></div>
 
-<blockquote>
-<p>Note spaces and using doublequotes (") on seccond echo because it has <code>(</code> character which will be interpreted by bash if we do not enclose the string in a doublequote.</p>
-</blockquote>
-<p>The actual checking of the condition is done by <code>test</code> command which is writter as <code>[ some test ]</code>. There are the other options:</p>
+<p>The command to check conditions is the <code>test</code> command but since it is used a lot, we have a shortcut for it. Instead of <code>test condition</code> you can write <code>[ condition ]</code>. </p>
 <table>
 <thead>
 <tr>
@@ -236,27 +243,28 @@ fi
 </tr>
 </tbody>
 </table>
-<h4>read</h4>
+<h3>read</h3>
 <p>Using <code>read</code> we can read the user input. Look at this:</p>
-<div class="highlight"><pre><span></span><code>1 #!/bin/sh
-  2
-  3 echo &quot;what is your name?&quot;
-  4 read NAME
-  5
-  6 echo &quot;Hello $NAME&quot;
-  7
-  8 if [ $NAME = &quot;Jadi&quot; ]
-  9 then
- 10      echo &quot;Oh I know you!&quot;
- 11  else
- 12      echo &quot;I wish I knew you&quot;
- 13 fi
- 14
- 15 echo &quot;Bye&quot;
+<div class="highlight"><pre><span></span><code>#!/bin/sh
+
+echo &quot;what is your name?&quot;
+read NAME
+
+echo &quot;Hello $NAME&quot;
+
+if [ $NAME = &quot;Jadi&quot; ]
+then
+    echo &quot;Oh I know you!&quot;
+else
+    echo &quot;I wish I knew you&quot;
+fi
+echo &quot;Bye&quot;
 </code></pre></div>
 
-<h3>for loop</h3>
-<p>Generaly loops are used to run a specific set of commands more than once. The syntax is like this:</p>
+<h3>loops</h3>
+<p>In programming loops are used to repeat part of the programs. We have 2 different loops in Bash; <code>for</code> and <code>while</code>. The for loops lets us run part of a program for a specific number of iterations. The <code>while</code> loop is used when we want to repeat part of a program <em>while</em> a specific condition is true. </p>
+<h4>for</h4>
+<p>The syntax is like this:</p>
 <div class="highlight"><pre><span></span><code>for VAR in SOME_LIST;
 do
   some stuff with $VAR
@@ -267,24 +275,24 @@ done
 <blockquote>
 <p>Note the <code>in</code>, <code>;</code>, <code>do</code> and <code>done</code>.</p>
 </blockquote>
-<p>On each loop, the VAR will be equal to one of the SOME_LIST elements. SOME_LIST can be numbers, name of files, words, ...</p>
+<p>On each iteration, the VAR will be equal to one of the SOME_LIST elements. SOME_LIST can be numbers, name of files, words, ...</p>
 <div class="highlight"><pre><span></span><code>for NUM in 1 2 3 4 5 6;
 do
     echo $NUM
 done
 </code></pre></div>
 
-<p>But what if you needed to go 1 to 42? We have the <code>seq</code> command which can be used like <code>seq 1 42</code> or a shorthand like <code>{1..42}</code>.</p>
-<p>Good part is we can use non-numbers too!</p>
+<p>But what if you needed to run from 1 to 42? We have the <code>seq</code> command for that. The <code>seq 1 42</code> or its shorthand <code>{1..42}</code> will let us run a loop 42 times.</p>
+<p>We can also use non-numeric variables here. This is a common use case:</p>
 <div class="highlight"><pre><span></span><code>for FILE in $(ls);
 do
     echo $FILE
-    wc $FILE
+    wc -l $FILE
 done
 </code></pre></div>
 
-<h3>while loop</h3>
-<p>This is another kind of loop but loops <em>while</em> a conditions is TRUE. This is the syntax:</p>
+<h4>while</h4>
+<p>This is the syntax:</p>
 <div class="highlight"><pre><span></span><code>while [condition]
 do
     do something
@@ -293,7 +301,7 @@ done
 </code></pre></div>
 
 <blockquote>
-<p>Note: If your condition will remains true all the time, the while loop will run <em>forever</em>. This is called an <em>infinite loop</em></p>
+<p>If your condition stays true all the time, the <code>while</code> loop will run <em>forever</em>. This is called an <em>infinite loop</em> and should be stopped by a <code>Ctrl+C</code>.</p>
 </blockquote>
 <p>This is sample:</p>
 <div class="highlight"><pre><span></span><code>VAR=52
@@ -306,7 +314,6 @@ done
 </code></pre></div>
 
 <blockquote>
-<p>we will have an infinite loop if we use <code>let VAR=VAR+1</code>. Ctrl+C will help us to <em>break</em> the loop.</p>
 <p>Note the <code>let</code> usage! If you just just say <code>VAR=1</code> and then <code>VAR=$VAR+1</code>, then VAR will be equal to <code>1+1</code> as an string!.</p>
 </blockquote>
 <h3>mailing the root user</h3>
@@ -322,7 +329,8 @@ hello there. This is my mail
 <div class="highlight"><pre><span></span><code>$ echo &quot;Body!&quot; | mail -s &quot;Subject&quot; root
 </code></pre></div>
 
-<p>This can be easily embeded as poart of your scripts!</p>
+<h2>Bonus</h2>
+<p>Just found my old <code>general_backup.sh</code> script and <a href="https://github.com/jadijadi/general_scripts/blob/main/backup_general_jadi.sh">uploaded it to github for you</a>. Nothing fancy but shows you how a general bash script can help you on your daily tasks.</p>
 
 
              
