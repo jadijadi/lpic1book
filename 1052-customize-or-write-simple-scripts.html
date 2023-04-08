@@ -113,6 +113,7 @@
 <li>&amp;&amp;</li>
 </ul>
 <h2>combining commands</h2>
+<p>If you want to run more than one command in line one, separate them by a <code>;</code>. So the <code>cd /tmp; ls</code> will run the <code>cd /tmp</code> and then <code>ls</code>. But there are more advanced usages too.</p>
 <p>You can use <code>&amp;&amp;</code> and <code>||</code> as logical and / or chaining. In case of And, the execution will stop as soon as the first one fails to execute. In case of Or, the next command will only run if the first one fails. Just like in logic boards.</p>
 <p>Confusing? Let me explain again. The system will always tried to <em>evaluate</em> the outcome of your chain. So if you have <code>A &amp;&amp; B</code> and A fails, the system does not need to test B (because the overall result will be False anyway). Same logic works for <code>A || B || C</code>. If A works fine, the overall evaluation will be True so no need for testing B or C. But if A fails, system will try B and if B fails, we have to try C. </p>
 <p>We use chaining to create logical flows. For example:</p>
@@ -153,6 +154,7 @@ echo
 <blockquote>
 <p>Note: you can also do NAME="Jadi the geeking guy" if you need to have spaces in your values</p>
 </blockquote>
+<p>If you want to access the command line arguments in your shell script, use <code>$1</code>, <code>$2</code>, ...</p>
 <h3>Command substitution</h3>
 <p>Sometimes you need to save the output of a command in a variable or use it in some way. To do so you can use <code>$(command)</code> or simply <code>\</code>command``. Look at these two samples:</p>
 <div class="highlight"><pre><span></span><code>➜  FILES=$(ls -1) # the $FILES variable contains the list of all files
@@ -262,6 +264,16 @@ else
     echo &quot;I wish I knew you&quot;
 fi
 echo &quot;Bye&quot;
+</code></pre></div>
+
+<p>You can timeout the waiting using the <code>-t</code> and show a prompt using <code>-p</code>. </p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="nv">read</span> <span class="o">-</span><span class="nv">t</span> <span class="mi">10</span> <span class="o">-</span><span class="nv">p</span> <span class="s2">&quot;</span><span class="s">Server address?</span><span class="s2">&quot;</span> <span class="nv">SERVER</span>
+<span class="k">then</span>
+    <span class="nv">echo</span> <span class="s2">&quot;</span><span class="s">Connecting to the $SERVER ...</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+    <span class="nv">echo</span>
+    <span class="nv">echo</span> <span class="s2">&quot;</span><span class="s">Too late!</span><span class="s2">&quot;</span>
+<span class="nv">fi</span>
 </code></pre></div>
 
 <h3>loops</h3>
