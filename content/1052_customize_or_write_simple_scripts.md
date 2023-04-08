@@ -39,6 +39,8 @@ Candidates should be able to customize existing scripts, or write simple new Bas
 
 ## combining commands
 
+If you want to run more than one command in line one, separate them by a `;`. So the `cd /tmp; ls` will run the `cd /tmp` and then `ls`. But there are more advanced usages too.
+
 You can use `&&` and `||` as logical and / or chaining. In case of And, the execution will stop as soon as the first one fails to execute. In case of Or, the next command will only run if the first one fails. Just like in logic boards.
 
 Confusing? Let me explain again. The system will always tried to *evaluate* the outcome of your chain. So if you have `A && B` and A fails, the system does not need to test B (because the overall result will be False anyway). Same logic works for `A || B || C`. If A works fine, the overall evaluation will be True so no need for testing B or C. But if A fails, system will try B and if B fails, we have to try C. 
@@ -88,6 +90,8 @@ echo
 ```
 
 > Note: you can also do NAME="Jadi the geeking guy" if you need to have spaces in your values
+
+If you want to access the command line arguments in your shell script, use `$1`, `$2`, ...
 
 ### Command substitution
 
@@ -174,6 +178,18 @@ else
     echo "I wish I knew you"
 fi
 echo "Bye"
+```
+
+You can timeout the waiting using the `-t` and show a prompt using `-p`. 
+
+```
+if read -t 10 -p "Server address?" SERVER
+then
+    echo "Connecting to the $SERVER ..."
+else
+    echo
+    echo "Too late!"
+fi
 ```
 
 ### loops
