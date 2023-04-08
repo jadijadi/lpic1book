@@ -15,7 +15,7 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="LPIC1, 101, LPIC1-101-500, LPIC1, " />
+<meta name="keywords" content="LPIC1, 102, LPIC1-102-500, LPIC1, " />
 
 <meta property="og:title" content="105.1 Customize and use the shell environment "/>
 <meta property="og:url" content="./1051-customize-and-use-the-shell-environment.html" />
@@ -87,20 +87,15 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h2>105.1. Customize and use the shell environment</h2>
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>Weight: 4</em></p>
+            <p><em>Weight: 4</em></p>
 <p>Candidates should be able to customize shell environments to meet users’ needs. Candidates should be able to modify global and user profiles.</p>
 <h3>Key Knowledge Areas</h3>
 <ul>
 <li>Set environment variables (e.g. PATH) at login or when spawning a new shell</li>
 <li>Write Bash functions for frequently used sequences of commands</li>
 <li>Maintain skeleton directories for new user accounts</li>
+<li>Set command search path with the proper directory</li>
 </ul>
-<p>Set command search path with the proper directory</p>
 <h3>Terms</h3>
 <ul>
 <li>.</li>
@@ -118,70 +113,31 @@
 <li>~/.bash_logout</li>
 <li>function</li>
 <li>alias</li>
-<li>lists</li>
 </ul>
-<h3>Environment variables</h3>
-<p>This is discussed in the past. But how we should set them when we login or change shell. Oh! And what happen when we are not logged in? ;)</p>
-<h3>login vs non-login shell</h3>
-<p>Sometimes you <em>login</em> into the shell, say after a ssh but sometimes you just <em>open</em> a shell; say in GUI.</p>
-<h4>login shell</h4>
-<p>This happens when you give your user and pass to enter a shell. Many steps are involved to setup your variables and settings. These are the steps:</p>
-<p>1- /etc/profile is run</p>
-<p>2- A line in /etc/profile runs whatever is in /etc/profile.d/*</p>
-<p>Now the global profile is loaded and system will go for user specific profiles:</p>
-<p>3- /home/USERNAME/.bash_profile</p>
-<p>4- /home/USERNAME/.bash_login</p>
-<p>5- /home/USERNAME/.profile</p>
-<blockquote>
-<p>Note that only one of the 3, 4 &amp; 5 will be run. The system will go for .bash_profile and IF IT IS NOT THERE will try for .bash_login and IF IT IS NOT THERE will try to run .profile. If any of these exists, the system wont look any furthur. So if you have only 4 &amp; 5, only the 4 will be run.</p>
-</blockquote>
-<p>At the end, the system loads:</p>
-<ol>
-<li>/home/USERNAME/.bashrc</li>
-</ol>
-<p>which is users information (like aliases).</p>
-<blockquote>
-<p>Note: /etc/profile also loads /etc/bashrc or /etc/bash.bashrc</p>
-</blockquote>
-<h4>Interactive (non-login) shell</h4>
-<p>if you run a shell in an interactive mode (non-login) shell say from a GUI, only two things will be run:</p>
-<ol>
-<li>/etc/bash.bashrc (or in some systems /etc/bashrc)</li>
-<li>/home/USERNAME/.bashrc</li>
-</ol>
-<h3>adding global configs for login shell</h3>
-<p>you can add your global new config files int /etc/profile.d/ (with .sh at the end). It is cleaner and better than editing the /etc/profile because an update can overwrite your changes if you do so.</p>
-<h3>adding global configs for interactive/non-login shell</h3>
-<p>you can use /etc/bash.bashrc file (some systems /etc/bashrc). This is good for <em>aliases</em> and other global configs.</p>
-<h3>user specific configs</h3>
-<p>Most of the time PATH and env vars go into the in ~/.bash_profile and aliases go into the ~/.bashrc. Have a look at them!</p>
-<h3>Aliases</h3>
-<p>Most of the time they are defined in <code>~/.bashrc</code> and look like this:</p>
-<div class="highlight"><pre><span></span><code>alias ll=&#39;ls -alF&#39;
-alias la=&#39;ls -A&#39;
-alias l=&#39;ls -CF&#39;
+<h2>Environment variables</h2>
+<p>Shell Environment Variables are special variables that contain information &amp; configuration about the shell. System shell uses them when its needs to show you a prompt, run a command, or search what to run. Different operating system distributions have different environment variables and you can add yours if you need so; or want so!</p>
+<h3>env</h3>
+<p>can set, remove or display variables or even run a command in a modified environment.</p>
+<div class="highlight"><pre><span></span><code>Syntax
+     env [OPTION]... [NAME=VALUE]... [COMMAND [ARGS]...]
+
+Options
+
+  -u NAME
+  --unset=NAME
+       Remove variable NAME from the environment, if it was in the
+       environment.
+
+  -
+  -i
+  --ignore-environment
+       Start with an empty environment, ignoring the inherited
+       environment.
 </code></pre></div>
 
-<p>It is kind of a shortcut.</p>
-<h3>/etc/skel</h3>
-<p>This directory contains files which will be used as a starting template for each new user.</p>
-<h3>.bash_logout</h3>
-<p>runs when you logout from a login shell. In many distros it only clears the screen so the next person will not be able to watch what you were doing before you logout.</p>
-<h3>. (and source)</h3>
-<p>Yes only a dot! This is a shortcut for the bash source command. You can find it in files like /etc/profile. It runs the executable in front of it as part of the current environment.</p>
-<blockquote>
-<p>Note: If you just execute a file (without source or dot) bash creates a child, runs the executable there and then closes it.</p>
-</blockquote>
-<h3>functions</h3>
-<p>Like "real" programming languages, Bash has functions, though in a somewhat limited implementation. A function is a subroutine, a code block that implements a set of operations, a "black box" that performs a specified task. Wherever there is repetitive code, when a task repeats with only slight variations in procedure, then consider using a function.</p>
-<div class="highlight"><pre><span></span><code>funnyls () {
-    ls -ltrh
-    echo &quot;This is a funny ls&quot;
-}
-</code></pre></div>
-
-<h3>set</h3>
-<p><code>set</code> allows you to change the values of shell options and set the positional parameters, or to display the names and values of shell variables.</p>
+<p>You cal also use the more general <code>printenv</code> command.</p>
+<h2>set</h2>
+<p><code>set</code> allows you to change the values of shell options (variables) or to display the names and values of shell variables.</p>
 <p>Using <code>set</code> we can configure how bash works. These are some samples:</p>
 <table>
 <thead>
@@ -213,34 +169,22 @@ alias l=&#39;ls -CF&#39;
 </tr>
 </tbody>
 </table>
-<h3>export</h3>
-<p>Set an environment variable. Mark each name to be passed to child processes in the environment.</p>
-<div class="highlight"><pre><span></span><code>$ export name=jadi
-$ echo $name
+<h2>setting environment variables</h2>
+<p>To set a new environment variable do as follow:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nv">name</span><span class="o">=</span>jadi
+$ <span class="nv">desc</span><span class="o">=</span><span class="s1">&#39;A programmer who enjoys cycling and promotes freedom&#39;</span>
+$ <span class="nb">echo</span> <span class="nv">$name</span>
 jadi
+$ <span class="nb">echo</span> <span class="nv">$desc</span>
+A programmer who enjoys cycling and promotes freedom
 </code></pre></div>
 
-<blockquote>
-<p>Note: when exporting, the variable will exists in child processes (commands you run from the current shell). If you only say <code>name=jadi</code> and run a new command in your shell, the name <strong>wont be</strong> jadi in <strong>that</strong> shell.</p>
-</blockquote>
-<div class="highlight"><pre><span></span><code>$ name=jadi
-$ echo $name
-jadi
-$ bash
-$ echo $name
-
-$ exit
-exit
-$ echo $name
-jadi
-$ export name=jadi
-$ bash
-$ echo $name
-jadi
-</code></pre></div>
-
-<h3>unset</h3>
-<p>This command <em>has nothing to do</em> with <code>set</code> command! This can unset the defined variables or functions.</p>
+<p>notes:
+1. There should be no spaces around <code>=</code>
+2. Use the quotes or double-quotes when your value do have spaces (or other special characters) in it
+3. Use a dollar sign only when referring to a variable, and not when defining it</p>
+<h2>unset</h2>
+<p>This command unsets a variables or a functions.</p>
 <div class="highlight"><pre><span></span><code>$ name=jadi
 $ echo $name
 jadi
@@ -248,37 +192,78 @@ $ unset name
 $ echo $name
 </code></pre></div>
 
-<p>You can also unset functions.</p>
-<h3>env</h3>
-<p>can set, remove or display variables or even run a command in a modified environment.</p>
-<div class="highlight"><pre><span></span><code>Syntax
-     env [OPTION]... [NAME=VALUE]... [COMMAND [ARGS]...]
-
-Options
-
-  -u NAME
-  --unset=NAME
-       Remove variable NAME from the environment, if it was in the
-       environment.
-
-  -
-  -i
-  --ignore-environment
-       Start with an empty environment, ignoring the inherited
-       environment.
+<h2>export</h2>
+<p>When setting environment variables with a simple <code>=</code>, the variable is only available in the current shell. So even if you run a new command from the current shell the variable wont be valid there (because technically the new command will be run in a sub-shell). If you want your variable to be valid in the current shell and all its sub-shells, you have to <code>export</code> it.</p>
+<div class="highlight"><pre><span></span><code>$ export name=jadi
+$ echo $name
+jadi
+$ bash
+$ echo $name
+jadi
 </code></pre></div>
 
-<h3>lists</h3>
-<p>Bash even has arrays! We will see them later when scripting but you can do things like:</p>
-<div class="highlight"><pre><span></span><code>$ list=(salam donya man injam)
-$ echo ${list[1]}
-donya
-$ list=(&quot;salam donya&quot; &quot;man injam&quot;)
-$ echo ${list[1]}
-man injam
+<h2>. (and source)</h2>
+<p>Yes only a dot! This is a shortcut for the bash source command. You can find it in files like /etc/profile. It runs the executable in front of it as part of the current environment (and not in a sub-process).</p>
+<blockquote>
+<p>Note: If you just execute a file (without source or dot) bash creates a child, runs the executable there and then closes it.</p>
+</blockquote>
+<p>The <code>source</code> command is commonly used when you want to load new / updated environment variables or functions from a script. </p>
+<h2>Different shell envs</h2>
+<p>The shell (here bash) can be started in 3 different ways:</p>
+<ol>
+<li>When you <em>login</em> into the shell, say after a ssh or when you site behind a terminal and login into a Linux machine. This is an interactive login session</li>
+<li>When you open a new terminal (say from a GUI env). This is also interactive but not a <em>login</em> shell.</li>
+<li>When a shell <em>spawns</em> when you run a command. Yes.. technically when you run a new command from a shell, a sup-shell starts, runs the commands and then returns back to your shell. This is called "non interactive" shell.</li>
+</ol>
+<p>We will see how different default environment variables can be set in each of these modes.</p>
+<h3>login shell</h3>
+<p>This is when you give your user and pass to enter a shell. In this case, these steps will define your shell environment:</p>
+<p>1- <code>/etc/profile</code> is run</p>
+<p>2- A line in <code>/etc/profile</code> runs whatever is in <code>/etc/profile.d/</code></p>
+<p>Now the global profile is loaded and system will go for user specific profiles:</p>
+<p>3.1- <code>/home/USERNAME/.bash_profile</code></p>
+<p>3.2- <code>/home/USERNAME/.bash_login</code></p>
+<p>3.3- <code>/home/USERNAME/.profile</code></p>
+<blockquote>
+<p>Note that only one of the 3, 4 &amp; 5 will run. The system will go for <code>.bash_profile</code> and IF IT IS NOT THERE will try <code>.bash_login</code> and IF IT IS NOT THERE will try to run <code>.profile</code>. If any of these exists, the system wont look any further. So if you have only 4 &amp; 5, only the 4 will be run.</p>
+</blockquote>
+<p>At the end, the system loads:</p>
+<p>4- <code>/home/USERNAME/.bashrc</code></p>
+<p>Commonly you will add whatever personal config you want into the <code>~/.bashrc</code>.</p>
+<h3>Interactive (non-login) shell</h3>
+<p>if you run a shell in an interactive mode (non-login) shell from a GUI or within another temrinal, only two file will handle the environment:</p>
+<ol>
+<li><code>/etc/bash.bashrc</code> (or <code>/etc/bashrc</code> in some systems)</li>
+<li><code>/home/USERNAME/.bashrc</code></li>
+</ol>
+<h3>Non Interactive Shell</h3>
+<p>There is no specific file to be used in this case. Instead we have the <code>BASH_ENV</code>. When a new non-interactive shell starts, it looks into this variable and if it points to a file, runs it. </p>
+<blockquote>
+<p>On most Linux distributions, this environment value is not set by default.</p>
+</blockquote>
+<h2>A few more files</h2>
+<h3>/etc/skel</h3>
+<p>This directory contains files which will be used as a starting template for each new user.</p>
+<h3>.bash_logout</h3>
+<p>This runs when you logout from a login shell. In many distros it only clears the screen so the next person will not be able to watch what you were doing before you logout.</p>
+<h2>Aliases</h2>
+<p>This is a way to define... um.. and <code>alias</code>. You can find them in your <code>~/.bashrc</code>:</p>
+<div class="highlight"><pre><span></span><code>alias ll=&#39;ls -alF&#39;
+alias la=&#39;ls -A&#39;
+alias l=&#39;ls -CF&#39;
 </code></pre></div>
 
-<p>Please pay attention to the syntax.</p>
+<p>It is a way to define a shortcut and you can add yours:</p>
+<div class="highlight"><pre><span></span><code>alias testnet=&#39;ping 4.2.2.4&#39;
+</code></pre></div>
+
+<h2>functions</h2>
+<p>Like larger programming languages, Bash has functions, though in a somewhat limited implementation. A function is a subroutine, a code block that implements a set of operations, a "black box" that performs a specified task. Wherever there is repetitive code, when a task repeats with only slight variations in procedure, then consider using a function.</p>
+<div class="highlight"><pre><span></span><code>funnyls () {
+    ls -ltrh
+    echo &quot;This is a funny ls&quot;
+}
+</code></pre></div>
 
 
              
@@ -376,14 +361,14 @@ man injam
             <a class="category-link" href="./categories.html#lpic1-ref">LPIC1</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="./tags.html#101-ref">101
-                    <span class="superscript">38</span>
+                <li><a href="./tags.html#102-ref">102
+                    <span class="superscript">20</span>
 </a></li>
                 <li><a href="./tags.html#lpic1-ref">LPIC1
                     <span class="superscript">42</span>
 </a></li>
-                <li><a href="./tags.html#lpic1-101-500-ref">LPIC1-101-500
-                    <span class="superscript">41</span>
+                <li><a href="./tags.html#lpic1-102-500-ref">LPIC1-102-500
+                    <span class="superscript">20</span>
 </a></li>
             </ul>
 <h4>Contact</h4>
