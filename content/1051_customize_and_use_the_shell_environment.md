@@ -80,6 +80,8 @@ Using `set` we can configure how bash works. These are some samples:
 
 ## setting environment variables
 
+Bash environment variables can contain only letters (a to z or A to Z), numbers ( 0 to 9) or the underscore character ( _) and can not start with numbers. Traditionally we use UPPERCASE letters in our variable names.
+
 To set a new environment variable do as follow:
 
 ```
