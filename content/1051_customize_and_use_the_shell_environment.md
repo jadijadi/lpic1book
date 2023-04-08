@@ -1,7 +1,7 @@
 Title: 105.1 Customize and use the shell environment
 Date: 2010-12-03 10:20
 Category: LPIC1
-Tags: LPIC1, 101, LPIC1-101-500
+Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 sortorder: 270
 Summary: 
