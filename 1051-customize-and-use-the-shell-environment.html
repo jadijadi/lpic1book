@@ -209,6 +209,25 @@ jadi
 <p>Note: If you just execute a file (without source or dot) bash creates a child, runs the executable there and then closes it.</p>
 </blockquote>
 <p>The <code>source</code> command is commonly used when you want to load new / updated environment variables or functions from a script. </p>
+<h2>Aliases</h2>
+<p>This is a way to define... um.. and <code>alias</code>. You can find them in your <code>~/.bashrc</code>:</p>
+<div class="highlight"><pre><span></span><code>alias ll=&#39;ls -alF&#39;
+alias la=&#39;ls -A&#39;
+alias l=&#39;ls -CF&#39;
+</code></pre></div>
+
+<p>It is a way to define a shortcut and you can add yours:</p>
+<div class="highlight"><pre><span></span><code>alias testnet=&#39;ping 4.2.2.4&#39;
+</code></pre></div>
+
+<h2>functions</h2>
+<p>Like larger programming languages, Bash has functions, though in a somewhat limited implementation. A function is a subroutine, a code block that implements a set of operations, a "black box" that performs a specified task. Wherever there is repetitive code, when a task repeats with only slight variations in procedure, then consider using a function.</p>
+<div class="highlight"><pre><span></span><code>funnyls () {
+    ls -ltrh
+    echo &quot;This is a funny ls&quot;
+}
+</code></pre></div>
+
 <h2>Different shell envs</h2>
 <p>The shell (here bash) can be started in 3 different ways:</p>
 <ol>
@@ -247,24 +266,6 @@ jadi
 <p>This directory contains files which will be used as a starting template for each new user.</p>
 <h3>.bash_logout</h3>
 <p>This runs when you logout from a login shell. In many distros it only clears the screen so the next person will not be able to watch what you were doing before you logout.</p>
-<h2>Aliases</h2>
-<p>This is a way to define... um.. and <code>alias</code>. You can find them in your <code>~/.bashrc</code>:</p>
-<div class="highlight"><pre><span></span><code>alias ll=&#39;ls -alF&#39;
-alias la=&#39;ls -A&#39;
-alias l=&#39;ls -CF&#39;
-</code></pre></div>
-
-<p>It is a way to define a shortcut and you can add yours:</p>
-<div class="highlight"><pre><span></span><code>alias testnet=&#39;ping 4.2.2.4&#39;
-</code></pre></div>
-
-<h2>functions</h2>
-<p>Like larger programming languages, Bash has functions, though in a somewhat limited implementation. A function is a subroutine, a code block that implements a set of operations, a "black box" that performs a specified task. Wherever there is repetitive code, when a task repeats with only slight variations in procedure, then consider using a function.</p>
-<div class="highlight"><pre><span></span><code>funnyls () {
-    ls -ltrh
-    echo &quot;This is a funny ls&quot;
-}
-</code></pre></div>
 
 
              
