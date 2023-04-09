@@ -133,6 +133,31 @@ Yes only a dot! This is a shortcut for the bash source command. You can find it 
 The `source` command is commonly used when you want to load new / updated environment variables or functions from a script. 
 
 
+## Aliases
+This is a way to define... um.. and `alias`. You can find them in your `~/.bashrc`:
+
+```text
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+```
+
+It is a way to define a shortcut and you can add yours:
+
+```
+alias testnet='ping 4.2.2.4'
+```
+
+## functions
+
+Like larger programming languages, Bash has functions, though in a somewhat limited implementation. A function is a subroutine, a code block that implements a set of operations, a "black box" that performs a specified task. Wherever there is repetitive code, when a task repeats with only slight variations in procedure, then consider using a function.
+
+```text
+funnyls () {
+    ls -ltrh
+    echo "This is a funny ls"
+}
+```
 
 ## Different shell envs
 
@@ -187,29 +212,3 @@ This directory contains files which will be used as a starting template for each
 ### .bash\_logout
 This runs when you logout from a login shell. In many distros it only clears the screen so the next person will not be able to watch what you were doing before you logout.
 
-
-## Aliases
-This is a way to define... um.. and `alias`. You can find them in your `~/.bashrc`:
-
-```text
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-```
-
-It is a way to define a shortcut and you can add yours:
-
-```
-alias testnet='ping 4.2.2.4'
-```
-
-## functions
-
-Like larger programming languages, Bash has functions, though in a somewhat limited implementation. A function is a subroutine, a code block that implements a set of operations, a "black box" that performs a specified task. Wherever there is repetitive code, when a task repeats with only slight variations in procedure, then consider using a function.
-
-```text
-funnyls () {
-    ls -ltrh
-    echo "This is a funny ls"
-}
-```
