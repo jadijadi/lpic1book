@@ -6,13 +6,15 @@ Authors: Jadi
 Summary: 
 sortorder: 230
 
-This used to be about disk quotas! but it removed. If you insist in reading it... here it is:
-## 104.4 Manage disk quotas
 
 <div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
+  This chapter is removed in the latest version (500) of LPIC1 and is kept here as a reference.
 </div>
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KJPvfqe-Bls" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+
+## 104.4 Manage disk quotas
 
 _Weight: 1_
 

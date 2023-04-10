@@ -1,16 +1,11 @@
 Title: 105.1 Customize and use the shell environment
 Date: 2010-12-03 10:20
 Category: LPIC1
-Tags: LPIC1, 101, LPIC1-101-500
+Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 sortorder: 270
 Summary: 
 Topic: Shells and Shell Scripting
-## 105.1. Customize and use the shell environment
-
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
 
 
 _Weight: 4_
@@ -22,8 +17,7 @@ Candidates should be able to customize shell environments to meet users’ needs
 * Set environment variables \(e.g. PATH\) at login or when spawning a new shell
 * Write Bash functions for frequently used sequences of commands
 * Maintain skeleton directories for new user accounts
-
-  Set command search path with the proper directory
+*  Set command search path with the proper directory
 
 ### Terms
 
@@ -42,157 +36,13 @@ Candidates should be able to customize shell environments to meet users’ needs
 * ~/.bash\_logout
 * function
 * alias
-* lists
 
-### Environment variables
+## Environment variables
 
-This is discussed in the past. But how we should set them when we login or change shell. Oh! And what happen when we are not logged in? ;\)
+Shell Environment Variables are special variables that contain information & configuration about the shell. System shell uses them when its needs to show you a prompt, run a command, or search what to run. Different operating system distributions have different environment variables and you can add yours if you need so; or want so!
 
-### login vs non-login shell
-
-Sometimes you _login_ into the shell, say after a ssh but sometimes you just _open_ a shell; say in GUI.
-
-#### login shell
-
-This happens when you give your user and pass to enter a shell. Many steps are involved to setup your variables and settings. These are the steps:
-
-1- /etc/profile is run
-
-2- A line in /etc/profile runs whatever is in /etc/profile.d/\*
-
-Now the global profile is loaded and system will go for user specific profiles:
-
-3- /home/USERNAME/.bash\_profile
-
-4- /home/USERNAME/.bash\_login
-
-5- /home/USERNAME/.profile
-
-> Note that only one of the 3, 4 & 5 will be run. The system will go for .bash\_profile and IF IT IS NOT THERE will try for .bash\_login and IF IT IS NOT THERE will try to run .profile. If any of these exists, the system wont look any furthur. So if you have only 4 & 5, only the 4 will be run.
-
-At the end, the system loads:
-
-1. /home/USERNAME/.bashrc
-
-which is users information \(like aliases\).
-
-> Note: /etc/profile also loads /etc/bashrc or /etc/bash.bashrc
-
-#### Interactive \(non-login\) shell
-
-if you run a shell in an interactive mode \(non-login\) shell say from a GUI, only two things will be run:
-
-1. /etc/bash.bashrc \(or in some systems /etc/bashrc\)
-2. /home/USERNAME/.bashrc
-
-### adding global configs for login shell
-
-you can add your global new config files int /etc/profile.d/ \(with .sh at the end\). It is cleaner and better than editing the /etc/profile because an update can overwrite your changes if you do so.
-
-### adding global configs for interactive/non-login shell
-
-you can use /etc/bash.bashrc file \(some systems /etc/bashrc\). This is good for _aliases_ and other global configs.
-
-### user specific configs
-
-Most of the time PATH and env vars go into the in ~/.bash\_profile and aliases go into the ~/.bashrc. Have a look at them!
-
-### Aliases
-
-Most of the time they are defined in `~/.bashrc` and look like this:
-
-```text
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-```
-
-It is kind of a shortcut.
-
-### /etc/skel
-
-This directory contains files which will be used as a starting template for each new user.
-
-### .bash\_logout
-
-runs when you logout from a login shell. In many distros it only clears the screen so the next person will not be able to watch what you were doing before you logout.
-
-### . \(and source\)
-
-Yes only a dot! This is a shortcut for the bash source command. You can find it in files like /etc/profile. It runs the executable in front of it as part of the current environment.
-
-> Note: If you just execute a file \(without source or dot\) bash creates a child, runs the executable there and then closes it.
-
-### functions
-
-Like "real" programming languages, Bash has functions, though in a somewhat limited implementation. A function is a subroutine, a code block that implements a set of operations, a "black box" that performs a specified task. Wherever there is repetitive code, when a task repeats with only slight variations in procedure, then consider using a function.
-
-```text
-funnyls () {
-    ls -ltrh
-    echo "This is a funny ls"
-}
-```
-
-### set
-
-`set` allows you to change the values of shell options and set the positional parameters, or to display the names and values of shell variables.
-
-Using `set` we can configure how bash works. These are some samples:
-
-| switch | result |
-| :--- | :--- |
-| -b | Cause the status of terminated background jobs to be reported immediately, rather than before printing the next primary prompt. |
-| -e | return in case a pipline, command, ... return non-zero |
-| -n | Read commands but do not execute them; this may be used to check a script for syntax errors. This option is ignored by interactive shells. |
-| -t | Exit after reading and executing one command. |
-| -C | Prevent output redirection using ‘&gt;’, ‘&gt;&’, and ‘&lt;&gt;’ from overwriting existing files. |
-
-### export
-
-Set an environment variable. Mark each name to be passed to child processes in the environment.
-
-```text
-$ export name=jadi
-$ echo $name
-jadi
-```
-
-> Note: when exporting, the variable will exists in child processes \(commands you run from the current shell\). If you only say `name=jadi` and run a new command in your shell, the name **wont be** jadi in **that** shell.
-
-```text
-$ name=jadi
-$ echo $name
-jadi
-$ bash
-$ echo $name
-
-$ exit
-exit
-$ echo $name
-jadi
-$ export name=jadi
-$ bash
-$ echo $name
-jadi
-```
-
-### unset
-
-This command _has nothing to do_ with `set` command! This can unset the defined variables or functions.
-
-```text
-$ name=jadi
-$ echo $name
-jadi
-$ unset name
-$ echo $name
-```
-
-You can also unset functions.
 
 ### env
-
 can set, remove or display variables or even run a command in a modified environment.
 
 ```text
@@ -212,19 +62,154 @@ Options
        Start with an empty environment, ignoring the inherited
        environment.
 ```
+You cal also use the more general `printenv` command.
 
-### lists
+## set
 
-Bash even has arrays! We will see them later when scripting but you can do things like:
+`set` allows you to change the values of shell options (variables) or to display the names and values of shell variables.
 
-```text
-$ list=(salam donya man injam)
-$ echo ${list[1]}
-donya
-$ list=("salam donya" "man injam")
-$ echo ${list[1]}
-man injam
+Using `set` we can configure how bash works. These are some samples:
+
+| switch | result |
+| :--- | :--- |
+| -b | Cause the status of terminated background jobs to be reported immediately, rather than before printing the next primary prompt. |
+| -e | return in case a pipline, command, ... return non-zero |
+| -n | Read commands but do not execute them; this may be used to check a script for syntax errors. This option is ignored by interactive shells. |
+| -t | Exit after reading and executing one command. |
+| -C | Prevent output redirection using ‘&gt;’, ‘&gt;&’, and ‘&lt;&gt;’ from overwriting existing files. |
+
+## setting environment variables
+
+Bash environment variables can contain only letters (a to z or A to Z), numbers ( 0 to 9) or the underscore character ( _) and can not start with numbers. Traditionally we use UPPERCASE letters in our variable names.
+
+To set a new environment variable do as follow:
+
+```
+$ name=jadi
+$ desc='A programmer who enjoys cycling and promotes freedom'
+$ echo $name
+jadi
+$ echo $desc
+A programmer who enjoys cycling and promotes freedom
 ```
 
-Please pay attention to the syntax.
+notes:
+1. There should be no spaces around `=`
+2. Use the quotes or double-quotes when your value do have spaces (or other special characters) in it
+3. Use a dollar sign only when referring to a variable, and not when defining it
 
+## unset
+
+This command unsets a variables or a functions.
+
+```text
+$ name=jadi
+$ echo $name
+jadi
+$ unset name
+$ echo $name
+```
+
+## export
+When setting environment variables with a simple `=`, the variable is only available in the current shell. So even if you run a new command from the current shell the variable wont be valid there (because technically the new command will be run in a sub-shell). If you want your variable to be valid in the current shell and all its sub-shells, you have to `export` it.
+
+```text
+$ export name=jadi
+$ echo $name
+jadi
+$ bash
+$ echo $name
+jadi
+```
+
+
+
+## . \(and source\)
+
+Yes only a dot! This is a shortcut for the bash source command. You can find it in files like /etc/profile. It runs the executable in front of it as part of the current environment (and not in a sub-process).
+
+> Note: If you just execute a file \(without source or dot\) bash creates a child, runs the executable there and then closes it.
+
+The `source` command is commonly used when you want to load new / updated environment variables or functions from a script. 
+
+
+
+## Different shell envs
+
+The shell (here bash) can be started in 3 different ways:
+
+1. When you _login_ into the shell, say after a ssh or when you site behind a terminal and login into a Linux machine. This is an interactive login session
+2. When you open a new terminal (say from a GUI env). This is also interactive but not a *login* shell.
+3. When a shell *spawns* when you run a command. Yes.. technically when you run a new command from a shell, a sup-shell starts, runs the commands and then returns back to your shell. This is called "non interactive" shell.
+
+We will see how different default environment variables can be set in each of these modes.
+
+### login shell
+
+This is when you give your user and pass to enter a shell. In this case, these steps will define your shell environment:
+
+1- `/etc/profile` is run
+
+2- A line in `/etc/profile` runs whatever is in `/etc/profile.d/`
+
+Now the global profile is loaded and system will go for user specific profiles:
+
+3.1- `/home/USERNAME/.bash_profile`
+
+3.2- `/home/USERNAME/.bash_login`
+
+3.3- `/home/USERNAME/.profile`
+
+> Note that only one of the 3, 4 & 5 will run. The system will go for `.bash_profile` and IF IT IS NOT THERE will try `.bash_login` and IF IT IS NOT THERE will try to run `.profile`. If any of these exists, the system wont look any further. So if you have only 4 & 5, only the 4 will be run.
+
+At the end, the system loads:
+
+4- `/home/USERNAME/.bashrc`
+
+Commonly you will add whatever personal config you want into the `~/.bashrc`.
+
+### Interactive \(non-login\) shell
+
+if you run a shell in an interactive mode \(non-login\) shell from a GUI or within another temrinal, only two file will handle the environment:
+
+1. `/etc/bash.bashrc` \(or `/etc/bashrc` in some systems)
+2. `/home/USERNAME/.bashrc`
+
+### Non Interactive Shell
+There is no specific file to be used in this case. Instead we have the `BASH_ENV`. When a new non-interactive shell starts, it looks into this variable and if it points to a file, runs it. 
+
+> On most Linux distributions, this environment value is not set by default.
+
+## A few more files
+### /etc/skel
+This directory contains files which will be used as a starting template for each new user.
+
+### .bash\_logout
+This runs when you logout from a login shell. In many distros it only clears the screen so the next person will not be able to watch what you were doing before you logout.
+
+
+## Aliases
+This is a way to define... um.. and `alias`. You can find them in your `~/.bashrc`:
+
+```text
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+```
+
+It is a way to define a shortcut and you can add yours:
+
+```
+alias testnet='ping 4.2.2.4'
+```
+
+## functions
+
+Like larger programming languages, Bash has functions, though in a somewhat limited implementation. A function is a subroutine, a code block that implements a set of operations, a "black box" that performs a specified task. Wherever there is repetitive code, when a task repeats with only slight variations in procedure, then consider using a function.
+
+```text
+funnyls () {
+    ls -ltrh
+    echo "This is a funny ls"
+}
+```

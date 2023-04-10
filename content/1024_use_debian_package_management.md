@@ -237,7 +237,7 @@ Some common actions are:
 |--configure| Reconfigure an installed package|
 |-i or --install| Install or Upgrade a package; Wont resolve / install dependencies|
 |-I or --info| Show Info|
-|-l or --list| List all installed pckages|
+|-l or --list| List all installed packages|
 |-L or --listfiles | List all files related to this package|
 |-P or --purge| Remove the package and its configuration files|
 |-r or --remove| Remove the package; Keep the configurations|

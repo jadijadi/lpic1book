@@ -1,17 +1,12 @@
 Title: 105.2 Customize or write simple scripts
 Date: 2010-12-03 10:20
 Category: LPIC1
-Tags: LPIC1, 101, LPIC1-101-500
+Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 sortorder: 280
 Summary: 
 Topic: Shells and Shell Scripting
 
-## 105.2 Customize or write simple scripts
-
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
 
 
 _Weight: 4_
@@ -25,6 +20,7 @@ Candidates should be able to customize existing scripts, or write simple new Bas
 * Use standard sh syntax \(loops, tests\)
 * Use command substitution
 * Test return values for success or failure or other information provided by a command
+* Execute chained commands.
 * Perform conditional mailing to the superuser
 * Correctly select the script interpreter through the shebang \(\#!\) line
 * Manage the location, ownership, execution and suid-rights of scripts
@@ -38,20 +34,37 @@ Candidates should be able to customize existing scripts, or write simple new Bas
 * read
 * seq
 * exec
+* ||
+* &&
+
+## combining commands
+
+If you want to run more than one command in line one, separate them by a `;`. So the `cd /tmp; ls` will run the `cd /tmp` and then `ls`. But there are more advanced usages too.
+
+You can use `&&` and `||` as logical and / or chaining. In case of And, the execution will stop as soon as the first one fails to execute. In case of Or, the next command will only run if the first one fails. Just like in logic boards.
+
+Confusing? Let me explain again. The system will always tried to *evaluate* the outcome of your chain. So if you have `A && B` and A fails, the system does not need to test B (because the overall result will be False anyway). Same logic works for `A || B || C`. If A works fine, the overall evaluation will be True so no need for testing B or C. But if A fails, system will try B and if B fails, we have to try C. 
+
+We use chaining to create logical flows. For example:
+
+```
+$ cp backup.gzip /backups/ && rm backup.gzip
+```
+
+works like this: copy the backup to this location and delete the file ONLY IF the previous copy was successful. 
+
 
 ### Shell Scripts
-
-Are a way of automating tasks.
+We can combine shell commands or programs and or some logic or loops to write large or small scripts. Shell scripts are useful when you want to *automate* some tasks in one larger command. Say a shell script called "do_backup.sh" may compress some files into a file, rename this file based on the current date and time and then save it on a remote site and at last delete the ones older than 1 month. 
 
 ### Shebang
+There is a line at the beginning of scripts which starts with `#!` and continues with an executable who needs to run this script. It is called shebang and as mentioned, tells the shell which _interpreter_ must be used to run this script.
 
-If a line starts with `#!` it is called shebang and tells the shell what _interpreter_ to use for running this script.
+> Note: In many programming languages (including bash & python), a `#` at the beginning of a script indicates _comments_. Do not confuse it with the _Shebang_ \(\#!\)
 
-> Note: Normally a `#` at the beginning of a script is for showing _comments_. Do not confuse it with _Shebang_ \(\#!\)
+Commonly we run shells using `#!/bin/bash` or `#!/bin/sh`
 
-In many cases we run shells with `#!/bin/bash` or `#!/bin/sh`
-
-We can use the command we already know in our shell scripts. A sample is:
+The rest of a shell script can use most of the commands you already now in addition with some more "programming" specific commands like loops, tests and such. Here is a primitive sample:
 
 ```text
 #!/bin/bash
@@ -61,9 +74,10 @@ echo "We are learning! Wowww..."
 echo
 ```
 
-### Variables
+> The `sh` is a more basic shell but it is compatible with most of the things we talk about. There are also options like `zsh` and `csh` but the LPIC is based on `bash`.
 
-Already seen in some parts. You can define variables like this `VARNAME=VALUE`. A sample:
+### Variables
+Already seen in the previous section. You can define variables like this `VARNAME=VALUE`. Here is a sample:
 
 ```text
 #!/bin/bash
@@ -75,24 +89,30 @@ echo "$NAME is learning! Wowww..."
 echo
 ```
 
-> Note: you can also do NAME="Jadi"
+> Note: you can also do NAME="Jadi the geeking guy" if you need to have spaces in your values
 
-#### Command substitution
+If you want to access the command line arguments in your shell script, use `$1`, `$2`, ...
 
-Sometimes you need to have a variable with the result of something to a variable. In this case you can use $\(\) construct:
+### Command substitution
+
+Sometimes you need to save the output of a command in a variable or use it in some way. To do so you can use `$(command)` or simply `\`command\``. Look at these two samples:
 
 ```text
-FILES=$(ls -1)
+➜  FILES=$(ls -1) # the $FILES variable contains the list of all files
+
+➜  ~ date +'%Y%m%d-%H%m'
+20230408-1604
+➜  ~ touch backup_`date +'%Y%m%d-%H%m'`.tar
+➜  ~ ls
+backup_20230408-1604.tar
 ```
 
 ### executing scripts
+In the Unix / Linux world, file should be executable to be executable! :D To do so use the `chmod` command with `+x`. After this step you can run your script by giving its path to shell. Please note that Linux by default does not looks into the current directory so if you are going to run a script at the current directory, you have to run `./script_name.sh`.
 
-If the file is executable, we can run them using the ./script\_name.sh if we are in the same directory, or give the complete path or include their directory ine $PATH variable. As you can see they are just normal programs.
+Another way to run a script is running `sh` or `bash` with the shell scripts name as its argument. That is `sh my_script.sh`.
 
-Another way is giving our scripts name as a parameter to the `bash` or `sh` commands.
-
-> Note: you know that for making a file executable we can do `chmod 755 filename` or `chmod +x fiename`.
-
+In both above methods, the scripts runs inside a child bash process and *returns* back afterwards to the same shell. If want to override this and *replace* your current shell with the program you are going to run, use the `exec` build-in command. The `-c` switch will run the command in a clean environment.
 ### Conditions
 
 Up to now, we were just running commands one by one. That is not very _programmatic_. If we are going to have some _logic_ in our programs, we need _conditions_ and _loops_. First we will cover conditions, using the `if` command. Its usage is like this:
@@ -110,7 +130,7 @@ fi
 
 > Note: else part is optional, `if`, `then`, `fi` is enough.
 
-Conditions can be TRUE or FALSE. A very simple conditions is `if [ "Linux" = "Linux" ]`. Silly? I know but we will change it soon but for now, learn the syntax! Specially the _spaces_ and _=_ for checking if two strings are equal.
+Conditions can be TRUE or FALSE. A very simple conditions is `if [ "Linux" = "Linux" ]`. Silly? I know but wait; we are learning the syntax only. Please give special attention to the _spaces_ and _=_ for checking if two strings are equal.
 
 ```text
 #!/bin/bash
@@ -124,9 +144,7 @@ else
 fi
 ```
 
-> Note spaces and using doublequotes \("\) on seccond echo because it has `(` character which will be interpreted by bash if we do not enclose the string in a doublequote.
-
-The actual checking of the condition is done by `test` command which is writter as `[ some test ]`. There are the other options:
+The command to check conditions is the `test` command but since it is used a lot, we have a shortcut for it. Instead of `test condition` you can write `[ condition ]`. 
 
 | conditions | what is means |
 | :--- | :--- |
@@ -141,31 +159,46 @@ The actual checking of the condition is done by `test` command which is writter 
 | -s FILENAME | if file exists and its size is more than 0 |
 | -x FILENAME | file exists and is executable |
 
-#### read
+### read
 
 Using `read` we can read the user input. Look at this:
 
 ```text
-1 #!/bin/sh
-  2
-  3 echo "what is your name?"
-  4 read NAME
-  5
-  6 echo "Hello $NAME"
-  7
-  8 if [ $NAME = "Jadi" ]
-  9 then
- 10      echo "Oh I know you!"
- 11  else
- 12      echo "I wish I knew you"
- 13 fi
- 14
- 15 echo "Bye"
+#!/bin/sh
+
+echo "what is your name?"
+read NAME
+
+echo "Hello $NAME"
+
+if [ $NAME = "Jadi" ]
+then
+    echo "Oh I know you!"
+else
+    echo "I wish I knew you"
+fi
+echo "Bye"
 ```
 
-### for loop
+You can timeout the waiting using the `-t` and show a prompt using `-p`. 
 
-Generaly loops are used to run a specific set of commands more than once. The syntax is like this:
+```
+if read -t 10 -p "Server address?" SERVER
+then
+    echo "Connecting to the $SERVER ..."
+else
+    echo
+    echo "Too late!"
+fi
+```
+
+### loops
+
+In programming loops are used to repeat part of the programs. We have 2 different loops in Bash; `for` and `while`. The for loops lets us run part of a program for a specific number of iterations. The `while` loop is used when we want to repeat part of a program *while* a specific condition is true. 
+
+#### for
+
+The syntax is like this:
 
 ```text
 for VAR in SOME_LIST;
@@ -177,7 +210,7 @@ done
 
 > Note the `in`, `;`, `do` and `done`.
 
-On each loop, the VAR will be equal to one of the SOME\_LIST elements. SOME\_LIST can be numbers, name of files, words, ...
+On each iteration, the VAR will be equal to one of the SOME\_LIST elements. SOME\_LIST can be numbers, name of files, words, ...
 
 ```text
 for NUM in 1 2 3 4 5 6;
@@ -186,21 +219,21 @@ do
 done
 ```
 
-But what if you needed to go 1 to 42? We have the `seq` command which can be used like `seq 1 42` or a shorthand like `{1..42}`.
+But what if you needed to run from 1 to 42? We have the `seq` command for that. The `seq 1 42` or its shorthand `{1..42}` will let us run a loop 42 times.
 
-Good part is we can use non-numbers too!
+We can also use non-numeric variables here. This is a common use case:
 
 ```text
 for FILE in $(ls);
 do
     echo $FILE
-    wc $FILE
+    wc -l $FILE
 done
 ```
 
-### while loop
+#### while
 
-This is another kind of loop but loops _while_ a conditions is TRUE. This is the syntax:
+This is the syntax:
 
 ```text
 while [condition]
@@ -210,7 +243,7 @@ do
 done
 ```
 
-> Note: If your condition will remains true all the time, the while loop will run _forever_. This is called an _infinite loop_
+> If your condition stays true all the time, the `while` loop will run _forever_. This is called an _infinite loop_ and should be stopped by a `Ctrl+C`.
 
 This is sample:
 
@@ -224,8 +257,6 @@ do
 done
 ```
 
-> we will have an infinite loop if we use `let VAR=VAR+1`. Ctrl+C will help us to _break_ the loop.
->
 > Note the `let` usage! If you just just say `VAR=1` and then `VAR=$VAR+1`, then VAR will be equal to `1+1` as an string!.
 
 ### mailing the root user
@@ -247,5 +278,6 @@ If you need to send emails in a script, just do:
 $ echo "Body!" | mail -s "Subject" root
 ```
 
-This can be easily embeded as poart of your scripts!
+## Bonus
 
+Just found my old `general_backup.sh` script and [uploaded it to github for you](https://github.com/jadijadi/general_scripts/blob/main/backup_general_jadi.sh). Nothing fancy but shows you how a general bash script can help you on your daily tasks.
