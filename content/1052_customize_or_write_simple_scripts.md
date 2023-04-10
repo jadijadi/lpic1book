@@ -91,7 +91,7 @@ echo
 
 > Note: you can also do NAME="Jadi the geeking guy" if you need to have spaces in your values
 
-If you want to access the command line arguments in your shell script, use `$1`, `$2`, ...
+If you want to access the command line arguments in your shell script, use `$1`, `$2`, .... You can find the number of command line arguments via `$#` variable.
 
 ### Command substitution
 
@@ -113,6 +113,7 @@ In the Unix / Linux world, file should be executable to be executable! :D To do 
 Another way to run a script is running `sh` or `bash` with the shell scripts name as its argument. That is `sh my_script.sh`.
 
 In both above methods, the scripts runs inside a child bash process and *returns* back afterwards to the same shell. If want to override this and *replace* your current shell with the program you are going to run, use the `exec` build-in command. The `-c` switch will run the command in a clean environment.
+
 ### Conditions
 
 Up to now, we were just running commands one by one. That is not very _programmatic_. If we are going to have some _logic_ in our programs, we need _conditions_ and _loops_. First we will cover conditions, using the `if` command. Its usage is like this:
@@ -278,6 +279,29 @@ If you need to send emails in a script, just do:
 $ echo "Body!" | mail -s "Subject" root
 ```
 
+## returned values
+
+In the Unix world, the programs return values when they are finished. If you have programmed C, this is the `return 0` at the end. Commonly a 0 means successful execution. This return value can be read / examined using `$?` variable. 
+
+```
+jadi@ubuntuserver:/etc/skel$ touch /chert
+touch: cannot touch '/chert': Permission denied
+$ echo $?
+1
+$ touch /tmp/11
+$ echo $?
+0
+$ test -e /
+$ echo $?
+0
+$ test -e /nonexist
+$ echo $?
+1
+$ dummycommand
+dummycommand: command not found
+$ echo $?
+127
+```
 ## Bonus
 
 Just found my old `general_backup.sh` script and [uploaded it to github for you](https://github.com/jadijadi/general_scripts/blob/main/backup_general_jadi.sh). Nothing fancy but shows you how a general bash script can help you on your daily tasks.
