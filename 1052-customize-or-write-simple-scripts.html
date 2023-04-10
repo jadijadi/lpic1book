@@ -154,7 +154,7 @@ echo
 <blockquote>
 <p>Note: you can also do NAME="Jadi the geeking guy" if you need to have spaces in your values</p>
 </blockquote>
-<p>If you want to access the command line arguments in your shell script, use <code>$1</code>, <code>$2</code>, ...</p>
+<p>If you want to access the command line arguments in your shell script, use <code>$1</code>, <code>$2</code>, .... You can find the number of command line arguments via <code>$#</code> variable.</p>
 <h3>Command substitution</h3>
 <p>Sometimes you need to save the output of a command in a variable or use it in some way. To do so you can use <code>$(command)</code> or simply <code>\</code>command``. Look at these two samples:</p>
 <div class="highlight"><pre><span></span><code>➜  FILES=$(ls -1) # the $FILES variable contains the list of all files
@@ -342,6 +342,27 @@ hello there. This is my mail
 <p>And root will get this email. She can read it using <code>mail</code> command.</p>
 <p>If you need to send emails in a script, just do:</p>
 <div class="highlight"><pre><span></span><code>$ echo &quot;Body!&quot; | mail -s &quot;Subject&quot; root
+</code></pre></div>
+
+<h2>returned values</h2>
+<p>In the Unix world, the programs return values when they are finished. If you have programmed C, this is the <code>return 0</code> at the end. Commonly a 0 means successful execution. This return value can be read / examined using <code>$?</code> variable. </p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@ubuntuserver</span><span class="err">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">skel</span><span class="err">$</span><span class="w"> </span><span class="n">touch</span><span class="w"> </span><span class="o">/</span><span class="n">chert</span><span class="w"></span>
+<span class="nl">touch</span><span class="p">:</span><span class="w"> </span><span class="n">cannot</span><span class="w"> </span><span class="n">touch</span><span class="w"> </span><span class="s1">&#39;/chert&#39;</span><span class="err">:</span><span class="w"> </span><span class="n">Permission</span><span class="w"> </span><span class="n">denied</span><span class="w"></span>
+<span class="err">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="err">$</span><span class="vm">?</span><span class="w"></span>
+<span class="mi">1</span><span class="w"></span>
+<span class="err">$</span><span class="w"> </span><span class="n">touch</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="mi">11</span><span class="w"></span>
+<span class="err">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="err">$</span><span class="vm">?</span><span class="w"></span>
+<span class="mi">0</span><span class="w"></span>
+<span class="err">$</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="o">/</span><span class="w"></span>
+<span class="err">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="err">$</span><span class="vm">?</span><span class="w"></span>
+<span class="mi">0</span><span class="w"></span>
+<span class="err">$</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="o">/</span><span class="n">nonexist</span><span class="w"></span>
+<span class="err">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="err">$</span><span class="vm">?</span><span class="w"></span>
+<span class="mi">1</span><span class="w"></span>
+<span class="err">$</span><span class="w"> </span><span class="n">dummycommand</span><span class="w"></span>
+<span class="nl">dummycommand</span><span class="p">:</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">found</span><span class="w"></span>
+<span class="err">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="err">$</span><span class="vm">?</span><span class="w"></span>
+<span class="mi">127</span><span class="w"></span>
 </code></pre></div>
 
 <h2>Bonus</h2>
