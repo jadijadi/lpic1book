@@ -302,6 +302,8 @@ dummycommand: command not found
 $ echo $?
 127
 ```
+
+To return values from your shell scripts, use the `exit` command; say `exit 0` for a successful exit.
 ## Bonus
 
 Just found my old `general_backup.sh` script and [uploaded it to github for you](https://github.com/jadijadi/general_scripts/blob/main/backup_general_jadi.sh). Nothing fancy but shows you how a general bash script can help you on your daily tasks.
