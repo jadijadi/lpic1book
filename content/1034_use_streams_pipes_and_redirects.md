@@ -183,7 +183,7 @@ name is sara, fedora is the choice.
 ```
 
 Two more useful switches:
-1. `-L` breaks based on new lines 
+1. `-L 1` breaks based on new lines 
 2. `-n 1` tells xargs to invoke the provided utility after receiving 1 argument.  
 
 ### tee
