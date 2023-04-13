@@ -37,6 +37,8 @@ Candidates should be able to customize shell environments to meet users’ needs
 * function
 * alias
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dXnsNXV2Y60" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## Environment variables
 
 Shell Environment Variables are special variables that contain information & configuration about the shell. System shell uses them when its needs to show you a prompt, run a command, or search what to run. Different operating system distributions have different environment variables and you can add yours if you need so; or want so!
@@ -160,6 +162,8 @@ funnyls () {
 ```
 
 ## Different shell envs
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/omEV_n4U0uM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 The shell (here bash) can be started in 3 different ways:
 
