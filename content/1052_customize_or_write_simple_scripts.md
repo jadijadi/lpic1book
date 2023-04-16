@@ -37,6 +37,8 @@ Candidates should be able to customize existing scripts, or write simple new Bas
 * ||
 * &&
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0BYkWRf4Yvk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## combining commands
 
 If you want to run more than one command in line one, separate them by a `;`. So the `cd /tmp; ls` will run the `cd /tmp` and then `ls`. But there are more advanced usages too.
@@ -114,7 +116,11 @@ Another way to run a script is running `sh` or `bash` with the shell scripts nam
 
 In both above methods, the scripts runs inside a child bash process and *returns* back afterwards to the same shell. If want to override this and *replace* your current shell with the program you are going to run, use the `exec` build-in command. The `-c` switch will run the command in a clean environment.
 
+
+
 ### Conditions
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_4ISOx9Kxpk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 Up to now, we were just running commands one by one. That is not very _programmatic_. If we are going to have some _logic_ in our programs, we need _conditions_ and _loops_. First we will cover conditions, using the `if` command. Its usage is like this:
 
