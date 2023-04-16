@@ -112,6 +112,8 @@
 <li>||</li>
 <li>&amp;&amp;</li>
 </ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0BYkWRf4Yvk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <h2>combining commands</h2>
 <p>If you want to run more than one command in line one, separate them by a <code>;</code>. So the <code>cd /tmp; ls</code> will run the <code>cd /tmp</code> and then <code>ls</code>. But there are more advanced usages too.</p>
 <p>You can use <code>&amp;&amp;</code> and <code>||</code> as logical and / or chaining. In case of And, the execution will stop as soon as the first one fails to execute. In case of Or, the next command will only run if the first one fails. Just like in logic boards.</p>
@@ -171,6 +173,8 @@ backup_20230408-1604.tar
 <p>Another way to run a script is running <code>sh</code> or <code>bash</code> with the shell scripts name as its argument. That is <code>sh my_script.sh</code>.</p>
 <p>In both above methods, the scripts runs inside a child bash process and <em>returns</em> back afterwards to the same shell. If want to override this and <em>replace</em> your current shell with the program you are going to run, use the <code>exec</code> build-in command. The <code>-c</code> switch will run the command in a clean environment.</p>
 <h3>Conditions</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_4ISOx9Kxpk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <p>Up to now, we were just running commands one by one. That is not very <em>programmatic</em>. If we are going to have some <em>logic</em> in our programs, we need <em>conditions</em> and <em>loops</em>. First we will cover conditions, using the <code>if</code> command. Its usage is like this:</p>
 <div class="highlight"><pre><span></span><code>if [condition]
 then
