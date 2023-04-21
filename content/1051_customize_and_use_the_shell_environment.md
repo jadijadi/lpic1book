@@ -41,7 +41,7 @@ Candidates should be able to customize shell environments to meet users’ needs
 
 ## Environment variables
 
-Shell Environment Variables are special variables that contain information & configuration about the shell. System shell uses them when its needs to show you a prompt, run a command, or search what to run. Different operating system distributions have different environment variables and you can add yours if you need so; or want so!
+Shell Environment Variables are special variables that contain information and configuration about the shell. System shell uses them when its needs to show you a prompt, run a command, or search what to run. Different operating system distributions have different environment variables and you can add yours if you need so; or want so!
 
 
 ### env
@@ -73,7 +73,7 @@ You cal also use the more general `printenv` command.
 Using `set` we can configure how bash works. These are some samples:
 
 | switch | result |
-| :--- | :--- |
+| :---: | :--- |
 | -b | Cause the status of terminated background jobs to be reported immediately, rather than before printing the next primary prompt. |
 | -e | return in case a pipline, command, ... return non-zero |
 | -n | Read commands but do not execute them; this may be used to check a script for syntax errors. This option is ignored by interactive shells. |
@@ -82,7 +82,7 @@ Using `set` we can configure how bash works. These are some samples:
 
 ## setting environment variables
 
-Bash environment variables can contain only letters (a to z or A to Z), numbers ( 0 to 9) or the underscore character ( _) and can not start with numbers. Traditionally we use UPPERCASE letters in our variable names.
+Bash environment variables can contain only letters (a to z or A to Z), numbers ( 0 to 9) or the underscore character `_` and cannot start with numbers. Traditionally we use UPPERCASE letters in our variable names.
 
 To set a new environment variable do as follow:
 
@@ -95,10 +95,11 @@ $ echo $desc
 A programmer who enjoys cycling and promotes freedom
 ```
 
-notes:
-1. There should be no spaces around `=`
-2. Use the quotes or double-quotes when your value do have spaces (or other special characters) in it
-3. Use a dollar sign only when referring to a variable, and not when defining it
+**Notes**:
+
+1. There should be no spaces around `=`.
+2. Use the quotes or double-quotes when your value do have spaces (or other special characters) in it.
+3. Use a dollar sign only when referring to a variable, and not when defining it.
 
 ## unset
 
@@ -126,13 +127,13 @@ jadi
 
 
 
-## . \(and source\)
+## `.` \(and source\)
 
-Yes only a dot! This is a shortcut for the bash source command. You can find it in files like /etc/profile. It runs the executable in front of it as part of the current environment (and not in a sub-process).
+Yes only a dot! This is a shortcut for the bash source command. You can find it in files like `/etc/profile`. It runs the executable in front of it as part of the current environment (and not in a sub-process).
 
 > Note: If you just execute a file \(without source or dot\) bash creates a child, runs the executable there and then closes it.
 
-The `source` command is commonly used when you want to load new / updated environment variables or functions from a script. 
+The `source` command is commonly used when you want to load new/updated environment variables or functions from a script. 
 
 
 ## Aliases
@@ -210,6 +211,7 @@ There is no specific file to be used in this case. Instead we have the `BASH_ENV
 > On most Linux distributions, this environment value is not set by default.
 
 ## A few more files
+
 ### /etc/skel
 This directory contains files which will be used as a starting template for each new user.
 
