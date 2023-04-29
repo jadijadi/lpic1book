@@ -87,58 +87,72 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h2>106.2 Setup a display manager</h2>
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>Weight: 1</em></p>
-<p>Candidates should be able to describe the basic features and configuration of the LightDM display manager. This objective covers awareness of the display managers XDM (X Display Manger), GDM (Gnome Display Manager) and KDM (KDE Display Manager).</p>
+            <p><em>Weight: 1</em></p>
+<p>Candidates should be aware of major Linux desktops. Furthermore, candidates should be aware of protocols used to access remote desktop sessions.</p>
 <h3>Key Knowledge Areas</h3>
 <ul>
-<li>Basic configuration of LightDM</li>
-<li>Turn the display manager on or off</li>
-<li>Change the display manager greeting</li>
-<li>Awareness of XDM, KDM and GDM</li>
+<li>Awareness of major desktop environments</li>
+<li>Awareness of protocols to access remote desktop sessions</li>
 </ul>
 <h3>Terms and Utilities</h3>
 <ul>
-<li>lightdm</li>
-<li>/etc/lightdm/</li>
+<li>KDE</li>
+<li>Gnome</li>
+<li>Xfce</li>
+<li>X11</li>
+<li>XDMCP</li>
+<li>VNC</li>
+<li>Spice</li>
+<li>RDP</li>
 </ul>
-<h3>Display Manager</h3>
-<p>A <strong>Display Manager</strong> is a graphical interface which lets you login into your system when you turn your computer on. There are many different display managers (say XDM, SDDM, KDM, GDM, ...) but their general functionality is same: show a login form and let the user the enter (or choose) its name, password and the Desktop she needs to use. Also many of the DMs let the user to choose Accessibility Tools (covered in 106.3), connect to the network, change the keyboard layout or change the system volume.</p>
-<h3>lightdm</h3>
-<p>Many of the distros use <strong>LightDM</strong> as their display/login manager. It shows the default user (last logged in user) and asks for password. If you have more than one desktop installed (say XFCE, KDE and Gnome) it also lets you choose the one you need.</p>
-<p><em>lightdm</em> can accept <em>themes</em> and calls them <em>greeters</em>.</p>
-<h3>/etc/lightdm</h3>
-<p>All of the lightdm configs are in <code>/etc/lightdm</code>.</p>
-<div class="highlight"><pre><span></span><code>$ ls -ltrh /etc/lightdm/
-total 24K
--rw-r--r-- 1 root root   40 Sep 23 12:56 keys.conf
--rw-r--r-- 1 root root  801 Sep 27 13:03 lightdm-webkit2-greeter.conf
--rw-r--r-- 1 root root  452 Sep 27 13:08 users.conf
--rwxr-xr-x 1 root root 1.5K Sep 27 13:08 Xsession
--rw-r--r-- 1 root root 6.5K Sep 27 13:08 lightdm.conf
-</code></pre></div>
-
-<p>Some distributions like Ubuntu are using a <code>lightdm.conf.d</code> directory instead of a straight forward <code>lightdm.conf</code> and put their configs there.</p>
-<div class="highlight"><pre><span></span><code>[SeatDefaults]
-...
-user-session=gnome
-#autologin-user=jadi
-#allow-user-switching=true
-allow-guest=true
-greeter-session=lightdm-webkit2-greeter
-...
-</code></pre></div>
-
-<p>The <code>greeter-session</code> tells which greeter (theme) should be used. You can install more greeters using your package manager. Another important config is <code>user-session</code> which tells the lightdm what desktop is the default one.</p>
-<h3>controlling DMs</h3>
-<p>The <code>lightdm</code> works as a service. You can start, stop &amp; restart it or even use <code>systemctl disable lightdm</code> to disable it on next boots.</p>
+<h2>Desktop Environments</h2>
+<p>When your system boots in the graphical mode, you will see a graphical login page. This is based on the <strong>X Display Manager Control Protocol (XDMCP)</strong> which is responsible for the underlying login system. On top it different programs like GDM (for GNOME), SSDM (KDE) and a more general option XDM handle the theming and other aspects of login.</p>
+<p>After the successful login, you will be in your GUI. Generally this is a <strong>large</strong> software package which manages your windows, mouse and has clickable icons and folder with drag and drop capability. There might even be a trashcan somewhere and lots of other softwares like calculators and an email client. These are called <strong>Desktop Environments</strong>. On the other hand, some people prefer to have a minimal window manager without all the bells and whistles and chose and add them based on their own preferences.</p>
 <blockquote>
-<p>You already know how to reboot your computer in text mode from previous lessons (using grub, kernel parameters during the boot or using <code>init</code> command).</p>
+<p>A window manager is responsible for showing and managing windows on your GUI. Even the most minimalist GUI, needs a window manager to be function. But add more and more libraries and software to your window manager (say a calculator, calendar, email client, programming libs for that specific environment, maps, ...) and you will end up with what is called a Desktop Environment.</p>
 </blockquote>
+<p>In this section we will review 3 of the most famous Desktop Environments and then will talk about "remote access" to desktop envs.</p>
+<h3>GNOME</h3>
+<p><img alt="GNOME Desktop Environment" src="/images/gnome.png"></p>
+<ul>
+<li>Started at 1999</li>
+<li>Focuses on productivity &amp; Accessibility</li>
+<li>Used by most GNU/Linux distros</li>
+</ul>
+<h3>KDE [Plasma]</h3>
+<p><img alt="KDE Plasma Desktop Environment" src="/images/plasma.png"></p>
+<ul>
+<li>Started at 1996</li>
+<li>From version 5 (2016) re-branded to KDE Plasma</li>
+<li>Highly customizable</li>
+<li>Used during the Mars mission in NASA</li>
+<li>CERN uses KDE</li>
+</ul>
+<h3>XFCE</h3>
+<p><img alt="XFCE Desktop Environment" src="/images/xfce.png"></p>
+<ul>
+<li>Started at 1999</li>
+<li>Lightweight but beautiful</li>
+<li>Modular</li>
+</ul>
+<h2>Remote Connection to GUIs</h2>
+<p>There are many situation where you want to connect remotely to your GUI based system. This can be remote assistance to a friend, checking the status on your computer from your phone, use a GUI based program on a much stronger remote machine or as a colleague did, hide a laptop in the LAB and connect to it remotely and work from home when you should have been to the office (don't!). </p>
+<p>Here we will do a quick review on some of these methods.</p>
+<h3>X Forwarding</h3>
+<p>This is not mentioned in this section in LPIC1 but it is super useful to know about. If you have an SSH server, you can connect to it and run GUI softwares there and get the GUI part of the program on your own machine. This is called X-Forwarding in ssh. </p>
+<p>First make sure that the <code>X11Forwarding yes</code> is configured in <code>/etc/ssh/sshd_config</code> (and ()[restart the service is needed]). Then do your ssh as follow:</p>
+<div class="highlight"><pre><span></span><code>$ ssh -X server_ip.address.net 
+$ xeyes
+</code></pre></div>
+
+<p>And they eyes will appear on your own machine! You can do the same to run a browser or a cpu hungry simulation software.</p>
+<h3>VNC</h3>
+<p>Virtual Network Computer (VNC) started long time ago and is still active and alive. It is multi platform and uses RFB protocol. Its default port is 5900+[display number, usually 1].</p>
+<p>The good point about VNC is its flexibility and clients on all platform but it lacks security.</p>
+<h3>Spice</h3>
+<p>The Simple Protocol for Independent Computing Environment started as a closed source software but become open source when RedHat bought the company in 2008. It can be used to connect to KVM virtual machines (a very common virtual machine system) and has has some advantages like fast speeds similar to local connections and low CPU usage. There is one server implementation but you can find many clients, including GNOMEs boxes program.</p>
+<h3>RDP</h3>
+<p>Using softwares like <code>Xrdp</code> you can start listening for Remote Desktop Protocol (RDP) connections on your machine on port 3389 by default. The traffic is encrypted by default and there are lots of free and open RDP clients available.  </p>
 
 
              
