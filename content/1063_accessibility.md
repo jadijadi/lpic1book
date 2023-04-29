@@ -4,48 +4,39 @@ Category: LPIC1
 Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 Summary: 106.3 Accessibility Date: 2021-08-03 13:28 Category: 106
-Topic: User Interfaces and Desktops
+Topic: Accessibility
 sortorder: 320
-
-## 106.3 Accessibility
-
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
 
 
 _Weight: 1_
 
 Demonstrate knowledge and awareness of accessibility technologies.
-
 ### Key Knowledge Areas
 
-* Basic knowledge of keyboard accessibility settings \(AccessX\)
-* Basic knowledge of visual settings and themes
-* Basic knowledge of assistive technology \(ATs\)
-
+* Basic knowledge of visual settings and themes.
+* Basic knowledge of assistive technology.
 ### Terms and Utilities
 
-* Sticky/Repeat Keys
-* Slow/Bounce/Toggle Keys
-* Mouse Keys
 * High Contrast/Large Print Desktop Themes
 * Screen Reader
 * Braille Display
 * Screen Magnifier
 * On-Screen Keyboard
-* Gestures \(used at login, for example GDM\)
-* Orca
-* GOK
-* emacspeak
+* Sticky/Repeat keys
+* Slow/Bounce/Toggle keys
+* Mouse keys
+* Gestures
+* Voice recognition
 
-### Linux is for everyone
+## Linux is for everyone
 
-Some people have physical complications. Some can not see well, some can not see at all and some can not user their finger as I can do. Linux have 3 answers:
+Some people have physical complications. Some can not see well, some can not see at all and some can not user their finger as most people do. Linux have 3 answers:
 
-1- AccessX helps people with physical problems to use keyboard/mouse 2- Visual Settings help people with vision problems by magnifying the screen and things like that 3- Assistive Technologies are things like text-to-speech \(tts\) and reads the screen for people with visual problem
+1- AccessX helps people with physical problems to use keyboard/mouse 
+2- Visual Settings help people with vision problems by magnifying the screen and things like that 
+3- Assistive Technologies are things like text-to-speech \(tts\) and reads the screen for people with visual problem
 
-These options are available in display managers \(login screen\) and in major desktops \(like gnome, kde, xfce, ...\). Its logo is a human stretching its hands a legs.
+These options are available in display managers \(login screen\) and in major desktops \(like GNOME, KDE Plasma, xfce, ...\). 
 
 In Gnome the config is located at Settings ~ Universal Access. The configurations are categorized and are as follows:
 
@@ -61,8 +52,15 @@ In Gnome the config is located at Settings ~ Universal Access. The configuration
 * Mouse Keys \(Arrow keys on number path will work as a mouse\)
 * Simulate Secondary Click \(by holding down the click\)
 * Hover click \(click by waiting on a button\)
+. 
 
-### TTS
-
+## TTS
 Applications like **Orca** or **Emacspeak** can read the dialog boxes to you so you can decide what the answer only by hearing.
 
+
+![A Braille Display](/images/braille.jpg)
+
+Above you can see a Braille Display. This device will output text as braille for visually impaired people, although using a modern Text To Speech or screen reader might be more practical when possible.
+
+## Voice recognition
+After the recent advancements in Voice recognition, this is one of the best methods for people with disabilities to control their OSs. 

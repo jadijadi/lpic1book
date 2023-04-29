@@ -5,14 +5,8 @@ Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 sortorder: 300
 Summary: 
-Topic: User Interfaces and Desktops
+Topic: Install and configure X11
 
-
-## 106.1 Install and configure X11
-
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
 
 
 _Weight: 2_
@@ -21,30 +15,47 @@ Candidates should be able to install and configure X11.
 
 #### Key Knowledge Areas
 
-* Verify that the video card and monitor are supported by an X server
-* Awareness of the X font server
-* Basic understanding and knowledge of the X Window configuration file
+* Understanding of the X11 architecture.
+* Basic understanding and knowledge of the X Window configuration file.
+* Overwrite specific aspects of Xorg configuration, such as keyboard layout.
+* Understand the components of desktop environments, such as display managers and window managers.
+* Manage access to the X server and display applications on remote X servers.
+* Awareness of Wayland.
 
 #### Terms and Utilities:
 
 * /etc/X11/xorg.conf
+* /etc/X11/xorg.conf.d/
+* ~/.xsession-errors
 * xhost
+* xauth
 * DISPLAY
-* xwininfo
-* xdpyinfo
 * X
 
-### Hisotry
+## Intro
 
-This lesson is useless in modern life! Very strange but practically nothing in this lesson is used in real life because xorg.conf, xhost, ... is not used in any modern linux system anymore. Maybe they are here so you wont be shocked if you see an older linux.
+Many people prefer to navigate and use their system via a Graphical User Interface (Or GUI in short). A GUI based operating system provides the user the Icons, mouse and windows & folders, a metaphor from our daily "desktops". But how this happens? As many other things in the Unix world, this happens via layers of application whom are doing one thing well. This is a rough representation of this stack:
 
-### X
+![Linux GUI stack](/images/gui_stack.png)
 
-The X Window System is a network transparent window system which runs on a wide range of computing and graphics machines; including practically ALL linux systems with graphical interfaces. It is also called X11 because of its version, X window system, X server, ...
+On the lower level we have the hardware (say your Monitor) and then the Linux kernel and its drivers. On top of that there is a software called "Display Manager" or "Display Server". This program can ask the operating system (the kernel) to perform what the desktop manager requests. In other words, the display server accepts the desires of UI (even via a network channel) and translates them to the language that Kernel (and drivers in it) understand.
+
+In this section we are focusing on **X** which is one of the two main Display Servers and then will have a brief look at the other one; the modern **Wayland**. 
+## X
+
+The X Window System is a network transparent window system which runs on a wide range of computing and graphics machines; including in most GNU/Linux distros when they need a graphical interfaces. Its history a bit long and started with XFree86 but then the X.org started its own X Server which is called X11 nowadays. 
+
+> Going down the rabbit hole, *X Window System* (or *X*), was the default windowing system for most Unix and Unix like systems during 1980s. X.Org server is the free and open-source implementation of the X Window System display server by the X.Org Foundation. These day when we say *X* we are referring to the whole family of the network protocols describing how messages are exchanged between a client (application) and the display server; X11 being the 11th version of them.
 
 ### /etc/X11/xorg.conf
 
-This is file X used to use for its configuration. In most cases this is automatically generated and works. Newer systems do not have this file so lets have a look at a xorg.conf I found on the Internet.
+This used to be main configuration file for X. In recent days X configures itself when starting and does not need a cofig file. But if you want to make changes in the bootup process, you can create a new `xorg.conf.new` file by running the following command:
+
+```
+Xorg -configure
+```
+
+and then moving it to the `/etc/X11/xorg.conf`. This file contains different sections. Lets have a look at some of them.
 
 ```text
 Section "Files"
@@ -75,9 +86,9 @@ Section "Module"
 EndSection
 ```
 
-These are modules. For example `glx` takes care of 3d graphical effects. We are asking X server to load so called modules.
+These are modules. For example `glx` takes care of 3d graphical effects and we are asking X to load it alongside others.
 
-Next we have to define our `InputDevice`s:
+Here are the `InputDevice`s:
 
 ```text
 Section "InputDevice"
@@ -109,7 +120,7 @@ Section "InputDevice"
 EndSection
 ```
 
-As you can see each device has an `Identifier`, `Driver` and some options. We just defined a mouse, a keyboard and a touchpad and gave them some names.
+As you can see each device has an `Identifier`, `Driver` and some options. Above we defined a mouse, a keyboard and a touchpad and gave them some names.
 
 ```text
 Section "Device"
@@ -123,7 +134,7 @@ Section "Device"
 EndSection
 ```
 
-A graphic card is defined above. Again it has its identifies \(name\), its drivers and some options \(like support resolutions, refresh rates, ...\). This device needs a screen and a monitor:
+A graphic card! Again it has its identifies \(name\), its drivers and some options \(like support resolutions, refresh rates, ...\). This device needs a screen and a monitor:
 
 > Note: The `vesa` points to a low resolution, always working driver. It is used for troubleshooting.
 
@@ -165,7 +176,7 @@ Section "Screen"
 EndSection
 ```
 
-Note how the screen uses the defined monitor \(using its identifier "Generic Monitor"\) and defined graphic card. Also note the different color modes \(say 24bit 1024x768\).
+Note how the screen uses the already defined monitor \(using its identifier "Generic Monitor"\) and an already defined graphic card. Also note the different color modes \(say 24bit 1024x768\).
 
 At the end we have to glue all of the above in one place as `ServerLayout`:
 
@@ -181,79 +192,24 @@ EndSection
 
 We have a layout with a screen and 3 input devices :\)
 
-> Note: Do not panic. It is enough for you to understand the `Section` and `EndSection` and a general understanding of the xorg.conf
+> Note: Do not panic. A general understanding of xorg.conf is enough
 
-### xwininfo
+### /etc/X11/xorg.conf.d/
 
-The `xwininfo` command is a window information utility for X. Run it and it waits for you to click on any window and gives you some information about that _window_ like its size, position, color depth, ...
+What happens if you edit the `/etc/program.conf` and then update the system? will the system overwrite your newly edited `program.conf` with the latest version from the vendor? or omid the changes in the vendor in favor of your local edits? Both are *bad*.
 
-```text
-$ xwininfo
+To solve this issue, many programs are creating a new configurations directory as `/etc/program.conf.d/` and asking you to add your *local* configurations there. So the main configuration file from the vendor will be `/etc/program.conf` and all your new confugrations will go into the `/etc/program.conf.d/` as separated files. Much easier to manage (because smaller atomic files per configuration) and no touching the vendors config by locals. Cool? yes... this is happening in X11 too. Your own configs should go into `/etc/X11/xorg.conf.d/` and the `/etc/X11/xorg.conf` should remain untacked.
 
-xwininfo: Please select the window about which you
-          would like information by clicking the
-          mouse in that window.
 
-xwininfo: Window id: 0x5400004 "jadi@funlife: ~/w/lpic/lpic1book"
 
-  Absolute upper-left X:  629
-  Absolute upper-left Y:  245
-  Relative upper-left X:  10
-  Relative upper-left Y:  36
-  Width: 655
-  Height: 426
-  Depth: 32
-  Visual: 0x71
-  Visual Class: TrueColor
-  Border width: 0
-  Class: InputOutput
-  Colormap: 0x5400003 (not installed)
-  Bit Gravity State: NorthWestGravity
-  Window Gravity State: NorthWestGravity
-  Backing Store State: NotUseful
-  Save Under State: no
-  Map State: IsViewable
-  Override Redirect State: no
-  Corners:  +629+245  -82+245  -82-97  +629-97
-  -geometry 80x24-72-87
-```
 
-### xdpyinfo
+### ~/.xsession-errors
+In case of any issues during the start of running of X, the errors will go here. So if you ran into an issue on your GUI startup, this is the file you should check to see what went wrong.
 
-This give you information about the running X session. Things like screens, color depth, version, name, ...
-
-```text
-name of display:    :0
-version number:    11.0
-vendor string:    The X.Org Foundation
-vendor release number:    11701000
-X.Org version: 1.17.1
-maximum request size:  16777212 bytes
-motion buffer size:  256
-bitmap unit, bit order, padding:    32, LSBFirst, 32
-image byte order:    LSBFirst
-number of supported pixmap formats:    7
-supported pixmap formats:
-    depth 1, bits_per_pixel 1, scanline_pad 32
-    depth 4, bits_per_pixel 8, scanline_pad 32
-    depth 8, bits_per_pixel 8, scanline_pad 32
-    depth 15, bits_per_pixel 16, scanline_pad 32
-    depth 16, bits_per_pixel 16, scanline_pad 32
-    depth 24, bits_per_pixel 32, scanline_pad 32
-    depth 32, bits_per_pixel 32, scanline_pad 32
-keycode range:    minimum 8, maximum 255
-focus:  window 0x5400005, revert to Parent
-number of extensions:    28
-    BIG-REQUESTS
-    Composite
-    DAMAGE
-...
-...
-```
 
 ### xhost
 
-This command used to control the access to the X server. If you are on a X server and run `xhost` it tells you the access status.
+This command controls the access to the X server. If you are on a X server and run `xhost` it tells you the access status.
 
 ```text
 $ xhost
@@ -286,39 +242,37 @@ INET:192.168.42.85    (no nameserver response within 5 seconds)
 SI:localuser:jadi
 ```
 
-#### DISPLAY
+Now the `192.168.42.85` machine (REMOTE) can send its graphical requests to this machine.. whats the usage? continue reading the next section (assuming this machine is called `192.168.42.80` (SERVER) and we opened the access from to its X11 for `192.168.42.85` (REMOTE)).
+### DISPLAY
 
-This variable tell graphical program where to show their graphical output \(where to draw their inputs\). In normal cases this is set on my own machine:
+This variable tell graphical programs where to send their graphical output. This is the default:
 
 ```text
 $ echo $DISPLAY
 :0
 ```
 
-but if another X is listening to all IPs \(after `xhost +`\) or listening to my machine \(after `xhost 192.168.42.85`\) I can change the DISPLAY environment and connect my graphical output to that machine. In this case if I run a graphical program, its output \(windows\) will be shown on another machine:
+So if I run any graphical program on my machine, its output will be displayed on the same machine. 
+
+But lets change it to the `192.168.42.80` machine (SERVER).. if you remember we just told it that this machine (REMOTE) can connect to it.
 
 ```text
-$ export DISPLAY=192.168.42.85:0
-$ xeyes # the eyes will be shown on 192.168.42.85 machine
+$ export DISPLAY=192.168.42.80:0
+$ xeyes # the eyes will be shown on 192.168.42.80 machine
 ```
 
-> Note: This wont work if you test it on a modern machine. Most X11s do not listen on any port these days.
+Cool? yes. But this might not wonk on your setup. The X does not listen for remote connection in most distros because of security concerns. 
 
-.
+> In the next chapter, we will see how you can properly run graphical programs on remote servers and receive the GUI part on your side
 
-.
+### xauth
 
-.
+The `xauth` program is used to edit and display the authorization information used in connecting to the X server. On `xhost` you see how you can open your X to remote IPs, using `xauth` you can do the same based on a shared "secret". 
 
-.
+In this method, X creates an .XAuthority file in your home and whoever knows about the contents, can contact X. 
 
-.
+> If your X is not working, one step might be `rm`ing the `.XAuthority` file and restarting the X. 
 
-.
+## Wayland
 
-.
-
-.
-
-.
-
+X11 is super old and is only usable via lots of patches and hacks. Thats why one of its developers started a modern display manager called Wayland. In recent years many distros are switching from the default X11 to Wayland and keeping X11 as a fail-safe option. Wayland is more secure and much easier to maintain and I can assure you that in a couple of years we will see more and more of it.
