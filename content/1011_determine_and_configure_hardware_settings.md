@@ -40,7 +40,7 @@ Firmware is the software *on* your hardware that runs it; Think of it as a built
 
 
 ![UEFI](/images/uefi.jpeg)
-2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in Intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On Linux it is on /boot and files are .efi. You need to register each bootloader.
+2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in Intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On Linux it is on /boot/efi and files are .efi. You need to register each bootloader.
 
 ## Peripheral Devices
 These are device interfaces.
