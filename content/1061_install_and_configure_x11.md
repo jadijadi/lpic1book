@@ -32,6 +32,8 @@ Candidates should be able to install and configure X11.
 * DISPLAY
 * X
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JqiT4rsTvUo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## Intro
 
 Many people prefer to navigate and use their system via a Graphical User Interface (Or GUI in short). A GUI based operating system provides the user the Icons, mouse and windows & folders, a metaphor from our daily "desktops". But how this happens? As many other things in the Unix world, this happens via layers of application whom are doing one thing well. This is a rough representation of this stack:
