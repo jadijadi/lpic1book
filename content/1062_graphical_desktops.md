@@ -28,6 +28,8 @@ Candidates should be aware of major Linux desktops. Furthermore, candidates shou
 * Spice
 * RDP
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YklRheL8RFQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## Desktop Environments
 
 When your system boots in the graphical mode, you will see a graphical login page. This is based on the **X Display Manager Control Protocol (XDMCP)** which is responsible for the underlying login system. On top it different programs like GDM (for GNOME), SSDM (KDE) and a more general option XDM handle the theming and other aspects of login.
