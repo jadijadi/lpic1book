@@ -24,9 +24,9 @@ Candidates should be able to install and configure X11.
 
 #### Terms and Utilities:
 
-* /etc/X11/xorg.conf
-* /etc/X11/xorg.conf.d/
-* ~/.xsession-errors
+* `/etc/X11/xorg.conf`
+* `/etc/X11/xorg.conf.d/`
+* `~/.xsession-errors`
 * xhost
 * xauth
 * DISPLAY
@@ -36,22 +36,23 @@ Candidates should be able to install and configure X11.
 
 ## Intro
 
-Many people prefer to navigate and use their system via a Graphical User Interface (Or GUI in short). A GUI based operating system provides the user the Icons, mouse and windows & folders, a metaphor from our daily "desktops". But how this happens? As many other things in the Unix world, this happens via layers of application whom are doing one thing well. This is a rough representation of this stack:
+Many people prefer to navigate and use their system via a Graphical User Interface (Or GUI in short). A GUI based operating system provides the user the Icons, mouse, windows & folders, a metaphor from our daily "desktops". But how does this happen? As many other things in the Unix world, this happens via layers of applications that are doing one thing well. This is a rough representation of this stack:
 
 ![Linux GUI stack](/images/gui_stack.png)
 
 On the lower level we have the hardware (say your Monitor) and then the Linux kernel and its drivers. On top of that there is a software called "Display Manager" or "Display Server". This program can ask the operating system (the kernel) to perform what the desktop manager requests. In other words, the display server accepts the desires of UI (even via a network channel) and translates them to the language that Kernel (and drivers in it) understand.
 
 In this section we are focusing on **X** which is one of the two main Display Servers and then will have a brief look at the other one; the modern **Wayland**. 
+
 ## X
 
-The X Window System is a network transparent window system which runs on a wide range of computing and graphics machines; including in most GNU/Linux distros when they need a graphical interfaces. Its history a bit long and started with XFree86 but then the X.org started its own X Server which is called X11 nowadays. 
+The X Window System is a network transparent window system which runs on a wide range of computing and graphics machines; including in most GNU/Linux distributions when they need a graphical interfaces. Its history a bit long and started with *XFree86* then the X.org started its own X Server which is called X11 nowadays. 
 
 > Going down the rabbit hole, *X Window System* (or *X*), was the default windowing system for most Unix and Unix like systems during 1980s. X.Org server is the free and open-source implementation of the X Window System display server by the X.Org Foundation. These day when we say *X* we are referring to the whole family of the network protocols describing how messages are exchanged between a client (application) and the display server; X11 being the 11th version of them.
 
 ### /etc/X11/xorg.conf
 
-This used to be main configuration file for X. In recent days X configures itself when starting and does not need a cofig file. But if you want to make changes in the bootup process, you can create a new `xorg.conf.new` file by running the following command:
+This used to be main configuration file for X. In recent days X configures itself when starting and does not need a config file. But if you want to make changes in the boot-up process, you can create a new `xorg.conf.new` file by running the following command:
 
 ```
 Xorg -configure
@@ -88,7 +89,7 @@ Section "Module"
 EndSection
 ```
 
-These are modules. For example `glx` takes care of 3d graphical effects and we are asking X to load it alongside others.
+These are modules. For example `glx` takes care of *3D graphical* effects and we are asking X to load it alongside others.
 
 Here are the `InputDevice`s:
 
@@ -122,7 +123,7 @@ Section "InputDevice"
 EndSection
 ```
 
-As you can see each device has an `Identifier`, `Driver` and some options. Above we defined a mouse, a keyboard and a touchpad and gave them some names.
+As you can see each device has an `Identifier`, `Driver` and some `options`. Above we defined a mouse, a keyboard and a touchpad and gave them some names.
 
 ```text
 Section "Device"
@@ -178,7 +179,7 @@ Section "Screen"
 EndSection
 ```
 
-Note how the screen uses the already defined monitor \(using its identifier "Generic Monitor"\) and an already defined graphic card. Also note the different color modes \(say 24bit 1024x768\).
+Note how the screen uses the already defined monitor \(using its identifier "Generic Monitor"\) and an already defined graphic card. Also note the different color modes \(say `24bit 1024x768`\).
 
 At the end we have to glue all of the above in one place as `ServerLayout`:
 
@@ -198,9 +199,9 @@ We have a layout with a screen and 3 input devices :\)
 
 ### /etc/X11/xorg.conf.d/
 
-What happens if you edit the `/etc/program.conf` and then update the system? will the system overwrite your newly edited `program.conf` with the latest version from the vendor? or omid the changes in the vendor in favor of your local edits? Both are *bad*.
+What happens if you edit the `/etc/program.conf` and then update the system? will the system overwrite your newly edited `program.conf` with the latest version from the vendor? or omit the changes in the vendor in favor of your local edits? Both are *bad*.
 
-To solve this issue, many programs are creating a new configurations directory as `/etc/program.conf.d/` and asking you to add your *local* configurations there. So the main configuration file from the vendor will be `/etc/program.conf` and all your new confugrations will go into the `/etc/program.conf.d/` as separated files. Much easier to manage (because smaller atomic files per configuration) and no touching the vendors config by locals. Cool? yes... this is happening in X11 too. Your own configs should go into `/etc/X11/xorg.conf.d/` and the `/etc/X11/xorg.conf` should remain untacked.
+To solve this issue, many programs are creating a new configurations directory as `/etc/program/program.conf.d/` and asking you to add your *local* configurations there. So the main configuration file from the vendor will be `/etc/program/program.conf` and all your new configurations will go into the `/etc/program/program.conf.d/` as separated files. Much easier to manage (because smaller atomic files per configuration) and no touching the vendors config by locals. Cool? yes... this is happening in X11 too. Your own configs should go into `/etc/X11/xorg.conf.d/` and the `/etc/X11/xorg.conf` should remain untouched.
 
 
 
@@ -244,10 +245,11 @@ INET:192.168.42.85    (no nameserver response within 5 seconds)
 SI:localuser:jadi
 ```
 
-Now the `192.168.42.85` machine (REMOTE) can send its graphical requests to this machine.. whats the usage? continue reading the next section (assuming this machine is called `192.168.42.80` (SERVER) and we opened the access from to its X11 for `192.168.42.85` (REMOTE)).
+Now the `192.168.42.85` machine (REMOTE) can send its graphical requests to this machine. whats the usage? continue reading the next section (assuming this machine is called `192.168.42.80` (SERVER) and we opened the access from to its X11 for `192.168.42.85` (REMOTE) ).
+
 ### DISPLAY
 
-This variable tell graphical programs where to send their graphical output. This is the default:
+This variable tells graphical programs where to send their graphical output. This is the default:
 
 ```text
 $ echo $DISPLAY
@@ -269,12 +271,12 @@ Cool? yes. But this might not wonk on your setup. The X does not listen for remo
 
 ### xauth
 
-The `xauth` program is used to edit and display the authorization information used in connecting to the X server. On `xhost` you see how you can open your X to remote IPs, using `xauth` you can do the same based on a shared "secret". 
+The `xauth` program is used to edit and display the authorization information used in connecting to the X server. On [xhost](#xhost) you see how you can open your X to remote IPs, using `xauth` you can do the same based on a shared "secret". 
 
-In this method, X creates an .XAuthority file in your home and whoever knows about the contents, can contact X. 
+In this method, `X` creates an `.XAuthority` file in your home and whoever knows about the contents, can contact X. 
 
-> If your X is not working, one step might be `rm`ing the `.XAuthority` file and restarting the X. 
+> If your `X` is not working, one step might be `rm`ing the `.XAuthority` file and restarting the X. 
 
 ## Wayland
 
-X11 is super old and is only usable via lots of patches and hacks. Thats why one of its developers started a modern display manager called Wayland. In recent years many distros are switching from the default X11 to Wayland and keeping X11 as a fail-safe option. Wayland is more secure and much easier to maintain and I can assure you that in a couple of years we will see more and more of it.
+*X11* is super old and is only usable via lots of patches and hacks. Thats why one of its developers started a modern display manager called *Wayland*. In recent years many distros are switching from the default *X11* to *Wayland* and keeping X11 as a fail-safe option. Wayland is more secure and much easier to maintain and I can assure you that in a couple of years we will see more and more of it.
