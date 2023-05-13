@@ -28,6 +28,8 @@ Demonstrate knowledge and awareness of accessibility technologies.
 * Gestures
 * Voice recognition
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/37tZYcg_wpc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## Linux is for everyone
 
 Some people have physical complications. Some can not see well, some can not see at all and some can not user their finger as most people do. Linux have 3 answers:
