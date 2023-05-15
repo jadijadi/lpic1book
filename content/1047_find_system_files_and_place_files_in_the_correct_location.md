@@ -18,37 +18,39 @@ Candidates should be thoroughly familiar with the **Filesystem Hierarchy Standar
 * Know the location and purpose of important file and directories as defined in the FHS.
 
 
-* find
-* locate
-* updatedb
-* whereis
-* which
-* type
-* /etc/updatedb.conf
+* `find`
+* `locate`
+* `updatedb`
+* `whereis`
+* `which`
+* `type`
+* `/etc/updatedb.conf`
 
 ## FHS
 
-Filesystem Hierarchy Standard \(FHS\) is a document describing the Linux / Unix file hierarchy. It is very useful to know these because it lets you easily find what you are looking for as a system admin.
+Filesystem Hierarchy Standard \(FHS\) is a document describing the Linux/Unix file hierarchy. It is very useful to know these because it lets you easily find what you are looking for as a system admin.
 
 | directory | usage |
-| :--- | :--- |
+| :---: | :--- |
 | /   | Primary hierarchy root and root directory of the entire file system hierarchy |
-| bin | Essential command binaries |
-| boot | Static files of the boot loader |
-| dev | Device files |
-| etc | Host-specific system configuration |
-| lib | Essential shared libraries and kernel modules |
-| media | Mount point for removable media |
-| mnt | Mount point for mounting a filesystem temporarily |
-| opt | Add-on application software packages |
-| sbin | Essential system binaries |
-| srv | Data for services provided by this system |
-| tmp | Temporary files |
-| usr | Secondary hierarchy |
-| var | Variable data |
-| home | User home directories \(optional\) |
-| lib | Alternate format essential shared libraries \(optional\) |
-| root | Home directory for the root user \(optional\) |
+| /bin | Essential command binaries |
+| /boot | Static files of the boot loader |
+| /dev | Device files |
+| /etc | Host-specific system configuration |
+| /lib | Essential shared libraries and kernel modules |
+| /media | Mount point for removable media |
+| /mnt | Mount point for mounting a filesystem temporarily |
+| /opt | Add-on application software packages |
+| /sbin | Essential system binaries |
+| /srv | Data for services provided by this system |
+| /tmp | Temporary files |
+| /usr | Secondary hierarchy |
+| /var | Variable data |
+| /home | User home directories \(optional\) |
+| /lib | Alternate format essential shared libraries \(optional\) |
+| /root | Home directory for the root user \(optional\) |
+
+</br>
 
 The `/usr` is the second level of the hierarchy. It containins shareable, read-only data. It can be shared between systems, although present practice does not often do this.
 
@@ -70,10 +72,12 @@ And for the root user:
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-As you can see, this is the list of directories separated with a colon. Obviously you can change your path with `export PATH=$PATH:/usr/new/dir` or put this in `.bashrc` to make it permanent.
+As you can see, this is the list of directories separated with colon. Obviously you can change your path with `export PATH=$PATH:/usr/new/dir` or put this in `.bashrc` to make it permanent.
 
 ## Locating files
-### which, type and whereis
+
+
+### `which`, `type` and `whereis`
 
 The `which` command shows the first appearance of the command given in the path. In other words the  `which mkfs` will tell you what will be run if you issue this `mkfs` command.
 
@@ -134,7 +138,7 @@ $ find /tmp/ -maxdepth 1 -user jadi | head
 /tmp/2
 ```
 
-Or even find the files not belonging to any user / group with `-nouser` and `-nogroup`.
+Or even find the files not belonging to any user/group with `-nouser` and `-nogroup`.
 
 > Like other _tests_, you can add a `!` just before any phrase to negate it. So this will find files **not belonging** to jadi: `find . ! -user jadi`
 
@@ -150,7 +154,7 @@ $ sudo find /etc -iname "*vmware*"
 
 ### locate & updatedb
 
-You tries `find` and loved it but there is an issue with it: it do a live active search! This can slow down your system or push too much pressure on your hard or on larger file systems take too long. To solve this, there is a faster command:
+You tries `find` and loved it but there is an issue with it: it does a live active search! This can slow down your system or push too much pressure on your hard or on larger file systems take too long. To solve this, there is a faster command:
 
 ```
 $ locate networking
