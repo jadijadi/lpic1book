@@ -16,7 +16,7 @@ Candidates should be able to manipulate files and text data using regular expres
 
 * Create simple regular expressions containing several notational elements.
 * Understand the differences between basic and extended regular expressions.
-* Understand the concepts of special characters, character classes, quantifiers and anchors.
+* Understand the concepts of special characters, character classes, quantifiers, and anchors.
 * Use regular expression tools to perform searches through a filesystem or file content.
 * Use regular expressions to delete, change and substitute text.
 
@@ -30,7 +30,7 @@ Candidates should be able to manipulate files and text data using regular expres
 
 ### Regex
 
-Regular expression, Regex, regex is a pattern to describe what you want to _match_ from a text. For example `a` and `ad` both matches `jadi`. `d.` is a _deeper_ example because `.` means _anything_ so `d.` will match the last two characters of `jadi`. In this section we will cover the *grep** \(generalised regular expression processor\) command. It has different regex _dialect_; in short Basic regex and Extended regex.
+Regular expression, Regex, regex is a pattern to describe what you want to _match_ from a text. For example `a` and `ad` both matches `jadi`. `d.` is a _deeper_ example because `.` means _anything_ so `d.` will match the last two characters of `jadi`. In this section, we will cover the *grep** \(generalised regular expression processor\) command. It has different regex _dialect_; in short Basic regex and Extended regex.
 
 #### Regex basics
 
@@ -46,8 +46,8 @@ You can simply write down whatever you want to match and regex will search for t
 
 **Repeating**
 
-* The **`\*`** means repeating the previous character for 0 or more times.
-* The **`+`** means repeating the previous character for 1 or more times.
+* The **`\*`** means repeating the previous character 0 or more times.
+* The **`+`** means repeating the previous character 1 or more times.
 * the **`?`** means zero or one repeats.
 * **`{n,m}`** means the item needs to match at least n times, but not more than m times.
 
@@ -68,15 +68,15 @@ If you say `a|b` it will match `a` or `b`.
 
 **Character Classes**
 
-The dot \(**`.`**\) means any character. So **`..`** will match anything with at least two character in it. You can also create your own classes with \[abc\] which will match a or b or c and \[a-z\] which match a to z.
+The dot \(**`.`**\) means any character. So **`..`** will match anything with at least two characters in it. You can also create your classes with \[abc\] which will match a or b or c and \[a-z\] which match a to z.
 
 You can also refer to digits with \d. 
 
-> regex is case sensitive.
+> regex is case-sensitive.
 
 **Ranges**
 
-There are short-hands for commonly used classes. Named classes start with `[:` and end in `:]`.
+There are shorthands for commonly used classes. Named classes to start with `[:` and end with `:]`.
 
 | Range | Meaning |
 | :--- | :--- |
@@ -166,7 +166,7 @@ Mary
 $ 
 ```
 
-As an another example, lets search all the `/etc` for all files containing an IP address and sending the errors (mostly "you do not have permission to read this") to `/dev/null`:
+As another example, let's search all the `/etc` for all files containing an IP address and send the errors (mostly "you do not have permission to read this") to `/dev/null`:
 
 ```
 $ egrep -r "192.168.(1|0)." /etc/ 2> /dev/null
@@ -208,15 +208,15 @@ $ egrep -r "192.168.(1|0)." /etc/ 2> /dev/null
 ```
 
 ### Extended grep
-Regex is cool and `grep` is awesome so many people have tried adding to them or invent their own variants. One is GNU Extended grep. This dialect of regex, does not need much escaping and you can use it via `-E` switch or using `egrep` instead of the normal `grep`. For example, `|` in an extended regex means "or". So you can do a `egrep "a|b" words` to match anything with an `a` or a `b`. 
+Regex is cool and `grep` is awesome so many people have tried adding to them or inventing their variants. One is GNU Extended grep. This dialect of regex, does not need much escaping and you can use it via `-E` switch or using `egrep` instead of the normal `grep`. For example, `|` in an extended regex means "or". So you can do a `egrep "a|b" words` to match anything with an `a` or a `b`. 
 
 ### Fixed grep
 
-If you need to search for exact strings \(and not interpret it as a regex\), use `grep -F` or `fgrep` so the `fgrep this$` wont go for the end of the line and will find _this$that_ instead.
+If you need to search for exact strings \(and not interpret it as a regex\), use `grep -F` or `fgrep` so the `fgrep this$` won't go for the end of the line and will find _this$that_ instead.
 
 ### sed
 
-In previous lessons we saw simple `sed` usage and now I have great news for you: **sed understands regex**! You can use `-r` switch to tell sed that we are using regexes.
+In previous lessons, we saw simple `sed` usage and now I have great news for you: **sed understands regex**! You can use `-r` switch to tell sed that we are using regexes.
 
 ```
 $ sed -r "s/(Z|R|J)/starts with ZRJ/" friends.txt 

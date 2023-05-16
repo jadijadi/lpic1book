@@ -74,7 +74,7 @@ Here we will do a quick review on some of these methods.
 
 This is not mentioned in this section in LPIC1 but it is super useful to know about. If you have an SSH server, you can connect to it and run GUI softwares there and get the GUI part of the program on your own machine. This is called X-Forwarding in ssh. 
 
-First make sure that the `X11Forwarding yes` is configured in `/etc/ssh/sshd_config` (and ()[restart the service is needed]). Then do your ssh as follow:
+First make sure that the `X11Forwarding yes` is configured in `/etc/ssh/sshd_config` (and [restart the service is needed]). Then do your ssh as follow:
 
 ```
 $ ssh -X server_ip.address.net 
@@ -84,12 +84,12 @@ $ xeyes
 And they eyes will appear on your own machine! You can do the same to run a browser or a cpu hungry simulation software.
 
 ### VNC
-Virtual Network Computer (VNC) started long time ago and is still active and alive. It is multi platform and uses RFB protocol. Its default port is 5900+[display number, usually 1].
+Virtual Network Computer (VNC) started long time ago and is still active and alive. It is multi platform and uses RFB protocol. Its default port is 5900 + [display number, usually is 1 by default] so you need to use 5901 port to connect via VNC.
 
 The good point about VNC is its flexibility and clients on all platform but it lacks security.
 
 ### Spice
-The Simple Protocol for Independent Computing Environment started as a closed source software but become open source when RedHat bought the company in 2008. It can be used to connect to KVM virtual machines (a very common virtual machine system) and has has some advantages like fast speeds similar to local connections and low CPU usage. There is one server implementation but you can find many clients, including GNOMEs boxes program.
+The **Simple Protocol for Independent Computing Environment** started as a closed source software but become open source when RedHat bought the company in 2008. It can be used to connect to KVM virtual machines (a very common virtual machine system) and has some advantages like fast speeds similar to local connections and low CPU usage. There is one server implementation but you can find many clients, including GNOMEs boxes program.
 
 ### RDP
 Using softwares like `Xrdp` you can start listening for Remote Desktop Protocol (RDP) connections on your machine on port 3389 by default. The traffic is encrypted by default and there are lots of free and open RDP clients available.  

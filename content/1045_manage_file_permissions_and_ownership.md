@@ -47,7 +47,7 @@ jadi
 
 As you can see `id` shows both user and group information.
 
-> Note the 0 UID of 0 GID of the root user and root group
+> Note the 0 UID and 0 GID of the root user and root group.
 
 These are stored in `/etc/passwd` and `/etc/group` files.
 
@@ -58,7 +58,7 @@ lpadmin:x:108:jadi
 ```
 
 ## File ownership & permissions
-Linux uses three layers of access / permissions for each file or directory: User, Group & Others.
+Linux uses three layers of access/permissions for each file or directory: User, Group & Others.
 
 Each file belongs to one user and one group and this user and the members of that group will have specific read/write/execute accesses on it. Have a look:
 
@@ -67,21 +67,22 @@ $ ls -ltrh script.sh
 -rwxr-xr-x 1 jadi adm 34 Mar  5  2023 script.sh
 ```
 
-In above example, `jadi` is the owner of the file. The file belongs to the `adm` group and the owner (jadi here) has  **r**ead, **w**rite \(including deletion and edit\) & **e**xecute \(reading directory content\) permissions on the file while the `adm` group members and **others** only have read & execute access.
+In above example, `jadi` is the owner of the file. The file belongs to the `adm` group and the owner (`jadi` here) has  **r**ead, **w**rite \(including deletion and edit\) & **e**xecute \(reading directory content\) permissions on the file while the `adm` group members and **others** only have read & execute access.
 
 ![](/images/file_permissions.png)
 
-> In many distros, when you create a user, system creates a group with same name and assign that users files to that group
+> In many distros, when you create a user, the system creates a group with the same name and assigns that user's files to that group.
 
 The below table shows some more information regarding the first part of the `ls -l` command:
 
-| location | meaning |
-| :--- | :--- |
+| Position | Meaning |
+| :---: | :---: |
 | 1 | What this entry is. Dash \(-\) is for ordinary files, 'l' is for links & 'd' is for directory |
 | 2,3,4 | read, write and execute access for the owner |
 | 5,6,7 | read, write and execute access for the group members |
 | 8,9,10 | read, write and execute access for other users |
 | 11 | Indicated if any other access methods \(such as SELinux\) are applies to this file - not part of the LPIC 101 exam |
+
 
 Lets check another example.
 
@@ -90,7 +91,7 @@ $ ls -l /sbin/fdisk
 -rwxr-xr-x 1 root root 267176 Oct 15 18:58 /sbin/fdisk
 ```
 
-We can see that the `fdisk` can be read, be written and be executed by its owner \(root\). Other users (even if they belong to the gropu `root`) can only read and execute it.
+We can see that the `fdisk` can be read, be written and be executed by its owner \(root\). Other users (even if they belong to the group `root`) can only read and execute it.
 
 > although non-root users can execute the fdisk, this program wont do much if it sees that a non root user is running it.
 
@@ -102,7 +103,28 @@ total 12
 drwxr-xr-x 160 jadi jadi 12288 Feb  7 11:44 jadi
 ```
 
-The first character is a `d` so this is a directory. The owner \(jadi\) has read, write and execute access but other members of the **group** jadi and **others** only have read and execute access on this directory \(execute means that they can see the files inside it\).
+The first character is a `d` so this is a directory. The owner \(`jadi`\) has read, write and execute access but other members of the `jadi` **group** and **others** only have read and execute access on this directory.
+
+execute \(`x` character\) means that they can see the files inside it, have a look if dir has not `x`:
+
+```txt
+(with root user)
+$ tree /tmp/FOO
+FOO
+├── Bar1
+└── Bar2
+
+$ ls -ld /tmp/FOO/
+drw-r--r--. 2 jadi jadi 80 Mar 23 19:32 FOO/
+
+(With other user)
+$ ls -l FOO/
+ls: cannot access 'FOO/Bar2': Permission denied
+ls: cannot access 'FOO/Bar1': Permission denied
+total 0
+-????????? ? ? ? ?            ? Bar1
+-????????? ? ? ? ?            ? Bar2
+```
 
 ### Changing permissions
 
@@ -111,10 +133,10 @@ It is possible to change the permissions on files & directories using the `chmod
 1. using octal (base 8) codes
 2. using short codes 
 
-When using octal codes, you have to to create an octal number to tell chmod what you want to do. In this method, 0 means no access, 1 means execute, 2 means write and 4 means read. So if you want to give read+execute, you have to give 4+1 which is 5. This table shows every possible combination:
+When using octal codes, you have to to create an octal number to tell chmod what you want to do. In this method, `0` means no access, `1` means execute, `2` means write and `4` means read. So if you want to give ***read***+***execute***, you have to give `4`+`1` which is `5`. The below table shows every possible combination:
 
 | Symbolic | Octal |
-| :--- | :--- |
+| :---: | :---:  |
 | rwx | 7 |
 | rw- | 6 |
 | r-x | 5 |
@@ -124,7 +146,7 @@ When using octal codes, you have to to create an octal number to tell chmod what
 | --x | 1 |
 | --- | 0 |
 
-So if you want to give rwx to the owner, rx to the group and only x to others, you have to use 751:
+So if you want to give `rwx` to the owner, `rx` to the group and only `x` to others, you have to use `751`:
 
 ```text
 $ ls -ltrh myfile
@@ -134,9 +156,9 @@ $ ls -ltrh myfile
 -rwxr-x--x 1 jadi jadi 0 Feb  8 21:01 myfile
 ```
 
-This might look difficult but there are some commonly used combinations like 755 for general executable files or 600 for personal files.
+This might look difficult but there are some commonly used combinations like `755` for general executable files or `600` for personal files.
 
-There is also an _easier_ method. In this method `u` means user, `g` means group and `o` means others. You can append `+x` to give execute permission, `+r` to give read permission and `+w` to give read permission. For example `u+x` will grant execute permission to user. If you want to remove a permission, use a `-` sign. For example `g-r` to prevent `group` members from `read`ing the file.
+There is also an _easier_ method. In this method `u` means user, `g` means group and `o` means others. You can append `+x` to give execute permission, `+r` to give read permission and `+w` to give write permission. For example `u+x` will grant execute permission to user. If you want to remove a permission, use a `-` sign. For example `g-r` to prevent `group` members from `read`ing the file.
 
 ```text
 $ ls -ltrh myfile
@@ -150,7 +172,7 @@ $ ls -ltrh myfile
 -rwxr-xr-x 1 jadi jadi 0 Feb  8 21:01 myfile
 ```
 
-One very common switch on `chmod` is `-R` for recursive chmoding on files. This will give read permission of all files inside /tmp/ to any user:
+One very common switch on `chmod` is `-R` for recursive `chmod`ing on files. This will give `read` permission of all files inside /tmp/ to any user:
 
 ```text
 # chmod -R o+r /tmp
@@ -188,7 +210,7 @@ It is possible to assign more groups to a user via `usermod` command:
 $ sudo usermod -aG sudo jadi # will add jadi to the sudo group
 ```
 
-Since users can be a member of many groups, they might need to change their **default group** when creating files. To do so, check the groups with `groups` command and set the default one with `newggrp`:
+Since users can be a member of many groups, they might need to change their **default group** when creating files. To do so, check the groups with `groups` command and set the default one with `newgrp`:
 
 ```text
 $ touch newfile
@@ -205,20 +227,20 @@ $ ls -ltrh new*
 
 ## Access modes
 
-A question for you: If we do not have write access to /etc/passwd or /etc/shadow, how is it possible to change our password there?
+A question for you: If we do not have write access to `/etc/passwd` or `/etc/shadow`, how is it possible to change our password then?
 
-Normally when you run a program, it runs with _your_ access level. But what happens if you need to run a program with a higher access level? say to do changes in the password files? For this Linux sets two special bits for each file; **suid** \(set user id\) and **guid** \(set group id\). If these bits are set on a file, that file be will be executed with the access of the **owner** (or **group**) of the file and not the user who is running it.
+Normally when you run a program, it runs with _your_ access level. But what happens if you need to run a program with a higher access level? say to do changes in the password files? For this Linux sets two special bits for each file; **suid** \(set user id\) and **sgid** \(set group id\). If these bits are set on a file, that file will be executed with the access of the **owner** (or **group**) of the file and not the user who is running it.
 
 ```text
 $ ls -ltrh /usr/bin/passwd
 -rwsr-xr-x 1 root root 50K Jul 18  2014 /usr/bin/passwd
 ```
 
-Kindly note the `s` in the _executable bit_ for the user permissions and also for the group? That means when any user runs this program, it will be run with the access level of the owner of the file \(which is root\) instead of that users id.
+Kindly note the `s` in the _executable bit_ for the user permissions and also for the group? That means when any user runs this program, it will be run with the owner of the file access level \(which is root\) instead of that user's id.
 
-It is possible to set / unser the suid and sgid using `chmod` and `+s` or `-s` instead of `x`.
+It is possible to set/unset the `suid` and `sgid` using `chmod` and `+s` or `-s` instead of `x`.
 
-While we are on this, let me introduce you to the last special bit. It is called **sticky bit** and if set, makes the file resistant to deletion. If the sticky bit is set, ONLY the owner of the file will be able to delete it, even if others do have write access to it. This is useful for places like /tmp (everybody has write access on /tmp directory but we do not want others to delete our files).
+While we are on this, let me introduce you to the last special bit. It is called **sticky bit** and if set, makes the file resistant to ***deletion***. If the sticky bit is set, ONLY the owner of the file will be able to delete it, even if others do have write access to it. This is useful for places like /tmp (everybody has write access on /tmp directory but we do not want others to delete our files).
 
 Sticky bit is identified by `t` and will be shown on the last bit of a `ls -l`:
 
@@ -232,16 +254,16 @@ As you can see the sticky bit is set and although all users have write access in
 Lets review how you can set these access modes:
 
 | access mode | octal | symbolic |
-| :--- | :--- | :--- |
+| :---: | :---: | :---: |
 | suid | 4000 | u+s |
-| guid | 2000 | g+s |
+| sgid | 2000 | g+s |
 | sticky | 1000 | +t |
 
 > guid on a directory will force any new file in that directory to have the guid of the directory itself.
 
 ## umask
 
-Another tricky question: what is the permissions of a newly created file? What happens if you `touch` a non-existing file? What will be its permissions? This is set by the `umask`. This command tells the system what permissions (in addition to execute) **should not be given to** new files. In other words, imagine that all new files will have `666` octal permission (write + read for user, group & others), so a umask of 0002 (yes! 4 digits) will remote the 2 (write) for others (666-0002=664):
+Another tricky question: what is the permissions of a newly created file? What happens if you `touch` a non-existing file? What will be its permissions? This is set by the `umask`. This command tells the system what permissions (in addition to execute) **should not be given to** new files. In other words, imagine that all new files will have `666` octal permission (write + read for user, group & others), so a umask of 0002 (yes! 4 digits) will remove the 2 (write) for others (666-0002=664):
 
 ```text
 $ umask

@@ -6,7 +6,7 @@ docutils==0.17.1
 feedgenerator==1.9.1
 gitdb==4.0.7
 gitdb2==4.0.2
-GitPython==3.1.19
+GitPython==3.1.30
 invoke==1.6.0
 Jinja2==3.0.1
 jinjaninja==0.1.2
