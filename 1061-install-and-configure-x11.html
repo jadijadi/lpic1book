@@ -100,9 +100,9 @@
 </ul>
 <h4>Terms and Utilities:</h4>
 <ul>
-<li>/etc/X11/xorg.conf</li>
-<li>/etc/X11/xorg.conf.d/</li>
-<li>~/.xsession-errors</li>
+<li><code>/etc/X11/xorg.conf</code></li>
+<li><code>/etc/X11/xorg.conf.d/</code></li>
+<li><code>~/.xsession-errors</code></li>
 <li>xhost</li>
 <li>xauth</li>
 <li>DISPLAY</li>
@@ -111,17 +111,17 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/JqiT4rsTvUo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <h2>Intro</h2>
-<p>Many people prefer to navigate and use their system via a Graphical User Interface (Or GUI in short). A GUI based operating system provides the user the Icons, mouse and windows &amp; folders, a metaphor from our daily "desktops". But how this happens? As many other things in the Unix world, this happens via layers of application whom are doing one thing well. This is a rough representation of this stack:</p>
+<p>Many people prefer to navigate and use their system via a Graphical User Interface (Or GUI in short). A GUI based operating system provides the user the Icons, mouse, windows &amp; folders, a metaphor from our daily "desktops". But how does this happen? As many other things in the Unix world, this happens via layers of applications that are doing one thing well. This is a rough representation of this stack:</p>
 <p><img alt="Linux GUI stack" src="/images/gui_stack.png"></p>
 <p>On the lower level we have the hardware (say your Monitor) and then the Linux kernel and its drivers. On top of that there is a software called "Display Manager" or "Display Server". This program can ask the operating system (the kernel) to perform what the desktop manager requests. In other words, the display server accepts the desires of UI (even via a network channel) and translates them to the language that Kernel (and drivers in it) understand.</p>
 <p>In this section we are focusing on <strong>X</strong> which is one of the two main Display Servers and then will have a brief look at the other one; the modern <strong>Wayland</strong>. </p>
 <h2>X</h2>
-<p>The X Window System is a network transparent window system which runs on a wide range of computing and graphics machines; including in most GNU/Linux distros when they need a graphical interfaces. Its history a bit long and started with XFree86 but then the X.org started its own X Server which is called X11 nowadays. </p>
+<p>The X Window System is a network transparent window system which runs on a wide range of computing and graphics machines; including in most GNU/Linux distributions when they need a graphical interfaces. Its history a bit long and started with <em>XFree86</em> then the X.org started its own X Server which is called X11 nowadays. </p>
 <blockquote>
 <p>Going down the rabbit hole, <em>X Window System</em> (or <em>X</em>), was the default windowing system for most Unix and Unix like systems during 1980s. X.Org server is the free and open-source implementation of the X Window System display server by the X.Org Foundation. These day when we say <em>X</em> we are referring to the whole family of the network protocols describing how messages are exchanged between a client (application) and the display server; X11 being the 11th version of them.</p>
 </blockquote>
 <h3>/etc/X11/xorg.conf</h3>
-<p>This used to be main configuration file for X. In recent days X configures itself when starting and does not need a cofig file. But if you want to make changes in the bootup process, you can create a new <code>xorg.conf.new</code> file by running the following command:</p>
+<p>This used to be main configuration file for X. In recent days X configures itself when starting and does not need a config file. But if you want to make changes in the boot-up process, you can create a new <code>xorg.conf.new</code> file by running the following command:</p>
 <div class="highlight"><pre><span></span><code>Xorg -configure
 </code></pre></div>
 
@@ -152,7 +152,7 @@ EndSection
 EndSection
 </code></pre></div>
 
-<p>These are modules. For example <code>glx</code> takes care of 3d graphical effects and we are asking X to load it alongside others.</p>
+<p>These are modules. For example <code>glx</code> takes care of <em>3D graphical</em> effects and we are asking X to load it alongside others.</p>
 <p>Here are the <code>InputDevice</code>s:</p>
 <div class="highlight"><pre><span></span><code>Section &quot;InputDevice&quot;
     Identifier    &quot;Generic Keyboard&quot;
@@ -183,7 +183,7 @@ Section &quot;InputDevice&quot;
 EndSection
 </code></pre></div>
 
-<p>As you can see each device has an <code>Identifier</code>, <code>Driver</code> and some options. Above we defined a mouse, a keyboard and a touchpad and gave them some names.</p>
+<p>As you can see each device has an <code>Identifier</code>, <code>Driver</code> and some <code>options</code>. Above we defined a mouse, a keyboard and a touchpad and gave them some names.</p>
 <div class="highlight"><pre><span></span><code>Section &quot;Device&quot;
     Identifier    &quot;ATI Technologies, Inc. Radeon Mobility 7500 (M7 LW)&quot;
     Driver        &quot;radeon&quot;
@@ -236,7 +236,7 @@ Section &quot;Screen&quot;
 EndSection
 </code></pre></div>
 
-<p>Note how the screen uses the already defined monitor (using its identifier "Generic Monitor") and an already defined graphic card. Also note the different color modes (say 24bit 1024x768).</p>
+<p>Note how the screen uses the already defined monitor (using its identifier "Generic Monitor") and an already defined graphic card. Also note the different color modes (say <code>24bit 1024x768</code>).</p>
 <p>At the end we have to glue all of the above in one place as <code>ServerLayout</code>:</p>
 <div class="highlight"><pre><span></span><code>Section &quot;ServerLayout&quot;
     Identifier    &quot;DefaultLayout&quot;
@@ -252,8 +252,8 @@ EndSection
 <p>Note: Do not panic. A general understanding of xorg.conf is enough</p>
 </blockquote>
 <h3>/etc/X11/xorg.conf.d/</h3>
-<p>What happens if you edit the <code>/etc/program.conf</code> and then update the system? will the system overwrite your newly edited <code>program.conf</code> with the latest version from the vendor? or omid the changes in the vendor in favor of your local edits? Both are <em>bad</em>.</p>
-<p>To solve this issue, many programs are creating a new configurations directory as <code>/etc/program.conf.d/</code> and asking you to add your <em>local</em> configurations there. So the main configuration file from the vendor will be <code>/etc/program.conf</code> and all your new confugrations will go into the <code>/etc/program.conf.d/</code> as separated files. Much easier to manage (because smaller atomic files per configuration) and no touching the vendors config by locals. Cool? yes... this is happening in X11 too. Your own configs should go into <code>/etc/X11/xorg.conf.d/</code> and the <code>/etc/X11/xorg.conf</code> should remain untacked.</p>
+<p>What happens if you edit the <code>/etc/program.conf</code> and then update the system? will the system overwrite your newly edited <code>program.conf</code> with the latest version from the vendor? or omit the changes in the vendor in favor of your local edits? Both are <em>bad</em>.</p>
+<p>To solve this issue, many programs are creating a new configurations directory as <code>/etc/program/program.conf.d/</code> and asking you to add your <em>local</em> configurations there. So the main configuration file from the vendor will be <code>/etc/program/program.conf</code> and all your new configurations will go into the <code>/etc/program/program.conf.d/</code> as separated files. Much easier to manage (because smaller atomic files per configuration) and no touching the vendors config by locals. Cool? yes... this is happening in X11 too. Your own configs should go into <code>/etc/X11/xorg.conf.d/</code> and the <code>/etc/X11/xorg.conf</code> should remain untouched.</p>
 <h3>~/.xsession-errors</h3>
 <p>In case of any issues during the start of running of X, the errors will go here. So if you ran into an issue on your GUI startup, this is the file you should check to see what went wrong.</p>
 <h3>xhost</h3>
@@ -282,9 +282,9 @@ INET:192.168.42.85    (no nameserver response within 5 seconds)
 SI:localuser:jadi
 </code></pre></div>
 
-<p>Now the <code>192.168.42.85</code> machine (REMOTE) can send its graphical requests to this machine.. whats the usage? continue reading the next section (assuming this machine is called <code>192.168.42.80</code> (SERVER) and we opened the access from to its X11 for <code>192.168.42.85</code> (REMOTE)).</p>
+<p>Now the <code>192.168.42.85</code> machine (REMOTE) can send its graphical requests to this machine. whats the usage? continue reading the next section (assuming this machine is called <code>192.168.42.80</code> (SERVER) and we opened the access from to its X11 for <code>192.168.42.85</code> (REMOTE) ).</p>
 <h3>DISPLAY</h3>
-<p>This variable tell graphical programs where to send their graphical output. This is the default:</p>
+<p>This variable tells graphical programs where to send their graphical output. This is the default:</p>
 <div class="highlight"><pre><span></span><code>$ echo $DISPLAY
 :0
 </code></pre></div>
@@ -300,13 +300,13 @@ $ xeyes # the eyes will be shown on 192.168.42.80 machine
 <p>In the next chapter, we will see how you can properly run graphical programs on remote servers and receive the GUI part on your side</p>
 </blockquote>
 <h3>xauth</h3>
-<p>The <code>xauth</code> program is used to edit and display the authorization information used in connecting to the X server. On <code>xhost</code> you see how you can open your X to remote IPs, using <code>xauth</code> you can do the same based on a shared "secret". </p>
-<p>In this method, X creates an .XAuthority file in your home and whoever knows about the contents, can contact X. </p>
+<p>The <code>xauth</code> program is used to edit and display the authorization information used in connecting to the X server. On <a href="#xhost">xhost</a> you see how you can open your X to remote IPs, using <code>xauth</code> you can do the same based on a shared "secret". </p>
+<p>In this method, <code>X</code> creates an <code>.XAuthority</code> file in your home and whoever knows about the contents, can contact X. </p>
 <blockquote>
-<p>If your X is not working, one step might be <code>rm</code>ing the <code>.XAuthority</code> file and restarting the X. </p>
+<p>If your <code>X</code> is not working, one step might be <code>rm</code>ing the <code>.XAuthority</code> file and restarting the X. </p>
 </blockquote>
 <h2>Wayland</h2>
-<p>X11 is super old and is only usable via lots of patches and hacks. Thats why one of its developers started a modern display manager called Wayland. In recent years many distros are switching from the default X11 to Wayland and keeping X11 as a fail-safe option. Wayland is more secure and much easier to maintain and I can assure you that in a couple of years we will see more and more of it.</p>
+<p><em>X11</em> is super old and is only usable via lots of patches and hacks. Thats why one of its developers started a modern display manager called <em>Wayland</em>. In recent years many distros are switching from the default <em>X11</em> to <em>Wayland</em> and keeping X11 as a fail-safe option. Wayland is more secure and much easier to maintain and I can assure you that in a couple of years we will see more and more of it.</p>
 
 
              

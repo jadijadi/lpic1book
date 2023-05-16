@@ -93,7 +93,7 @@
 <ul>
 <li>Create simple regular expressions containing several notational elements.</li>
 <li>Understand the differences between basic and extended regular expressions.</li>
-<li>Understand the concepts of special characters, character classes, quantifiers and anchors.</li>
+<li>Understand the concepts of special characters, character classes, quantifiers, and anchors.</li>
 <li>Use regular expression tools to perform searches through a filesystem or file content.</li>
 <li>
 <p>Use regular expressions to delete, change and substitute text.</p>
@@ -109,7 +109,7 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/wa1OFZ-Ck-0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <h3>Regex</h3>
-<p>Regular expression, Regex, regex is a pattern to describe what you want to <em>match</em> from a text. For example <code>a</code> and <code>ad</code> both matches <code>jadi</code>. <code>d.</code> is a <em>deeper</em> example because <code>.</code> means <em>anything</em> so <code>d.</code> will match the last two characters of <code>jadi</code>. In this section we will cover the <em>grep</em>* (generalised regular expression processor) command. It has different regex <em>dialect</em>; in short Basic regex and Extended regex.</p>
+<p>Regular expression, Regex, regex is a pattern to describe what you want to <em>match</em> from a text. For example <code>a</code> and <code>ad</code> both matches <code>jadi</code>. <code>d.</code> is a <em>deeper</em> example because <code>.</code> means <em>anything</em> so <code>d.</code> will match the last two characters of <code>jadi</code>. In this section, we will cover the <em>grep</em>* (generalised regular expression processor) command. It has different regex <em>dialect</em>; in short Basic regex and Extended regex.</p>
 <h4>Regex basics</h4>
 <p><strong>Simple match</strong>
 You can simply write down whatever you want to match and regex will search for that.</p>
@@ -134,8 +134,8 @@ You can simply write down whatever you want to match and regex will search for t
 <p></br></p>
 <p><strong>Repeating</strong></p>
 <ul>
-<li>The <strong><code>\*</code></strong> means repeating the previous character for 0 or more times.</li>
-<li>The <strong><code>+</code></strong> means repeating the previous character for 1 or more times.</li>
+<li>The <strong><code>\*</code></strong> means repeating the previous character 0 or more times.</li>
+<li>The <strong><code>+</code></strong> means repeating the previous character 1 or more times.</li>
 <li>the <strong><code>?</code></strong> means zero or one repeats.</li>
 <li><strong><code>{n,m}</code></strong> means the item needs to match at least n times, but not more than m times.</li>
 </ul>
@@ -175,13 +175,13 @@ You can simply write down whatever you want to match and regex will search for t
 <p>If you say <code>a|b</code> it will match <code>a</code> or <code>b</code>.</p>
 <p></br></p>
 <p><strong>Character Classes</strong></p>
-<p>The dot (<strong><code>.</code></strong>) means any character. So <strong><code>..</code></strong> will match anything with at least two character in it. You can also create your own classes with [abc] which will match a or b or c and [a-z] which match a to z.</p>
+<p>The dot (<strong><code>.</code></strong>) means any character. So <strong><code>..</code></strong> will match anything with at least two characters in it. You can also create your classes with [abc] which will match a or b or c and [a-z] which match a to z.</p>
 <p>You can also refer to digits with \d. </p>
 <blockquote>
-<p>regex is case sensitive.</p>
+<p>regex is case-sensitive.</p>
 </blockquote>
 <p><strong>Ranges</strong></p>
-<p>There are short-hands for commonly used classes. Named classes start with <code>[:</code> and end in <code>:]</code>.</p>
+<p>There are shorthands for commonly used classes. Named classes to start with <code>[:</code> and end with <code>:]</code>.</p>
 <table>
 <thead>
 <tr>
@@ -311,7 +311,7 @@ Mary
 $ 
 </code></pre></div>
 
-<p>As an another example, lets search all the <code>/etc</code> for all files containing an IP address and sending the errors (mostly "you do not have permission to read this") to <code>/dev/null</code>:</p>
+<p>As another example, let's search all the <code>/etc</code> for all files containing an IP address and send the errors (mostly "you do not have permission to read this") to <code>/dev/null</code>:</p>
 <div class="highlight"><pre><span></span><code>$ egrep -r <span class="s2">&quot;192.168.(1|0).&quot;</span> /etc/ <span class="m">2</span>&gt; /dev/null
 /etc/privoxy/config:#      address <span class="m">192</span>.168.0.1 on your <span class="nb">local</span> private network
 /etc/privoxy/config:#      <span class="o">(</span><span class="m">192</span>.168.0.0<span class="o">)</span> and has another outside connection with a
@@ -351,11 +351,11 @@ $
 </code></pre></div>
 
 <h3>Extended grep</h3>
-<p>Regex is cool and <code>grep</code> is awesome so many people have tried adding to them or invent their own variants. One is GNU Extended grep. This dialect of regex, does not need much escaping and you can use it via <code>-E</code> switch or using <code>egrep</code> instead of the normal <code>grep</code>. For example, <code>|</code> in an extended regex means "or". So you can do a <code>egrep "a|b" words</code> to match anything with an <code>a</code> or a <code>b</code>. </p>
+<p>Regex is cool and <code>grep</code> is awesome so many people have tried adding to them or inventing their variants. One is GNU Extended grep. This dialect of regex, does not need much escaping and you can use it via <code>-E</code> switch or using <code>egrep</code> instead of the normal <code>grep</code>. For example, <code>|</code> in an extended regex means "or". So you can do a <code>egrep "a|b" words</code> to match anything with an <code>a</code> or a <code>b</code>. </p>
 <h3>Fixed grep</h3>
-<p>If you need to search for exact strings (and not interpret it as a regex), use <code>grep -F</code> or <code>fgrep</code> so the <code>fgrep this$</code> wont go for the end of the line and will find <em>this$that</em> instead.</p>
+<p>If you need to search for exact strings (and not interpret it as a regex), use <code>grep -F</code> or <code>fgrep</code> so the <code>fgrep this$</code> won't go for the end of the line and will find <em>this$that</em> instead.</p>
 <h3>sed</h3>
-<p>In previous lessons we saw simple <code>sed</code> usage and now I have great news for you: <strong>sed understands regex</strong>! You can use <code>-r</code> switch to tell sed that we are using regexes.</p>
+<p>In previous lessons, we saw simple <code>sed</code> usage and now I have great news for you: <strong>sed understands regex</strong>! You can use <code>-r</code> switch to tell sed that we are using regexes.</p>
 <div class="highlight"><pre><span></span><code>$ sed -r <span class="s2">&quot;s/(Z|R|J)/starts with ZRJ/&quot;</span> friends.txt 
 starts with ZRJee
 starts with ZRJosha

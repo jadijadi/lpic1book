@@ -92,13 +92,13 @@
 <p>Candidates should be able to customize existing scripts, or write simple new Bash scripts.</p>
 <h4>Key Knowledge Areas:</h4>
 <ul>
-<li>Use standard sh syntax (loops, tests)</li>
-<li>Use command substitution</li>
-<li>Test return values for success or failure or other information provided by a command</li>
+<li>Use standard sh syntax (loops, tests).</li>
+<li>Use command substitution.</li>
+<li>Test return values for success or failure or other information provided by a command.</li>
 <li>Execute chained commands.</li>
-<li>Perform conditional mailing to the superuser</li>
-<li>Correctly select the script interpreter through the shebang (#!) line</li>
-<li>Manage the location, ownership, execution and suid-rights of scripts</li>
+<li>Perform conditional mailing to the superuser.</li>
+<li>Correctly select the script interpreter through the shebang (<code>#!</code>) line.</li>
+<li>Manage the location, ownership, execution and suid-rights of scripts.</li>
 </ul>
 <h4>Terms and Utilities</h4>
 <ul>
@@ -115,9 +115,9 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/0BYkWRf4Yvk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <h2>combining commands</h2>
-<p>If you want to run more than one command in line one, separate them by a <code>;</code>. So the <code>cd /tmp; ls</code> will run the <code>cd /tmp</code> and then <code>ls</code>. But there are more advanced usages too.</p>
-<p>You can use <code>&amp;&amp;</code> and <code>||</code> as logical and / or chaining. In case of And, the execution will stop as soon as the first one fails to execute. In case of Or, the next command will only run if the first one fails. Just like in logic boards.</p>
-<p>Confusing? Let me explain again. The system will always tried to <em>evaluate</em> the outcome of your chain. So if you have <code>A &amp;&amp; B</code> and A fails, the system does not need to test B (because the overall result will be False anyway). Same logic works for <code>A || B || C</code>. If A works fine, the overall evaluation will be True so no need for testing B or C. But if A fails, system will try B and if B fails, we have to try C. </p>
+<p>If you want to run more than one command in oneline, separate them by a <code>;</code>. So the <code>cd /tmp; ls</code> will run the <code>cd /tmp</code> and then <code>ls</code>. But there are more advanced usages too.</p>
+<p>You can use <code>&amp;&amp;</code> (as logical And) and <code>||</code> (as logical OR) chaining. In case of And, the execution will stop as soon as the first one fails to execute. In case of Or, the next command will only run if the first one fails. Just like in logic boards.</p>
+<p>Confusing? Let me explain again. The system will always try to <em>evaluate</em> the outcome of your chain. So if you have <code>A &amp;&amp; B</code> then A fails, the system does not need to test B (because the overall result will be False anyway). Same logic works for <code>A || B || C</code>. If A works fine, the overall evaluation will be True so no need for testing B or C. But if A fails, system will try B and if B fails, we have to try C. </p>
 <p>We use chaining to create logical flows. For example:</p>
 <div class="highlight"><pre><span></span><code>$ cp backup.gzip /backups/ <span class="o">&amp;&amp;</span> rm backup.gzip
 </code></pre></div>
@@ -128,29 +128,29 @@
 <h3>Shebang</h3>
 <p>There is a line at the beginning of scripts which starts with <code>#!</code> and continues with an executable who needs to run this script. It is called shebang and as mentioned, tells the shell which <em>interpreter</em> must be used to run this script.</p>
 <blockquote>
-<p>Note: In many programming languages (including bash &amp; python), a <code>#</code> at the beginning of a script indicates <em>comments</em>. Do not confuse it with the <em>Shebang</em> (#!)</p>
+<p>Note: In many programming languages (including Bash &amp; Python), a <code>#</code> at the beginning of a line in script indicates <em>comments</em>. Do not confuse it with the <em>Shebang</em> (<code>#!</code>)</p>
 </blockquote>
-<p>Commonly we run shells using <code>#!/bin/bash</code> or <code>#!/bin/sh</code></p>
-<p>The rest of a shell script can use most of the commands you already now in addition with some more "programming" specific commands like loops, tests and such. Here is a primitive sample:</p>
-<div class="highlight"><pre><span></span><code>#!/bin/bash
+<p>Commonly we run shell scripts using <code>#!/bin/bash</code> or <code>#!/bin/sh</code></p>
+<p>The rest of a shell script can use most of the commands you already know in addition with some more "programming" specific commands like loops, tests and such. Here is a primitive sample:</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
-echo
-echo &quot;We are learning! Wowww...&quot;
-echo
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;We are learning! Wowww...&quot;</span>
+<span class="nb">echo</span>
 </code></pre></div>
 
 <blockquote>
-<p>The <code>sh</code> is a more basic shell but it is compatible with most of the things we talk about. There are also options like <code>zsh</code> and <code>csh</code> but the LPIC is based on <code>bash</code>.</p>
+<p>The <code>sh</code> is a more basic shell but it is compatible with most of the things we talk about. There are also other options like <code>zsh</code> and <code>csh</code> but the LPIC is based on <code>bash</code>.</p>
 </blockquote>
 <h3>Variables</h3>
 <p>Already seen in the previous section. You can define variables like this <code>VARNAME=VALUE</code>. Here is a sample:</p>
-<div class="highlight"><pre><span></span><code>#!/bin/bash
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
-NAME=Jadi
+<span class="nv">NAME</span><span class="o">=</span>Jadi
 
-echo
-echo &quot;$NAME is learning! Wowww...&quot;
-echo
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$NAME</span><span class="s2"> is learning! Wowww...&quot;</span>
+<span class="nb">echo</span>
 </code></pre></div>
 
 <blockquote>
@@ -158,182 +158,182 @@ echo
 </blockquote>
 <p>If you want to access the command line arguments in your shell script, use <code>$1</code>, <code>$2</code>, .... You can find the number of command line arguments via <code>$#</code> variable.</p>
 <h3>Command substitution</h3>
-<p>Sometimes you need to save the output of a command in a variable or use it in some way. To do so you can use <code>$(command)</code> or simply <code>\</code>command``. Look at these two samples:</p>
-<div class="highlight"><pre><span></span><code>➜  FILES=$(ls -1) # the $FILES variable contains the list of all files
+<p>Sometimes you need to save the output of a command in a variable or use it in some way. To do so you can use <code>$(command)</code> or simply `command` (Backtick). Look at these two samples:</p>
+<div class="highlight"><pre><span></span><code>➜  <span class="nv">FILES</span><span class="o">=</span><span class="k">$(</span>ls -1<span class="k">)</span> <span class="c1"># the $FILES variable contains the list of all files</span>
 
-➜  ~ date +&#39;%Y%m%d-%H%m&#39;
-20230408-1604
-➜  ~ touch backup_`date +&#39;%Y%m%d-%H%m&#39;`.tar
+➜  ~ date +<span class="s1">&#39;%Y%m%d-%H%m&#39;</span>
+<span class="m">20230408</span>-1604
+➜  ~ touch backup_<span class="sb">`</span>date +<span class="s1">&#39;%Y%m%d-%H%m&#39;</span><span class="sb">`</span>.tar
 ➜  ~ ls
 backup_20230408-1604.tar
 </code></pre></div>
 
 <h3>executing scripts</h3>
-<p>In the Unix / Linux world, file should be executable to be executable! :D To do so use the <code>chmod</code> command with <code>+x</code>. After this step you can run your script by giving its path to shell. Please note that Linux by default does not looks into the current directory so if you are going to run a script at the current directory, you have to run <code>./script_name.sh</code>.</p>
+<p>In the Unix/Linux world, file should be executable to be executable! :D To do so use the <code>chmod</code> command with <code>+x</code>. After this step you can run your script by giving its path to shell. Please note that Linux by default does not looks into the current directory so if you are going to run a script at the current directory, you have to run <code>./script_name.sh</code>.</p>
 <p>Another way to run a script is running <code>sh</code> or <code>bash</code> with the shell scripts name as its argument. That is <code>sh my_script.sh</code>.</p>
-<p>In both above methods, the scripts runs inside a child bash process and <em>returns</em> back afterwards to the same shell. If want to override this and <em>replace</em> your current shell with the program you are going to run, use the <code>exec</code> build-in command. The <code>-c</code> switch will run the command in a clean environment.</p>
+<p>In both above methods, the scripts runs inside a child bash process and <em>returns</em> back afterwards to the same shell. If you want to override this and <em>replace</em> your current shell with the program you are going to run, use the <code>exec</code> build-in command. The <code>-c</code> switch will run the command in a clean environment.</p>
 <h3>Conditions</h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/_4ISOx9Kxpk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <p>Up to now, we were just running commands one by one. That is not very <em>programmatic</em>. If we are going to have some <em>logic</em> in our programs, we need <em>conditions</em> and <em>loops</em>. First we will cover conditions, using the <code>if</code> command. Its usage is like this:</p>
-<div class="highlight"><pre><span></span><code>if [condition]
-then
-   do something
-   do another thing
-else
-   do new things
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="o">[</span>condition<span class="o">]</span>
+<span class="k">then</span>
+   <span class="k">do</span> something
+   <span class="k">do</span> another thing
+<span class="k">else</span>
+   <span class="k">do</span> new things
    even funnier things
-fi
+<span class="k">fi</span>
 </code></pre></div>
 
 <blockquote>
 <p>Note: else part is optional, <code>if</code>, <code>then</code>, <code>fi</code> is enough.</p>
 </blockquote>
-<p>Conditions can be TRUE or FALSE. A very simple conditions is <code>if [ "Linux" = "Linux" ]</code>. Silly? I know but wait; we are learning the syntax only. Please give special attention to the <em>spaces</em> and <em>=</em> for checking if two strings are equal.</p>
-<div class="highlight"><pre><span></span><code>#!/bin/bash
+<p>Conditions can be TRUE or FALSE. A very simple conditions is <code>if [ "Linux" = "Linux" ]</code>. Silly? I know but wait; we are learning the syntax only. Please give special attention to the <em>spaces</em> and <em><code>=</code></em> for checking if two strings are equal.</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
-kernel=$(uname -s)
-if [ $kernel = &quot;Linux&quot; ]
-then
-    echo YES. You are using a Linux
-else
-    echo &quot;Not a linux :(&quot;
-fi
+<span class="nv">kernel</span><span class="o">=</span><span class="k">$(</span>uname -s<span class="k">)</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$kernel</span> <span class="o">=</span> <span class="s2">&quot;Linux&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> YES. You are using a Linux
+<span class="k">else</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Not a linux :(&quot;</span>
+<span class="k">fi</span>
 </code></pre></div>
 
 <p>The command to check conditions is the <code>test</code> command but since it is used a lot, we have a shortcut for it. Instead of <code>test condition</code> you can write <code>[ condition ]</code>. </p>
 <table>
 <thead>
 <tr>
-<th align="left">conditions</th>
+<th align="center">conditions</th>
 <th align="left">what is means</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">"a" = "b"</td>
+<td align="center">"a" = "b"</td>
 <td align="left">if two strings are equal (here it will return False)</td>
 </tr>
 <tr>
-<td align="left">"a" != "b"</td>
+<td align="center">"a" != "b"</td>
 <td align="left">string a <em>is not equal</em> to string b</td>
 </tr>
 <tr>
-<td align="left">4 -lt 40</td>
+<td align="center">4 -lt 40</td>
 <td align="left">if 4 is <em>lower   than</em> 40 (True)</td>
 </tr>
 <tr>
-<td align="left">5 -gt 15</td>
+<td align="center">5 -gt 15</td>
 <td align="left">if 5 is <em>greater than</em> 15 (False)</td>
 </tr>
 <tr>
-<td align="left">5 -ge 5</td>
+<td align="center">5 -ge 5</td>
 <td align="left">if 5 is <em>greater or equal</em> 5</td>
 </tr>
 <tr>
-<td align="left">5 -le 3</td>
+<td align="center">5 -le 3</td>
 <td align="left">if 5 is <em>lower or equal</em> to 3</td>
 </tr>
 <tr>
-<td align="left">9 -ne 2</td>
+<td align="center">9 -ne 2</td>
 <td align="left">9 is <em>not equal</em> with 2 (True)</td>
 </tr>
 <tr>
-<td align="left">-f FILENAME</td>
+<td align="center">-f FILENAME</td>
 <td align="left">if file FILENAME exists</td>
 </tr>
 <tr>
-<td align="left">-s FILENAME</td>
-<td align="left">if file exists and its size is more than 0</td>
+<td align="center">-s FILENAME</td>
+<td align="left">if file exists and its size is more than 0 (Zero)</td>
 </tr>
 <tr>
-<td align="left">-x FILENAME</td>
-<td align="left">file exists and is executable</td>
+<td align="center">-x FILENAME</td>
+<td align="left">if file exists and is executable</td>
 </tr>
 </tbody>
 </table>
 <h3>read</h3>
 <p>Using <code>read</code> we can read the user input. Look at this:</p>
-<div class="highlight"><pre><span></span><code>#!/bin/sh
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
 
-echo &quot;what is your name?&quot;
-read NAME
+<span class="nb">echo</span> <span class="s2">&quot;what is your name?&quot;</span>
+<span class="nb">read</span> NAME
 
-echo &quot;Hello $NAME&quot;
+<span class="nb">echo</span> <span class="s2">&quot;Hello </span><span class="nv">$NAME</span><span class="s2">&quot;</span>
 
-if [ $NAME = &quot;Jadi&quot; ]
-then
-    echo &quot;Oh I know you!&quot;
-else
-    echo &quot;I wish I knew you&quot;
-fi
-echo &quot;Bye&quot;
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$NAME</span> <span class="o">=</span> <span class="s2">&quot;Jadi&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Oh I know you!&quot;</span>
+<span class="k">else</span>
+    <span class="nb">echo</span> <span class="s2">&quot;I wish I knew you&quot;</span>
+<span class="k">fi</span>
+<span class="nb">echo</span> <span class="s2">&quot;Bye&quot;</span>
 </code></pre></div>
 
 <p>You can timeout the waiting using the <code>-t</code> and show a prompt using <code>-p</code>. </p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="nv">read</span> <span class="o">-</span><span class="nv">t</span> <span class="mi">10</span> <span class="o">-</span><span class="nv">p</span> <span class="s2">&quot;</span><span class="s">Server address?</span><span class="s2">&quot;</span> <span class="nv">SERVER</span>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="nb">read</span> -t <span class="m">10</span> -p <span class="s2">&quot;Server address?&quot;</span> SERVER
 <span class="k">then</span>
-    <span class="nv">echo</span> <span class="s2">&quot;</span><span class="s">Connecting to the $SERVER ...</span><span class="s2">&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Connecting to the </span><span class="nv">$SERVER</span><span class="s2"> ...&quot;</span>
 <span class="k">else</span>
-    <span class="nv">echo</span>
-    <span class="nv">echo</span> <span class="s2">&quot;</span><span class="s">Too late!</span><span class="s2">&quot;</span>
-<span class="nv">fi</span>
+    <span class="nb">echo</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Too late!&quot;</span>
+<span class="k">fi</span>
 </code></pre></div>
 
 <h3>loops</h3>
-<p>In programming loops are used to repeat part of the programs. We have 2 different loops in Bash; <code>for</code> and <code>while</code>. The for loops lets us run part of a program for a specific number of iterations. The <code>while</code> loop is used when we want to repeat part of a program <em>while</em> a specific condition is true. </p>
+<p>In programming loops are used to repeat part of the programs. We have 2 different loops in Bash; <code>for</code> and <code>while</code>. The for loops lets us run part of a program for a specific number of iterations. The <code>while</code> loop is used when we want to repeat part of a program <em>while</em> a specific condition became true. </p>
 <h4>for</h4>
 <p>The syntax is like this:</p>
-<div class="highlight"><pre><span></span><code>for VAR in SOME_LIST;
-do
-  some stuff with $VAR
+<div class="highlight"><pre><span></span><code><span class="k">for</span> VAR <span class="k">in</span> SOME_LIST<span class="p">;</span>
+<span class="k">do</span>
+  some stuff with <span class="nv">$VAR</span>
   some other stuff
-done
+<span class="k">done</span>
 </code></pre></div>
 
 <blockquote>
-<p>Note the <code>in</code>, <code>;</code>, <code>do</code> and <code>done</code>.</p>
+<p>Note:  the <code>in</code>, <code>;</code>, <code>do</code> and <code>done</code>.</p>
 </blockquote>
 <p>On each iteration, the VAR will be equal to one of the SOME_LIST elements. SOME_LIST can be numbers, name of files, words, ...</p>
-<div class="highlight"><pre><span></span><code>for NUM in 1 2 3 4 5 6;
-do
-    echo $NUM
-done
+<div class="highlight"><pre><span></span><code><span class="k">for</span> NUM <span class="k">in</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span> <span class="m">6</span><span class="p">;</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="nv">$NUM</span>
+<span class="k">done</span>
 </code></pre></div>
 
 <p>But what if you needed to run from 1 to 42? We have the <code>seq</code> command for that. The <code>seq 1 42</code> or its shorthand <code>{1..42}</code> will let us run a loop 42 times.</p>
 <p>We can also use non-numeric variables here. This is a common use case:</p>
-<div class="highlight"><pre><span></span><code>for FILE in $(ls);
-do
-    echo $FILE
-    wc -l $FILE
-done
+<div class="highlight"><pre><span></span><code><span class="k">for</span> FILE <span class="k">in</span> <span class="k">$(</span>ls<span class="k">)</span><span class="p">;</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="nv">$FILE</span>
+    wc -l <span class="nv">$FILE</span>
+<span class="k">done</span>
 </code></pre></div>
 
 <h4>while</h4>
 <p>This is the syntax:</p>
-<div class="highlight"><pre><span></span><code>while [condition]
-do
-    do something
-    do anohter thing
-done
+<div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="o">[</span>condition<span class="o">]</span>
+<span class="k">do</span>
+    <span class="k">do</span> something
+    <span class="k">do</span> anohter thing
+<span class="k">done</span>
 </code></pre></div>
 
 <blockquote>
 <p>If your condition stays true all the time, the <code>while</code> loop will run <em>forever</em>. This is called an <em>infinite loop</em> and should be stopped by a <code>Ctrl+C</code>.</p>
 </blockquote>
 <p>This is sample:</p>
-<div class="highlight"><pre><span></span><code>VAR=52
+<div class="highlight"><pre><span></span><code><span class="nv">VAR</span><span class="o">=</span><span class="m">52</span>
 
-while [ $VAR -gt 42 ]
-do
-    echo VAR is $VAR and it is still greater than 42
-    let VAR=VAR-1
-done
+<span class="k">while</span> <span class="o">[</span> <span class="nv">$VAR</span> -gt <span class="m">42</span> <span class="o">]</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> VAR is <span class="nv">$VAR</span> and it is still greater than <span class="m">42</span>
+    <span class="nb">let</span> <span class="nv">VAR</span><span class="o">=</span>VAR-1
+<span class="k">done</span>
 </code></pre></div>
 
 <blockquote>
-<p>Note the <code>let</code> usage! If you just just say <code>VAR=1</code> and then <code>VAR=$VAR+1</code>, then VAR will be equal to <code>1+1</code> as an string!.</p>
+<p>Note the <code>let</code> usage! If you just say <code>VAR=1</code> and then <code>VAR=$VAR+1</code>, then VAR will be equal to <code>1+1</code> as an string!.</p>
 </blockquote>
 <h3>mailing the root user</h3>
 <p>For sending mail, you need to install <code>mailutils</code>. Then the <code>mail</code> command will send emails. You can send the mail to the root user by issuing this command:</p>
@@ -345,28 +345,28 @@ hello there. This is my mail
 
 <p>And root will get this email. She can read it using <code>mail</code> command.</p>
 <p>If you need to send emails in a script, just do:</p>
-<div class="highlight"><pre><span></span><code>$ echo &quot;Body!&quot; | mail -s &quot;Subject&quot; root
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="s2">&quot;Body!&quot;</span> <span class="p">|</span> mail -s <span class="s2">&quot;Subject&quot;</span> root
 </code></pre></div>
 
 <h2>returned values</h2>
 <p>In the Unix world, the programs return values when they are finished. If you have programmed C, this is the <code>return 0</code> at the end. Commonly a 0 means successful execution. This return value can be read / examined using <code>$?</code> variable. </p>
-<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@ubuntuserver</span><span class="err">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">skel</span><span class="err">$</span><span class="w"> </span><span class="n">touch</span><span class="w"> </span><span class="o">/</span><span class="n">chert</span><span class="w"></span>
-<span class="nl">touch</span><span class="p">:</span><span class="w"> </span><span class="n">cannot</span><span class="w"> </span><span class="n">touch</span><span class="w"> </span><span class="s1">&#39;/chert&#39;</span><span class="err">:</span><span class="w"> </span><span class="n">Permission</span><span class="w"> </span><span class="n">denied</span><span class="w"></span>
-<span class="err">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="err">$</span><span class="vm">?</span><span class="w"></span>
-<span class="mi">1</span><span class="w"></span>
-<span class="err">$</span><span class="w"> </span><span class="n">touch</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="mi">11</span><span class="w"></span>
-<span class="err">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="err">$</span><span class="vm">?</span><span class="w"></span>
-<span class="mi">0</span><span class="w"></span>
-<span class="err">$</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="o">/</span><span class="w"></span>
-<span class="err">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="err">$</span><span class="vm">?</span><span class="w"></span>
-<span class="mi">0</span><span class="w"></span>
-<span class="err">$</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="o">/</span><span class="n">nonexist</span><span class="w"></span>
-<span class="err">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="err">$</span><span class="vm">?</span><span class="w"></span>
-<span class="mi">1</span><span class="w"></span>
-<span class="err">$</span><span class="w"> </span><span class="n">dummycommand</span><span class="w"></span>
-<span class="nl">dummycommand</span><span class="p">:</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">found</span><span class="w"></span>
-<span class="err">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="err">$</span><span class="vm">?</span><span class="w"></span>
-<span class="mi">127</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>jadi@ubuntuserver:/etc/skel$ touch /chert
+touch: cannot touch <span class="s1">&#39;/chert&#39;</span>: Permission denied
+$ <span class="nb">echo</span> <span class="nv">$?</span>
+<span class="m">1</span>
+$ touch /tmp/11
+$ <span class="nb">echo</span> <span class="nv">$?</span>
+<span class="m">0</span>
+$ <span class="nb">test</span> -e /
+$ <span class="nb">echo</span> <span class="nv">$?</span>
+<span class="m">0</span>
+$ <span class="nb">test</span> -e /nonexist
+$ <span class="nb">echo</span> <span class="nv">$?</span>
+<span class="m">1</span>
+$ dummycommand
+dummycommand: <span class="nb">command</span> not found
+$ <span class="nb">echo</span> <span class="nv">$?</span>
+<span class="m">127</span>
 </code></pre></div>
 
 <p>To return values from your shell scripts, use the <code>exit</code> command; say <code>exit 0</code> for a successful exit.</p>

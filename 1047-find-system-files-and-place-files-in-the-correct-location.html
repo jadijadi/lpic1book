@@ -97,95 +97,96 @@
 <p>Know the location and purpose of important file and directories as defined in the FHS.</p>
 </li>
 <li>
-<p>find</p>
+<p><code>find</code></p>
 </li>
-<li>locate</li>
-<li>updatedb</li>
-<li>whereis</li>
-<li>which</li>
-<li>type</li>
-<li>/etc/updatedb.conf</li>
+<li><code>locate</code></li>
+<li><code>updatedb</code></li>
+<li><code>whereis</code></li>
+<li><code>which</code></li>
+<li><code>type</code></li>
+<li><code>/etc/updatedb.conf</code></li>
 </ul>
 <h2>FHS</h2>
-<p>Filesystem Hierarchy Standard (FHS) is a document describing the Linux / Unix file hierarchy. It is very useful to know these because it lets you easily find what you are looking for as a system admin.</p>
+<p>Filesystem Hierarchy Standard (FHS) is a document describing the Linux/Unix file hierarchy. It is very useful to know these because it lets you easily find what you are looking for as a system admin.</p>
 <table>
 <thead>
 <tr>
-<th align="left">directory</th>
+<th align="center">directory</th>
 <th align="left">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">/</td>
+<td align="center">/</td>
 <td align="left">Primary hierarchy root and root directory of the entire file system hierarchy</td>
 </tr>
 <tr>
-<td align="left">bin</td>
+<td align="center">/bin</td>
 <td align="left">Essential command binaries</td>
 </tr>
 <tr>
-<td align="left">boot</td>
+<td align="center">/boot</td>
 <td align="left">Static files of the boot loader</td>
 </tr>
 <tr>
-<td align="left">dev</td>
+<td align="center">/dev</td>
 <td align="left">Device files</td>
 </tr>
 <tr>
-<td align="left">etc</td>
+<td align="center">/etc</td>
 <td align="left">Host-specific system configuration</td>
 </tr>
 <tr>
-<td align="left">lib</td>
+<td align="center">/lib</td>
 <td align="left">Essential shared libraries and kernel modules</td>
 </tr>
 <tr>
-<td align="left">media</td>
+<td align="center">/media</td>
 <td align="left">Mount point for removable media</td>
 </tr>
 <tr>
-<td align="left">mnt</td>
+<td align="center">/mnt</td>
 <td align="left">Mount point for mounting a filesystem temporarily</td>
 </tr>
 <tr>
-<td align="left">opt</td>
+<td align="center">/opt</td>
 <td align="left">Add-on application software packages</td>
 </tr>
 <tr>
-<td align="left">sbin</td>
+<td align="center">/sbin</td>
 <td align="left">Essential system binaries</td>
 </tr>
 <tr>
-<td align="left">srv</td>
+<td align="center">/srv</td>
 <td align="left">Data for services provided by this system</td>
 </tr>
 <tr>
-<td align="left">tmp</td>
+<td align="center">/tmp</td>
 <td align="left">Temporary files</td>
 </tr>
 <tr>
-<td align="left">usr</td>
+<td align="center">/usr</td>
 <td align="left">Secondary hierarchy</td>
 </tr>
 <tr>
-<td align="left">var</td>
+<td align="center">/var</td>
 <td align="left">Variable data</td>
 </tr>
 <tr>
-<td align="left">home</td>
+<td align="center">/home</td>
 <td align="left">User home directories (optional)</td>
 </tr>
 <tr>
-<td align="left">lib</td>
+<td align="center">/lib</td>
 <td align="left">Alternate format essential shared libraries (optional)</td>
 </tr>
 <tr>
-<td align="left">root</td>
+<td align="center">/root</td>
 <td align="left">Home directory for the root user (optional)</td>
 </tr>
 </tbody>
 </table>
+<p></br></p>
 <p>The <code>/usr</code> is the second level of the hierarchy. It containins shareable, read-only data. It can be shared between systems, although present practice does not often do this.</p>
 <p>The <code>/var</code> filesystem contains variable data files, including spool directories and files, administrative and logging data, and transient and temporary files. Some portions of /var are not shareable between different systems, but others, such as /var/mail, /var/cache/man, /var/cache/fonts, and /var/spool/news, may be shared.</p>
 <h2>Path</h2>
@@ -199,9 +200,9 @@
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 </code></pre></div>
 
-<p>As you can see, this is the list of directories separated with a colon. Obviously you can change your path with <code>export PATH=$PATH:/usr/new/dir</code> or put this in <code>.bashrc</code> to make it permanent.</p>
+<p>As you can see, this is the list of directories separated with colon. Obviously you can change your path with <code>export PATH=$PATH:/usr/new/dir</code> or put this in <code>.bashrc</code> to make it permanent.</p>
 <h2>Locating files</h2>
-<h3>which, type and whereis</h3>
+<h3><code>which</code>, <code>type</code> and <code>whereis</code></h3>
 <p>The <code>which</code> command shows the first appearance of the command given in the path. In other words the  <code>which mkfs</code> will tell you what will be run if you issue this <code>mkfs</code> command.</p>
 <div class="highlight"><pre><span></span><code>$ which mkfs
 /usr/bin/mkfs
@@ -252,7 +253,7 @@ mkfs: /usr/sbin/mkfs /usr/share/man/man8/mkfs.8.gz
 /tmp/2
 </code></pre></div>
 
-<p>Or even find the files not belonging to any user / group with <code>-nouser</code> and <code>-nogroup</code>.</p>
+<p>Or even find the files not belonging to any user/group with <code>-nouser</code> and <code>-nogroup</code>.</p>
 <blockquote>
 <p>Like other <em>tests</em>, you can add a <code>!</code> just before any phrase to negate it. So this will find files <strong>not belonging</strong> to jadi: <code>find . ! -user jadi</code></p>
 </blockquote>
@@ -263,7 +264,7 @@ mkfs: /usr/sbin/mkfs /usr/share/man/man8/mkfs.8.gz
 </code></pre></div>
 
 <h3>locate &amp; updatedb</h3>
-<p>You tries <code>find</code> and loved it but there is an issue with it: it do a live active search! This can slow down your system or push too much pressure on your hard or on larger file systems take too long. To solve this, there is a faster command:</p>
+<p>You tries <code>find</code> and loved it but there is an issue with it: it does a live active search! This can slow down your system or push too much pressure on your hard or on larger file systems take too long. To solve this, there is a faster command:</p>
 <div class="highlight"><pre><span></span><code>$ locate networking
 /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg
 /snap/core20/1408/usr/lib/python3/dist-packages/cloudinit/distros/networking.py

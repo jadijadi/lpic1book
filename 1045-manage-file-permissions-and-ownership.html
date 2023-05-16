@@ -125,7 +125,7 @@ jadi
 
 <p>As you can see <code>id</code> shows both user and group information.</p>
 <blockquote>
-<p>Note the 0 UID of 0 GID of the root user and root group</p>
+<p>Note the 0 UID and 0 GID of the root user and root group.</p>
 </blockquote>
 <p>These are stored in <code>/etc/passwd</code> and <code>/etc/group</code> files.</p>
 <div class="highlight"><pre><span></span><code>$ cat /etc/group | grep adm
@@ -134,45 +134,45 @@ lpadmin:x:108:jadi
 </code></pre></div>
 
 <h2>File ownership &amp; permissions</h2>
-<p>Linux uses three layers of access / permissions for each file or directory: User, Group &amp; Others.</p>
+<p>Linux uses three layers of access/permissions for each file or directory: User, Group &amp; Others.</p>
 <p>Each file belongs to one user and one group and this user and the members of that group will have specific read/write/execute accesses on it. Have a look:</p>
 <div class="highlight"><pre><span></span><code>$ ls -ltrh script.sh
 -rwxr-xr-x 1 jadi adm 34 Mar  5  2023 script.sh
 </code></pre></div>
 
-<p>In above example, <code>jadi</code> is the owner of the file. The file belongs to the <code>adm</code> group and the owner (jadi here) has  <strong>r</strong>ead, <strong>w</strong>rite (including deletion and edit) &amp; <strong>e</strong>xecute (reading directory content) permissions on the file while the <code>adm</code> group members and <strong>others</strong> only have read &amp; execute access.</p>
+<p>In above example, <code>jadi</code> is the owner of the file. The file belongs to the <code>adm</code> group and the owner (<code>jadi</code> here) has  <strong>r</strong>ead, <strong>w</strong>rite (including deletion and edit) &amp; <strong>e</strong>xecute (reading directory content) permissions on the file while the <code>adm</code> group members and <strong>others</strong> only have read &amp; execute access.</p>
 <p><img alt="" src="/images/file_permissions.png"></p>
 <blockquote>
-<p>In many distros, when you create a user, system creates a group with same name and assign that users files to that group</p>
+<p>In many distros, when you create a user, the system creates a group with the same name and assigns that user's files to that group.</p>
 </blockquote>
 <p>The below table shows some more information regarding the first part of the <code>ls -l</code> command:</p>
 <table>
 <thead>
 <tr>
-<th align="left">location</th>
-<th align="left">meaning</th>
+<th align="center">Position</th>
+<th align="center">Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">1</td>
-<td align="left">What this entry is. Dash (-) is for ordinary files, 'l' is for links &amp; 'd' is for directory</td>
+<td align="center">1</td>
+<td align="center">What this entry is. Dash (-) is for ordinary files, 'l' is for links &amp; 'd' is for directory</td>
 </tr>
 <tr>
-<td align="left">2,3,4</td>
-<td align="left">read, write and execute access for the owner</td>
+<td align="center">2,3,4</td>
+<td align="center">read, write and execute access for the owner</td>
 </tr>
 <tr>
-<td align="left">5,6,7</td>
-<td align="left">read, write and execute access for the group members</td>
+<td align="center">5,6,7</td>
+<td align="center">read, write and execute access for the group members</td>
 </tr>
 <tr>
-<td align="left">8,9,10</td>
-<td align="left">read, write and execute access for other users</td>
+<td align="center">8,9,10</td>
+<td align="center">read, write and execute access for other users</td>
 </tr>
 <tr>
-<td align="left">11</td>
-<td align="left">Indicated if any other access methods (such as SELinux) are applies to this file - not part of the LPIC 101 exam</td>
+<td align="center">11</td>
+<td align="center">Indicated if any other access methods (such as SELinux) are applies to this file - not part of the LPIC 101 exam</td>
 </tr>
 </tbody>
 </table>
@@ -181,7 +181,7 @@ lpadmin:x:108:jadi
 -rwxr-xr-x 1 root root 267176 Oct 15 18:58 /sbin/fdisk
 </code></pre></div>
 
-<p>We can see that the <code>fdisk</code> can be read, be written and be executed by its owner (root). Other users (even if they belong to the gropu <code>root</code>) can only read and execute it.</p>
+<p>We can see that the <code>fdisk</code> can be read, be written and be executed by its owner (root). Other users (even if they belong to the group <code>root</code>) can only read and execute it.</p>
 <blockquote>
 <p>although non-root users can execute the fdisk, this program wont do much if it sees that a non root user is running it.</p>
 </blockquote>
@@ -191,57 +191,76 @@ total 12
 drwxr-xr-x 160 jadi jadi 12288 Feb  7 11:44 jadi
 </code></pre></div>
 
-<p>The first character is a <code>d</code> so this is a directory. The owner (jadi) has read, write and execute access but other members of the <strong>group</strong> jadi and <strong>others</strong> only have read and execute access on this directory (execute means that they can see the files inside it).</p>
+<p>The first character is a <code>d</code> so this is a directory. The owner (<code>jadi</code>) has read, write and execute access but other members of the <code>jadi</code> <strong>group</strong> and <strong>others</strong> only have read and execute access on this directory.</p>
+<p>execute (<code>x</code> character) means that they can see the files inside it, have a look if dir has not <code>x</code>:</p>
+<div class="highlight"><pre><span></span><code>(with root user)
+$ tree /tmp/FOO
+FOO
+├── Bar1
+└── Bar2
+
+$ ls -ld /tmp/FOO/
+drw-r--r--. 2 jadi jadi 80 Mar 23 19:32 FOO/
+
+(With other user)
+$ ls -l FOO/
+ls: cannot access &#39;FOO/Bar2&#39;: Permission denied
+ls: cannot access &#39;FOO/Bar1&#39;: Permission denied
+total 0
+-????????? ? ? ? ?            ? Bar1
+-????????? ? ? ? ?            ? Bar2
+</code></pre></div>
+
 <h3>Changing permissions</h3>
 <p>It is possible to change the permissions on files &amp; directories using the <code>chmod</code> command. There are two ways to tell this command what you want to do:</p>
 <ol>
 <li>using octal (base 8) codes</li>
 <li>using short codes </li>
 </ol>
-<p>When using octal codes, you have to to create an octal number to tell chmod what you want to do. In this method, 0 means no access, 1 means execute, 2 means write and 4 means read. So if you want to give read+execute, you have to give 4+1 which is 5. This table shows every possible combination:</p>
+<p>When using octal codes, you have to to create an octal number to tell chmod what you want to do. In this method, <code>0</code> means no access, <code>1</code> means execute, <code>2</code> means write and <code>4</code> means read. So if you want to give <strong><em>read</em></strong>+<strong><em>execute</em></strong>, you have to give <code>4</code>+<code>1</code> which is <code>5</code>. The below table shows every possible combination:</p>
 <table>
 <thead>
 <tr>
-<th align="left">Symbolic</th>
-<th align="left">Octal</th>
+<th align="center">Symbolic</th>
+<th align="center">Octal</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">rwx</td>
-<td align="left">7</td>
+<td align="center">rwx</td>
+<td align="center">7</td>
 </tr>
 <tr>
-<td align="left">rw-</td>
-<td align="left">6</td>
+<td align="center">rw-</td>
+<td align="center">6</td>
 </tr>
 <tr>
-<td align="left">r-x</td>
-<td align="left">5</td>
+<td align="center">r-x</td>
+<td align="center">5</td>
 </tr>
 <tr>
-<td align="left">r--</td>
-<td align="left">4</td>
+<td align="center">r--</td>
+<td align="center">4</td>
 </tr>
 <tr>
-<td align="left">-wx</td>
-<td align="left">3</td>
+<td align="center">-wx</td>
+<td align="center">3</td>
 </tr>
 <tr>
-<td align="left">-w-</td>
-<td align="left">2</td>
+<td align="center">-w-</td>
+<td align="center">2</td>
 </tr>
 <tr>
-<td align="left">--x</td>
-<td align="left">1</td>
+<td align="center">--x</td>
+<td align="center">1</td>
 </tr>
 <tr>
-<td align="left">---</td>
-<td align="left">0</td>
+<td align="center">---</td>
+<td align="center">0</td>
 </tr>
 </tbody>
 </table>
-<p>So if you want to give rwx to the owner, rx to the group and only x to others, you have to use 751:</p>
+<p>So if you want to give <code>rwx</code> to the owner, <code>rx</code> to the group and only <code>x</code> to others, you have to use <code>751</code>:</p>
 <div class="highlight"><pre><span></span><code>$ ls -ltrh myfile
 -rw-rw-r-- 1 jadi jadi 0 Feb  8 21:01 myfile
 $ chmod 751 myfile
@@ -249,8 +268,8 @@ $ ls -ltrh myfile
 -rwxr-x--x 1 jadi jadi 0 Feb  8 21:01 myfile
 </code></pre></div>
 
-<p>This might look difficult but there are some commonly used combinations like 755 for general executable files or 600 for personal files.</p>
-<p>There is also an <em>easier</em> method. In this method <code>u</code> means user, <code>g</code> means group and <code>o</code> means others. You can append <code>+x</code> to give execute permission, <code>+r</code> to give read permission and <code>+w</code> to give read permission. For example <code>u+x</code> will grant execute permission to user. If you want to remove a permission, use a <code>-</code> sign. For example <code>g-r</code> to prevent <code>group</code> members from <code>read</code>ing the file.</p>
+<p>This might look difficult but there are some commonly used combinations like <code>755</code> for general executable files or <code>600</code> for personal files.</p>
+<p>There is also an <em>easier</em> method. In this method <code>u</code> means user, <code>g</code> means group and <code>o</code> means others. You can append <code>+x</code> to give execute permission, <code>+r</code> to give read permission and <code>+w</code> to give write permission. For example <code>u+x</code> will grant execute permission to user. If you want to remove a permission, use a <code>-</code> sign. For example <code>g-r</code> to prevent <code>group</code> members from <code>read</code>ing the file.</p>
 <div class="highlight"><pre><span></span><code>$ ls -ltrh myfile
 -rwxr-x--x 1 jadi jadi 0 Feb  8 21:01 myfile
 $ chmod u-x myfile
@@ -262,7 +281,7 @@ $ ls -ltrh myfile
 -rwxr-xr-x 1 jadi jadi 0 Feb  8 21:01 myfile
 </code></pre></div>
 
-<p>One very common switch on <code>chmod</code> is <code>-R</code> for recursive chmoding on files. This will give read permission of all files inside /tmp/ to any user:</p>
+<p>One very common switch on <code>chmod</code> is <code>-R</code> for recursive <code>chmod</code>ing on files. This will give <code>read</code> permission of all files inside /tmp/ to any user:</p>
 <div class="highlight"><pre><span></span><code># chmod -R o+r /tmp
 </code></pre></div>
 
@@ -289,7 +308,7 @@ $ ls -ltrh newfile
 <div class="highlight"><pre><span></span><code>$ sudo usermod -aG sudo jadi <span class="c1"># will add jadi to the sudo group</span>
 </code></pre></div>
 
-<p>Since users can be a member of many groups, they might need to change their <strong>default group</strong> when creating files. To do so, check the groups with <code>groups</code> command and set the default one with <code>newggrp</code>:</p>
+<p>Since users can be a member of many groups, they might need to change their <strong>default group</strong> when creating files. To do so, check the groups with <code>groups</code> command and set the default one with <code>newgrp</code>:</p>
 <div class="highlight"><pre><span></span><code>$ touch newfile
 $ ls -ltrh newfile
 -rw------- 1 jadi jadi 0 Feb  8 21:53 newfile
@@ -303,15 +322,15 @@ $ ls -ltrh new*
 </code></pre></div>
 
 <h2>Access modes</h2>
-<p>A question for you: If we do not have write access to /etc/passwd or /etc/shadow, how is it possible to change our password there?</p>
-<p>Normally when you run a program, it runs with <em>your</em> access level. But what happens if you need to run a program with a higher access level? say to do changes in the password files? For this Linux sets two special bits for each file; <strong>suid</strong> (set user id) and <strong>guid</strong> (set group id). If these bits are set on a file, that file be will be executed with the access of the <strong>owner</strong> (or <strong>group</strong>) of the file and not the user who is running it.</p>
+<p>A question for you: If we do not have write access to <code>/etc/passwd</code> or <code>/etc/shadow</code>, how is it possible to change our password then?</p>
+<p>Normally when you run a program, it runs with <em>your</em> access level. But what happens if you need to run a program with a higher access level? say to do changes in the password files? For this Linux sets two special bits for each file; <strong>suid</strong> (set user id) and <strong>sgid</strong> (set group id). If these bits are set on a file, that file will be executed with the access of the <strong>owner</strong> (or <strong>group</strong>) of the file and not the user who is running it.</p>
 <div class="highlight"><pre><span></span><code>$ ls -ltrh /usr/bin/passwd
 -rwsr-xr-x 1 root root 50K Jul 18  2014 /usr/bin/passwd
 </code></pre></div>
 
-<p>Kindly note the <code>s</code> in the <em>executable bit</em> for the user permissions and also for the group? That means when any user runs this program, it will be run with the access level of the owner of the file (which is root) instead of that users id.</p>
-<p>It is possible to set / unser the suid and sgid using <code>chmod</code> and <code>+s</code> or <code>-s</code> instead of <code>x</code>.</p>
-<p>While we are on this, let me introduce you to the last special bit. It is called <strong>sticky bit</strong> and if set, makes the file resistant to deletion. If the sticky bit is set, ONLY the owner of the file will be able to delete it, even if others do have write access to it. This is useful for places like /tmp (everybody has write access on /tmp directory but we do not want others to delete our files).</p>
+<p>Kindly note the <code>s</code> in the <em>executable bit</em> for the user permissions and also for the group? That means when any user runs this program, it will be run with the owner of the file access level (which is root) instead of that user's id.</p>
+<p>It is possible to set/unset the <code>suid</code> and <code>sgid</code> using <code>chmod</code> and <code>+s</code> or <code>-s</code> instead of <code>x</code>.</p>
+<p>While we are on this, let me introduce you to the last special bit. It is called <strong>sticky bit</strong> and if set, makes the file resistant to <strong><em>deletion</em></strong>. If the sticky bit is set, ONLY the owner of the file will be able to delete it, even if others do have write access to it. This is useful for places like /tmp (everybody has write access on /tmp directory but we do not want others to delete our files).</p>
 <p>Sticky bit is identified by <code>t</code> and will be shown on the last bit of a <code>ls -l</code>:</p>
 <div class="highlight"><pre><span></span><code>$ ls -dl /tmp
 drwxrwxrwt 13 root root 77824 Feb  8 21:27 /tmp
@@ -322,26 +341,26 @@ drwxrwxrwt 13 root root 77824 Feb  8 21:27 /tmp
 <table>
 <thead>
 <tr>
-<th align="left">access mode</th>
-<th align="left">octal</th>
-<th align="left">symbolic</th>
+<th align="center">access mode</th>
+<th align="center">octal</th>
+<th align="center">symbolic</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">suid</td>
-<td align="left">4000</td>
-<td align="left">u+s</td>
+<td align="center">suid</td>
+<td align="center">4000</td>
+<td align="center">u+s</td>
 </tr>
 <tr>
-<td align="left">guid</td>
-<td align="left">2000</td>
-<td align="left">g+s</td>
+<td align="center">sgid</td>
+<td align="center">2000</td>
+<td align="center">g+s</td>
 </tr>
 <tr>
-<td align="left">sticky</td>
-<td align="left">1000</td>
-<td align="left">+t</td>
+<td align="center">sticky</td>
+<td align="center">1000</td>
+<td align="center">+t</td>
 </tr>
 </tbody>
 </table>
@@ -349,7 +368,7 @@ drwxrwxrwt 13 root root 77824 Feb  8 21:27 /tmp
 <p>guid on a directory will force any new file in that directory to have the guid of the directory itself.</p>
 </blockquote>
 <h2>umask</h2>
-<p>Another tricky question: what is the permissions of a newly created file? What happens if you <code>touch</code> a non-existing file? What will be its permissions? This is set by the <code>umask</code>. This command tells the system what permissions (in addition to execute) <strong>should not be given to</strong> new files. In other words, imagine that all new files will have <code>666</code> octal permission (write + read for user, group &amp; others), so a umask of 0002 (yes! 4 digits) will remote the 2 (write) for others (666-0002=664):</p>
+<p>Another tricky question: what is the permissions of a newly created file? What happens if you <code>touch</code> a non-existing file? What will be its permissions? This is set by the <code>umask</code>. This command tells the system what permissions (in addition to execute) <strong>should not be given to</strong> new files. In other words, imagine that all new files will have <code>666</code> octal permission (write + read for user, group &amp; others), so a umask of 0002 (yes! 4 digits) will remove the 2 (write) for others (666-0002=664):</p>
 <div class="highlight"><pre><span></span><code>$ umask
 0002
 </code></pre></div>

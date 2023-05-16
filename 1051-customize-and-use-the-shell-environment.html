@@ -117,7 +117,7 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dXnsNXV2Y60" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <h2>Environment variables</h2>
-<p>Shell Environment Variables are special variables that contain information &amp; configuration about the shell. System shell uses them when its needs to show you a prompt, run a command, or search what to run. Different operating system distributions have different environment variables and you can add yours if you need so; or want so!</p>
+<p>Shell Environment Variables are special variables that contain information and configuration about the shell. System shell uses them when its needs to show you a prompt, run a command, or search what to run. Different operating system distributions have different environment variables and you can add yours if you need so; or want so!</p>
 <h3>env</h3>
 <p>can set, remove or display variables or even run a command in a modified environment.</p>
 <div class="highlight"><pre><span></span><code>Syntax
@@ -144,35 +144,35 @@ Options
 <table>
 <thead>
 <tr>
-<th align="left">switch</th>
+<th align="center">switch</th>
 <th align="left">result</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-b</td>
+<td align="center">-b</td>
 <td align="left">Cause the status of terminated background jobs to be reported immediately, rather than before printing the next primary prompt.</td>
 </tr>
 <tr>
-<td align="left">-e</td>
+<td align="center">-e</td>
 <td align="left">return in case a pipline, command, ... return non-zero</td>
 </tr>
 <tr>
-<td align="left">-n</td>
+<td align="center">-n</td>
 <td align="left">Read commands but do not execute them; this may be used to check a script for syntax errors. This option is ignored by interactive shells.</td>
 </tr>
 <tr>
-<td align="left">-t</td>
+<td align="center">-t</td>
 <td align="left">Exit after reading and executing one command.</td>
 </tr>
 <tr>
-<td align="left">-C</td>
+<td align="center">-C</td>
 <td align="left">Prevent output redirection using ‘&gt;’, ‘&gt;&amp;’, and ‘&lt;&gt;’ from overwriting existing files.</td>
 </tr>
 </tbody>
 </table>
 <h2>setting environment variables</h2>
-<p>Bash environment variables can contain only letters (a to z or A to Z), numbers ( 0 to 9) or the underscore character ( _) and can not start with numbers. Traditionally we use UPPERCASE letters in our variable names.</p>
+<p>Bash environment variables can contain only letters (a to z or A to Z), numbers ( 0 to 9) or the underscore character <code>_</code> and cannot start with numbers. Traditionally we use UPPERCASE letters in our variable names.</p>
 <p>To set a new environment variable do as follow:</p>
 <div class="highlight"><pre><span></span><code>$ <span class="nv">name</span><span class="o">=</span>jadi
 $ <span class="nv">desc</span><span class="o">=</span><span class="s1">&#39;A programmer who enjoys cycling and promotes freedom&#39;</span>
@@ -182,10 +182,12 @@ $ <span class="nb">echo</span> <span class="nv">$desc</span>
 A programmer who enjoys cycling and promotes freedom
 </code></pre></div>
 
-<p>notes:
-1. There should be no spaces around <code>=</code>
-2. Use the quotes or double-quotes when your value do have spaces (or other special characters) in it
-3. Use a dollar sign only when referring to a variable, and not when defining it</p>
+<p><strong>Notes</strong>:</p>
+<ol>
+<li>There should be no spaces around <code>=</code>.</li>
+<li>Use the quotes or double-quotes when your value do have spaces (or other special characters) in it.</li>
+<li>Use a dollar sign only when referring to a variable, and not when defining it.</li>
+</ol>
 <h2>unset</h2>
 <p>This command unsets a variables or a functions.</p>
 <div class="highlight"><pre><span></span><code>$ name=jadi
@@ -205,12 +207,12 @@ $ echo $name
 jadi
 </code></pre></div>
 
-<h2>. (and source)</h2>
-<p>Yes only a dot! This is a shortcut for the bash source command. You can find it in files like /etc/profile. It runs the executable in front of it as part of the current environment (and not in a sub-process).</p>
+<h2><code>.</code> (and source)</h2>
+<p>Yes only a dot! This is a shortcut for the bash source command. You can find it in files like <code>/etc/profile</code>. It runs the executable in front of it as part of the current environment (and not in a sub-process).</p>
 <blockquote>
 <p>Note: If you just execute a file (without source or dot) bash creates a child, runs the executable there and then closes it.</p>
 </blockquote>
-<p>The <code>source</code> command is commonly used when you want to load new / updated environment variables or functions from a script. </p>
+<p>The <code>source</code> command is commonly used when you want to load new/updated environment variables or functions from a script. </p>
 <h2>Aliases</h2>
 <p>This is a way to define... um.. and <code>alias</code>. You can find them in your <code>~/.bashrc</code>:</p>
 <div class="highlight"><pre><span></span><code>alias ll=&#39;ls -alF&#39;

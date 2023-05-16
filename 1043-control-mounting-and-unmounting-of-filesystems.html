@@ -110,11 +110,11 @@
 
 <h2>Mounting and Unmounting</h2>
 <p>When we have a formatted partition and need to use it, we have to <code>mount</code> it somewhere in the Linux directory hierarchy. Unlike Windows, the new <em>driver</em> do now show up as separated disks, but like <em>virtual subdirectories</em> somewhere in your <code>/</code> tree. </p>
-<p>Say we want to <em>mount</em> the /dev/sda3 on /media/mydisk. The directory <code>/media/mydisk</code> should be there and then, we just run:</p>
+<p>Say we want to <em>mount</em> the <code>/dev/sda3</code> on <code>/media/mydisk</code>. The directory <code>/media/mydisk</code> should be there and then, we just run:</p>
 <div class="highlight"><pre><span></span><code>sudo mount -t ext4 /dev/sda3 /media/mydisk
 </code></pre></div>
 
-<p>and all files and folders in /dev/sda3 will be accessible from /media/mydisk.</p>
+<p>All files and folders in /dev/sda3 will be accessible from /media/mydisk.</p>
 <p>Run <code>mount</code> with no parameter to see all mounted devices. To <strong>un mount</strong>, simply use the <code>umount</code> on the drive or the directory. These two are equivalent:</p>
 <div class="highlight"><pre><span></span><code>sudo umount /dev/sda3
 sudo umount /media/mydisk
@@ -124,16 +124,23 @@ sudo umount /media/mydisk
 <blockquote>
 <p>swap disks do not need mounting. You should use <code>swapon</code> and <code>swapoff</code> to use them.</p>
 </blockquote>
-<p>The <code>-t</code> switch indicates the type of the filesystem and <code>-o</code> passes some options (say ro for readonly)</p>
 <div class="highlight"><pre><span></span><code>mount -t ext4 /dev/sda1 /media
-mount -o remount,ro /dev/sda1
+</code></pre></div>
+
+<p>The <code>-t</code> switch indicates the type of the filesystem .</p>
+<div class="highlight"><pre><span></span><code>mount -o remount,ro /dev/sda1
+</code></pre></div>
+
+<p>The <code>-o</code> switch passes some options (say <code>ro</code> for readonly)</p>
+<p>It's usually used as one-line command:</p>
+<div class="highlight"><pre><span></span><code>mount -t ext4 -o remount,ro /dev/sda1 /media 
 </code></pre></div>
 
 <blockquote>
-<p>The <code>/media</code> and <code>/mnt</code> directories are used to mount filesystems, although you can use any directory for this purpose</p>
+<p>The <code>/media</code> and <code>/mnt</code> directories are used to mount filesystems, even though you can use any directory for this purpose.</p>
 </blockquote>
 <h3>UUID &amp; Labels</h3>
-<p>As you already know, there is a problem when working with classical device names like <code>/dev/vdb1</code>: they change! The current /dev/sdb might be seen as /dev/sdd after you remove / reconnect it. To solve this, its better to work with UUIDs (Universal Unique Identifiers). Check them with <code>lsblk</code> (-O will show all available columns or specify with -o as below) and <code>blkid</code>.</p>
+<p>As you already know, there is a problem when working with classical device names like <code>/dev/vdb1</code>: they change! The current <code>/dev/sdb</code> might be seen as <code>/dev/sdd</code> after you remove / reconnect it. To solve this, its better to work with UUIDs (Universal Unique Identifiers). Check them with <code>lsblk</code> ( <code>-O</code> will show all available columns or specify with -o as below) and <code>blkid</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">lsblk</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="o">+</span><span class="n">UUID</span><span class="w"></span>
 <span class="n">NAME</span><span class="w">   </span><span class="nl">MAJ</span><span class="p">:</span><span class="nf">MIN</span><span class="w"> </span><span class="n">RM</span><span class="w">  </span><span class="k">SIZE</span><span class="w"> </span><span class="n">RO</span><span class="w"> </span><span class="n">TYPE</span><span class="w"> </span><span class="n">MOUNTPOINTS</span><span class="w">                             </span><span class="n">UUID</span><span class="w"></span>
 <span class="n">sr0</span><span class="w">     </span><span class="mi">11</span><span class="err">:</span><span class="mi">0</span><span class="w">    </span><span class="mi">1</span><span class="w">  </span><span class="mf">1.8</span><span class="n">G</span><span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="n">rom</span><span class="w">  </span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">media</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="n">Fedora</span><span class="o">-</span><span class="n">WS</span><span class="o">-</span><span class="n">Live</span><span class="o">-</span><span class="mi">35</span><span class="n">_B</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="w"> </span><span class="mi">2021</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">22</span><span class="o">-</span><span class="mi">21</span><span class="o">-</span><span class="mi">47</span><span class="o">-</span><span class="mi">34</span><span class="o">-</span><span class="mi">00</span><span class="w"></span>
@@ -163,7 +170,7 @@ mount -o remount,ro /dev/sda1
 <h3>fstab</h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/lQGvxIkdcSE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-<p>For automatic mounting, Linux uses the <code>/etc/fstab</code> file. Its like a table which shows what file system should be mounted where during the boot. This is my the /etc/fstab of my Fedora:</p>
+<p>For automatic mounting, Linux uses the <code>/etc/fstab</code> file. Its like a table which shows what file system should be mounted where during the boot. This is my the <code>/etc/fstab</code> of my Fedora:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># cat /etc/fstab</span>
 
 <span class="c1">#</span>
@@ -186,7 +193,7 @@ mount -o remount,ro /dev/sda1
 <ul>
 <li>file system: Label, UUID, device</li>
 <li>mount point: swap or none for swap</li>
-<li>type: can be auto</li>
+<li>type: can be ext4 , xfs ,nfs or other types of filesystem</li>
 <li>options:  defaults, rw / ro, noauto, user, exec / noexec, noatime, umask</li>
 <li>dump: do dump command backup this? mostly 0</li>
 <li>pass: Non-zero values of pass specify the order of checking filesystems at boot time</li>
@@ -197,7 +204,7 @@ mount -o remount,ro /dev/sda1
 <li>noatime will disable recording of access times. Not using access times may improve performance.</li>
 </ul>
 <h2>Systemd mount units</h2>
-<p>When using systemd, a unit configuration file whose name ends in ".mount" encodes information about a file system mount point controlled and supervised by systemd. You can </p>
+<p>When using systemd, a unit configuration file whose name ends in ".mount" encodes information about a file system mount point controlled and supervised by systemd.</p>
 
 
              
