@@ -18,8 +18,6 @@ You can donate using the PayPal via my email address which is **jadijadi@gmail.c
 
 Receiving Crypto is always a joy.. or the best Joy. If you want to support via crypto, these are my addresses and I would be more than happy if you email me on jadijadi@gmail.com afterwards so I'll be able to thank you.
 
-##### Lightening
-Lightening is the best solution to transfer small amounts of BTC these days and receiving even the smallets amounts, sparks joy! If you agree, this is my [BTC Lightening Link](http://zbd.gg/jadi)
 ##### BTC
 ![Support jadi bitcoin](images/crypto/jadi_bitcoin.png)
 1Kzrgoq8RHzLyd3ZVG5UVQ5p4QhLiYjqmc 
