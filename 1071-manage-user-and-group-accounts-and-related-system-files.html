@@ -87,12 +87,7 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h2>107.1 Manage user and group accounts and related system files</h2>
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>Weight: 5</em></p>
+            <p><em>Weight: 5</em></p>
 <p>Candidates should be able to add, remove, suspend and change user accounts.</p>
 <h3>Key Knowledge Areas</h3>
 <ul>
@@ -116,7 +111,8 @@
 <li>userdel</li>
 <li>usermod</li>
 </ul>
-<h4>Changing password</h4>
+<h2>Passwords</h2>
+<h3>Changing Passwords</h3>
 <p>Each user can change her password using the <code>passwd</code> command:</p>
 <div class="highlight"><pre><span></span><code>$ passwd
 Changing password for jadi.
@@ -126,8 +122,10 @@ Retype new password:
 passwd: password updated successfully
 </code></pre></div>
 
-<p>If the password is too short or too similar to the previous one or even a dictionary word, the <code>passwd</code> command may refuse to change it. Also note that the commands asks for the <em>current password</em> first to make sure that some one is not using your computer to change your password.</p>
+<p>If the password is too short or too similar to the previous one or even a dictionary word, or equal to the username and such, the <code>passwd</code> command may refuse to change it. Also note that the <code>passwd</code> commands asks for the <em>current password</em> first to make sure that it is being changed by yourself. </p>
+<blockquote>
 <p>The root user can change any users password to anything (weak passwords) without providing their current password:</p>
+</blockquote>
 <div class="highlight"><pre><span></span><code># passwd jadi
 New password:
 BAD PASSWORD: it does not contain enough DIFFERENT characters
@@ -136,36 +134,13 @@ Retype new password:
 passwd: password updated successfully
 </code></pre></div>
 
-<h3>Users and groups</h3>
-<p>Linux is a multi-user system so you should be able to manage these users. You should be able to <strong>add</strong>, <strong>remove</strong> and <strong>modify</strong> users.</p>
-<p>Linux also has the concept of <strong>groups</strong>. You can define groups, give privileges to them and make users members of these groups. For example there can be a "printer" group who has access to printings and you can add user "jadi" to this group.</p>
-<ul>
-<li>Each user can be a member of many different groups</li>
-<li>Each file belongs to one user and one group</li>
-</ul>
-<h4>Changing password</h4>
-<p>Each user can change her password using the <code>passwd</code> command:</p>
-<div class="highlight"><pre><span></span><code>$ passwd
-Changing password for jadi.
-(current) UNIX password:
-New password:
-Retype new password:
-passwd: password updated successfully
-</code></pre></div>
-
-<p>If the password is too short or too similar to the previous one or even a dictionary word, the <code>passwd</code> command may refuse to change it. Also note that the commands asks for the <em>current password</em> first to make sure that some one is not using your computer to change your password.</p>
-<p>The root user can change any users password to anything (weak passwords) without providing their current passwrd:</p>
-<div class="highlight"><pre><span></span><code># passwd jadi
-New password:
-BAD PASSWORD: it does not contain enough DIFFERENT characters
-BAD PASSWORD: is too simple
-Retype new password:
-passwd: password updated successfully
-</code></pre></div>
-
+<h2>Users and groups</h2>
+<p>Linux is a multi-user system and managing these users is part of system admin's job. As the first step, you should be able to <strong>add</strong>, <strong>remove</strong> and <strong>modify</strong> users.</p>
+<p>Linux also has the concept of <strong>groups</strong>. You can define groups, give privileges to them and add users to these groups. As you've already seen in the <code>chmod</code> command, you might give access the permission to read from <code>/dev/cdrom</code> to a group called <code>cdrom</code> and then add whoever needs to read from the CD-ROM to this group.</p>
+<p>Please note that each user can be a member of many groups but only one of these will be her <em>Primary</em> group. In contrast, each file can be owned only by one group.</p>
 <h3>Managing Users</h3>
 <h4>Adding users</h4>
-<p>Adding a user is done using the <code>useradd</code> command. Easy to remember! These are the main switches:</p>
+<p>To add a new user to your system, use the <code>useradd</code> command. These are the main switches:</p>
 <table>
 <thead>
 <tr>
@@ -196,10 +171,13 @@ passwd: password updated successfully
 </tr>
 </tbody>
 </table>
-<p>On some systems <code>useradd</code> creates the home directory and on some, you have to specify the <code>-m</code> switch yourself. It is good to use it all the time.</p>
+<p>On some systems <code>useradd</code> creates the home directory and on some, you have to specify the <code>-m</code> switch yourself. It is a good practice to use it all the time.</p>
 <p>When a new user directory is being created, the system will copy the contents of <code>/etc/skel</code> to their home dir. <code>/etc/skel</code> is used as a template for the home of users.</p>
+<blockquote>
+<p>Another command to add users is <code>adduser</code>. It will ask for the password, home directory, etc.. and will create the user.</p>
+</blockquote>
 <h4>Modifying users</h4>
-<p>It supports most of the <code>useradd</code> switches. For example you can change <em>jadi</em>'s login shell by issuing <code>usermod -s /bin/csh jadi</code>. But there are 3 more switches:</p>
+<p>To modify a user, you should use the <code>usermod</code> command. It supports most of the <code>useradd</code> switches. For example you can change <em>jadi</em>'s login shell by issuing <code>usermod -s /bin/csh jadi</code>. But there are 3 more switches too:</p>
 <table>
 <thead>
 <tr>
@@ -223,26 +201,27 @@ passwd: password updated successfully
 </tbody>
 </table>
 <blockquote>
-<p>Note: If you do <code>usermod -G wheel,users jadi</code>, jadi will be ONLY the member of these two groups. That is why we use <code>-aG newgoup</code> to ADD a new group to what jadi is a member of. <code>-G</code> is like saying "jadis groups are ..." and <code>-aG</code> is like "add this group to whatever groups jadi is a member of".</p>
+<p>Note: If you do <code>usermod -G wheel,users jadi</code>, jadi will be the member of these two groups ONLY. That is why we use <code>-aG newgoup</code> to <em>add to groups</em> to add this group to jadi's groups. <code>-G</code> is like saying "jadi's groups are ..." and <code>-aG</code> is like "add jadi to these groups".</p>
 </blockquote>
 <h4>Deleting users</h4>
-<p>If you want to remove a user, use <code>userdel</code> as easy as:</p>
+<p>If you want to remove a user, use <code>userdel</code>. Straight forward:</p>
 <div class="highlight"><pre><span></span><code>userdel jadi
 </code></pre></div>
 
 <p>If you add the <code>-r</code> swtich, the home direcoty and mail spool will be erased too!</p>
 <h3>Managing Groups</h3>
-<p>It is kind of same as users, you can do <code>groupadd</code>, <code>groupdel</code> and <code>groupmod</code>. Each group as an id an a name.</p>
+<p>It is kind of same as users, you can do <code>groupadd</code>, <code>groupdel</code> and <code>groupmod</code>. Each group has an <em>id</em> and a <em>name</em>.</p>
 <div class="highlight"><pre><span></span><code># groupadd -g 1200 newgroup
 </code></pre></div>
 
 <p>adds a group called <em>newgroup</em> with id 1200. If needed, the root user can change a groups ID (to 2000) by issuing <code>groupmod -g 2000 newgroup</code> or deleting the group by <code>groupdel newgroup</code>.</p>
+<p>Obviously if root deletes a group with members, people wont be deleted! They will just wont be the members of that group anymore.</p>
 <blockquote>
-<p>Note: If root deletes a group with members, people wont be deleted! They will just wont be the members of that group anymore.</p>
+<p>In most systems, the user id or group id's of the users and groups created by the admin will have the id of 1000, 1001, 1002, ...</p>
 </blockquote>
-<h3>Important files</h3>
+<h3>Files managing users and groups</h3>
 <h4>/etc/passwd</h4>
-<p>This is the file which contains all the user names and their shells, etc, ..</p>
+<p>This file contains all the user information on your system:</p>
 <div class="highlight"><pre><span></span><code>tail /etc/passwd
 scard:x:491:489:Smart Card Reader:/var/run/pcscd:/usr/sbin/nologin
 sshd:x:493:491:SSH daemon:/var/lib/sshd:/bin/false
@@ -256,16 +235,16 @@ privoxy:x:484:480:Daemon user for privoxy:/var/lib/privoxy:/bin/false
 </code></pre></div>
 
 <p>As you can see the format is:</p>
-<div class="highlight"><pre><span></span><code>username:password:userid:primary group id:Name and comments:home dir:shell
+<div class="highlight"><pre><span></span><code>username:x:password:userid:primary group id:Name and comments:home dir:shell
 </code></pre></div>
 
-<p>In old days the password or the hashed password was actually shown in this file but nowadays that is moved to the /etc/shadow file.</p>
+<p>As you can see, the 2nd field is shown as "x" here. In the old days the password or the hashed password of the user was shown in this file but nowadays that is moved to the /etc/shadow file.</p>
 <blockquote>
-<p>Note: /etc/passwd should be readable to all users so it is not a good place for password! These days if there is a <code>x</code> instead of password, it means <em>go look at the /etc/shadow</em> file.</p>
+<p>Note: /etc/passwd should be readable to all users and this makes it a very bad place to keep users password! Thats why we see a <code>x</code> instead of the password, this indicates that the main passwords should be looked up from <code>/etc/shadow</code> file.</p>
 </blockquote>
-<p>Note how <em>special users</em> like lightdm are having /bin/false as their shell; this prevents them from logging into the system for real.</p>
+<p>Note how <em>special users</em> like lightdm are having /bin/false as their shell; this prevents them from logging into the system for real. In old days hackers used to try these accounts to login.</p>
 <h4>/etc/shadow</h4>
-<p>This file contains password (hashed passwords) of the users. See how the /etc/passwd is readable for all but /etc/shadow is only readable for root and members of the <code>shadow</code> group:</p>
+<p>This file contains password (hashed passwords) of the users. See how the <code>/etc/passwd</code> is readable for all but <code>/etc/shadow</code> is only readable for root and members of the <code>shadow</code> group:</p>
 <div class="highlight"><pre><span></span><code># ls -ltrh /etc/passwd /etc/shadow
 -rw-r--r-- 1 root root   1.9K Oct 28 15:47 /etc/passwd
 -rw-r----- 1 root shadow  851 Oct 29 19:06 /etc/shadow
@@ -281,12 +260,9 @@ uucp:*:16369::::::
 lightdm:*:16369::::::
 jadi:$6$enk5I3bv$uSQrRpen7m9xDapYLgwgh3P/71OLZUgj31n8AwzgIM2lA5Hc/BmRVAMC0eswdBGkseuXSvmaz0lsYFtduvuqUo:16737:0:99999:7:::
 svn:!:16736::::::
-privoxy:!:16736::::::
+privoxy:!:19473::::::
 </code></pre></div>
 
-<blockquote>
-<p>Note: <code>!</code> means <strong>no password</strong></p>
-</blockquote>
 <p>Wow! Jadi has an encrypted password there. Some numbers are following that encrypted password too: <strong>16737:0:99999:7:::</strong>. What do the mean? The following table tells you.</p>
 <table>
 <thead>
@@ -297,7 +273,7 @@ privoxy:!:16736::::::
 </thead>
 <tbody>
 <tr>
-<td align="left">16737</td>
+<td align="left">19473</td>
 <td align="left">When was the last time this password changes</td>
 </tr>
 <tr>
@@ -337,7 +313,7 @@ privoxy:!:16736::::::
 </tbody>
 </table>
 <div class="highlight"><pre><span></span><code># chage -l jadi
-Last password change                    : Oct 29, 2015
+Last password change                    : Apr 26, 2023
 Password expires                    : never
 Password inactive                    : never
 Account expires                        : never
@@ -346,6 +322,9 @@ Maximum number of days between password change        : 99999
 Number of days of warning before password expires    : 7
 </code></pre></div>
 
+<blockquote>
+<p>Note: <code>!</code> means the account is locked and the user can not login into the system using the account. On some systems (like RedHat) you may also see <code>!!</code> which means the account has never been used.</p>
+</blockquote>
 <h4>/etc/group</h4>
 <p>This file contains the groups and their IDs.</p>
 <div class="highlight"><pre><span></span><code># tail /etc/group
@@ -356,12 +335,12 @@ winbind:x:483:
 at:x:25:
 svn:x:482:
 vboxusers:x:481:
-input:x:1000:jadi
+input:x:1000:jadi,joe
 privoxy:x:480:
 </code></pre></div>
 
 <blockquote>
-<p>Note: See that <code>x</code> there? Theoretically groups can have passwords but it is never used in any distro! The file is /etc/gshadow</p>
+<p>Note: See that <code>x</code> there? Theoretically groups can have passwords but it is never used in any distro! The file is <code>/etc/gshadow</code></p>
 </blockquote>
 <h3>checking user info</h3>
 <p>Previously you saw the <code>chage -l jadi</code> but there are more commands for checking user status. One is <code>id</code>:</p>
@@ -377,18 +356,6 @@ jadi:x:1000:100:jadi:/home/jadi:/bin/bash
 funlife:~ # getent shadow jadi
 jadi:$6$enk5I3bv$uSQrRpen7m9xDapYLgwgh3P/71OLZUgj31n8AwzgIM2lA5Hc/BmRVAMC0eswdBGkseuXSvmaz0lsYFtduvuqUo:16737:0:99999:7:::
 </code></pre></div>
-
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
 
 
              
