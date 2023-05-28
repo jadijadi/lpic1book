@@ -22,7 +22,7 @@ smartypants==2.0.1
 smmap==4.0.0
 smmap2==3.0.1
 soupsieve==2.2.1
-tornado==6.1
+tornado==6.3.2
 typogrify==2.0.7
 Unidecode==1.2.0
 webassets==2.0
