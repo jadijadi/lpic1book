@@ -5,11 +5,6 @@ Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 sortorder: 330
 Summary: 
-## 107.1 Manage user and group accounts and related system files
-
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
 
 
 _Weight: 5_
@@ -38,8 +33,8 @@ Candidates should be able to add, remove, suspend and change user accounts.
 * userdel
 * usermod
 
-#### Changing password
-
+## Passwords
+### Changing Passwords
 Each user can change her password using the `passwd` command:
 
 ```text
@@ -51,44 +46,9 @@ Retype new password:
 passwd: password updated successfully
 ```
 
-If the password is too short or too similar to the previous one or even a dictionary word, the `passwd` command may refuse to change it. Also note that the commands asks for the _current password_ first to make sure that some one is not using your computer to change your password.
+If the password is too short or too similar to the previous one or even a dictionary word, or equal to the username and such, the `passwd` command may refuse to change it. Also note that the `passwd` commands asks for the _current password_ first to make sure that it is being changed by yourself. 
 
-The root user can change any users password to anything \(weak passwords\) without providing their current password:
-
-```text
-# passwd jadi
-New password:
-BAD PASSWORD: it does not contain enough DIFFERENT characters
-BAD PASSWORD: is too simple
-Retype new password:
-passwd: password updated successfully
-```
-
-### Users and groups
-
-Linux is a multi-user system so you should be able to manage these users. You should be able to **add**, **remove** and **modify** users.
-
-Linux also has the concept of **groups**. You can define groups, give privileges to them and make users members of these groups. For example there can be a "printer" group who has access to printings and you can add user "jadi" to this group.
-
-* Each user can be a member of many different groups
-* Each file belongs to one user and one group
-
-#### Changing password
-
-Each user can change her password using the `passwd` command:
-
-```text
-$ passwd
-Changing password for jadi.
-(current) UNIX password:
-New password:
-Retype new password:
-passwd: password updated successfully
-```
-
-If the password is too short or too similar to the previous one or even a dictionary word, the `passwd` command may refuse to change it. Also note that the commands asks for the _current password_ first to make sure that some one is not using your computer to change your password.
-
-The root user can change any users password to anything \(weak passwords\) without providing their current passwrd:
+> The root user can change any users password to anything \(weak passwords\) without providing their current password:
 
 ```text
 # passwd jadi
@@ -99,11 +59,17 @@ Retype new password:
 passwd: password updated successfully
 ```
 
+## Users and groups
+
+Linux is a multi-user system and managing these users is part of system admin's job. As the first step, you should be able to **add**, **remove** and **modify** users.
+
+Linux also has the concept of **groups**. You can define groups, give privileges to them and add users to these groups. As you've already seen in the `chmod` command, you might give access the permission to read from `/dev/cdrom` to a group called `cdrom` and then add whoever needs to read from the CD-ROM to this group.
+
+Please note that each user can be a member of many groups but only one of these will be her *Primary* group. In contrast, each file can be owned only by one group.
 ### Managing Users
-
 #### Adding users
 
-Adding a user is done using the `useradd` command. Easy to remember! These are the main switches:
+To add a new user to your system, use the `useradd` command. These are the main switches:
 
 | switch | meaning |
 | :--- | :--- |
@@ -113,13 +79,15 @@ Adding a user is done using the `useradd` command. Easy to remember! These are t
 | -G | add to additional groups |
 | -c | comment. most of the time, users actual name. Use quotes if comments has spaces or special characters in them |
 
-On some systems `useradd` creates the home directory and on some, you have to specify the `-m` switch yourself. It is good to use it all the time.
+On some systems `useradd` creates the home directory and on some, you have to specify the `-m` switch yourself. It is a good practice to use it all the time.
 
 When a new user directory is being created, the system will copy the contents of `/etc/skel` to their home dir. `/etc/skel` is used as a template for the home of users.
 
+> Another command to add users is `adduser`. It will ask for the password, home directory, etc.. and will create the user.
+
 #### Modifying users
 
-It supports most of the `useradd` switches. For example you can change _jadi_'s login shell by issuing `usermod -s /bin/csh jadi`. But there are 3 more switches:
+To modify a user, you should use the `usermod` command. It supports most of the `useradd` switches. For example you can change _jadi_'s login shell by issuing `usermod -s /bin/csh jadi`. But there are 3 more switches too:
 
 | switch | meaning |
 | :--- | :--- |
@@ -127,11 +95,11 @@ It supports most of the `useradd` switches. For example you can change _jadi_'s 
 | -U | Unlock the account |
 | -aG | add to more groups \(say `usermod -aG wheel jadi`\) |
 
-> Note: If you do `usermod -G wheel,users jadi`, jadi will be ONLY the member of these two groups. That is why we use `-aG newgoup` to ADD a new group to what jadi is a member of. `-G` is like saying "jadis groups are ..." and `-aG` is like "add this group to whatever groups jadi is a member of".
+> Note: If you do `usermod -G wheel,users jadi`, jadi will be the member of these two groups ONLY. That is why we use `-aG newgoup` to *add to groups* to add this group to jadi's groups. `-G` is like saying "jadi's groups are ..." and `-aG` is like "add jadi to these groups".
 
 #### Deleting users
 
-If you want to remove a user, use `userdel` as easy as:
+If you want to remove a user, use `userdel`. Straight forward:
 
 ```text
 userdel jadi
@@ -141,7 +109,7 @@ If you add the `-r` swtich, the home direcoty and mail spool will be erased too!
 
 ### Managing Groups
 
-It is kind of same as users, you can do `groupadd`, `groupdel` and `groupmod`. Each group as an id an a name.
+It is kind of same as users, you can do `groupadd`, `groupdel` and `groupmod`. Each group has an *id* and a *name*.
 
 ```text
 # groupadd -g 1200 newgroup
@@ -149,13 +117,14 @@ It is kind of same as users, you can do `groupadd`, `groupdel` and `groupmod`. E
 
 adds a group called _newgroup_ with id 1200. If needed, the root user can change a groups ID \(to 2000\) by issuing `groupmod -g 2000 newgroup` or deleting the group by `groupdel newgroup`.
 
-> Note: If root deletes a group with members, people wont be deleted! They will just wont be the members of that group anymore.
+Obviously if root deletes a group with members, people wont be deleted! They will just wont be the members of that group anymore.
 
-### Important files
+> In most systems, the user id or group id's of the users and groups created by the admin will have the id of 1000, 1001, 1002, ...
+### Files managing users and groups
 
 #### /etc/passwd
 
-This is the file which contains all the user names and their shells, etc, ..
+This file contains all the user information on your system:
 
 ```text
 tail /etc/passwd
@@ -173,18 +142,18 @@ privoxy:x:484:480:Daemon user for privoxy:/var/lib/privoxy:/bin/false
 As you can see the format is:
 
 ```text
-username:password:userid:primary group id:Name and comments:home dir:shell
+username:x:password:userid:primary group id:Name and comments:home dir:shell
 ```
 
-In old days the password or the hashed password was actually shown in this file but nowadays that is moved to the /etc/shadow file.
+As you can see, the 2nd field is shown as "x" here. In the old days the password or the hashed password of the user was shown in this file but nowadays that is moved to the /etc/shadow file.
 
-> Note: /etc/passwd should be readable to all users so it is not a good place for password! These days if there is a `x` instead of password, it means _go look at the /etc/shadow_ file.
+> Note: /etc/passwd should be readable to all users and this makes it a very bad place to keep users password! Thats why we see a `x` instead of the password, this indicates that the main passwords should be looked up from `/etc/shadow` file.
 
-Note how _special users_ like lightdm are having /bin/false as their shell; this prevents them from logging into the system for real.
+Note how _special users_ like lightdm are having /bin/false as their shell; this prevents them from logging into the system for real. In old days hackers used to try these accounts to login.
 
 #### /etc/shadow
 
-This file contains password \(hashed passwords\) of the users. See how the /etc/passwd is readable for all but /etc/shadow is only readable for root and members of the `shadow` group:
+This file contains password \(hashed passwords\) of the users. See how the `/etc/passwd` is readable for all but `/etc/shadow` is only readable for root and members of the `shadow` group:
 
 ```text
 # ls -ltrh /etc/passwd /etc/shadow
@@ -204,16 +173,15 @@ uucp:*:16369::::::
 lightdm:*:16369::::::
 jadi:$6$enk5I3bv$uSQrRpen7m9xDapYLgwgh3P/71OLZUgj31n8AwzgIM2lA5Hc/BmRVAMC0eswdBGkseuXSvmaz0lsYFtduvuqUo:16737:0:99999:7:::
 svn:!:16736::::::
-privoxy:!:16736::::::
+privoxy:!:19473::::::
 ```
 
-> Note: `!` means **no password**
 
 Wow! Jadi has an encrypted password there. Some numbers are following that encrypted password too: **16737:0:99999:7:::**. What do the mean? The following table tells you.
 
 | filed | meaning |
 | :--- | :--- |
-| 16737 | When was the last time this password changes |
+| 19473 | When was the last time this password changes |
 | 0 | User wont be able to change the password 0 days after each change |
 | 99999 | After this many days, the user HAVE to change his password |
 | 7 | ...and the user will be informed 7 days before the expiration to change his password |
@@ -229,7 +197,7 @@ But we do not need to change these strange number manually. If needed, we can us
 
 ```text
 # chage -l jadi
-Last password change                    : Oct 29, 2015
+Last password change                    : Apr 26, 2023
 Password expires                    : never
 Password inactive                    : never
 Account expires                        : never
@@ -237,6 +205,7 @@ Minimum number of days between password change        : 0
 Maximum number of days between password change        : 99999
 Number of days of warning before password expires    : 7
 ```
+> Note: `!` means the account is locked and the user can not login into the system using the account. On some systems (like RedHat) you may also see `!!` which means the account has never been used.
 
 #### /etc/group
 
@@ -251,11 +220,11 @@ winbind:x:483:
 at:x:25:
 svn:x:482:
 vboxusers:x:481:
-input:x:1000:jadi
+input:x:1000:jadi,joe
 privoxy:x:480:
 ```
 
-> Note: See that `x` there? Theoretically groups can have passwords but it is never used in any distro! The file is /etc/gshadow
+> Note: See that `x` there? Theoretically groups can have passwords but it is never used in any distro! The file is `/etc/gshadow`
 
 ### checking user info
 
@@ -276,26 +245,3 @@ jadi:x:1000:100:jadi:/home/jadi:/bin/bash
 funlife:~ # getent shadow jadi
 jadi:$6$enk5I3bv$uSQrRpen7m9xDapYLgwgh3P/71OLZUgj31n8AwzgIM2lA5Hc/BmRVAMC0eswdBGkseuXSvmaz0lsYFtduvuqUo:16737:0:99999:7:::
 ```
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
