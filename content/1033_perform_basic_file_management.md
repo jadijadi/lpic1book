@@ -492,7 +492,7 @@ Common switches are:
 | -cf `myarchive.tar` | create file named myarchive.tar |
 | -xf `myarchive.tar` | extract a file named myarchive.tar |
 | -z | compress the archive with gzip after creating it |
-| -b | compress the archive with bzip2 after creating it |
+| -j | compress the archive with bzip2 after creating it |
 | -v | verbose! print a lot of data about what is happening |
 | -r | append new files to the currently available archive |
 
