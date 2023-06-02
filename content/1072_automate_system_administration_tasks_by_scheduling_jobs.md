@@ -158,9 +158,9 @@ MAILTO=root
 
 As you can see this default crontab runs other crons! They are hourly, daily, weekly and monthly crons.
 
-### System hourly, daliy, weekly, monthly, .. crons
+### System hourly, daily, weekly, monthly, ... crons
 
-We have some system level crontab files in `/etc/cron.d/` too. In other words, whatever file which is copied there, will be treated just like `/etc/crontab` file \(a system wide cron file\). This make systems much cleaner and lets programs to copy one file there instead of editing the /etc/crontab.
+We have some system level crontab files in `/etc/cron.d/` too. In other words, whatever file which is copied there, will be treated just like `/etc/crontab` file \(a system wide cron file\). This make systems much cleaner and lets programs copy one file there instead of editing `etc/crontab`.
 
 ```text
 $ sudo tree /etc/cron*
