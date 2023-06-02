@@ -77,7 +77,7 @@ When a cron runs, the output will be emailed to the owner of the cron.
 
 ### user specific crons
 
-Cron is a linux service. To see your crons you can use `crontab -l` \(list\) and for editing it you can use `crontab -e` \(edit\) which will open the cron files with a special editor and will load your inserted crons \(if they are correct\) after wards.
+Cron is a linux service. To see your crons you can use `crontab -l` \(list\) and for editing it you can use `crontab -e` \(edit\) which will open the cron files with a special editor and will load your inserted crons \(if they are correct\) afterwards.
 
 The files will be saved at `/var/spool/cron/tabs/` or \`/var/spool/crontabs':
 
