@@ -203,7 +203,7 @@ PATH=/sbin:/usr/sbin:/bin:/usr/bin
 0 1 * * 1-6 root source /etc/sysconfig/mdadm; [ -n "$MDADM_CHECK_DURATION" -a -x /usr/share/mdadm/mdcheck ] && /usr/share/mdadm/mdcheck --continue --duration "$MDADM_CHECK_DURATION"
 ```
 
-But /etc/cron.hourly, /etc/cron.daily, /etc/cron.weekly, /etc/cron.monthly is **TOTALLY DIFFERENT**. In these directories are actual executable scripts and files. The cron will run these files one a hour, one a day, once a week or once a month based on their directory names.
+But /etc/cron.hourly, /etc/cron.daily, /etc/cron.weekly, /etc/cron.monthly is **TOTALLY DIFFERENT**. In these directories are actual executable scripts and files. cron will run these files once an hour, once a day, once a week or once a month based on their directory names.
 
 ### anacron
 
