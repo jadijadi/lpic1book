@@ -153,7 +153,7 @@ Note how _special users_ like lightdm are having /bin/false as their shell; this
 
 #### /etc/shadow
 
-This file contains password \(hashed passwords\) of the users. See how the `/etc/passwd` is readable for all but `/etc/shadow` is only readable for root and members of the `shadow` group:
+This file contains the users' \(hashed\) passwords. See how the `/etc/passwd` is readable for all but `/etc/shadow` is only readable for root and members of the `shadow` group:
 
 ```text
 # ls -ltrh /etc/passwd /etc/shadow
