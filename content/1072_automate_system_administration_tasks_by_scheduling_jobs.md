@@ -64,9 +64,9 @@ Each time field can be a `*` to indicate _ANY_. Also if you have `@reboot` or `@
 0 22 * * 1-5    mail -s "It's 10pm" joe%Joe,%%Where are your kids?%
 23 0-23/2 * * * echo "run 23 minutes after midn, 2am, 4am ..., everyday"
 5 4 * * sun     echo "run at 5 after 4 every sunday"
-*/5 * * * *    echo "each 5 mintues"
-42 8,18 * * 1-5    echo "8:42 and 18:42 and only on weekdays (monday till friday)"
-@reboot        echo "runs after the reboot"
+*/5 * * * *     echo "each 5 mintues"
+42 8,18 * * 1-5 echo "8:42 and 18:42 and only on weekdays (monday till friday)"
+@reboot         echo "runs after the reboot"
 ```
 
 > Note: be careful about using a \* on the first filed. That will run your cron on every minute!
