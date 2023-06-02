@@ -154,7 +154,7 @@ MAILTO=root
 -*/15 * * * *   root  test -x /usr/lib/cron/run-crons && /usr/lib/cron/run-crons >/dev/null 2>&1
 ```
 
-> Note: Have a look at first two line. It configures the shell which will run the commands and the PATH variable plus who will get the output emails.
+> Note: Look at the first lines. Here you define the shell that executes the commands, the PATH variable, and who receives the output emails.
 
 As you can see this default crontab runs other crons! They are hourly, daily, weekly and monthly crons.
 
