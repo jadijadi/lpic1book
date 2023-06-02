@@ -40,7 +40,7 @@ Candidates should be able to use cron or anacron to run jobs at regular interval
 
 ### Crontab format
 
-Crontab files are responsible to run some commands on specific intervals. Each line has 5 fileds to specify the run time and whatever after it is considered the command to be run.
+Crontab files are responsible to run some commands on specific intervals. Each line has 5 fields to specify the run time and whatever after it is considered the command to be run.
 
 ```text
 A    B    C    D    E    command and arguments
