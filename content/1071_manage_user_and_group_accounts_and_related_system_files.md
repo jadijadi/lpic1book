@@ -63,7 +63,7 @@ passwd: password updated successfully
 
 Linux is a multi-user system and managing these users is part of system admin's job. As the first step, you should be able to **add**, **remove** and **modify** users.
 
-Linux also has the concept of **groups**. You can define groups, give privileges to them and add users to these groups. As you've already seen in the `chmod` command, you might give access the permission to read from `/dev/cdrom` to a group called `cdrom` and then add whoever needs to read from the CD-ROM to this group.
+Linux also has the concept of **groups**. You can define groups, give privileges to them and add users to these groups. As you've already seen in the `chmod` command, you might give access permission to read from `/dev/cdrom` to a group called `cdrom` and then add whoever needs to read from the CD-ROM to this group.
 
 Please note that each user can be a member of many groups but only one of these will be her *Primary* group. In contrast, each file can be owned only by one group.
 ### Managing Users
