@@ -71,7 +71,7 @@ Each time field can be a `*` to indicate _ANY_. Also if you have `@reboot` or `@
 
 > Note: be careful about using a \* on the first filed. That will run your cron on every minute!
 >
-> Note: Use with care. Something like `42 8 1 1 0` runs ONLY IF 1st of Jan is a Monday!
+> Note: Use with care. Something like `42 8 1 1 0` runs ONLY IF 1st of Jan is a Sunday!
 
 When a cron runs, the output will be emailed to the owner of the cron.
 
