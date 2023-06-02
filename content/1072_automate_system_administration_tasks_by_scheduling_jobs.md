@@ -207,13 +207,13 @@ But /etc/cron.hourly, /etc/cron.daily, /etc/cron.weekly, /etc/cron.monthly is **
 
 ### anacron
 
-The difference between cron and anacron, is this:
+The difference between cron and anacron is this:
 
-> If the system is down when the cron should run a task, that cron job wont run till the next occurrence! But anacron creates the timestamp each time a **daily**, **weekly** or **monthly** job runs. If the system **boots up** and find outs that one of the anacron jobs are missed, it will run it during the boot!
+> If the system is down when cron should run a task, that cron job won't run till the next occurrence! But anacron creates the timestamp each time a **daily**, **weekly** or **monthly** job runs. If the system **boots up** and finds out that one of the anacron jobs are missed, it will run it during the boot process!
 
 As you can see anacron is useful for important tasks. If you need to take a backup once a week it is better to use anacron instead of cron; or feeding your dog once a day using cron may lead to it staying hungry for a day if the system is down when he should be fed.
 
-> Note: anacron checks the timestamps at BOOT TIME and do not handle hourly crons.
+> Note: anacron checks the timestamps at BOOT TIME and does not handle hourly crons.
 
 ### controlling access using files
 
