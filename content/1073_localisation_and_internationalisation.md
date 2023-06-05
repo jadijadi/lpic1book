@@ -210,5 +210,5 @@ iconv -f WINDOWS-1258 -t UTF-8 /tmp/myfile.txt
 
 > Note: -f is for "from" and -t is for "to". Easy to remember
 
-In 2016 you will seldom need this command but it is a must to know it, specially if you are living in a non US country!
+In 2023 you will seldom need this command but it is a must to know it, specially if you are living in a non US country!
 
