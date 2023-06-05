@@ -87,12 +87,7 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h2>107.3 Localisation and internationalisation</h2>
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>Weight: 3</em></p>
+            <p><em>Weight: 3</em></p>
 <p>Candidates should be able to localise a system in a different language than English. As well, an understanding of why LANG=C is useful when scripting.</p>
 <h3>Key Knowledge Areas</h3>
 <ul>
@@ -119,84 +114,126 @@
 <li>Unicode</li>
 </ul>
 <h3>timezone</h3>
+<p>The earth is large and round so we have different timezones and different languages! There are even talks about a time zone for Mars and if we encounter aliens, they might also have their own languages. </p>
+<p>This makes a few problems:
+1. we may prefer our local language for our Linux
+2. we need to tell linux about our timezone
+3. programs may ask linux about our preferences on languages, keyboard configuration, and ..
+4. and even if you do not case about yourself, your machines needs your timezone to be able to run tasks on needed times </p>
+<p>In this section I will show you the answers Linux has to overcome these issues. But lets start simple.</p>
 <p>On linux systems you can use <code>date</code> and <code>cal</code> commands to check the date and the calendar. It is possible to print a custom date using <code>+</code> formatter:</p>
-<div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ date +&#39;%Y%m%d-%M&#39;
-20160103-39
-[jadi@funlife ~]$ date +&#39;%Y%m%d-%H%M&#39;
-20160103-2239
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="nc">date</span>
+<span class="n">Fri</span><span class="w"> </span><span class="n">Jun</span><span class="w">  </span><span class="mi">2</span><span class="w"> </span><span class="mi">02</span><span class="err">:</span><span class="mi">07</span><span class="err">:</span><span class="mi">35</span><span class="w"> </span><span class="n">PM</span><span class="w"> </span><span class="n">EDT</span><span class="w"> </span><span class="mi">2023</span>
+<span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="nc">date</span><span class="w"> </span><span class="o">+</span><span class="s1">&#39;%Y%m%d-%M&#39;</span>
+<span class="mi">20230602</span><span class="o">-</span><span class="mi">08</span>
+<span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="nc">date</span><span class="w"> </span><span class="o">+</span><span class="s1">&#39;%Y%m%d-%H%M&#39;</span>
+<span class="mi">20230602</span><span class="o">-</span><span class="mi">1408</span>
 </code></pre></div>
 
-<p>Timezone determines what is your time difference comparing with a reference timezone. This way you can talk about times regardless from your location. In another words, I can tell you "start the change request at 02:30 UTC" we both know when the change will be started in our own timezone (mine is 02:30 minus 3:30).</p>
-<p>You can configure your timezone while installing the system or by using a GUI in the system settings. It is even possible to set the timezone by clicking or right-clicking on the date and time on your panel. But as always there is a command line way. The old one used to be <code>tzconfig</code> but it is not used anymore.</p>
-<p>Different distros do have their own configuration commands, a general one is:</p>
-<div class="highlight"><pre><span></span><code>tzselect
-Please identify a location so that time zone rules can be set correctly.
-Please select a continent, ocean, &quot;coord&quot;, or &quot;TZ&quot;.
- 1) Africa
- 2) Americas
- 3) Antarctica
- 4) Arctic Ocean
- 5) Asia
- 6) Atlantic Ocean
- 7) Australia
- 8) Europe
- 9) Indian Ocean
-10) Pacific Ocean
-11) coord - I want to use geographical coordinates.
-12) TZ - I want to specify the time zone using the Posix TZ format.
+<p>to get more info you can try <code>timedatectl</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">root@fedora ~</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">timedatectl</span>
+<span class="w">               </span><span class="k">Local</span><span class="w"> </span><span class="nc">time</span><span class="err">:</span><span class="w"> </span><span class="n">Fri</span><span class="w"> </span><span class="mi">2023</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">02</span><span class="w"> </span><span class="mi">14</span><span class="err">:</span><span class="mi">23</span><span class="err">:</span><span class="mi">34</span><span class="w"> </span><span class="n">EDT</span>
+<span class="w">           </span><span class="n">Universal</span><span class="w"> </span><span class="nc">time</span><span class="err">:</span><span class="w"> </span><span class="n">Fri</span><span class="w"> </span><span class="mi">2023</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">02</span><span class="w"> </span><span class="mi">18</span><span class="err">:</span><span class="mi">23</span><span class="err">:</span><span class="mi">34</span><span class="w"> </span><span class="n">UTC</span>
+<span class="w">                 </span><span class="n">RTC</span><span class="w"> </span><span class="nc">time</span><span class="err">:</span><span class="w"> </span><span class="n">Sat</span><span class="w"> </span><span class="mi">2023</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">03</span><span class="w"> </span><span class="mi">02</span><span class="err">:</span><span class="mi">37</span><span class="err">:</span><span class="mi">51</span>
+<span class="w">                </span><span class="nc">Time</span><span class="w"> </span><span class="k">zone</span><span class="err">:</span><span class="w"> </span><span class="n">America</span><span class="o">/</span><span class="n">New_York</span><span class="w"> </span><span class="p">(</span><span class="n">EDT</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">0400</span><span class="p">)</span>
+<span class="k">System</span><span class="w"> </span><span class="n">clock</span><span class="w"> </span><span class="nl">synchronized</span><span class="p">:</span><span class="w"> </span><span class="k">no</span>
+<span class="w">              </span><span class="n">NTP</span><span class="w"> </span><span class="nl">service</span><span class="p">:</span><span class="w"> </span><span class="n">active</span>
+<span class="w">          </span><span class="n">RTC</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">local</span><span class="w"> </span><span class="nl">TZ</span><span class="p">:</span><span class="w"> </span><span class="k">no</span>
 </code></pre></div>
 
-<p>This process will suggest you to set a variable called <code>TZ</code> as follow to set <em>your own</em> time zone, but not the systems:</p>
-<div class="highlight"><pre><span></span><code>TZ=&#39;Asia/Tehran&#39;; export TZ
+<p>Timezone determines what is your time difference comparing with a reference timezone. This way you can talk about times regardless of your location. In another words, I can tell you "start the change request at 02:30 UTC" and we both know when the change will be started in our own timezone (mine will be 1 hour ahead so I'll start at 3:30 my time).</p>
+<p>Most distributions will ask you about your time zone during the installation. You can change this later, either by a GUI in the system settings or using a text based user interface (TUI) like the older <code>tzconfig</code> or a newer <code>tzselect</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">jadi</span><span class="err">@</span><span class="n">fedora</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="o">$</span><span class="w"> </span><span class="n">tzselect</span>
+<span class="n">Please</span><span class="w"> </span><span class="n">identify</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">location</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="n">zone</span><span class="w"> </span><span class="n">rules</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">correctly</span><span class="o">.</span>
+<span class="n">Please</span><span class="w"> </span><span class="n">select</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">continent</span><span class="p">,</span><span class="w"> </span><span class="n">ocean</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;coord&quot;</span><span class="p">,</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s2">&quot;TZ&quot;</span><span class="o">.</span>
+<span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">Africa</span><span class="w">                                </span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="n">Europe</span>
+<span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">Americas</span><span class="w">                              </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="n">Indian</span><span class="w"> </span><span class="n">Ocean</span>
+<span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="n">Antarctica</span><span class="w">                                </span><span class="mi">9</span><span class="p">)</span><span class="w"> </span><span class="n">Pacific</span><span class="w"> </span><span class="n">Ocean</span>
+<span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="n">Asia</span><span class="w">                                 </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="n">coord</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">geographical</span><span class="w"> </span><span class="n">coordinates</span><span class="o">.</span>
+<span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="n">Atlantic</span><span class="w"> </span><span class="n">Ocean</span><span class="w">                           </span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="n">TZ</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">specify</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">timezone</span><span class="w"> </span><span class="n">using</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Posix</span><span class="w"> </span><span class="n">TZ</span><span class="w"> </span><span class="n">format</span><span class="o">.</span>
+<span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="n">Australia</span>
+<span class="c1">#? 5</span>
+<span class="n">Please</span><span class="w"> </span><span class="n">select</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">country</span><span class="w"> </span><span class="n">whose</span><span class="w"> </span><span class="n">clocks</span><span class="w"> </span><span class="n">agree</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">yours</span><span class="o">.</span>
+<span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">Bermuda</span><span class="w">                     </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="n">Faroe</span><span class="w"> </span><span class="n">Islands</span><span class="w">                   </span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="n">Spain</span>
+<span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">Cape</span><span class="w"> </span><span class="n">Verde</span><span class="w">                      </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="n">Portugal</span>
+<span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="n">Falkland</span><span class="w"> </span><span class="n">Islands</span><span class="w">                </span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="n">South</span><span class="w"> </span><span class="n">Georgia</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">South</span><span class="w"> </span><span class="n">Sandwich</span><span class="w"> </span><span class="n">Islands</span>
+<span class="c1">#? 1</span>
+
+<span class="n">The</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">given</span><span class="p">:</span>
+
+<span class="w">    </span><span class="n">Bermuda</span>
+
+<span class="n">Therefore</span><span class="w"> </span><span class="n">TZ</span><span class="o">=</span><span class="s1">&#39;Atlantic/Bermuda&#39;</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">used</span><span class="o">.</span>
+<span class="n">Selected</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">now</span><span class="p">:</span><span class="w">   </span><span class="n">Fri</span><span class="w"> </span><span class="n">Jun</span><span class="w">  </span><span class="mi">2</span><span class="w"> </span><span class="mi">15</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">06</span><span class="w"> </span><span class="n">ADT</span><span class="w"> </span><span class="mf">2023.</span>
+<span class="n">Universal</span><span class="w"> </span><span class="n">Time</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">now</span><span class="p">:</span><span class="w">  </span><span class="n">Fri</span><span class="w"> </span><span class="n">Jun</span><span class="w">  </span><span class="mi">2</span><span class="w"> </span><span class="mi">18</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">06</span><span class="w"> </span><span class="n">UTC</span><span class="w"> </span><span class="mf">2023.</span>
+<span class="n">Is</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">above</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="n">OK</span><span class="err">?</span>
+<span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">Yes</span>
+<span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">No</span>
+<span class="c1">#? 1</span>
+
+<span class="n">You</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">change</span><span class="w"> </span><span class="n">permanent</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">yourself</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">appending</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">line</span>
+<span class="w">    </span><span class="n">TZ</span><span class="o">=</span><span class="s1">&#39;Atlantic/Bermuda&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">export</span><span class="w"> </span><span class="n">TZ</span>
+<span class="n">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="s1">&#39;.profile&#39;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">home</span><span class="w"> </span><span class="n">directory</span><span class="p">;</span><span class="w"> </span><span class="n">then</span><span class="w"> </span><span class="nb">log</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nb">log</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">again</span><span class="o">.</span>
+
+<span class="n">Here</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">TZ</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="n">again</span><span class="p">,</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">standard</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">you</span>
+<span class="n">can</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">tzselect</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">shell</span><span class="w"> </span><span class="n">scripts</span><span class="p">:</span>
+<span class="n">Atlantic</span><span class="o">/</span><span class="n">Bermuda</span>
+</code></pre></div>
+
+<p>When finished this program will suggest you to set a variable called <code>TZ</code> as follow to set <em>your own</em> time zone, but not the systems:</p>
+<div class="highlight"><pre><span></span><code>TZ=&#39;Atlantic/Bermuda&#39;; export TZ
+</code></pre></div>
+
+<p>or use it once to check time in a specific city:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>env<span class="w"> </span><span class="nv">TZ</span><span class="o">=</span><span class="s1">&#39;Asia/Tokyo&#39;</span><span class="w"> </span>date
+Sat<span class="w"> </span>Jun<span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">03</span>:25:40<span class="w"> </span>AM<span class="w"> </span>JST<span class="w"> </span><span class="m">2023</span>
 </code></pre></div>
 
 <h3>Configuring timezone</h3>
-<p>There is a directory at <code>/usr/share/zoneinfo/</code> containing all the timezone info. These are binary files. If you need to change your systems timezone you need to change 2 files:</p>
-<div class="highlight"><pre><span></span><code>cat /etc/timezone
-Asia/Tehran
+<p>The <code>/usr/share/zoneinfo/</code> directory contains all the timezone info. These are binary files. If you need to change your system-wide timezone you need to short link the <code>/etc/localtime</code> to one of these files:</p>
+<div class="highlight"><pre><span></span><code><span class="cp"># ls -ltrh /etc/localtime</span>
+<span class="n">lrwxrwxrwx</span><span class="p">.</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="mi">38</span><span class="w"> </span><span class="n">Apr</span><span class="w"> </span><span class="mi">26</span><span class="w"> </span><span class="mi">09</span><span class="o">:</span><span class="mi">41</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">..</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">zoneinfo</span><span class="o">/</span><span class="n">America</span><span class="o">/</span><span class="n">New_York</span>
 </code></pre></div>
 
-<p>and there is a short link at this place:</p>
-<div class="highlight"><pre><span></span><code># ls -ltrh /etc/localtime
--rw-r--r-- 1 root root 1.7K Jan  2 18:10 /etc/localtime
-</code></pre></div>
-
-<p>This file should be replaced by the correct file from <code>/usr/share/zoneinfo/</code>. It is nicer to make a symbolic link rather than copying the actual file. This will prevent the conflicts during next upgrades.</p>
+<p>This file should be replaced by the correct file from <code>/usr/share/zoneinfo/</code>. It is nicer to make a symbolic link rather than copying the actual file. This will prevent the issues during next upgrades.</p>
 <h3>Configuring Languages</h3>
-<p>You can check the status of current selected system language by issuing <code>locale</code>:</p>
-<div class="highlight"><pre><span></span><code>$locale
-LANG=en_US.UTF-8
-LANGUAGE=
-LC_CTYPE=&quot;en_US.UTF-8&quot;
-LC_NUMERIC=&quot;en_US.UTF-8&quot;
-LC_TIME=&quot;en_US.UTF-8&quot;
-LC_COLLATE=&quot;en_US.UTF-8&quot;
-LC_MONETARY=&quot;en_US.UTF-8&quot;
-LC_MESSAGES=&quot;en_US.UTF-8&quot;
-LC_PAPER=&quot;en_US.UTF-8&quot;
-LC_NAME=&quot;en_US.UTF-8&quot;
-LC_ADDRESS=&quot;en_US.UTF-8&quot;
-LC_TELEPHONE=&quot;en_US.UTF-8&quot;
-LC_MEASUREMENT=&quot;en_US.UTF-8&quot;
-LC_IDENTIFICATION=&quot;en_US.UTF-8&quot;
-LC_ALL=
+<p>To check the status of current selected system language, use the <code>locale</code> command:</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">root@fedora ~</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">locale</span>
+<span class="n">LANG</span><span class="o">=</span><span class="n">en_US</span><span class="p">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
+<span class="n">LC_CTYPE</span><span class="o">=</span><span class="ss">&quot;en_US.UTF-8&quot;</span>
+<span class="n">LC_NUMERIC</span><span class="o">=</span><span class="ss">&quot;en_US.UTF-8&quot;</span>
+<span class="n">LC_TIME</span><span class="o">=</span><span class="ss">&quot;en_US.UTF-8&quot;</span>
+<span class="n">LC_COLLATE</span><span class="o">=</span><span class="ss">&quot;en_US.UTF-8&quot;</span>
+<span class="n">LC_MONETARY</span><span class="o">=</span><span class="ss">&quot;en_US.UTF-8&quot;</span>
+<span class="n">LC_MESSAGES</span><span class="o">=</span><span class="ss">&quot;en_US.UTF-8&quot;</span>
+<span class="n">LC_PAPER</span><span class="o">=</span><span class="ss">&quot;en_US.UTF-8&quot;</span>
+<span class="n">LC_NAME</span><span class="o">=</span><span class="ss">&quot;en_US.UTF-8&quot;</span>
+<span class="n">LC_ADDRESS</span><span class="o">=</span><span class="ss">&quot;en_US.UTF-8&quot;</span>
+<span class="n">LC_TELEPHONE</span><span class="o">=</span><span class="ss">&quot;en_US.UTF-8&quot;</span>
+<span class="n">LC_MEASUREMENT</span><span class="o">=</span><span class="ss">&quot;en_US.UTF-8&quot;</span>
+<span class="n">LC_IDENTIFICATION</span><span class="o">=</span><span class="ss">&quot;en_US.UTF-8&quot;</span>
+<span class="n">LC_ALL</span><span class="o">=</span>
 </code></pre></div>
 
-<p>These are all environment variables telling system what languages to use. Here I'm using <code>LANG=en_US.UTF-8</code> which means I'm using English with US variant and UTF-8 encoding.</p>
+<p>These are environment variables telling system what languages to use. Here I'm using <code>LANG=en_US.UTF-8</code> which means I'm using English with US variant and UTF-8 encoding.</p>
 <blockquote>
 <p>UTF-8 and other encodings will be discussed a bit later in this chapter</p>
 </blockquote>
-<p>Other variables tell the system how to show different things based on localisation systems. For example if we change the LC_TIME to "en_GB.UTF-8" the time will be printed in Great Britain format from that moment on.</p>
+<p>Other variables you see above, tell the system how to show different things based on localisation systems. For example if we change the LC_TIME to "en_GB.UTF-8" the time will be printed in Great Britain format.</p>
 <p>Another important settings is <code>LC_ALL</code>. It can be used to change <strong>ALL</strong> settings. If you do a <code>export LC_ALL=fa_IR.UTF-8</code>, all the settings will be set to that one, with no exception. It is always possible to <code>unset LC_ALL</code>.</p>
 <h4>LANG=C</h4>
-<p>Another important point to know is the <code>LANG=C</code> settings. This indicates two things:</p>
-<ol>
-<li>All language settings will be default (en.US)</li>
-<li>Binary sort order</li>
-</ol>
-<p>It is also possible to do a LC_ALL=C.</p>
+<p>The <code>LANG=C</code> settings is used in many programs and scripts to make sure that the system will create coherent and predictable results in all environments. For example to make sure that the sort order will be in Binary order and all language settings will be default (en.US).</p>
 <h4>changing or adding locales</h4>
 <p>This is not a part of LPIC exam but it is good to know that on a debian based machine, you can change, add or set your default <em>locales</em> using <code>dpkg-reconfigure locales</code>.</p>
+<p>There is also this file:</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">root@fedora ~</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">locale</span><span class="p">.</span><span class="n">conf</span>
+<span class="n">LANG</span><span class="o">=</span><span class="ss">&quot;en_US.UTF-8&quot;</span>
+</code></pre></div>
+
+<p>and you can also add your desired <code>LANG</code> config to your <code>~/.bash_profile</code> or <code>~/.profile</code>.</p>
+<blockquote>
+<p>on <code>systemd</code> use <code>localectl</code> to check locale or use <code>localectl set-locale LANG=en_US.UTF-8</code> to set it.</p>
+</blockquote>
 <h3>Character Encoding</h3>
 <h4>ACSII</h4>
 <p>Computers used to work with 7bit characters encoding. That would give us 128 characters which was enough for numbers, punctuation and digits!</p>
@@ -204,8 +241,6 @@ LC_ALL=
 <p>It had more characters and a lots of sets for Thai, Arabic and other languages but still had ASCII character sets.</p>
 <h4>UTF-8</h4>
 <p>The <code>Unicode Transformation Format</code> is the newest encoding method. It is a real universal encoding with characters not only for all written languages but also for fun characters like ¾, ♠, π and ⚤. It is backward compatible with the ASCII and uses 8 bit code units (<strong>not 8 bit coding!</strong>). In most cases it is a good idea to use UTF-8 and be sure that your system will work in practically all cases.</p>
-<p><img alt="Unicode Grow" src="../.gitbook/assets/UnicodeGrow.png"></p>
-<p>Above table shows how UTF8 is the leader compared with ASCII and ISO-8859.</p>
 <h3>iconv</h3>
 <p>If you needed to convert coding to each other, the command is <code>iconv</code>. The <code>-l</code> switch will show you all the available codings:</p>
 <div class="highlight"><pre><span></span><code>iconv -f WINDOWS-1258 -t UTF-8 /tmp/myfile.txt

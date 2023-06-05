@@ -119,7 +119,7 @@
 <p>You can use <code>&amp;&amp;</code> (as logical And) and <code>||</code> (as logical OR) chaining. In case of And, the execution will stop as soon as the first one fails to execute. In case of Or, the next command will only run if the first one fails. Just like in logic boards.</p>
 <p>Confusing? Let me explain again. The system will always try to <em>evaluate</em> the outcome of your chain. So if you have <code>A &amp;&amp; B</code> then A fails, the system does not need to test B (because the overall result will be False anyway). Same logic works for <code>A || B || C</code>. If A works fine, the overall evaluation will be True so no need for testing B or C. But if A fails, system will try B and if B fails, we have to try C. </p>
 <p>We use chaining to create logical flows. For example:</p>
-<div class="highlight"><pre><span></span><code>$ cp backup.gzip /backups/ <span class="o">&amp;&amp;</span> rm backup.gzip
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cp<span class="w"> </span>backup.gzip<span class="w"> </span>/backups/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>backup.gzip
 </code></pre></div>
 
 <p>works like this: copy the backup to this location and delete the file ONLY IF the previous copy was successful. </p>
@@ -135,7 +135,7 @@
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
 <span class="nb">echo</span>
-<span class="nb">echo</span> <span class="s2">&quot;We are learning! Wowww...&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;We are learning! Wowww...&quot;</span>
 <span class="nb">echo</span>
 </code></pre></div>
 
@@ -149,7 +149,7 @@
 <span class="nv">NAME</span><span class="o">=</span>Jadi
 
 <span class="nb">echo</span>
-<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$NAME</span><span class="s2"> is learning! Wowww...&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NAME</span><span class="s2"> is learning! Wowww...&quot;</span>
 <span class="nb">echo</span>
 </code></pre></div>
 
@@ -159,12 +159,12 @@
 <p>If you want to access the command line arguments in your shell script, use <code>$1</code>, <code>$2</code>, .... You can find the number of command line arguments via <code>$#</code> variable.</p>
 <h3>Command substitution</h3>
 <p>Sometimes you need to save the output of a command in a variable or use it in some way. To do so you can use <code>$(command)</code> or simply `command` (Backtick). Look at these two samples:</p>
-<div class="highlight"><pre><span></span><code>➜  <span class="nv">FILES</span><span class="o">=</span><span class="k">$(</span>ls -1<span class="k">)</span> <span class="c1"># the $FILES variable contains the list of all files</span>
+<div class="highlight"><pre><span></span><code>➜<span class="w">  </span><span class="nv">FILES</span><span class="o">=</span><span class="k">$(</span>ls<span class="w"> </span>-1<span class="k">)</span><span class="w"> </span><span class="c1"># the $FILES variable contains the list of all files</span>
 
-➜  ~ date +<span class="s1">&#39;%Y%m%d-%H%m&#39;</span>
+➜<span class="w">  </span>~<span class="w"> </span>date<span class="w"> </span>+<span class="s1">&#39;%Y%m%d-%H%m&#39;</span>
 <span class="m">20230408</span>-1604
-➜  ~ touch backup_<span class="sb">`</span>date +<span class="s1">&#39;%Y%m%d-%H%m&#39;</span><span class="sb">`</span>.tar
-➜  ~ ls
+➜<span class="w">  </span>~<span class="w"> </span>touch<span class="w"> </span>backup_<span class="sb">`</span>date<span class="w"> </span>+<span class="s1">&#39;%Y%m%d-%H%m&#39;</span><span class="sb">`</span>.tar
+➜<span class="w">  </span>~<span class="w"> </span>ls
 backup_20230408-1604.tar
 </code></pre></div>
 
@@ -176,13 +176,13 @@ backup_20230408-1604.tar
 <iframe width="560" height="315" src="https://www.youtube.com/embed/_4ISOx9Kxpk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <p>Up to now, we were just running commands one by one. That is not very <em>programmatic</em>. If we are going to have some <em>logic</em> in our programs, we need <em>conditions</em> and <em>loops</em>. First we will cover conditions, using the <code>if</code> command. Its usage is like this:</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="o">[</span>condition<span class="o">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="o">[</span>condition<span class="o">]</span>
 <span class="k">then</span>
-   <span class="k">do</span> something
-   <span class="k">do</span> another thing
+<span class="w">   </span><span class="k">do</span><span class="w"> </span>something
+<span class="w">   </span><span class="k">do</span><span class="w"> </span>another<span class="w"> </span>thing
 <span class="k">else</span>
-   <span class="k">do</span> new things
-   even funnier things
+<span class="w">   </span><span class="k">do</span><span class="w"> </span>new<span class="w"> </span>things
+<span class="w">   </span>even<span class="w"> </span>funnier<span class="w"> </span>things
 <span class="k">fi</span>
 </code></pre></div>
 
@@ -192,12 +192,12 @@ backup_20230408-1604.tar
 <p>Conditions can be TRUE or FALSE. A very simple conditions is <code>if [ "Linux" = "Linux" ]</code>. Silly? I know but wait; we are learning the syntax only. Please give special attention to the <em>spaces</em> and <em><code>=</code></em> for checking if two strings are equal.</p>
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
-<span class="nv">kernel</span><span class="o">=</span><span class="k">$(</span>uname -s<span class="k">)</span>
-<span class="k">if</span> <span class="o">[</span> <span class="nv">$kernel</span> <span class="o">=</span> <span class="s2">&quot;Linux&quot;</span> <span class="o">]</span>
+<span class="nv">kernel</span><span class="o">=</span><span class="k">$(</span>uname<span class="w"> </span>-s<span class="k">)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$kernel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Linux&quot;</span><span class="w"> </span><span class="o">]</span>
 <span class="k">then</span>
-    <span class="nb">echo</span> YES. You are using a Linux
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>YES.<span class="w"> </span>You<span class="w"> </span>are<span class="w"> </span>using<span class="w"> </span>a<span class="w"> </span>Linux
 <span class="k">else</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Not a linux :(&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Not a linux :(&quot;</span>
 <span class="k">fi</span>
 </code></pre></div>
 
@@ -256,27 +256,27 @@ backup_20230408-1604.tar
 <p>Using <code>read</code> we can read the user input. Look at this:</p>
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
 
-<span class="nb">echo</span> <span class="s2">&quot;what is your name?&quot;</span>
-<span class="nb">read</span> NAME
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;what is your name?&quot;</span>
+<span class="nb">read</span><span class="w"> </span>NAME
 
-<span class="nb">echo</span> <span class="s2">&quot;Hello </span><span class="nv">$NAME</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello </span><span class="nv">$NAME</span><span class="s2">&quot;</span>
 
-<span class="k">if</span> <span class="o">[</span> <span class="nv">$NAME</span> <span class="o">=</span> <span class="s2">&quot;Jadi&quot;</span> <span class="o">]</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Jadi&quot;</span><span class="w"> </span><span class="o">]</span>
 <span class="k">then</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Oh I know you!&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Oh I know you!&quot;</span>
 <span class="k">else</span>
-    <span class="nb">echo</span> <span class="s2">&quot;I wish I knew you&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;I wish I knew you&quot;</span>
 <span class="k">fi</span>
-<span class="nb">echo</span> <span class="s2">&quot;Bye&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bye&quot;</span>
 </code></pre></div>
 
 <p>You can timeout the waiting using the <code>-t</code> and show a prompt using <code>-p</code>. </p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="nb">read</span> -t <span class="m">10</span> -p <span class="s2">&quot;Server address?&quot;</span> SERVER
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>-t<span class="w"> </span><span class="m">10</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Server address?&quot;</span><span class="w"> </span>SERVER
 <span class="k">then</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Connecting to the </span><span class="nv">$SERVER</span><span class="s2"> ...&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Connecting to the </span><span class="nv">$SERVER</span><span class="s2"> ...&quot;</span>
 <span class="k">else</span>
-    <span class="nb">echo</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Too late!&quot;</span>
+<span class="w">    </span><span class="nb">echo</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Too late!&quot;</span>
 <span class="k">fi</span>
 </code></pre></div>
 
@@ -284,10 +284,10 @@ backup_20230408-1604.tar
 <p>In programming loops are used to repeat part of the programs. We have 2 different loops in Bash; <code>for</code> and <code>while</code>. The for loops lets us run part of a program for a specific number of iterations. The <code>while</code> loop is used when we want to repeat part of a program <em>while</em> a specific condition became true. </p>
 <h4>for</h4>
 <p>The syntax is like this:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span> VAR <span class="k">in</span> SOME_LIST<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>VAR<span class="w"> </span><span class="k">in</span><span class="w"> </span>SOME_LIST<span class="p">;</span>
 <span class="k">do</span>
-  some stuff with <span class="nv">$VAR</span>
-  some other stuff
+<span class="w">  </span>some<span class="w"> </span>stuff<span class="w"> </span>with<span class="w"> </span><span class="nv">$VAR</span>
+<span class="w">  </span>some<span class="w"> </span>other<span class="w"> </span>stuff
 <span class="k">done</span>
 </code></pre></div>
 
@@ -295,27 +295,27 @@ backup_20230408-1604.tar
 <p>Note:  the <code>in</code>, <code>;</code>, <code>do</code> and <code>done</code>.</p>
 </blockquote>
 <p>On each iteration, the VAR will be equal to one of the SOME_LIST elements. SOME_LIST can be numbers, name of files, words, ...</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span> NUM <span class="k">in</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span> <span class="m">6</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>NUM<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="p">;</span>
 <span class="k">do</span>
-    <span class="nb">echo</span> <span class="nv">$NUM</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$NUM</span>
 <span class="k">done</span>
 </code></pre></div>
 
 <p>But what if you needed to run from 1 to 42? We have the <code>seq</code> command for that. The <code>seq 1 42</code> or its shorthand <code>{1..42}</code> will let us run a loop 42 times.</p>
 <p>We can also use non-numeric variables here. This is a common use case:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span> FILE <span class="k">in</span> <span class="k">$(</span>ls<span class="k">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>FILE<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>ls<span class="k">)</span><span class="p">;</span>
 <span class="k">do</span>
-    <span class="nb">echo</span> <span class="nv">$FILE</span>
-    wc -l <span class="nv">$FILE</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$FILE</span>
+<span class="w">    </span>wc<span class="w"> </span>-l<span class="w"> </span><span class="nv">$FILE</span>
 <span class="k">done</span>
 </code></pre></div>
 
 <h4>while</h4>
 <p>This is the syntax:</p>
-<div class="highlight"><pre><span></span><code><span class="k">while</span> <span class="o">[</span>condition<span class="o">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="o">[</span>condition<span class="o">]</span>
 <span class="k">do</span>
-    <span class="k">do</span> something
-    <span class="k">do</span> anohter thing
+<span class="w">    </span><span class="k">do</span><span class="w"> </span>something
+<span class="w">    </span><span class="k">do</span><span class="w"> </span>anohter<span class="w"> </span>thing
 <span class="k">done</span>
 </code></pre></div>
 
@@ -325,10 +325,10 @@ backup_20230408-1604.tar
 <p>This is sample:</p>
 <div class="highlight"><pre><span></span><code><span class="nv">VAR</span><span class="o">=</span><span class="m">52</span>
 
-<span class="k">while</span> <span class="o">[</span> <span class="nv">$VAR</span> -gt <span class="m">42</span> <span class="o">]</span>
+<span class="k">while</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$VAR</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="o">]</span>
 <span class="k">do</span>
-    <span class="nb">echo</span> VAR is <span class="nv">$VAR</span> and it is still greater than <span class="m">42</span>
-    <span class="nb">let</span> <span class="nv">VAR</span><span class="o">=</span>VAR-1
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>VAR<span class="w"> </span>is<span class="w"> </span><span class="nv">$VAR</span><span class="w"> </span>and<span class="w"> </span>it<span class="w"> </span>is<span class="w"> </span>still<span class="w"> </span>greater<span class="w"> </span>than<span class="w"> </span><span class="m">42</span>
+<span class="w">    </span><span class="nb">let</span><span class="w"> </span><span class="nv">VAR</span><span class="o">=</span>VAR-1
 <span class="k">done</span>
 </code></pre></div>
 
@@ -337,35 +337,35 @@ backup_20230408-1604.tar
 </blockquote>
 <h3>mailing the root user</h3>
 <p>For sending mail, you need to install <code>mailutils</code>. Then the <code>mail</code> command will send emails. You can send the mail to the root user by issuing this command:</p>
-<div class="highlight"><pre><span></span><code>jadi@funlife:~$ mail root
+<div class="highlight"><pre><span></span><code>jadi@funlife:~$<span class="w"> </span>mail<span class="w"> </span>root
 Cc:
-Subject: Hi there root
-hello there. This is my mail
+Subject:<span class="w"> </span>Hi<span class="w"> </span>there<span class="w"> </span>root
+hello<span class="w"> </span>there.<span class="w"> </span>This<span class="w"> </span>is<span class="w"> </span>my<span class="w"> </span>mail
 </code></pre></div>
 
 <p>And root will get this email. She can read it using <code>mail</code> command.</p>
 <p>If you need to send emails in a script, just do:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="s2">&quot;Body!&quot;</span> <span class="p">|</span> mail -s <span class="s2">&quot;Subject&quot;</span> root
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Body!&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>mail<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;Subject&quot;</span><span class="w"> </span>root
 </code></pre></div>
 
 <h2>returned values</h2>
 <p>In the Unix world, the programs return values when they are finished. If you have programmed C, this is the <code>return 0</code> at the end. Commonly a 0 means successful execution. This return value can be read / examined using <code>$?</code> variable. </p>
-<div class="highlight"><pre><span></span><code>jadi@ubuntuserver:/etc/skel$ touch /chert
-touch: cannot touch <span class="s1">&#39;/chert&#39;</span>: Permission denied
-$ <span class="nb">echo</span> <span class="nv">$?</span>
+<div class="highlight"><pre><span></span><code>jadi@ubuntuserver:/etc/skel$<span class="w"> </span>touch<span class="w"> </span>/chert
+touch:<span class="w"> </span>cannot<span class="w"> </span>touch<span class="w"> </span><span class="s1">&#39;/chert&#39;</span>:<span class="w"> </span>Permission<span class="w"> </span>denied
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$?</span>
 <span class="m">1</span>
-$ touch /tmp/11
-$ <span class="nb">echo</span> <span class="nv">$?</span>
+$<span class="w"> </span>touch<span class="w"> </span>/tmp/11
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$?</span>
 <span class="m">0</span>
-$ <span class="nb">test</span> -e /
-$ <span class="nb">echo</span> <span class="nv">$?</span>
+$<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-e<span class="w"> </span>/
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$?</span>
 <span class="m">0</span>
-$ <span class="nb">test</span> -e /nonexist
-$ <span class="nb">echo</span> <span class="nv">$?</span>
+$<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-e<span class="w"> </span>/nonexist
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$?</span>
 <span class="m">1</span>
-$ dummycommand
-dummycommand: <span class="nb">command</span> not found
-$ <span class="nb">echo</span> <span class="nv">$?</span>
+$<span class="w"> </span>dummycommand
+dummycommand:<span class="w"> </span><span class="nb">command</span><span class="w"> </span>not<span class="w"> </span>found
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$?</span>
 <span class="m">127</span>
 </code></pre></div>
 

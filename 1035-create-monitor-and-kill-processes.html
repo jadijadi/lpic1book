@@ -129,32 +129,32 @@
 - break it using <code>Ctrl+c</code>
 - <em>suspend</em> or pause it using <code>Ctrl+z</code></p>
 <p>A <em>stopped</em> job can be brought to the foreground using <code>fg</code> command (or the background using <code>bg</code>). You can also list all the jobs by the <code>jobs</code> command.</p>
-<div class="highlight"><pre><span></span><code>$ xeyes
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>xeyes
 ^Z
-<span class="o">[</span><span class="m">1</span><span class="o">]</span>+  Stopped                 xeyes
-$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">1</span><span class="o">]</span>+  Stopped                 xeyes
-$ <span class="nb">bg</span>
-<span class="o">[</span><span class="m">1</span><span class="o">]</span>+ xeyes <span class="p">&amp;</span>
-$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">1</span><span class="o">]</span>+  Running                 xeyes <span class="p">&amp;</span>
-$ sleep <span class="m">1000</span> <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">2</span><span class="o">]</span> <span class="m">7395</span>
-$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">1</span><span class="o">]</span>-  Running                 xeyes <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">2</span><span class="o">]</span>+  Running                 sleep <span class="m">1000</span> <span class="p">&amp;</span>
-$ <span class="nb">fg</span> %2
-sleep <span class="m">1000</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>+<span class="w">  </span>Stopped<span class="w">                 </span>xeyes
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>+<span class="w">  </span>Stopped<span class="w">                 </span>xeyes
+$<span class="w"> </span><span class="nb">bg</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>+<span class="w"> </span>xeyes<span class="w"> </span><span class="p">&amp;</span>
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>+<span class="w">  </span>Running<span class="w">                 </span>xeyes<span class="w"> </span><span class="p">&amp;</span>
+$<span class="w"> </span>sleep<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span><span class="w"> </span><span class="m">7395</span>
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>-<span class="w">  </span>Running<span class="w">                 </span>xeyes<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>+<span class="w">  </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="p">&amp;</span>
+$<span class="w"> </span><span class="nb">fg</span><span class="w"> </span>%2
+sleep<span class="w"> </span><span class="m">1000</span>
 ^Z
-<span class="o">[</span><span class="m">2</span><span class="o">]</span>+  Stopped                 sleep <span class="m">1000</span>
-$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">1</span><span class="o">]</span>-  Running                 xeyes <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">2</span><span class="o">]</span>+  Stopped                 sleep <span class="m">1000</span>
-$ <span class="nb">bg</span> sle
-<span class="o">[</span><span class="m">2</span><span class="o">]</span>+ sleep <span class="m">1000</span> <span class="p">&amp;</span>
-$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">1</span><span class="o">]</span>-  Running                 xeyes <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">2</span><span class="o">]</span>+  Running                 sleep <span class="m">1000</span> <span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>+<span class="w">  </span>Stopped<span class="w">                 </span>sleep<span class="w"> </span><span class="m">1000</span>
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>-<span class="w">  </span>Running<span class="w">                 </span>xeyes<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>+<span class="w">  </span>Stopped<span class="w">                 </span>sleep<span class="w"> </span><span class="m">1000</span>
+$<span class="w"> </span><span class="nb">bg</span><span class="w"> </span>sle
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>+<span class="w"> </span>sleep<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="p">&amp;</span>
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>-<span class="w">  </span>Running<span class="w">                 </span>xeyes<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>+<span class="w">  </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="p">&amp;</span>
 <span class="sb">`</span>
 </code></pre></div>
 
@@ -163,16 +163,16 @@ $ <span class="nb">jobs</span>
 </blockquote>
 <h3>nohup</h3>
 <p>The <code>nohup</code> command lets you run your commands even after you close the terminal or logout. By default it writes its output to <code>nohup.out</code>:</p>
-<div class="highlight"><pre><span></span><code>$ nohup ping <span class="m">4</span>.2.2.4
-nohup: ignoring input and appending output to ‘nohup.out’
-^C$ cat nohup.out
-PING <span class="m">4</span>.2.2.4 <span class="o">(</span><span class="m">4</span>.2.2.4<span class="o">)</span> <span class="m">56</span><span class="o">(</span><span class="m">84</span><span class="o">)</span> bytes of data.
-<span class="m">64</span> bytes from <span class="m">4</span>.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">51</span> <span class="nv">time</span><span class="o">=</span><span class="m">225</span> ms
-<span class="m">64</span> bytes from <span class="m">4</span>.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">3</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">51</span> <span class="nv">time</span><span class="o">=</span><span class="m">223</span> ms
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>nohup<span class="w"> </span>ping<span class="w"> </span><span class="m">4</span>.2.2.4
+nohup:<span class="w"> </span>ignoring<span class="w"> </span>input<span class="w"> </span>and<span class="w"> </span>appending<span class="w"> </span>output<span class="w"> </span>to<span class="w"> </span>‘nohup.out’
+^C$<span class="w"> </span>cat<span class="w"> </span>nohup.out
+PING<span class="w"> </span><span class="m">4</span>.2.2.4<span class="w"> </span><span class="o">(</span><span class="m">4</span>.2.2.4<span class="o">)</span><span class="w"> </span><span class="m">56</span><span class="o">(</span><span class="m">84</span><span class="o">)</span><span class="w"> </span>bytes<span class="w"> </span>of<span class="w"> </span>data.
+<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span><span class="m">4</span>.2.2.4:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">51</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">225</span><span class="w"> </span>ms
+<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span><span class="m">4</span>.2.2.4:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">51</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">223</span><span class="w"> </span>ms
 
---- <span class="m">4</span>.2.2.4 ping statistics ---
-<span class="m">4</span> packets transmitted, <span class="m">2</span> received, <span class="m">50</span>% packet loss, <span class="nb">time</span> 3010ms
-rtt min/avg/max/mdev <span class="o">=</span> <span class="m">223</span>.584/224.767/225.950/1.183 ms
+---<span class="w"> </span><span class="m">4</span>.2.2.4<span class="w"> </span>ping<span class="w"> </span>statistics<span class="w"> </span>---
+<span class="m">4</span><span class="w"> </span>packets<span class="w"> </span>transmitted,<span class="w"> </span><span class="m">2</span><span class="w"> </span>received,<span class="w"> </span><span class="m">50</span>%<span class="w"> </span>packet<span class="w"> </span>loss,<span class="w"> </span><span class="nb">time</span><span class="w"> </span>3010ms
+rtt<span class="w"> </span>min/avg/max/mdev<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">223</span>.584/224.767/225.950/1.183<span class="w"> </span>ms
 </code></pre></div>
 
 <blockquote>
@@ -180,21 +180,21 @@ rtt min/avg/max/mdev <span class="o">=</span> <span class="m">223</span>.584/224
 </blockquote>
 <h3>kill</h3>
 <p>Despite its frightening name, the <code>kill</code> command sends unix <em>signals</em> to processes. Pressing <code>Ctrl+c</code> and <code>Ctrl+z</code> is also sending signals. By default, the <code>kill</code> command sends the signal <strong>15</strong> (which is TERM and tells to process to terminate itself).</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">3</span><span class="o">]</span>   Running                 xeyes <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">4</span><span class="o">]</span>   Running                 sleep <span class="m">1000</span> <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">5</span><span class="o">]</span>-  Running                 sleep <span class="m">2000</span> <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">6</span><span class="o">]</span>+  Running                 sleep <span class="m">3000</span> <span class="p">&amp;</span>
-$ <span class="nb">kill</span> %4
-$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">3</span><span class="o">]</span>   Running                 xeyes <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">4</span><span class="o">]</span>   Terminated              sleep <span class="m">1000</span>
-<span class="o">[</span><span class="m">5</span><span class="o">]</span>-  Running                 sleep <span class="m">2000</span> <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">6</span><span class="o">]</span>+  Running                 sleep <span class="m">3000</span> <span class="p">&amp;</span>
-$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">3</span><span class="o">]</span>   Running                 xeyes <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">5</span><span class="o">]</span>-  Running                 sleep <span class="m">2000</span> <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">6</span><span class="o">]</span>+  Running                 sleep <span class="m">3000</span> <span class="p">&amp;</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span><span class="w">   </span>Running<span class="w">                 </span>xeyes<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">4</span><span class="o">]</span><span class="w">   </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">5</span><span class="o">]</span>-<span class="w">  </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">6</span><span class="o">]</span>+<span class="w">  </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">3000</span><span class="w"> </span><span class="p">&amp;</span>
+$<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>%4
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span><span class="w">   </span>Running<span class="w">                 </span>xeyes<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">4</span><span class="o">]</span><span class="w">   </span>Terminated<span class="w">              </span>sleep<span class="w"> </span><span class="m">1000</span>
+<span class="o">[</span><span class="m">5</span><span class="o">]</span>-<span class="w">  </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">6</span><span class="o">]</span>+<span class="w">  </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">3000</span><span class="w"> </span><span class="p">&amp;</span>
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span><span class="w">   </span>Running<span class="w">                 </span>xeyes<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">5</span><span class="o">]</span>-<span class="w">  </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">6</span><span class="o">]</span>+<span class="w">  </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">3000</span><span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 
 <p>It is also possible to use PIDs instead of job numbers and kill other signals. The general format is <code>kill -SIGNAL_ID_OR_NAME process_id</code>:</p>
@@ -231,40 +231,40 @@ $ <span class="nb">jobs</span>
 </blockquote>
 <h3>killall</h3>
 <p>This command Will send the given signal (or by default 15) to all processes with the given name:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">3</span><span class="o">]</span>   Running                 xeyes <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">5</span><span class="o">]</span>-  Running                 sleep <span class="m">2000</span> <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">6</span><span class="o">]</span>+  Running                 sleep <span class="m">3000</span> <span class="p">&amp;</span>
-$ ps -ef <span class="p">|</span> grep sleep
-jadi      <span class="m">7864</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:07 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">2000</span>
-jadi      <span class="m">7865</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:07 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">3000</span>
-jadi      <span class="m">7977</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:14 pts/1    <span class="m">00</span>:00:00 grep sleep
-$ killall sleep
-<span class="o">[</span><span class="m">5</span><span class="o">]</span>-  Terminated              sleep <span class="m">2000</span>
-<span class="o">[</span><span class="m">6</span><span class="o">]</span>+  Terminated              sleep <span class="m">3000</span>
-$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">3</span><span class="o">]</span>+  Running                 xeyes <span class="p">&amp;</span>
-$ ps -ef <span class="p">|</span> grep sleep
-jadi      <span class="m">7980</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:14 pts/1    <span class="m">00</span>:00:00 grep sleep
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span><span class="w">   </span>Running<span class="w">                 </span>xeyes<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">5</span><span class="o">]</span>-<span class="w">  </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">6</span><span class="o">]</span>+<span class="w">  </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">3000</span><span class="w"> </span><span class="p">&amp;</span>
+$<span class="w"> </span>ps<span class="w"> </span>-ef<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>sleep
+jadi<span class="w">      </span><span class="m">7864</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">21</span>:07<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>sleep<span class="w"> </span><span class="m">2000</span>
+jadi<span class="w">      </span><span class="m">7865</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">21</span>:07<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>sleep<span class="w"> </span><span class="m">3000</span>
+jadi<span class="w">      </span><span class="m">7977</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">21</span>:14<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>grep<span class="w"> </span>sleep
+$<span class="w"> </span>killall<span class="w"> </span>sleep
+<span class="o">[</span><span class="m">5</span><span class="o">]</span>-<span class="w">  </span>Terminated<span class="w">              </span>sleep<span class="w"> </span><span class="m">2000</span>
+<span class="o">[</span><span class="m">6</span><span class="o">]</span>+<span class="w">  </span>Terminated<span class="w">              </span>sleep<span class="w"> </span><span class="m">3000</span>
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span>+<span class="w">  </span>Running<span class="w">                 </span>xeyes<span class="w"> </span><span class="p">&amp;</span>
+$<span class="w"> </span>ps<span class="w"> </span>-ef<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>sleep
+jadi<span class="w">      </span><span class="m">7980</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">21</span>:14<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>grep<span class="w"> </span>sleep
 </code></pre></div>
 
 <h3>pkill</h3>
 <p>Will send the given signal (or 15) to all the processes with a specific pattern in their name:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">3</span><span class="o">]</span>   Running                 xeyes <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">5</span><span class="o">]</span>-  Running                 sleep <span class="m">2000</span> <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">6</span><span class="o">]</span>+  Running                 sleep <span class="m">3000</span> <span class="p">&amp;</span>
-$ ps -ef <span class="p">|</span> grep sleep
-jadi      <span class="m">7864</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:07 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">2000</span>
-jadi      <span class="m">7865</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:07 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">3000</span>
-jadi      <span class="m">7977</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:14 pts/1    <span class="m">00</span>:00:00 grep sleep
-$ pkill sle
-<span class="o">[</span><span class="m">5</span><span class="o">]</span>-  Terminated              sleep <span class="m">2000</span>
-<span class="o">[</span><span class="m">6</span><span class="o">]</span>+  Terminated              sleep <span class="m">3000</span>
-$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">3</span><span class="o">]</span>+  Running                 xeyes <span class="p">&amp;</span>
-$ ps -ef <span class="p">|</span> grep sleep
-jadi      <span class="m">7980</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">21</span>:14 pts/1    <span class="m">00</span>:00:00 grep sleep
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span><span class="w">   </span>Running<span class="w">                 </span>xeyes<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">5</span><span class="o">]</span>-<span class="w">  </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">6</span><span class="o">]</span>+<span class="w">  </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">3000</span><span class="w"> </span><span class="p">&amp;</span>
+$<span class="w"> </span>ps<span class="w"> </span>-ef<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>sleep
+jadi<span class="w">      </span><span class="m">7864</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">21</span>:07<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>sleep<span class="w"> </span><span class="m">2000</span>
+jadi<span class="w">      </span><span class="m">7865</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">21</span>:07<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>sleep<span class="w"> </span><span class="m">3000</span>
+jadi<span class="w">      </span><span class="m">7977</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">21</span>:14<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>grep<span class="w"> </span>sleep
+$<span class="w"> </span>pkill<span class="w"> </span>sle
+<span class="o">[</span><span class="m">5</span><span class="o">]</span>-<span class="w">  </span>Terminated<span class="w">              </span>sleep<span class="w"> </span><span class="m">2000</span>
+<span class="o">[</span><span class="m">6</span><span class="o">]</span>+<span class="w">  </span>Terminated<span class="w">              </span>sleep<span class="w"> </span><span class="m">3000</span>
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span>+<span class="w">  </span>Running<span class="w">                 </span>xeyes<span class="w"> </span><span class="p">&amp;</span>
+$<span class="w"> </span>ps<span class="w"> </span>-ef<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>sleep
+jadi<span class="w">      </span><span class="m">7980</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">21</span>:14<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>grep<span class="w"> </span>sleep
 </code></pre></div>
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/wOXrckEQosU
@@ -273,52 +273,52 @@ jadi      <span class="m">7980</span>  <span class="m">7651</span>  <span class=
 <h2>Monitoring Processes</h2>
 <h3>ps</h3>
 <p>The <code>ps</code> command shows running processes on your computer. Each process has a process ID shown as <strong>PID</strong> and a Parent Process ID shown as PPID.</p>
-<div class="highlight"><pre><span></span><code>$ sleep <span class="m">1000</span> <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">1</span><span class="o">]</span> <span class="m">7678</span>
-$ sleep <span class="m">1001</span> <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">2</span><span class="o">]</span> <span class="m">7679</span>
-$ xeyes <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">3</span><span class="o">]</span> <span class="m">7680</span>
-$ ps
-  PID TTY          TIME CMD
- <span class="m">7651</span> pts/1    <span class="m">00</span>:00:00 bash
- <span class="m">7678</span> pts/1    <span class="m">00</span>:00:00 sleep
- <span class="m">7679</span> pts/1    <span class="m">00</span>:00:00 sleep
- <span class="m">7680</span> pts/1    <span class="m">00</span>:00:00 xeyes
- <span class="m">7681</span> pts/1    <span class="m">00</span>:00:00 ps
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sleep<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span><span class="m">7678</span>
+$<span class="w"> </span>sleep<span class="w"> </span><span class="m">1001</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span><span class="w"> </span><span class="m">7679</span>
+$<span class="w"> </span>xeyes<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span><span class="w"> </span><span class="m">7680</span>
+$<span class="w"> </span>ps
+<span class="w">  </span>PID<span class="w"> </span>TTY<span class="w">          </span>TIME<span class="w"> </span>CMD
+<span class="w"> </span><span class="m">7651</span><span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>bash
+<span class="w"> </span><span class="m">7678</span><span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>sleep
+<span class="w"> </span><span class="m">7679</span><span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>sleep
+<span class="w"> </span><span class="m">7680</span><span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>xeyes
+<span class="w"> </span><span class="m">7681</span><span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>ps
 </code></pre></div>
 
 <p>Two common switch combination is <code>ps aux</code> ( or <code>-aux</code>) and <code>ps ef</code> which shows ALL processes on a system:</p>
-<div class="highlight"><pre><span></span><code>$ ps -aux <span class="p">|</span> wc -l
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
 <span class="m">293</span>
 </code></pre></div>
 
 <p>It is also possible to use the <code>--sort</code> switch to sort the output based on different fields (+ for ascending &amp; - for descending).</p>
-<div class="highlight"><pre><span></span><code>$ ps -af --sort +comm,-sid
-UID        PID  PPID  C STIME TTY          TIME CMD
-root      <span class="m">5486</span>  <span class="m">5478</span>  <span class="m">0</span> <span class="m">19</span>:59 pts/12   <span class="m">00</span>:00:00 -su
-root      <span class="m">4444</span>  <span class="m">1169</span>  <span class="m">0</span> <span class="m">19</span>:56 tty4     <span class="m">00</span>:00:00 -bash
-jadi      <span class="m">6638</span>  <span class="m">5412</span>  <span class="m">0</span> <span class="m">20</span>:10 pts/0    <span class="m">00</span>:00:04 node /usr/local/bin/sslocal
-jadi      <span class="m">7778</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:58 pts/1    <span class="m">00</span>:00:00 ps -af --sort +comm,-sid
-jadi      <span class="m">7678</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:48 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">1000</span>
-jadi      <span class="m">7679</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:48 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">1001</span>
-jadi      <span class="m">7775</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:58 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">1000</span>
-jadi      <span class="m">7776</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:58 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">1000</span>
-jadi      <span class="m">7777</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:58 pts/1    <span class="m">00</span>:00:00 sleep <span class="m">1000</span>
-root      <span class="m">5478</span>  <span class="m">5477</span>  <span class="m">0</span> <span class="m">19</span>:59 pts/12   <span class="m">00</span>:00:00 su -
-root      <span class="m">5477</span>  <span class="m">5008</span>  <span class="m">0</span> <span class="m">19</span>:59 pts/12   <span class="m">00</span>:00:00 sudo su -
-jadi      <span class="m">7680</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:48 pts/1    <span class="m">00</span>:00:01 xeyes
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-af<span class="w"> </span>--sort<span class="w"> </span>+comm,-sid
+UID<span class="w">        </span>PID<span class="w">  </span>PPID<span class="w">  </span>C<span class="w"> </span>STIME<span class="w"> </span>TTY<span class="w">          </span>TIME<span class="w"> </span>CMD
+root<span class="w">      </span><span class="m">5486</span><span class="w">  </span><span class="m">5478</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">19</span>:59<span class="w"> </span>pts/12<span class="w">   </span><span class="m">00</span>:00:00<span class="w"> </span>-su
+root<span class="w">      </span><span class="m">4444</span><span class="w">  </span><span class="m">1169</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">19</span>:56<span class="w"> </span>tty4<span class="w">     </span><span class="m">00</span>:00:00<span class="w"> </span>-bash
+jadi<span class="w">      </span><span class="m">6638</span><span class="w">  </span><span class="m">5412</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">20</span>:10<span class="w"> </span>pts/0<span class="w">    </span><span class="m">00</span>:00:04<span class="w"> </span>node<span class="w"> </span>/usr/local/bin/sslocal
+jadi<span class="w">      </span><span class="m">7778</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">20</span>:58<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>ps<span class="w"> </span>-af<span class="w"> </span>--sort<span class="w"> </span>+comm,-sid
+jadi<span class="w">      </span><span class="m">7678</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">20</span>:48<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>sleep<span class="w"> </span><span class="m">1000</span>
+jadi<span class="w">      </span><span class="m">7679</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">20</span>:48<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>sleep<span class="w"> </span><span class="m">1001</span>
+jadi<span class="w">      </span><span class="m">7775</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">20</span>:58<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>sleep<span class="w"> </span><span class="m">1000</span>
+jadi<span class="w">      </span><span class="m">7776</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">20</span>:58<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>sleep<span class="w"> </span><span class="m">1000</span>
+jadi<span class="w">      </span><span class="m">7777</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">20</span>:58<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>sleep<span class="w"> </span><span class="m">1000</span>
+root<span class="w">      </span><span class="m">5478</span><span class="w">  </span><span class="m">5477</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">19</span>:59<span class="w"> </span>pts/12<span class="w">   </span><span class="m">00</span>:00:00<span class="w"> </span>su<span class="w"> </span>-
+root<span class="w">      </span><span class="m">5477</span><span class="w">  </span><span class="m">5008</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">19</span>:59<span class="w"> </span>pts/12<span class="w">   </span><span class="m">00</span>:00:00<span class="w"> </span>sudo<span class="w"> </span>su<span class="w"> </span>-
+jadi<span class="w">      </span><span class="m">7680</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">20</span>:48<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:01<span class="w"> </span>xeyes
 </code></pre></div>
 
 <h3>pgrep</h3>
 <p>You've seen that <code>ps -ef</code> shows processes from all users. We can <code>grep</code> on that and see who is running <code>gedit</code> and what is its process ID:</p>
-<div class="highlight"><pre><span></span><code>$ ps -ef <span class="p">|</span> grep gedit
-jadi      <span class="m">6213</span>  <span class="m">4604</span>  <span class="m">9</span> <span class="m">20</span>:06 ?        <span class="m">00</span>:04:43 gedit
-jadi      <span class="m">7725</span>  <span class="m">7651</span>  <span class="m">0</span> <span class="m">20</span>:55 pts/1    <span class="m">00</span>:00:00 grep gedit
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-ef<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>gedit
+jadi<span class="w">      </span><span class="m">6213</span><span class="w">  </span><span class="m">4604</span><span class="w">  </span><span class="m">9</span><span class="w"> </span><span class="m">20</span>:06<span class="w"> </span>?<span class="w">        </span><span class="m">00</span>:04:43<span class="w"> </span>gedit
+jadi<span class="w">      </span><span class="m">7725</span><span class="w">  </span><span class="m">7651</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">20</span>:55<span class="w"> </span>pts/1<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>grep<span class="w"> </span>gedit
 </code></pre></div>
 
 <p>but there is also a more direct way to check the PID of all gedit processes:</p>
-<div class="highlight"><pre><span></span><code>$ pgrep gedit 
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>pgrep<span class="w"> </span>gedit<span class="w"> </span>
 <span class="m">6213</span>
 </code></pre></div>
 
@@ -326,22 +326,22 @@ jadi      <span class="m">7725</span>  <span class="m">7651</span>  <span class=
 <p>This is the most common tool to do simple monitoring of the system. It will update the status and will give you a good glance at the status:</p>
 <div class="highlight"><pre><span></span><code><span class="o">$</span><span class="n">top</span>
 
-<span class="n">top</span> <span class="o">-</span> <span class="mi">21</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">44</span> <span class="n">up</span>  <span class="mi">1</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span>  <span class="mi">5</span> <span class="n">users</span><span class="p">,</span>  <span class="nb">load</span> <span class="n">average</span><span class="p">:</span> <span class="mf">1.51</span><span class="p">,</span> <span class="mf">1.65</span><span class="p">,</span> <span class="mf">1.78</span>
-<span class="n">Tasks</span><span class="p">:</span> <span class="mi">293</span> <span class="n">total</span><span class="p">,</span>   <span class="mi">1</span> <span class="n">running</span><span class="p">,</span> <span class="mi">292</span> <span class="n">sleeping</span><span class="p">,</span>   <span class="mi">0</span> <span class="n">stopped</span><span class="p">,</span>   <span class="mi">0</span> <span class="n">zombie</span>
-<span class="o">%</span><span class="n">Cpu</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="mf">19.0</span> <span class="n">us</span><span class="p">,</span>  <span class="mf">5.0</span> <span class="n">sy</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">ni</span><span class="p">,</span> <span class="mf">70.9</span> <span class="n">id</span><span class="p">,</span>  <span class="mf">5.1</span> <span class="n">wa</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">hi</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">si</span><span class="p">,</span>  <span class="mf">0.0</span> <span class="n">st</span>
-<span class="n">KiB</span> <span class="n">Mem</span><span class="p">:</span>   <span class="mi">8060264</span> <span class="n">total</span><span class="p">,</span>  <span class="mi">5359812</span> <span class="n">used</span><span class="p">,</span>  <span class="mi">2700452</span> <span class="n">free</span><span class="p">,</span>   <span class="mi">169240</span> <span class="n">buffers</span>
-<span class="n">KiB</span> <span class="n">Swap</span><span class="p">:</span>  <span class="mi">7811068</span> <span class="n">total</span><span class="p">,</span>        <span class="mi">0</span> <span class="n">used</span><span class="p">,</span>  <span class="mi">7811068</span> <span class="n">free</span><span class="o">.</span>  <span class="mi">2250692</span> <span class="n">cached</span> <span class="n">Mem</span>
+<span class="n">top</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">21</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">44</span><span class="w"> </span><span class="n">up</span><span class="w">  </span><span class="mi">1</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="w">  </span><span class="mi">5</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w">  </span><span class="nb">load</span><span class="w"> </span><span class="n">average</span><span class="p">:</span><span class="w"> </span><span class="mf">1.51</span><span class="p">,</span><span class="w"> </span><span class="mf">1.65</span><span class="p">,</span><span class="w"> </span><span class="mf">1.78</span>
+<span class="n">Tasks</span><span class="p">:</span><span class="w"> </span><span class="mi">293</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w">   </span><span class="mi">1</span><span class="w"> </span><span class="n">running</span><span class="p">,</span><span class="w"> </span><span class="mi">292</span><span class="w"> </span><span class="n">sleeping</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="n">stopped</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="n">zombie</span>
+<span class="o">%</span><span class="n">Cpu</span><span class="p">(</span><span class="n">s</span><span class="p">):</span><span class="w"> </span><span class="mf">19.0</span><span class="w"> </span><span class="n">us</span><span class="p">,</span><span class="w">  </span><span class="mf">5.0</span><span class="w"> </span><span class="n">sy</span><span class="p">,</span><span class="w">  </span><span class="mf">0.0</span><span class="w"> </span><span class="n">ni</span><span class="p">,</span><span class="w"> </span><span class="mf">70.9</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w">  </span><span class="mf">5.1</span><span class="w"> </span><span class="n">wa</span><span class="p">,</span><span class="w">  </span><span class="mf">0.0</span><span class="w"> </span><span class="n">hi</span><span class="p">,</span><span class="w">  </span><span class="mf">0.0</span><span class="w"> </span><span class="n">si</span><span class="p">,</span><span class="w">  </span><span class="mf">0.0</span><span class="w"> </span><span class="n">st</span>
+<span class="n">KiB</span><span class="w"> </span><span class="n">Mem</span><span class="p">:</span><span class="w">   </span><span class="mi">8060264</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w">  </span><span class="mi">5359812</span><span class="w"> </span><span class="n">used</span><span class="p">,</span><span class="w">  </span><span class="mi">2700452</span><span class="w"> </span><span class="n">free</span><span class="p">,</span><span class="w">   </span><span class="mi">169240</span><span class="w"> </span><span class="n">buffers</span>
+<span class="n">KiB</span><span class="w"> </span><span class="n">Swap</span><span class="p">:</span><span class="w">  </span><span class="mi">7811068</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w">        </span><span class="mi">0</span><span class="w"> </span><span class="n">used</span><span class="p">,</span><span class="w">  </span><span class="mi">7811068</span><span class="w"> </span><span class="n">free</span><span class="o">.</span><span class="w">  </span><span class="mi">2250692</span><span class="w"> </span><span class="n">cached</span><span class="w"> </span><span class="n">Mem</span>
 
-  <span class="n">PID</span> <span class="n">USER</span>      <span class="n">PR</span>  <span class="n">NI</span>    <span class="n">VIRT</span>    <span class="n">RES</span>    <span class="n">SHR</span> <span class="n">S</span>  <span class="o">%</span><span class="n">CPU</span> <span class="o">%</span><span class="n">MEM</span>     <span class="n">TIME</span><span class="o">+</span> <span class="n">COMMAND</span>                                                                                                                
- <span class="mi">6570</span> <span class="n">jadi</span>      <span class="mi">20</span>   <span class="mi">0</span> <span class="mi">1437752</span> <span class="mi">546064</span>  <span class="mi">88312</span> <span class="n">S</span>  <span class="mf">18.4</span>  <span class="mf">6.8</span>  <span class="mi">12</span><span class="p">:</span><span class="mf">00.96</span> <span class="n">firefox</span>                                                                                                                
- <span class="mi">4870</span> <span class="n">jadi</span>      <span class="mi">20</span>   <span class="mi">0</span> <span class="mi">1762516</span> <span class="mi">299120</span>  <span class="mi">75664</span> <span class="n">S</span>  <span class="mf">12.2</span>  <span class="mf">3.7</span>   <span class="mi">7</span><span class="p">:</span><span class="mf">37.05</span> <span class="n">compiz</span>                                                                                                                 
- <span class="mi">4492</span> <span class="n">jadi</span>       <span class="mi">9</span> <span class="o">-</span><span class="mi">11</span>  <span class="mi">455152</span>  <span class="mi">11516</span>   <span class="mi">8940</span> <span class="n">S</span>   <span class="mf">6.1</span>  <span class="mf">0.1</span>   <span class="mi">1</span><span class="p">:</span><span class="mf">06.81</span> <span class="n">pulseaudio</span>                                                                                                             
- <span class="mi">4532</span> <span class="n">root</span>      <span class="mi">20</span>   <span class="mi">0</span>  <span class="mi">389028</span>  <span class="mi">77116</span>  <span class="mi">60192</span> <span class="n">S</span>   <span class="mf">6.1</span>  <span class="mf">1.0</span>  <span class="mi">12</span><span class="p">:</span><span class="mf">16.63</span> <span class="n">Xorg</span>                                                                                                                   
- <span class="mi">4723</span> <span class="n">jadi</span>      <span class="mi">20</span>   <span class="mi">0</span>  <span class="mi">358936</span>   <span class="mi">8288</span>   <span class="mi">5512</span> <span class="n">S</span>   <span class="mf">6.1</span>  <span class="mf">0.1</span>   <span class="mi">9</span><span class="p">:</span><span class="mf">51.52</span> <span class="n">ibus</span><span class="o">-</span><span class="n">daemon</span>                                                                                                            
- <span class="mi">5648</span> <span class="n">jadi</span>      <span class="mi">20</span>   <span class="mi">0</span> <span class="mi">1641556</span> <span class="mi">203676</span> <span class="mi">102840</span> <span class="n">S</span>   <span class="mf">6.1</span>  <span class="mf">2.5</span>   <span class="mi">3</span><span class="p">:</span><span class="mf">20.88</span> <span class="n">chrome</span>                                                                                                                 
- <span class="mi">7082</span> <span class="n">jadi</span>      <span class="mi">20</span>   <span class="mi">0</span> <span class="mi">1210748</span>  <span class="mi">73136</span>  <span class="mi">42528</span> <span class="n">S</span>   <span class="mf">6.1</span>  <span class="mf">0.9</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">36.51</span> <span class="n">Telegram</span>                                                                                                               
- <span class="mi">7806</span> <span class="n">jadi</span>      <span class="mi">20</span>   <span class="mi">0</span>   <span class="mi">33796</span>   <span class="mi">3004</span>   <span class="mi">2500</span> <span class="n">R</span>   <span class="mf">6.1</span>  <span class="mf">0.0</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">00.02</span> <span class="n">top</span>                                                                                                                    
-    <span class="mi">1</span> <span class="n">root</span>      <span class="mi">20</span>   <span class="mi">0</span>   <span class="mi">29528</span>   <span class="mi">4320</span>   <span class="mi">2584</span> <span class="n">S</span>   <span class="mf">0.0</span>  <span class="mf">0.1</span>   <span class="mi">0</span><span class="p">:</span><span class="mf">01.71</span> <span class="n">init</span>
+<span class="w">  </span><span class="n">PID</span><span class="w"> </span><span class="n">USER</span><span class="w">      </span><span class="n">PR</span><span class="w">  </span><span class="n">NI</span><span class="w">    </span><span class="n">VIRT</span><span class="w">    </span><span class="n">RES</span><span class="w">    </span><span class="n">SHR</span><span class="w"> </span><span class="n">S</span><span class="w">  </span><span class="o">%</span><span class="n">CPU</span><span class="w"> </span><span class="o">%</span><span class="n">MEM</span><span class="w">     </span><span class="n">TIME</span><span class="o">+</span><span class="w"> </span><span class="n">COMMAND</span><span class="w">                                                                                                                </span>
+<span class="w"> </span><span class="mi">6570</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="mi">1437752</span><span class="w"> </span><span class="mi">546064</span><span class="w">  </span><span class="mi">88312</span><span class="w"> </span><span class="n">S</span><span class="w">  </span><span class="mf">18.4</span><span class="w">  </span><span class="mf">6.8</span><span class="w">  </span><span class="mi">12</span><span class="p">:</span><span class="mf">00.96</span><span class="w"> </span><span class="n">firefox</span><span class="w">                                                                                                                </span>
+<span class="w"> </span><span class="mi">4870</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="mi">1762516</span><span class="w"> </span><span class="mi">299120</span><span class="w">  </span><span class="mi">75664</span><span class="w"> </span><span class="n">S</span><span class="w">  </span><span class="mf">12.2</span><span class="w">  </span><span class="mf">3.7</span><span class="w">   </span><span class="mi">7</span><span class="p">:</span><span class="mf">37.05</span><span class="w"> </span><span class="n">compiz</span><span class="w">                                                                                                                 </span>
+<span class="w"> </span><span class="mi">4492</span><span class="w"> </span><span class="n">jadi</span><span class="w">       </span><span class="mi">9</span><span class="w"> </span><span class="o">-</span><span class="mi">11</span><span class="w">  </span><span class="mi">455152</span><span class="w">  </span><span class="mi">11516</span><span class="w">   </span><span class="mi">8940</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">0.1</span><span class="w">   </span><span class="mi">1</span><span class="p">:</span><span class="mf">06.81</span><span class="w"> </span><span class="n">pulseaudio</span><span class="w">                                                                                                             </span>
+<span class="w"> </span><span class="mi">4532</span><span class="w"> </span><span class="n">root</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w">  </span><span class="mi">389028</span><span class="w">  </span><span class="mi">77116</span><span class="w">  </span><span class="mi">60192</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">1.0</span><span class="w">  </span><span class="mi">12</span><span class="p">:</span><span class="mf">16.63</span><span class="w"> </span><span class="n">Xorg</span><span class="w">                                                                                                                   </span>
+<span class="w"> </span><span class="mi">4723</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w">  </span><span class="mi">358936</span><span class="w">   </span><span class="mi">8288</span><span class="w">   </span><span class="mi">5512</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">0.1</span><span class="w">   </span><span class="mi">9</span><span class="p">:</span><span class="mf">51.52</span><span class="w"> </span><span class="n">ibus</span><span class="o">-</span><span class="n">daemon</span><span class="w">                                                                                                            </span>
+<span class="w"> </span><span class="mi">5648</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="mi">1641556</span><span class="w"> </span><span class="mi">203676</span><span class="w"> </span><span class="mi">102840</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">2.5</span><span class="w">   </span><span class="mi">3</span><span class="p">:</span><span class="mf">20.88</span><span class="w"> </span><span class="n">chrome</span><span class="w">                                                                                                                 </span>
+<span class="w"> </span><span class="mi">7082</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="mi">1210748</span><span class="w">  </span><span class="mi">73136</span><span class="w">  </span><span class="mi">42528</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">0.9</span><span class="w">   </span><span class="mi">0</span><span class="p">:</span><span class="mf">36.51</span><span class="w"> </span><span class="n">Telegram</span><span class="w">                                                                                                               </span>
+<span class="w"> </span><span class="mi">7806</span><span class="w"> </span><span class="n">jadi</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w">   </span><span class="mi">33796</span><span class="w">   </span><span class="mi">3004</span><span class="w">   </span><span class="mi">2500</span><span class="w"> </span><span class="n">R</span><span class="w">   </span><span class="mf">6.1</span><span class="w">  </span><span class="mf">0.0</span><span class="w">   </span><span class="mi">0</span><span class="p">:</span><span class="mf">00.02</span><span class="w"> </span><span class="n">top</span><span class="w">                                                                                                                    </span>
+<span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="n">root</span><span class="w">      </span><span class="mi">20</span><span class="w">   </span><span class="mi">0</span><span class="w">   </span><span class="mi">29528</span><span class="w">   </span><span class="mi">4320</span><span class="w">   </span><span class="mi">2584</span><span class="w"> </span><span class="n">S</span><span class="w">   </span><span class="mf">0.0</span><span class="w">  </span><span class="mf">0.1</span><span class="w">   </span><span class="mi">0</span><span class="p">:</span><span class="mf">01.71</span><span class="w"> </span><span class="n">init</span>
 </code></pre></div>
 
 <p>You can see the processes, system load, uptime, CPU status, memory, ... and do some stuff:</p>
@@ -377,11 +377,11 @@ jadi      <span class="m">7725</span>  <span class="m">7651</span>  <span class=
 </table>
 <h3>free</h3>
 <p>The <code>free</code> command will show you info about the system memory. The default is <em>kilobytes</em> but you can change it with <code>-m</code> for megabytes, <code>-g</code> for <em>gigabytes</em> or even <code>-b</code> for bytes. You can also use the <code>-h</code> for <strong>human readable</strong>. </p>
-<div class="highlight"><pre><span></span><code>$ free -m
-             total       used       free     shared    buffers     cached
-Mem:          <span class="m">7871</span>       <span class="m">5231</span>       <span class="m">2640</span>        <span class="m">332</span>        <span class="m">169</span>       <span class="m">2195</span>
--/+ buffers/cache:       <span class="m">2866</span>       <span class="m">5005</span>
-Swap:         <span class="m">7627</span>          <span class="m">0</span>       <span class="m">7627</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>free<span class="w"> </span>-m
+<span class="w">             </span>total<span class="w">       </span>used<span class="w">       </span>free<span class="w">     </span>shared<span class="w">    </span>buffers<span class="w">     </span>cached
+Mem:<span class="w">          </span><span class="m">7871</span><span class="w">       </span><span class="m">5231</span><span class="w">       </span><span class="m">2640</span><span class="w">        </span><span class="m">332</span><span class="w">        </span><span class="m">169</span><span class="w">       </span><span class="m">2195</span>
+-/+<span class="w"> </span>buffers/cache:<span class="w">       </span><span class="m">2866</span><span class="w">       </span><span class="m">5005</span>
+Swap:<span class="w">         </span><span class="m">7627</span><span class="w">          </span><span class="m">0</span><span class="w">       </span><span class="m">7627</span>
 </code></pre></div>
 
 <blockquote>
@@ -389,8 +389,8 @@ Swap:         <span class="m">7627</span>          <span class="m">0</span>     
 </blockquote>
 <h3>uptime</h3>
 <p>The <code>uptime</code> command shows the time, systems uptime (how long the system has been running), how many users are logged in, and the load average of 1, 5 &amp; 15 minutes:</p>
-<div class="highlight"><pre><span></span><code><span class="o">$</span> <span class="n">uptime</span>
- <span class="mi">21</span><span class="p">:</span><span class="mi">18</span><span class="p">:</span><span class="mi">52</span> <span class="n">up</span>  <span class="mi">1</span><span class="p">:</span><span class="mi">34</span><span class="p">,</span>  <span class="mi">5</span> <span class="n">users</span><span class="p">,</span>  <span class="nb">load</span> <span class="n">average</span><span class="p">:</span> <span class="mf">2.38</span><span class="p">,</span> <span class="mf">2.64</span><span class="p">,</span> <span class="mf">2.41</span>
+<div class="highlight"><pre><span></span><code><span class="o">$</span><span class="w"> </span><span class="n">uptime</span>
+<span class="w"> </span><span class="mi">21</span><span class="p">:</span><span class="mi">18</span><span class="p">:</span><span class="mi">52</span><span class="w"> </span><span class="n">up</span><span class="w">  </span><span class="mi">1</span><span class="p">:</span><span class="mi">34</span><span class="p">,</span><span class="w">  </span><span class="mi">5</span><span class="w"> </span><span class="n">users</span><span class="p">,</span><span class="w">  </span><span class="nb">load</span><span class="w"> </span><span class="n">average</span><span class="p">:</span><span class="w"> </span><span class="mf">2.38</span><span class="p">,</span><span class="w"> </span><span class="mf">2.64</span><span class="p">,</span><span class="w"> </span><span class="mf">2.41</span>
 </code></pre></div>
 
 <blockquote>
@@ -398,11 +398,11 @@ Swap:         <span class="m">7627</span>          <span class="m">0</span>     
 </blockquote>
 <h3>watch</h3>
 <p>Sometimes you have a command which shows you an output but you want to keep running it and observing the output. In these cases, the <code>watch</code> is your friend. It lets you run and check the output of a command in specific time intervals (default is 2 seconds). </p>
-<div class="highlight"><pre><span></span><code>$ watch free -h
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>watch<span class="w"> </span>free<span class="w"> </span>-h
 </code></pre></div>
 
 <p>If you have a pipe in your command, you have to quote the watched command in double-quote <code>"</code> or single-quote <code>'</code>:</p>
-<div class="highlight"><pre><span></span><code>$ watch <span class="s2">&quot;ls -ltrh | wc -l&quot;</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>watch<span class="w"> </span><span class="s2">&quot;ls -ltrh | wc -l&quot;</span>
 </code></pre></div>
 
 <p>These are some of the switches:</p>

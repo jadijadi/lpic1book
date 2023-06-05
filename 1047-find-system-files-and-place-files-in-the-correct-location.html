@@ -217,9 +217,9 @@ jadi@ubuntuserver:~$ which -a ping
 <p>use the <code>-a</code> switch to show all appearance in the path and not only the first one.</p>
 </blockquote>
 <p>But where is the <code>cd</code> command?</p>
-<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@ubuntuserver</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">cd</span><span class="w"></span>
-<span class="n">jadi</span><span class="nv">@ubuntuserver</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">cd</span><span class="w"></span>
-<span class="n">cd</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">shell</span><span class="w"> </span><span class="n">builtin</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">jadi</span><span class="err">@</span><span class="nx">ubuntuserver</span><span class="p">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="nx">which</span><span class="w"> </span><span class="nx">cd</span>
+<span class="nx">jadi</span><span class="err">@</span><span class="nx">ubuntuserver</span><span class="p">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="nx">cd</span>
+<span class="nx">cd</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">shell</span><span class="w"> </span><span class="nx">builtin</span>
 </code></pre></div>
 
 <p>As you can see, <code>which</code> did not find anything for <code>cd</code>, so we tried it with <code>type</code> to see what the h**l it is.</p>
@@ -258,14 +258,14 @@ mkfs: /usr/sbin/mkfs /usr/share/man/man8/mkfs.8.gz
 <p>Like other <em>tests</em>, you can add a <code>!</code> just before any phrase to negate it. So this will find files <strong>not belonging</strong> to jadi: <code>find . ! -user jadi</code></p>
 </blockquote>
 <p>It is also very common to use for files with specific strings in their names:</p>
-<div class="highlight"><pre><span></span><code>$ sudo find /etc -iname <span class="s2">&quot;*vmware*&quot;</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>find<span class="w"> </span>/etc<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*vmware*&quot;</span>
 /etc/vmware-tools
 /etc/vmware-tools/scripts/vmware
 </code></pre></div>
 
 <h3>locate &amp; updatedb</h3>
 <p>You tries <code>find</code> and loved it but there is an issue with it: it does a live active search! This can slow down your system or push too much pressure on your hard or on larger file systems take too long. To solve this, there is a faster command:</p>
-<div class="highlight"><pre><span></span><code>$ locate networking
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>locate<span class="w"> </span>networking
 /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg
 /snap/core20/1408/usr/lib/python3/dist-packages/cloudinit/distros/networking.py
 /snap/core20/1408/usr/lib/python3/dist-packages/cloudinit/distros/__pycache__/networking.cpython-38.pyc
@@ -278,16 +278,16 @@ mkfs: /usr/sbin/mkfs /usr/share/man/man8/mkfs.8.gz
 </code></pre></div>
 
 <p>And it is fast:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">time</span> locate kernel / <span class="p">|</span> wc -l
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">time</span><span class="w"> </span>locate<span class="w"> </span>kernel<span class="w"> </span>/<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
 <span class="m">16989</span>
 
-real    0m0.091s
-user    0m0.094s
-sys 0m0.034s
+real<span class="w">    </span>0m0.091s
+user<span class="w">    </span>0m0.094s
+sys<span class="w"> </span>0m0.034s
 </code></pre></div>
 
 <p>This is fast because its data comes from a database created with <code>updatedb</code> (its package is called <code>plocate</code> on debian). Usually this command runs automatically (with a cronjob) on a daily basis. Its configuration file is <code>/etc/updatedb.conf</code> or <code>/etc/sysconfig/locate</code>:</p>
-<div class="highlight"><pre><span></span><code>$ cat /etc/updatedb.conf
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/updatedb.conf
 <span class="nv">PRUNE_BIND_MOUNTS</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span>
 <span class="c1"># PRUNENAMES=&quot;.git .bzr .hg .svn&quot;</span>
 <span class="nv">PRUNEPATHS</span><span class="o">=</span><span class="s2">&quot;/tmp /var/spool /media /home/.ecryptfs&quot;</span>
