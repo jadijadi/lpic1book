@@ -33,6 +33,8 @@ Candidates should be able to add, remove, suspend and change user accounts.
 * userdel
 * usermod
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xXQ1pw2sAQs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## Passwords
 ### Changing Passwords
 Each user can change her password using the `passwd` command:
@@ -120,7 +122,10 @@ adds a group called _newgroup_ with id 1200. If needed, the root user can change
 Obviously if root deletes a group with members, people wont be deleted! They will just wont be the members of that group anymore.
 
 > In most systems, the user id or group id's of the users and groups created by the admin will have the id of 1000, 1001, 1002, ...
-### Files managing users and groups
+
+
+### Files related to users and groups
+<iframe width="560" height="315" src="https://www.youtube.com/embed/V69h5V5wdTw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### /etc/passwd
 
