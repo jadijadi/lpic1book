@@ -147,7 +147,7 @@ privoxy:x:484:480:Daemon user for privoxy:/var/lib/privoxy:/bin/false
 As you can see the format is:
 
 ```text
-username:x:password:userid:primary group id:Name and comments:home dir:shell
+username:x:userid:primary group id:Name and comments:home dir:shell
 ```
 
 As you can see, the 2nd field is shown as "x" here. In the old days the password or the hashed password of the user was shown in this file but nowadays that is moved to the /etc/shadow file.
