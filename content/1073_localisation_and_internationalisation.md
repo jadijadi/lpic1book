@@ -35,6 +35,8 @@ Candidates should be able to localise a system in a different language than Engl
 * ASCII
 * Unicode
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kqoipsM7AMA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ### timezone
 The earth is large and round so we have different timezones and different languages! There are even talks about a time zone for Mars and if we encounter aliens, they might also have their own languages. 
 
