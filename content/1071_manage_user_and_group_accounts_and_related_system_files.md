@@ -95,9 +95,9 @@ To modify a user, you should use the `usermod` command. It supports most of the 
 | :--- | :--- |
 | -L | lock this account |
 | -U | Unlock the account |
-| -aG | add to more groups \(say `usermod -aG wheel jadi`\) |
+| -aG | append to more groups \(say `usermod -aG wheel jadi`\) |
 
-> Note: If you do `usermod -G wheel,users jadi`, jadi will be the member of these two groups ONLY. That is why we use `-aG newgoup` to *add to groups* to add this group to jadi's groups. `-G` is like saying "jadi's groups are ..." and `-aG` is like "add jadi to these groups".
+> Note: If you do `usermod -G wheel,users jadi`, jadi will be the member of these two groups ONLY. That is why we use `-aG newgoup` to *append to groups* to add this group to jadi's groups. `-G` is like saying "jadi's groups are ..." and `-aG` is like "add jadi to these groups too".
 
 #### Deleting users
 
@@ -107,7 +107,7 @@ If you want to remove a user, use `userdel`. Straight forward:
 userdel jadi
 ```
 
-If you add the `-r` swtich, the home direcoty and mail spool will be erased too!
+If you add the `-r` switch, the home directory and mail spool will be erased too!
 
 ### Managing Groups
 
@@ -127,7 +127,7 @@ Obviously if root deletes a group with members, people wont be deleted! They wil
 ### Files related to users and groups
 <iframe width="560" height="315" src="https://www.youtube.com/embed/V69h5V5wdTw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-#### /etc/passwd
+#### `/etc/passwd`
 
 This file contains all the user information on your system:
 
@@ -150,13 +150,13 @@ As you can see the format is:
 username:x:userid:primary group id:Name and comments:home dir:shell
 ```
 
-As you can see, the 2nd field is shown as "x" here. In the old days the password or the hashed password of the user was shown in this file but nowadays that is moved to the /etc/shadow file.
+As you can see, the 2nd field is shown as "`x`" here. In the old days the password or the hashed password of the user was shown in this file but nowadays that is moved to the `/etc/shadow` file.
 
 > Note: /etc/passwd should be readable to all users and this makes it a very bad place to keep users password! Thats why we see a `x` instead of the password, this indicates that the main passwords should be looked up from `/etc/shadow` file.
 
-Note how _special users_ like lightdm are having /bin/false as their shell; this prevents them from logging into the system for real. In old days hackers used to try these accounts to login.
+Note how _special users_ like `lightdm` have `/bin/false` as their shell; this prevents them from logging into the system for real. In old days hackers used to try these accounts to login.
 
-#### /etc/shadow
+#### `/etc/shadow`
 
 This file contains password \(hashed passwords\) of the users. See how the `/etc/passwd` is readable for all but `/etc/shadow` is only readable for root and members of the `shadow` group:
 
@@ -182,7 +182,7 @@ privoxy:!:19473::::::
 ```
 
 
-Wow! Jadi has an encrypted password there. Some numbers are following that encrypted password too: **16737:0:99999:7:::**. What do the mean? The following table tells you.
+Wow! Jadi has an encrypted password there. Some numbers are following that encrypted password too: **`16737:0:99999:7:::`**. What do the mean? The following table tells you.
 
 | filed | meaning |
 | :--- | :--- |
@@ -191,12 +191,12 @@ Wow! Jadi has an encrypted password there. Some numbers are following that encry
 | 99999 | After this many days, the user HAVE to change his password |
 | 7 | ...and the user will be informed 7 days before the expiration to change his password |
 
-> Note: there numbers are "days after 1st of January 1970" or the Epoch time in days. For example 16737 means 16373 days after 1st Jan 1970. Strange but practical!
+> Note: there numbers are "days after 1st of January 1970" or the Epoch time in days. For example 16737 means 16737 days after 1st Jan 1970. Strange but practical!
 
 But we do not need to change these strange number manually. If needed, we can use the `chage` tool to change these numbers. If you issue the `chage jadi` the system will prompt you for all the parameters one by one. Also it is possible to use switches to change specific parameters on command line.
 
 | switch | meaning |
-| :--- | :--- |
+| :---: | :--- |
 | -l | list information |
 | -E | Set the expiration date. Date can be a number, in YYYY-MM-DD format or -1 which will mean _never_ |
 
@@ -212,7 +212,7 @@ Number of days of warning before password expires    : 7
 ```
 > Note: `!` means the account is locked and the user can not login into the system using the account. On some systems (like RedHat) you may also see `!!` which means the account has never been used.
 
-#### /etc/group
+#### `/etc/group`
 
 This file contains the groups and their IDs.
 
@@ -240,7 +240,7 @@ Previously you saw the `chage -l jadi` but there are more commands for checking 
 uid=1000(jadi) gid=100(users) groups=1000(input),100(users)
 ```
 
-Another solution is `getent` \(for **get entry**\). It can query important _databases_ for specific entries. These databases include /etc/passwd, /etc/hosts, /etc/shadow, /etc/group, ...
+Another solution is `getent` \(for **get entry**\). It can query important _databases_ for specific entries. These databases include `/etc/passwd`, `/etc/hosts`, `/etc/shadow`, `/etc/group`, ...
 
 ```text
 funlife:~ # getent group tor

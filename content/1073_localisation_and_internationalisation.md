@@ -9,7 +9,7 @@ Summary:
 
 _Weight: 3_
 
-Candidates should be able to localise a system in a different language than English. As well, an understanding of why LANG=C is useful when scripting.
+Candidates should be able to localise a system in a different language than English. As well, an understanding of why `LANG=C` is useful when scripting.
 
 ### Key Knowledge Areas
 
@@ -18,18 +18,18 @@ Candidates should be able to localise a system in a different language than Engl
 
 ### Terms and Utilities
 
-* /etc/timezone
-* /etc/localtime
-* /usr/share/zoneinfo/
-* LC_*
-* LC_ALL
-* LANG
-* TZ
-* /usr/bin/locale
-* tzselect
-* timedatectl
-* date
-* iconv
+* `/etc/timezone`
+* `/etc/localtime`
+* `/usr/share/zoneinfo/`
+* `LC_*`
+* `LC_ALL`
+* `LANG`
+* `TZ`
+* `/usr/bin/locale`
+* `tzselect`
+* `timedatectl`
+* `date`
+* `iconv`
 * UTF-8
 * ISO-8859
 * ASCII
@@ -38,7 +38,7 @@ Candidates should be able to localise a system in a different language than Engl
 <iframe width="560" height="315" src="https://www.youtube.com/embed/kqoipsM7AMA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### timezone
-The earth is large and round so we have different timezones and different languages! There are even talks about a time zone for Mars and if we encounter aliens, they might also have their own languages. 
+The earth is large and round so we have different ***timezones*** and different ***languages***! There are even talks about a time zone for Mars and if we encounter aliens, they might also have their own languages. 
 
 This makes a few problems:
 1. we may prefer our local language for our Linux
@@ -164,7 +164,7 @@ These are environment variables telling system what languages to use. Here I'm u
 
 > UTF-8 and other encodings will be discussed a bit later in this chapter
 
-Other variables you see above, tell the system how to show different things based on localisation systems. For example if we change the LC\_TIME to "en\_GB.UTF-8" the time will be printed in Great Britain format.
+Other variables you see above, tell the system how to show different things based on localisation systems. For example if we change the `LC_TIME` to `"en\_GB.UTF-8"` the time will be printed in Great Britain format.
 
 Another important settings is `LC_ALL`. It can be used to change **ALL** settings. If you do a `export LC_ALL=fa_IR.UTF-8`, all the settings will be set to that one, with no exception. It is always possible to `unset LC_ALL`.
 
