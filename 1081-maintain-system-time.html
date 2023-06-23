@@ -88,10 +88,6 @@
         <div class="span8 offset2 article-content">
             
             <h2>108.1 Maintain system time</h2>
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
 <p><em>Weight: 3</em></p>
 <p>Candidates should be able to properly maintain the system time and synchronize the clock via NTP.</p>
 <h3>Key Knowledge Areas</h3>
@@ -99,7 +95,7 @@
 <li>Set the system date and time.</li>
 <li>Set the hardware clock to the correct time in UTC.</li>
 <li>Configure the correct timezone.</li>
-<li>Basic NTP configuration.</li>
+<li>Basic NTP configuration using ntpd and chrony..</li>
 <li>Knowledge of using the pool.ntp.org service.</li>
 <li>Awareness of the ntpq command.</li>
 </ul>
@@ -109,53 +105,65 @@
 <li>/etc/timezone</li>
 <li>/etc/localtime</li>
 <li>/etc/ntp.conf</li>
+<li>/etc/chrony.conf</li>
 <li>date</li>
 <li>hwclock</li>
 <li>ntpd</li>
 <li>ntpdate</li>
+<li>chronyc</li>
 <li>pool.ntp.org</li>
 </ul>
 <h3>How a computer keeps its time</h3>
-<p>There is a clock in your computer; a hardware clock on your motherboard! It has its own battery and keeps the time even when the computer is off. When the system boots, the OS reads this <strong>hardware time</strong> and it sets its <strong>system time</strong> to the hardware clock and uses it from there on.</p>
-<p>Hardware clock can be the localtime (your computers timezone) or UTC time (standard time). You can check this by /etc/adjtime:</p>
-<div class="highlight"><pre><span></span><code>$ cat /etc/adjtime
-0.000000 1451741899 0.000000
-1451741899
-UTC
-</code></pre></div>
-
-<p>As you can see in my computer the time is set on UTC so the computers add my timezone difference each time it boots up to the hardware clock. The <code>hwclock</code> can be used to show the time based on the hwtime. See how it works based on the hardware time even after we DO CHANGE the system time:</p>
-<div class="highlight"><pre><span></span><code>root@funlife:~# date
-Mon Jan  4 22:01:18 IRST 2016
-# date -s &quot;Jan 4 22:22:22 2016&quot;
-Mon Jan  4 22:22:22 IRST 2016
-root@funlife:~# date
-Mon Jan  4 22:02:18 IRST 2016
-root@funlife:~# hwclock
-Mon 04 Jan 2016 10:02:21 PM IRST  .108596 seconds
+<p>There is a clock in your computer; a hardware clock on your motherboard! It has its own battery and keeps the time even when the computer is off. When the system boots, the OS reads this <strong>hardware time</strong> and it sets it's own <strong>system time</strong> based on the hardware clock and uses this clock whenever it needs to know the time.</p>
+<p>Hardware clock can be the set on localtime (the time shown on your clock whenever you are) or UTC time (standard time). The <code>hwclock</code> can be used to show the time based on the hwtime. See how it works based on the hardware time even after we DO CHANGE the system time:</p>
+<div class="highlight"><pre><span></span><code>$ date
+Fri Jun <span class="m">23</span> <span class="m">01</span>:47:22 PM +0330 <span class="m">2023</span>
+$ sudo date -s <span class="s2">&quot;Jan 22 22:22:22 2022&quot;</span>
+Sat Jan <span class="m">22</span> <span class="m">10</span>:22:22 PM +0330 <span class="m">2022</span>
+$ date
+Sat Jan <span class="m">22</span> <span class="m">10</span>:22:29 PM +0330 <span class="m">2022</span>
+$ sudo hwclock 
+<span class="m">2023</span>-06-23 <span class="m">13</span>:47:41.160122+03:30
 </code></pre></div>
 
 <blockquote>
 <p>Even when the hardware clock is set on UTC, <code>hwclock</code> date shows the date in the localtime (time after adding the timezone to the UTC time)</p>
 </blockquote>
 <p>Older OSs used to set the hardware clock on localtime zone instead of timezone. This can be achived by:</p>
-<div class="highlight"><pre><span></span><code># hwclock --localtime --set --date=&quot;01/05/2015 22:04:00&quot;
+<div class="highlight"><pre><span></span><code># hwclock --localtime --set --date=&quot;01/05/2023 22:04:00&quot;
 </code></pre></div>
 
-<p>If you want to fix it, just issue:</p>
+<p>The previous commands sets the hardware clock on that specific date and tell it that this is the localtime. If you want to change back to UTC time, issue:</p>
 <div class="highlight"><pre><span></span><code># hwclock -u -w
 </code></pre></div>
 
-<p>In this command <code>-u</code> tell the hardware clock that this is a UTC time and <code>-w</code> tells "sync with systemtime".</p>
-<h3>NTP</h3>
-<p>Network Time Protocol is my favorite protocol. It is one of the coolest protocols ever if you dive into its details. But unfortunately for LPIC1 you do not need to go into NTP depths. This protocol uses NTP servers to find out the accurate time shown by best atomic clocks on this planet. One of the most famous severs used by ntp people is <code>pool.ntp.org</code>. If you check that website you will see that it is a <strong>pool</strong> of ntp servers and by giving your NTP server the <code>pool.ntp.org</code>, it will be redirected to one of the many ntp servers available on that pool.</p>
-<h4>ntpdate</h4>
-<p>The most straight forward command to set the systemclock is <code>ntpdate</code> and used like this:</p>
-<div class="highlight"><pre><span></span><code># ntpdate pool.ntp.org
-4 Jan 22:15:02 ntpdate[18708]: adjust time server 194.225.150.25 offset -0.006527 sec
+<p>Here, <code>-w</code> tells the hwclock to set the hardware time based on the current system time and <code>-u</code> tells the hwclock that we are using the UTC. This also sets the HWClock using UTC int he <code>\etc\adjtime</code> file.</p>
+<blockquote>
+<p>If you set a time on the hardware clock wighout mentioning it being UTC / Local, the <code>/etc/adjtime</code> will decide this, if this file does not exists, the UTC will be used.</p>
+</blockquote>
+<p>You already now about the <code>timedatectl</code> and <code>date</code> from the <a href="http://linux1st.com/1073-localisation-and-internationalisation.html">Localization and globalization chapter</a> so I wont repeat them here.</p>
+<h3>Time Zones</h3>
+<p>We have seen time zones in previous chapters. But in short, there are two important files here.</p>
+<p>The <code>/etc/timezone</code> is a text file, representing your timezone. This is used if a program wants to know about your time zone of show it. For example:</p>
+<div class="highlight"><pre><span></span><code>$ cat /etc/timezone 
+Asia/Tehran
 </code></pre></div>
 
-<p>After this, we need to set the hwclock to the just corrected system time by <code>sudo hwclock -w</code>.</p>
+<p>But the <code>/etc/localtime</code> is a binary file describing your timezone info to the system (for example the <code>date</code> file):</p>
+<div class="highlight"><pre><span></span><code>$ ls -l /etc/localtime 
+lrwxrwxrwx <span class="m">1</span> root root <span class="m">31</span> Jun <span class="m">22</span> <span class="m">11</span>:19 /etc/localtime -&gt; /usr/share/zoneinfo/Asia/Tehran
+</code></pre></div>
+
+<p>In many cases, this is a soft link to a file located at <code>/etc/share/zoneinfo/</code> so it will be updated in case of system update.</p>
+<h3>NTP</h3>
+<p>Network Time Protocol is my personal favorite protocol. It is one of the coolest protocols ever if you dive into its details. But unfortunately for LPIC1 you do not need to dive into NTP depths. This protocol uses NTP servers to find out the accurate time shown by best atomic clocks on this planet. One of the most famous severs used by ntp people is <code>pool.ntp.org</code>. If you check that website you will see that it is a <strong>pool</strong> of ntp servers and by giving your NTP server the <code>pool.ntp.org</code>, it will be redirected to one of the many ntp servers available on that pool.</p>
+<h4>ntpdate</h4>
+<p>The most straight forward command to set the systemclock is <code>ntpdate</code> and used like this:</p>
+<div class="highlight"><pre><span></span><code>$ sudo ntpdate pool.ntp.org
+<span class="m">23</span> Jun <span class="m">14</span>:49:55 ntpdate<span class="o">[</span><span class="m">160138</span><span class="o">]</span>: adjust <span class="nb">time</span> server <span class="m">31</span>.214.170.254 offset +0.020196 sec
+</code></pre></div>
+
+<p>After this, we need to set the hwclock to the recently synced system time using <code>sudo hwclock -w</code>.</p>
 <h4>ntpd</h4>
 <p>Instead of manually setting the time each time, you can use a linux service called <code>ntp</code> to keep your time using some time servers (the most famous one is pool.ntp.org). Install the <code>ntp</code> and start the server:</p>
 <div class="highlight"><pre><span></span><code># apt install ntp
@@ -164,7 +172,7 @@ Mon 04 Jan 2016 10:02:21 PM IRST  .108596 seconds
 
 <p>Fun fact? you can not use both! Look at this:</p>
 <div class="highlight"><pre><span></span><code>root@funlife:~# ntpdate pool.ntp.org
- 4 Jan 22:14:25 ntpdate[18670]: the NTP socket is in use, exiting
+23 Jun 14:49:55 ntpdate[18670]: the NTP socket is in use, exiting
 </code></pre></div>
 
 <p>As you can see, now the <code>ntp</code> is using the NTP port and <code>ntpdate</code> has problems starting up.</p>
@@ -229,8 +237,8 @@ restrict source notrap nomodify noquery
 #broadcastclient
 </code></pre></div>
 
-<p>If needed, you can change the ntp servers to the ntp servers you want to use.</p>
-<p>Review the configuration and you will see cool things like giving the ntp service to other computers although you do not need it for passing LPIC.</p>
+<p>If needed, you can change the ntp servers to the ones you want to use.</p>
+<p>Review the configuration and you will see cool things like providing your ntp service to other computers although you do not need these for passing LPIC.</p>
 <h4>ntpq</h4>
 <p>The <code>ntpq</code> queries the ntp service. One famous switch is <code>-p</code> (for Print) that shows the pool we are using to sync the clock:</p>
 <div class="highlight"><pre><span></span><code> ntpq -p
@@ -247,6 +255,126 @@ restrict source notrap nomodify noquery
 </code></pre></div>
 
 <p>In this output a <code>*</code> means that the ntp is using this server as the main reference, <code>+</code> means that this is a good server and <code>-</code> shows an out of range server which will be neglected.</p>
+<h3>chrony</h3>
+<p>Another and a newer NTP protocol implemenation is the <code>chrony</code>. Compared to ntpd, this tool provides better results at synchronize time difficult conditions such as intermittent network connections (such as laptops) and congested networks. Chrony is the default NTP client in RedHat 8, SUSE 15 and many other distributions. Another adavn</p>
+<p>Here is a sample <code>chrony.conf</code> file:</p>
+<div class="highlight"><pre><span></span><code>$ cat /etc/chrony/chrony.conf 
+<span class="c1"># Welcome to the chrony configuration file. See chrony.conf(5) for more</span>
+<span class="c1"># information about usable directives.</span>
+
+<span class="c1"># Include configuration files found in /etc/chrony/conf.d.</span>
+confdir /etc/chrony/conf.d
+
+<span class="c1"># This will use (up to):</span>
+<span class="c1"># - 4 sources from ntp.ubuntu.com which some are ipv6 enabled</span>
+<span class="c1"># - 2 sources from 2.ubuntu.pool.ntp.org which is ipv6 enabled as well</span>
+<span class="c1"># - 1 source from [01].ubuntu.pool.ntp.org each (ipv4 only atm)</span>
+<span class="c1"># This means by default, up to 6 dual-stack and up to 2 additional IPv4-only</span>
+<span class="c1"># sources will be used.</span>
+<span class="c1"># At the same time it retains some protection against one of the entries being</span>
+<span class="c1"># down (compare to just using one of the lines). See (LP: #1754358) for the</span>
+<span class="c1"># discussion.</span>
+<span class="c1">#</span>
+<span class="c1"># About using servers from the NTP Pool Project in general see (LP: #104525).</span>
+<span class="c1"># Approved by Ubuntu Technical Board on 2011-02-08.</span>
+<span class="c1"># See http://www.pool.ntp.org/join.html for more information.</span>
+pool ntp.ubuntu.com        iburst maxsources <span class="m">4</span>
+pool <span class="m">0</span>.ubuntu.pool.ntp.org iburst maxsources <span class="m">1</span>
+pool <span class="m">1</span>.ubuntu.pool.ntp.org iburst maxsources <span class="m">1</span>
+pool <span class="m">2</span>.ubuntu.pool.ntp.org iburst maxsources <span class="m">2</span>
+
+<span class="c1"># Use time sources from DHCP.</span>
+sourcedir /run/chrony-dhcp
+
+<span class="c1"># Use NTP sources found in /etc/chrony/sources.d.</span>
+sourcedir /etc/chrony/sources.d
+
+<span class="c1"># This directive specify the location of the file containing ID/key pairs for</span>
+<span class="c1"># NTP authentication.</span>
+keyfile /etc/chrony/chrony.keys
+
+<span class="c1"># This directive specify the file into which chronyd will store the rate</span>
+<span class="c1"># information.</span>
+driftfile /var/lib/chrony/chrony.drift
+
+<span class="c1"># Save NTS keys and cookies.</span>
+ntsdumpdir /var/lib/chrony
+
+<span class="c1"># Uncomment the following line to turn logging on.</span>
+<span class="c1">#log tracking measurements statistics</span>
+
+<span class="c1"># Log files location.</span>
+logdir /var/log/chrony
+
+<span class="c1"># Stop bad estimates upsetting machine clock.</span>
+maxupdateskew <span class="m">100</span>.0
+
+<span class="c1"># This directive enables kernel synchronisation (every 11 minutes) of the</span>
+<span class="c1"># real-time clock. Note that it can’t be used along with the &#39;rtcfile&#39; directive.</span>
+rtcsync
+
+<span class="c1"># Step the system clock instead of slewing it if the adjustment is larger than</span>
+<span class="c1"># one second, but only in the first three clock updates.</span>
+makestep <span class="m">1</span> <span class="m">3</span>
+
+<span class="c1"># Get TAI-UTC offset and leap seconds from the system tz database.</span>
+<span class="c1"># This directive must be commented out when using time sources serving</span>
+<span class="c1"># leap-smeared time.</span>
+leapsectz right/UTC
+</code></pre></div>
+
+<p>To control the <code>chrony</code> serivce, there is a CLI (Command Line Interface) which is called <code>chronyc</code>. It it used to monitor chronyd's performance and to change various operating parameters. If a "command" is passed to the <code>chronyc</code>, the results will be shown, otherwise you will get a command to issue your commands. Have a look:</p>
+<div class="highlight"><pre><span></span><code>$ chronyc tracking
+Reference ID    : 0FED61D6 <span class="o">(</span>paris.time.system76.com<span class="o">)</span>
+Stratum         : <span class="m">3</span>
+Ref <span class="nb">time</span> <span class="o">(</span>UTC<span class="o">)</span>  : Fri Jun <span class="m">23</span> <span class="m">12</span>:44:20 <span class="m">2023</span>
+System <span class="nb">time</span>     : <span class="m">0</span>.001574947 seconds slow of NTP <span class="nb">time</span>
+Last offset     : +0.000513619 seconds
+RMS offset      : <span class="m">0</span>.065126784 seconds
+Frequency       : <span class="m">8</span>.705 ppm slow
+Residual freq   : +0.278 ppm
+Skew            : <span class="m">14</span>.972 ppm
+Root delay      : <span class="m">0</span>.180896595 seconds
+Root dispersion : <span class="m">0</span>.013603540 seconds
+Update interval : <span class="m">128</span>.6 seconds
+Leap status     : Normal
+$ chronyc
+chrony version <span class="m">4</span>.2
+Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">1997</span>-2003, <span class="m">2007</span>, <span class="m">2009</span>-2021 Richard P. Curnow and others
+chrony comes with ABSOLUTELY NO WARRANTY.  This is free software, and
+you are welcome to redistribute it under certain conditions.  See the
+GNU General Public License version <span class="m">2</span> <span class="k">for</span> details.
+
+chronyc&gt; activity
+<span class="m">200</span> OK
+<span class="m">12</span> sources online
+<span class="m">0</span> sources offline
+<span class="m">0</span> sources doing burst <span class="o">(</span><span class="k">return</span> to online<span class="o">)</span>
+<span class="m">0</span> sources doing burst <span class="o">(</span><span class="k">return</span> to offline<span class="o">)</span>
+<span class="m">3</span> sources with unknown address
+
+chronyc&gt; sources
+MS Name/IP address         Stratum Poll Reach LastRx Last <span class="nv">sample</span>               
+<span class="o">===============================================================================</span>
+^? prod-ntp-4.ntp4.ps5.cano&gt;     <span class="m">2</span>   <span class="m">7</span>   <span class="m">375</span>    <span class="m">20</span>  +5039us<span class="o">[</span>+5039us<span class="o">]</span> +/-   85ms
+^? prod-ntp-5.ntp4.ps5.cano&gt;     <span class="m">2</span>   <span class="m">7</span>   <span class="m">377</span>    <span class="m">83</span>    +12ms<span class="o">[</span>  +15ms<span class="o">]</span> +/-   87ms
+^? prod-ntp-3.ntp4.ps5.cano&gt;     <span class="m">2</span>   <span class="m">7</span>   <span class="m">177</span>    <span class="m">22</span>    +13ms<span class="o">[</span>  +17ms<span class="o">]</span> +/-   91ms
+^? alphyn.canonical.com          <span class="m">2</span>   <span class="m">7</span>   <span class="m">277</span>    <span class="m">22</span>  +3298us<span class="o">[</span>+6616us<span class="o">]</span> +/-  185ms
+^? mail.stumpflee.com            <span class="m">2</span>   <span class="m">7</span>   <span class="m">373</span>    <span class="m">19</span>  +6221us<span class="o">[</span>+6221us<span class="o">]</span> +/-  117ms
+^? meetbsd.ir                    <span class="m">2</span>   <span class="m">6</span>   <span class="m">377</span>    <span class="m">27</span>    -23ms<span class="o">[</span>  -20ms<span class="o">]</span> +/-  231ms
+^? <span class="m">188</span>.121.119.122               <span class="m">3</span>   <span class="m">7</span>   <span class="m">377</span>    <span class="m">26</span>    -27ms<span class="o">[</span>  -23ms<span class="o">]</span> +/-  131ms
+^+ brazil.time.system76.com      <span class="m">2</span>   <span class="m">7</span>   <span class="m">377</span>    <span class="m">20</span>    -13ms<span class="o">[</span>  -13ms<span class="o">]</span> +/-  190ms
+^+ ohio.time.system76.com        <span class="m">2</span>   <span class="m">7</span>   <span class="m">377</span>    <span class="m">21</span>    +23ms<span class="o">[</span>  +23ms<span class="o">]</span> +/-  171ms
+^+ oregon.time.system76.com      <span class="m">2</span>   <span class="m">7</span>   <span class="m">377</span>    <span class="m">23</span>    +22ms<span class="o">[</span>  +26ms<span class="o">]</span> +/-  217ms
+^* paris.time.system76.com       <span class="m">2</span>   <span class="m">7</span>   <span class="m">377</span>    <span class="m">24</span>  -4880us<span class="o">[</span>-1560us<span class="o">]</span> +/-  109ms
+^+ virginia.time.system76.c&gt;     <span class="m">2</span>   <span class="m">7</span>   <span class="m">163</span>    <span class="m">19</span>  +5465us<span class="o">[</span>+5465us<span class="o">]</span> +/-  148ms
+
+chronyc&gt; <span class="nb">exit</span>
+$ sudo chronyc makestep
+<span class="m">200</span> OK
+</code></pre></div>
+
+<p><code>chrnoyc</code> connects to the chrony service using TPC or Unix sockets. Therefore, it is possible to use a local <code>chronyc</code> to connect to remote <code>chrony</code> and issue commands, although in this case you are limited to mainly monitoring commands for security reasons.</p>
 
 
              

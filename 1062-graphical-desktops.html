@@ -143,8 +143,8 @@
 <h3>X Forwarding</h3>
 <p>This is not mentioned in this section in LPIC1 but it is super useful to know about. If you have an SSH server, you can connect to it and run GUI softwares there and get the GUI part of the program on your own machine. This is called X-Forwarding in ssh. </p>
 <p>First make sure that the <code>X11Forwarding yes</code> is configured in <code>/etc/ssh/sshd_config</code> (and [restart the service is needed]). Then do your ssh as follow:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ssh<span class="w"> </span>-X<span class="w"> </span>server_ip.address.net<span class="w"> </span>
-$<span class="w"> </span>xeyes
+<div class="highlight"><pre><span></span><code>$ ssh -X server_ip.address.net 
+$ xeyes
 </code></pre></div>
 
 <p>And they eyes will appear on your own machine! You can do the same to run a browser or a cpu hungry simulation software.</p>
