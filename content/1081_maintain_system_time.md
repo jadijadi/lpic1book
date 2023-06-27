@@ -5,7 +5,6 @@ Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 sortorder: 360
 Summary: 
-## 108.1 Maintain system time
 
 
 _Weight: 3_
@@ -34,6 +33,8 @@ Candidates should be able to properly maintain the system time and synchronize t
 * ntpdate
 * chronyc
 * pool.ntp.org
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RhH-2I1dBjA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### How a computer keeps its time
 
@@ -93,6 +94,8 @@ lrwxrwxrwx 1 root root 31 Jun 22 11:19 /etc/localtime -> /usr/share/zoneinfo/Asi
 In many cases, this is a soft link to a file located at `/etc/share/zoneinfo/` so it will be updated in case of system update.
 
 ### NTP
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ntyUBmG8F40" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 Network Time Protocol is my personal favorite protocol. It is one of the coolest protocols ever if you dive into its details. But unfortunately for LPIC1 you do not need to dive into NTP depths. This protocol uses NTP servers to find out the accurate time shown by best atomic clocks on this planet. One of the most famous severs used by ntp people is `pool.ntp.org`. If you check that website you will see that it is a **pool** of ntp servers and by giving your NTP server the `pool.ntp.org`, it will be redirected to one of the many ntp servers available on that pool.
 
