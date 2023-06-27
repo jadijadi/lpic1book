@@ -87,8 +87,7 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h2>108.1 Maintain system time</h2>
-<p><em>Weight: 3</em></p>
+            <p><em>Weight: 3</em></p>
 <p>Candidates should be able to properly maintain the system time and synchronize the clock via NTP.</p>
 <h3>Key Knowledge Areas</h3>
 <ul>
@@ -113,17 +112,19 @@
 <li>chronyc</li>
 <li>pool.ntp.org</li>
 </ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RhH-2I1dBjA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <h3>How a computer keeps its time</h3>
 <p>There is a clock in your computer; a hardware clock on your motherboard! It has its own battery and keeps the time even when the computer is off. When the system boots, the OS reads this <strong>hardware time</strong> and it sets it's own <strong>system time</strong> based on the hardware clock and uses this clock whenever it needs to know the time.</p>
 <p>Hardware clock can be the set on localtime (the time shown on your clock whenever you are) or UTC time (standard time). The <code>hwclock</code> can be used to show the time based on the hwtime. See how it works based on the hardware time even after we DO CHANGE the system time:</p>
-<div class="highlight"><pre><span></span><code>$ date
-Fri Jun <span class="m">23</span> <span class="m">01</span>:47:22 PM +0330 <span class="m">2023</span>
-$ sudo date -s <span class="s2">&quot;Jan 22 22:22:22 2022&quot;</span>
-Sat Jan <span class="m">22</span> <span class="m">10</span>:22:22 PM +0330 <span class="m">2022</span>
-$ date
-Sat Jan <span class="m">22</span> <span class="m">10</span>:22:29 PM +0330 <span class="m">2022</span>
-$ sudo hwclock 
-<span class="m">2023</span>-06-23 <span class="m">13</span>:47:41.160122+03:30
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>date
+Fri<span class="w"> </span>Jun<span class="w"> </span><span class="m">23</span><span class="w"> </span><span class="m">01</span>:47:22<span class="w"> </span>PM<span class="w"> </span>+0330<span class="w"> </span><span class="m">2023</span>
+$<span class="w"> </span>sudo<span class="w"> </span>date<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;Jan 22 22:22:22 2022&quot;</span>
+Sat<span class="w"> </span>Jan<span class="w"> </span><span class="m">22</span><span class="w"> </span><span class="m">10</span>:22:22<span class="w"> </span>PM<span class="w"> </span>+0330<span class="w"> </span><span class="m">2022</span>
+$<span class="w"> </span>date
+Sat<span class="w"> </span>Jan<span class="w"> </span><span class="m">22</span><span class="w"> </span><span class="m">10</span>:22:29<span class="w"> </span>PM<span class="w"> </span>+0330<span class="w"> </span><span class="m">2022</span>
+$<span class="w"> </span>sudo<span class="w"> </span>hwclock<span class="w"> </span>
+<span class="m">2023</span>-06-23<span class="w"> </span><span class="m">13</span>:47:41.160122+03:30
 </code></pre></div>
 
 <blockquote>
@@ -145,22 +146,24 @@ $ sudo hwclock
 <h3>Time Zones</h3>
 <p>We have seen time zones in previous chapters. But in short, there are two important files here.</p>
 <p>The <code>/etc/timezone</code> is a text file, representing your timezone. This is used if a program wants to know about your time zone of show it. For example:</p>
-<div class="highlight"><pre><span></span><code>$ cat /etc/timezone 
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/timezone<span class="w"> </span>
 Asia/Tehran
 </code></pre></div>
 
 <p>But the <code>/etc/localtime</code> is a binary file describing your timezone info to the system (for example the <code>date</code> file):</p>
-<div class="highlight"><pre><span></span><code>$ ls -l /etc/localtime 
-lrwxrwxrwx <span class="m">1</span> root root <span class="m">31</span> Jun <span class="m">22</span> <span class="m">11</span>:19 /etc/localtime -&gt; /usr/share/zoneinfo/Asia/Tehran
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/etc/localtime<span class="w"> </span>
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">31</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">22</span><span class="w"> </span><span class="m">11</span>:19<span class="w"> </span>/etc/localtime<span class="w"> </span>-&gt;<span class="w"> </span>/usr/share/zoneinfo/Asia/Tehran
 </code></pre></div>
 
 <p>In many cases, this is a soft link to a file located at <code>/etc/share/zoneinfo/</code> so it will be updated in case of system update.</p>
 <h3>NTP</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ntyUBmG8F40" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <p>Network Time Protocol is my personal favorite protocol. It is one of the coolest protocols ever if you dive into its details. But unfortunately for LPIC1 you do not need to dive into NTP depths. This protocol uses NTP servers to find out the accurate time shown by best atomic clocks on this planet. One of the most famous severs used by ntp people is <code>pool.ntp.org</code>. If you check that website you will see that it is a <strong>pool</strong> of ntp servers and by giving your NTP server the <code>pool.ntp.org</code>, it will be redirected to one of the many ntp servers available on that pool.</p>
 <h4>ntpdate</h4>
 <p>The most straight forward command to set the systemclock is <code>ntpdate</code> and used like this:</p>
-<div class="highlight"><pre><span></span><code>$ sudo ntpdate pool.ntp.org
-<span class="m">23</span> Jun <span class="m">14</span>:49:55 ntpdate<span class="o">[</span><span class="m">160138</span><span class="o">]</span>: adjust <span class="nb">time</span> server <span class="m">31</span>.214.170.254 offset +0.020196 sec
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ntpdate<span class="w"> </span>pool.ntp.org
+<span class="m">23</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">14</span>:49:55<span class="w"> </span>ntpdate<span class="o">[</span><span class="m">160138</span><span class="o">]</span>:<span class="w"> </span>adjust<span class="w"> </span><span class="nb">time</span><span class="w"> </span>server<span class="w"> </span><span class="m">31</span>.214.170.254<span class="w"> </span>offset<span class="w"> </span>+0.020196<span class="w"> </span>sec
 </code></pre></div>
 
 <p>After this, we need to set the hwclock to the recently synced system time using <code>sudo hwclock -w</code>.</p>
@@ -258,12 +261,12 @@ restrict source notrap nomodify noquery
 <h3>chrony</h3>
 <p>Another and a newer NTP protocol implemenation is the <code>chrony</code>. Compared to ntpd, this tool provides better results at synchronize time difficult conditions such as intermittent network connections (such as laptops) and congested networks. Chrony is the default NTP client in RedHat 8, SUSE 15 and many other distributions. Another adavn</p>
 <p>Here is a sample <code>chrony.conf</code> file:</p>
-<div class="highlight"><pre><span></span><code>$ cat /etc/chrony/chrony.conf 
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/chrony/chrony.conf<span class="w"> </span>
 <span class="c1"># Welcome to the chrony configuration file. See chrony.conf(5) for more</span>
 <span class="c1"># information about usable directives.</span>
 
 <span class="c1"># Include configuration files found in /etc/chrony/conf.d.</span>
-confdir /etc/chrony/conf.d
+confdir<span class="w"> </span>/etc/chrony/conf.d
 
 <span class="c1"># This will use (up to):</span>
 <span class="c1"># - 4 sources from ntp.ubuntu.com which some are ipv6 enabled</span>
@@ -278,36 +281,36 @@ confdir /etc/chrony/conf.d
 <span class="c1"># About using servers from the NTP Pool Project in general see (LP: #104525).</span>
 <span class="c1"># Approved by Ubuntu Technical Board on 2011-02-08.</span>
 <span class="c1"># See http://www.pool.ntp.org/join.html for more information.</span>
-pool ntp.ubuntu.com        iburst maxsources <span class="m">4</span>
-pool <span class="m">0</span>.ubuntu.pool.ntp.org iburst maxsources <span class="m">1</span>
-pool <span class="m">1</span>.ubuntu.pool.ntp.org iburst maxsources <span class="m">1</span>
-pool <span class="m">2</span>.ubuntu.pool.ntp.org iburst maxsources <span class="m">2</span>
+pool<span class="w"> </span>ntp.ubuntu.com<span class="w">        </span>iburst<span class="w"> </span>maxsources<span class="w"> </span><span class="m">4</span>
+pool<span class="w"> </span><span class="m">0</span>.ubuntu.pool.ntp.org<span class="w"> </span>iburst<span class="w"> </span>maxsources<span class="w"> </span><span class="m">1</span>
+pool<span class="w"> </span><span class="m">1</span>.ubuntu.pool.ntp.org<span class="w"> </span>iburst<span class="w"> </span>maxsources<span class="w"> </span><span class="m">1</span>
+pool<span class="w"> </span><span class="m">2</span>.ubuntu.pool.ntp.org<span class="w"> </span>iburst<span class="w"> </span>maxsources<span class="w"> </span><span class="m">2</span>
 
 <span class="c1"># Use time sources from DHCP.</span>
-sourcedir /run/chrony-dhcp
+sourcedir<span class="w"> </span>/run/chrony-dhcp
 
 <span class="c1"># Use NTP sources found in /etc/chrony/sources.d.</span>
-sourcedir /etc/chrony/sources.d
+sourcedir<span class="w"> </span>/etc/chrony/sources.d
 
 <span class="c1"># This directive specify the location of the file containing ID/key pairs for</span>
 <span class="c1"># NTP authentication.</span>
-keyfile /etc/chrony/chrony.keys
+keyfile<span class="w"> </span>/etc/chrony/chrony.keys
 
 <span class="c1"># This directive specify the file into which chronyd will store the rate</span>
 <span class="c1"># information.</span>
-driftfile /var/lib/chrony/chrony.drift
+driftfile<span class="w"> </span>/var/lib/chrony/chrony.drift
 
 <span class="c1"># Save NTS keys and cookies.</span>
-ntsdumpdir /var/lib/chrony
+ntsdumpdir<span class="w"> </span>/var/lib/chrony
 
 <span class="c1"># Uncomment the following line to turn logging on.</span>
 <span class="c1">#log tracking measurements statistics</span>
 
 <span class="c1"># Log files location.</span>
-logdir /var/log/chrony
+logdir<span class="w"> </span>/var/log/chrony
 
 <span class="c1"># Stop bad estimates upsetting machine clock.</span>
-maxupdateskew <span class="m">100</span>.0
+maxupdateskew<span class="w"> </span><span class="m">100</span>.0
 
 <span class="c1"># This directive enables kernel synchronisation (every 11 minutes) of the</span>
 <span class="c1"># real-time clock. Note that it can’t be used along with the &#39;rtcfile&#39; directive.</span>
@@ -315,63 +318,63 @@ rtcsync
 
 <span class="c1"># Step the system clock instead of slewing it if the adjustment is larger than</span>
 <span class="c1"># one second, but only in the first three clock updates.</span>
-makestep <span class="m">1</span> <span class="m">3</span>
+makestep<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span>
 
 <span class="c1"># Get TAI-UTC offset and leap seconds from the system tz database.</span>
 <span class="c1"># This directive must be commented out when using time sources serving</span>
 <span class="c1"># leap-smeared time.</span>
-leapsectz right/UTC
+leapsectz<span class="w"> </span>right/UTC
 </code></pre></div>
 
 <p>To control the <code>chrony</code> serivce, there is a CLI (Command Line Interface) which is called <code>chronyc</code>. It it used to monitor chronyd's performance and to change various operating parameters. If a "command" is passed to the <code>chronyc</code>, the results will be shown, otherwise you will get a command to issue your commands. Have a look:</p>
-<div class="highlight"><pre><span></span><code>$ chronyc tracking
-Reference ID    : 0FED61D6 <span class="o">(</span>paris.time.system76.com<span class="o">)</span>
-Stratum         : <span class="m">3</span>
-Ref <span class="nb">time</span> <span class="o">(</span>UTC<span class="o">)</span>  : Fri Jun <span class="m">23</span> <span class="m">12</span>:44:20 <span class="m">2023</span>
-System <span class="nb">time</span>     : <span class="m">0</span>.001574947 seconds slow of NTP <span class="nb">time</span>
-Last offset     : +0.000513619 seconds
-RMS offset      : <span class="m">0</span>.065126784 seconds
-Frequency       : <span class="m">8</span>.705 ppm slow
-Residual freq   : +0.278 ppm
-Skew            : <span class="m">14</span>.972 ppm
-Root delay      : <span class="m">0</span>.180896595 seconds
-Root dispersion : <span class="m">0</span>.013603540 seconds
-Update interval : <span class="m">128</span>.6 seconds
-Leap status     : Normal
-$ chronyc
-chrony version <span class="m">4</span>.2
-Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">1997</span>-2003, <span class="m">2007</span>, <span class="m">2009</span>-2021 Richard P. Curnow and others
-chrony comes with ABSOLUTELY NO WARRANTY.  This is free software, and
-you are welcome to redistribute it under certain conditions.  See the
-GNU General Public License version <span class="m">2</span> <span class="k">for</span> details.
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>chronyc<span class="w"> </span>tracking
+Reference<span class="w"> </span>ID<span class="w">    </span>:<span class="w"> </span>0FED61D6<span class="w"> </span><span class="o">(</span>paris.time.system76.com<span class="o">)</span>
+Stratum<span class="w">         </span>:<span class="w"> </span><span class="m">3</span>
+Ref<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="o">(</span>UTC<span class="o">)</span><span class="w">  </span>:<span class="w"> </span>Fri<span class="w"> </span>Jun<span class="w"> </span><span class="m">23</span><span class="w"> </span><span class="m">12</span>:44:20<span class="w"> </span><span class="m">2023</span>
+System<span class="w"> </span><span class="nb">time</span><span class="w">     </span>:<span class="w"> </span><span class="m">0</span>.001574947<span class="w"> </span>seconds<span class="w"> </span>slow<span class="w"> </span>of<span class="w"> </span>NTP<span class="w"> </span><span class="nb">time</span>
+Last<span class="w"> </span>offset<span class="w">     </span>:<span class="w"> </span>+0.000513619<span class="w"> </span>seconds
+RMS<span class="w"> </span>offset<span class="w">      </span>:<span class="w"> </span><span class="m">0</span>.065126784<span class="w"> </span>seconds
+Frequency<span class="w">       </span>:<span class="w"> </span><span class="m">8</span>.705<span class="w"> </span>ppm<span class="w"> </span>slow
+Residual<span class="w"> </span>freq<span class="w">   </span>:<span class="w"> </span>+0.278<span class="w"> </span>ppm
+Skew<span class="w">            </span>:<span class="w"> </span><span class="m">14</span>.972<span class="w"> </span>ppm
+Root<span class="w"> </span>delay<span class="w">      </span>:<span class="w"> </span><span class="m">0</span>.180896595<span class="w"> </span>seconds
+Root<span class="w"> </span>dispersion<span class="w"> </span>:<span class="w"> </span><span class="m">0</span>.013603540<span class="w"> </span>seconds
+Update<span class="w"> </span>interval<span class="w"> </span>:<span class="w"> </span><span class="m">128</span>.6<span class="w"> </span>seconds
+Leap<span class="w"> </span>status<span class="w">     </span>:<span class="w"> </span>Normal
+$<span class="w"> </span>chronyc
+chrony<span class="w"> </span>version<span class="w"> </span><span class="m">4</span>.2
+Copyright<span class="w"> </span><span class="o">(</span>C<span class="o">)</span><span class="w"> </span><span class="m">1997</span>-2003,<span class="w"> </span><span class="m">2007</span>,<span class="w"> </span><span class="m">2009</span>-2021<span class="w"> </span>Richard<span class="w"> </span>P.<span class="w"> </span>Curnow<span class="w"> </span>and<span class="w"> </span>others
+chrony<span class="w"> </span>comes<span class="w"> </span>with<span class="w"> </span>ABSOLUTELY<span class="w"> </span>NO<span class="w"> </span>WARRANTY.<span class="w">  </span>This<span class="w"> </span>is<span class="w"> </span>free<span class="w"> </span>software,<span class="w"> </span>and
+you<span class="w"> </span>are<span class="w"> </span>welcome<span class="w"> </span>to<span class="w"> </span>redistribute<span class="w"> </span>it<span class="w"> </span>under<span class="w"> </span>certain<span class="w"> </span>conditions.<span class="w">  </span>See<span class="w"> </span>the
+GNU<span class="w"> </span>General<span class="w"> </span>Public<span class="w"> </span>License<span class="w"> </span>version<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>details.
 
-chronyc&gt; activity
-<span class="m">200</span> OK
-<span class="m">12</span> sources online
-<span class="m">0</span> sources offline
-<span class="m">0</span> sources doing burst <span class="o">(</span><span class="k">return</span> to online<span class="o">)</span>
-<span class="m">0</span> sources doing burst <span class="o">(</span><span class="k">return</span> to offline<span class="o">)</span>
-<span class="m">3</span> sources with unknown address
+chronyc&gt;<span class="w"> </span>activity
+<span class="m">200</span><span class="w"> </span>OK
+<span class="m">12</span><span class="w"> </span>sources<span class="w"> </span>online
+<span class="m">0</span><span class="w"> </span>sources<span class="w"> </span>offline
+<span class="m">0</span><span class="w"> </span>sources<span class="w"> </span>doing<span class="w"> </span>burst<span class="w"> </span><span class="o">(</span><span class="k">return</span><span class="w"> </span>to<span class="w"> </span>online<span class="o">)</span>
+<span class="m">0</span><span class="w"> </span>sources<span class="w"> </span>doing<span class="w"> </span>burst<span class="w"> </span><span class="o">(</span><span class="k">return</span><span class="w"> </span>to<span class="w"> </span>offline<span class="o">)</span>
+<span class="m">3</span><span class="w"> </span>sources<span class="w"> </span>with<span class="w"> </span>unknown<span class="w"> </span>address
 
-chronyc&gt; sources
-MS Name/IP address         Stratum Poll Reach LastRx Last <span class="nv">sample</span>               
+chronyc&gt;<span class="w"> </span>sources
+MS<span class="w"> </span>Name/IP<span class="w"> </span>address<span class="w">         </span>Stratum<span class="w"> </span>Poll<span class="w"> </span>Reach<span class="w"> </span>LastRx<span class="w"> </span>Last<span class="w"> </span><span class="nv">sample</span><span class="w">               </span>
 <span class="o">===============================================================================</span>
-^? prod-ntp-4.ntp4.ps5.cano&gt;     <span class="m">2</span>   <span class="m">7</span>   <span class="m">375</span>    <span class="m">20</span>  +5039us<span class="o">[</span>+5039us<span class="o">]</span> +/-   85ms
-^? prod-ntp-5.ntp4.ps5.cano&gt;     <span class="m">2</span>   <span class="m">7</span>   <span class="m">377</span>    <span class="m">83</span>    +12ms<span class="o">[</span>  +15ms<span class="o">]</span> +/-   87ms
-^? prod-ntp-3.ntp4.ps5.cano&gt;     <span class="m">2</span>   <span class="m">7</span>   <span class="m">177</span>    <span class="m">22</span>    +13ms<span class="o">[</span>  +17ms<span class="o">]</span> +/-   91ms
-^? alphyn.canonical.com          <span class="m">2</span>   <span class="m">7</span>   <span class="m">277</span>    <span class="m">22</span>  +3298us<span class="o">[</span>+6616us<span class="o">]</span> +/-  185ms
-^? mail.stumpflee.com            <span class="m">2</span>   <span class="m">7</span>   <span class="m">373</span>    <span class="m">19</span>  +6221us<span class="o">[</span>+6221us<span class="o">]</span> +/-  117ms
-^? meetbsd.ir                    <span class="m">2</span>   <span class="m">6</span>   <span class="m">377</span>    <span class="m">27</span>    -23ms<span class="o">[</span>  -20ms<span class="o">]</span> +/-  231ms
-^? <span class="m">188</span>.121.119.122               <span class="m">3</span>   <span class="m">7</span>   <span class="m">377</span>    <span class="m">26</span>    -27ms<span class="o">[</span>  -23ms<span class="o">]</span> +/-  131ms
-^+ brazil.time.system76.com      <span class="m">2</span>   <span class="m">7</span>   <span class="m">377</span>    <span class="m">20</span>    -13ms<span class="o">[</span>  -13ms<span class="o">]</span> +/-  190ms
-^+ ohio.time.system76.com        <span class="m">2</span>   <span class="m">7</span>   <span class="m">377</span>    <span class="m">21</span>    +23ms<span class="o">[</span>  +23ms<span class="o">]</span> +/-  171ms
-^+ oregon.time.system76.com      <span class="m">2</span>   <span class="m">7</span>   <span class="m">377</span>    <span class="m">23</span>    +22ms<span class="o">[</span>  +26ms<span class="o">]</span> +/-  217ms
-^* paris.time.system76.com       <span class="m">2</span>   <span class="m">7</span>   <span class="m">377</span>    <span class="m">24</span>  -4880us<span class="o">[</span>-1560us<span class="o">]</span> +/-  109ms
-^+ virginia.time.system76.c&gt;     <span class="m">2</span>   <span class="m">7</span>   <span class="m">163</span>    <span class="m">19</span>  +5465us<span class="o">[</span>+5465us<span class="o">]</span> +/-  148ms
+^?<span class="w"> </span>prod-ntp-4.ntp4.ps5.cano&gt;<span class="w">     </span><span class="m">2</span><span class="w">   </span><span class="m">7</span><span class="w">   </span><span class="m">375</span><span class="w">    </span><span class="m">20</span><span class="w">  </span>+5039us<span class="o">[</span>+5039us<span class="o">]</span><span class="w"> </span>+/-<span class="w">   </span>85ms
+^?<span class="w"> </span>prod-ntp-5.ntp4.ps5.cano&gt;<span class="w">     </span><span class="m">2</span><span class="w">   </span><span class="m">7</span><span class="w">   </span><span class="m">377</span><span class="w">    </span><span class="m">83</span><span class="w">    </span>+12ms<span class="o">[</span><span class="w">  </span>+15ms<span class="o">]</span><span class="w"> </span>+/-<span class="w">   </span>87ms
+^?<span class="w"> </span>prod-ntp-3.ntp4.ps5.cano&gt;<span class="w">     </span><span class="m">2</span><span class="w">   </span><span class="m">7</span><span class="w">   </span><span class="m">177</span><span class="w">    </span><span class="m">22</span><span class="w">    </span>+13ms<span class="o">[</span><span class="w">  </span>+17ms<span class="o">]</span><span class="w"> </span>+/-<span class="w">   </span>91ms
+^?<span class="w"> </span>alphyn.canonical.com<span class="w">          </span><span class="m">2</span><span class="w">   </span><span class="m">7</span><span class="w">   </span><span class="m">277</span><span class="w">    </span><span class="m">22</span><span class="w">  </span>+3298us<span class="o">[</span>+6616us<span class="o">]</span><span class="w"> </span>+/-<span class="w">  </span>185ms
+^?<span class="w"> </span>mail.stumpflee.com<span class="w">            </span><span class="m">2</span><span class="w">   </span><span class="m">7</span><span class="w">   </span><span class="m">373</span><span class="w">    </span><span class="m">19</span><span class="w">  </span>+6221us<span class="o">[</span>+6221us<span class="o">]</span><span class="w"> </span>+/-<span class="w">  </span>117ms
+^?<span class="w"> </span>meetbsd.ir<span class="w">                    </span><span class="m">2</span><span class="w">   </span><span class="m">6</span><span class="w">   </span><span class="m">377</span><span class="w">    </span><span class="m">27</span><span class="w">    </span>-23ms<span class="o">[</span><span class="w">  </span>-20ms<span class="o">]</span><span class="w"> </span>+/-<span class="w">  </span>231ms
+^?<span class="w"> </span><span class="m">188</span>.121.119.122<span class="w">               </span><span class="m">3</span><span class="w">   </span><span class="m">7</span><span class="w">   </span><span class="m">377</span><span class="w">    </span><span class="m">26</span><span class="w">    </span>-27ms<span class="o">[</span><span class="w">  </span>-23ms<span class="o">]</span><span class="w"> </span>+/-<span class="w">  </span>131ms
+^+<span class="w"> </span>brazil.time.system76.com<span class="w">      </span><span class="m">2</span><span class="w">   </span><span class="m">7</span><span class="w">   </span><span class="m">377</span><span class="w">    </span><span class="m">20</span><span class="w">    </span>-13ms<span class="o">[</span><span class="w">  </span>-13ms<span class="o">]</span><span class="w"> </span>+/-<span class="w">  </span>190ms
+^+<span class="w"> </span>ohio.time.system76.com<span class="w">        </span><span class="m">2</span><span class="w">   </span><span class="m">7</span><span class="w">   </span><span class="m">377</span><span class="w">    </span><span class="m">21</span><span class="w">    </span>+23ms<span class="o">[</span><span class="w">  </span>+23ms<span class="o">]</span><span class="w"> </span>+/-<span class="w">  </span>171ms
+^+<span class="w"> </span>oregon.time.system76.com<span class="w">      </span><span class="m">2</span><span class="w">   </span><span class="m">7</span><span class="w">   </span><span class="m">377</span><span class="w">    </span><span class="m">23</span><span class="w">    </span>+22ms<span class="o">[</span><span class="w">  </span>+26ms<span class="o">]</span><span class="w"> </span>+/-<span class="w">  </span>217ms
+^*<span class="w"> </span>paris.time.system76.com<span class="w">       </span><span class="m">2</span><span class="w">   </span><span class="m">7</span><span class="w">   </span><span class="m">377</span><span class="w">    </span><span class="m">24</span><span class="w">  </span>-4880us<span class="o">[</span>-1560us<span class="o">]</span><span class="w"> </span>+/-<span class="w">  </span>109ms
+^+<span class="w"> </span>virginia.time.system76.c&gt;<span class="w">     </span><span class="m">2</span><span class="w">   </span><span class="m">7</span><span class="w">   </span><span class="m">163</span><span class="w">    </span><span class="m">19</span><span class="w">  </span>+5465us<span class="o">[</span>+5465us<span class="o">]</span><span class="w"> </span>+/-<span class="w">  </span>148ms
 
-chronyc&gt; <span class="nb">exit</span>
-$ sudo chronyc makestep
-<span class="m">200</span> OK
+chronyc&gt;<span class="w"> </span><span class="nb">exit</span>
+$<span class="w"> </span>sudo<span class="w"> </span>chronyc<span class="w"> </span>makestep
+<span class="m">200</span><span class="w"> </span>OK
 </code></pre></div>
 
 <p><code>chrnoyc</code> connects to the chrony service using TPC or Unix sockets. Therefore, it is possible to use a local <code>chronyc</code> to connect to remote <code>chrony</code> and issue commands, although in this case you are limited to mainly monitoring commands for security reasons.</p>

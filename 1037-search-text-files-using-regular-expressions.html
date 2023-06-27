@@ -116,18 +116,18 @@ You can simply write down whatever you want to match and regex will search for t
 <table>
 <thead>
 <tr>
-<th align="left">Regex</th>
-<th align="left">Will match</th>
+<th style="text-align: left;">Regex</th>
+<th style="text-align: left;">Will match</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">a</td>
-<td align="left"><strong>a</strong>fter, min<strong>a</strong>, b<strong>a</strong>nana, j<strong>a</strong>di</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: left;"><strong>a</strong>fter, min<strong>a</strong>, b<strong>a</strong>nana, j<strong>a</strong>di</td>
 </tr>
 <tr>
-<td align="left">na</td>
-<td align="left"><strong>na</strong>rator, mi<strong>na</strong>, <strong>na</strong>nanana batman, so<strong>na</strong>r</td>
+<td style="text-align: left;">na</td>
+<td style="text-align: left;"><strong>na</strong>rator, mi<strong>na</strong>, <strong>na</strong>nanana batman, so<strong>na</strong>r</td>
 </tr>
 </tbody>
 </table>
@@ -142,31 +142,31 @@ You can simply write down whatever you want to match and regex will search for t
 <table>
 <thead>
 <tr>
-<th align="left">Regex</th>
-<th align="left">Will match</th>
-<th align="left">Note</th>
+<th style="text-align: left;">Regex</th>
+<th style="text-align: left;">Will match</th>
+<th style="text-align: left;">Note</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">a*b</td>
-<td align="left">ab, aaab, aaaaab, aaabthis</td>
-<td align="left"></td>
+<td style="text-align: left;">a*b</td>
+<td style="text-align: left;">ab, aaab, aaaaab, aaabthis</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td align="left">a*b</td>
-<td align="left">b, sober</td>
-<td align="left">we should have zero or more <code>a</code>s and then a <code>b</code></td>
+<td style="text-align: left;">a*b</td>
+<td style="text-align: left;">b, sober</td>
+<td style="text-align: left;">we should have zero or more <code>a</code>s and then a <code>b</code></td>
 </tr>
 <tr>
-<td align="left">a+b</td>
-<td align="left">ab, aab, aaabenz</td>
-<td align="left">wont match <strong>sober</strong> or <strong>b</strong> because there needs to be at least one <strong>a</strong></td>
+<td style="text-align: left;">a+b</td>
+<td style="text-align: left;">ab, aab, aaabenz</td>
+<td style="text-align: left;">wont match <strong>sober</strong> or <strong>b</strong> because there needs to be at least one <strong>a</strong></td>
 </tr>
 <tr>
-<td align="left">a?b</td>
-<td align="left">ab, a<strong>ab</strong>, b, batman (zero a then b), ...</td>
-<td align="left">.</td>
+<td style="text-align: left;">a?b</td>
+<td style="text-align: left;">ab, a<strong>ab</strong>, b, batman (zero a then b), ...</td>
+<td style="text-align: left;">.</td>
 </tr>
 </tbody>
 </table>
@@ -185,30 +185,30 @@ You can simply write down whatever you want to match and regex will search for t
 <table>
 <thead>
 <tr>
-<th align="left">Range</th>
-<th align="left">Meaning</th>
+<th style="text-align: left;">Range</th>
+<th style="text-align: left;">Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">[:alnum:]</td>
-<td align="left">Alphanumeric characters</td>
+<td style="text-align: left;">[:alnum:]</td>
+<td style="text-align: left;">Alphanumeric characters</td>
 </tr>
 <tr>
-<td align="left">[:blank:]</td>
-<td align="left">Space and tab characters</td>
+<td style="text-align: left;">[:blank:]</td>
+<td style="text-align: left;">Space and tab characters</td>
 </tr>
 <tr>
-<td align="left">[:digit:]</td>
-<td align="left">The digits 0 through 9 (equivalent to 0-9)</td>
+<td style="text-align: left;">[:digit:]</td>
+<td style="text-align: left;">The digits 0 through 9 (equivalent to 0-9)</td>
 </tr>
 <tr>
-<td align="left">[:upper:] and [:lower:]</td>
-<td align="left">Upper and lower case letters, respectively.</td>
+<td style="text-align: left;">[:upper:] and [:lower:]</td>
+<td style="text-align: left;">Upper and lower case letters, respectively.</td>
 </tr>
 <tr>
-<td align="left">^ (negation)</td>
-<td align="left">As the first character after [ in a character class negates the sense of the remaining characters</td>
+<td style="text-align: left;">^ (negation)</td>
+<td style="text-align: left;">As the first character after [ in a character class negates the sense of the remaining characters</td>
 </tr>
 </tbody>
 </table>
@@ -247,52 +247,52 @@ funky
 <table>
 <thead>
 <tr>
-<th align="left">switch</th>
-<th align="left">meaning</th>
+<th style="text-align: left;">switch</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-c</td>
-<td align="left">just show the count</td>
+<td style="text-align: left;">-c</td>
+<td style="text-align: left;">just show the count</td>
 </tr>
 <tr>
-<td align="left">-v</td>
-<td align="left">reverse the search</td>
+<td style="text-align: left;">-v</td>
+<td style="text-align: left;">reverse the search</td>
 </tr>
 <tr>
-<td align="left">-n</td>
-<td align="left">show line numbers</td>
+<td style="text-align: left;">-n</td>
+<td style="text-align: left;">show line numbers</td>
 </tr>
 <tr>
-<td align="left">-l</td>
-<td align="left">show only file names</td>
+<td style="text-align: left;">-l</td>
+<td style="text-align: left;">show only file names</td>
 </tr>
 <tr>
-<td align="left">-i</td>
-<td align="left">case insensitive</td>
+<td style="text-align: left;">-i</td>
+<td style="text-align: left;">case insensitive</td>
 </tr>
 <tr>
-<td align="left">-r</td>
-<td align="left">Read  all  files  under each directory, recursively</td>
+<td style="text-align: left;">-r</td>
+<td style="text-align: left;">Read  all  files  under each directory, recursively</td>
 </tr>
 </tbody>
 </table>
 <p></br></p>
-<div class="highlight"><pre><span></span><code>$ grep a *txt
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>grep<span class="w"> </span>a<span class="w"> </span>*txt
 friends.txt:Rosha
 friends.txt:Xavier
 friends.txt:Krishna
 friends.txt:Mary
 my_thinkgs.txt:laptop
-$ grep z *txt
-$ grep z *txt -i 
+$<span class="w"> </span>grep<span class="w"> </span>z<span class="w"> </span>*txt
+$<span class="w"> </span>grep<span class="w"> </span>z<span class="w"> </span>*txt<span class="w"> </span>-i<span class="w"> </span>
 friends.txt:Zee
-$ grep x words -i -c 
+$<span class="w"> </span>grep<span class="w"> </span>x<span class="w"> </span>words<span class="w"> </span>-i<span class="w"> </span>-c<span class="w"> </span>
 <span class="m">2264</span>
-$ grep z *txt -i -l
+$<span class="w"> </span>grep<span class="w"> </span>z<span class="w"> </span>*txt<span class="w"> </span>-i<span class="w"> </span>-l
 friends.txt
-$ grep Z *txt -v
+$<span class="w"> </span>grep<span class="w"> </span>Z<span class="w"> </span>*txt<span class="w"> </span>-v
 friends.txt:Rosha
 friends.txt:Jim
 friends.txt:Xavier
@@ -302,52 +302,52 @@ my_thinkgs.txt:laptop
 my_thinkgs.txt:pillow
 my_thinkgs.txt:shorts
 my_thinkgs.txt:t-shirt
-$ grep Z friends.txt -v
+$<span class="w"> </span>grep<span class="w"> </span>Z<span class="w"> </span>friends.txt<span class="w"> </span>-v
 Rosha
 Jim
 Xavier
 Krishna
 Mary
-$ 
+$<span class="w"> </span>
 </code></pre></div>
 
 <p>As another example, let's search all the <code>/etc</code> for all files containing an IP address and send the errors (mostly "you do not have permission to read this") to <code>/dev/null</code>:</p>
-<div class="highlight"><pre><span></span><code>$ egrep -r <span class="s2">&quot;192.168.(1|0).&quot;</span> /etc/ <span class="m">2</span>&gt; /dev/null
-/etc/privoxy/config:#      address <span class="m">192</span>.168.0.1 on your <span class="nb">local</span> private network
-/etc/privoxy/config:#      <span class="o">(</span><span class="m">192</span>.168.0.0<span class="o">)</span> and has another outside connection with a
-/etc/privoxy/config:#        listen-address  <span class="m">192</span>.168.0.1:8118
-/etc/avahi/hosts:# <span class="m">192</span>.168.0.1 router.local
-/etc/dhcp/dhclient-exit-hooks.d/rfc3442-classless-routes:#   <span class="nv">new_rfc3442_classless_static_routes</span><span class="o">=</span><span class="s1">&#39;24 192 168 10 192 168 1 1 8 10 10 17 66 41&#39;</span>
-/etc/dhcp/dhclient-exit-hooks.d/rfc3442-classless-routes:#   <span class="m">192</span>.168.10.0/24 via <span class="m">192</span>.168.1.1
-/etc/hosts:192.168.1.22 atiteltestbed
-/etc/hosts:192.168.100.244 adpsms
-/etc/ppp/options:# ms-dns <span class="m">192</span>.168.1.1
-/etc/ppp/options:# ms-dns <span class="m">192</span>.168.1.2
-/etc/ppp/options:# ms-wins <span class="m">192</span>.168.1.50
-/etc/ppp/options:# ms-wins <span class="m">192</span>.168.1.51
-/etc/ssl/openssl.cnf:# <span class="nv">proxy</span> <span class="o">=</span> <span class="c1"># set this as far as needed, e.g., http://192.168.1.1:8080</span>
-/etc/cups/cups-browsed.conf:# BrowseAllow <span class="m">192</span>.168.1.12
-/etc/cups/cups-browsed.conf:# BrowseAllow <span class="m">192</span>.168.1.0/24
-/etc/cups/cups-browsed.conf:# BrowseAllow <span class="m">192</span>.168.1.0/255.255.255.0
-/etc/cups/cups-browsed.conf:# BrowseDeny <span class="m">192</span>.168.1.13
-/etc/proxychains4.conf:## Exclude connections to <span class="m">192</span>.168.1.0/24 with port <span class="m">80</span>
-/etc/proxychains4.conf:# localnet <span class="m">192</span>.168.1.0:80/255.255.255.0
-/etc/proxychains4.conf:## Exclude connections to <span class="m">192</span>.168.100.0/24
-/etc/proxychains4.conf:# localnet <span class="m">192</span>.168.100.0/255.255.255.0
-/etc/proxychains4.conf:# localnet <span class="m">192</span>.168.0.0/255.255.0.0
-/etc/proxychains4.conf:#        socks4  <span class="m">192</span>.168.1.49    <span class="m">1080</span>
-/etc/sane.d/kodakaio.conf:#net <span class="m">192</span>.168.1.2 0x4041
-/etc/sane.d/kodakaio.conf:#net <span class="m">192</span>.168.1.17 0x4067
-/etc/sane.d/epsonds.conf:# net <span class="m">192</span>.168.1.123
-/etc/sane.d/airscan.conf:#<span class="s2">&quot;Kyocera MFP Scanner&quot;</span> <span class="o">=</span> http://192.168.1.102:9095/eSCL
-/etc/sane.d/airscan.conf:#ip    <span class="o">=</span> <span class="m">192</span>.168.0.1    <span class="p">;</span> blacklist by address
-/etc/sane.d/airscan.conf:#ip    <span class="o">=</span> <span class="m">192</span>.168.0.0/24 <span class="p">;</span> blacklist the whole subnet
-/etc/sane.d/dell1600n_net.conf:#named_scanner: <span class="m">192</span>.168.0.20
-/etc/sane.d/epson2.conf:# net <span class="m">192</span>.168.1.123
-/etc/sane.d/magicolor.conf:# net <span class="m">192</span>.168.0.1
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>egrep<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;192.168.(1|0).&quot;</span><span class="w"> </span>/etc/<span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>/dev/null
+/etc/privoxy/config:#<span class="w">      </span>address<span class="w"> </span><span class="m">192</span>.168.0.1<span class="w"> </span>on<span class="w"> </span>your<span class="w"> </span><span class="nb">local</span><span class="w"> </span>private<span class="w"> </span>network
+/etc/privoxy/config:#<span class="w">      </span><span class="o">(</span><span class="m">192</span>.168.0.0<span class="o">)</span><span class="w"> </span>and<span class="w"> </span>has<span class="w"> </span>another<span class="w"> </span>outside<span class="w"> </span>connection<span class="w"> </span>with<span class="w"> </span>a
+/etc/privoxy/config:#<span class="w">        </span>listen-address<span class="w">  </span><span class="m">192</span>.168.0.1:8118
+/etc/avahi/hosts:#<span class="w"> </span><span class="m">192</span>.168.0.1<span class="w"> </span>router.local
+/etc/dhcp/dhclient-exit-hooks.d/rfc3442-classless-routes:#<span class="w">   </span><span class="nv">new_rfc3442_classless_static_routes</span><span class="o">=</span><span class="s1">&#39;24 192 168 10 192 168 1 1 8 10 10 17 66 41&#39;</span>
+/etc/dhcp/dhclient-exit-hooks.d/rfc3442-classless-routes:#<span class="w">   </span><span class="m">192</span>.168.10.0/24<span class="w"> </span>via<span class="w"> </span><span class="m">192</span>.168.1.1
+/etc/hosts:192.168.1.22<span class="w"> </span>atiteltestbed
+/etc/hosts:192.168.100.244<span class="w"> </span>adpsms
+/etc/ppp/options:#<span class="w"> </span>ms-dns<span class="w"> </span><span class="m">192</span>.168.1.1
+/etc/ppp/options:#<span class="w"> </span>ms-dns<span class="w"> </span><span class="m">192</span>.168.1.2
+/etc/ppp/options:#<span class="w"> </span>ms-wins<span class="w"> </span><span class="m">192</span>.168.1.50
+/etc/ppp/options:#<span class="w"> </span>ms-wins<span class="w"> </span><span class="m">192</span>.168.1.51
+/etc/ssl/openssl.cnf:#<span class="w"> </span><span class="nv">proxy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="c1"># set this as far as needed, e.g., http://192.168.1.1:8080</span>
+/etc/cups/cups-browsed.conf:#<span class="w"> </span>BrowseAllow<span class="w"> </span><span class="m">192</span>.168.1.12
+/etc/cups/cups-browsed.conf:#<span class="w"> </span>BrowseAllow<span class="w"> </span><span class="m">192</span>.168.1.0/24
+/etc/cups/cups-browsed.conf:#<span class="w"> </span>BrowseAllow<span class="w"> </span><span class="m">192</span>.168.1.0/255.255.255.0
+/etc/cups/cups-browsed.conf:#<span class="w"> </span>BrowseDeny<span class="w"> </span><span class="m">192</span>.168.1.13
+/etc/proxychains4.conf:##<span class="w"> </span>Exclude<span class="w"> </span>connections<span class="w"> </span>to<span class="w"> </span><span class="m">192</span>.168.1.0/24<span class="w"> </span>with<span class="w"> </span>port<span class="w"> </span><span class="m">80</span>
+/etc/proxychains4.conf:#<span class="w"> </span>localnet<span class="w"> </span><span class="m">192</span>.168.1.0:80/255.255.255.0
+/etc/proxychains4.conf:##<span class="w"> </span>Exclude<span class="w"> </span>connections<span class="w"> </span>to<span class="w"> </span><span class="m">192</span>.168.100.0/24
+/etc/proxychains4.conf:#<span class="w"> </span>localnet<span class="w"> </span><span class="m">192</span>.168.100.0/255.255.255.0
+/etc/proxychains4.conf:#<span class="w"> </span>localnet<span class="w"> </span><span class="m">192</span>.168.0.0/255.255.0.0
+/etc/proxychains4.conf:#<span class="w">        </span>socks4<span class="w">  </span><span class="m">192</span>.168.1.49<span class="w">    </span><span class="m">1080</span>
+/etc/sane.d/kodakaio.conf:#net<span class="w"> </span><span class="m">192</span>.168.1.2<span class="w"> </span>0x4041
+/etc/sane.d/kodakaio.conf:#net<span class="w"> </span><span class="m">192</span>.168.1.17<span class="w"> </span>0x4067
+/etc/sane.d/epsonds.conf:#<span class="w"> </span>net<span class="w"> </span><span class="m">192</span>.168.1.123
+/etc/sane.d/airscan.conf:#<span class="s2">&quot;Kyocera MFP Scanner&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>http://192.168.1.102:9095/eSCL
+/etc/sane.d/airscan.conf:#ip<span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="m">192</span>.168.0.1<span class="w">    </span><span class="p">;</span><span class="w"> </span>blacklist<span class="w"> </span>by<span class="w"> </span>address
+/etc/sane.d/airscan.conf:#ip<span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="m">192</span>.168.0.0/24<span class="w"> </span><span class="p">;</span><span class="w"> </span>blacklist<span class="w"> </span>the<span class="w"> </span>whole<span class="w"> </span>subnet
+/etc/sane.d/dell1600n_net.conf:#named_scanner:<span class="w"> </span><span class="m">192</span>.168.0.20
+/etc/sane.d/epson2.conf:#<span class="w"> </span>net<span class="w"> </span><span class="m">192</span>.168.1.123
+/etc/sane.d/magicolor.conf:#<span class="w"> </span>net<span class="w"> </span><span class="m">192</span>.168.0.1
 /etc/sane.d/saned.conf:#192.168.0.1
 /etc/sane.d/saned.conf:#192.168.0.1/29
-/etc/fwupd/redfish.conf:# ex: https://192.168.0.133:443
+/etc/fwupd/redfish.conf:#<span class="w"> </span>ex:<span class="w"> </span>https://192.168.0.133:443
 </code></pre></div>
 
 <h3>Extended grep</h3>
@@ -356,10 +356,10 @@ $
 <p>If you need to search for exact strings (and not interpret it as a regex), use <code>grep -F</code> or <code>fgrep</code> so the <code>fgrep this$</code> won't go for the end of the line and will find <em>this$that</em> instead.</p>
 <h3>sed</h3>
 <p>In previous lessons, we saw simple <code>sed</code> usage and now I have great news for you: <strong>sed understands regex</strong>! You can use <code>-r</code> switch to tell sed that we are using regexes.</p>
-<div class="highlight"><pre><span></span><code>$ sed -r <span class="s2">&quot;s/(Z|R|J)/starts with ZRJ/&quot;</span> friends.txt 
-starts with ZRJee
-starts with ZRJosha
-starts with ZRJim
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sed<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;s/(Z|R|J)/starts with ZRJ/&quot;</span><span class="w"> </span>friends.txt<span class="w"> </span>
+starts<span class="w"> </span>with<span class="w"> </span>ZRJee
+starts<span class="w"> </span>with<span class="w"> </span>ZRJosha
+starts<span class="w"> </span>with<span class="w"> </span>ZRJim
 Xavier
 Krishna
 Mary
@@ -369,18 +369,18 @@ Mary
 <table>
 <thead>
 <tr>
-<th align="left">switch</th>
-<th align="left">meaning</th>
+<th style="text-align: left;">switch</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-r</td>
-<td align="left">use advanced regex</td>
+<td style="text-align: left;">-r</td>
+<td style="text-align: left;">use advanced regex</td>
 </tr>
 <tr>
-<td align="left">-n</td>
-<td align="left">suppress output, you can use p at the end of your regex ( /something/p ) to print the output</td>
+<td style="text-align: left;">-n</td>
+<td style="text-align: left;">suppress output, you can use p at the end of your regex ( /something/p ) to print the output</td>
 </tr>
 </tbody>
 </table>

@@ -104,55 +104,55 @@
 </ul>
 <h2>links</h2>
 <p>On a storage device, a file or directory is saved on some block and a reference to it is saved in the FAT, ext, ... allocation table alongside data about its owner, permissions, when it was last accessed, its size and such. As you already know, we can check this using the <code>ls</code> command.</p>
-<div class="highlight"><pre><span></span><code>$ ls -i script.sh
-<span class="m">785379</span> script.sh
-$ ls -l script.sh
--rwxr--r-t <span class="m">1</span> jadi adm <span class="m">34</span> Mar  <span class="m">5</span> <span class="m">13</span>:38 script.sh
-$ ls -R
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>-i<span class="w"> </span>script.sh
+<span class="m">785379</span><span class="w"> </span>script.sh
+$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>script.sh
+-rwxr--r-t<span class="w"> </span><span class="m">1</span><span class="w"> </span>jadi<span class="w"> </span>adm<span class="w"> </span><span class="m">34</span><span class="w"> </span>Mar<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">13</span>:38<span class="w"> </span>script.sh
+$<span class="w"> </span>ls<span class="w"> </span>-R
 .:
-check_tr181_file.php  etc_apparmom.tar  index.html  php_checker  script.sh  test.csv  w
+check_tr181_file.php<span class="w">  </span>etc_apparmom.tar<span class="w">  </span>index.html<span class="w">  </span>php_checker<span class="w">  </span>script.sh<span class="w">  </span>test.csv<span class="w">  </span>w
 
 ./php_checker:
-check_tr181_file.php  index.html  test.csv
+check_tr181_file.php<span class="w">  </span>index.html<span class="w">  </span>test.csv
 
 ./w:
 </code></pre></div>
 
 <p>But it is also possible to create links. A link is simply an additional directory entry for a file or directory:</p>
-<div class="highlight"><pre><span></span><code>$ ls -l
-total <span class="m">4</span>
--rwxr-xr-x <span class="m">1</span> jadi adm <span class="m">34</span> Mar  <span class="m">5</span> <span class="m">13</span>:38 script.sh
-$ ln -s script.sh copy_of_script.sh
-$ ls -ltrh
-total <span class="m">4</span>.0K
--rwxr-xr-x <span class="m">1</span> jadi adm  <span class="m">34</span> Mar  <span class="m">5</span> <span class="m">13</span>:38 script.sh
-lrwxrwxrwx <span class="m">1</span> jadi jadi  <span class="m">9</span> Mar  <span class="m">6</span> <span class="m">11</span>:31 copy_of_script.sh -&gt; script.sh
-$ ls -i
-<span class="m">785349</span> copy_of_script.sh  <span class="m">785379</span> script.sh
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>-l
+total<span class="w"> </span><span class="m">4</span>
+-rwxr-xr-x<span class="w"> </span><span class="m">1</span><span class="w"> </span>jadi<span class="w"> </span>adm<span class="w"> </span><span class="m">34</span><span class="w"> </span>Mar<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">13</span>:38<span class="w"> </span>script.sh
+$<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>script.sh<span class="w"> </span>copy_of_script.sh
+$<span class="w"> </span>ls<span class="w"> </span>-ltrh
+total<span class="w"> </span><span class="m">4</span>.0K
+-rwxr-xr-x<span class="w"> </span><span class="m">1</span><span class="w"> </span>jadi<span class="w"> </span>adm<span class="w">  </span><span class="m">34</span><span class="w"> </span>Mar<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">13</span>:38<span class="w"> </span>script.sh
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>jadi<span class="w"> </span>jadi<span class="w">  </span><span class="m">9</span><span class="w"> </span>Mar<span class="w">  </span><span class="m">6</span><span class="w"> </span><span class="m">11</span>:31<span class="w"> </span>copy_of_script.sh<span class="w"> </span>-&gt;<span class="w"> </span>script.sh
+$<span class="w"> </span>ls<span class="w"> </span>-i
+<span class="m">785349</span><span class="w"> </span>copy_of_script.sh<span class="w">  </span><span class="m">785379</span><span class="w"> </span>script.sh
 </code></pre></div>
 
 <p>A link is simply an additional directory entry for a file or directory, allowing two or more names for the same file. A <strong>hard link</strong> is a directory entry that points to an inode, while a <strong>soft link or symbolic link</strong> is a directory entry that points to an inode that provides the name of another directory entry. The exact mechanism for storing the second name may depend on both the file system and the length of the name. Symbolic links are also called symlinks.</p>
 <p>Soft links, or symlinks, merely point to another file or directory by name rather than by inode. Soft links can cross file system boundaries.</p>
-<div class="highlight"><pre><span></span><code>$ vi new_file
-$ ls -ltrh
-total <span class="m">4</span>.0K
--rw------- <span class="m">1</span> jadi jadi <span class="m">9</span> Mar  <span class="m">6</span> <span class="m">11</span>:37 new_file
-$ ln new_file hard_link
-$ ln -s new_file soft_link
-$ ls -ltrh
-total <span class="m">8</span>.0K
--rw------- <span class="m">2</span> jadi jadi <span class="m">9</span> Mar  <span class="m">6</span> <span class="m">11</span>:37 new_file
--rw------- <span class="m">2</span> jadi jadi <span class="m">9</span> Mar  <span class="m">6</span> <span class="m">11</span>:37 hard_link
-lrwxrwxrwx <span class="m">1</span> jadi jadi <span class="m">8</span> Mar  <span class="m">6</span> <span class="m">11</span>:37 soft_link -&gt; new_file
-$ rm new_file
-$ ls -ltrh
-total <span class="m">4</span>.0K
--rw------- <span class="m">1</span> jadi jadi <span class="m">9</span> Mar  <span class="m">6</span> <span class="m">11</span>:37 hard_link
-lrwxrwxrwx <span class="m">1</span> jadi jadi <span class="m">8</span> Mar  <span class="m">6</span> <span class="m">11</span>:37 soft_link -&gt; new_file
-$ cat hard_link
-new file
-$ cat soft_link
-cat: soft_link: No such file or directory
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>vi<span class="w"> </span>new_file
+$<span class="w"> </span>ls<span class="w"> </span>-ltrh
+total<span class="w"> </span><span class="m">4</span>.0K
+-rw-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>jadi<span class="w"> </span>jadi<span class="w"> </span><span class="m">9</span><span class="w"> </span>Mar<span class="w">  </span><span class="m">6</span><span class="w"> </span><span class="m">11</span>:37<span class="w"> </span>new_file
+$<span class="w"> </span>ln<span class="w"> </span>new_file<span class="w"> </span>hard_link
+$<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>new_file<span class="w"> </span>soft_link
+$<span class="w"> </span>ls<span class="w"> </span>-ltrh
+total<span class="w"> </span><span class="m">8</span>.0K
+-rw-------<span class="w"> </span><span class="m">2</span><span class="w"> </span>jadi<span class="w"> </span>jadi<span class="w"> </span><span class="m">9</span><span class="w"> </span>Mar<span class="w">  </span><span class="m">6</span><span class="w"> </span><span class="m">11</span>:37<span class="w"> </span>new_file
+-rw-------<span class="w"> </span><span class="m">2</span><span class="w"> </span>jadi<span class="w"> </span>jadi<span class="w"> </span><span class="m">9</span><span class="w"> </span>Mar<span class="w">  </span><span class="m">6</span><span class="w"> </span><span class="m">11</span>:37<span class="w"> </span>hard_link
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>jadi<span class="w"> </span>jadi<span class="w"> </span><span class="m">8</span><span class="w"> </span>Mar<span class="w">  </span><span class="m">6</span><span class="w"> </span><span class="m">11</span>:37<span class="w"> </span>soft_link<span class="w"> </span>-&gt;<span class="w"> </span>new_file
+$<span class="w"> </span>rm<span class="w"> </span>new_file
+$<span class="w"> </span>ls<span class="w"> </span>-ltrh
+total<span class="w"> </span><span class="m">4</span>.0K
+-rw-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>jadi<span class="w"> </span>jadi<span class="w"> </span><span class="m">9</span><span class="w"> </span>Mar<span class="w">  </span><span class="m">6</span><span class="w"> </span><span class="m">11</span>:37<span class="w"> </span>hard_link
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>jadi<span class="w"> </span>jadi<span class="w"> </span><span class="m">8</span><span class="w"> </span>Mar<span class="w">  </span><span class="m">6</span><span class="w"> </span><span class="m">11</span>:37<span class="w"> </span>soft_link<span class="w"> </span>-&gt;<span class="w"> </span>new_file
+$<span class="w"> </span>cat<span class="w"> </span>hard_link
+new<span class="w"> </span>file
+$<span class="w"> </span>cat<span class="w"> </span>soft_link
+cat:<span class="w"> </span>soft_link:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>file<span class="w"> </span>or<span class="w"> </span>directory
 </code></pre></div>
 
 <blockquote>
@@ -162,31 +162,31 @@ cat: soft_link: No such file or directory
 <blockquote>
 <p>You will get an error if you attempt to create hard links that cross file systems or that are for directories.</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>$ ln mydir link2dir <span class="c1"># ln: mydir: hard link not allowed for director</span>
-$ ln -s mydir link2dir <span class="c1"># works just fine</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ln<span class="w"> </span>mydir<span class="w"> </span>link2dir<span class="w"> </span><span class="c1"># ln: mydir: hard link not allowed for director</span>
+$<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>mydir<span class="w"> </span>link2dir<span class="w"> </span><span class="c1"># works just fine</span>
 </code></pre></div>
 
 <p>If you are using relative names, you will usually want the current working directory to be the directory where you are creating the link; otherwise, the link you create will be relative to another point in the file system.</p>
-<div class="highlight"><pre><span></span><code>$ ln -s myfile.txt mydir/ <span class="c1">#broken link</span>
-$ <span class="nb">cd</span> mydir 
-$ ln -s ../myfile.txt .
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>myfile.txt<span class="w"> </span>mydir/<span class="w"> </span><span class="c1">#broken link</span>
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>mydir<span class="w"> </span>
+$<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>../myfile.txt<span class="w"> </span>.
 </code></pre></div>
 
 <p>It's recommended to use exact path for links.</p>
-<div class="highlight"><pre><span></span><code>$ ln -s /tmp/myfile.txt /tmp/Foo/Bar/myfile.txt
-$ ls -l /tmp/Foo/Bar/myfile.txt 
-lrwxrwxrwx. <span class="m">1</span> jadi jadi <span class="m">9</span> Mar  <span class="m">6</span> <span class="m">12</span>:37 /tmp/Foo/Bar/myfile.txt -&gt; /tmp/myfile.txt
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/tmp/myfile.txt<span class="w"> </span>/tmp/Foo/Bar/myfile.txt
+$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/tmp/Foo/Bar/myfile.txt<span class="w"> </span>
+lrwxrwxrwx.<span class="w"> </span><span class="m">1</span><span class="w"> </span>jadi<span class="w"> </span>jadi<span class="w"> </span><span class="m">9</span><span class="w"> </span>Mar<span class="w">  </span><span class="m">6</span><span class="w"> </span><span class="m">12</span>:37<span class="w"> </span>/tmp/Foo/Bar/myfile.txt<span class="w"> </span>-&gt;<span class="w"> </span>/tmp/myfile.txt
 </code></pre></div>
 
 <p>we can find symbolic links using the <code>find</code> command:</p>
-<div class="highlight"><pre><span></span><code>$ find . -type l
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>l
 </code></pre></div>
 
 <p>They are highly used to keep one specific name pointing to a changing binary name. For example we always need to be able to run <code>python3</code> so we point it to the latest installed python on the system:</p>
-<div class="highlight"><pre><span></span><code>$ which python3
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>which<span class="w"> </span>python3
 /usr/bin/python3
-$ ls -l /usr/bin/python3
-lrwxrwxrwx <span class="m">1</span> root root <span class="m">10</span> Mar <span class="m">25</span>  <span class="m">2022</span> /usr/bin/python3 -&gt; python3.10
+$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/usr/bin/python3
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">10</span><span class="w"> </span>Mar<span class="w"> </span><span class="m">25</span><span class="w">  </span><span class="m">2022</span><span class="w"> </span>/usr/bin/python3<span class="w"> </span>-&gt;<span class="w"> </span>python3.10
 </code></pre></div>
 
 <p>To remove links, you can use the <code>rm</code> or <code>unlink</code> command.</p>

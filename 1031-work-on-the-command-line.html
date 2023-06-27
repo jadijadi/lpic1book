@@ -119,7 +119,7 @@
 <p>You issue your commands in a shell; it's your command line interface and you have various options for it. To reach your shell you should login into the system in the text mode or run one of the various <em>Terminal Emulators</em> in your GUI. Some samples are <code>gnome-terminal</code>, <code>konsole</code>, <code>xterm</code>, etc.</p>
 <p>After running the Terminal Emulator or logging into the text mode, you are in the shell and you can issue commands. Although <code>bash</code> (GNU Bourne Again shell) is the most common one, you might use <code>zsh</code>, <code>dash</code>, <code>ksh</code>, <code>csh</code>, and others.</p>
 <p>You can check where your general <code>sh</code> command links to via</p>
-<div class="highlight"><pre><span></span><code>$ readlink /bin/sh
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>readlink<span class="w"> </span>/bin/sh
 </code></pre></div>
 
 <p>Or check your <code>$SHELL</code> variable using:</p>
@@ -128,12 +128,12 @@
 
 <p>Your bash has some <em>internal</em> commands that it understands without any external dependency (say <code>cd</code>, <code>break</code>, <code>exec</code>, ...) but if it does not understand something internally, it will try to run it as an external executable.</p>
 <p>You can use the <code>type</code> command to determine this:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">cd</span><span class="w"></span>
-<span class="n">cd</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">shell</span><span class="w"> </span><span class="n">builtin</span><span class="w"></span>
-<span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">ls</span><span class="w"></span>
-<span class="n">ls</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">aliased</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="err">`</span><span class="n">ls</span><span class="w"> </span><span class="o">--</span><span class="n">color</span><span class="o">=</span><span class="n">auto</span><span class="err">&#39;</span><span class="w"></span>
-<span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">ping</span><span class="w"></span>
-<span class="n">ping</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">ping</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">cd</span>
+<span class="n">cd</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">shell</span><span class="w"> </span><span class="n">builtin</span>
+<span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">ls</span>
+<span class="n">ls</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">aliased</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="err">`</span><span class="n">ls</span><span class="w"> </span><span class="o">--</span><span class="n">color</span><span class="o">=</span><span class="n">auto</span><span class="err">&#39;</span>
+<span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">ping</span>
+<span class="n">ping</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">ping</span>
 </code></pre></div>
 
 <h2>cd, pwd &amp; uname</h2>
@@ -155,8 +155,8 @@ cd $HOME
 
 <h3>pwd</h3>
 <p>Will show you your current directory:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora lesson3.1</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">pwd</span><span class="w"></span>
-<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="n">lpic1</span><span class="o">/</span><span class="n">lesson3</span><span class="mf">.1</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora lesson3.1</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">pwd</span>
+<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="n">lpic1</span><span class="o">/</span><span class="n">lesson3</span><span class="mf">.1</span>
 </code></pre></div>
 
 <h3>uname</h3>
@@ -164,38 +164,38 @@ cd $HOME
 <table>
 <thead>
 <tr>
-<th align="left">Option</th>
-<th align="left">Description</th>
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-s</td>
-<td align="left">Print the kernel name. This is the default if no option is specified.</td>
+<td style="text-align: left;">-s</td>
+<td style="text-align: left;">Print the kernel name. This is the default if no option is specified.</td>
 </tr>
 <tr>
-<td align="left">-n</td>
-<td align="left">Print the nodename or hostname.</td>
+<td style="text-align: left;">-n</td>
+<td style="text-align: left;">Print the nodename or hostname.</td>
 </tr>
 <tr>
-<td align="left">-r</td>
-<td align="left">Print the release of the kernel. This option is often used with module-handling commands.</td>
+<td style="text-align: left;">-r</td>
+<td style="text-align: left;">Print the release of the kernel. This option is often used with module-handling commands.</td>
 </tr>
 <tr>
-<td align="left">-v</td>
-<td align="left">Print the version of the kernel.</td>
+<td style="text-align: left;">-v</td>
+<td style="text-align: left;">Print the version of the kernel.</td>
 </tr>
 <tr>
-<td align="left">-m</td>
-<td align="left">Print the machine's hardware (CPU) name.</td>
+<td style="text-align: left;">-m</td>
+<td style="text-align: left;">Print the machine's hardware (CPU) name.</td>
 </tr>
 <tr>
-<td align="left">-o</td>
-<td align="left">Print the operating system name.</td>
+<td style="text-align: left;">-o</td>
+<td style="text-align: left;">Print the operating system name.</td>
 </tr>
 <tr>
-<td align="left">-a</td>
-<td align="left">Print all of the above information.</td>
+<td style="text-align: left;">-a</td>
+<td style="text-align: left;">Print all of the above information.</td>
 </tr>
 </tbody>
 </table>
@@ -207,19 +207,19 @@ Linux fedora 5.14.0-60.fc35.aarch64 #1 SMP Mon Aug 30 16:30:42 UTC 2021 aarch64 
 <h2>Getting Help</h2>
 <p>Most of the commands we use do have a cool and complete manual, accessible via the <code>man</code> command. It uses the <code>less</code> pager by default and contains the documentation, switches, parameters, ... of commands, and utilities. </p>
 <p>Make yourself familiar with the man by reading the manual of the <code>yes</code> command:</p>
-<div class="highlight"><pre><span></span><code>$ man yes
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>man<span class="w"> </span>yes
 </code></pre></div>
 
 <p>Please note that man pages are categorized in different sections (books). You can check these by reading the man's manual:</p>
-<div class="highlight"><pre><span></span><code>$ man man
-$ man <span class="m">5</span> passwd
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>man<span class="w"> </span>man
+$<span class="w"> </span>man<span class="w"> </span><span class="m">5</span><span class="w"> </span>passwd
 </code></pre></div>
 
 <p>`</p>
 <h2>Special characters and Quoting/Escaping</h2>
 <p>In the computer world, some characters do have special meanings. For example in bash, the <code>*</code> character will expand to all files. In these cases, if you want to use this character without this expansion, you have to <em>Quote</em> it or <em>Escape</em> it. In many cases this is done via adding a <code>\</code> character before it:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="m">2</span> <span class="se">\*</span> <span class="nv">3</span> <span class="o">=</span> <span class="m">6</span>
-<span class="m">2</span> * <span class="nv">3</span> <span class="o">=</span> <span class="m">6</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\*</span><span class="w"> </span><span class="nv">3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span>
+<span class="m">2</span><span class="w"> </span>*<span class="w"> </span><span class="nv">3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span>
 </code></pre></div>
 
 <p>These are the character with special meanings that you need to quote if you are using them in your commands:</p>
@@ -238,54 +238,54 @@ there
 <table>
 <thead>
 <tr>
-<th align="left">Escape sequence    Function</th>
-<th align="left"></th>
+<th style="text-align: left;">Escape sequence    Function</th>
+<th style="text-align: left;"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">\a</td>
-<td align="left">Alert (bell)</td>
+<td style="text-align: left;">\a</td>
+<td style="text-align: left;">Alert (bell)</td>
 </tr>
 <tr>
-<td align="left">\b</td>
-<td align="left">Backspace</td>
+<td style="text-align: left;">\b</td>
+<td style="text-align: left;">Backspace</td>
 </tr>
 <tr>
-<td align="left">\c</td>
-<td align="left">Suppress trailing newline (same function as -n option)</td>
+<td style="text-align: left;">\c</td>
+<td style="text-align: left;">Suppress trailing newline (same function as -n option)</td>
 </tr>
 <tr>
-<td align="left">\f</td>
-<td align="left">Form feed (clear the screen on a video display)</td>
+<td style="text-align: left;">\f</td>
+<td style="text-align: left;">Form feed (clear the screen on a video display)</td>
 </tr>
 <tr>
-<td align="left">\n</td>
-<td align="left">New line</td>
+<td style="text-align: left;">\n</td>
+<td style="text-align: left;">New line</td>
 </tr>
 <tr>
-<td align="left">\r</td>
-<td align="left">Carriage return</td>
+<td style="text-align: left;">\r</td>
+<td style="text-align: left;">Carriage return</td>
 </tr>
 <tr>
-<td align="left">\t</td>
-<td align="left">Horizontal tab</td>
+<td style="text-align: left;">\t</td>
+<td style="text-align: left;">Horizontal tab</td>
 </tr>
 </tbody>
 </table>
 <p>On bash you can use <code>\</code> to break a command into more lines:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> You know slashes! But this <span class="se">\</span>
-is another <span class="se">\</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>You<span class="w"> </span>know<span class="w"> </span>slashes!<span class="w"> </span>But<span class="w"> </span>this<span class="w"> </span><span class="se">\</span>
+is<span class="w"> </span>another<span class="w"> </span><span class="se">\</span>
 usage
-You know slashes! But this is another usage
+You<span class="w"> </span>know<span class="w"> </span>slashes!<span class="w"> </span>But<span class="w"> </span>this<span class="w"> </span>is<span class="w"> </span>another<span class="w"> </span>usage
 </code></pre></div>
 
 <h2>Shell environment variables</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/KMvc1SyPgjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <p><em>Environment Variables</em> contain some configs and information about the shell. For example, your default editor is set in the <code>EDITOR</code> variable. You can query the value of a shell variable like this:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="err">$</span><span class="n">EDITOR</span><span class="w"></span>
-<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">nano</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="err">$</span><span class="n">EDITOR</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">nano</span>
 </code></pre></div>
 
 <p>It is possible to check all the env variables using the <code>set</code> or <code>env</code> command. </p>
@@ -293,62 +293,62 @@ You know slashes! But this is another usage
 <table>
 <thead>
 <tr>
-<th align="left">Name</th>
-<th align="left">Function</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Function</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">USER</td>
-<td align="left">The name of the logged-in user</td>
+<td style="text-align: left;">USER</td>
+<td style="text-align: left;">The name of the logged-in user</td>
 </tr>
 <tr>
-<td align="left">PATH</td>
-<td align="left">List of directories to search for commands, colon separated</td>
+<td style="text-align: left;">PATH</td>
+<td style="text-align: left;">List of directories to search for commands, colon separated</td>
 </tr>
 <tr>
-<td align="left">EDITOR</td>
-<td align="left">Default editor</td>
+<td style="text-align: left;">EDITOR</td>
+<td style="text-align: left;">Default editor</td>
 </tr>
 <tr>
-<td align="left">HISTFILE</td>
-<td align="left">Where bash should save its history (normally <code>.bash_history</code>)</td>
+<td style="text-align: left;">HISTFILE</td>
+<td style="text-align: left;">Where bash should save its history (normally <code>.bash_history</code>)</td>
 </tr>
 <tr>
-<td align="left">HOSTNAME</td>
-<td align="left">System hostname</td>
+<td style="text-align: left;">HOSTNAME</td>
+<td style="text-align: left;">System hostname</td>
 </tr>
 <tr>
-<td align="left">PS1</td>
-<td align="left">The Prompt! Play with it</td>
+<td style="text-align: left;">PS1</td>
+<td style="text-align: left;">The Prompt! Play with it</td>
 </tr>
 <tr>
-<td align="left">UID</td>
-<td align="left">The numeric user id of the logged-in user</td>
+<td style="text-align: left;">UID</td>
+<td style="text-align: left;">The numeric user id of the logged-in user</td>
 </tr>
 <tr>
-<td align="left">HOME</td>
-<td align="left">The user's home directory</td>
+<td style="text-align: left;">HOME</td>
+<td style="text-align: left;">The user's home directory</td>
 </tr>
 <tr>
-<td align="left">PWD</td>
-<td align="left">The current working directory</td>
+<td style="text-align: left;">PWD</td>
+<td style="text-align: left;">The current working directory</td>
 </tr>
 <tr>
-<td align="left">SHELL</td>
-<td align="left">The name of the shell</td>
+<td style="text-align: left;">SHELL</td>
+<td style="text-align: left;">The name of the shell</td>
 </tr>
 <tr>
-<td align="left">$</td>
-<td align="left">The process id (or PID of the running bash shell (or other) process</td>
+<td style="text-align: left;">$</td>
+<td style="text-align: left;">The process id (or PID of the running bash shell (or other) process</td>
 </tr>
 <tr>
-<td align="left">PPID</td>
-<td align="left">The process id of the process that started this process (that is, the id of the parent process)</td>
+<td style="text-align: left;">PPID</td>
+<td style="text-align: left;">The process id of the process that started this process (that is, the id of the parent process)</td>
 </tr>
 <tr>
-<td align="left">?</td>
-<td align="left">The exit code of the last command</td>
+<td style="text-align: left;">?</td>
+<td style="text-align: left;">The exit code of the last command</td>
 </tr>
 </tbody>
 </table>
@@ -368,8 +368,8 @@ $ unset MM
 </code></pre></div>
 
 <p>If you want new programs starting from this shell to have access to the variable you defined, you have to set them with <code>export</code> or export them later.</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">export</span> MYMOOD
-$ <span class="nb">export</span> <span class="nv">YOURMOOD</span><span class="o">=</span><span class="s2">&quot;Not Confused&quot;</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span>MYMOOD
+$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">YOURMOOD</span><span class="o">=</span><span class="s2">&quot;Not Confused&quot;</span>
 </code></pre></div>
 
 <blockquote>
@@ -382,22 +382,22 @@ $ <span class="nb">export</span> <span class="nv">YOURMOOD</span><span class="o"
 </code></pre></div>
 
 <p>But what happens if I try to run <code>tar</code>? Let's check with <code>which</code>, <code>type</code>, and <code>whereis</code> commands:</p>
-<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">tar</span><span class="w"></span>
-<span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">tar</span><span class="w"></span>
-<span class="n">jadi</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">tar</span><span class="w"></span>
-<span class="n">tar</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">tar</span><span class="w"></span>
-<span class="n">jadi</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">whereis</span><span class="w"> </span><span class="n">tar</span><span class="w"></span>
-<span class="nl">tar</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">tar</span><span class="w"> </span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">tar</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">include</span><span class="o">/</span><span class="n">tar</span><span class="p">.</span><span class="n">h</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="n">man1</span><span class="o">/</span><span class="n">tar</span><span class="mf">.1</span><span class="p">.</span><span class="n">gz</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">tar</span>
+<span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">tar</span>
+<span class="n">jadi</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">tar</span>
+<span class="n">tar</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">tar</span>
+<span class="n">jadi</span><span class="nv">@funlife</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">whereis</span><span class="w"> </span><span class="n">tar</span>
+<span class="nl">tar</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">tar</span><span class="w"> </span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">tar</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">include</span><span class="o">/</span><span class="n">tar</span><span class="p">.</span><span class="n">h</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="n">man1</span><span class="o">/</span><span class="n">tar</span><span class="mf">.1</span><span class="p">.</span><span class="n">gz</span>
 </code></pre></div>
 
 <p>A cooler example is <code>ping</code> on Fedora:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">whereis</span><span class="w"> </span><span class="n">ping</span><span class="w"></span>
-<span class="nl">ping</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">ping</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">ping</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="n">man8</span><span class="o">/</span><span class="n">ping</span><span class="mf">.8</span><span class="p">.</span><span class="n">gz</span><span class="w"></span>
-<span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">ping</span><span class="w"></span>
-<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">ping</span><span class="w"></span>
-<span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">ping</span><span class="w"> </span><span class="mf">4.2.2.4</span><span class="w"></span>
-<span class="n">PING</span><span class="w"> </span><span class="mf">4.2.2.4</span><span class="w"> </span><span class="p">(</span><span class="mf">4.2.2.4</span><span class="p">)</span><span class="w"> </span><span class="mi">56</span><span class="p">(</span><span class="mi">84</span><span class="p">)</span><span class="w"> </span><span class="n">bytes</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">data</span><span class="p">.</span><span class="w"></span>
-<span class="mi">64</span><span class="w"> </span><span class="n">bytes</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="mf">4.2.2.4</span><span class="err">:</span><span class="w"> </span><span class="n">icmp_seq</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="n">ttl</span><span class="o">=</span><span class="mi">50</span><span class="w"> </span><span class="nc">time</span><span class="o">=</span><span class="mi">160</span><span class="w"> </span><span class="n">ms</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">whereis</span><span class="w"> </span><span class="n">ping</span>
+<span class="nl">ping</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">ping</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">ping</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="n">man8</span><span class="o">/</span><span class="n">ping</span><span class="mf">.8</span><span class="p">.</span><span class="n">gz</span>
+<span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">ping</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">ping</span>
+<span class="o">[</span><span class="n">jadi@fedora ~</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">ping</span><span class="w"> </span><span class="mf">4.2.2.4</span>
+<span class="n">PING</span><span class="w"> </span><span class="mf">4.2.2.4</span><span class="w"> </span><span class="p">(</span><span class="mf">4.2.2.4</span><span class="p">)</span><span class="w"> </span><span class="mi">56</span><span class="p">(</span><span class="mi">84</span><span class="p">)</span><span class="w"> </span><span class="n">bytes</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">data</span><span class="p">.</span>
+<span class="mi">64</span><span class="w"> </span><span class="n">bytes</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="mf">4.2.2.4</span><span class="err">:</span><span class="w"> </span><span class="n">icmp_seq</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="n">ttl</span><span class="o">=</span><span class="mi">50</span><span class="w"> </span><span class="nc">time</span><span class="o">=</span><span class="mi">160</span><span class="w"> </span><span class="n">ms</span>
 </code></pre></div>
 
 <blockquote>

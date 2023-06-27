@@ -124,36 +124,36 @@
 <table>
 <thead>
 <tr>
-<th align="left">filed</th>
-<th align="left">Meaning</th>
-<th align="left">values</th>
+<th style="text-align: left;">filed</th>
+<th style="text-align: left;">Meaning</th>
+<th style="text-align: left;">values</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">A</td>
-<td align="left">minute</td>
-<td align="left">0-59</td>
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">minute</td>
+<td style="text-align: left;">0-59</td>
 </tr>
 <tr>
-<td align="left">B</td>
-<td align="left">hour</td>
-<td align="left">0-23</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: left;">hour</td>
+<td style="text-align: left;">0-23</td>
 </tr>
 <tr>
-<td align="left">C</td>
-<td align="left">day of month</td>
-<td align="left">1-31</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">day of month</td>
+<td style="text-align: left;">1-31</td>
 </tr>
 <tr>
-<td align="left">D</td>
-<td align="left">month</td>
-<td align="left">1-12 (or names, see below)</td>
+<td style="text-align: left;">D</td>
+<td style="text-align: left;">month</td>
+<td style="text-align: left;">1-12 (or names, see below)</td>
 </tr>
 <tr>
-<td align="left">E</td>
-<td align="left">day of week</td>
-<td align="left">0-7 (0 or 7 is Sunday, or use names)</td>
+<td style="text-align: left;">E</td>
+<td style="text-align: left;">day of week</td>
+<td style="text-align: left;">0-7 (0 or 7 is Sunday, or use names)</td>
 </tr>
 </tbody>
 </table>
@@ -211,73 +211,73 @@ MAILTO=root
 <p>As you can see this default crontab runs other crons! These are hourly, daily, weekly and monthly crons. Lets have a look at them in the next section.</p>
 <h3>System hourly, daliy, weekly, monthly, .. crons</h3>
 <p>We have some system level crontab files in <code>/etc/cron.d/</code> too. They look like general crontab files. For example this is one that <code>munin</code> program creates:</p>
-<div class="highlight"><pre><span></span><code>$ cat /etc/cron.d/munin
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/cron.d/munin
 <span class="c1">#</span>
 <span class="c1"># cron-jobs for munin</span>
 <span class="c1">#</span>
 
 <span class="nv">MAILTO</span><span class="o">=</span>root
 
-*/5 * * * *     munin <span class="k">if</span> <span class="o">[</span> -x /usr/bin/munin-cron <span class="o">]</span><span class="p">;</span> <span class="k">then</span> /usr/bin/munin-cron<span class="p">;</span> <span class="k">fi</span>
-<span class="m">14</span> <span class="m">10</span> * * *     munin <span class="k">if</span> <span class="o">[</span> -x /usr/share/munin/munin-limits <span class="o">]</span><span class="p">;</span> <span class="k">then</span> /usr/share/munin/munin-limits --force --contact nagios --contact old-nagios<span class="p">;</span> <span class="k">fi</span>
-<span class="m">19</span>:12:37 jadi@ocean:~$ cat /etc/cron.weekly/man-db
+*/5<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w">     </span>munin<span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-x<span class="w"> </span>/usr/bin/munin-cron<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span>/usr/bin/munin-cron<span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="m">14</span><span class="w"> </span><span class="m">10</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w">     </span>munin<span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-x<span class="w"> </span>/usr/share/munin/munin-limits<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span>/usr/share/munin/munin-limits<span class="w"> </span>--force<span class="w"> </span>--contact<span class="w"> </span>nagios<span class="w"> </span>--contact<span class="w"> </span>old-nagios<span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="m">19</span>:12:37<span class="w"> </span>jadi@ocean:~$<span class="w"> </span>cat<span class="w"> </span>/etc/cron.weekly/man-db
 </code></pre></div>
 
 <p>But there are also directories called cron.hourly, cron.daily, cron.weekly &amp; cron.monthly. As their name indicates, whatever script / file you put in them, will be run hourly, daily, weekly &amp; monthly. This makes general cleanup, backup, ... tasks much cleaner. Its enough to copy your script in any of these directories and let them run on these intervals.</p>
-<div class="highlight"><pre><span></span><code>$ sudo tree /etc/cron*
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>tree<span class="w"> </span>/etc/cron*
 /etc/cron.d
-├── munin
-├── munin-node
-├── php5
-└── sendmail
+├──<span class="w"> </span>munin
+├──<span class="w"> </span>munin-node
+├──<span class="w"> </span>php5
+└──<span class="w"> </span>sendmail
 /etc/cron.daily
-├── apache2
-├── apport
-├── apt
-├── aptitude
-├── bsdmainutils
-├── dpkg
-├── logrotate
-├── man-db
-├── mlocate
-├── passwd
-├── popularity-contest
-├── sendmail
-├── update-notifier-common
-└── upstart
+├──<span class="w"> </span>apache2
+├──<span class="w"> </span>apport
+├──<span class="w"> </span>apt
+├──<span class="w"> </span>aptitude
+├──<span class="w"> </span>bsdmainutils
+├──<span class="w"> </span>dpkg
+├──<span class="w"> </span>logrotate
+├──<span class="w"> </span>man-db
+├──<span class="w"> </span>mlocate
+├──<span class="w"> </span>passwd
+├──<span class="w"> </span>popularity-contest
+├──<span class="w"> </span>sendmail
+├──<span class="w"> </span>update-notifier-common
+└──<span class="w"> </span>upstart
 /etc/cron.hourly
 /etc/cron.monthly
-/etc/crontab <span class="o">[</span>error opening dir<span class="o">]</span>
+/etc/crontab<span class="w"> </span><span class="o">[</span>error<span class="w"> </span>opening<span class="w"> </span>dir<span class="o">]</span>
 /etc/cron.weekly
-├── apt-xapian-index
-├── fstrim
-├── man-db
-└── update-notifier-common
+├──<span class="w"> </span>apt-xapian-index
+├──<span class="w"> </span>fstrim
+├──<span class="w"> </span>man-db
+└──<span class="w"> </span>update-notifier-common
 </code></pre></div>
 
 <p>Lets have a look at one of the cron.d files:</p>
-<div class="highlight"><pre><span></span><code>$ cat /etc/cron.daily/mlocate
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/cron.daily/mlocate
 <span class="c1">#! /bin/bash</span>
 
-<span class="nb">set</span> -e
+<span class="nb">set</span><span class="w"> </span>-e
 
-<span class="o">[</span> -x /usr/bin/updatedb.mlocate <span class="o">]</span> <span class="o">||</span> <span class="nb">exit</span> <span class="m">0</span>
+<span class="o">[</span><span class="w"> </span>-x<span class="w"> </span>/usr/bin/updatedb.mlocate<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
 
-<span class="k">if</span> which on_ac_power &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="p">;</span> <span class="k">then</span>
-    <span class="nv">ON_BATTERY</span><span class="o">=</span><span class="m">0</span>
-    on_ac_power &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">||</span> <span class="nv">ON_BATTERY</span><span class="o">=</span><span class="nv">$?</span>
-    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$ON_BATTERY</span><span class="s2">&quot;</span> -eq <span class="m">1</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="nb">exit</span> <span class="m">0</span>
-    <span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span>which<span class="w"> </span>on_ac_power<span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">ON_BATTERY</span><span class="o">=</span><span class="m">0</span>
+<span class="w">    </span>on_ac_power<span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nv">ON_BATTERY</span><span class="o">=</span><span class="nv">$?</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ON_BATTERY</span><span class="s2">&quot;</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="w">    </span><span class="k">fi</span>
 <span class="k">fi</span>
 
 <span class="c1"># See ionice(1)</span>
-<span class="k">if</span> <span class="o">[</span> -x /usr/bin/ionice <span class="o">]</span> <span class="o">&amp;&amp;</span>
-    /usr/bin/ionice -c3 <span class="nb">true</span> <span class="m">2</span>&gt;/dev/null<span class="p">;</span> <span class="k">then</span>
-    <span class="nv">IONICE</span><span class="o">=</span><span class="s2">&quot;/usr/bin/ionice -c3&quot;</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-x<span class="w"> </span>/usr/bin/ionice<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">    </span>/usr/bin/ionice<span class="w"> </span>-c3<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">IONICE</span><span class="o">=</span><span class="s2">&quot;/usr/bin/ionice -c3&quot;</span>
 <span class="k">fi</span>
 
-flock --nonblock /run/mlocate.daily.lock <span class="nv">$IONICE</span> /usr/bin/updatedb.mlocate
+flock<span class="w"> </span>--nonblock<span class="w"> </span>/run/mlocate.daily.lock<span class="w"> </span><span class="nv">$IONICE</span><span class="w"> </span>/usr/bin/updatedb.mlocate
 </code></pre></div>
 
 <h3>at</h3>
@@ -331,18 +331,18 @@ jadi@funlife:~$ atq
 <table>
 <thead>
 <tr>
-<th align="left">file extension</th>
-<th align="left">functionality</th>
+<th style="text-align: left;">file extension</th>
+<th style="text-align: left;">functionality</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">.allow</td>
-<td align="left">ONLY users mentioned in this file are allowed to run this service. All other users will be denied</td>
+<td style="text-align: left;">.allow</td>
+<td style="text-align: left;">ONLY users mentioned in this file are allowed to run this service. All other users will be denied</td>
 </tr>
 <tr>
-<td align="left">.deny</td>
-<td align="left">Everybody can use the service except the users mentioned in this file</td>
+<td style="text-align: left;">.deny</td>
+<td style="text-align: left;">Everybody can use the service except the users mentioned in this file</td>
 </tr>
 </tbody>
 </table>
@@ -357,15 +357,15 @@ jadi@funlife:~$ atq
 </blockquote>
 <p>The <code>*</code>, <code>/</code> and <code>,</code> work the same in systemd and cron configurations but in systemd you can also use <code>..</code> between two values to indicate a contiguous range. </p>
 <p>For example, to run the service named <code>/etc/systemd/system/myservice.service</code> at 02:42 on the first Saturday of each month, this config line should be added to the <code>/etc/systemd/system/myservice.timer</code> unit file.</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Unit]</span><span class="w"></span>
-<span class="na">Description</span><span class="o">=</span><span class="s">Run the blah blah service</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">Run the blah blah service</span>
 
-<span class="k">[Timer]</span><span class="w"></span>
-<span class="na">OnCalendar</span><span class="o">=</span><span class="s">Sat *-*-1..7 02:42:00</span><span class="w"></span>
-<span class="na">Persistent</span><span class="o">=</span><span class="s">true</span><span class="w"></span>
+<span class="k">[Timer]</span>
+<span class="na">OnCalendar</span><span class="o">=</span><span class="s">Sat *-*-1..7 02:42:00</span>
+<span class="na">Persistent</span><span class="o">=</span><span class="s">true</span>
 
-<span class="k">[Install]</span><span class="w"></span>
-<span class="na">WantedBy</span><span class="o">=</span><span class="s">timers.target</span><span class="w"></span>
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">timers.target</span>
 </code></pre></div>
 
 <p>It is also possible to define <strong>monotonic</strong> timers. They activate after some time has elapsed from a specific start point (say when the machine was booted up or when the timer itself is activated). You can chose between any of the following:</p>
@@ -400,8 +400,8 @@ jadi@funlife:~$ atq
 </tbody>
 </table>
 <p>And you can use any of usec, msec, seconds, minutes, hours, days, weeks, months, years in front. So for example the </p>
-<div class="highlight"><pre><span></span><code><span class="k">[Timer]</span><span class="w"></span>
-<span class="na">OnUnitActiveSec</span><span class="o">=</span><span class="s">5minutes 20seconds</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">[Timer]</span>
+<span class="na">OnUnitActiveSec</span><span class="o">=</span><span class="s">5minutes 20seconds</span>
 </code></pre></div>
 
 <p>will activate the corresponding unit 5min and 20secs after the last activation of this unit service.</p>
@@ -445,17 +445,17 @@ jadi@funlife:~$ atq
 </table>
 <p>This is one example from a recent Fedora installation:</p>
 <div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="k">system</span><span class="o">/</span><span class="n">timers</span><span class="p">.</span><span class="n">target</span><span class="p">.</span><span class="n">wants</span><span class="o">/</span><span class="n">plocate</span><span class="o">-</span><span class="n">updatedb</span><span class="p">.</span><span class="n">timer</span><span class="w"> </span>
-<span class="o">[</span><span class="n">Unit</span><span class="o">]</span><span class="w"></span>
-<span class="n">Description</span><span class="o">=</span><span class="k">Update</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">plocate</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">daily</span><span class="w"></span>
+<span class="o">[</span><span class="n">Unit</span><span class="o">]</span>
+<span class="n">Description</span><span class="o">=</span><span class="k">Update</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">plocate</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">daily</span>
 
-<span class="o">[</span><span class="n">Timer</span><span class="o">]</span><span class="w"></span>
-<span class="n">OnCalendar</span><span class="o">=</span><span class="n">daily</span><span class="w"></span>
-<span class="n">RandomizedDelaySec</span><span class="o">=</span><span class="mi">12</span><span class="n">h</span><span class="w"></span>
-<span class="n">AccuracySec</span><span class="o">=</span><span class="mi">20</span><span class="nf">min</span><span class="w"></span>
-<span class="n">Persistent</span><span class="o">=</span><span class="k">true</span><span class="w"></span>
+<span class="o">[</span><span class="n">Timer</span><span class="o">]</span>
+<span class="n">OnCalendar</span><span class="o">=</span><span class="n">daily</span>
+<span class="n">RandomizedDelaySec</span><span class="o">=</span><span class="mi">12</span><span class="n">h</span>
+<span class="n">AccuracySec</span><span class="o">=</span><span class="mi">20</span><span class="nf">min</span>
+<span class="n">Persistent</span><span class="o">=</span><span class="k">true</span>
 
-<span class="o">[</span><span class="n">Install</span><span class="o">]</span><span class="w"></span>
-<span class="n">WantedBy</span><span class="o">=</span><span class="n">timers</span><span class="p">.</span><span class="n">target</span><span class="w"></span>
+<span class="o">[</span><span class="n">Install</span><span class="o">]</span>
+<span class="n">WantedBy</span><span class="o">=</span><span class="n">timers</span><span class="p">.</span><span class="n">target</span>
 </code></pre></div>
 
 <p>If you want to check the output of your timers, you can use the <code>journalctl</code>.</p>

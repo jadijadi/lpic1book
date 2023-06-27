@@ -161,33 +161,33 @@
 </table>
 <p></br>
 Some examples: </p>
-<div class="highlight"><pre><span></span><code>$ ls
-bob jack    jadi    linus   sara who_uses_what.txt
-$ ls x*
-ls: x*: No such file or directory
-$ ls j*
-jack    jadi
-$ ls j* x* &gt; output <span class="m">2</span>&gt; errors
-$ cat output
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ls
+bob<span class="w"> </span>jack<span class="w">    </span>jadi<span class="w">    </span>linus<span class="w">   </span>sara<span class="w"> </span>who_uses_what.txt
+$<span class="w"> </span>ls<span class="w"> </span>x*
+ls:<span class="w"> </span>x*:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>file<span class="w"> </span>or<span class="w"> </span>directory
+$<span class="w"> </span>ls<span class="w"> </span>j*
+jack<span class="w">    </span>jadi
+$<span class="w"> </span>ls<span class="w"> </span>j*<span class="w"> </span>x*<span class="w"> </span>&gt;<span class="w"> </span>output<span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>errors
+$<span class="w"> </span>cat<span class="w"> </span>output
 jack
 jadi
-$ cat errors
-ls: x*: No such file or directory
-$ cat who_uses_what.txt
-jadi, fedora
-linux, fedora
-bob, ubuntu
-jack, arch
-sara, fedora
-$ tr <span class="s1">&#39; &#39;</span>, <span class="s1">&#39;&#39;</span> &lt; who_uses_what.txt
-tr: empty string2
-$ cat who
-$ tr <span class="s1">&#39;,&#39;</span>, <span class="s1">&#39;|&#39;</span> &lt; who_uses_what.txt
-jadi<span class="p">|</span> fedora
-linux<span class="p">|</span> fedora
-bob<span class="p">|</span> ubuntu
-jack<span class="p">|</span> arch
-sara<span class="p">|</span> fedora
+$<span class="w"> </span>cat<span class="w"> </span>errors
+ls:<span class="w"> </span>x*:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>file<span class="w"> </span>or<span class="w"> </span>directory
+$<span class="w"> </span>cat<span class="w"> </span>who_uses_what.txt
+jadi,<span class="w"> </span>fedora
+linux,<span class="w"> </span>fedora
+bob,<span class="w"> </span>ubuntu
+jack,<span class="w"> </span>arch
+sara,<span class="w"> </span>fedora
+$<span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39; &#39;</span>,<span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span>&lt;<span class="w"> </span>who_uses_what.txt
+tr:<span class="w"> </span>empty<span class="w"> </span>string2
+$<span class="w"> </span>cat<span class="w"> </span>who
+$<span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;,&#39;</span>,<span class="w"> </span><span class="s1">&#39;|&#39;</span><span class="w"> </span>&lt;<span class="w"> </span>who_uses_what.txt
+jadi<span class="p">|</span><span class="w"> </span>fedora
+linux<span class="p">|</span><span class="w"> </span>fedora
+bob<span class="p">|</span><span class="w"> </span>ubuntu
+jack<span class="p">|</span><span class="w"> </span>arch
+sara<span class="p">|</span><span class="w"> </span>fedora
 </code></pre></div>
 
 <p>It is also possible to use <code>&amp;1</code> and <code>&amp;2</code> and <code>&amp;0</code> to refer to the <strong>target</strong> of STDOUT, STDERR &amp; STDIN. In this case <code>ls &gt; file1 2&gt;&amp;1</code> means <em>redirect output to file1 and output stderr to same place as stdout (file1)</em></p>
@@ -196,17 +196,17 @@ sara<span class="p">|</span> fedora
 </blockquote>
 <h4>sending to null</h4>
 <p>In Linux <strong>/dev/null</strong> device works like an abyss. You can send anything there and it disappears without being any burden on your system. So it is normal to say:</p>
-<div class="highlight"><pre><span></span><code>$ ls j* x* &gt; file1
-ls: x*: No such file or directory
-$ ls j* x* &gt; file1 <span class="m">2</span>&gt;/dev/null
-$ cat file1
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>j*<span class="w"> </span>x*<span class="w"> </span>&gt;<span class="w"> </span>file1
+ls:<span class="w"> </span>x*:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>file<span class="w"> </span>or<span class="w"> </span>directory
+$<span class="w"> </span>ls<span class="w"> </span>j*<span class="w"> </span>x*<span class="w"> </span>&gt;<span class="w"> </span>file1<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+$<span class="w"> </span>cat<span class="w"> </span>file1
 jack
 jadi
 </code></pre></div>
 
 <h4>here-documents</h4>
 <p>Many shells have here-documents (also called here-docs) as a way of input. You use <code>&lt;&lt;</code> and a <code>WORD</code> and then whatever you input is considered stdin till you give only the WORD in one line.</p>
-<div class="highlight"><pre><span></span><code>$ tr <span class="s1">&#39; &#39;</span> <span class="s1">&#39;.&#39;</span> <span class="s">&lt;&lt; END_OF_DATA</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="s1">&#39;.&#39;</span><span class="w"> </span><span class="s">&lt;&lt; END_OF_DATA</span>
 <span class="s">&gt; this is a line</span>
 <span class="s">&gt; and then this</span>
 <span class="s">&gt;</span>
@@ -228,16 +228,16 @@ and,
 <iframe width="560" height="315" src="https://www.youtube.com/embed/j3L_7Wxcl0U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h3>Pipes</h3>
 <p>With the pipe (<code>|</code>), you can redirect STDOUT, STDIN, and STDERR between multiple commands all on one command line. When you do <code>command1 | command2</code>; command1, is executed but its STDOUT is redirected as STDIN into the COMMAND2. </p>
-<div class="highlight"><pre><span></span><code>$ cat who_uses_what.txt
-jadi, fedora
-linux, fedora
-bob, ubuntu
-jack, arch
-sara, fedora
-$ cut -f2 -d, who_uses_what.txt <span class="p">|</span> sed -e <span class="s1">&#39;s/ //g&#39;</span> <span class="p">|</span> sort  <span class="p">|</span> uniq -c <span class="p">|</span> sort -nr
-   <span class="m">3</span> fedora
-   <span class="m">1</span> ubuntu
-   <span class="m">1</span> arch
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>who_uses_what.txt
+jadi,<span class="w"> </span>fedora
+linux,<span class="w"> </span>fedora
+bob,<span class="w"> </span>ubuntu
+jack,<span class="w"> </span>arch
+sara,<span class="w"> </span>fedora
+$<span class="w"> </span>cut<span class="w"> </span>-f2<span class="w"> </span>-d,<span class="w"> </span>who_uses_what.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;s/ //g&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w">  </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-nr
+<span class="w">   </span><span class="m">3</span><span class="w"> </span>fedora
+<span class="w">   </span><span class="m">1</span><span class="w"> </span>ubuntu
+<span class="w">   </span><span class="m">1</span><span class="w"> </span>arch
 </code></pre></div>
 
 <blockquote>
@@ -248,29 +248,29 @@ $ cut -f2 -d, who_uses_what.txt <span class="p">|</span> sed -e <span class="s1"
 
 <h3>xargs</h3>
 <p>The xargs utility reads space, tab, newline and end-of-file delimited strings from the standard input and executes the provided utility with the strings as their arguments.</p>
-<div class="highlight"><pre><span></span><code>$ ls
-bob         file1           jadi            output          who_uses_what.txt
-errors          jack            linus           sara
-$ ls <span class="p">|</span> xargs <span class="nb">echo</span> these are files:
-these are files: bob errors file1 jack jadi linus output sara who_uses_what.txt
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ls
+bob<span class="w">         </span>file1<span class="w">           </span>jadi<span class="w">            </span>output<span class="w">          </span>who_uses_what.txt
+errors<span class="w">          </span>jack<span class="w">            </span>linus<span class="w">           </span>sara
+$<span class="w"> </span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>these<span class="w"> </span>are<span class="w"> </span>files:
+these<span class="w"> </span>are<span class="w"> </span>files:<span class="w"> </span>bob<span class="w"> </span>errors<span class="w"> </span>file1<span class="w"> </span>jack<span class="w"> </span>jadi<span class="w"> </span>linus<span class="w"> </span>output<span class="w"> </span>sara<span class="w"> </span>who_uses_what.txt
 </code></pre></div>
 
 <blockquote>
 <p>if you do not give any command to the <code>xargs</code> , the echo will be the default command. </p>
 </blockquote>
 <p>One common switch is <code>-I</code>. This is useful if you need to pass stdin arguments in the middle (or even start) of your commands. Use it like this: <code>xargs -I SOMETHING echo here is SOMETHING end</code>:</p>
-<div class="highlight"><pre><span></span><code>$ cat who_uses_what.txt
-jadi, fedora
-linus, fedora
-bob, ubuntu
-jack, arch
-sara, fedora
-$ cat who_uses_what.txt <span class="p">|</span> xargs -I DATA <span class="nb">echo</span> name is DATA is the choice.
-name is jadi, fedora is the choice.
-name is linus, fedora is the choice.
-name is bob, ubuntu is the choice.
-name is jack, arch is the choice.
-name is sara, fedora is the choice.
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>who_uses_what.txt
+jadi,<span class="w"> </span>fedora
+linus,<span class="w"> </span>fedora
+bob,<span class="w"> </span>ubuntu
+jack,<span class="w"> </span>arch
+sara,<span class="w"> </span>fedora
+$<span class="w"> </span>cat<span class="w"> </span>who_uses_what.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span>DATA<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>name<span class="w"> </span>is<span class="w"> </span>DATA<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>choice.
+name<span class="w"> </span>is<span class="w"> </span>jadi,<span class="w"> </span>fedora<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>choice.
+name<span class="w"> </span>is<span class="w"> </span>linus,<span class="w"> </span>fedora<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>choice.
+name<span class="w"> </span>is<span class="w"> </span>bob,<span class="w"> </span>ubuntu<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>choice.
+name<span class="w"> </span>is<span class="w"> </span>jack,<span class="w"> </span>arch<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>choice.
+name<span class="w"> </span>is<span class="w"> </span>sara,<span class="w"> </span>fedora<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>choice.
 </code></pre></div>
 
 <p>Two more useful switches:
@@ -278,7 +278,7 @@ name is sara, fedora is the choice.
 2. <code>-n 1</code> tells xargs to invoke the provided utility after receiving 1 argument.  </p>
 <h3>tee</h3>
 <p>The problem with redirection is that you cannot see the progress of your commands in the same terminal. The <code>tee</code> utility solves this. If you need to see the output on screen and also save it to a file, <code>tee</code> is your friend. Give it one or more filenames and it will do the trick. </p>
-<div class="highlight"><pre><span></span><code>$ ls -1 <span class="p">|</span> tee allfiles myfiles
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>allfiles<span class="w"> </span>myfiles
 bob
 errors
 file1
@@ -288,7 +288,7 @@ linus
 output
 sara
 who_uses_what.txt
-$ cat allfiles myfiles
+$<span class="w"> </span>cat<span class="w"> </span>allfiles<span class="w"> </span>myfiles
 bob
 errors
 file1
