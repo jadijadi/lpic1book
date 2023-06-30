@@ -76,7 +76,7 @@ As you can see in above examples, `/` can be used to slice the time (so `*/5` in
 
 > When using `*` on the first filed, you are running your command on every minute.
 
-> Something like `42 8 1 1 0` runs ONLY when the 1st of Jan is a Monday!
+> Something like `42 8 1 1 0` runs ONLY when the 1st of Jan is a Sunday!
 
 When a cron runs, the output will be emailed to the owner of the cron.
 
