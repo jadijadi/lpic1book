@@ -87,8 +87,7 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h2>108.1 Maintain system time</h2>
-<p><em>Weight: 3</em></p>
+            <p><em>Weight: 3</em></p>
 <p>Candidates should be able to properly maintain the system time and synchronize the clock via NTP.</p>
 <h3>Key Knowledge Areas</h3>
 <ul>
@@ -113,6 +112,8 @@
 <li>chronyc</li>
 <li>pool.ntp.org</li>
 </ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RhH-2I1dBjA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <h3>How a computer keeps its time</h3>
 <p>There is a clock in your computer; a hardware clock on your motherboard! It has its own battery and keeps the time even when the computer is off. When the system boots, the OS reads this <strong>hardware time</strong> and it sets it's own <strong>system time</strong> based on the hardware clock and uses this clock whenever it needs to know the time.</p>
 <p>Hardware clock can be the set on localtime (the time shown on your clock whenever you are) or UTC time (standard time). The <code>hwclock</code> can be used to show the time based on the hwtime. See how it works based on the hardware time even after we DO CHANGE the system time:</p>
@@ -156,6 +157,8 @@ lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </spa
 
 <p>In many cases, this is a soft link to a file located at <code>/etc/share/zoneinfo/</code> so it will be updated in case of system update.</p>
 <h3>NTP</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ntyUBmG8F40" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <p>Network Time Protocol is my personal favorite protocol. It is one of the coolest protocols ever if you dive into its details. But unfortunately for LPIC1 you do not need to dive into NTP depths. This protocol uses NTP servers to find out the accurate time shown by best atomic clocks on this planet. One of the most famous severs used by ntp people is <code>pool.ntp.org</code>. If you check that website you will see that it is a <strong>pool</strong> of ntp servers and by giving your NTP server the <code>pool.ntp.org</code>, it will be redirected to one of the many ntp servers available on that pool.</p>
 <h4>ntpdate</h4>
 <p>The most straight forward command to set the systemclock is <code>ntpdate</code> and used like this:</p>

@@ -88,7 +88,7 @@
         <div class="span8 offset2 article-content">
             
             <p><em>Weight: 3</em></p>
-<p>Candidates should be able to localise a system in a different language than English. As well, an understanding of why LANG=C is useful when scripting.</p>
+<p>Candidates should be able to localise a system in a different language than English. As well, an understanding of why <code>LANG=C</code> is useful when scripting.</p>
 <h3>Key Knowledge Areas</h3>
 <ul>
 <li>Configure locale settings and environment variables.</li>
@@ -96,18 +96,18 @@
 </ul>
 <h3>Terms and Utilities</h3>
 <ul>
-<li>/etc/timezone</li>
-<li>/etc/localtime</li>
-<li>/usr/share/zoneinfo/</li>
-<li>LC_*</li>
-<li>LC_ALL</li>
-<li>LANG</li>
-<li>TZ</li>
-<li>/usr/bin/locale</li>
-<li>tzselect</li>
-<li>timedatectl</li>
-<li>date</li>
-<li>iconv</li>
+<li><code>/etc/timezone</code></li>
+<li><code>/etc/localtime</code></li>
+<li><code>/usr/share/zoneinfo/</code></li>
+<li><code>LC_*</code></li>
+<li><code>LC_ALL</code></li>
+<li><code>LANG</code></li>
+<li><code>TZ</code></li>
+<li><code>/usr/bin/locale</code></li>
+<li><code>tzselect</code></li>
+<li><code>timedatectl</code></li>
+<li><code>date</code></li>
+<li><code>iconv</code></li>
 <li>UTF-8</li>
 <li>ISO-8859</li>
 <li>ASCII</li>
@@ -116,7 +116,7 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/kqoipsM7AMA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <h3>timezone</h3>
-<p>The earth is large and round so we have different timezones and different languages! There are even talks about a time zone for Mars and if we encounter aliens, they might also have their own languages. </p>
+<p>The earth is large and round so we have different <strong><em>timezones</em></strong> and different <strong><em>languages</em></strong>! There are even talks about a time zone for Mars and if we encounter aliens, they might also have their own languages. </p>
 <p>This makes a few problems:
 1. we may prefer our local language for our Linux
 2. we need to tell linux about our timezone
@@ -221,7 +221,7 @@ Sat<span class="w"> </span>Jun<span class="w">  </span><span class="m">3</span><
 <blockquote>
 <p>UTF-8 and other encodings will be discussed a bit later in this chapter</p>
 </blockquote>
-<p>Other variables you see above, tell the system how to show different things based on localisation systems. For example if we change the LC_TIME to "en_GB.UTF-8" the time will be printed in Great Britain format.</p>
+<p>Other variables you see above, tell the system how to show different things based on localisation systems. For example if we change the <code>LC_TIME</code> to <code>"en\_GB.UTF-8"</code> the time will be printed in Great Britain format.</p>
 <p>Another important settings is <code>LC_ALL</code>. It can be used to change <strong>ALL</strong> settings. If you do a <code>export LC_ALL=fa_IR.UTF-8</code>, all the settings will be set to that one, with no exception. It is always possible to <code>unset LC_ALL</code>.</p>
 <h4>LANG=C</h4>
 <p>The <code>LANG=C</code> settings is used in many programs and scripts to make sure that the system will create coherent and predictable results in all environments. For example to make sure that the sort order will be in Binary order and all language settings will be default (en.US).</p>

@@ -87,18 +87,13 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h2>108.3 Mail Transfer Agent (MTA) basics</h2>
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>Weight: 3</em></p>
+            <p><em>Weight: 3</em></p>
 <p>Candidates should be aware of the commonly available MTA programs and be able to perform basic forward and alias configuration on a client host. Other configuration files are not covered.</p>
 <h3>Key Knowledge Areas</h3>
 <ul>
 <li>Create e-mail aliases.</li>
 <li>Configure e-mail forwarding.</li>
-<li>Knowledge of commonly available MTA programs (postfix, sendmail, qmail, exim) (no configuration)</li>
+<li>Knowledge of commonly available MTA programs (postfix, sendmail, exim) (no configuration)</li>
 </ul>
 <h3>Terms and Utilities</h3>
 <ul>
@@ -110,50 +105,56 @@
 <li>postfix</li>
 <li>sendmail</li>
 <li>exim</li>
-<li>qmail</li>
 </ul>
 <h3>MTAs</h3>
-<p>Mai Transfer Agents or MTAs are programs which handle emails in your operating system. There are lot of MTAs available and each distro or sysadmin uses the one she likes more.</p>
+<p>Email is an integral part of many GNU/Linux and Unix systems. Each user do have a mail box and can send / recive email to other local users. This is done via MTAs (Mai Transfer Agents). In other words, MTAs are programs which handle emails in your operating system. They can receive and dispatch emails localy and over the network. There are different options for MTAs. In this section we will do a quick review on them and you will see how you can send emails to other uses (or over the internet) and how you can check your local mails.</p>
 <h4>sendmail</h4>
-<p>Is one of the oldest options available. It is big and difficult to configure and keep safe and secure so very few systems use it as default MTA.</p>
-<h4>qmail</h4>
-<p>qmail is an attempt to provide an ultra secure MTA while keeping the MTA compatible with sendmail ideas. It is modular and claims to be free of any security bug. It also claim to be the 2nd popular mail agent on the Internet.</p>
-<blockquote>
-<p>qmail is not a GPL software. It is Public Domain.</p>
-</blockquote>
+<p>Is one of the oldest options available. It is huge and kind of difficult to configure and not that security oriented. Because of these, few systems use it as default their MTA.</p>
 <h4>exim</h4>
-<p>It aims to be a general and flexible mailer with extensive facilities for checking incoming e-mail. It is feature rich with ACLs, authentication, ...</p>
+<p>It aims to be a general and flexible mailer with extensive facilities for checking incoming e-mail. It is feature rich with ACLs, authentication and many other features.</p>
 <h4>postfix</h4>
-<p>This is a new alternative to sendmail and uses easy to understand configuration files. It supports multiple domains, encryption, etc. Postfix is what you may find on most distros as default.</p>
+<p>This is a new alternative to <code>sendmail</code> and uses easy to understand configuration files. It supports multiple domains, encryption, etc. Postfix is what you see on most distros as the default MTA.</p>
+<blockquote>
+<p>Most desktop distros do not install MTAs by default. If you want, I suggest installing the <code>postfix</code> (and <code>mailx</code> or <code>bsd-mailx</code>) via your package manager.</p>
+</blockquote>
 <h3>sendmail emulation layer</h3>
-<p>As I already said, <code>sendmail</code> is the oldest MTA which is still active. Other MTAs respect his age and provide a <em>sendmail emulation layer</em> to keep themselves backward compatible with it. In other words you can type <code>sendmail</code> or <code>mailq</code> on your command line regardless of what MTA you've installed.</p>
+<p>As you already know, <code>sendmail</code> is the oldest MTA alive and therefore, many other MTAs try to comply with it and has a <em>sendmail emulation layer</em> to keep themselves backward compatible with sendmail. Thats why you can type <code>sendmail</code> on whatever distro you are or use the <code>mailq</code> and check your mail regardless of your MTA choice.</p>
 <h3>aliases</h3>
 <p>There are some mail aliases on the system. Defined in <code>/etc/aliases</code>.</p>
 <div class="highlight"><pre><span></span><code>$ cat /etc/aliases
-# /etc/aliases
-mailer-daemon: postmaster
-postmaster: root
-nobody: root
-hostmaster: root
-usenet: root    # &lt;--- I&#39;m using this sample
-news: root
-webmaster: root
-www: root
-ftp: root
-abuse: root
-noc: root
-security: root
-root: jadi
+#
+#  Aliases in this file will NOT be expanded in the header from
+#  Mail, but WILL be visible over networks or from /bin/mail.
+#
+#       &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;      The program &quot;newaliases&quot; must be run after
+#       &gt;&gt; NOTE &gt;&gt;      this file is updated for any changes to
+#       &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;      show through to sendmail.
+#
+
+# Basic system aliases -- these MUST be present.
+mailer-daemon:  postmaster
+postmaster:     root
+
+# General redirections for pseudo accounts.
+bin:            root
+daemon:         root
+adm:            root
+lp:             root
+sync:           root
+shutdown:       root
+halt:           root
+mail:           root
+news:           root
+uucp:           root
+operator:       root
+games:          root
+www:            webmaster
+webmaster:      root
+[ .... ]
 </code></pre></div>
 
-<p>This tells the system if there is a message for 'usenet' it will sent to the <code>root</code> user. Note that in the last line, <code>jadi</code> is reading the <code>root</code> emails. This line lets me read emails sent to root without needing to login with root.</p>
-<blockquote>
-<p>when this file is update, the <code>newaliases</code> should be run!</p>
-</blockquote>
-<div class="highlight"><pre><span></span><code>root@funlife:~# newaliases
-root@funlife:~#
-</code></pre></div>
-
+<p>This tells the system if there is a message for <em>news</em>, it should be delivered to <em>root</em> and if the email is written to <em>www</em> it should be delivered to <em>webmaster</em>. </p>
+<p>In case of any change in this file, you need to run the <code>newaliases</code> command.</p>
 <h3>sending mail</h3>
 <p>It is possible to send an email from the command line using the <code>mail</code> command:</p>
 <div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ mail news
@@ -203,8 +204,8 @@ Held 11 messages in /var/mail/jadi
 <p>Each user can create a <code>.forward</code> file in her own directory and all mail targeted to that user will be forwarded to that address.</p>
 <blockquote>
 <p>You can even put a complete email address like <code>jadijadi@gmail.com</code> in your <code>.forward</code> file.</p>
-<p><code>mail</code> command is not part of LPIC102 but it is good if you play and learn it to some extent. It also can send email from within the scripts like 'echo -e "email content" | mail -s "email subject" "example@example.com"'</p>
 </blockquote>
+<p>It also can send email from the command line or even within your scripts by issuing something like <code>echo -e "email content" | mail -s "email subject" "example@example.com"</code>.c</p>
 <h3>mailq</h3>
 <p>This command lists the mail queue. Each entry shows the queue file ID, message size, arrival time, sender, and the recipients that still need to be delivered. If mail could not be delivered upon the last attempt, the reason for failure is shown. The sysadmin can use this command to check the status of emails still in the queues.</p>
 <div class="highlight"><pre><span></span><code>$ mailq

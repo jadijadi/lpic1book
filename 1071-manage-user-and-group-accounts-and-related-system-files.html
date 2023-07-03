@@ -146,30 +146,30 @@ passwd: password updated successfully
 <table>
 <thead>
 <tr>
-<th align="left">switch</th>
-<th align="left">meaning</th>
+<th style="text-align: left;">switch</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-d</td>
-<td align="left">home directory (-d /home/user)</td>
+<td style="text-align: left;">-d</td>
+<td style="text-align: left;">home directory (-d /home/user)</td>
 </tr>
 <tr>
-<td align="left">-m</td>
-<td align="left">create home directory</td>
+<td style="text-align: left;">-m</td>
+<td style="text-align: left;">create home directory</td>
 </tr>
 <tr>
-<td align="left">-s</td>
-<td align="left">specify shell</td>
+<td style="text-align: left;">-s</td>
+<td style="text-align: left;">specify shell</td>
 </tr>
 <tr>
-<td align="left">-G</td>
-<td align="left">add to additional groups</td>
+<td style="text-align: left;">-G</td>
+<td style="text-align: left;">add to additional groups</td>
 </tr>
 <tr>
-<td align="left">-c</td>
-<td align="left">comment. most of the time, users actual name. Use quotes if comments has spaces or special characters in them</td>
+<td style="text-align: left;">-c</td>
+<td style="text-align: left;">comment. most of the time, users actual name. Use quotes if comments has spaces or special characters in them</td>
 </tr>
 </tbody>
 </table>
@@ -183,34 +183,34 @@ passwd: password updated successfully
 <table>
 <thead>
 <tr>
-<th align="left">switch</th>
-<th align="left">meaning</th>
+<th style="text-align: left;">switch</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-L</td>
-<td align="left">lock this account</td>
+<td style="text-align: left;">-L</td>
+<td style="text-align: left;">lock this account</td>
 </tr>
 <tr>
-<td align="left">-U</td>
-<td align="left">Unlock the account</td>
+<td style="text-align: left;">-U</td>
+<td style="text-align: left;">Unlock the account</td>
 </tr>
 <tr>
-<td align="left">-aG</td>
-<td align="left">add to more groups (say <code>usermod -aG wheel jadi</code>)</td>
+<td style="text-align: left;">-aG</td>
+<td style="text-align: left;">append to more groups (say <code>usermod -aG wheel jadi</code>)</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p>Note: If you do <code>usermod -G wheel,users jadi</code>, jadi will be the member of these two groups ONLY. That is why we use <code>-aG newgoup</code> to <em>add to groups</em> to add this group to jadi's groups. <code>-G</code> is like saying "jadi's groups are ..." and <code>-aG</code> is like "add jadi to these groups".</p>
+<p>Note: If you do <code>usermod -G wheel,users jadi</code>, jadi will be the member of these two groups ONLY. That is why we use <code>-aG newgoup</code> to <em>append to groups</em> to add this group to jadi's groups. <code>-G</code> is like saying "jadi's groups are ..." and <code>-aG</code> is like "add jadi to these groups too".</p>
 </blockquote>
 <h4>Deleting users</h4>
 <p>If you want to remove a user, use <code>userdel</code>. Straight forward:</p>
 <div class="highlight"><pre><span></span><code>userdel jadi
 </code></pre></div>
 
-<p>If you add the <code>-r</code> swtich, the home direcoty and mail spool will be erased too!</p>
+<p>If you add the <code>-r</code> switch, the home directory and mail spool will be erased too!</p>
 <h3>Managing Groups</h3>
 <p>It is kind of same as users, you can do <code>groupadd</code>, <code>groupdel</code> and <code>groupmod</code>. Each group has an <em>id</em> and a <em>name</em>.</p>
 <div class="highlight"><pre><span></span><code># groupadd -g 1200 newgroup
@@ -224,7 +224,7 @@ passwd: password updated successfully
 <h3>Files related to users and groups</h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/V69h5V5wdTw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-<h4>/etc/passwd</h4>
+<h4><code>/etc/passwd</code></h4>
 <p>This file contains all the user information on your system:</p>
 <div class="highlight"><pre><span></span><code>tail /etc/passwd
 scard:x:491:489:Smart Card Reader:/var/run/pcscd:/usr/sbin/nologin
@@ -242,12 +242,12 @@ privoxy:x:484:480:Daemon user for privoxy:/var/lib/privoxy:/bin/false
 <div class="highlight"><pre><span></span><code>username:x:userid:primary group id:Name and comments:home dir:shell
 </code></pre></div>
 
-<p>As you can see, the 2nd field is shown as "x" here. In the old days the password or the hashed password of the user was shown in this file but nowadays that is moved to the /etc/shadow file.</p>
+<p>As you can see, the 2nd field is shown as "<code>x</code>" here. In the old days the password or the hashed password of the user was shown in this file but nowadays that is moved to the <code>/etc/shadow</code> file.</p>
 <blockquote>
 <p>Note: /etc/passwd should be readable to all users and this makes it a very bad place to keep users password! Thats why we see a <code>x</code> instead of the password, this indicates that the main passwords should be looked up from <code>/etc/shadow</code> file.</p>
 </blockquote>
-<p>Note how <em>special users</em> like lightdm are having /bin/false as their shell; this prevents them from logging into the system for real. In old days hackers used to try these accounts to login.</p>
-<h4>/etc/shadow</h4>
+<p>Note how <em>special users</em> like <code>lightdm</code> have <code>/bin/false</code> as their shell; this prevents them from logging into the system for real. In old days hackers used to try these accounts to login.</p>
+<h4><code>/etc/shadow</code></h4>
 <p>This file contains password (hashed passwords) of the users. See how the <code>/etc/passwd</code> is readable for all but <code>/etc/shadow</code> is only readable for root and members of the <code>shadow</code> group:</p>
 <div class="highlight"><pre><span></span><code># ls -ltrh /etc/passwd /etc/shadow
 -rw-r--r-- 1 root root   1.9K Oct 28 15:47 /etc/passwd
@@ -267,52 +267,52 @@ svn:!:16736::::::
 privoxy:!:19473::::::
 </code></pre></div>
 
-<p>Wow! Jadi has an encrypted password there. Some numbers are following that encrypted password too: <strong>16737:0:99999:7:::</strong>. What do the mean? The following table tells you.</p>
+<p>Wow! Jadi has an encrypted password there. Some numbers are following that encrypted password too: <strong><code>16737:0:99999:7:::</code></strong>. What do the mean? The following table tells you.</p>
 <table>
 <thead>
 <tr>
-<th align="left">filed</th>
-<th align="left">meaning</th>
+<th style="text-align: left;">filed</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">19473</td>
-<td align="left">When was the last time this password changes</td>
+<td style="text-align: left;">19473</td>
+<td style="text-align: left;">When was the last time this password changes</td>
 </tr>
 <tr>
-<td align="left">0</td>
-<td align="left">User wont be able to change the password 0 days after each change</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">User wont be able to change the password 0 days after each change</td>
 </tr>
 <tr>
-<td align="left">99999</td>
-<td align="left">After this many days, the user HAVE to change his password</td>
+<td style="text-align: left;">99999</td>
+<td style="text-align: left;">After this many days, the user HAVE to change his password</td>
 </tr>
 <tr>
-<td align="left">7</td>
-<td align="left">...and the user will be informed 7 days before the expiration to change his password</td>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">...and the user will be informed 7 days before the expiration to change his password</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p>Note: there numbers are "days after 1st of January 1970" or the Epoch time in days. For example 16737 means 16373 days after 1st Jan 1970. Strange but practical!</p>
+<p>Note: there numbers are "days after 1st of January 1970" or the Epoch time in days. For example 16737 means 16737 days after 1st Jan 1970. Strange but practical!</p>
 </blockquote>
 <p>But we do not need to change these strange number manually. If needed, we can use the <code>chage</code> tool to change these numbers. If you issue the <code>chage jadi</code> the system will prompt you for all the parameters one by one. Also it is possible to use switches to change specific parameters on command line.</p>
 <table>
 <thead>
 <tr>
-<th align="left">switch</th>
-<th align="left">meaning</th>
+<th style="text-align: center;">switch</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-l</td>
-<td align="left">list information</td>
+<td style="text-align: center;">-l</td>
+<td style="text-align: left;">list information</td>
 </tr>
 <tr>
-<td align="left">-E</td>
-<td align="left">Set the expiration date. Date can be a number, in YYYY-MM-DD format or -1 which will mean <em>never</em></td>
+<td style="text-align: center;">-E</td>
+<td style="text-align: left;">Set the expiration date. Date can be a number, in YYYY-MM-DD format or -1 which will mean <em>never</em></td>
 </tr>
 </tbody>
 </table>
@@ -329,7 +329,7 @@ Number of days of warning before password expires    : 7
 <blockquote>
 <p>Note: <code>!</code> means the account is locked and the user can not login into the system using the account. On some systems (like RedHat) you may also see <code>!!</code> which means the account has never been used.</p>
 </blockquote>
-<h4>/etc/group</h4>
+<h4><code>/etc/group</code></h4>
 <p>This file contains the groups and their IDs.</p>
 <div class="highlight"><pre><span></span><code># tail /etc/group
 avahi:x:486:
@@ -352,7 +352,7 @@ privoxy:x:480:
 uid=1000(jadi) gid=100(users) groups=1000(input),100(users)
 </code></pre></div>
 
-<p>Another solution is <code>getent</code> (for <strong>get entry</strong>). It can query important <em>databases</em> for specific entries. These databases include /etc/passwd, /etc/hosts, /etc/shadow, /etc/group, ...</p>
+<p>Another solution is <code>getent</code> (for <strong>get entry</strong>). It can query important <em>databases</em> for specific entries. These databases include <code>/etc/passwd</code>, <code>/etc/hosts</code>, <code>/etc/shadow</code>, <code>/etc/group</code>, ...</p>
 <div class="highlight"><pre><span></span><code>funlife:~ # getent group tor
 tor:x:479:
 funlife:~ # getent passwd jadi
