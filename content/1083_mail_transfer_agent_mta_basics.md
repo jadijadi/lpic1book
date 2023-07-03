@@ -5,11 +5,6 @@ Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 sortorder: 380
 Summary: 
-## 108.3 Mail Transfer Agent \(MTA\) basics
-
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
 
 
 _Weight: 3_
@@ -20,7 +15,7 @@ Candidates should be aware of the commonly available MTA programs and be able to
 
 * Create e-mail aliases.
 * Configure e-mail forwarding.
-* Knowledge of commonly available MTA programs \(postfix, sendmail, qmail, exim\) \(no configuration\)
+* Knowledge of commonly available MTA programs \(postfix, sendmail, exim\) \(no configuration\)
 
 ### Terms and Utilities
 
@@ -32,33 +27,25 @@ Candidates should be aware of the commonly available MTA programs and be able to
 * postfix
 * sendmail
 * exim
-* qmail
 
 ### MTAs
 
-Mai Transfer Agents or MTAs are programs which handle emails in your operating system. There are lot of MTAs available and each distro or sysadmin uses the one she likes more.
+Email is an integral part of many GNU/Linux and Unix systems. Each user do have a mail box and can send / recive email to other local users. This is done via MTAs (Mai Transfer Agents). In other words, MTAs are programs which handle emails in your operating system. They can receive and dispatch emails localy and over the network. There are different options for MTAs. In this section we will do a quick review on them and you will see how you can send emails to other uses (or over the internet) and how you can check your local mails.
 
 #### sendmail
+Is one of the oldest options available. It is huge and kind of difficult to configure and not that security oriented. Because of these, few systems use it as default their MTA.
 
-Is one of the oldest options available. It is big and difficult to configure and keep safe and secure so very few systems use it as default MTA.
-
-#### qmail
-
-qmail is an attempt to provide an ultra secure MTA while keeping the MTA compatible with sendmail ideas. It is modular and claims to be free of any security bug. It also claim to be the 2nd popular mail agent on the Internet.
-
-> qmail is not a GPL software. It is Public Domain.
 
 #### exim
-
-It aims to be a general and flexible mailer with extensive facilities for checking incoming e-mail. It is feature rich with ACLs, authentication, ...
+It aims to be a general and flexible mailer with extensive facilities for checking incoming e-mail. It is feature rich with ACLs, authentication and many other features.
 
 #### postfix
+This is a new alternative to `sendmail` and uses easy to understand configuration files. It supports multiple domains, encryption, etc. Postfix is what you see on most distros as the default MTA.
 
-This is a new alternative to sendmail and uses easy to understand configuration files. It supports multiple domains, encryption, etc. Postfix is what you may find on most distros as default.
+> Most desktop distros do not install MTAs by default. If you want, I suggest installing the `postfix` (and `mailx` or `bsd-mailx`) via your package manager.
 
 ### sendmail emulation layer
-
-As I already said, `sendmail` is the oldest MTA which is still active. Other MTAs respect his age and provide a _sendmail emulation layer_ to keep themselves backward compatible with it. In other words you can type `sendmail` or `mailq` on your command line regardless of what MTA you've installed.
+As you already know, `sendmail` is the oldest MTA alive and therefore, many other MTAs try to comply with it and has a _sendmail emulation layer_ to keep themselves backward compatible with sendmail. Thats why you can type `sendmail` on whatever distro you are or use the `mailq` and check your mail regardless of your MTA choice.
 
 ### aliases
 
@@ -66,30 +53,41 @@ There are some mail aliases on the system. Defined in `/etc/aliases`.
 
 ```text
 $ cat /etc/aliases
-# /etc/aliases
-mailer-daemon: postmaster
-postmaster: root
-nobody: root
-hostmaster: root
-usenet: root    # <--- I'm using this sample
-news: root
-webmaster: root
-www: root
-ftp: root
-abuse: root
-noc: root
-security: root
-root: jadi
+#
+#  Aliases in this file will NOT be expanded in the header from
+#  Mail, but WILL be visible over networks or from /bin/mail.
+#
+#       >>>>>>>>>>      The program "newaliases" must be run after
+#       >> NOTE >>      this file is updated for any changes to
+#       >>>>>>>>>>      show through to sendmail.
+#
+
+# Basic system aliases -- these MUST be present.
+mailer-daemon:  postmaster
+postmaster:     root
+
+# General redirections for pseudo accounts.
+bin:            root
+daemon:         root
+adm:            root
+lp:             root
+sync:           root
+shutdown:       root
+halt:           root
+mail:           root
+news:           root
+uucp:           root
+operator:       root
+games:          root
+www:            webmaster
+webmaster:      root
+[ .... ]
 ```
 
-This tells the system if there is a message for 'usenet' it will sent to the `root` user. Note that in the last line, `jadi` is reading the `root` emails. This line lets me read emails sent to root without needing to login with root.
+This tells the system if there is a message for *news*, it should be delivered to *root* and if the email is written to *www* it should be delivered to *webmaster*. 
 
-> when this file is update, the `newaliases` should be run!
+In case of any change in this file, you need to run the `newaliases` command.
 
-```text
-root@funlife:~# newaliases
-root@funlife:~#
-```
 
 ### sending mail
 
@@ -145,8 +143,8 @@ We saw that it is possible to forward emails using the `/etc/aliases`. That file
 Each user can create a `.forward` file in her own directory and all mail targeted to that user will be forwarded to that address.
 
 > You can even put a complete email address like `jadijadi@gmail.com` in your `.forward` file.
->
-> `mail` command is not part of LPIC102 but it is good if you play and learn it to some extent. It also can send email from within the scripts like 'echo -e "email content" \| mail -s "email subject" "example@example.com"'
+
+It also can send email from the command line or even within your scripts by issuing something like `echo -e "email content" | mail -s "email subject" "example@example.com"`.c
 
 ### mailq
 
