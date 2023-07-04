@@ -408,7 +408,7 @@ journalctl -D=/mnt/var/log/journal/ec22e43962c64359b9b25cfa650b025b/
 ```
 
 You can also use the `--merge` switch to merge these logs into your machine or use `--file` to check only one specific journal file. Lastly if the exact location of journal files are not known, you can use `--root /mnt` and tell the `journalctl` to search there for journal files.
-## some famous log fiels
+## some famous log files
 
 Generally logs are saved at `/var/log`. In case of any issue and if you do not know what to do, it is a common practice to run a `ls -ltrh /var/log/` to see if any program generated a new log or not.
 
