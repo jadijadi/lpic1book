@@ -22,20 +22,20 @@ Candidates should be able to customize shell environments to meet users’ needs
 ### Terms
 
 * .
-* source
-* /etc/bash.bashrc
-* /etc/profile
-* env
-* export
-* set
-* unset
-* ~/.bash\_profile
-* ~/.bash\_login
-* ~/.profile
-* ~/.bashrc
-* ~/.bash\_logout
-* function
-* alias
+* `source`
+* `/etc/bash.bashrc`
+* `/etc/profile`
+* `env`
+* `export`
+* `set`
+* `unset`
+* `~/.bash\_profile`
+* `~/.bash\_login`
+* `~/.profile`
+* `~/.bashrc`
+* `~/.bash\_logout`
+* `function`
+* `alias`
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dXnsNXV2Y60" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 

@@ -19,19 +19,19 @@ Candidates should be able to add, remove, suspend and change user accounts.
 
 ### Terms and Utilities
 
-* /etc/passwd
-* /etc/shadow
-* /etc/group
-* /etc/skel/
-* chage
-* getent
-* groupadd
-* groupdel
-* groupmod
-* passwd
-* useradd
-* userdel
-* usermod
+* `/etc/passwd`
+* `/etc/shadow`
+* `/etc/group`
+* `/etc/skel/`
+* `chage`
+* `getent`
+* `groupadd`
+* `groupdel`
+* `groupmod`
+* `passwd`
+* `useradd`
+* `userdel`
+* `usermod`
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xXQ1pw2sAQs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
