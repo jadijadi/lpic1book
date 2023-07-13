@@ -15,22 +15,22 @@ Candidates should be aware of the commonly available MTA programs and be able to
 
 * Create e-mail aliases.
 * Configure e-mail forwarding.
-* Knowledge of commonly available MTA programs \(postfix, sendmail, exim\) \(no configuration\)
+* Knowledge of commonly available MTA programs \(`postfix`, `sendmail`, `exim`\) \(no configuration\)
 
 ### Terms and Utilities
 
-* ~/.forward
+* `~/.forward`
 * sendmail emulation layer commands
-* newaliases
-* mail
-* mailq
-* postfix
-* sendmail
-* exim
+* `newaliases`
+* `mail`
+* `mailq`
+* `postfix`
+* `sendmail`
+* `exim`
 
 ### MTAs
 
-Email is an integral part of many GNU/Linux and Unix systems. Each user do have a mail box and can send / recive email to other local users. This is done via MTAs (Mai Transfer Agents). In other words, MTAs are programs which handle emails in your operating system. They can receive and dispatch emails localy and over the network. There are different options for MTAs. In this section we will do a quick review on them and you will see how you can send emails to other uses (or over the internet) and how you can check your local mails.
+Email is an integral part of many GNU/Linux and Unix systems. Each user do have a mail box and can send / recive email to other local users. This is done via MTAs (Mail Transfer Agents). In other words, MTAs are programs which handle emails in your operating system. They can receive and dispatch emails localy and over the network. There are different options for MTAs. In this section we will do a quick review on them and you will see how you can send emails to other user (or over the internet) and how you can check your local mails.
 
 #### sendmail
 Is one of the oldest options available. It is huge and kind of difficult to configure and not that security oriented. Because of these, few systems use it as default their MTA.
@@ -144,7 +144,7 @@ Each user can create a `.forward` file in her own directory and all mail targete
 
 > You can even put a complete email address like `jadijadi@gmail.com` in your `.forward` file.
 
-It also can send email from the command line or even within your scripts by issuing something like `echo -e "email content" | mail -s "email subject" "example@example.com"`.c
+It also can send email from the command line or even within your scripts by issuing something like `echo -e "email content" | mail -s "email subject" "example@example.com"`.
 
 ### mailq
 
