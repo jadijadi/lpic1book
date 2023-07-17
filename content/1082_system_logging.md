@@ -37,6 +37,9 @@ Candidates should be able to configure rsyslog. This objective also includes con
 * `/etc/systemd/journald.conf`
 * `/var/log/journal/`
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qtHTf6q_UaI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+
 ### History
 Logs are an important part of Unix philosophy and design. The Kernel, services, programs and most events (let it be a crash or a login attempt) will generate logs. These logs can be examines / monitored to gain insights about the system and its status. If you watch a Linux guy on a windows machine for 1 hour, you will hear "where are the logs?". 
 
@@ -54,10 +57,122 @@ You should also know about a couple of other tools (like `logrotate` to cleanup 
 As I told you, Linux loves logs and will be happy logging everything. But what about the boot process? What happens if the kernel wants to log something before the disks are ready? These logs are saved by the Kernel in the *Kernel Ring Buffer*. You can access it using the `dmesg` command. 
 
 
+## log rotation
+So logs are being generated and saved! Someone need to clean them up to prevent the disk from getting full. The `logrotate` utility takes care of this task.  The main configuration is at `/etc/logrotate.conf`:
+
+```
+root@debian:# cat /etc/logrotate.conf
+# see "man logrotate" for details
+
+# global options do not affect preceding include directives
+
+# rotate log files weekly
+weekly
+
+# keep 4 weeks worth of backlogs
+rotate 4
+
+# create new (empty) log files after rotating old ones
+create
+
+# use date as a suffix of the rotated file
+#dateext
+
+# uncomment this if you want your log files compressed
+#compress
+
+# packages drop log rotation information into this directory
+include /etc/logrotate.d
+
+# system-specific logs may also be configured here.
+```
+
+and specific services do create their logs in `/etc/logrotate.d/`:
+
+```
+root@debian:# cat /etc/logrotate.d/apt
+/var/log/apt/term.log {
+  rotate 12
+  monthly
+  compress
+  missingok
+  notifempty
+}
+
+/var/log/apt/history.log {
+  rotate 12
+  monthly
+  compress
+  missingok
+  notifempty
+}
+```
+
+
+These are the meaning of some of these parameters:
+
+| parameter | meaning |
+| :---: | :---: |
+| weekly | rotate logs weekly |
+| missingok | it is fine if there is no log for this week |
+| rotate 52 | keep the latest 52 logs and delete the older ones |
+| compress | compress the logs |
+| create 0640 www-data adm | create the files with this access and owners |
+| pre & post rotate | run these scripts or commands before and after the rotation |
+
+This above configuration will create a zipped file for each week, keeping only 52 of them instead of a huge log file for this program.
+
+
+
+The `logrotate` runs using crons and does its job on a daily basis based on a configuration on `/etc/cron.daily/logrotate`
+
+
+## some famous log files
+
+Generally logs are saved at `/var/log`. In case of any issue and if you do not know what to do, it is a common practice to run a `ls -ltrh /var/log/` to see if any program generated a new log or not.
+
+But lets have a look at some of the famous logs:
+
+
+##### `/var/log/auth.log` (in Debian Based)
+
+Authentication processes will log here. Things like `cron` jobs, failed logins, `sudo` informations, ...
+##### `/var/log/syslog`
+
+A centralized place most of the logs received by `rsyslogd` if a specific logfile is not provided in `/etc/rsyslog.conf`
+##### `/var/log/debug`
+
+Debug information from programs.
+
+##### `/var/log/kern.log`
+
+Kernel messages.
+##### `/var/log/messages`
+
+Informative messages from services. This is also the default place for logs for remote clients.
+##### `/var/run/utmp` & `/var/log/wtmp`
+
+Successful logins.
+##### `/var/log/btmp`
+
+Failed logins. You can check this to see if anyone is trying to guess your passwords!
+##### `/var/log/faillog`
+
+Failed authentication attempts.
+##### `/var/log/lastlog`
+Date and time of recent user logins.
+
+##### Service logs
+Service logs do create files or directories at `/var/log` and update their logs there. For example there might be a `/var/log/apache2/` (or `/var/log/httpd`) for the Apache HTTP server or a `/var/log/mysql` for the MySQL DB.
+
+
 
 
 
 ## rsyslog
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xliHONdwFy0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 This is the newer generation of syslogs and is used in many environments. Its main configuration is located at `/etc/rsyslog.conf` and it also reads anything in `/etc/rssylog.d/` directory. Its configuration consists of 3 main sections: 
 
 1. `MODULES`, modules used. For example to let the rsyslog use UDP connections
@@ -208,80 +323,11 @@ root@debian:# tail -3 /var/log/syslog
 ```
 
 
-## log rotation
-So logs are being generated and saved! Someone need to clean them up to prevent the disk from getting full. The `logrotate` utility takes care of this task.  The main configuration is at `/etc/logrotate.conf`:
-
-```
-root@debian:# cat /etc/logrotate.conf
-# see "man logrotate" for details
-
-# global options do not affect preceding include directives
-
-# rotate log files weekly
-weekly
-
-# keep 4 weeks worth of backlogs
-rotate 4
-
-# create new (empty) log files after rotating old ones
-create
-
-# use date as a suffix of the rotated file
-#dateext
-
-# uncomment this if you want your log files compressed
-#compress
-
-# packages drop log rotation information into this directory
-include /etc/logrotate.d
-
-# system-specific logs may also be configured here.
-```
-
-and specific services do create their logs in `/etc/logrotate.d/`:
-
-```
-root@debian:# cat /etc/logrotate.d/apt
-/var/log/apt/term.log {
-  rotate 12
-  monthly
-  compress
-  missingok
-  notifempty
-}
-
-/var/log/apt/history.log {
-  rotate 12
-  monthly
-  compress
-  missingok
-  notifempty
-}
-```
-
-
-These are the meaning of some of these parameters:
-
-| parameter | meaning |
-| :---: | :---: |
-| weekly | rotate logs weekly |
-| missingok | it is fine if there is no log for this week |
-| rotate 52 | keep the latest 52 logs and delete the older ones |
-| compress | compress the logs |
-| create 0640 www-data adm | create the files with this access and owners |
-| pre & post rotate | run these scripts or commands before and after the rotation |
-
-This above configuration will create a zipped file for each week, keeping only 52 of them instead of a huge log file for this program.
-
-
-
-The `logrotate` runs using crons and does its job on a daily basis based on a configuration on `/etc/cron.daily/logrotate`
-
-
-
-
 
 ## journald
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jXO7q_7a6-s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 You have seen the `systemd` in various parts of this course. We have seen how it is part of the init process and how it handles the services and timers. All of these activities (and other logs reaching system journalying system) are logged in binary files, readable using `journalctl` which is part of the `systemd-journald` utility.
 
 ```
@@ -442,45 +488,6 @@ journalctl -D=/mnt/var/log/journal/ec22e43962c64359b9b25cfa650b025b/
 ```
 
 You can also use the `--merge` switch to merge these logs into your machine or use `--file` to check only one specific journal file. Lastly if the exact location of journal files are not known, you can use `--root /mnt` and tell the `journalctl` to search there for journal files.
-## some famous log files
-
-Generally logs are saved at `/var/log`. In case of any issue and if you do not know what to do, it is a common practice to run a `ls -ltrh /var/log/` to see if any program generated a new log or not.
-
-But lets have a look at some of the famous logs:
-
-
-##### `/var/log/auth.log` (in Debian Based)
-
-Authentication processes will log here. Things like `cron` jobs, failed logins, `sudo` informations, ...
-##### `/var/log/syslog`
-
-A centralized place most of the logs received by `rsyslogd` if a specific logfile is not provided in `/etc/rsyslog.conf`
-##### `/var/log/debug`
-
-Debug information from programs.
-
-##### `/var/log/kern.log`
-
-Kernel messages.
-##### `/var/log/messages`
-
-Informative messages from services. This is also the default place for logs for remote clients.
-##### `/var/run/utmp` & `/var/log/wtmp`
-
-Successful logins.
-##### `/var/log/btmp`
-
-Failed logins. You can check this to see if anyone is trying to guess your passwords!
-##### `/var/log/faillog`
-
-Failed authentication attempts.
-##### `/var/log/lastlog`
-Date and time of recent user logins.
-
-##### Service logs
-Service logs do create files or directories at `/var/log` and update their logs there. For example there might be a `/var/log/apache2/` (or `/var/log/httpd`) for the Apache HTTP server or a `/var/log/mysql` for the MySQL DB.
-
-
 
 
 
