@@ -15,18 +15,18 @@ Candidates should be aware of the commonly available MTA programs and be able to
 
 * Create e-mail aliases.
 * Configure e-mail forwarding.
-* Knowledge of commonly available MTA programs \(postfix, sendmail, exim\) \(no configuration\)
+* Knowledge of commonly available MTA programs \(`postfix`, `sendmail`, `exim`\) \(no configuration\)
 
 ### Terms and Utilities
 
-* ~/.forward
+* `~/.forward`
 * sendmail emulation layer commands
-* newaliases
-* mail
-* mailq
-* postfix
-* sendmail
-* exim
+* `newaliases`
+* `mail`
+* `mailq`
+* `postfix`
+* `sendmail`
+* `exim`
 
 ### MTAs
 
@@ -144,7 +144,7 @@ Each user can create a `.forward` file in her own directory and all mail targete
 
 > You can even put a complete email address like `jadijadi@gmail.com` in your `.forward` file.
 
-It also can send email from the command line or even within your scripts by issuing something like `echo -e "email content" | mail -s "email subject" "example@example.com"`.c
+It also can send email from the command line or even within your scripts by issuing something like `echo -e "email content" | mail -s "email subject" "example@example.com"`.
 
 ### mailq
 
