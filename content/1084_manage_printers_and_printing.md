@@ -5,12 +5,6 @@ Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 sortorder: 390
 Summary: 
-## 108.4 Manage printers and printing
-
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
 
 _Weight: 2_
 
@@ -18,7 +12,7 @@ Candidates should be able to manage print queues and user print jobs using CUPS 
 
 ### Key Knowledge Areas
 
-* Basic CUPS configuration \(for local and remote printers\).
+* Basic CUPS configuration (for local and remote printers).
 * Manage user print queues.
 * Troubleshoot general printing problems.
 * Add and remove jobs from configured printer queues.
@@ -26,32 +20,83 @@ Candidates should be able to manage print queues and user print jobs using CUPS 
 ### Terms and Utilities
 
 * CUPS configuration files, tools and utilities
-* /etc/cups/
+* `/etc/cups/`
 * lpd legacy interface \(lpr, lprm, lpq\)
 
-### CUPS
+## CUPS
 
-Most Linux distros use CUPS for printing. CUPS stands for Common Unix Printing System. There are different interfaces for CUPS link command line tools, web based interface and GUIs. CUPS is designed to simplify the printing on various printers from different manufactures.
+Most Linux distributions use the CUPS package for printing. You may need to install it via your package manager and start its service using the systemd or the init system your system use.
 
-#### CUPS web interface
+```
+$ sudo apt install cups
+[sudo] password for jadi:
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  acl avahi-daemon colord colord-data cups-browsed cups-client cups-common cups-core-drivers
+  cups-daemon cups-filters cups-filters-core-drivers cups-ipp-utils cups-ppdc
+  cups-server-common fonts-droid-fallback fonts-noto-mono fonts-urw-base35 ghostscript
+  ipp-usb libavahi-core7 libavahi-glib1 libcolorhug2 libcupsfilters1 libdaemon0 libexif12
+  libfontembed1 libgphoto2-6 libgphoto2-l10n libgphoto2-port12 libgs-common libgs10
+  libgs10-common libgusb2 libidn12 libieee1284-3 libijs-0.35 libjbig2dec0 libjson-glib-1.0-0
+  libjson-glib-1.0-common liblouis-data liblouis20 liblouisutdml-bin liblouisutdml-data
+  liblouisutdml9 libltdl7 libnss-mdns libpaper-utils libpaper1 libpoppler-cpp0v5
+  libpoppler-glib8 libpoppler126 libqpdf29 libsane-common libsane1 libsnmp-base libsnmp40
+  lynx lynx-common mailcap poppler-data poppler-utils sane-airscan sane-utils update-inetd
+  usb.ids
+Suggested packages:
+  avahi-autoipd colord-sensor-argyll cups-bsd cups-pdf foomatic-db-compressed-ppds
+  | foomatic-db smbclient antiword docx2txt imagemagick fonts-noto fonts-freefont-otf
+  | fonts-freefont-ttf fonts-texgyre gphoto2 ooo2dbk rtf2xml avahi-autoipd | zeroconf hplip
+  snmp-mibs-downloader fonts-japanese-mincho | fonts-ipafont-mincho fonts-arphic-ukai
+  fonts-arphic-uming fonts-nanum unpaper
+The following NEW packages will be installed:
+  acl avahi-daemon colord colord-data cups cups-browsed cups-client cups-common
+  cups-core-drivers cups-daemon cups-filters cups-filters-core-drivers cups-ipp-utils
+  cups-ppdc cups-server-common fonts-droid-fallback fonts-noto-mono fonts-urw-base35
+  ghostscript ipp-usb libavahi-core7 libavahi-glib1 libcolorhug2 libcupsfilters1 libdaemon0
+  libexif12 libfontembed1 libgphoto2-6 libgphoto2-l10n libgphoto2-port12 libgs-common
+  libgs10 libgs10-common libgusb2 libidn12 libieee1284-3 libijs-0.35 libjbig2dec0
+  libjson-glib-1.0-0 libjson-glib-1.0-common liblouis-data liblouis20 liblouisutdml-bin
+  liblouisutdml-data liblouisutdml9 libltdl7 libnss-mdns libpaper-utils libpaper1
+  libpoppler-cpp0v5 libpoppler-glib8 libpoppler126 libqpdf29 libsane-common libsane1
+  libsnmp-base libsnmp40 lynx lynx-common mailcap poppler-data poppler-utils sane-airscan
+  sane-utils update-inetd usb.ids
+0 upgraded, 66 newly installed, 0 to remove and 7 not upgraded.
+Need to get 40.7 MB of archives.
+After this operation, 163 MB of additional disk space will be used.
+Do you want to continue? [Y/n]
+...
+...
+```
 
-The general way to access the CUPS configuration and info page is going to the servers IP on port **631** from a browser. That will be **localhost:631** or **127.0.0.1:631** from your browser.
+CUPS stands for Common Unix Printing System and as you can see, it install many related packages and even suggests some more. This is because CUPS need lots of information about different printers and uses many tools to print. When installed, you need to start the service:
 
-![CUPs printing system](../.gitbook/assets/cups.png)
+```
+$ sudo systemctl start cups.service
+$ sudo systemctl status cups.service
+● cups.service - CUPS Scheduler
+     Loaded: loaded (/lib/systemd/system/cups.service; enabled; preset: enabled)
+     Active: active (running) since Sun 2023-07-16 13:50:20 EDT; 27s ago
+TriggeredBy: ● cups.path
+             ● cups.socket
+       Docs: man:cupsd(8)
+   Main PID: 2366 (cupsd)
+     Status: "Scheduler is running..."
+      Tasks: 1 (limit: 4583)
+     Memory: 2.8M
+        CPU: 400ms
+     CGroup: /system.slice/cups.service
+             └─2366 /usr/sbin/cupsd -l
 
-Important parts on this webpage are:
+Jul 16 13:50:20 debian systemd[1]: Starting cups.service - CUPS Scheduler...
+Jul 16 13:50:20 debian systemd[1]: Started cups.service - CUPS Scheduler.
+```
 
-\|Jobs tab\|to check the jobs the CUPS is handling\|  
-\|Administration\|For adding printers, managing jobs and configuring the CUPS server\|  
-\|Printers\|Show the printers\|
+To access the CUPS services, there are different ways, including a web based interface, GUI programs on the graphical modes and even command line tools. CUPS is designed to be simple and able to use different printers from various vendors.
 
-> as soon as you push the Add Printer button, you will need to give CUPS admin user password
-
-Suggested Activity: Visit your CUPS web interface and add a printer
-
-Good news is that the CUPS has most of the common printer drivers installed. You just need to choose the printer from the dropdown menu.
-
-#### configuration files
+### configuration files
 
 As any other linux program, CUPS saves its configuration at `/etc` directory.
 
@@ -91,7 +136,42 @@ ErrorPolicy retry-job
 </DefaultPrinter>
 ```
 
-#### legacy tools
+Another important configuration directory is located at `/etc/cups/ppd/`. This directory contains the PostScript printer Description (PPD) files. These let printers which use them to function properly. 
+
+
+### CUPS web interface
+To enable CUPS's web interface, you have to enable the following configuration in the `/etc/cups/cupsd.conf`:
+
+```
+WebInterface Yes
+```
+
+Then you will have access to the GUI via port **631**. So it will be enough to access the **localhost:631** or **127.0.0.1:631** (or the servers **IP** address on port **631**) from your browser.
+
+![CUPS web interface on port 631](/images/cups_we_interface.png)
+
+There are some of the important sections on the above page:
+
+|Section|Usage|
+|-------|-----|
+| Administration |Adding printers, managing jobs and configuring the CUPS server |
+| Jobs | Checking the active, pending & completed jobs |  
+| Printers | List or search in the installed printers |
+
+By default, system users can view printers and queued jobs but changes (like adding printers) will need more access. This is configured at the bottom part of `cupsd.conf` file. For example the below configuration provides `CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Add-Modify-Class CUPS-Delete-Class CUPS-Set-Defaul` access to anyone in `@printer_admin` group.
+
+```
+  <Limit CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Add-Modify-Class CUPS-Delete-Class CUPS-Set-Default>
+    AuthType Default
+    Require user @printer_admin
+    Order deny,allow
+  </Limit>
+  ```
+
+> CUPS has most of the common printer drivers installed. You just need to choose the printer from the dropdown menu to add it.
+
+
+### legacy tools
 
 Just like the MTA programs, CUPS support all the legacy command line programs too.
 
@@ -102,7 +182,7 @@ Just like the MTA programs, CUPS support all the legacy command line programs to
 | lprm | rm/remove a file from priner queue |
 | lpc | printer control / troubleshooting program |
 
-**lpq**
+#### `lpq`
 
 The **q** is for **queue** therefor `lpq` shows the printer queue and is used when you want to see the jobs. If you use the `-a` switch, the lpq will show the jobs of **all** printers. Alternatively you can use the `-P` switch to show the jobs of a specific printer. So the following command will show the jobs of a printer called Apple-Dot-Matrix:
 
@@ -116,7 +196,7 @@ active  unknown 1       unknown                         7168 bytes
 
 > It is strange but there should not be ANY space between `-P` and the printers name
 
-**lpr**
+#### `lpr`
 
 This command is used to send a job to a printer. Again the printer is specified by `-P`.
 
@@ -132,7 +212,7 @@ active  jadi    1       Untitled Document 1             7168 bytes
 
 > If no printer is specified, the default printer will be used
 
-**lprm**
+#### `lprm`
 
 The _rm_ is for _remove_ so the `lprm` will remove jobs from the queue. You need to provide the **Job ID** to this command.
 
@@ -157,7 +237,7 @@ If you need to remove ALL the jobs of a specific printer, you can go with `-Ppri
 
 > the `lprm -` will remove all the print jobs
 
-**lpc**
+#### `lpc`
 
 Here, the **c** is for **control**. `lpc` lets you check the status \(via `lpc status`\) and troubleshoot your printers.
 
