@@ -16,26 +16,26 @@ Candidates should be able to configure rsyslog. This objective also includes con
 * Basic configuration of rsyslog.
 * Understanding of standard facilities, priorities and actions.
 * Query the systemd journal.
-* Filter systemd journal data by criteria such as date, service or priority
-* Configure persistent systemd journal storage and journal size
-* Delete old systemd journal data
-* Retrieve systemd journal data from a rescue system or file system copy
-* Understand interaction of rsyslog with systemd-journald
+* Filter systemd journal data by criteria such as date, service or priority.
+* Configure persistent systemd journal storage and journal size.
+* Delete old systemd journal data.
+* Retrieve systemd journal data from a rescue system or file system copy.
+* Understand interaction of rsyslog with systemd-journald.
 * Configuration of logrotate.
 * Awareness of syslog and syslog-ng.
 
 ### Terms and Utilities
 
-* /etc/rsyslog.conf
-* /var/log/
-* logger
-* logrotate
-* /etc/logrotate.conf
-* /etc/logrotate.d/
-* journalctl
-* systemd-cat
-* /etc/systemd/journald.conf
-* /var/log/journal/
+* `/etc/rsyslog.conf`
+* `/var/log/`
+* `logger`
+* `logrotate`
+* `/etc/logrotate.conf`
+* `/etc/logrotate.d/`
+* `journalctl`
+* `systemd-cat`
+* `/etc/systemd/journald.conf`
+* `/var/log/journal/`
 
 ### History
 Logs are an important part of Unix philosophy and design. The Kernel, services, programs and most events (let it be a crash or a login attempt) will generate logs. These logs can be examines / monitored to gain insights about the system and its status. If you watch a Linux guy on a windows machine for 1 hour, you will hear "where are the logs?". 
@@ -137,12 +137,16 @@ user.*				-/var/log/user.log
 *.emerg				:omusrmsg:*
 ```
 
-As you can see facilities can be things like `kern`, `user`, `mail`, `daemon`, `cron`, `auth`, `ntp`, `security`, `console`, `syslog`و ... wehen the *priority* is one of the `emerg`/`panic`, `alert`, `crit`, `err`/`error`, `warn`/`warning`, `notice`, `info` or `debug`. 
+As you can see **facilities** could be things like:
+  > `kern`, `user`, `mail`, `daemon`, `cron`, `auth`, `ntp`, `security`, `console`, `syslog`, ... 
+
+The **priority** could be one of the below:
+  > `emerg`/`panic`, `alert`, `crit`, `err`/`error`, `warn`/`warning`, `notice`, `info` or `debug`. 
 
 On the **action** part we can have things like these:
 
 | action | sample | meaning |
-| :--- | :--- | :--- |
+| :---: | :---: | :--- |
 | filename | /usr/log/logins.log | will write the log to this file |
 | username | jadi | will notify that person on the screen |
 | @ip | @192.168.1.100 | will send this log to this log server and that log server will decide what to do with it based on its configs |
@@ -154,11 +158,41 @@ kern.panic      @192.168.1.100
 *.*             /var/log/messages
 ```
 
-If you log some specific priority, all the **more important** things will be logged too! So if you write `cron.notice /var/log/cron/log`, you are logging the emerg/panic, alert, critical, error, warning and notice logs of the cron category too.
+If you log some specific priority, all the **more important** things will be logged too! So if you write `cron.notice /var/log/cron/cron.log`, you are logging the `emerg/panic`, `alert`, `critical`, `error`, `warning` and `notice` logs of the cron category too.
+
+
+Priority Levels (According to Syslog(3) and logger manpage):
+
+```text
+
+       This determines the importance of the message.  The levels are, in order of decreasing importance:
+
+       emerge      system is unusable
+
+       alert      action must be taken immediately
+
+       crit       critical conditions
+
+       error        error conditions
+
+       warning    warning conditions
+
+       notice     normal, but significant, condition
+
+       info       informational message
+
+       debug      debug-level message
+
+
+       panic      deprecated synonym for emerg
+       error      deprecated synonym for err
+       warn       deprecated synonym for warning
+
+```
 
 > If you need to log ONLY one specific level, add an equal sign \(=\) before the priority like this `local3.=alert /var/log/user.alert.log`.
 
-It is important to know that the binary which logs the _\*kern_ category is a standalone daemon. This daemon is called `klogd` and uses same configuration files. Why? so even after everything is crashed, klogd will be able to log the kernel's crashes ;\)
+It is important to know that the binary which logs the _\*kern_ category is a standalone daemon. This daemon is called `klogd` and uses same configuration files. Why? so even after everything is crashed, `klogd` will be able to log the kernel's crashes ;\).
 
 
 ### logger
@@ -229,7 +263,7 @@ root@debian:# cat /etc/logrotate.d/apt
 These are the meaning of some of these parameters:
 
 | parameter | meaning |
-| :--- | :--- |
+| :---: | :---: |
 | weekly | rotate logs weekly |
 | missingok | it is fine if there is no log for this week |
 | rotate 52 | keep the latest 52 logs and delete the older ones |
@@ -334,7 +368,7 @@ root@debian:~# cat /etc/systemd/journald.conf
 If you run the `journalctl` you will get all the logs... too much. So there are some useful switches:
 
 | Switch | Meaning |
-| --- | --- |
+| :---: | :---: |
 | -r | show in reverse; newer on top |
 | -f | keep showing the tail |
 | -e | show and go to the end |
@@ -344,7 +378,7 @@ If you run the `journalctl` you will get all the logs... too much. So there are 
 | -p | from specific priority, say `-p err` |
 | -u | from a specific systemd unit |
 
-You can also using the `--since` and `--until` to show a specific time range, It is possible to provide time as `YYYY-MM-DD HH:MM:SS` or use things like `yesterday`, `today`, `tomorrow`, `now` or even `--since "10 minutes ago"` which is equals to `--since "-2 minutes"`.
+You can also use the `--since` and `--until` to show a specific time range, It is possible to provide time as `YYYY-MM-DD HH:MM:SS` or use things like `yesterday`, `today`, `tomorrow`, `now` or even `--since "10 minutes ago"` which is equals to `--since "-2 minutes"`.
 
 > If there are too many lines, push `>` to jump to the end (or `<` to go to the beginning)
 
@@ -365,82 +399,82 @@ Jun 30 06:34:48 debian uptime[1022]:  06:34:48 up  1:05,  4 users,  load average
 ## managing storage
 The systemd journals can keep their logs in memeory or write them to the disk or drop all the logs. This is determined by the configurations in `/etc/systemd/journald.conf`. But the default behaviour is as follow:
 
-1. The system checks the `/var/log/journal`. If this exists logs will be saved in a directory inside this. The name of the directory will be decided by looking at `/etc/machine-id`
-2. If the `/var/log/journal` is not there, the logs will be saved at memory at `/run/log/jouranl` and in the directory decided by `/etc/machine-id`.
+1. The system checks the `/var/log/journal`. If this directory, exists logs will be saved in a directory inside this. The name of the directory will be decided by looking at `/etc/machine-id`
+2. If the `/var/log/journal` is not there, the logs will be saved in memory at `/run/log/jouranl` and in the directory decided by `/etc/machine-id`.
 
 But you can overcome these configs by the following sections:
 
 ```
-Storage=volatile # keep the logs in memory
+Storage=volatile     # keep the logs in memory
 Storage=persistent   # keep on disk, if needed create the directories
-Storage=auto  # will write to disk only if the directory exists
-Storage=none # do not keep logs
+Storage=auto         # will write to disk only if the directory exists
+Storage=none         # do not keep logs
 ```
 
 If the logs are being written to disk, these variable will manage the disk usage:
 
 | Variable Name | Usage |
-| ---- | --- | 
+| :----: | --- | 
 | SystemMaxUse | The Maximum disk usage, say 500M. The default is on `10%` |
 | SystemKeepFree | Keep at least this much free, say 1G. The default is 15% |
 | SystemMaxFileSize | Maximum size of each individual file. The default is 1/8 of SystemMaxUse |
 | SystemMaxFiles | Max number of non-currently-active files. The default is 100 |
 
-If you are keeping the logs in the memory, the equivalent variables are `RuntimeMaxUse`, `RuntimeKeepFree`, `RuntimeMaxFileSize`, & `RuntimeMaxFiles`.  
+If you are keeping the logs in **memory**, the equivalent variables are `RuntimeMaxUse`, `RuntimeKeepFree`, `RuntimeMaxFileSize`, & `RuntimeMaxFiles`.  
 
 In case you need to do the clean-up manually (with the help of systemd tools for sure), you can run `journalctl` with these switches:
 
 
  
 | Switch | Usage |
-| ---- | --- | 
+| :----: | --- | 
 | --vacuum-time | clean everything older than this. for example `--vacuum-time=3months` clean anything older than 3 months. You can use `s`, `m`, `h` for seconds, minutes and days and `d`/`days`, `months`, `weeks`/`w` and `years`/`y`. 
 | --vacuum-size | eliminate till logs occupy a specific size; say 1G |
 | --vacuum-files | Only keep this much archive files |
 
 ### checking logs from a recovered system
-If you have a crashed / non booting system, you can still examine its logs; if the files are there. As you known the files are in `/var/log/journal/{mchine-id}` where machine-is id in `/etc/machine-id` of the crashed machine. 
+If you have a crashed / non-booting system, you can still examine its logs; if the files are there. As you know the files are in `/var/log/journal/{mchine-id}` where machine-id is in `/etc/machine-id` of the crashed machine. 
 
-You can move these files to a directory after booting the crashed machine with a live linux or mount its hard on another machine or even examine them in place. The `-D` (or `--directory`) switch of `journalctl` indicated the location of the journal files. So if you your crashed machine id is `ec22e43962c64359b9b25cfa650b025b` and you've mounted its `/var/` under your `/mnt/var/` directory, you can issue this command to read its logs and see what had happened:
+You can move these files to a directory after booting the crashed machine with a live linux or mount its hard on another machine or even examine them in place. The `-D` (or `--directory`) switch of `journalctl` indicates the location of the journal files. So if your crashed machine id is `ec22e43962c64359b9b25cfa650b025b` and you've mounted its `/var/` under your `/mnt/var/` directory, you can issue this command to read its logs and see what had happened:
 
 ```
 journalctl -D=/mnt/var/log/journal/ec22e43962c64359b9b25cfa650b025b/
 ```
 
 You can also use the `--merge` switch to merge these logs into your machine or use `--file` to check only one specific journal file. Lastly if the exact location of journal files are not known, you can use `--root /mnt` and tell the `journalctl` to search there for journal files.
-## some famous log fiels
+## some famous log files
 
 Generally logs are saved at `/var/log`. In case of any issue and if you do not know what to do, it is a common practice to run a `ls -ltrh /var/log/` to see if any program generated a new log or not.
 
 But lets have a look at some of the famous logs:
 
 
-##### /var/log/auth.log
+##### `/var/log/auth.log` (in Debian Based)
 
-Authentication processes will log here. Things like cron jobs, failed logins, sudo informations, ...
-##### /var/log/syslog
+Authentication processes will log here. Things like `cron` jobs, failed logins, `sudo` informations, ...
+##### `/var/log/syslog`
 
-A centralized place most of the logs received by rsyslogd if a specific logfile is not provided in `/etc/rsyslog.conf`
-##### /var/log/debug
+A centralized place most of the logs received by `rsyslogd` if a specific logfile is not provided in `/etc/rsyslog.conf`
+##### `/var/log/debug`
 
 Debug information from programs.
 
-##### /var/log/kern.log
+##### `/var/log/kern.log`
 
 Kernel messages.
-##### /var/log/messages
+##### `/var/log/messages`
 
 Informative messages from services. This is also the default place for logs for remote clients.
-##### /var/run/utmp & /var/log/wtmp
+##### `/var/run/utmp` & `/var/log/wtmp`
 
 Successful logins.
-##### /var/log/btmp
+##### `/var/log/btmp`
 
 Failed logins. You can check this to see if anyone is trying to guess your passwords!
-##### /var/log/faillog
+##### `/var/log/faillog`
 
 Failed authentication attempts.
-##### /var/log/lastlog
+##### `/var/log/lastlog`
 Date and time of recent user logins.
 
 ##### Service logs

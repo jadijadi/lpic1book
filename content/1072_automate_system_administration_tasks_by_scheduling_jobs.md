@@ -20,17 +20,17 @@ Candidates should be able to use cron and systemd timers to run jobs at regular 
 
 ### Terms and Utilities
 
-* /etc/cron.{d,daily,hourly,monthly,weekly}/
-* /etc/at.deny
-* /etc/at.allow
-* /etc/crontab
-* /etc/cron.allow
-* /etc/cron.deny
-* /var/spool/cron/
-* crontab
-* at
-* atq
-* atrm
+* `/etc/cron.{d,daily,hourly,monthly,weekly}/`
+* `/etc/at.deny`
+* `/etc/at.allow`
+* `/etc/crontab`
+* `/etc/cron.allow`
+* `/etc/cron.deny`
+* `/var/spool/cron/`
+* `crontab`
+* `at`
+* `atq`
+* `atrm`
 * systemctl
 * systemd-run
 

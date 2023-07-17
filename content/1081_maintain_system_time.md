@@ -5,7 +5,6 @@ Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 sortorder: 360
 Summary: 
-## 108.1 Maintain system time
 
 
 _Weight: 3_
@@ -17,29 +16,31 @@ Candidates should be able to properly maintain the system time and synchronize t
 * Set the system date and time.
 * Set the hardware clock to the correct time in UTC.
 * Configure the correct timezone.
-* Basic NTP configuration using ntpd and chrony..
-* Knowledge of using the pool.ntp.org service.
-* Awareness of the ntpq command.
+* Basic NTP configuration using `ntpd` and `chrony`.
+* Knowledge of using the `pool.ntp.org` service.
+* Awareness of the `ntpq` command.
 
 ### Terms and Utilities
 
-* /usr/share/zoneinfo/
-* /etc/timezone
-* /etc/localtime
-* /etc/ntp.conf
-* /etc/chrony.conf
-* date
-* hwclock
-* ntpd
-* ntpdate
-* chronyc
-* pool.ntp.org
+* `/usr/share/zoneinfo/`
+* `/etc/timezone`
+* `/etc/localtime`
+* `/etc/ntp.conf`
+* `/etc/chrony.conf`
+* `date`
+* `hwclock`
+* `ntpd`
+* `ntpdate`
+* `chronyc`
+* `pool.ntp.org`
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RhH-2I1dBjA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### How a computer keeps its time
 
 There is a clock in your computer; a hardware clock on your motherboard! It has its own battery and keeps the time even when the computer is off. When the system boots, the OS reads this **hardware time** and it sets it's own **system time** based on the hardware clock and uses this clock whenever it needs to know the time.
 
-Hardware clock can be the set on localtime (the time shown on your clock whenever you are) or UTC time (standard time). The `hwclock` can be used to show the time based on the hwtime. See how it works based on the hardware time even after we DO CHANGE the system time:
+Hardware clock can be the set on localtime (the time shown on your clock wherever you are) or UTC time (standard time). The `hwclock` can be used to show the time based on the hwtime. See how it works based on the hardware time even after we DO CHANGE the system time:
 
 ```
 $ date
@@ -54,7 +55,7 @@ $ sudo hwclock
 
 > Even when the hardware clock is set on UTC, `hwclock` date shows the date in the localtime \(time after adding the timezone to the UTC time\)
 
-Older OSs used to set the hardware clock on localtime zone instead of timezone. This can be achived by:
+Older OSs used to set the hardware clock on localtime zone instead of timezone. This can be achieved by:
 
 ```text
 # hwclock --localtime --set --date="01/05/2023 22:04:00"
@@ -66,11 +67,11 @@ The previous commands sets the hardware clock on that specific date and tell it 
 # hwclock -u -w
 ```
 
-Here, `-w` tells the hwclock to set the hardware time based on the current system time and `-u` tells the hwclock that we are using the UTC. This also sets the HWClock using UTC int he `\etc\adjtime` file.
+Here, `-w` tells the `hwclock` to set the hardware time based on the current system time and `-u` tells the hwclock that we are using the UTC. This also sets the HWClock using UTC int he `\etc\adjtime` file.
 
-> If you set a time on the hardware clock wighout mentioning it being UTC / Local, the `/etc/adjtime` will decide this, if this file does not exists, the UTC will be used.
+> If you set a time on the hardware clock without mentioning it being UTC / Local, the `/etc/adjtime` will decide this, if this file does not exists, the UTC will be used.
 
-You already now about the `timedatectl` and `date` from the [Localization and globalization chapter](http://linux1st.com/1073-localisation-and-internationalisation.html) so I wont repeat them here.
+You already know about the `timedatectl` and `date` from the [Localization and globalization chapter](http://linux1st.com/1073-localisation-and-internationalisation.html) so I wont repeat them here.
 
 
 ### Time Zones
@@ -88,13 +89,17 @@ But the `/etc/localtime` is a binary file describing your timezone info to the s
 ```
 $ ls -l /etc/localtime 
 lrwxrwxrwx 1 root root 31 Jun 22 11:19 /etc/localtime -> /usr/share/zoneinfo/Asia/Tehran
+$ file /usr/share/zoneinfo/Asia/Tehran
+/usr/share/zoneinfo/Asia/Tehran: timezone data, version 2, no gmt time flags, no std time flags, no leap seconds, 72 transition times, 8 abbreviation chars
 ```
 
-In many cases, this is a soft link to a file located at `/etc/share/zoneinfo/` so it will be updated in case of system update.
+In many cases, this is a soft link to a file located at `/usr/share/zoneinfo/` so it will be updated in case of system update.
 
 ### NTP
 
-Network Time Protocol is my personal favorite protocol. It is one of the coolest protocols ever if you dive into its details. But unfortunately for LPIC1 you do not need to dive into NTP depths. This protocol uses NTP servers to find out the accurate time shown by best atomic clocks on this planet. One of the most famous severs used by ntp people is `pool.ntp.org`. If you check that website you will see that it is a **pool** of ntp servers and by giving your NTP server the `pool.ntp.org`, it will be redirected to one of the many ntp servers available on that pool.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ntyUBmG8F40" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+**Network Time Protocol**  is my personal favorite protocol. It is one of the coolest protocols ever if you dive into its details. But unfortunately for LPIC1 you do not need to dive into NTP depths. This protocol uses NTP servers to find out the accurate time shown by best atomic clocks on this planet. One of the most famous severs used by ntp people is `pool.ntp.org`. If you check that website you will see that it is a **pool** of ntp servers and by giving your NTP server the `pool.ntp.org`, it will be redirected to one of the many ntp servers available on that pool.
 
 #### ntpdate
 
@@ -111,6 +116,8 @@ After this, we need to set the hwclock to the recently synced system time using 
 
 Instead of manually setting the time each time, you can use a linux service called `ntp` to keep your time using some time servers \(the most famous one is pool.ntp.org\). Install the `ntp` and start the server:
 
+In Debian/Ubuntu: 
+
 ```
 # apt install ntp
 # systemctl start ntp
@@ -125,7 +132,7 @@ root@funlife:~# ntpdate pool.ntp.org
 
 As you can see, now the `ntp` is using the NTP port and `ntpdate` has problems starting up.
 
-Main configuration file of `ntp` is located at /etc/ntp.conf:
+Main configuration file of `ntp` is located at `/etc/ntp.conf`:
 
 ```text
 # cat /etc/ntp.conf
@@ -213,7 +220,8 @@ The `ntpq` queries the ntp service. One famous switch is `-p` \(for Print\) that
 In this output a `*` means that the ntp is using this server as the main reference, `+` means that this is a good server and `-` shows an out of range server which will be neglected.
 
 ### chrony
-Another and a newer NTP protocol implemenation is the `chrony`. Compared to ntpd, this tool provides better results at synchronize time difficult conditions such as intermittent network connections (such as laptops) and congested networks. Chrony is the default NTP client in RedHat 8, SUSE 15 and many other distributions. Another adavn
+Another and a newer NTP protocol implemenation is the `chrony`. Compared to `ntpd` , this tool provides better results at synchronize time difficult conditions such as intermittent network connections (such as laptops) and congested networks. Chrony is the default NTP client in RedHat 8, SUSE 15 and many other distributions. Another adavn
+
 
 Here is a sample `chrony.conf` file:
 
@@ -269,7 +277,7 @@ logdir /var/log/chrony
 # Stop bad estimates upsetting machine clock.
 maxupdateskew 100.0
 
-# This directive enables kernel synchronisation (every 11 minutes) of the
+# This directive enables kernel synchronization (every 11 minutes) of the
 # real-time clock. Note that it can’t be used along with the 'rtcfile' directive.
 rtcsync
 
@@ -283,7 +291,7 @@ makestep 1 3
 leapsectz right/UTC
 ```
 
-To control the `chrony` serivce, there is a CLI (Command Line Interface) which is called `chronyc`. It it used to monitor chronyd's performance and to change various operating parameters. If a "command" is passed to the `chronyc`, the results will be shown, otherwise you will get a command to issue your commands. Have a look:
+To control the `chrony` service, there is a CLI (Command Line Interface) which is called `chronyc`. It it used to monitor chronyd's performance and to change various operating parameters. If a "command" is passed to the `chronyc`, the results will be shown, otherwise you will get a command to issue your commands. Have a look:
 
 ```
 $ chronyc tracking
@@ -337,4 +345,4 @@ $ sudo chronyc makestep
 
 ```
 
-`chrnoyc` connects to the chrony service using TPC or Unix sockets. Therefore, it is possible to use a local `chronyc` to connect to remote `chrony` and issue commands, although in this case you are limited to mainly monitoring commands for security reasons.
+`chrnoyc` connects to the chrony service using TCP or Unix sockets. Therefore, it is possible to use a local `chronyc` to connect to remote `chrony` and issue commands, although in this case you are limited to mainly monitoring commands for security reasons.
