@@ -87,12 +87,7 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <h2>108.4 Manage printers and printing</h2>
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-<p><em>Weight: 2</em></p>
+            <p><em>Weight: 2</em></p>
 <p>Candidates should be able to manage print queues and user print jobs using CUPS and the LPD compatibility interface.</p>
 <h3>Key Knowledge Areas</h3>
 <ul>
@@ -104,24 +99,77 @@
 <h3>Terms and Utilities</h3>
 <ul>
 <li>CUPS configuration files, tools and utilities</li>
-<li>/etc/cups/</li>
+<li><code>/etc/cups/</code></li>
 <li>lpd legacy interface (lpr, lprm, lpq)</li>
 </ul>
-<h3>CUPS</h3>
-<p>Most Linux distros use CUPS for printing. CUPS stands for Common Unix Printing System. There are different interfaces for CUPS link command line tools, web based interface and GUIs. CUPS is designed to simplify the printing on various printers from different manufactures.</p>
-<h4>CUPS web interface</h4>
-<p>The general way to access the CUPS configuration and info page is going to the servers IP on port <strong>631</strong> from a browser. That will be <strong>localhost:631</strong> or <strong>127.0.0.1:631</strong> from your browser.</p>
-<p><img alt="CUPs printing system" src="../.gitbook/assets/cups.png"></p>
-<p>Important parts on this webpage are:</p>
-<p>|Jobs tab|to check the jobs the CUPS is handling|<br>
-|Administration|For adding printers, managing jobs and configuring the CUPS server|<br>
-|Printers|Show the printers|</p>
-<blockquote>
-<p>as soon as you push the Add Printer button, you will need to give CUPS admin user password</p>
-</blockquote>
-<p>Suggested Activity: Visit your CUPS web interface and add a printer</p>
-<p>Good news is that the CUPS has most of the common printer drivers installed. You just need to choose the printer from the dropdown menu.</p>
-<h4>configuration files</h4>
+<h2>CUPS</h2>
+<p>Most Linux distributions use the CUPS package for printing. You may need to install it via your package manager and start its service using the systemd or the init system your system use.</p>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">cups</span>
+<span class="o">[</span><span class="n">sudo</span><span class="o">]</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nl">jadi</span><span class="p">:</span>
+<span class="n">Reading</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">lists</span><span class="p">...</span><span class="w"> </span><span class="n">Done</span>
+<span class="n">Building</span><span class="w"> </span><span class="n">dependency</span><span class="w"> </span><span class="n">tree</span><span class="p">...</span><span class="w"> </span><span class="n">Done</span>
+<span class="n">Reading</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">information</span><span class="p">...</span><span class="w"> </span><span class="n">Done</span>
+<span class="n">The</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="n">additional</span><span class="w"> </span><span class="n">packages</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="nl">installed</span><span class="p">:</span>
+<span class="w">  </span><span class="n">acl</span><span class="w"> </span><span class="n">avahi</span><span class="o">-</span><span class="n">daemon</span><span class="w"> </span><span class="n">colord</span><span class="w"> </span><span class="n">colord</span><span class="o">-</span><span class="k">data</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">browsed</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">client</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">common</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">drivers</span>
+<span class="w">  </span><span class="n">cups</span><span class="o">-</span><span class="n">daemon</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">filters</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">filters</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">drivers</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">ipp</span><span class="o">-</span><span class="n">utils</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">ppdc</span>
+<span class="w">  </span><span class="n">cups</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">common</span><span class="w"> </span><span class="n">fonts</span><span class="o">-</span><span class="n">droid</span><span class="o">-</span><span class="n">fallback</span><span class="w"> </span><span class="n">fonts</span><span class="o">-</span><span class="n">noto</span><span class="o">-</span><span class="n">mono</span><span class="w"> </span><span class="n">fonts</span><span class="o">-</span><span class="n">urw</span><span class="o">-</span><span class="n">base35</span><span class="w"> </span><span class="n">ghostscript</span>
+<span class="w">  </span><span class="n">ipp</span><span class="o">-</span><span class="n">usb</span><span class="w"> </span><span class="n">libavahi</span><span class="o">-</span><span class="n">core7</span><span class="w"> </span><span class="n">libavahi</span><span class="o">-</span><span class="n">glib1</span><span class="w"> </span><span class="n">libcolorhug2</span><span class="w"> </span><span class="n">libcupsfilters1</span><span class="w"> </span><span class="n">libdaemon0</span><span class="w"> </span><span class="n">libexif12</span>
+<span class="w">  </span><span class="n">libfontembed1</span><span class="w"> </span><span class="n">libgphoto2</span><span class="o">-</span><span class="mi">6</span><span class="w"> </span><span class="n">libgphoto2</span><span class="o">-</span><span class="n">l10n</span><span class="w"> </span><span class="n">libgphoto2</span><span class="o">-</span><span class="n">port12</span><span class="w"> </span><span class="n">libgs</span><span class="o">-</span><span class="n">common</span><span class="w"> </span><span class="n">libgs10</span>
+<span class="w">  </span><span class="n">libgs10</span><span class="o">-</span><span class="n">common</span><span class="w"> </span><span class="n">libgusb2</span><span class="w"> </span><span class="n">libidn12</span><span class="w"> </span><span class="n">libieee1284</span><span class="o">-</span><span class="mi">3</span><span class="w"> </span><span class="n">libijs</span><span class="o">-</span><span class="mf">0.35</span><span class="w"> </span><span class="n">libjbig2dec0</span><span class="w"> </span><span class="n">libjson</span><span class="o">-</span><span class="n">glib</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="mi">0</span>
+<span class="w">  </span><span class="n">libjson</span><span class="o">-</span><span class="n">glib</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="n">common</span><span class="w"> </span><span class="n">liblouis</span><span class="o">-</span><span class="k">data</span><span class="w"> </span><span class="n">liblouis20</span><span class="w"> </span><span class="n">liblouisutdml</span><span class="o">-</span><span class="n">bin</span><span class="w"> </span><span class="n">liblouisutdml</span><span class="o">-</span><span class="k">data</span>
+<span class="w">  </span><span class="n">liblouisutdml9</span><span class="w"> </span><span class="n">libltdl7</span><span class="w"> </span><span class="n">libnss</span><span class="o">-</span><span class="n">mdns</span><span class="w"> </span><span class="n">libpaper</span><span class="o">-</span><span class="n">utils</span><span class="w"> </span><span class="n">libpaper1</span><span class="w"> </span><span class="n">libpoppler</span><span class="o">-</span><span class="n">cpp0v5</span>
+<span class="w">  </span><span class="n">libpoppler</span><span class="o">-</span><span class="n">glib8</span><span class="w"> </span><span class="n">libpoppler126</span><span class="w"> </span><span class="n">libqpdf29</span><span class="w"> </span><span class="n">libsane</span><span class="o">-</span><span class="n">common</span><span class="w"> </span><span class="n">libsane1</span><span class="w"> </span><span class="n">libsnmp</span><span class="o">-</span><span class="n">base</span><span class="w"> </span><span class="n">libsnmp40</span>
+<span class="w">  </span><span class="n">lynx</span><span class="w"> </span><span class="n">lynx</span><span class="o">-</span><span class="n">common</span><span class="w"> </span><span class="n">mailcap</span><span class="w"> </span><span class="n">poppler</span><span class="o">-</span><span class="k">data</span><span class="w"> </span><span class="n">poppler</span><span class="o">-</span><span class="n">utils</span><span class="w"> </span><span class="n">sane</span><span class="o">-</span><span class="n">airscan</span><span class="w"> </span><span class="n">sane</span><span class="o">-</span><span class="n">utils</span><span class="w"> </span><span class="k">update</span><span class="o">-</span><span class="n">inetd</span>
+<span class="w">  </span><span class="n">usb</span><span class="p">.</span><span class="n">ids</span>
+<span class="n">Suggested</span><span class="w"> </span><span class="nl">packages</span><span class="p">:</span>
+<span class="w">  </span><span class="n">avahi</span><span class="o">-</span><span class="n">autoipd</span><span class="w"> </span><span class="n">colord</span><span class="o">-</span><span class="n">sensor</span><span class="o">-</span><span class="n">argyll</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">bsd</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">pdf</span><span class="w"> </span><span class="n">foomatic</span><span class="o">-</span><span class="n">db</span><span class="o">-</span><span class="n">compressed</span><span class="o">-</span><span class="n">ppds</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">foomatic</span><span class="o">-</span><span class="n">db</span><span class="w"> </span><span class="n">smbclient</span><span class="w"> </span><span class="n">antiword</span><span class="w"> </span><span class="n">docx2txt</span><span class="w"> </span><span class="n">imagemagick</span><span class="w"> </span><span class="n">fonts</span><span class="o">-</span><span class="n">noto</span><span class="w"> </span><span class="n">fonts</span><span class="o">-</span><span class="n">freefont</span><span class="o">-</span><span class="n">otf</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">fonts</span><span class="o">-</span><span class="n">freefont</span><span class="o">-</span><span class="n">ttf</span><span class="w"> </span><span class="n">fonts</span><span class="o">-</span><span class="n">texgyre</span><span class="w"> </span><span class="n">gphoto2</span><span class="w"> </span><span class="n">ooo2dbk</span><span class="w"> </span><span class="n">rtf2xml</span><span class="w"> </span><span class="n">avahi</span><span class="o">-</span><span class="n">autoipd</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">zeroconf</span><span class="w"> </span><span class="n">hplip</span>
+<span class="w">  </span><span class="n">snmp</span><span class="o">-</span><span class="n">mibs</span><span class="o">-</span><span class="n">downloader</span><span class="w"> </span><span class="n">fonts</span><span class="o">-</span><span class="n">japanese</span><span class="o">-</span><span class="n">mincho</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">fonts</span><span class="o">-</span><span class="n">ipafont</span><span class="o">-</span><span class="n">mincho</span><span class="w"> </span><span class="n">fonts</span><span class="o">-</span><span class="n">arphic</span><span class="o">-</span><span class="n">ukai</span>
+<span class="w">  </span><span class="n">fonts</span><span class="o">-</span><span class="n">arphic</span><span class="o">-</span><span class="n">uming</span><span class="w"> </span><span class="n">fonts</span><span class="o">-</span><span class="n">nanum</span><span class="w"> </span><span class="n">unpaper</span>
+<span class="n">The</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="k">NEW</span><span class="w"> </span><span class="n">packages</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="nl">installed</span><span class="p">:</span>
+<span class="w">  </span><span class="n">acl</span><span class="w"> </span><span class="n">avahi</span><span class="o">-</span><span class="n">daemon</span><span class="w"> </span><span class="n">colord</span><span class="w"> </span><span class="n">colord</span><span class="o">-</span><span class="k">data</span><span class="w"> </span><span class="n">cups</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">browsed</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">client</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">common</span>
+<span class="w">  </span><span class="n">cups</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">drivers</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">daemon</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">filters</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">filters</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="n">drivers</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">ipp</span><span class="o">-</span><span class="n">utils</span>
+<span class="w">  </span><span class="n">cups</span><span class="o">-</span><span class="n">ppdc</span><span class="w"> </span><span class="n">cups</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">common</span><span class="w"> </span><span class="n">fonts</span><span class="o">-</span><span class="n">droid</span><span class="o">-</span><span class="n">fallback</span><span class="w"> </span><span class="n">fonts</span><span class="o">-</span><span class="n">noto</span><span class="o">-</span><span class="n">mono</span><span class="w"> </span><span class="n">fonts</span><span class="o">-</span><span class="n">urw</span><span class="o">-</span><span class="n">base35</span>
+<span class="w">  </span><span class="n">ghostscript</span><span class="w"> </span><span class="n">ipp</span><span class="o">-</span><span class="n">usb</span><span class="w"> </span><span class="n">libavahi</span><span class="o">-</span><span class="n">core7</span><span class="w"> </span><span class="n">libavahi</span><span class="o">-</span><span class="n">glib1</span><span class="w"> </span><span class="n">libcolorhug2</span><span class="w"> </span><span class="n">libcupsfilters1</span><span class="w"> </span><span class="n">libdaemon0</span>
+<span class="w">  </span><span class="n">libexif12</span><span class="w"> </span><span class="n">libfontembed1</span><span class="w"> </span><span class="n">libgphoto2</span><span class="o">-</span><span class="mi">6</span><span class="w"> </span><span class="n">libgphoto2</span><span class="o">-</span><span class="n">l10n</span><span class="w"> </span><span class="n">libgphoto2</span><span class="o">-</span><span class="n">port12</span><span class="w"> </span><span class="n">libgs</span><span class="o">-</span><span class="n">common</span>
+<span class="w">  </span><span class="n">libgs10</span><span class="w"> </span><span class="n">libgs10</span><span class="o">-</span><span class="n">common</span><span class="w"> </span><span class="n">libgusb2</span><span class="w"> </span><span class="n">libidn12</span><span class="w"> </span><span class="n">libieee1284</span><span class="o">-</span><span class="mi">3</span><span class="w"> </span><span class="n">libijs</span><span class="o">-</span><span class="mf">0.35</span><span class="w"> </span><span class="n">libjbig2dec0</span>
+<span class="w">  </span><span class="n">libjson</span><span class="o">-</span><span class="n">glib</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="mi">0</span><span class="w"> </span><span class="n">libjson</span><span class="o">-</span><span class="n">glib</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="n">common</span><span class="w"> </span><span class="n">liblouis</span><span class="o">-</span><span class="k">data</span><span class="w"> </span><span class="n">liblouis20</span><span class="w"> </span><span class="n">liblouisutdml</span><span class="o">-</span><span class="n">bin</span>
+<span class="w">  </span><span class="n">liblouisutdml</span><span class="o">-</span><span class="k">data</span><span class="w"> </span><span class="n">liblouisutdml9</span><span class="w"> </span><span class="n">libltdl7</span><span class="w"> </span><span class="n">libnss</span><span class="o">-</span><span class="n">mdns</span><span class="w"> </span><span class="n">libpaper</span><span class="o">-</span><span class="n">utils</span><span class="w"> </span><span class="n">libpaper1</span>
+<span class="w">  </span><span class="n">libpoppler</span><span class="o">-</span><span class="n">cpp0v5</span><span class="w"> </span><span class="n">libpoppler</span><span class="o">-</span><span class="n">glib8</span><span class="w"> </span><span class="n">libpoppler126</span><span class="w"> </span><span class="n">libqpdf29</span><span class="w"> </span><span class="n">libsane</span><span class="o">-</span><span class="n">common</span><span class="w"> </span><span class="n">libsane1</span>
+<span class="w">  </span><span class="n">libsnmp</span><span class="o">-</span><span class="n">base</span><span class="w"> </span><span class="n">libsnmp40</span><span class="w"> </span><span class="n">lynx</span><span class="w"> </span><span class="n">lynx</span><span class="o">-</span><span class="n">common</span><span class="w"> </span><span class="n">mailcap</span><span class="w"> </span><span class="n">poppler</span><span class="o">-</span><span class="k">data</span><span class="w"> </span><span class="n">poppler</span><span class="o">-</span><span class="n">utils</span><span class="w"> </span><span class="n">sane</span><span class="o">-</span><span class="n">airscan</span>
+<span class="w">  </span><span class="n">sane</span><span class="o">-</span><span class="n">utils</span><span class="w"> </span><span class="k">update</span><span class="o">-</span><span class="n">inetd</span><span class="w"> </span><span class="n">usb</span><span class="p">.</span><span class="n">ids</span>
+<span class="mi">0</span><span class="w"> </span><span class="n">upgraded</span><span class="p">,</span><span class="w"> </span><span class="mi">66</span><span class="w"> </span><span class="n">newly</span><span class="w"> </span><span class="n">installed</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">remove</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">upgraded</span><span class="p">.</span>
+<span class="n">Need</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="mf">40.7</span><span class="w"> </span><span class="n">MB</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">archives</span><span class="p">.</span>
+<span class="k">After</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">operation</span><span class="p">,</span><span class="w"> </span><span class="mi">163</span><span class="w"> </span><span class="n">MB</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">additional</span><span class="w"> </span><span class="k">disk</span><span class="w"> </span><span class="nf">space</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">used</span><span class="p">.</span>
+<span class="n">Do</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">continue</span><span class="vm">?</span><span class="w"> </span><span class="o">[</span><span class="n">Y/n</span><span class="o">]</span>
+<span class="p">...</span>
+<span class="p">...</span>
+</code></pre></div>
+
+<p>CUPS stands for Common Unix Printing System and as you can see, it install many related packages and even suggests some more. This is because CUPS need lots of information about different printers and uses many tools to print. When installed, you need to start the service:</p>
+<div class="highlight"><pre><span></span><code><span class="o">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="n">cups</span><span class="o">.</span><span class="n">service</span>
+<span class="o">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="n">cups</span><span class="o">.</span><span class="n">service</span>
+<span class="err">●</span><span class="w"> </span><span class="n">cups</span><span class="o">.</span><span class="n">service</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">CUPS</span><span class="w"> </span><span class="n">Scheduler</span>
+<span class="w">     </span><span class="n">Loaded</span><span class="p">:</span><span class="w"> </span><span class="n">loaded</span><span class="w"> </span><span class="p">(</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">cups</span><span class="o">.</span><span class="n">service</span><span class="p">;</span><span class="w"> </span><span class="n">enabled</span><span class="p">;</span><span class="w"> </span><span class="n">preset</span><span class="p">:</span><span class="w"> </span><span class="n">enabled</span><span class="p">)</span>
+<span class="w">     </span><span class="n">Active</span><span class="p">:</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="p">(</span><span class="n">running</span><span class="p">)</span><span class="w"> </span><span class="n">since</span><span class="w"> </span><span class="n">Sun</span><span class="w"> </span><span class="mi">2023</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">16</span><span class="w"> </span><span class="mi">13</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="w"> </span><span class="n">EDT</span><span class="p">;</span><span class="w"> </span><span class="mi">27</span><span class="n">s</span><span class="w"> </span><span class="n">ago</span>
+<span class="n">TriggeredBy</span><span class="p">:</span><span class="w"> </span><span class="err">●</span><span class="w"> </span><span class="n">cups</span><span class="o">.</span><span class="n">path</span>
+<span class="w">             </span><span class="err">●</span><span class="w"> </span><span class="n">cups</span><span class="o">.</span><span class="n">socket</span>
+<span class="w">       </span><span class="n">Docs</span><span class="p">:</span><span class="w"> </span><span class="n">man</span><span class="p">:</span><span class="n">cupsd</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="w">   </span><span class="n">Main</span><span class="w"> </span><span class="n">PID</span><span class="p">:</span><span class="w"> </span><span class="mi">2366</span><span class="w"> </span><span class="p">(</span><span class="n">cupsd</span><span class="p">)</span>
+<span class="w">     </span><span class="n">Status</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Scheduler is running...&quot;</span>
+<span class="w">      </span><span class="n">Tasks</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">(</span><span class="n">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">4583</span><span class="p">)</span>
+<span class="w">     </span><span class="n">Memory</span><span class="p">:</span><span class="w"> </span><span class="mf">2.8</span><span class="n">M</span>
+<span class="w">        </span><span class="n">CPU</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="n">ms</span>
+<span class="w">     </span><span class="n">CGroup</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">system</span><span class="o">.</span><span class="n">slice</span><span class="o">/</span><span class="n">cups</span><span class="o">.</span><span class="n">service</span>
+<span class="w">             </span><span class="err">└─</span><span class="mi">2366</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">cupsd</span><span class="w"> </span><span class="o">-</span><span class="n">l</span>
+
+<span class="n">Jul</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">13</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="w"> </span><span class="n">debian</span><span class="w"> </span><span class="n">systemd</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="w"> </span><span class="n">Starting</span><span class="w"> </span><span class="n">cups</span><span class="o">.</span><span class="n">service</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">CUPS</span><span class="w"> </span><span class="n">Scheduler</span><span class="o">...</span>
+<span class="n">Jul</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">13</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="w"> </span><span class="n">debian</span><span class="w"> </span><span class="n">systemd</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="w"> </span><span class="n">Started</span><span class="w"> </span><span class="n">cups</span><span class="o">.</span><span class="n">service</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">CUPS</span><span class="w"> </span><span class="n">Scheduler</span><span class="o">.</span>
+</code></pre></div>
+
+<p>To access the CUPS services, there are different ways, including a web based interface, GUI programs on the graphical modes and even command line tools. CUPS is designed to be simple and able to use different printers from various vendors.</p>
+<h3>configuration files</h3>
 <p>As any other linux program, CUPS saves its configuration at <code>/etc</code> directory.</p>
 <div class="highlight"><pre><span></span><code># ls /etc/cups
 cups-browsed.conf  interfaces  raw.types  subscriptions.conf
@@ -155,47 +203,75 @@ ErrorPolicy retry-job
 &lt;/DefaultPrinter&gt;
 </code></pre></div>
 
-<h4>legacy tools</h4>
-<p>Just like the MTA programs, CUPS support all the legacy command line programs too.</p>
+<p>Another important configuration directory is located at <code>/etc/cups/ppd/</code>. This directory contains the PostScript printer Description (PPD) files. These let printers which use them to function properly. </p>
+<h3>CUPS web interface</h3>
+<p>To enable CUPS's web interface, you have to enable the following configuration in the <code>/etc/cups/cupsd.conf</code>:</p>
+<div class="highlight"><pre><span></span><code>WebInterface Yes
+</code></pre></div>
+
+<p>Then you will have access to the GUI via port <strong>631</strong>. So it will be enough to access the <strong>localhost:631</strong> or <strong>127.0.0.1:631</strong> (or the servers <strong>IP</strong> address on port <strong>631</strong>) from your browser.</p>
+<p><img alt="CUPS web interface on port 631" src="/images/cups_we_interface.png"></p>
+<p>There are some of the important sections on the above page:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">command</th>
-<th style="text-align: left;">usage</th>
+<th>Section</th>
+<th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">lpr</td>
-<td style="text-align: left;">print a file</td>
+<td>Administration</td>
+<td>Adding printers, managing jobs and configuring the CUPS server</td>
 </tr>
 <tr>
-<td style="text-align: left;">lpq</td>
-<td style="text-align: left;">show print queue/jobs</td>
+<td>Jobs</td>
+<td>Checking the active, pending &amp; completed jobs</td>
 </tr>
 <tr>
-<td style="text-align: left;">lprm</td>
-<td style="text-align: left;">rm/remove a file from priner queue</td>
-</tr>
-<tr>
-<td style="text-align: left;">lpc</td>
-<td style="text-align: left;">printer control / troubleshooting program</td>
+<td>Printers</td>
+<td>List or search in the installed printers</td>
 </tr>
 </tbody>
 </table>
-<p><strong>lpq</strong></p>
-<p>The <strong>q</strong> is for <strong>queue</strong> therefor <code>lpq</code> shows the printer queue and is used when you want to see the jobs. If you use the <code>-a</code> switch, the lpq will show the jobs of <strong>all</strong> printers. Alternatively you can use the <code>-P</code> switch to show the jobs of a specific printer. So the following command will show the jobs of a printer called Apple-Dot-Matrix:</p>
-<div class="highlight"><pre><span></span><code># lpq -PApple-Dot-Matrix
-Apple-Dot-Matrix is ready and printing
-Rank    Owner   Job     File(s)                         Total Size
-active  unknown 1       unknown                         7168 bytes
-1st     unknown 2       unknown                         2048 bytes
+<p>By default, system users can view printers and queued jobs but changes (like adding printers) will need more access. This is configured at the bottom part of <code>cupsd.conf</code> file. For example the below configuration provides <code>CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Add-Modify-Class CUPS-Delete-Class CUPS-Set-Defaul</code> access to anyone in <code>@printer_admin</code> group.</p>
+<div class="highlight"><pre><span></span><code>  <span class="o">&lt;</span><span class="nv">Limit</span> <span class="nv">CUPS</span><span class="o">-</span><span class="nv">Add</span><span class="o">-</span><span class="nv">Modify</span><span class="o">-</span><span class="nv">Printer</span> <span class="nv">CUPS</span><span class="o">-</span><span class="nv">Delete</span><span class="o">-</span><span class="nv">Printer</span> <span class="nv">CUPS</span><span class="o">-</span><span class="nv">Add</span><span class="o">-</span><span class="nv">Modify</span><span class="o">-</span><span class="nv">Class</span> <span class="nv">CUPS</span><span class="o">-</span><span class="nv">Delete</span><span class="o">-</span><span class="nv">Class</span> <span class="nv">CUPS</span><span class="o">-</span><span class="nv">Set</span><span class="o">-</span><span class="nv">Default</span><span class="o">&gt;</span>
+    <span class="nv">AuthType</span> <span class="nv">Default</span>
+    <span class="nv">Require</span> <span class="nb">user</span> <span class="s s-Atom">@printer_admin</span>
+    <span class="nv">Order</span> <span class="s s-Atom">deny</span><span class="p">,</span><span class="s s-Atom">allow</span>
+  <span class="s s-Atom">&lt;/</span><span class="nv">Limit</span><span class="o">&gt;</span>
+  <span class="err">```</span>
+
+<span class="o">&gt;</span> <span class="nv">CUPS</span> <span class="s s-Atom">has</span> <span class="s s-Atom">most</span> <span class="s s-Atom">of</span> <span class="s s-Atom">the</span> <span class="s s-Atom">common</span> <span class="s s-Atom">printer</span> <span class="s s-Atom">drivers</span> <span class="s s-Atom">installed</span><span class="p">.</span> <span class="nv">You</span> <span class="s s-Atom">just</span> <span class="s s-Atom">need</span> <span class="s s-Atom">to</span> <span class="s s-Atom">choose</span> <span class="s s-Atom">the</span> <span class="s s-Atom">printer</span> <span class="s s-Atom">from</span> <span class="s s-Atom">the</span> <span class="s s-Atom">dropdown</span> <span class="s s-Atom">menu</span> <span class="s s-Atom">to</span> <span class="s s-Atom">add</span> <span class="s s-Atom">it</span><span class="p">.</span>
+
+
+<span class="s s-Atom">###</span> <span class="s s-Atom">legacy</span> <span class="s s-Atom">tools</span>
+
+<span class="nv">Just</span> <span class="s s-Atom">like</span> <span class="s s-Atom">the</span> <span class="nv">MTA</span> <span class="s s-Atom">programs</span><span class="p">,</span> <span class="nv">CUPS</span> <span class="s s-Atom">support</span> <span class="s s-Atom">all</span> <span class="s s-Atom">the</span> <span class="s s-Atom">legacy</span> <span class="s s-Atom">command</span> <span class="s s-Atom">line</span> <span class="s s-Atom">programs</span> <span class="s s-Atom">too</span><span class="p">.</span>
+
+<span class="p">|</span> <span class="s s-Atom">command</span> <span class="p">|</span> <span class="s s-Atom">usage</span> <span class="p">|</span>
+<span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">--</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">--</span> <span class="p">|</span>
+<span class="p">|</span> <span class="s s-Atom">lpr</span> <span class="p">|</span> <span class="s s-Atom">print</span> <span class="s s-Atom">a</span> <span class="s s-Atom">file</span> <span class="p">|</span>
+<span class="p">|</span> <span class="s s-Atom">lpq</span> <span class="p">|</span> <span class="s s-Atom">show</span> <span class="s s-Atom">print</span> <span class="s s-Atom">queue</span><span class="o">/</span><span class="s s-Atom">jobs</span> <span class="p">|</span>
+<span class="p">|</span> <span class="s s-Atom">lprm</span> <span class="p">|</span> <span class="s s-Atom">rm</span><span class="o">/</span><span class="s s-Atom">remove</span> <span class="s s-Atom">a</span> <span class="s s-Atom">file</span> <span class="s s-Atom">from</span> <span class="s s-Atom">priner</span> <span class="s s-Atom">queue</span> <span class="p">|</span>
+<span class="p">|</span> <span class="s s-Atom">lpc</span> <span class="p">|</span> <span class="s s-Atom">printer</span> <span class="s s-Atom">control</span> <span class="o">/</span> <span class="s s-Atom">troubleshooting</span> <span class="s s-Atom">program</span> <span class="p">|</span>
+
+<span class="s s-Atom">####</span> <span class="err">`</span><span class="s s-Atom">lpq</span><span class="err">`</span>
+
+<span class="nv">The</span> <span class="s s-Atom">**q**</span> <span class="o">is</span> <span class="s s-Atom">for</span> <span class="s s-Atom">**queue**</span> <span class="s s-Atom">therefor</span> <span class="err">`</span><span class="s s-Atom">lpq</span><span class="err">`</span> <span class="s s-Atom">shows</span> <span class="s s-Atom">the</span> <span class="s s-Atom">printer</span> <span class="s s-Atom">queue</span> <span class="s s-Atom">and</span> <span class="o">is</span> <span class="s s-Atom">used</span> <span class="s s-Atom">when</span> <span class="s s-Atom">you</span> <span class="s s-Atom">want</span> <span class="s s-Atom">to</span> <span class="s s-Atom">see</span> <span class="s s-Atom">the</span> <span class="s s-Atom">jobs</span><span class="p">.</span> <span class="nv">If</span> <span class="s s-Atom">you</span> <span class="s s-Atom">use</span> <span class="s s-Atom">the</span> <span class="err">`</span><span class="o">-</span><span class="s s-Atom">a</span><span class="err">`</span> <span class="s s-Atom">switch</span><span class="p">,</span> <span class="s s-Atom">the</span> <span class="s s-Atom">lpq</span> <span class="s s-Atom">will</span> <span class="s s-Atom">show</span> <span class="s s-Atom">the</span> <span class="s s-Atom">jobs</span> <span class="s s-Atom">of</span> <span class="s s-Atom">**all**</span> <span class="s s-Atom">printers</span><span class="p">.</span> <span class="nv">Alternatively</span> <span class="s s-Atom">you</span> <span class="s s-Atom">can</span> <span class="s s-Atom">use</span> <span class="s s-Atom">the</span> <span class="err">`</span><span class="o">-</span><span class="nv">P</span><span class="err">`</span> <span class="s s-Atom">switch</span> <span class="s s-Atom">to</span> <span class="s s-Atom">show</span> <span class="s s-Atom">the</span> <span class="s s-Atom">jobs</span> <span class="s s-Atom">of</span> <span class="s s-Atom">a</span> <span class="s s-Atom">specific</span> <span class="s s-Atom">printer</span><span class="p">.</span> <span class="nv">So</span> <span class="s s-Atom">the</span> <span class="s s-Atom">following</span> <span class="s s-Atom">command</span> <span class="s s-Atom">will</span> <span class="s s-Atom">show</span> <span class="s s-Atom">the</span> <span class="s s-Atom">jobs</span> <span class="s s-Atom">of</span> <span class="s s-Atom">a</span> <span class="s s-Atom">printer</span> <span class="s s-Atom">called</span> <span class="nv">Apple</span><span class="o">-</span><span class="nv">Dot</span><span class="o">-</span><span class="nv">Matrix</span><span class="o">:</span>
+
+<span class="err">```</span><span class="s s-Atom">text</span>
+<span class="s s-Atom">#</span> <span class="s s-Atom">lpq</span> <span class="o">-</span><span class="nv">PApple</span><span class="o">-</span><span class="nv">Dot</span><span class="o">-</span><span class="nv">Matrix</span>
+<span class="nv">Apple</span><span class="o">-</span><span class="nv">Dot</span><span class="o">-</span><span class="nv">Matrix</span> <span class="o">is</span> <span class="s s-Atom">ready</span> <span class="s s-Atom">and</span> <span class="s s-Atom">printing</span>
+<span class="nv">Rank</span>    <span class="nv">Owner</span>   <span class="nv">Job</span>     <span class="nv">File</span><span class="p">(</span><span class="s s-Atom">s</span><span class="p">)</span>                         <span class="nv">Total</span> <span class="nv">Size</span>
+<span class="s s-Atom">active</span>  <span class="s s-Atom">unknown</span> <span class="mi">1</span>       <span class="s s-Atom">unknown</span>                         <span class="mi">7168</span> <span class="s s-Atom">bytes</span>
+<span class="mi">1</span><span class="s s-Atom">st</span>     <span class="s s-Atom">unknown</span> <span class="mi">2</span>       <span class="s s-Atom">unknown</span>                         <span class="mi">2048</span> <span class="s s-Atom">bytes</span>
 </code></pre></div>
 
 <blockquote>
 <p>It is strange but there should not be ANY space between <code>-P</code> and the printers name</p>
 </blockquote>
-<p><strong>lpr</strong></p>
+<h4><code>lpr</code></h4>
 <p>This command is used to send a job to a printer. Again the printer is specified by <code>-P</code>.</p>
 <div class="highlight"><pre><span></span><code>$ lpr -PApple-Dot-Matrix for_print.txt
  lpq
@@ -209,7 +285,7 @@ active  jadi    1       Untitled Document 1             7168 bytes
 <blockquote>
 <p>If no printer is specified, the default printer will be used</p>
 </blockquote>
-<p><strong>lprm</strong></p>
+<h4><code>lprm</code></h4>
 <p>The <em>rm</em> is for <em>remove</em> so the <code>lprm</code> will remove jobs from the queue. You need to provide the <strong>Job ID</strong> to this command.</p>
 <div class="highlight"><pre><span></span><code>$ lpq
 Apple-Dot-Matrix is ready and printing
@@ -232,7 +308,7 @@ active  jadi    1       Untitled Document 1             7168 bytes
 <blockquote>
 <p>the <code>lprm -</code> will remove all the print jobs</p>
 </blockquote>
-<p><strong>lpc</strong></p>
+<h4><code>lpc</code></h4>
 <p>Here, the <strong>c</strong> is for <strong>control</strong>. <code>lpc</code> lets you check the status (via <code>lpc status</code>) and troubleshoot your printers.</p>
 <div class="highlight"><pre><span></span><code>$ lpc status
 Apple-Dot-Matrix:
@@ -252,26 +328,26 @@ Apple-Dot-Matrix:
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">command</th>
-<th style="text-align: left;">usage</th>
+<th align="left">command</th>
+<th align="left">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">cupsaccept</td>
-<td style="text-align: left;">tells the printer queue to accept new jobs</td>
+<td align="left">cupsaccept</td>
+<td align="left">tells the printer queue to accept new jobs</td>
 </tr>
 <tr>
-<td style="text-align: left;">cupsreject</td>
-<td style="text-align: left;">tells the printer to reject any new job</td>
+<td align="left">cupsreject</td>
+<td align="left">tells the printer to reject any new job</td>
 </tr>
 <tr>
-<td style="text-align: left;">cupsenable</td>
-<td style="text-align: left;">enables the actual/physical printing of the jobs</td>
+<td align="left">cupsenable</td>
+<td align="left">enables the actual/physical printing of the jobs</td>
 </tr>
 <tr>
-<td style="text-align: left;">cupsdisable</td>
-<td style="text-align: left;">disables the physical printing of the jobs</td>
+<td align="left">cupsdisable</td>
+<td align="left">disables the physical printing of the jobs</td>
 </tr>
 </tbody>
 </table>

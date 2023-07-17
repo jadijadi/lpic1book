@@ -97,17 +97,17 @@
 </ul>
 <h3>Terms and Utilities</h3>
 <ul>
-<li>/etc/cron.{d,daily,hourly,monthly,weekly}/</li>
-<li>/etc/at.deny</li>
-<li>/etc/at.allow</li>
-<li>/etc/crontab</li>
-<li>/etc/cron.allow</li>
-<li>/etc/cron.deny</li>
-<li>/var/spool/cron/</li>
-<li>crontab</li>
-<li>at</li>
-<li>atq</li>
-<li>atrm</li>
+<li><code>/etc/cron.{d,daily,hourly,monthly,weekly}/</code></li>
+<li><code>/etc/at.deny</code></li>
+<li><code>/etc/at.allow</code></li>
+<li><code>/etc/crontab</code></li>
+<li><code>/etc/cron.allow</code></li>
+<li><code>/etc/cron.deny</code></li>
+<li><code>/var/spool/cron/</code></li>
+<li><code>crontab</code></li>
+<li><code>at</code></li>
+<li><code>atq</code></li>
+<li><code>atrm</code></li>
 <li>systemctl</li>
 <li>systemd-run</li>
 </ul>
@@ -124,36 +124,36 @@
 <table>
 <thead>
 <tr>
-<th style="text-align: center;">filed</th>
-<th style="text-align: left;">Meaning</th>
-<th style="text-align: left;">values</th>
+<th align="center">filed</th>
+<th align="left">Meaning</th>
+<th align="left">values</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;">A</td>
-<td style="text-align: left;">minute</td>
-<td style="text-align: left;">0-59</td>
+<td align="center">A</td>
+<td align="left">minute</td>
+<td align="left">0-59</td>
 </tr>
 <tr>
-<td style="text-align: center;">B</td>
-<td style="text-align: left;">hour</td>
-<td style="text-align: left;">0-23</td>
+<td align="center">B</td>
+<td align="left">hour</td>
+<td align="left">0-23</td>
 </tr>
 <tr>
-<td style="text-align: center;">C</td>
-<td style="text-align: left;">day of month</td>
-<td style="text-align: left;">1-31</td>
+<td align="center">C</td>
+<td align="left">day of month</td>
+<td align="left">1-31</td>
 </tr>
 <tr>
-<td style="text-align: center;">D</td>
-<td style="text-align: left;">month</td>
-<td style="text-align: left;">1-12 (or names, see below)</td>
+<td align="center">D</td>
+<td align="left">month</td>
+<td align="left">1-12 (or names, see below)</td>
 </tr>
 <tr>
-<td style="text-align: center;">E</td>
-<td style="text-align: left;">day of week</td>
-<td style="text-align: left;">0-7 (0 or 7 is Sunday, or use names)</td>
+<td align="center">E</td>
+<td align="left">day of week</td>
+<td align="left">0-7 (0 or 7 is Sunday, or use names)</td>
 </tr>
 </tbody>
 </table>
@@ -345,18 +345,18 @@ jadi@funlife:~$ atq
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">file extension</th>
-<th style="text-align: left;">functionality</th>
+<th align="left">file extension</th>
+<th align="left">functionality</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">.allow</td>
-<td style="text-align: left;">ONLY users mentioned in this file are allowed to run this service. All other users will be denied</td>
+<td align="left">.allow</td>
+<td align="left">ONLY users mentioned in this file are allowed to run this service. All other users will be denied</td>
 </tr>
 <tr>
-<td style="text-align: left;">.deny</td>
-<td style="text-align: left;">Everybody can use the service except the users mentioned in this file</td>
+<td align="left">.deny</td>
+<td align="left">Everybody can use the service except the users mentioned in this file</td>
 </tr>
 </tbody>
 </table>

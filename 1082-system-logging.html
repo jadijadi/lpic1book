@@ -94,27 +94,29 @@
 <li>Basic configuration of rsyslog.</li>
 <li>Understanding of standard facilities, priorities and actions.</li>
 <li>Query the systemd journal.</li>
-<li>Filter systemd journal data by criteria such as date, service or priority</li>
-<li>Configure persistent systemd journal storage and journal size</li>
-<li>Delete old systemd journal data</li>
-<li>Retrieve systemd journal data from a rescue system or file system copy</li>
-<li>Understand interaction of rsyslog with systemd-journald</li>
+<li>Filter systemd journal data by criteria such as date, service or priority.</li>
+<li>Configure persistent systemd journal storage and journal size.</li>
+<li>Delete old systemd journal data.</li>
+<li>Retrieve systemd journal data from a rescue system or file system copy.</li>
+<li>Understand interaction of rsyslog with systemd-journald.</li>
 <li>Configuration of logrotate.</li>
 <li>Awareness of syslog and syslog-ng.</li>
 </ul>
 <h3>Terms and Utilities</h3>
 <ul>
-<li>/etc/rsyslog.conf</li>
-<li>/var/log/</li>
-<li>logger</li>
-<li>logrotate</li>
-<li>/etc/logrotate.conf</li>
-<li>/etc/logrotate.d/</li>
-<li>journalctl</li>
-<li>systemd-cat</li>
-<li>/etc/systemd/journald.conf</li>
-<li>/var/log/journal/</li>
+<li><code>/etc/rsyslog.conf</code></li>
+<li><code>/var/log/</code></li>
+<li><code>logger</code></li>
+<li><code>logrotate</code></li>
+<li><code>/etc/logrotate.conf</code></li>
+<li><code>/etc/logrotate.d/</code></li>
+<li><code>journalctl</code></li>
+<li><code>systemd-cat</code></li>
+<li><code>/etc/systemd/journald.conf</code></li>
+<li><code>/var/log/journal/</code></li>
 </ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qtHTf6q_UaI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <h3>History</h3>
 <p>Logs are an important part of Unix philosophy and design. The Kernel, services, programs and most events (let it be a crash or a login attempt) will generate logs. These logs can be examines / monitored to gain insights about the system and its status. If you watch a Linux guy on a windows machine for 1 hour, you will hear "where are the logs?". </p>
 <p>If every single program tries to handle its own logs we will face 2 issues (at least!); 1. programming will be difficult because you need to invent (or import) the wheel and 2. different programmers will generate different kinds, formats and location for their logs and it will be difficult to keep them  under your control. To overcome this, Unix world had its own solution: central logging service.</p>
@@ -126,7 +128,116 @@
 </blockquote>
 <h2>dmesg</h2>
 <p>As I told you, Linux loves logs and will be happy logging everything. But what about the boot process? What happens if the kernel wants to log something before the disks are ready? These logs are saved by the Kernel in the <em>Kernel Ring Buffer</em>. You can access it using the <code>dmesg</code> command. </p>
+<h2>log rotation</h2>
+<p>So logs are being generated and saved! Someone need to clean them up to prevent the disk from getting full. The <code>logrotate</code> utility takes care of this task.  The main configuration is at <code>/etc/logrotate.conf</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">root</span><span class="err">@</span><span class="nx">debian</span><span class="p">:</span><span class="err">#</span><span class="w"> </span><span class="nx">cat</span><span class="w"> </span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">logrotate</span><span class="p">.</span><span class="nx">conf</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">see</span><span class="w"> </span><span class="s">&quot;man logrotate&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">details</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">global</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="nx">do</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nx">affect</span><span class="w"> </span><span class="nx">preceding</span><span class="w"> </span><span class="nx">include</span><span class="w"> </span><span class="nx">directives</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">rotate</span><span class="w"> </span><span class="nx">log</span><span class="w"> </span><span class="nx">files</span><span class="w"> </span><span class="nx">weekly</span>
+<span class="nx">weekly</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">keep</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="nx">weeks</span><span class="w"> </span><span class="nx">worth</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">backlogs</span>
+<span class="nx">rotate</span><span class="w"> </span><span class="mi">4</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">create</span><span class="w"> </span><span class="nx">new</span><span class="w"> </span><span class="p">(</span><span class="nx">empty</span><span class="p">)</span><span class="w"> </span><span class="nx">log</span><span class="w"> </span><span class="nx">files</span><span class="w"> </span><span class="nx">after</span><span class="w"> </span><span class="nx">rotating</span><span class="w"> </span><span class="nx">old</span><span class="w"> </span><span class="nx">ones</span>
+<span class="nx">create</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">use</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">suffix</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">rotated</span><span class="w"> </span><span class="nx">file</span>
+<span class="err">#</span><span class="nx">dateext</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">uncomment</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">want</span><span class="w"> </span><span class="nx">your</span><span class="w"> </span><span class="nx">log</span><span class="w"> </span><span class="nx">files</span><span class="w"> </span><span class="nx">compressed</span>
+<span class="err">#</span><span class="nx">compress</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">packages</span><span class="w"> </span><span class="nx">drop</span><span class="w"> </span><span class="nx">log</span><span class="w"> </span><span class="nx">rotation</span><span class="w"> </span><span class="nx">information</span><span class="w"> </span><span class="nx">into</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">directory</span>
+<span class="nx">include</span><span class="w"> </span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">logrotate</span><span class="p">.</span><span class="nx">d</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">system</span><span class="o">-</span><span class="nx">specific</span><span class="w"> </span><span class="nx">logs</span><span class="w"> </span><span class="nx">may</span><span class="w"> </span><span class="nx">also</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">configured</span><span class="w"> </span><span class="nx">here</span><span class="p">.</span>
+</code></pre></div>
+
+<p>and specific services do create their logs in <code>/etc/logrotate.d/</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="err">@</span><span class="n">debian</span><span class="p">:</span><span class="c1"># cat /etc/logrotate.d/apt</span>
+<span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">term</span><span class="o">.</span><span class="n">log</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">rotate</span><span class="w"> </span><span class="mi">12</span>
+<span class="w">  </span><span class="n">monthly</span>
+<span class="w">  </span><span class="n">compress</span>
+<span class="w">  </span><span class="n">missingok</span>
+<span class="w">  </span><span class="n">notifempty</span>
+<span class="p">}</span>
+
+<span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">history</span><span class="o">.</span><span class="n">log</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">rotate</span><span class="w"> </span><span class="mi">12</span>
+<span class="w">  </span><span class="n">monthly</span>
+<span class="w">  </span><span class="n">compress</span>
+<span class="w">  </span><span class="n">missingok</span>
+<span class="w">  </span><span class="n">notifempty</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>These are the meaning of some of these parameters:</p>
+<table>
+<thead>
+<tr>
+<th align="center">parameter</th>
+<th align="center">meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">weekly</td>
+<td align="center">rotate logs weekly</td>
+</tr>
+<tr>
+<td align="center">missingok</td>
+<td align="center">it is fine if there is no log for this week</td>
+</tr>
+<tr>
+<td align="center">rotate 52</td>
+<td align="center">keep the latest 52 logs and delete the older ones</td>
+</tr>
+<tr>
+<td align="center">compress</td>
+<td align="center">compress the logs</td>
+</tr>
+<tr>
+<td align="center">create 0640 www-data adm</td>
+<td align="center">create the files with this access and owners</td>
+</tr>
+<tr>
+<td align="center">pre &amp; post rotate</td>
+<td align="center">run these scripts or commands before and after the rotation</td>
+</tr>
+</tbody>
+</table>
+<p>This above configuration will create a zipped file for each week, keeping only 52 of them instead of a huge log file for this program.</p>
+<p>The <code>logrotate</code> runs using crons and does its job on a daily basis based on a configuration on <code>/etc/cron.daily/logrotate</code></p>
+<h2>some famous log files</h2>
+<p>Generally logs are saved at <code>/var/log</code>. In case of any issue and if you do not know what to do, it is a common practice to run a <code>ls -ltrh /var/log/</code> to see if any program generated a new log or not.</p>
+<p>But lets have a look at some of the famous logs:</p>
+<h5><code>/var/log/auth.log</code> (in Debian Based)</h5>
+<p>Authentication processes will log here. Things like <code>cron</code> jobs, failed logins, <code>sudo</code> informations, ...</p>
+<h5><code>/var/log/syslog</code></h5>
+<p>A centralized place most of the logs received by <code>rsyslogd</code> if a specific logfile is not provided in <code>/etc/rsyslog.conf</code></p>
+<h5><code>/var/log/debug</code></h5>
+<p>Debug information from programs.</p>
+<h5><code>/var/log/kern.log</code></h5>
+<p>Kernel messages.</p>
+<h5><code>/var/log/messages</code></h5>
+<p>Informative messages from services. This is also the default place for logs for remote clients.</p>
+<h5><code>/var/run/utmp</code> &amp; <code>/var/log/wtmp</code></h5>
+<p>Successful logins.</p>
+<h5><code>/var/log/btmp</code></h5>
+<p>Failed logins. You can check this to see if anyone is trying to guess your passwords!</p>
+<h5><code>/var/log/faillog</code></h5>
+<p>Failed authentication attempts.</p>
+<h5><code>/var/log/lastlog</code></h5>
+<p>Date and time of recent user logins.</p>
+<h5>Service logs</h5>
+<p>Service logs do create files or directories at <code>/var/log</code> and update their logs there. For example there might be a <code>/var/log/apache2/</code> (or <code>/var/log/httpd</code>) for the Apache HTTP server or a <code>/var/log/mysql</code> for the MySQL DB.</p>
 <h2>rsyslog</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xliHONdwFy0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <p>This is the newer generation of syslogs and is used in many environments. Its main configuration is located at <code>/etc/rsyslog.conf</code> and it also reads anything in <code>/etc/rssylog.d/</code> directory. Its configuration consists of 3 main sections: </p>
 <ol>
 <li><code>MODULES</code>, modules used. For example to let the rsyslog use UDP connections</li>
@@ -205,31 +316,38 @@
 <span class="o">*.</span><span class="n">emerg</span><span class="w">             </span><span class="p">:</span><span class="n">omusrmsg</span><span class="p">:</span><span class="o">*</span>
 </code></pre></div>
 
-<p>As you can see facilities can be things like <code>kern</code>, <code>user</code>, <code>mail</code>, <code>daemon</code>, <code>cron</code>, <code>auth</code>, <code>ntp</code>, <code>security</code>, <code>console</code>, <code>syslog</code>و ... wehen the <em>priority</em> is one of the <code>emerg</code>/<code>panic</code>, <code>alert</code>, <code>crit</code>, <code>err</code>/<code>error</code>, <code>warn</code>/<code>warning</code>, <code>notice</code>, <code>info</code> or <code>debug</code>. </p>
+<p>As you can see <strong>facilities</strong> could be things like:</p>
+<blockquote>
+<p><code>kern</code>, <code>user</code>, <code>mail</code>, <code>daemon</code>, <code>cron</code>, <code>auth</code>, <code>ntp</code>, <code>security</code>, <code>console</code>, <code>syslog</code>, ... </p>
+</blockquote>
+<p>The <strong>priority</strong> could be one of the below:</p>
+<blockquote>
+<p><code>emerg</code>/<code>panic</code>, <code>alert</code>, <code>crit</code>, <code>err</code>/<code>error</code>, <code>warn</code>/<code>warning</code>, <code>notice</code>, <code>info</code> or <code>debug</code>. </p>
+</blockquote>
 <p>On the <strong>action</strong> part we can have things like these:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">action</th>
-<th style="text-align: left;">sample</th>
-<th style="text-align: left;">meaning</th>
+<th align="center">action</th>
+<th align="center">sample</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">filename</td>
-<td style="text-align: left;">/usr/log/logins.log</td>
-<td style="text-align: left;">will write the log to this file</td>
+<td align="center">filename</td>
+<td align="center">/usr/log/logins.log</td>
+<td align="left">will write the log to this file</td>
 </tr>
 <tr>
-<td style="text-align: left;">username</td>
-<td style="text-align: left;">jadi</td>
-<td style="text-align: left;">will notify that person on the screen</td>
+<td align="center">username</td>
+<td align="center">jadi</td>
+<td align="left">will notify that person on the screen</td>
 </tr>
 <tr>
-<td style="text-align: left;">@ip</td>
-<td style="text-align: left;">@192.168.1.100</td>
-<td style="text-align: left;">will send this log to this log server and that log server will decide what to do with it based on its configs</td>
+<td align="center">@ip</td>
+<td align="center">@192.168.1.100</td>
+<td align="left">will send this log to this log server and that log server will decide what to do with it based on its configs</td>
 </tr>
 </tbody>
 </table>
@@ -238,11 +356,36 @@
 *.*             /var/log/messages
 </code></pre></div>
 
-<p>If you log some specific priority, all the <strong>more important</strong> things will be logged too! So if you write <code>cron.notice /var/log/cron/log</code>, you are logging the emerg/panic, alert, critical, error, warning and notice logs of the cron category too.</p>
+<p>If you log some specific priority, all the <strong>more important</strong> things will be logged too! So if you write <code>cron.notice /var/log/cron/cron.log</code>, you are logging the <code>emerg/panic</code>, <code>alert</code>, <code>critical</code>, <code>error</code>, <code>warning</code> and <code>notice</code> logs of the cron category too.</p>
+<p>Priority Levels (According to Syslog(3) and logger manpage):</p>
+<div class="highlight"><pre><span></span><code>       This determines the importance of the message.  The levels are, in order of decreasing importance:
+
+       emerge      system is unusable
+
+       alert      action must be taken immediately
+
+       crit       critical conditions
+
+       error        error conditions
+
+       warning    warning conditions
+
+       notice     normal, but significant, condition
+
+       info       informational message
+
+       debug      debug-level message
+
+
+       panic      deprecated synonym for emerg
+       error      deprecated synonym for err
+       warn       deprecated synonym for warning
+</code></pre></div>
+
 <blockquote>
 <p>If you need to log ONLY one specific level, add an equal sign (=) before the priority like this <code>local3.=alert /var/log/user.alert.log</code>.</p>
 </blockquote>
-<p>It is important to know that the binary which logs the <em>*kern</em> category is a standalone daemon. This daemon is called <code>klogd</code> and uses same configuration files. Why? so even after everything is crashed, klogd will be able to log the kernel's crashes ;)</p>
+<p>It is important to know that the binary which logs the <em>*kern</em> category is a standalone daemon. This daemon is called <code>klogd</code> and uses same configuration files. Why? so even after everything is crashed, <code>klogd</code> will be able to log the kernel's crashes ;).</p>
 <h3>logger</h3>
 <p>If you need to send something toward the <code>rsyslog</code>, you can use the <code>logger</code> tool. </p>
 <div class="highlight"><pre><span></span><code><span class="n">root</span><span class="err">@</span><span class="n">debian</span><span class="p">:</span><span class="c1"># logger Testing my lovely tool</span>
@@ -253,91 +396,9 @@
 <span class="mi">2023</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">30</span><span class="n">T06</span><span class="p">:</span><span class="mi">13</span><span class="p">:</span><span class="mf">45.795158</span><span class="o">-</span><span class="mi">04</span><span class="p">:</span><span class="mi">00</span><span class="w"> </span><span class="n">debian</span><span class="w"> </span><span class="n">root</span><span class="p">:</span><span class="w"> </span><span class="n">local1</span><span class="o">.</span><span class="n">emerg</span><span class="w"> </span><span class="n">Nothing</span><span class="w"> </span><span class="n">emergent</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">sure</span>
 </code></pre></div>
 
-<h2>log rotation</h2>
-<p>So logs are being generated and saved! Someone need to clean them up to prevent the disk from getting full. The <code>logrotate</code> utility takes care of this task.  The main configuration is at <code>/etc/logrotate.conf</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@debian</span><span class="err">:#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">logrotate</span><span class="p">.</span><span class="n">conf</span>
-<span class="err">#</span><span class="w"> </span><span class="n">see</span><span class="w"> </span><span class="ss">&quot;man logrotate&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">details</span>
-
-<span class="err">#</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">options</span><span class="w"> </span><span class="n">do</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">affect</span><span class="w"> </span><span class="n">preceding</span><span class="w"> </span><span class="k">include</span><span class="w"> </span><span class="n">directives</span>
-
-<span class="err">#</span><span class="w"> </span><span class="n">rotate</span><span class="w"> </span><span class="nf">log</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="n">weekly</span>
-<span class="n">weekly</span>
-
-<span class="err">#</span><span class="w"> </span><span class="n">keep</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">weeks</span><span class="w"> </span><span class="n">worth</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">backlogs</span>
-<span class="n">rotate</span><span class="w"> </span><span class="mi">4</span>
-
-<span class="err">#</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">(</span><span class="n">empty</span><span class="p">)</span><span class="w"> </span><span class="nf">log</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="k">after</span><span class="w"> </span><span class="n">rotating</span><span class="w"> </span><span class="k">old</span><span class="w"> </span><span class="n">ones</span>
-<span class="k">create</span>
-
-<span class="err">#</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="nc">date</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">suffix</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">rotated</span><span class="w"> </span><span class="k">file</span>
-<span class="n">#dateext</span>
-
-<span class="err">#</span><span class="w"> </span><span class="n">uncomment</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="nf">log</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="n">compressed</span>
-<span class="n">#compress</span>
-
-<span class="err">#</span><span class="w"> </span><span class="n">packages</span><span class="w"> </span><span class="k">drop</span><span class="w"> </span><span class="nf">log</span><span class="w"> </span><span class="n">rotation</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">directory</span>
-<span class="k">include</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">logrotate</span><span class="p">.</span><span class="n">d</span>
-
-<span class="err">#</span><span class="w"> </span><span class="k">system</span><span class="o">-</span><span class="k">specific</span><span class="w"> </span><span class="n">logs</span><span class="w"> </span><span class="n">may</span><span class="w"> </span><span class="n">also</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">configured</span><span class="w"> </span><span class="n">here</span><span class="p">.</span>
-</code></pre></div>
-
-<p>and specific services do create their logs in <code>/etc/logrotate.d/</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="err">@</span><span class="n">debian</span><span class="p">:</span><span class="c1"># cat /etc/logrotate.d/apt</span>
-<span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">term</span><span class="o">.</span><span class="n">log</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">rotate</span><span class="w"> </span><span class="mi">12</span>
-<span class="w">  </span><span class="n">monthly</span>
-<span class="w">  </span><span class="n">compress</span>
-<span class="w">  </span><span class="n">missingok</span>
-<span class="w">  </span><span class="n">notifempty</span>
-<span class="p">}</span>
-
-<span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">history</span><span class="o">.</span><span class="n">log</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">rotate</span><span class="w"> </span><span class="mi">12</span>
-<span class="w">  </span><span class="n">monthly</span>
-<span class="w">  </span><span class="n">compress</span>
-<span class="w">  </span><span class="n">missingok</span>
-<span class="w">  </span><span class="n">notifempty</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<p>These are the meaning of some of these parameters:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">parameter</th>
-<th style="text-align: left;">meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">weekly</td>
-<td style="text-align: left;">rotate logs weekly</td>
-</tr>
-<tr>
-<td style="text-align: left;">missingok</td>
-<td style="text-align: left;">it is fine if there is no log for this week</td>
-</tr>
-<tr>
-<td style="text-align: left;">rotate 52</td>
-<td style="text-align: left;">keep the latest 52 logs and delete the older ones</td>
-</tr>
-<tr>
-<td style="text-align: left;">compress</td>
-<td style="text-align: left;">compress the logs</td>
-</tr>
-<tr>
-<td style="text-align: left;">create 0640 www-data adm</td>
-<td style="text-align: left;">create the files with this access and owners</td>
-</tr>
-<tr>
-<td style="text-align: left;">pre &amp; post rotate</td>
-<td style="text-align: left;">run these scripts or commands before and after the rotation</td>
-</tr>
-</tbody>
-</table>
-<p>This above configuration will create a zipped file for each week, keeping only 52 of them instead of a huge log file for this program.</p>
-<p>The <code>logrotate</code> runs using crons and does its job on a daily basis based on a configuration on <code>/etc/cron.daily/logrotate</code></p>
 <h2>journald</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jXO7q_7a6-s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <p>You have seen the <code>systemd</code> in various parts of this course. We have seen how it is part of the init process and how it handles the services and timers. All of these activities (and other logs reaching system journalying system) are logged in binary files, readable using <code>journalctl</code> which is part of the <code>systemd-journald</code> utility.</p>
 <div class="highlight"><pre><span></span><code><span class="n">root</span><span class="err">@</span><span class="n">debian</span><span class="p">:</span><span class="o">~</span><span class="c1"># systemctl status systemd-journald</span>
 <span class="err">●</span><span class="w"> </span><span class="n">systemd</span><span class="o">-</span><span class="n">journald</span><span class="o">.</span><span class="n">service</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Journal</span><span class="w"> </span><span class="n">Service</span>
@@ -420,46 +481,46 @@
 <table>
 <thead>
 <tr>
-<th>Switch</th>
-<th>Meaning</th>
+<th align="center">Switch</th>
+<th align="center">Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>-r</td>
-<td>show in reverse; newer on top</td>
+<td align="center">-r</td>
+<td align="center">show in reverse; newer on top</td>
 </tr>
 <tr>
-<td>-f</td>
-<td>keep showing the tail</td>
+<td align="center">-f</td>
+<td align="center">keep showing the tail</td>
 </tr>
 <tr>
-<td>-e</td>
-<td>show and go to the end</td>
+<td align="center">-e</td>
+<td align="center">show and go to the end</td>
 </tr>
 <tr>
-<td>-n</td>
-<td>show this many lines from the end (newest ones)</td>
+<td align="center">-n</td>
+<td align="center">show this many lines from the end (newest ones)</td>
 </tr>
 <tr>
-<td>-k</td>
-<td>show kernel message (equal to <code>dmesg</code>)</td>
+<td align="center">-k</td>
+<td align="center">show kernel message (equal to <code>dmesg</code>)</td>
 </tr>
 <tr>
-<td>-b</td>
-<td>show from a specific boot, -1 is the previous one, 0 is the current one. You can check the list using <code>--list-boots</code></td>
+<td align="center">-b</td>
+<td align="center">show from a specific boot, -1 is the previous one, 0 is the current one. You can check the list using <code>--list-boots</code></td>
 </tr>
 <tr>
-<td>-p</td>
-<td>from specific priority, say <code>-p err</code></td>
+<td align="center">-p</td>
+<td align="center">from specific priority, say <code>-p err</code></td>
 </tr>
 <tr>
-<td>-u</td>
-<td>from a specific systemd unit</td>
+<td align="center">-u</td>
+<td align="center">from a specific systemd unit</td>
 </tr>
 </tbody>
 </table>
-<p>You can also using the <code>--since</code> and <code>--until</code> to show a specific time range, It is possible to provide time as <code>YYYY-MM-DD HH:MM:SS</code> or use things like <code>yesterday</code>, <code>today</code>, <code>tomorrow</code>, <code>now</code> or even <code>--since "10 minutes ago"</code> which is equals to <code>--since "-2 minutes"</code>.</p>
+<p>You can also use the <code>--since</code> and <code>--until</code> to show a specific time range, It is possible to provide time as <code>YYYY-MM-DD HH:MM:SS</code> or use things like <code>yesterday</code>, <code>today</code>, <code>tomorrow</code>, <code>now</code> or even <code>--since "10 minutes ago"</code> which is equals to <code>--since "-2 minutes"</code>.</p>
 <blockquote>
 <p>If there are too many lines, push <code>&gt;</code> to jump to the end (or <code>&lt;</code> to go to the beginning)</p>
 </blockquote>
@@ -477,97 +538,74 @@
 <h2>managing storage</h2>
 <p>The systemd journals can keep their logs in memeory or write them to the disk or drop all the logs. This is determined by the configurations in <code>/etc/systemd/journald.conf</code>. But the default behaviour is as follow:</p>
 <ol>
-<li>The system checks the <code>/var/log/journal</code>. If this exists logs will be saved in a directory inside this. The name of the directory will be decided by looking at <code>/etc/machine-id</code></li>
-<li>If the <code>/var/log/journal</code> is not there, the logs will be saved at memory at <code>/run/log/jouranl</code> and in the directory decided by <code>/etc/machine-id</code>.</li>
+<li>The system checks the <code>/var/log/journal</code>. If this directory, exists logs will be saved in a directory inside this. The name of the directory will be decided by looking at <code>/etc/machine-id</code></li>
+<li>If the <code>/var/log/journal</code> is not there, the logs will be saved in memory at <code>/run/log/jouranl</code> and in the directory decided by <code>/etc/machine-id</code>.</li>
 </ol>
 <p>But you can overcome these configs by the following sections:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">Storage</span><span class="o">=</span><span class="nv">volatile</span><span class="w"> </span>#<span class="w"> </span><span class="nv">keep</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">logs</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">memory</span>
+<div class="highlight"><pre><span></span><code><span class="nv">Storage</span><span class="o">=</span><span class="nv">volatile</span><span class="w">     </span>#<span class="w"> </span><span class="nv">keep</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">logs</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">memory</span>
 <span class="nv">Storage</span><span class="o">=</span><span class="nv">persistent</span><span class="w">   </span>#<span class="w"> </span><span class="nv">keep</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">disk</span>,<span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">needed</span><span class="w"> </span><span class="nv">create</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">directories</span>
-<span class="nv">Storage</span><span class="o">=</span><span class="nv">auto</span><span class="w">  </span>#<span class="w"> </span><span class="nv">will</span><span class="w"> </span><span class="nv">write</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">disk</span><span class="w"> </span><span class="nv">only</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">directory</span><span class="w"> </span><span class="nv">exists</span>
-<span class="nv">Storage</span><span class="o">=</span><span class="nv">none</span><span class="w"> </span>#<span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nv">not</span><span class="w"> </span><span class="nv">keep</span><span class="w"> </span><span class="nv">logs</span>
+<span class="nv">Storage</span><span class="o">=</span><span class="nv">auto</span><span class="w">         </span>#<span class="w"> </span><span class="nv">will</span><span class="w"> </span><span class="nv">write</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">disk</span><span class="w"> </span><span class="nv">only</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">directory</span><span class="w"> </span><span class="nv">exists</span>
+<span class="nv">Storage</span><span class="o">=</span><span class="nv">none</span><span class="w">         </span>#<span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nv">not</span><span class="w"> </span><span class="nv">keep</span><span class="w"> </span><span class="nv">logs</span>
 </code></pre></div>
 
 <p>If the logs are being written to disk, these variable will manage the disk usage:</p>
 <table>
 <thead>
 <tr>
-<th>Variable Name</th>
+<th align="center">Variable Name</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>SystemMaxUse</td>
+<td align="center">SystemMaxUse</td>
 <td>The Maximum disk usage, say 500M. The default is on <code>10%</code></td>
 </tr>
 <tr>
-<td>SystemKeepFree</td>
+<td align="center">SystemKeepFree</td>
 <td>Keep at least this much free, say 1G. The default is 15%</td>
 </tr>
 <tr>
-<td>SystemMaxFileSize</td>
+<td align="center">SystemMaxFileSize</td>
 <td>Maximum size of each individual file. The default is 1/8 of SystemMaxUse</td>
 </tr>
 <tr>
-<td>SystemMaxFiles</td>
+<td align="center">SystemMaxFiles</td>
 <td>Max number of non-currently-active files. The default is 100</td>
 </tr>
 </tbody>
 </table>
-<p>If you are keeping the logs in the memory, the equivalent variables are <code>RuntimeMaxUse</code>, <code>RuntimeKeepFree</code>, <code>RuntimeMaxFileSize</code>, &amp; <code>RuntimeMaxFiles</code>.  </p>
+<p>If you are keeping the logs in <strong>memory</strong>, the equivalent variables are <code>RuntimeMaxUse</code>, <code>RuntimeKeepFree</code>, <code>RuntimeMaxFileSize</code>, &amp; <code>RuntimeMaxFiles</code>.  </p>
 <p>In case you need to do the clean-up manually (with the help of systemd tools for sure), you can run <code>journalctl</code> with these switches:</p>
 <table>
 <thead>
 <tr>
-<th>Switch</th>
+<th align="center">Switch</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>--vacuum-time</td>
+<td align="center">--vacuum-time</td>
 <td>clean everything older than this. for example <code>--vacuum-time=3months</code> clean anything older than 3 months. You can use <code>s</code>, <code>m</code>, <code>h</code> for seconds, minutes and days and <code>d</code>/<code>days</code>, <code>months</code>, <code>weeks</code>/<code>w</code> and <code>years</code>/<code>y</code>.</td>
 </tr>
 <tr>
-<td>--vacuum-size</td>
+<td align="center">--vacuum-size</td>
 <td>eliminate till logs occupy a specific size; say 1G</td>
 </tr>
 <tr>
-<td>--vacuum-files</td>
+<td align="center">--vacuum-files</td>
 <td>Only keep this much archive files</td>
 </tr>
 </tbody>
 </table>
 <h3>checking logs from a recovered system</h3>
-<p>If you have a crashed / non booting system, you can still examine its logs; if the files are there. As you known the files are in <code>/var/log/journal/{mchine-id}</code> where machine-is id in <code>/etc/machine-id</code> of the crashed machine. </p>
-<p>You can move these files to a directory after booting the crashed machine with a live linux or mount its hard on another machine or even examine them in place. The <code>-D</code> (or <code>--directory</code>) switch of <code>journalctl</code> indicated the location of the journal files. So if you your crashed machine id is <code>ec22e43962c64359b9b25cfa650b025b</code> and you've mounted its <code>/var/</code> under your <code>/mnt/var/</code> directory, you can issue this command to read its logs and see what had happened:</p>
+<p>If you have a crashed / non-booting system, you can still examine its logs; if the files are there. As you know the files are in <code>/var/log/journal/{mchine-id}</code> where machine-id is in <code>/etc/machine-id</code> of the crashed machine. </p>
+<p>You can move these files to a directory after booting the crashed machine with a live linux or mount its hard on another machine or even examine them in place. The <code>-D</code> (or <code>--directory</code>) switch of <code>journalctl</code> indicates the location of the journal files. So if your crashed machine id is <code>ec22e43962c64359b9b25cfa650b025b</code> and you've mounted its <code>/var/</code> under your <code>/mnt/var/</code> directory, you can issue this command to read its logs and see what had happened:</p>
 <div class="highlight"><pre><span></span><code><span class="n">journalctl</span><span class="w"> </span><span class="o">-</span><span class="n">D</span><span class="o">=/</span><span class="n">mnt</span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">journal</span><span class="o">/</span><span class="n">ec22e43962c64359b9b25cfa650b025b</span><span class="o">/</span>
 </code></pre></div>
 
 <p>You can also use the <code>--merge</code> switch to merge these logs into your machine or use <code>--file</code> to check only one specific journal file. Lastly if the exact location of journal files are not known, you can use <code>--root /mnt</code> and tell the <code>journalctl</code> to search there for journal files.</p>
-<h2>some famous log fiels</h2>
-<p>Generally logs are saved at <code>/var/log</code>. In case of any issue and if you do not know what to do, it is a common practice to run a <code>ls -ltrh /var/log/</code> to see if any program generated a new log or not.</p>
-<p>But lets have a look at some of the famous logs:</p>
-<h5>/var/log/auth.log</h5>
-<p>Authentication processes will log here. Things like cron jobs, failed logins, sudo informations, ...</p>
-<h5>/var/log/syslog</h5>
-<p>A centralized place most of the logs received by rsyslogd if a specific logfile is not provided in <code>/etc/rsyslog.conf</code></p>
-<h5>/var/log/debug</h5>
-<p>Debug information from programs.</p>
-<h5>/var/log/kern.log</h5>
-<p>Kernel messages.</p>
-<h5>/var/log/messages</h5>
-<p>Informative messages from services. This is also the default place for logs for remote clients.</p>
-<h5>/var/run/utmp &amp; /var/log/wtmp</h5>
-<p>Successful logins.</p>
-<h5>/var/log/btmp</h5>
-<p>Failed logins. You can check this to see if anyone is trying to guess your passwords!</p>
-<h5>/var/log/faillog</h5>
-<p>Failed authentication attempts.</p>
-<h5>/var/log/lastlog</h5>
-<p>Date and time of recent user logins.</p>
-<h5>Service logs</h5>
-<p>Service logs do create files or directories at <code>/var/log</code> and update their logs there. For example there might be a <code>/var/log/apache2/</code> (or <code>/var/log/httpd</code>) for the Apache HTTP server or a <code>/var/log/mysql</code> for the MySQL DB.</p>
 
 
              
