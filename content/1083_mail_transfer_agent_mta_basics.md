@@ -30,7 +30,7 @@ Candidates should be aware of the commonly available MTA programs and be able to
 
 ### MTAs
 
-Email is an integral part of many GNU/Linux and Unix systems. Each user do have a mail box and can send / recive email to other local users. This is done via MTAs (Mail Transfer Agents). In other words, MTAs are programs which handle emails in your operating system. They can receive and dispatch emails localy and over the network. There are different options for MTAs. In this section we will do a quick review on them and you will see how you can send emails to other user (or over the internet) and how you can check your local mails.
+Email is an integral part of many GNU/Linux and Unix systems. Each user do have a mail box and can send / receive email to other local users. This is done via MTAs (Mai Transfer Agents). In other words, MTAs are programs which handle emails in your operating system. They can receive and dispatch emails locally and over the network. There are different options for MTAs. In this section we will do a quick review on them and you will see how you can send emails to other uses (or over the internet) and how you can check your local mails.
 
 #### sendmail
 Is one of the oldest options available. It is huge and kind of difficult to configure and not that security oriented. Because of these, few systems use it as default their MTA.

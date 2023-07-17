@@ -16,7 +16,7 @@ Candidates should be able to properly maintain the system time and synchronize t
 * Set the system date and time.
 * Set the hardware clock to the correct time in UTC.
 * Configure the correct timezone.
-* Basic NTP configuration using `ntpd` and `chrony` ..
+* Basic NTP configuration using `ntpd` and `chrony`.
 * Knowledge of using the `pool.ntp.org` service.
 * Awareness of the `ntpq` command.
 
@@ -55,7 +55,7 @@ $ sudo hwclock
 
 > Even when the hardware clock is set on UTC, `hwclock` date shows the date in the localtime \(time after adding the timezone to the UTC time\)
 
-Older OSs used to set the hardware clock on localtime zone instead of timezone. This can be achived by:
+Older OSs used to set the hardware clock on localtime zone instead of timezone. This can be achieved by:
 
 ```text
 # hwclock --localtime --set --date="01/05/2023 22:04:00"
@@ -69,7 +69,7 @@ The previous commands sets the hardware clock on that specific date and tell it 
 
 Here, `-w` tells the `hwclock` to set the hardware time based on the current system time and `-u` tells the hwclock that we are using the UTC. This also sets the HWClock using UTC int he `\etc\adjtime` file.
 
-> If you set a time on the hardware clock wighout mentioning it being UTC / Local, the `/etc/adjtime` will decide this, if this file does not exists, the UTC will be used.
+> If you set a time on the hardware clock without mentioning it being UTC / Local, the `/etc/adjtime` will decide this, if this file does not exists, the UTC will be used.
 
 You already know about the `timedatectl` and `date` from the [Localization and globalization chapter](http://linux1st.com/1073-localisation-and-internationalisation.html) so I wont repeat them here.
 
@@ -222,6 +222,7 @@ In this output a `*` means that the ntp is using this server as the main referen
 ### chrony
 Another and a newer NTP protocol implemenation is the `chrony`. Compared to `ntpd` , this tool provides better results at synchronize time difficult conditions such as intermittent network connections (such as laptops) and congested networks. Chrony is the default NTP client in RedHat 8, SUSE 15 and many other distributions. Another adavn
 
+
 Here is a sample `chrony.conf` file:
 
 ```
@@ -276,7 +277,7 @@ logdir /var/log/chrony
 # Stop bad estimates upsetting machine clock.
 maxupdateskew 100.0
 
-# This directive enables kernel synchronisation (every 11 minutes) of the
+# This directive enables kernel synchronization (every 11 minutes) of the
 # real-time clock. Note that it can’t be used along with the 'rtcfile' directive.
 rtcsync
 
@@ -290,7 +291,7 @@ makestep 1 3
 leapsectz right/UTC
 ```
 
-To control the `chrony` serivce, there is a CLI (Command Line Interface) which is called `chronyc`. It it used to monitor chronyd's performance and to change various operating parameters. If a "command" is passed to the `chronyc`, the results will be shown, otherwise you will get a command to issue your commands. Have a look:
+To control the `chrony` service, there is a CLI (Command Line Interface) which is called `chronyc`. It it used to monitor chronyd's performance and to change various operating parameters. If a "command" is passed to the `chronyc`, the results will be shown, otherwise you will get a command to issue your commands. Have a look:
 
 ```
 $ chronyc tracking
