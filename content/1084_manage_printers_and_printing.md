@@ -98,33 +98,451 @@ To access the CUPS services, there are different ways, including a web based int
 
 ### configuration files
 
-As any other linux program, CUPS saves its configuration at `/etc` directory.
+As most other linux program, CUPS saves its configuration at `/etc` directory.
 
-```text
-# ls /etc/cups
-cups-browsed.conf  interfaces  raw.types  subscriptions.conf
-cupsd.conf         ppd         snmp.conf  subscriptions.conf.O
-cups-files.conf    raw.convs   ssl
+```
+# ls /etc/cups/
+cups-browsed.conf  cups-files.conf  ppd		   raw.convs  snmp.conf  subscriptions.conf
+cupsd.conf	   interfaces	    printers.conf  raw.types  ssl	 subscriptions.conf.O
 ```
 
-One important file is `cupsd.conf`. Have a look at it; it is very easy to understand. For example the `Listen localhost:631` line tells the CUPS to listen on localhost port 631.
+The main configuration file is the `cupsd.conf`. Have a look at it; it is very easy to understand. For example the `Listen localhost:631` line tells the CUPS to listen on localhost port 631. Here is a sample:
+
+```
+$ cat /etc/cups/cupsd.conf
+#
+# Configuration file for the CUPS scheduler.  See "man cupsd.conf" for a
+# complete description of this file.
+#
+
+# Log general information in error_log - change "warn" to "debug"
+# for troubleshooting...
+LogLevel warn
+PageLogFormat
+
+# Specifies the maximum size of the log files before they are rotated.  The value "0" disables log rotation.
+MaxLogSize 0
+
+# Default error policy for printers
+ErrorPolicy retry-job
+
+# Only listen for connections from the local machine.
+Listen localhost:631
+Listen /run/cups/cups.sock
+
+# Show shared printers on the local network.
+Browsing Yes
+BrowseLocalProtocols dnssd
+
+# Default authentication type, when authentication is required...
+DefaultAuthType Basic
+
+# Web interface setting...
+WebInterface Yes
+
+# Timeout after cupsd exits if idle (applied only if cupsd runs on-demand - with -l)
+IdleExitTimeout 60
+
+# Restrict access to the server...
+<Location />
+  Order allow,deny
+</Location>
+
+# Restrict access to the admin pages...
+<Location /admin>
+  Order allow,deny
+</Location>
+
+# Restrict access to configuration files...
+<Location /admin/conf>
+  AuthType Default
+  Require user @SYSTEM
+  Order allow,deny
+</Location>
+
+# Restrict access to log files...
+<Location /admin/log>
+  AuthType Default
+  Require user @SYSTEM
+  Order allow,deny
+</Location>
+
+# Set the default printer/job policies...
+<Policy default>
+  # Job/subscription privacy...
+  JobPrivateAccess default
+  JobPrivateValues default
+  SubscriptionPrivateAccess default
+  SubscriptionPrivateValues default
+
+  # Job-related operations must be done by the owner or an administrator...
+  <Limit Create-Job Print-Job Print-URI Validate-Job>
+    Order deny,allow
+  </Limit>
+
+  <Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job Cancel-My-Jobs Close-Job CUPS-Move-Job CUPS-Get-Document>
+    Require user @OWNER @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # All administration operations require an administrator to authenticate...
+  <Limit CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Add-Modify-Class CUPS-Delete-Class CUPS-Set-Default CUPS-Get-Devices>
+    AuthType Default
+    Require user @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # All printer operations require a printer operator to authenticate...
+  <Limit Pause-Printer Resume-Printer Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After Cancel-Jobs CUPS-Accept-Jobs CUPS-Reject-Jobs>
+    AuthType Default
+    Require user @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # Only the owner or an administrator can cancel or authenticate a job...
+  <Limit Cancel-Job CUPS-Authenticate-Job>
+    Require user @OWNER @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  <Limit All>
+    Order deny,allow
+  </Limit>
+</Policy>
+
+# Set the authenticated printer/job policies...
+<Policy authenticated>
+  # Job/subscription privacy...
+  JobPrivateAccess default
+  JobPrivateValues default
+  SubscriptionPrivateAccess default
+  SubscriptionPrivateValues default
+
+  # Job-related operations must be done by the owner or an administrator...
+  <Limit Create-Job Print-Job Print-URI Validate-Job>
+    AuthType Default
+    Order deny,allow
+  </Limit>
+
+  <Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job Cancel-My-Jobs Close-Job CUPS-Move-Job CUPS-Get-Document>
+    AuthType Default
+    Require user @OWNER @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # All administration operations require an administrator to authenticate...
+  <Limit CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Add-Modify-Class CUPS-Delete-Class CUPS-Set-Default>
+    AuthType Default
+    Require user @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # All printer operations require a printer operator to authenticate...
+  <Limit Pause-Printer Resume-Printer Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After Cancel-Jobs CUPS-Accept-Jobs CUPS-Reject-Jobs>
+    AuthType Default
+    Require user @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # Only the owner or an administrator can cancel or authenticate a job...
+  <Limit Cancel-Job CUPS-Authenticate-Job>
+    AuthType Default
+    Require user @OWNER @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  <Limit All>
+    Order deny,allow
+  </Limit>
+</Policy>
+
+# Set the kerberized printer/job policies...
+<Policy kerberos>
+  # Job/subscription privacy...
+  JobPrivateAccess default
+  JobPrivateValues default
+  SubscriptionPrivateAccess default
+  SubscriptionPrivateValues default
+
+  # Job-related operations must be done by the owner or an administrator...
+  <Limit Create-Job Print-Job Print-URI Validate-Job>
+    AuthType Negotiate
+    Order deny,allow
+  </Limit>
+
+  <Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job Cancel-My-Jobs Close-Job CUPS-Move-Job CUPS-Get-Document>
+    AuthType Negotiate
+    Require user @OWNER @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # All administration operations require an administrator to authenticate...
+  <Limit CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Add-Modify-Class CUPS-Delete-Class CUPS-Set-Default>
+    AuthType Default
+    Require user @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # All printer operations require a printer operator to authenticate...
+  <Limit Pause-Printer Resume-Printer Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After Cancel-Jobs CUPS-Accept-Jobs CUPS-Reject-Jobs>
+    AuthType Default
+    Require user @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # Only the owner or an administrator can cancel or authenticate a job...
+  <Limit Cancel-Job CUPS-Authenticate-Job>
+    AuthType Negotiate
+    Require user @OWNER @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  <Limit All>
+    Order deny,allow
+  </Limit>
+</Policy>
+jadi@debian:~$
+Broadcast message from root@debian on pts/3 (Sun 2023-07-16 20:54:04 EDT):
+
+The system will power off now!
+
+Connection to 192.168.64.7 closed by remote host.
+Connection to 192.168.64.7 closed.
+➜  lpic1book ssh jadi@192.168.64.7
+jadi@192.168.64.7's password:
+Linux debian 6.1.0-9-arm64 #1 SMP Debian 6.1.27-1 (2023-05-08) aarch64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+You have no mail.
+Last login: Mon Jul 17 08:13:13 2023
+jadi@debian:~$ sudo su -
+[sudo] password for jadi:
+root@debian:~# cd /etc/cups/
+root@debian:/etc/cups# ls
+cups-browsed.conf  cups-files.conf  ppd		   raw.convs  snmp.conf  subscriptions.conf
+cupsd.conf	   interfaces	    printers.conf  raw.types  ssl	 subscriptions.conf.O
+root@debian:/etc/cups# cd
+root@debian:~# ls /etc/cups/
+cups-browsed.conf  cups-files.conf  ppd		   raw.convs  snmp.conf  subscriptions.conf
+cupsd.conf	   interfaces	    printers.conf  raw.types  ssl	 subscriptions.conf.O
+root@debian:~# cat /etc/cups/cupsd.conf
+#
+# Configuration file for the CUPS scheduler.  See "man cupsd.conf" for a
+# complete description of this file.
+#
+
+# Log general information in error_log - change "warn" to "debug"
+# for troubleshooting...
+LogLevel warn
+PageLogFormat
+
+# Specifies the maximum size of the log files before they are rotated.  The value "0" disables log rotation.
+MaxLogSize 0
+
+# Default error policy for printers
+ErrorPolicy retry-job
+
+# Only listen for connections from the local machine.
+Listen localhost:631
+Listen /run/cups/cups.sock
+
+# Show shared printers on the local network.
+Browsing Yes
+BrowseLocalProtocols dnssd
+
+# Default authentication type, when authentication is required...
+DefaultAuthType Basic
+
+# Web interface setting...
+WebInterface Yes
+
+# Timeout after cupsd exits if idle (applied only if cupsd runs on-demand - with -l)
+IdleExitTimeout 60
+
+# Restrict access to the server...
+<Location />
+  Order allow,deny
+</Location>
+
+# Restrict access to the admin pages...
+<Location /admin>
+  Order allow,deny
+</Location>
+
+# Restrict access to configuration files...
+<Location /admin/conf>
+  AuthType Default
+  Require user @SYSTEM
+  Order allow,deny
+</Location>
+
+# Restrict access to log files...
+<Location /admin/log>
+  AuthType Default
+  Require user @SYSTEM
+  Order allow,deny
+</Location>
+
+# Set the default printer/job policies...
+<Policy default>
+  # Job/subscription privacy...
+  JobPrivateAccess default
+  JobPrivateValues default
+  SubscriptionPrivateAccess default
+  SubscriptionPrivateValues default
+
+  # Job-related operations must be done by the owner or an administrator...
+  <Limit Create-Job Print-Job Print-URI Validate-Job>
+    Order deny,allow
+  </Limit>
+
+  <Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job Cancel-My-Jobs Close-Job CUPS-Move-Job CUPS-Get-Document>
+    Require user @OWNER @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # All administration operations require an administrator to authenticate...
+  <Limit CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Add-Modify-Class CUPS-Delete-Class CUPS-Set-Default CUPS-Get-Devices>
+    AuthType Default
+    Require user @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # All printer operations require a printer operator to authenticate...
+  <Limit Pause-Printer Resume-Printer Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After Cancel-Jobs CUPS-Accept-Jobs CUPS-Reject-Jobs>
+    AuthType Default
+    Require user @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # Only the owner or an administrator can cancel or authenticate a job...
+  <Limit Cancel-Job CUPS-Authenticate-Job>
+    Require user @OWNER @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  <Limit All>
+    Order deny,allow
+  </Limit>
+</Policy>
+
+# Set the authenticated printer/job policies...
+<Policy authenticated>
+  # Job/subscription privacy...
+  JobPrivateAccess default
+  JobPrivateValues default
+  SubscriptionPrivateAccess default
+  SubscriptionPrivateValues default
+
+  # Job-related operations must be done by the owner or an administrator...
+  <Limit Create-Job Print-Job Print-URI Validate-Job>
+    AuthType Default
+    Order deny,allow
+  </Limit>
+
+  <Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job Cancel-My-Jobs Close-Job CUPS-Move-Job CUPS-Get-Document>
+    AuthType Default
+    Require user @OWNER @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # All administration operations require an administrator to authenticate...
+  <Limit CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Add-Modify-Class CUPS-Delete-Class CUPS-Set-Default>
+    AuthType Default
+    Require user @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # All printer operations require a printer operator to authenticate...
+  <Limit Pause-Printer Resume-Printer Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After Cancel-Jobs CUPS-Accept-Jobs CUPS-Reject-Jobs>
+    AuthType Default
+    Require user @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # Only the owner or an administrator can cancel or authenticate a job...
+  <Limit Cancel-Job CUPS-Authenticate-Job>
+    AuthType Default
+    Require user @OWNER @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  <Limit All>
+    Order deny,allow
+  </Limit>
+</Policy>
+
+# Set the kerberized printer/job policies...
+<Policy kerberos>
+  # Job/subscription privacy...
+  JobPrivateAccess default
+  JobPrivateValues default
+  SubscriptionPrivateAccess default
+  SubscriptionPrivateValues default
+
+  # Job-related operations must be done by the owner or an administrator...
+  <Limit Create-Job Print-Job Print-URI Validate-Job>
+    AuthType Negotiate
+    Order deny,allow
+  </Limit>
+
+  <Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job Cancel-My-Jobs Close-Job CUPS-Move-Job CUPS-Get-Document>
+    AuthType Negotiate
+    Require user @OWNER @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # All administration operations require an administrator to authenticate...
+  <Limit CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Add-Modify-Class CUPS-Delete-Class CUPS-Set-Default>
+    AuthType Default
+    Require user @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # All printer operations require a printer operator to authenticate...
+  <Limit Pause-Printer Resume-Printer Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After Cancel-Jobs CUPS-Accept-Jobs CUPS-Reject-Jobs>
+    AuthType Default
+    Require user @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  # Only the owner or an administrator can cancel or authenticate a job...
+  <Limit Cancel-Job CUPS-Authenticate-Job>
+    AuthType Negotiate
+    Require user @OWNER @SYSTEM
+    Order deny,allow
+  </Limit>
+
+  <Limit All>
+    Order deny,allow
+  </Limit>
+</Policy>
+```
 
 All the printer data is saved at `/etc/cups/printers.conf`. The web interface or any other GUI is actually editing this file.
 
-```text
-# Printer configuration file for CUPS v2.1.0
+```
+# cat /etc/cups/printers.conf
+# Printer configuration file for CUPS v2.4.2
 # Written by cupsd
 # DO NOT EDIT THIS FILE WHEN CUPSD IS RUNNING
-<DefaultPrinter Apple-Dot-Matrix>
-UUID urn:uuid:0f6c2f2b-6338-388a-76de-09f2ef1994d5
-Info Apple Dot Matrix
-Location Fake Location
-MakeModel Apple Dot Matrix Foomatic/appledmp (recommended)
-DeviceURI ipp://fakeprinter/
+NextPrinterId 2
+<Printer MyPrinter>
+PrinterId 1
+UUID urn:uuid:cea56d60-93a0-31bf-443b-5a7288e2cd51
+Info My Printer
+Location other room
+MakeModel HP DesignJet 600 pcl, 1.0
+DeviceURI http://thatprinter:631/ipp/
 State Idle
-StateTime 1453402271
-ConfigTime 1453402271
-Type 8433668
+StateTime 1689596391
+ConfigTime 1689596367
+Type 8450116
 Accepting Yes
 Shared Yes
 JobSheets none none
@@ -133,12 +551,17 @@ PageLimit 0
 KLimit 0
 OpPolicy default
 ErrorPolicy retry-job
-</DefaultPrinter>
+</Printer>
 ```
 
 Another important configuration directory is located at `/etc/cups/ppd/`. This directory contains the PostScript printer Description (PPD) files. These let printers which use them to function properly. 
 
+To find the CUPS logs, check the `/var/log` directory:
 
+```
+# ls /var/log/cups/
+access_log  error_log
+```
 ### CUPS web interface
 To enable CUPS's web interface, you have to enable the following configuration in the `/etc/cups/cupsd.conf`:
 
@@ -158,22 +581,22 @@ There are some of the important sections on the above page:
 | Jobs | Checking the active, pending & completed jobs |  
 | Printers | List or search in the installed printers |
 
-By default, system users can view printers and queued jobs but changes (like adding printers) will need more access. This is configured at the bottom part of `cupsd.conf` file. For example the below configuration provides `CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Add-Modify-Class CUPS-Delete-Class CUPS-Set-Defaul` access to anyone in `@printer_admin` group.
+By default, system users can view printers and queued jobs but changes (like adding printers) will need more access. This is configured at the bottom part of `cupsd.conf` file. For example the below configuration provides `CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Set-Defaul` access to anyone in `@printer_admin` group.
 
 ```
-  <Limit CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Add-Modify-Class CUPS-Delete-Class CUPS-Set-Default>
+  <Limit CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Set-Default>
     AuthType Default
     Require user @printer_admin
     Order deny,allow
   </Limit>
-  ```
+```
 
 > CUPS has most of the common printer drivers installed. You just need to choose the printer from the dropdown menu to add it.
 
 
 ### legacy tools
 
-Just like the MTA programs, CUPS support all the legacy command line programs too.
+Just like the [MTA](//1083-mail-transfer-agent-mta-basics.html) programs, CUPS support all the legacy command line programs too. These used to be printing commands int he BSD world so you may need to install the `cups-bsd` package to let them work under your CUPS environment. Table below lists the BSD printing compatibility commands:
 
 | command | usage |
 | :--- | :--- |
@@ -184,9 +607,9 @@ Just like the MTA programs, CUPS support all the legacy command line programs to
 
 #### `lpq`
 
-The **q** is for **queue** therefor `lpq` shows the printer queue and is used when you want to see the jobs. If you use the `-a` switch, the lpq will show the jobs of **all** printers. Alternatively you can use the `-P` switch to show the jobs of a specific printer. So the following command will show the jobs of a printer called Apple-Dot-Matrix:
+The **q** stands for **queue**. Therefor `lpq` shows the printer queue and is used when you want to see the printing jobs. If you use the `-a` switch, `lpq` will list the jobs from **all** printers. Alternatively you can use the `-P` switch to show the jobs of a specific printer. So the following command will show the jobs of a printer called Apple-Dot-Matrix:
 
-```text
+```
 # lpq -PApple-Dot-Matrix
 Apple-Dot-Matrix is ready and printing
 Rank    Owner   Job     File(s)                         Total Size
@@ -194,15 +617,15 @@ active  unknown 1       unknown                         7168 bytes
 1st     unknown 2       unknown                         2048 bytes
 ```
 
-> It is strange but there should not be ANY space between `-P` and the printers name
+> There should be no spaces between the `-P` and the printer's name; strange? yes :D
 
 #### `lpr`
 
-This command is used to send a job to a printer. Again the printer is specified by `-P`.
+This command sends a job to a printer. The printer is specified via the `-P` switch.
 
-```text
+```
 $ lpr -PApple-Dot-Matrix for_print.txt
- lpq
+$ lpq
 Apple-Dot-Matrix is ready and printing
 Rank    Owner   Job     File(s)                         Total Size
 active  jadi    1       Untitled Document 1             7168 bytes
@@ -214,9 +637,9 @@ active  jadi    1       Untitled Document 1             7168 bytes
 
 #### `lprm`
 
-The _rm_ is for _remove_ so the `lprm` will remove jobs from the queue. You need to provide the **Job ID** to this command.
+The **rm** stands for **remove**. Therefor the `lprm` command removes jobs from the queue. Obviously, you have to provide the **Job ID**.
 
-```text
+```
 $ lpq
 Apple-Dot-Matrix is ready and printing
 Rank    Owner   Job     File(s)                         Total Size
@@ -239,7 +662,7 @@ If you need to remove ALL the jobs of a specific printer, you can go with `-Ppri
 
 #### `lpc`
 
-Here, the **c** is for **control**. `lpc` lets you check the status \(via `lpc status`\) and troubleshoot your printers.
+The **c** stands for **control**. Therefor `lpc` lets you control, check the status \(via `lpc status`\) and troubleshoot your printers.
 
 ```text
 $ lpc status
@@ -251,12 +674,12 @@ Apple-Dot-Matrix:
     daemon present
 ```
 
-Here,
+In the above respose,
 
 * **queuing is enabled** tell us that the queue can accept new print jobs. If the queue is disabled, you can not even send new jobs to the printer.
 * **printing is enabled** means that the printer is actually can print on the paper. This will be on the disable state if the printer is out of ink or paper or experiencing a paper jam.
 
-If you are having problems with your printer or need to prevent it from accepting new jobs or let it accept jobs but not print, these four commands will let you achieve your needs:
+If you are having problems with your printer or need to prevent it from accepting new jobs or let it accept jobs but not do the actual printing, these four commands can help:
 
 | command | usage |
 | :--- | :--- |
@@ -267,7 +690,7 @@ If you are having problems with your printer or need to prevent it from acceptin
 
 > In all cases you have to provide the printer name of the printer. it is also possible to provide a reason using `-r` switch.
 
-```text
+```
 $ cupsdisable Apple-Dot-Matrix -r "need more paper"
 $ lpc status
 Apple-Dot-Matrix:
