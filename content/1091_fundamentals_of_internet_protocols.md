@@ -34,7 +34,12 @@ Internet Protocol or IP is a way to logically pointing to a host on the Internet
 
 An IPv4 is in the form of A.B.C.D where A, B, C & D are between 0-255. The followings are all valid IP addresses:
 
-'''' 1.2.3.4 1.1.1.1 100.0.0.100 192.168.1.4 ''''
+```
+1.2.3.4
+1.1.1.1
+100.0.0.100
+192.168.1.4
+```
 
 > each part of an IP address is called an Octet since it is constructed of an 8 bit number \(0..255\) and can be shown in binary or hex or any notation, but Decimal format is more common.
 
