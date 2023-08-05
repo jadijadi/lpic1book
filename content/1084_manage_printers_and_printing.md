@@ -23,6 +23,8 @@ Candidates should be able to manage print queues and user print jobs using CUPS 
 * `/etc/cups/`
 * lpd legacy interface \(lpr, lprm, lpq\)
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8I9J0gsLe-U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## CUPS
 
 Most Linux distributions use the CUPS package for printing. You may need to install it via your package manager and start its service using the systemd or the init system your system use.

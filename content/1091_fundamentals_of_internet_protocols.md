@@ -26,6 +26,8 @@ Candidates should demonstrate a proper understanding of TCP/IP network fundament
 * Subnetting
 * TCP, UDP, ICMP
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_QD4413ezWs" title="LPIC1 - 068 - 109.1 (1/3) - Networking Fundamentals; A look at IP Networking and its Basics" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ### TCP/IP
 The *Transmission Control Protocol/Internet Protocol* (or TCP/IP in short) is stack or protocols which powers the most of communications on the Internet (and many other networks). Although it is generally called TCP, it also includes UDP, ICMP, DNS and many others. 
 
@@ -57,7 +59,7 @@ IP addresses should be uniq on a network so people should get their IP addresses
 
 Normally if you are creating a server on your service provider, that service provider will give you an IP address purchased from IANA (via smaller regional registries). But what happens if you want to assign an IP to your laptop or mobile phone of tablet *inside* your home? These devices are not visible directly on the Internet and you are not going to purchase IPs for them.
 
-Here enters the *Private IP Address* ranges. The below ranges are called "private" addresses and anyone can assign them to any device they want, as long as they are not visible on the open internet.
+Here the *Private IP Address* ranges come to play. The below ranges are called "private" addresses and anyone can assign them to any device they want, as long as they are not visible on the open internet.
 
 | range | Number of IPs in this range |
 | :--- | :--- |
@@ -94,6 +96,9 @@ Any one can use any of these IPs on her devices as long as it is not connected d
 
 In the middle you can see a `Network Address Translation` or `NAT` device. It is connected to the Internet using only one public IP \(It might be 87.3.91.4\). On the left side of the NAT box, there are 4 devices with Private IPs. Each time any of these devices targets an address on the Internet \(a public IP\), the NAT device will use its own public IP to request that IP and when the answer is ready, will provide it to the _Natted_ device - the device behind the NAT. This way we can create huge networks behind a NAT device. In this scenario, all the devices can reach the Internet but no-one from the Internet can directly reach any of them, directly; Unless we've configured an DMZ. 
 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/A3SIx41ivBk" title="LPIC1 - 069 - 109.1 (2/3) - Networking Fundamentals; IP Subnetting. Netmasks &amp; CIDR notation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 #### Subnetting (and Netmask)
 
 OK! We have around 4B addresses in IPv4. But what happens if I send a packet to another IP? Say I try to print a document on the _local_ printer using its private IP as you learned in previous section? Who should listen for this packet? Does the whole Internet passes it hand to hand? Obviously not! Only my _local_ network should be able to receive that packet and in this specific case, only they printer should receive it on its local IP.
@@ -104,12 +109,12 @@ This is achieved by subnetting. The purpose of subnetting is to create *sub*-*ne
 
 When speaking about networks, you have to decide on 
 
-1. how many bits of my IP address is going to be shared between all my devices (network)
+1. How many bits of my IP address is going to be shared between all my devices (network)
 2. How many bits of my IP address is going to differentiate my devices in this network (hosts)
 
-For example if you assign the `192.168.1.1` to your router and set the Netmask on `\24`, you are claiming 24 (left hand bits) of `192.168.1.1` as your Network (so `192.168.1.` because 245 = 8 * 3) and 8 bits as your Host (last octet). In this network you can assign these IPs to your devices:  `192.168.1.10`,  `192.168.1.2`,  `192.168.1.200` and they will see each other correctly. 
+For example if you assign the `192.168.1.1` to your router and set the Netmask on `/24`, you are claiming 24 (left hand bits) of `192.168.1.1` as your Network (so `192.168.1.` because 245 = 8 * 3) and 8 bits as your Host (last octet). In this network you can assign these IPs to your devices:  `192.168.1.10`,  `192.168.1.2`,  `192.168.1.200` and they will see each other correctly. 
 
-There are 2 methods to talk about Netmask bits. The CIDR (\24) method and Decimal Netmask (255.255.255.0) method. In CIDR we are saying how many bits are 1 (and thud the network section of an IP address) and in Decimal method, we are representing these 1 bits in an IP address format. Have a look at the following table:
+There are 2 methods to talk about Netmask bits. The CIDR `/24` method and Decimal Netmask (255.255.255.0) method. In CIDR we are saying how many bits are 1 (the network section of an IP address) and in Decimal method, we are representing these 1 bits in an IP address format. Have a look at the following table:
 
 | Decimal | CIDR | Binary | 
 | ------- | ---- | ------ |
@@ -129,7 +134,7 @@ When having the IP address and the Network Mask, we can calculate the network ad
 
 The network address is a Logical AND between the IP address and the networkmask. The broadcast address is the network address with a Logical OR when all the host bits are changed to 1. 
 
-Confusing... yes. Because talking about maths is difficult. Say we have the `192.168.4.12` as our IP Address and our CID is /24 (that is 255.255.255.0). Lets calculate the network and broadcast addresses.
+Confusing... yes. Because talking about maths is difficult. Say we have the `192.168.4.12` as our IP Address and our CIDR is /24 (that is 255.255.255.0). Lets calculate the network and broadcast addresses. `ipcalc` a useful utility you can use.
 
 ```
 IP:        11000000.10101000.00000100.00001100 (192.168.4.12)
@@ -138,9 +143,10 @@ Network:   11000000.10101000.00000100.00000000 (192.168.4.0)
 Broadcast: 11000000.10101000.00000100.11111111 (192.168.4.255)
 ```
 
+
 ### Binary to Decimal Conversion
 
-You are probably familiar with binary base - it is the basis of anything related to computers. If not I highly recommend you to do a google search and study if from another source since this book assumes you already know it. In short when writing numbers on binary format \(base 2\), the only used digits are 0 and 1. An easy way for conversion is using the following table to convert 0 and 1s to our _normal_ decimal format. Its enough to know the value of each bit and add up the ones having 1 in them.
+You are probably familiar with binary base - it is the basis of anything related to computers. If not I highly recommend you to do a google search and study it from another source since this book assumes you already know it. In short when writing numbers on binary format \(base 2\), the only used digits are 0 and 1. An easy way for conversion is using the following table to convert 0 and 1s to our _normal_ decimal format. Its enough to know the value of each bit and add up the ones having 1 in them.
 
 | 128 | 64 | 32 | 16 | 8 | 4 | 2 | 1 | Decimal |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -154,6 +160,9 @@ You are probably familiar with binary base - it is the basis of anything related
 
 So `11000000.10101000.00000001.00001111` equals to `192.168.1.15`.
 
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rUQe5ezhmRE" title="LPIC1 - 070 - 109.1 (3/3) - Networking Fundamentals; TCP/IP Protocols, Ports and TCP vs UDP vs ICMP" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### Communication Protocols
 
@@ -186,7 +195,9 @@ As you can see, TCP needs a lot of communications and spends time (or even retra
 
 #### UDP
 
-You are video-chatting with a friend and network fluctuates. What is a better choice? A\) retransmitting the missing packets and/or reestablishing the connection and continue the whole conversation with a 2s delay or B\) just show the newer packets we got and continue the live vide-conference and just forget about that 2 second fluctuation \(missed data\)? If your choice is B, it is better if you use UDP \(User Datagram Protocol\) for your chat program. UDP is less reliable: the sender sends packets without communicating much and hearing back from the receiver and receiver listens for packets without negotiating the exact details with the sender. It is much faster than TCP but you can not be sure that 100% of packets will be received by the B party.
+You are video-chatting with a friend and network fluctuates. What is a better choice? </br>
+A\) retransmitting the missing packets and/or reestablishing the connection and continue the whole conversation with a 2s delay or ... </br> 
+B\) just show the newer packets we got and continue the live vide-conference and just forget about that 2 second fluctuation \(missed data\)? If your choice is B, it is better if you use UDP \(User Datagram Protocol\) for your chat program. UDP is less reliable: the sender sends packets without communicating much and hearing back from the receiver and receiver listens for packets without negotiating the exact details with the sender. It is much faster than TCP but you can not be sure that 100% of packets will be received by the B party.
 
 #### ICMP
 
@@ -214,7 +225,7 @@ Any computer has an address but there are many programs running on that computer
 Different ports can use different transmission protocols \(UDP or TCP\). The default port of some protocols are as follow. These are very important and most admins know them.
 
 | port | usage |
-| :--- | :--- |
+| :---: | :---: |
 | 20, 21 | FTP \(one data, one control\) |
 | 22 | SSH |
 | 23 | Telnet |
