@@ -5,12 +5,7 @@ Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 sortorder: 410
 Summary: 
-## 109.2 Basic network configuration
-
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
+## 109.2 Persistent network configuration
 
 _Weight: 4_
 
@@ -18,25 +13,40 @@ Candidates should be able to view, change and verify configuration settings on c
 
 ### Key Knowledge Areas
 
-* Manually and automatically configure network interfaces.
-* Basic TCP/IP host configuration.
-* Setting a default route.
+* Understand basic TCP/IP host configuration
+* Configure ethernet and wi-fi network configuration using NetworkManager
+* Awareness of systemd-networkd
 
 ### Terms and Utilities
 
 * /etc/hostname
 * /etc/hosts
 * /etc/nsswitch.conf
-* ifconfig
+* /etc/resolv.conf
+* nmcli
+* hostnamectl
 * ifup
 * ifdown
-* ip
-* route
-* ping
 
-#### ifconfig, up and down
+### Intro
+As we saw in the previous section, every PC, server, laptop, phone, .. should have an IP configuration (IP, Netmask, Default gateway, DNS, ..) to work properly in the network. This can be done in various ways. Some devices like laptops are changing their network all the time and should be able to keep up with the changes. Some servers remain in the same location (physical and network wise) all their life and should persist this configuration after restarts, outages, upgrade and HW changes.
 
-The `ifconfig` is the main command for configuring the network adapters manually. Running it with no arguments, will show all the network adapters and their configurations.
+In this section we will see how this can be achieved in modern GNU/Linux systems.
+
+
+### Network Interface
+The NIC (or Network Interface Card) is the physical network hardware in your computer. This can be the chip+antenna in your mobile phone or an Ethernet Card connected to a network cable on your PC.
+
+In older systems, these were called things like `eth0`, `eth1`, `eth2`, .. where 0, 1 & 2 were decided by the kernel - mostly based on the order of loading the drivers. In recent Linux machines the NICs are called by `wlan0`, `eno1`, `ens1`, `enp3s2` and such. This is based on some more concrete data like being an `wireless` or `et`hernet, PCI (`ens`) or bus like (`enp`). 
+
+The `ip` command can show these:
+
+`ip link show`
+
+> the `lo` is a virtual network adapter called the *loopback* device. It is always there and points to "this device or 127.0.0.1 as IPv4 calls it".
+
+### Configuring NICs
+In older distributions, the `ifconfig` was used to check / configure the IP settings on NICs. Have a look:
 
 ```text
 $ ifconfig
@@ -67,11 +77,7 @@ wlp3s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 ```
 
-> `lo` is a virtual network adapter and is called _loopback_. It ia accessible only from the computer itself. It is used when programs want to speak with the computer they are running on it.
-
-Ethernet networks are called **ethx** or things like **enp0s25**.
-
-It is possible to use `ifconfig` to change the network configurations, but you should have root access:
+It is also possible to use `ifconfig` to change the network configurations, but you should have root access:
 
 ```text
 $  sudo ifconfig enp0s25 192.168.42.42
@@ -89,13 +95,13 @@ enp0s25: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
 $
 ```
 
-in the same way, you can change the netmask of an interface with `ifconfig eth0 netmask 255.255.0.0` or do both in one step:
+In case you want to change the netmask of an interface, do `ifconfig eth0 netmask 255.255.0.0` or as most of us used to do, issue both in one command:
 
 ```text
 # ifconfig eth0 192.168.42.42 netmask 255.255.255.0
 ```
 
-It is also possible to turn the interfaces _up_ and _down_ \(on and off\) using a predefined configuration by:
+It is also possible to turn the interfaces _up_ and _down_ \(on and off\) using a predefined configurations by:
 
 ```text
 $ sudo ifconfig enp0s25 down
@@ -120,9 +126,82 @@ wlp3s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 ```
 
-As you can see \_down\_ing the interface removed it from the list of active interfaces, using switch `-a` will tell the `ifconfig` to sho ALL interfaces, even if they are down.
+As you can see \_down\_ing the interface removed it from the list of active interfaces, using switch `-a` will tell the `ifconfig` to show ALL interfaces, even if they are down.
 
 In may systems there are `ifup` and `ifdown` commands directly to up and down interfaces easily. They work just like `ifup eth0`.
+
+These predefined configs are located at `/etc/network/interfaces` on Debian based machines and in `/etc/sysconfig/network-scripts/` in RPM based computers. 
+
+This is a sample:
+
+```
+iface enp3s2 inet static
+    address 192.168.1.100/24
+    gateway 192.168.1.1
+```
+
+### `ip` 
+Recent distors are mostly using the `ip` command. This command can do lots of things including and not limited to showing and configuring the IP addresses, netmasks, default gateways & routing rules.
+
+```
+some usage examples
+```
+
+### NetworkManager & `ncmli`
+In recent years, `NetworkManager` services has gained a lot of popularity. This service can "watch" the status of network and various configuration and configure the network cards (specially the wifi ones) accordingly. This is what makes our laptop connected whenever we open it in an area with a known WiFi or ask about the password if we want to connect to a new network or assign IP addresses as soon as we connect the cable to our Ethernet card. This IP assignment might happen via the "permanent IP configuration" on your device or a protocol called DHCP. When using DHCP (Dynamic Host Configuration Protocol), your computer asks a DHCP server (say your home's wifi router) about the IP, Netmask, Default gateway, DNS and other stuff and sets them. 
+
+By default, NetworkManager  daemon controls the networks which are not mentioned in `/etc/network/interfaces`. This service is running in the background and controls the NICs which are not configured there. Various frontend GUI (graphical user interface) or TUI (textual user interface) or CLI (command line interfaces) programs exists to control or configure the NetworkManager daemon. If you are using a Desktop Linux, you've probably already used / know one (say the network manager applet). Here I will show you how to use the `nmcli` from the command line. 
+
+We always call the `nmcli` with one of it various commands, here is a list:
+
+| Command | Usage |
+| ------- | ----- |
+| general | NetworkManager’s general status and operations. |
+| networking | Overall networking control. | 
+
+### Textual Names for Computers
+
+#### hostname
+Remembering IP addresses are easy for robots but not for humans. Thats why we have "hostname"s. A hostname is a like a contact list where you just tell "call Jadi" and the system known my phone number. If you check your `/etc/hostname`, you will see your machines name there. Although you can change it temporary (or permanently). The command is `hostnamectl`. 
+
+```
+# hostnamectl set-hostname mycoolmachine
+# at /etc/hostname
+```
+
+Or you can change it as *transient*, which is a temporary change using the `--transient` switch.
+
+It is also possible to define a "pretty" name for your computer so other systems might show it in their interfaces more nicely:
+
+```
+# hostnamectl --pretty set-hostname "LAN Shared Storage"
+# hostnamectl status
+```
+
+#### /etc/hosts
+This file contains a list of IPs and their corresponding names, including your own computers. 
+
+```
+etc hosts
+```
+
+So when you need to reach a machine by its name, your OS will now which IP to reach. 
+
+#### DNS configuration
+DNS (which stands for Domain Name System) is a server which translates human readable domain names (or more technically, text based domain names) to the corresponding IP addresses. You have to configure your computer to use a DNS so it will know which IP to contacted if you wanted to reach `linux1st.com` (and [donate](https://linux1st.com/support) maybe).
+
+This configuration can be found in `/etc/resolve.conf`.
+
+```
+nameserver 192.168.1.1
+nameserver 4.2.2.4
+domain jadi.net
+search jadi.net company.com
+```
+
+Here I'm telling my computer to contact the DNS on my home network (192.168.1.1) or a DNS located at 4.2.2.4 if it needed to translate an address to an IP. 
+
+The `domain` configuration sets a local domain name so the machines in this domain will be able to use a short name (tv, instead of tv.jadi.net) and the `search` config does kind the same and tells the resolver to search for `tv.jadi.net` and `tv.company.com` if it was trying to resolve `tv`.
 
 #### Network Gateways
 
