@@ -5,6 +5,7 @@ Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 sortorder: 410
 Summary: 
+
 ## 109.2 Persistent network configuration
 
 _Weight: 4_
@@ -41,7 +42,15 @@ In older systems, these were called things like `eth0`, `eth1`, `eth2`, .. where
 
 The `ip` command can show these:
 
-`ip link show`
+```
+➜  ~ ip link show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: wlp108s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DORMANT group default qlen 1000
+    link/ether 00:bb:60:97:6b:07 brd ff:ff:ff:ff:ff:ff
+3: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN mode DEFAULT group default 
+    link/ether 02:42:75:d3:e6:ff brd ff:ff:ff:ff:ff:ff
+```
 
 > the `lo` is a virtual network adapter called the *loopback* device. It is always there and points to "this device or 127.0.0.1 as IPv4 calls it".
 
@@ -132,20 +141,53 @@ In may systems there are `ifup` and `ifdown` commands directly to up and down in
 
 These predefined configs are located at `/etc/network/interfaces` on Debian based machines and in `/etc/sysconfig/network-scripts/` in RPM based computers. 
 
-This is a sample:
+This is a sample of such file on a RedHat based distro:
 
+```text
+$ cat /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=eth0
+ONBOOT=yes
+TYPE=Ethernet
+IPADDR=192.168.1.10
+NETMASK=255.255.255.0
+DNS1=4.2.2.4
 ```
-iface enp3s2 inet static
-    address 192.168.1.100/24
-    gateway 192.168.1.1
+On RPM systems, the default gateway is configured via the below file:
+
+```text
+cat /etc/sysconfig/network
+NETWORKING=yes
+HOSTNAME=lpictest
+GATEWAY=192.168.1.1
+```
+
+On Debian based systems \(including Ubuntu\) the main configuration file for network interfaces is `/etc/network/interfaces`. This one file has the configuration for all of the interfaces. Have a look:
+
+```text
+auto lo
+iface lo inte loopback
+
+auto eth0
+#ifconfig eth0 inet dhcp
+iface eth0 inet static
+address 192.168.1.10
+netmask 255.255.255.0
+gateway 192.168.1.1
+dns-nameservers 4.2.2.4
 ```
 
 ### `ip` 
 Recent distors are mostly using the `ip` command. This command can do lots of things including and not limited to showing and configuring the IP addresses, netmasks, default gateways & routing rules.
 
 ```
-some usage examples
+ip addr add 172.19.1.10/24 dev eth2 # temporary adding an IP
+ip addr show eth2
+ip addr del 172.19.1.10/24 dev eth2 # deleting an IP address
+ip link set eth2 up # brining a NIC up
+ip route show
+ip route add default via 192.168.1.1 # add default gateway
 ```
+Please note that above commands do temporary changes which will be lost after restarting the `NetworkManager` service. If you need permanent changes, it should be done using the configuration files or Network Manager interfaces. 
 
 ### NetworkManager & `ncmli`
 In recent years, `NetworkManager` services has gained a lot of popularity. This service can "watch" the status of network and various configuration and configure the network cards (specially the wifi ones) accordingly. This is what makes our laptop connected whenever we open it in an area with a known WiFi or ask about the password if we want to connect to a new network or assign IP addresses as soon as we connect the cable to our Ethernet card. This IP assignment might happen via the "permanent IP configuration" on your device or a protocol called DHCP. When using DHCP (Dynamic Host Configuration Protocol), your computer asks a DHCP server (say your home's wifi router) about the IP, Netmask, Default gateway, DNS and other stuff and sets them. 
@@ -158,15 +200,56 @@ We always call the `nmcli` with one of it various commands, here is a list:
 | ------- | ----- |
 | general | NetworkManager’s general status and operations. |
 | networking | Overall networking control. | 
+| radio |            NetworkManager radio switches. |
+| connection | Controlling the connection |
+| device | Devices controlled by NetworkManager |
+| agent | secret or polkit agent |
+| monitor | Montor the changes |
 
-### Textual Names for Computers
+for example we can check the current status with the `general` command:
+
+```
+➜  ~ nmcli general
+STATE      CONNECTIVITY  WIFI-HW  WIFI     WWAN-HW  WWAN    
+connected  full          enabled  enabled  missing  enabled
+```
+                
+Or if you want to check the devices or list of wifi connections:
+
+```
+➜  ~ nmcli device          
+DEVICE            TYPE      STATE                   CONNECTION          
+wlp108s0          wifi      connected               Sharm Bar Sansoor 5 
+docker0           bridge    connected (externally)  docker0             
+lo                loopback  connected (externally)  lo                  
+p2p-dev-wlp108s0  wifi-p2p  disconnected            --                  
+➜  ~ nmcli device wifi     
+IN-USE  BSSID              SSID                 MODE   CHAN  RATE        SIGNAL  BARS  SECURITY  
+        6C:AD:EF:38:13:38  AxLTE                Infra  3     270 Mbit/s  84      ▂▄▆█  WPA2      
+        00:E0:4C:93:1D:B8  Lanat Be Sansoorchi  Infra  6     130 Mbit/s  59      ▂▄▆_  WPA2      
+*       24:F5:A2:42:DE:CE  Sharm Bar Sansoor 5  Infra  36    540 Mbit/s  47      ▂▄__  WPA2      
+        30:A2:20:DD:8B:54  AvinaAmin            Infra  7     270 Mbit/s  29      ▂___  WPA1 WPA2 
+        30:85:A9:8C:71:2C  bahram               Infra  11    65 Mbit/s   29      ▂___  WPA2
+```
+
+To connect to a wifi network youc an do:
+
+```
+nmcli device wifi connect AxLTE password AFunkyPassword 
+```
+### Fancy Names for Computers
 
 #### hostname
 Remembering IP addresses are easy for robots but not for humans. Thats why we have "hostname"s. A hostname is a like a contact list where you just tell "call Jadi" and the system known my phone number. If you check your `/etc/hostname`, you will see your machines name there. Although you can change it temporary (or permanently). The command is `hostnamectl`. 
 
 ```
-# hostnamectl set-hostname mycoolmachine
-# at /etc/hostname
+[funlap ~]# hostnamectl set-hostname mycoolmachine
+[funlap ~]# hostname
+mycoolmachine
+[funlap ~]# cat /etc/hostname 
+mycoolmachine
+[funlap ~]# bash
+[mycoolmachine ~]# 
 ```
 
 Or you can change it as *transient*, which is a temporary change using the `--transient` switch.
@@ -174,15 +257,47 @@ Or you can change it as *transient*, which is a temporary change using the `--tr
 It is also possible to define a "pretty" name for your computer so other systems might show it in their interfaces more nicely:
 
 ```
-# hostnamectl --pretty set-hostname "LAN Shared Storage"
-# hostnamectl status
+[mycoolmachine ~]# hostnamectl --pretty set-hostname "LAN Shared Storage"
+[mycoolmachine ~]# hostnamectl status
+ Static hostname: mycoolmachine
+ Pretty hostname: LAN Shared Storage
+       Icon name: computer-convertible
+         Chassis: convertible
+      Machine ID: 0b126c4b6f4347168140eaa6202ce8be
+         Boot ID: 675eff37f42648c6bdea31177596557f
+Operating System: Manjaro Linux                   
+          Kernel: Linux 6.1.38-1-MANJARO
+    Architecture: x86-64
+ Hardware Vendor: Dell Inc.
+  Hardware Model: Latitude 7390 2-in-1
+Firmware Version: 1.30.0
 ```
 
 #### /etc/hosts
 This file contains a list of IPs and their corresponding names, including your own computers. 
 
 ```
-etc hosts
+[mycoolmachine ~]# head -20 /etc/hosts
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1	localhost funlife db
+255.255.255.255	broadcasthost
+::1             localhost
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+
+198.74.56.50 jobs.jadi.net
+192.168.1.22 amoledtesting 
+
+67.217.170.72 vps
 ```
 
 So when you need to reach a machine by its name, your OS will now which IP to reach. 
@@ -203,153 +318,7 @@ Here I'm telling my computer to contact the DNS on my home network (192.168.1.1)
 
 The `domain` configuration sets a local domain name so the machines in this domain will be able to use a short name (tv, instead of tv.jadi.net) and the `search` config does kind the same and tells the resolver to search for `tv.jadi.net` and `tv.company.com` if it was trying to resolve `tv`.
 
-#### Network Gateways
-
-A computer normaly can see all of the computers in its own subnet / netmask. But what happens when you send a packet to a computer _outside_ of your own network? In this case your computer delivers that packet to an address called **network gateway**. The **gateway** device can **route** the packets between different networks. It has more than 1 interface and is connected to different networks so working like a post office, it can hand over your packets to another network and after several handovers, your packet will reach its destination.
-
-In your network configurations, there is a **default gateway**. That is the address which is used as a **gateway** when your computer tries to reach a computer outside its network.
-
-#### network configuration files
-
-**Redhat based systems**
-
-Unfortunately Debian based and Redhat based systems use different locations for their nework configuration files. On Redhat, CentOS, Fedora, ... the fiels are located at `/etc/sysconfig/network-scripts/`. A sample is as below:
-
-```text
-$ cat /etc/sysconfig/network-scripts/ifcfg-eth0
-DEVICE=eth0
-ONBOOT=yes
-TYPE=Ethernet
-IPADDR=192.168.1.10
-NETMASK=255.255.255.0
-DNS1=4.2.2.4
-```
-
-On these systems, the default gateway is configured via the below file:
-
-```text
-cat /etc/sysconfig/network
-NETWORKING=yes
-HOSTNAME=lpictest
-GATEWAY=192.168.1.1
-```
-
-**Debian based systems**
-
-On Debian based systems \(including Ubuntu\) the main configuration file for network interfaces is `/etc/network/interfaces`. This one file has the configuration for all of the interfaces. Have a look:
-
-```text
-auto lo
-iface lo inte loopback
-
-auto eth0
-#ifconfig eth0 inet dhcp
-iface eth0 inet static
-address 192.168.1.10
-netmask 255.255.255.0
-gateway 192.168.1.1
-dns-nameservers 4.2.2.4
-```
-
-> ifdown and ifup will use these config files
-
-#### DNS config file
-
-As you saw, we were able to set the DNS configuration in network interface config files. But this is not the only way. There is another file which contains this data: `/etc/resolv.conf`.
-
-```text
-$ cat /etc/resolv.conf
-# Generated by resolvconf
-nameserver 192.168.1.1
-```
-
-if you want to change your DNS on the fly, you can edit this file but it will be lost after reboot or ifdown and ifup.
-
-#### hostname
-
-There is another text file which shows or sets the hostname. That is `/etc/hostname`.
-
-```text
-$ cat /etc/hostname
-funlife
-```
-
-#### hosts
-
-The `/etc/hosts` file contains server names and their IPs. It is just like what DNS does but has a higher priority than DNS. If you add something like
-
-```text
-4.2.2.4 funnyip
-```
-
-there and `ping funnyip` your computer will start pinging 4.2.2.4 without quering any DNS server.
-
-> there is an entry on /etc/hosts for your machine. If you are changing the /etc/hostname it is important to add that name to your /etc/hosts line containing 127.0.0.1 too.
-
-#### route
-
-The `route` command can show or change the routing system. As you saw on **default gateway** section, routing is responsible to send your packets to their correct destination. For checking the current route you can issue
-
-```text
-$ route
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-default         gateway         0.0.0.0         UG    600    0        0 wlp3s0
-192.168.1.0     *               255.255.255.0   U     600    0        0 wlp3s0
-```
-
-and for temporary adding a default route, youc an do:
-
-```text
-route add default gw 192.168.1.1
-```
-
-#### ip
-
-The `ip` command is the new tool for configuring the networking interfaces. You can do many things using it. the `addr show` will show you the current interfaces and their configurations:
-
-```text
-$ ip addr show
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host
-       valid_lft forever preferred_lft forever
-2: wlp3s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
-    link/ether 8c:a9:82:7b:89:06 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.1.35/24 brd 192.168.1.255 scope global dynamic wlp3s0
-       valid_lft 254572sec preferred_lft 254572sec
-    inet6 fe80::8ea9:82ff:fe7b:8906/64 scope link
-       valid_lft forever preferred_lft forever
-3: enp0s25: <BROADCAST,MULTICAST> mtu 1500 qdisc fq_codel state DOWN group default qlen 1000
-    link/ether f0:de:f1:62:c5:73 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.42.42/24 brd 192.168.42.255 scope global enp0s25
-       valid_lft forever preferred_lft forever
-```
-
-#### ping
-
-`ping` is the most straight forward network troubleshooting command. You can check your connection with any server using it. Lets see if my computer sees 4.2.2.4:
-
-```text
-$ ping 4.2.2.4
-PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.
-64 bytes from 4.2.2.4: icmp_seq=1 ttl=52 time=103 ms
-64 bytes from 4.2.2.4: icmp_seq=2 ttl=52 time=101 ms
-64 bytes from 4.2.2.4: icmp_seq=3 ttl=52 time=103 ms
-64 bytes from 4.2.2.4: icmp_seq=4 ttl=52 time=102 ms
-64 bytes from 4.2.2.4: icmp_seq=5 ttl=52 time=101 ms
-64 bytes from 4.2.2.4: icmp_seq=6 ttl=52 time=108 ms
-^C
---- 4.2.2.4 ping statistics ---
-6 packets transmitted, 6 received, 0% packet loss, time 5007ms
-rtt min/avg/max/mdev = 101.465/103.608/108.219/2.263 ms
-```
-
-I issued the command, waited for 6 packets, each of them returned back after 103ms, 101ms, ... and then I used Ctrl+c to break the ping. The stats tell me that 6 packets transmitted, 6 received, 0% packet loss; my network works great!
-
-### nsswitch
+#### nsswitch
 
 The `/etc/nsswitch.conf` file is used to configure which services are to be used to determine information such as hostnames, password files, and group files. Mine is
 
@@ -383,4 +352,6 @@ hosts:      dns files
 ```
 
 any resolve request will be sent to a DNS server first and the /etc/hosts will be used _only_ if the DNS servers answeres "I dont know!"
+
+
 
