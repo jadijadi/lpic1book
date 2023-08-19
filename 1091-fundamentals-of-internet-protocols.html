@@ -105,6 +105,8 @@
 <li>Subnetting</li>
 <li>TCP, UDP, ICMP</li>
 </ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_QD4413ezWs" title="LPIC1 - 068 - 109.1 (1/3) - Networking Fundamentals; A look at IP Networking and its Basics" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <h3>TCP/IP</h3>
 <p>The <em>Transmission Control Protocol/Internet Protocol</em> (or TCP/IP in short) is stack or protocols which powers the most of communications on the Internet (and many other networks). Although it is generally called TCP, it also includes UDP, ICMP, DNS and many others. </p>
 <h3>IP</h3>
@@ -149,7 +151,7 @@
 </tbody>
 </table>
 <p>Normally if you are creating a server on your service provider, that service provider will give you an IP address purchased from IANA (via smaller regional registries). But what happens if you want to assign an IP to your laptop or mobile phone of tablet <em>inside</em> your home? These devices are not visible directly on the Internet and you are not going to purchase IPs for them.</p>
-<p>Here enters the <em>Private IP Address</em> ranges. The below ranges are called "private" addresses and anyone can assign them to any device they want, as long as they are not visible on the open internet.</p>
+<p>Here the <em>Private IP Address</em> ranges come to play. The below ranges are called "private" addresses and anyone can assign them to any device they want, as long as they are not visible on the open internet.</p>
 <table>
 <thead>
 <tr>
@@ -198,6 +200,8 @@
 </code></pre></div>
 
 <p>In the middle you can see a <code>Network Address Translation</code> or <code>NAT</code> device. It is connected to the Internet using only one public IP (It might be 87.3.91.4). On the left side of the NAT box, there are 4 devices with Private IPs. Each time any of these devices targets an address on the Internet (a public IP), the NAT device will use its own public IP to request that IP and when the answer is ready, will provide it to the <em>Natted</em> device - the device behind the NAT. This way we can create huge networks behind a NAT device. In this scenario, all the devices can reach the Internet but no-one from the Internet can directly reach any of them, directly; Unless we've configured an DMZ. </p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/A3SIx41ivBk" title="LPIC1 - 069 - 109.1 (2/3) - Networking Fundamentals; IP Subnetting. Netmasks &amp; CIDR notation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <h4>Subnetting (and Netmask)</h4>
 <p>OK! We have around 4B addresses in IPv4. But what happens if I send a packet to another IP? Say I try to print a document on the <em>local</em> printer using its private IP as you learned in previous section? Who should listen for this packet? Does the whole Internet passes it hand to hand? Obviously not! Only my <em>local</em> network should be able to receive that packet and in this specific case, only they printer should receive it on its local IP.</p>
 <p>This is achieved by subnetting. The purpose of subnetting is to create <em>sub</em>-<em>networks</em> in your IP address range. You have already seen this times and times when talking about your Netmask (the 255.255.255.0 is a famous one) or its CIDR notation which is <code>/24</code>. Lets have a deeper look.</p>
@@ -206,11 +210,11 @@
 </blockquote>
 <p>When speaking about networks, you have to decide on </p>
 <ol>
-<li>how many bits of my IP address is going to be shared between all my devices (network)</li>
+<li>How many bits of my IP address is going to be shared between all my devices (network)</li>
 <li>How many bits of my IP address is going to differentiate my devices in this network (hosts)</li>
 </ol>
-<p>For example if you assign the <code>192.168.1.1</code> to your router and set the Netmask on <code>\24</code>, you are claiming 24 (left hand bits) of <code>192.168.1.1</code> as your Network (so <code>192.168.1.</code> because 245 = 8 * 3) and 8 bits as your Host (last octet). In this network you can assign these IPs to your devices:  <code>192.168.1.10</code>,  <code>192.168.1.2</code>,  <code>192.168.1.200</code> and they will see each other correctly. </p>
-<p>There are 2 methods to talk about Netmask bits. The CIDR (\24) method and Decimal Netmask (255.255.255.0) method. In CIDR we are saying how many bits are 1 (and thud the network section of an IP address) and in Decimal method, we are representing these 1 bits in an IP address format. Have a look at the following table:</p>
+<p>For example if you assign the <code>192.168.1.1</code> to your router and set the Netmask on <code>/24</code>, you are claiming 24 (left hand bits) of <code>192.168.1.1</code> as your Network (so <code>192.168.1.</code> because 245 = 8 * 3) and 8 bits as your Host (last octet). In this network you can assign these IPs to your devices:  <code>192.168.1.10</code>,  <code>192.168.1.2</code>,  <code>192.168.1.200</code> and they will see each other correctly. </p>
+<p>There are 2 methods to talk about Netmask bits. The CIDR <code>/24</code> method and Decimal Netmask (255.255.255.0) method. In CIDR we are saying how many bits are 1 (the network section of an IP address) and in Decimal method, we are representing these 1 bits in an IP address format. Have a look at the following table:</p>
 <table>
 <thead>
 <tr>
@@ -247,7 +251,7 @@
 <h3>Network and Broadcast Address</h3>
 <p>When having the IP address and the Network Mask, we can calculate the network address and the broadcast address. </p>
 <p>The network address is a Logical AND between the IP address and the networkmask. The broadcast address is the network address with a Logical OR when all the host bits are changed to 1. </p>
-<p>Confusing... yes. Because talking about maths is difficult. Say we have the <code>192.168.4.12</code> as our IP Address and our CID is /24 (that is 255.255.255.0). Lets calculate the network and broadcast addresses.</p>
+<p>Confusing... yes. Because talking about maths is difficult. Say we have the <code>192.168.4.12</code> as our IP Address and our CIDR is /24 (that is 255.255.255.0). Lets calculate the network and broadcast addresses. <code>ipcalc</code> a useful utility you can use.</p>
 <div class="highlight"><pre><span></span><code><span class="n">IP</span><span class="o">:</span><span class="w">        </span><span class="mf">11000000.10101000</span><span class="o">.</span><span class="mf">00000100.00001100</span><span class="w"> </span><span class="o">(</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">4.12</span><span class="o">)</span>
 <span class="n">Netmask</span><span class="o">:</span><span class="w">   </span><span class="mf">11111111.11111111</span><span class="o">.</span><span class="mf">11111111.00000000</span><span class="w"> </span><span class="o">(</span><span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span><span class="o">)</span>
 <span class="n">Network</span><span class="o">:</span><span class="w">   </span><span class="mf">11000000.10101000</span><span class="o">.</span><span class="mf">00000100.00000000</span><span class="w"> </span><span class="o">(</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">4.0</span><span class="o">)</span>
@@ -255,7 +259,7 @@
 </code></pre></div>
 
 <h3>Binary to Decimal Conversion</h3>
-<p>You are probably familiar with binary base - it is the basis of anything related to computers. If not I highly recommend you to do a google search and study if from another source since this book assumes you already know it. In short when writing numbers on binary format (base 2), the only used digits are 0 and 1. An easy way for conversion is using the following table to convert 0 and 1s to our <em>normal</em> decimal format. Its enough to know the value of each bit and add up the ones having 1 in them.</p>
+<p>You are probably familiar with binary base - it is the basis of anything related to computers. If not I highly recommend you to do a google search and study it from another source since this book assumes you already know it. In short when writing numbers on binary format (base 2), the only used digits are 0 and 1. An easy way for conversion is using the following table to convert 0 and 1s to our <em>normal</em> decimal format. Its enough to know the value of each bit and add up the ones having 1 in them.</p>
 <table>
 <thead>
 <tr>
@@ -351,6 +355,8 @@
 </tbody>
 </table>
 <p>So <code>11000000.10101000.00000001.00001111</code> equals to <code>192.168.1.15</code>.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rUQe5ezhmRE" title="LPIC1 - 070 - 109.1 (3/3) - Networking Fundamentals; TCP/IP Protocols, Ports and TCP vs UDP vs ICMP" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <h3>Communication Protocols</h3>
 <p>When computers communicate, they use Protocols. This protocols are designed to let computers speak in different ways for fulfilling different needs. Here we will have a look at three of the most popular protocols on the Internet: TCP / UDP / ICMP.</p>
 <h4>TCP</h4>
@@ -374,7 +380,9 @@ B- ...
 <p><img alt="tcp flow diagram" src="/images/tcpflow.gif"></p>
 <p>As you can see, TCP needs a lot of communications and spends time (or even retransmits data) to make sure that the receiver is getting the exact correct data available on the server. Strangely in some cases this is not what we are looking for. If you are watching a movie or having a phone call or enjoying a game stream, you prefer to continue watching live in case of a 1s issue in your network. Thats why we also have the UDP. </p>
 <h4>UDP</h4>
-<p>You are video-chatting with a friend and network fluctuates. What is a better choice? A) retransmitting the missing packets and/or reestablishing the connection and continue the whole conversation with a 2s delay or B) just show the newer packets we got and continue the live vide-conference and just forget about that 2 second fluctuation (missed data)? If your choice is B, it is better if you use UDP (User Datagram Protocol) for your chat program. UDP is less reliable: the sender sends packets without communicating much and hearing back from the receiver and receiver listens for packets without negotiating the exact details with the sender. It is much faster than TCP but you can not be sure that 100% of packets will be received by the B party.</p>
+<p>You are video-chatting with a friend and network fluctuates. What is a better choice? </br>
+A) retransmitting the missing packets and/or reestablishing the connection and continue the whole conversation with a 2s delay or ... </br> 
+B) just show the newer packets we got and continue the live vide-conference and just forget about that 2 second fluctuation (missed data)? If your choice is B, it is better if you use UDP (User Datagram Protocol) for your chat program. UDP is less reliable: the sender sends packets without communicating much and hearing back from the receiver and receiver listens for packets without negotiating the exact details with the sender. It is much faster than TCP but you can not be sure that 100% of packets will be received by the B party.</p>
 <h4>ICMP</h4>
 <p>Internet Control Messaging Protocol or ICMP is a specific purpose protocol used to check the connectivity of the servers by the <code>ping</code> command. The first computer just tells "are you there?" and the second will answer "yes I'm here". Have a look at this practical example:</p>
 <div class="highlight"><pre><span></span><code>[jadi@funlife ~]$ ping google.com
@@ -397,78 +405,78 @@ rtt min/avg/max/mdev = 236.707/238.174/239.642/1.546 ms
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">port</th>
-<th style="text-align: left;">usage</th>
+<th style="text-align: center;">port</th>
+<th style="text-align: center;">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">20, 21</td>
-<td style="text-align: left;">FTP (one data, one control)</td>
+<td style="text-align: center;">20, 21</td>
+<td style="text-align: center;">FTP (one data, one control)</td>
 </tr>
 <tr>
-<td style="text-align: left;">22</td>
-<td style="text-align: left;">SSH</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">SSH</td>
 </tr>
 <tr>
-<td style="text-align: left;">23</td>
-<td style="text-align: left;">Telnet</td>
+<td style="text-align: center;">23</td>
+<td style="text-align: center;">Telnet</td>
 </tr>
 <tr>
-<td style="text-align: left;">25</td>
-<td style="text-align: left;">SMTP</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">SMTP</td>
 </tr>
 <tr>
-<td style="text-align: left;">53</td>
-<td style="text-align: left;">DNS</td>
+<td style="text-align: center;">53</td>
+<td style="text-align: center;">DNS</td>
 </tr>
 <tr>
-<td style="text-align: left;">80</td>
-<td style="text-align: left;">HTTP</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">HTTP</td>
 </tr>
 <tr>
-<td style="text-align: left;">110</td>
-<td style="text-align: left;">POP3</td>
+<td style="text-align: center;">110</td>
+<td style="text-align: center;">POP3</td>
 </tr>
 <tr>
-<td style="text-align: left;">123</td>
-<td style="text-align: left;">NTP</td>
+<td style="text-align: center;">123</td>
+<td style="text-align: center;">NTP</td>
 </tr>
 <tr>
-<td style="text-align: left;">139</td>
-<td style="text-align: left;">NetBIOS</td>
+<td style="text-align: center;">139</td>
+<td style="text-align: center;">NetBIOS</td>
 </tr>
 <tr>
-<td style="text-align: left;">143</td>
-<td style="text-align: left;">IMAP</td>
+<td style="text-align: center;">143</td>
+<td style="text-align: center;">IMAP</td>
 </tr>
 <tr>
-<td style="text-align: left;">161, 162</td>
-<td style="text-align: left;">SNMP</td>
+<td style="text-align: center;">161, 162</td>
+<td style="text-align: center;">SNMP</td>
 </tr>
 <tr>
-<td style="text-align: left;">389</td>
-<td style="text-align: left;">LDAP</td>
+<td style="text-align: center;">389</td>
+<td style="text-align: center;">LDAP</td>
 </tr>
 <tr>
-<td style="text-align: left;">443</td>
-<td style="text-align: left;">HTTPS</td>
+<td style="text-align: center;">443</td>
+<td style="text-align: center;">HTTPS</td>
 </tr>
 <tr>
-<td style="text-align: left;">465</td>
-<td style="text-align: left;">SMTPS</td>
+<td style="text-align: center;">465</td>
+<td style="text-align: center;">SMTPS</td>
 </tr>
 <tr>
-<td style="text-align: left;">636</td>
-<td style="text-align: left;">LDAPS</td>
+<td style="text-align: center;">636</td>
+<td style="text-align: center;">LDAPS</td>
 </tr>
 <tr>
-<td style="text-align: left;">993</td>
-<td style="text-align: left;">IMAPS</td>
+<td style="text-align: center;">993</td>
+<td style="text-align: center;">IMAPS</td>
 </tr>
 <tr>
-<td style="text-align: left;">995</td>
-<td style="text-align: left;">POP3S</td>
+<td style="text-align: center;">995</td>
+<td style="text-align: center;">POP3S</td>
 </tr>
 </tbody>
 </table>

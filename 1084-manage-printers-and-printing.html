@@ -102,6 +102,8 @@
 <li><code>/etc/cups/</code></li>
 <li>lpd legacy interface (lpr, lprm, lpq)</li>
 </ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8I9J0gsLe-U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <h2>CUPS</h2>
 <p>Most Linux distributions use the CUPS package for printing. You may need to install it via your package manager and start its service using the systemd or the init system your system use.</p>
 <div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">cups</span>
@@ -171,9 +173,9 @@
 <p>To access the CUPS services, there are different ways, including a web based interface, GUI programs on the graphical modes and even command line tools. CUPS is designed to be simple and able to use different printers from various vendors.</p>
 <h3>configuration files</h3>
 <p>As most other linux program, CUPS saves its configuration at <code>/etc</code> directory.</p>
-<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="nx">ls</span><span class="w"> </span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">cups</span><span class="o">/</span>
-<span class="nx">cups</span><span class="o">-</span><span class="nx">browsed</span><span class="p">.</span><span class="nx">conf</span><span class="w">  </span><span class="nx">cups</span><span class="o">-</span><span class="nx">files</span><span class="p">.</span><span class="nx">conf</span><span class="w">  </span><span class="nx">ppd</span><span class="w">        </span><span class="nx">raw</span><span class="p">.</span><span class="nx">convs</span><span class="w">  </span><span class="nx">snmp</span><span class="p">.</span><span class="nx">conf</span><span class="w">  </span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">conf</span>
-<span class="nx">cupsd</span><span class="p">.</span><span class="nx">conf</span><span class="w">     </span><span class="nx">interfaces</span><span class="w">       </span><span class="nx">printers</span><span class="p">.</span><span class="nx">conf</span><span class="w">  </span><span class="nx">raw</span><span class="p">.</span><span class="nx">types</span><span class="w">  </span><span class="nx">ssl</span><span class="w">    </span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">conf</span><span class="p">.</span><span class="nx">O</span>
+<div class="highlight"><pre><span></span><code># ls /etc/cups/
+cups-browsed.conf  cups-files.conf  ppd        raw.convs  snmp.conf  subscriptions.conf
+cupsd.conf     interfaces       printers.conf  raw.types  ssl    subscriptions.conf.O
 </code></pre></div>
 
 <p>The main configuration file is the <code>cupsd.conf</code>. Have a look at it; it is very easy to understand. For example the <code>Listen localhost:631</code> line tells the CUPS to listen on localhost port 631. Here is a sample:</p>
