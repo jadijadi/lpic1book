@@ -55,7 +55,7 @@ none              tmpfs     100M   28K  100M   1% /run/user
 
 Here, the `-T` switch tells `df` to show the file system types and \`-H\` make numbers human readable (in powers of 1000 , for powers of 2, use `-h`).
 
-On some filesystems (like ext2-4) we have a fixed number of inoes, so you may need to check the number of remaining inodes too. To do so, use the `-i` switch:
+On some filesystems (like ext2-4) we have a fixed number of inodes, so you may need to check the number of remaining inodes too. To do so, use the `-i` switch:
 
 ```text
 jadi@funlife:~$ df -i
