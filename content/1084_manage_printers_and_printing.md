@@ -73,7 +73,7 @@ Do you want to continue? [Y/n]
 ...
 ```
 
-CUPS stands for Common Unix Printing System and as you can see, it install many related packages and even suggests some more. This is because CUPS need lots of information about different printers and uses many tools to print. When installed, you need to start the service:
+CUPS stands for Common Unix Printing System and as you can see, it installs many related packages and even suggests some more. This is because CUPS need lots of information about different printers and uses many tools to print. When installed, you need to start the service:
 
 ```
 $ sudo systemctl start cups.service
@@ -108,7 +108,7 @@ cups-browsed.conf  cups-files.conf  ppd		   raw.convs  snmp.conf  subscriptions.
 cupsd.conf	   interfaces	    printers.conf  raw.types  ssl	 subscriptions.conf.O
 ```
 
-The main configuration file is the `cupsd.conf`. Have a look at it; it is very easy to understand. For example the `Listen localhost:631` line tells the CUPS to listen on localhost port 631. Here is a sample:
+The main configuration file is the `cupsd.conf`. Take a look at it; it is very easy to understand. For example the `Listen localhost:631` line tells the CUPS to listen on localhost port 631. Here is a sample:
 
 ```
 $ cat /etc/cups/cupsd.conf
@@ -571,7 +571,7 @@ To enable CUPS's web interface, you have to enable the following configuration i
 WebInterface Yes
 ```
 
-Then you will have access to the GUI via port **631**. So it will be enough to access the **localhost:631** or **127.0.0.1:631** (or the servers **IP** address on port **631**) from your browser.
+Then you will have access to the GUI via port **631**. So it will be enough to access the **localhost:631** or **127.0.0.1:631** (or the server's **IP** address on port **631**) from your browser.
 
 ![CUPS web interface on port 631](/images/cups_we_interface.png)
 
@@ -583,7 +583,7 @@ There are some of the important sections on the above page:
 | Jobs | Checking the active, pending & completed jobs |  
 | Printers | List or search in the installed printers |
 
-By default, system users can view printers and queued jobs but changes (like adding printers) will need more access. This is configured at the bottom part of `cupsd.conf` file. For example the below configuration provides `CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Set-Defaul` access to anyone in `@printer_admin` group.
+By default, system users can view printers and queued jobs ,but changes (like adding printers) will need more access. This is configured at the bottom part of `cupsd.conf` file. For example, the below configuration provides `CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Set-Defaul` access to anyone in `@printer_admin` group.
 
 ```
   <Limit CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Set-Default>
@@ -598,7 +598,7 @@ By default, system users can view printers and queued jobs but changes (like add
 
 ### legacy tools
 
-Just like the [MTA](//1083-mail-transfer-agent-mta-basics.html) programs, CUPS support all the legacy command line programs too. These used to be printing commands int he BSD world so you may need to install the `cups-bsd` package to let them work under your CUPS environment. Table below lists the BSD printing compatibility commands:
+Just like the [MTA](//1083-mail-transfer-agent-mta-basics.html) programs, CUPS support all the legacy command line programs too. These used to be printing commands in the BSD world so you may need to install the `cups-bsd` package to let them work under your CUPS environment. The table below lists the BSD printing compatibility commands:
 
 | command | usage |
 | :--- | :--- |
@@ -658,7 +658,7 @@ active  jadi    1       Untitled Document 1             7168 bytes
 
 > Only root can remove other peoples print jobs
 
-If you need to remove ALL the jobs of a specific printer, you can go with `-Pprinter_name -`. Yes! that is only one dash \(`-`\) after the printer name; that's why this is called a legacy command.
+If you need to remove ALL the jobs of a specific printer, you can go with `-Pprinter_name -`. Yes! That is only one dash \(`-`\) after the printer name; that's why this is called a legacy command.
 
 > the `lprm -` will remove all the print jobs
 
@@ -676,7 +676,7 @@ Apple-Dot-Matrix:
     daemon present
 ```
 
-In the above respose,
+In the above response,
 
 * **queuing is enabled** tell us that the queue can accept new print jobs. If the queue is disabled, you can not even send new jobs to the printer.
 * **printing is enabled** means that the printer is actually can print on the paper. This will be on the disable state if the printer is out of ink or paper or experiencing a paper jam.
@@ -690,7 +690,7 @@ If you are having problems with your printer or need to prevent it from acceptin
 | cupsenable | enables the actual/physical printing of the jobs |
 | cupsdisable | disables the physical printing of the jobs |
 
-> In all cases you have to provide the printer name of the printer. it is also possible to provide a reason using `-r` switch.
+> In all cases, you have to provide the printer name of the printer. It is also possible to provide a reason using `-r` switch.
 
 ```
 $ cupsdisable Apple-Dot-Matrix -r "need more paper"
