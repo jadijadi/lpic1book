@@ -173,9 +173,9 @@
 <p>To access the CUPS services, there are different ways, including a web based interface, GUI programs on the graphical modes and even command line tools. CUPS is designed to be simple and able to use different printers from various vendors.</p>
 <h3>configuration files</h3>
 <p>As most other linux program, CUPS saves its configuration at <code>/etc</code> directory.</p>
-<div class="highlight"><pre><span></span><code># ls /etc/cups/
-cups-browsed.conf  cups-files.conf  ppd        raw.convs  snmp.conf  subscriptions.conf
-cupsd.conf     interfaces       printers.conf  raw.types  ssl    subscriptions.conf.O
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="nx">ls</span><span class="w"> </span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">cups</span><span class="o">/</span>
+<span class="nx">cups</span><span class="o">-</span><span class="nx">browsed</span><span class="p">.</span><span class="nx">conf</span><span class="w">  </span><span class="nx">cups</span><span class="o">-</span><span class="nx">files</span><span class="p">.</span><span class="nx">conf</span><span class="w">  </span><span class="nx">ppd</span><span class="w">        </span><span class="nx">raw</span><span class="p">.</span><span class="nx">convs</span><span class="w">  </span><span class="nx">snmp</span><span class="p">.</span><span class="nx">conf</span><span class="w">  </span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">conf</span>
+<span class="nx">cupsd</span><span class="p">.</span><span class="nx">conf</span><span class="w">     </span><span class="nx">interfaces</span><span class="w">       </span><span class="nx">printers</span><span class="p">.</span><span class="nx">conf</span><span class="w">  </span><span class="nx">raw</span><span class="p">.</span><span class="nx">types</span><span class="w">  </span><span class="nx">ssl</span><span class="w">    </span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">conf</span><span class="p">.</span><span class="nx">O</span>
 </code></pre></div>
 
 <p>The main configuration file is the <code>cupsd.conf</code>. Have a look at it; it is very easy to understand. For example the <code>Listen localhost:631</code> line tells the CUPS to listen on localhost port 631. Here is a sample:</p>
@@ -674,26 +674,26 @@ ErrorPolicy<span class="w"> </span>retry-job
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">command</th>
-<th style="text-align: left;">usage</th>
+<th align="left">command</th>
+<th align="left">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">lpr</td>
-<td style="text-align: left;">print a file</td>
+<td align="left">lpr</td>
+<td align="left">print a file</td>
 </tr>
 <tr>
-<td style="text-align: left;">lpq</td>
-<td style="text-align: left;">show print queue/jobs</td>
+<td align="left">lpq</td>
+<td align="left">show print queue/jobs</td>
 </tr>
 <tr>
-<td style="text-align: left;">lprm</td>
-<td style="text-align: left;">rm/remove a file from priner queue</td>
+<td align="left">lprm</td>
+<td align="left">rm/remove a file from priner queue</td>
 </tr>
 <tr>
-<td style="text-align: left;">lpc</td>
-<td style="text-align: left;">printer control / troubleshooting program</td>
+<td align="left">lpc</td>
+<td align="left">printer control / troubleshooting program</td>
 </tr>
 </tbody>
 </table>
@@ -766,26 +766,26 @@ Apple-Dot-Matrix:
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">command</th>
-<th style="text-align: left;">usage</th>
+<th align="left">command</th>
+<th align="left">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">cupsaccept</td>
-<td style="text-align: left;">tells the printer queue to accept new jobs</td>
+<td align="left">cupsaccept</td>
+<td align="left">tells the printer queue to accept new jobs</td>
 </tr>
 <tr>
-<td style="text-align: left;">cupsreject</td>
-<td style="text-align: left;">tells the printer to reject any new job</td>
+<td align="left">cupsreject</td>
+<td align="left">tells the printer to reject any new job</td>
 </tr>
 <tr>
-<td style="text-align: left;">cupsenable</td>
-<td style="text-align: left;">enables the actual/physical printing of the jobs</td>
+<td align="left">cupsenable</td>
+<td align="left">enables the actual/physical printing of the jobs</td>
 </tr>
 <tr>
-<td style="text-align: left;">cupsdisable</td>
-<td style="text-align: left;">disables the physical printing of the jobs</td>
+<td align="left">cupsdisable</td>
+<td align="left">disables the physical printing of the jobs</td>
 </tr>
 </tbody>
 </table>
