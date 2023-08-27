@@ -6,7 +6,6 @@ Authors: Jadi
 sortorder: 410
 Summary: 
 
-## 109.2 Persistent network configuration
 
 _Weight: 4_
 
@@ -189,7 +188,7 @@ ip route add default via 192.168.1.1 # add default gateway
 ```
 Please note that above commands do temporary changes which will be lost after restarting the `NetworkManager` service. If you need permanent changes, it should be done using the configuration files or Network Manager interfaces. 
 
-### NetworkManager & `ncmli`
+### NetworkManager & `nmcli`
 In recent years, `NetworkManager` services has gained a lot of popularity. This service can "watch" the status of network and various configuration and configure the network cards (specially the wifi ones) accordingly. This is what makes our laptop connected whenever we open it in an area with a known WiFi or ask about the password if we want to connect to a new network or assign IP addresses as soon as we connect the cable to our Ethernet card. This IP assignment might happen via the "permanent IP configuration" on your device or a protocol called DHCP. When using DHCP (Dynamic Host Configuration Protocol), your computer asks a DHCP server (say your home's wifi router) about the IP, Netmask, Default gateway, DNS and other stuff and sets them. 
 
 By default, NetworkManager  daemon controls the networks which are not mentioned in `/etc/network/interfaces`. This service is running in the background and controls the NICs which are not configured there. Various frontend GUI (graphical user interface) or TUI (textual user interface) or CLI (command line interfaces) programs exists to control or configure the NetworkManager daemon. If you are using a Desktop Linux, you've probably already used / know one (say the network manager applet). Here I will show you how to use the `nmcli` from the command line. 
