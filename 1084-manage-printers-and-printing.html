@@ -149,7 +149,7 @@
 <span class="p">...</span>
 </code></pre></div>
 
-<p>CUPS stands for Common Unix Printing System and as you can see, it install many related packages and even suggests some more. This is because CUPS need lots of information about different printers and uses many tools to print. When installed, you need to start the service:</p>
+<p>CUPS stands for Common Unix Printing System and as you can see, it installs many related packages and even suggests some more. This is because CUPS need lots of information about different printers and uses many tools to print. When installed, you need to start the service:</p>
 <div class="highlight"><pre><span></span><code><span class="o">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="n">cups</span><span class="o">.</span><span class="n">service</span>
 <span class="o">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="n">cups</span><span class="o">.</span><span class="n">service</span>
 <span class="err">●</span><span class="w"> </span><span class="n">cups</span><span class="o">.</span><span class="n">service</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">CUPS</span><span class="w"> </span><span class="n">Scheduler</span>
@@ -178,7 +178,7 @@
 <span class="nx">cupsd</span><span class="p">.</span><span class="nx">conf</span><span class="w">     </span><span class="nx">interfaces</span><span class="w">       </span><span class="nx">printers</span><span class="p">.</span><span class="nx">conf</span><span class="w">  </span><span class="nx">raw</span><span class="p">.</span><span class="nx">types</span><span class="w">  </span><span class="nx">ssl</span><span class="w">    </span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">conf</span><span class="p">.</span><span class="nx">O</span>
 </code></pre></div>
 
-<p>The main configuration file is the <code>cupsd.conf</code>. Have a look at it; it is very easy to understand. For example the <code>Listen localhost:631</code> line tells the CUPS to listen on localhost port 631. Here is a sample:</p>
+<p>The main configuration file is the <code>cupsd.conf</code>. Take a look at it; it is very easy to understand. For example the <code>Listen localhost:631</code> line tells the CUPS to listen on localhost port 631. Here is a sample:</p>
 <div class="highlight"><pre><span></span><code><span class="n">$</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cups</span><span class="o">/</span><span class="n">cupsd</span><span class="p">.</span><span class="n">conf</span>
 <span class="cp">#</span>
 <span class="cp"># Configuration file for the CUPS scheduler.  See &quot;man cupsd.conf&quot; for a</span>
@@ -633,7 +633,7 @@ ErrorPolicy<span class="w"> </span>retry-job
 <div class="highlight"><pre><span></span><code>WebInterface Yes
 </code></pre></div>
 
-<p>Then you will have access to the GUI via port <strong>631</strong>. So it will be enough to access the <strong>localhost:631</strong> or <strong>127.0.0.1:631</strong> (or the servers <strong>IP</strong> address on port <strong>631</strong>) from your browser.</p>
+<p>Then you will have access to the GUI via port <strong>631</strong>. So it will be enough to access the <strong>localhost:631</strong> or <strong>127.0.0.1:631</strong> (or the server's <strong>IP</strong> address on port <strong>631</strong>) from your browser.</p>
 <p><img alt="CUPS web interface on port 631" src="/images/cups_we_interface.png"></p>
 <p>There are some of the important sections on the above page:</p>
 <table>
@@ -658,7 +658,7 @@ ErrorPolicy<span class="w"> </span>retry-job
 </tr>
 </tbody>
 </table>
-<p>By default, system users can view printers and queued jobs but changes (like adding printers) will need more access. This is configured at the bottom part of <code>cupsd.conf</code> file. For example the below configuration provides <code>CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Set-Defaul</code> access to anyone in <code>@printer_admin</code> group.</p>
+<p>By default, system users can view printers and queued jobs ,but changes (like adding printers) will need more access. This is configured at the bottom part of <code>cupsd.conf</code> file. For example, the below configuration provides <code>CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Set-Defaul</code> access to anyone in <code>@printer_admin</code> group.</p>
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">&lt;Limit</span><span class="w"> </span><span class="err">CUPS-Add-Modify-Printer</span><span class="w"> </span><span class="err">CUPS-Delete-Printer</span><span class="w"> </span><span class="err">CUPS-Set-Default</span><span class="nt">&gt;</span>
 <span class="w">    </span>AuthType<span class="w"> </span>Default
 <span class="w">    </span>Require<span class="w"> </span>user<span class="w"> </span>@printer_admin
@@ -670,7 +670,7 @@ ErrorPolicy<span class="w"> </span>retry-job
 <p>CUPS has most of the common printer drivers installed. You just need to choose the printer from the dropdown menu to add it.</p>
 </blockquote>
 <h3>legacy tools</h3>
-<p>Just like the <a href="//1083-mail-transfer-agent-mta-basics.html">MTA</a> programs, CUPS support all the legacy command line programs too. These used to be printing commands int he BSD world so you may need to install the <code>cups-bsd</code> package to let them work under your CUPS environment. Table below lists the BSD printing compatibility commands:</p>
+<p>Just like the <a href="//1083-mail-transfer-agent-mta-basics.html">MTA</a> programs, CUPS support all the legacy command line programs too. These used to be printing commands in the BSD world so you may need to install the <code>cups-bsd</code> package to let them work under your CUPS environment. The table below lists the BSD printing compatibility commands:</p>
 <table>
 <thead>
 <tr>
@@ -742,7 +742,7 @@ active<span class="w">  </span>jadi<span class="w">    </span><span class="m">1<
 <blockquote>
 <p>Only root can remove other peoples print jobs</p>
 </blockquote>
-<p>If you need to remove ALL the jobs of a specific printer, you can go with <code>-Pprinter_name -</code>. Yes! that is only one dash (<code>-</code>) after the printer name; that's why this is called a legacy command.</p>
+<p>If you need to remove ALL the jobs of a specific printer, you can go with <code>-Pprinter_name -</code>. Yes! That is only one dash (<code>-</code>) after the printer name; that's why this is called a legacy command.</p>
 <blockquote>
 <p>the <code>lprm -</code> will remove all the print jobs</p>
 </blockquote>
@@ -757,7 +757,7 @@ Apple-Dot-Matrix:
     daemon present
 </code></pre></div>
 
-<p>In the above respose,</p>
+<p>In the above response,</p>
 <ul>
 <li><strong>queuing is enabled</strong> tell us that the queue can accept new print jobs. If the queue is disabled, you can not even send new jobs to the printer.</li>
 <li><strong>printing is enabled</strong> means that the printer is actually can print on the paper. This will be on the disable state if the printer is out of ink or paper or experiencing a paper jam.</li>
@@ -790,7 +790,7 @@ Apple-Dot-Matrix:
 </tbody>
 </table>
 <blockquote>
-<p>In all cases you have to provide the printer name of the printer. it is also possible to provide a reason using <code>-r</code> switch.</p>
+<p>In all cases, you have to provide the printer name of the printer. It is also possible to provide a reason using <code>-r</code> switch.</p>
 </blockquote>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>cupsdisable<span class="w"> </span>Apple-Dot-Matrix<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;need more paper&quot;</span>
 $<span class="w"> </span>lpc<span class="w"> </span>status

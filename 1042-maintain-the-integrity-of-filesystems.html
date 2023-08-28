@@ -131,7 +131,7 @@ none              tmpfs     100M   28K  100M   1% /run/user
 </code></pre></div>
 
 <p>Here, the <code>-T</code> switch tells <code>df</code> to show the file system types and `-H` make numbers human readable (in powers of 1000 , for powers of 2, use <code>-h</code>).</p>
-<p>On some filesystems (like ext2-4) we have a fixed number of inoes, so you may need to check the number of remaining inodes too. To do so, use the <code>-i</code> switch:</p>
+<p>On some filesystems (like ext2-4) we have a fixed number of inodes, so you may need to check the number of remaining inodes too. To do so, use the <code>-i</code> switch:</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife:~$ df -i
 Filesystem          Inodes  IUsed    IFree IUse% Mounted on
 /dev/sda2          1531904 458616  1073288   30% /

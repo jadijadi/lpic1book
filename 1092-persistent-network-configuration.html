@@ -97,21 +97,21 @@
 </ul>
 <h3>Terms and Utilities</h3>
 <ul>
-<li>/etc/hostname</li>
-<li>/etc/hosts</li>
-<li>/etc/nsswitch.conf</li>
-<li>/etc/resolv.conf</li>
-<li>nmcli</li>
-<li>hostnamectl</li>
-<li>ifup</li>
-<li>ifdown</li>
+<li><code>/etc/hostname</code></li>
+<li><code>/etc/hosts</code></li>
+<li><code>/etc/nsswitch.conf</code></li>
+<li><code>/etc/resolv.conf</code></li>
+<li><code>nmcli</code></li>
+<li><code>hostnamectl</code></li>
+<li><code>ifup</code></li>
+<li><code>ifdown</code></li>
 </ul>
 <h3>Intro</h3>
 <p>As we saw in the previous section, every PC, server, laptop, phone, .. should have an IP configuration (IP, Netmask, Default gateway, DNS, ..) to work properly in the network. This can be done in various ways. Some devices like laptops are changing their network all the time and should be able to keep up with the changes. Some servers remain in the same location (physical and network wise) all their life and should persist this configuration after restarts, outages, upgrade and HW changes.</p>
 <p>In this section we will see how this can be achieved in modern GNU/Linux systems.</p>
 <h3>Network Interface</h3>
 <p>The NIC (or Network Interface Card) is the physical network hardware in your computer. This can be the chip+antenna in your mobile phone or an Ethernet Card connected to a network cable on your PC.</p>
-<p>In older systems, these were called things like <code>eth0</code>, <code>eth1</code>, <code>eth2</code>, .. where 0, 1 &amp; 2 were decided by the kernel - mostly based on the order of loading the drivers. In recent Linux machines the NICs are called by <code>wlan0</code>, <code>eno1</code>, <code>ens1</code>, <code>enp3s2</code> and such. This is based on some more concrete data like being an <code>wireless</code> or <code>et</code>hernet, PCI (<code>ens</code>) or bus like (<code>enp</code>). </p>
+<p>In older systems, these were called things like <code>eth0</code>, <code>eth1</code>, <code>eth2</code>, ... where 0, 1 &amp; 2 were decided by the kernel - mostly based on the order of loading the drivers. In recent Linux machines the NICs are called by <code>wlan0</code>, <code>eno1</code>, <code>ens1</code>, <code>enp3s2</code> and such. This is based on some more concrete data like being an <code>wireless</code> or <code>ethernet</code>, PCI (<code>ens</code>) or bus like (<code>enp</code>). </p>
 <p>The <code>ip</code> command can show these:</p>
 <div class="highlight"><pre><span></span><code>➜<span class="w">  </span><span class="o">~</span><span class="w"> </span><span class="nv">ip</span><span class="w"> </span><span class="nv">link</span><span class="w"> </span><span class="k">show</span>
 <span class="mi">1</span>:<span class="w"> </span><span class="nv">lo</span>:<span class="w"> </span><span class="o">&lt;</span><span class="nv">LOOPBACK</span>,<span class="nv">UP</span>,<span class="nv">LOWER_UP</span><span class="o">&gt;</span><span class="w"> </span><span class="nv">mtu</span><span class="w"> </span><span class="mi">65536</span><span class="w"> </span><span class="nv">qdisc</span><span class="w"> </span><span class="nv">noqueue</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="nv">UNKNOWN</span><span class="w"> </span><span class="nv">mode</span><span class="w"> </span><span class="nv">DEFAULT</span><span class="w"> </span><span class="nv">group</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">qlen</span><span class="w"> </span><span class="mi">1000</span>
@@ -123,7 +123,7 @@
 </code></pre></div>
 
 <blockquote>
-<p>the <code>lo</code> is a virtual network adapter called the <em>loopback</em> device. It is always there and points to "this device or 127.0.0.1 as IPv4 calls it".</p>
+<p>The <code>lo</code> is a virtual network adapter called the <em>loopback</em> device. It is always there and points to "this device or 127.0.0.1 as IPv4 calls it".</p>
 </blockquote>
 <h3>Configuring NICs</h3>
 <p>In older distributions, the <code>ifconfig</code> was used to check / configure the IP settings on NICs. Have a look:</p>
@@ -175,7 +175,7 @@ $
 <div class="highlight"><pre><span></span><code># ifconfig eth0 192.168.42.42 netmask 255.255.255.0
 </code></pre></div>
 
-<p>It is also possible to turn the interfaces <em>up</em> and <em>down</em> (on and off) using a predefined configurations by:</p>
+<p>It is also possible to turn the interfaces <em>up</em> and <em>down</em> (on and off) using predefined configurations by:</p>
 <div class="highlight"><pre><span></span><code>$ sudo ifconfig enp0s25 down
 [sudo] password for jadi:
 $ ifconfig
@@ -198,9 +198,9 @@ wlp3s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 </code></pre></div>
 
-<p>As you can see _down_ing the interface removed it from the list of active interfaces, using switch <code>-a</code> will tell the <code>ifconfig</code> to show ALL interfaces, even if they are down.</p>
-<p>In may systems there are <code>ifup</code> and <code>ifdown</code> commands directly to up and down interfaces easily. They work just like <code>ifup eth0</code>.</p>
-<p>These predefined configs are located at <code>/etc/network/interfaces</code> on Debian based machines and in <code>/etc/sysconfig/network-scripts/</code> in RPM based computers. </p>
+<p>As you can see, downing the interface removed it from the list of active interfaces, using switch <code>-a</code> will tell the <code>ifconfig</code> to show ALL interfaces, even if they are down.</p>
+<p>In many systems there are <code>ifup</code> and <code>ifdown</code> commands directly to up and down interfaces easily. They work just like <code>ifup eth0</code>.</p>
+<p>These predefined configs are located at <code>/etc/network/interfaces</code> on Debian based machines and at <code>/etc/sysconfig/network-scripts/</code> in RPM based distro. </p>
 <p>This is a sample of such file on a RedHat based distro:</p>
 <div class="highlight"><pre><span></span><code>$ cat /etc/sysconfig/network-scripts/ifcfg-eth0
 DEVICE=eth0
@@ -218,7 +218,7 @@ HOSTNAME=lpictest
 GATEWAY=192.168.1.1
 </code></pre></div>
 
-<p>On Debian based systems (including Ubuntu) the main configuration file for network interfaces is <code>/etc/network/interfaces</code>. This one file has the configuration for all of the interfaces. Have a look:</p>
+<p>On Debian based systems (including Ubuntu) the main configuration file for network interfaces is <code>/etc/network/interfaces</code>. This one file has the configuration for all the interfaces. Have a look:</p>
 <div class="highlight"><pre><span></span><code>auto lo
 iface lo inte loopback
 
@@ -232,7 +232,7 @@ dns-nameservers 4.2.2.4
 </code></pre></div>
 
 <h3><code>ip</code></h3>
-<p>Recent distors are mostly using the <code>ip</code> command. This command can do lots of things including and not limited to showing and configuring the IP addresses, netmasks, default gateways &amp; routing rules.</p>
+<p>Recent distributions are mostly using the <code>ip</code> command. This command can do lots of things including and not limited to showing and configuring the IP addresses, netmasks, default gateways &amp; routing rules.</p>
 <div class="highlight"><pre><span></span><code><span class="nx">ip</span><span class="w"> </span><span class="kd">addr</span><span class="w"> </span><span class="nx">add</span><span class="w"> </span><span class="m m-Double">172.19.1.1</span><span class="mi">0</span><span class="o">/</span><span class="mi">24</span><span class="w"> </span><span class="nx">dev</span><span class="w"> </span><span class="nx">eth2</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">temporary</span><span class="w"> </span><span class="nx">adding</span><span class="w"> </span><span class="nx">an</span><span class="w"> </span><span class="nx">IP</span>
 <span class="nx">ip</span><span class="w"> </span><span class="kd">addr</span><span class="w"> </span><span class="nx">show</span><span class="w"> </span><span class="nx">eth2</span>
 <span class="nx">ip</span><span class="w"> </span><span class="kd">addr</span><span class="w"> </span><span class="nx">del</span><span class="w"> </span><span class="m m-Double">172.19.1.1</span><span class="mi">0</span><span class="o">/</span><span class="mi">24</span><span class="w"> </span><span class="nx">dev</span><span class="w"> </span><span class="nx">eth2</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">deleting</span><span class="w"> </span><span class="nx">an</span><span class="w"> </span><span class="nx">IP</span><span class="w"> </span><span class="nx">address</span>
@@ -244,7 +244,7 @@ dns-nameservers 4.2.2.4
 <p>Please note that above commands do temporary changes which will be lost after restarting the <code>NetworkManager</code> service. If you need permanent changes, it should be done using the configuration files or Network Manager interfaces. </p>
 <h3>NetworkManager &amp; <code>nmcli</code></h3>
 <p>In recent years, <code>NetworkManager</code> services has gained a lot of popularity. This service can "watch" the status of network and various configuration and configure the network cards (specially the wifi ones) accordingly. This is what makes our laptop connected whenever we open it in an area with a known WiFi or ask about the password if we want to connect to a new network or assign IP addresses as soon as we connect the cable to our Ethernet card. This IP assignment might happen via the "permanent IP configuration" on your device or a protocol called DHCP. When using DHCP (Dynamic Host Configuration Protocol), your computer asks a DHCP server (say your home's wifi router) about the IP, Netmask, Default gateway, DNS and other stuff and sets them. </p>
-<p>By default, NetworkManager  daemon controls the networks which are not mentioned in <code>/etc/network/interfaces</code>. This service is running in the background and controls the NICs which are not configured there. Various frontend GUI (graphical user interface) or TUI (textual user interface) or CLI (command line interfaces) programs exists to control or configure the NetworkManager daemon. If you are using a Desktop Linux, you've probably already used / know one (say the network manager applet). Here I will show you how to use the <code>nmcli</code> from the command line. </p>
+<p>By default, NetworkManager  daemon controls the networks which are not mentioned in <code>/etc/network/interfaces</code>. This service is running in the background and controls the NICs which are not configured there. Various frontend GUI (graphical user interface) or TUI (textual user interface. try <code>nmtui</code> ) or CLI (command line interfaces) programs exists to control or configure the NetworkManager daemon. If you are using a Desktop Linux, you've probably already used / know one (say the network manager applet). Here I will show you how to use the <code>nmcli</code> from the command line.</p>
 <p>We always call the <code>nmcli</code> with one of it various commands, here is a list:</p>
 <table>
 <thead>
@@ -284,13 +284,13 @@ dns-nameservers 4.2.2.4
 </tr>
 </tbody>
 </table>
-<p>for example we can check the current status with the <code>general</code> command:</p>
+<p>For example, we can check the current status with the <code>general</code> command:</p>
 <div class="highlight"><pre><span></span><code>➜  ~ nmcli general
 STATE      CONNECTIVITY  WIFI-HW  WIFI     WWAN-HW  WWAN    
 connected  full          enabled  enabled  missing  enabled
 </code></pre></div>
 
-<p>Or if you want to check the devices or list of wifi connections:</p>
+<p>Or if you want to check the devices or list of Wi-Fi connections:</p>
 <div class="highlight"><pre><span></span><code>➜  ~ nmcli device          
 DEVICE            TYPE      STATE                   CONNECTION          
 wlp108s0          wifi      connected               Sharm Bar Sansoor 5 
@@ -306,13 +306,13 @@ IN-USE  BSSID              SSID                 MODE   CHAN  RATE        SIGNAL 
         30:85:A9:8C:71:2C  bahram               Infra  11    65 Mbit/s   29      ▂___  WPA2
 </code></pre></div>
 
-<p>To connect to a wifi network youc an do:</p>
+<p>To connect to a Wi-Fi network, you're a do:</p>
 <div class="highlight"><pre><span></span><code><span class="nv">nmcli</span><span class="w"> </span><span class="nv">device</span><span class="w"> </span><span class="nv">wifi</span><span class="w"> </span><span class="k">connect</span><span class="w"> </span><span class="nv">AxLTE</span><span class="w"> </span><span class="nv">password</span><span class="w"> </span><span class="nv">AFunkyPassword</span><span class="w"> </span>
 </code></pre></div>
 
 <h3>Fancy Names for Computers</h3>
 <h4>hostname</h4>
-<p>Remembering IP addresses are easy for robots but not for humans. Thats why we have "hostname"s. A hostname is a like a contact list where you just tell "call Jadi" and the system known my phone number. If you check your <code>/etc/hostname</code>, you will see your machines name there. Although you can change it temporary (or permanently). The command is <code>hostnamectl</code>. </p>
+<p>Remembering IP addresses are easy for robots but not for humans. Thats why we have "hostname"s. A hostname is a like a contact list where you just tell "call Jadi" and the system known my phone number. If you check your <code>/etc/hostname</code>, you will see your machines name there. Although you can change it temporarily (or permanently). The command is <code>hostnamectl</code>. </p>
 <div class="highlight"><pre><span></span><code>[funlap ~]# hostnamectl set-hostname mycoolmachine
 [funlap ~]# hostname
 mycoolmachine
@@ -340,7 +340,7 @@ Operating System: Manjaro Linux
 Firmware Version: 1.30.0
 </code></pre></div>
 
-<h4>/etc/hosts</h4>
+<h4><code>/etc/hosts</code></h4>
 <p>This file contains a list of IPs and their corresponding names, including your own computers. </p>
 <div class="highlight"><pre><span></span><code>[<span class="nv">mycoolmachine</span><span class="w"> </span><span class="o">~</span>]#<span class="w"> </span><span class="nv">head</span><span class="w"> </span><span class="o">-</span><span class="mi">20</span><span class="w"> </span><span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">hosts</span>
 ##
@@ -367,7 +367,7 @@ Firmware Version: 1.30.0
 
 <p>So when you need to reach a machine by its name, your OS will now which IP to reach. </p>
 <h4>DNS configuration</h4>
-<p>DNS (which stands for Domain Name System) is a server which translates human readable domain names (or more technically, text based domain names) to the corresponding IP addresses. You have to configure your computer to use a DNS so it will know which IP to contacted if you wanted to reach <code>linux1st.com</code> (and <a href="https://linux1st.com/support">donate</a> maybe).</p>
+<p>DNS (which stands for Domain Name System) is a server which translates human-readable domain names (or more technically, text based domain names) to the corresponding IP addresses. You have to configure your computer to use a DNS so it will know which IP to contacted if you wanted to reach <code>linux1st.com</code> (and <a href="https://linux1st.com/support">donate</a> maybe).</p>
 <p>This configuration can be found in <code>/etc/resolve.conf</code>.</p>
 <div class="highlight"><pre><span></span><code>nameserver 192.168.1.1
 nameserver 4.2.2.4
@@ -405,7 +405,7 @@ netgroup: files
 <div class="highlight"><pre><span></span><code>hosts:      dns files
 </code></pre></div>
 
-<p>any resolve request will be sent to a DNS server first and the /etc/hosts will be used <em>only</em> if the DNS servers answeres "I dont know!"</p>
+<p>Any resolve request will be sent to a DNS server first and the /etc/hosts will be used only if the DNS servers answers "I don't know!"</p>
 
 
              
