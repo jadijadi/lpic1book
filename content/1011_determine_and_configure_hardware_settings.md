@@ -95,7 +95,7 @@ udev (userspace `/dev`) is a device manager for the Linux kernel. As the success
 
 There are a lot of devices in `/dev/` and if you plug in any device, it will be assigned a file in `/dev` (say `/dev/sdb2`). **udev** lets you control what will be what in `/dev`. For example, you can use a rule to force your 128GB flash drive with one specific vendor to be `/dev/mybackup` every single time you connect it and you can even start a backprocess as soon as it connects.
 
-**udev** controls `/dev/` directory. There are abstracted devices like a hard, is `/dev/sda` or `/dev/hd0` regardless of its brand, model or technology:
+In essence, **udev** serves as the custodian of the `/dev/` directory. It abstracts the representation of devices, such as a hard disk, which is identified as `/dev/sda` or `/dev/hd0`, irrespective of its manufacturer, model, or underlying technology.
 
 ````
 root@funlife:/dev# ls /dev/sda*
