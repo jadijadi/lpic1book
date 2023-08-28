@@ -6,34 +6,23 @@ Authors: Jadi
 sortorder: 420
 Summary: 
 
-## 109.3 Basic network troubleshooting
-
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-
 _Weight: 4_
 
 Candidates should be able to troubleshoot networking issues on client hosts.
 
 ### Key Knowledge Areas
 
-* Manually and automatically configure network interfaces and routing tables to include adding, starting, stopping, restarting, deleting or reconfiguring network interfaces.
-* Change, view, or configure the routing table and correct an improperly set default route manually.
+* Manually configure network interfaces, including viewing and changing the configuration of network interfaces using iproute2.
+* Manually configure routing, including viewing and changing routing tables and setting the default route using iproute2.
 * Debug problems associated with the network configuration.
+* Awareness of legacy net-tools commands.
+
 
 ### Terms and Utilities
 
-* ifconfig
 * ip
-* ifup
-* ifdown
-* route
-* host
 * hostname
-* dig
-* netstat
+* ss
 * ping
 * ping6
 * traceroute
@@ -41,6 +30,9 @@ Candidates should be able to troubleshoot networking issues on client hosts.
 * tracepath
 * tracepath6
 * netcat
+* ifconifg
+* netstat
+* route
 
 ### Troubleshooting network problems
 
@@ -51,7 +43,7 @@ When a network related problem is reported to you, you have to take a lot of ste
 As you already know, `ifconfig` and `ip` commands can be used to check the IP address of your interfaces. If a network card is going to work, it needs an correct IP address and netmask. Let me check my own computer to see it has an IP address:
 
 ```text
-[jadi@funlife ~]$ ip addr show
+[jadi@debian ~]$ ip addr show
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -66,7 +58,7 @@ As you already know, `ifconfig` and `ip` commands can be used to check the IP ad
        valid_lft 254836sec preferred_lft 254836sec
     inet6 fe80::8ea9:82ff:fe7b:8906/64 scope link
        valid_lft forever preferred_lft forever
-[jadi@funlife ~]$ ifconfig
+[jadi@debian ~]$ ifconfig
 enp0s25   Link encap:Ethernet  HWaddr f0:de:f1:62:c5:73  
           inet addr:192.168.1.35  Bcast:192.168.1.255  Mask:255.255.255.0
           inet6 addr: fe80::8ea9:82ff:fe7b:8906/64 Scope:Link
@@ -84,38 +76,35 @@ lo        Link encap:Local Loopback
           TX packets:221752 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:0
           RX bytes:150859909 (150.8 MB)  TX bytes:150859909 (150.8 MB)
-
-
-[jadi@funlife ~]$
 ```
 
 Both commands show that my IP address is OK. This is assigned to my be the WiFi modem and _192.168.1.35_ as IP and _255.255.255.0_ looks reasonable.
 
-**ping**
+> Please note that you can get a full help on `ip` using the `man ip` or get manual of a specific section using the `man ip-address` (or any other subcommand)
 
-This is the most common tool when troubleshooting a network problem. Lets see if I can see my network gateway first.
+#### ping & ping6
+
+This is the most common tool when troubleshooting a network problem. It sends an ICMP packet to a destination and if gets back an answer, will inform you about not only it, but all the stats. Below I will check my default route and will try to ping it. You should always be able to ping your default router although sometimes paranoid sysadmins block the ICMP on the network and although you are connected, you wont get back answers.
 
 ```text
-[jadi@funlife ~]$ route
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-default         192.168.1.1     0.0.0.0         UG    600    0        0 wlp3s0
-link-local      *               255.255.0.0     U     1000   0        0 wlp3s0
-192.168.1.0     *               255.255.255.0   U     600    0        0 wlp3s0
-[jadi@funlife ~]$ ping 192.168.1.1
-PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
-64 bytes from 192.168.1.1: icmp_seq=1 ttl=254 time=3.02 ms
-64 bytes from 192.168.1.1: icmp_seq=2 ttl=254 time=3.08 ms
+jadi@debian:~$ ip route show
+default via 192.168.70.1 dev enp0s1
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown
+192.168.70.0/24 dev enp0s1 proto kernel scope link src 192.168.70.2
+jadi@debian:~$ ping 192.168.70.1
+PING 192.168.70.1 (192.168.70.1) 56(84) bytes of data.
+64 bytes from 192.168.70.1: icmp_seq=1 ttl=64 time=1.11 ms
+64 bytes from 192.168.70.1: icmp_seq=2 ttl=64 time=0.855 ms
 ^C
---- 192.168.1.1 ping statistics ---
-2 packets transmitted, 2 received, 0% packet loss, time 1001ms
-rtt min/avg/max/mdev = 3.023/3.052/3.082/0.062 ms
+--- 192.168.70.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 0.855/0.984/1.113/0.129 msec
 ```
 
-I can ping my gateway but is it possible to reach a server on the Internet using its IP address. Lets ping 4.2.2.4; it is very well known server on the Internet and many people use it to check their connectivity.
+I can ping my gateway but is it possible to reach a server on the Internet using its IP address. To find the answer, lets ping 4.2.2.4; it is very well known server on the Internet and many people use it to check their IP connectivity.
 
 ```text
-[jadi@funlife ~]$ ping 4.2.2.4
+[jadi@debian ~]$ ping 4.2.2.4
 PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.
 64 bytes from 4.2.2.4: icmp_seq=1 ttl=50 time=108 ms
 64 bytes from 4.2.2.4: icmp_seq=2 ttl=50 time=111 ms
@@ -126,31 +115,31 @@ PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.
 rtt min/avg/max/mdev = 108.160/111.233/113.717/2.338 ms
 ```
 
-This is working fine. Bud can I ping google.com too?
+This is also working fine. Bud can I ping google.com too?
 
 ```text
-[jadi@funlife ~]$ ping google.com
+[jadi@debian ~]$ ping google.com
 ping: unknown host google.com
 ```
 
-Aha! We found the problem. In this case I have a correct IP address, I can ping 4.2.2.4 but I can not ping google.com with the error message "unknown host". This means my computer can not translate google.com to its IP address; this is a DNS issue:
+Aha! We found the problem. In this case I have a correct IP address on my machine, I can ping my default gateway and I can ping 4.2.2.4 but I can not ping google.com. The errrow message is "unknown host". This means my computer can not translate google.com to its IP address; this is a DNS issue:
 
 ```text
-[jadi@funlife ~]$ cat /etc/resolv.conf
+[jadi@debian ~]$ cat /etc/resolv.conf
 # Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)
 #     DO NOT EDIT THIS FILE BY HAND -- YOUR CHANGES WILL BE OVERWRITTEN
 ```
 
-No wonder we had problems with surfing the WWW. There is no active DNS in my computer so no one will be able to reach sites by their domain names! This should be fixed by adding a DNS to my configuration files and then use `ifdown eth0` and then `ifup eth0` to load it.
+No wonder we had problems with surfing the WWW. There is no active DNS in my computer so no one will be able to reach sites by their domain names! This should be fixed by adding a DNS to my configuration file.
 
-**routing problems**
+#### routing problems
 
 In some situations you can not reach the Internet \(say 4.2.2.4 or 8.8.8.8\) but you can ping your gateway. Have a look:
 
 ```text
-[jadi@funlife ~]$ ping 8.8.8.8
+[jadi@debian ~]$ ping 8.8.8.8
 connect: Network is unreachable
-[jadi@funlife ~]$ ping 192.168.1.1
+[jadi@debian ~]$ ping 192.168.1.1
 PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
 64 bytes from 192.168.1.1: icmp_seq=1 ttl=254 time=3.03 ms
 64 bytes from 192.168.1.1: icmp_seq=2 ttl=254 time=3.31 ms
@@ -160,110 +149,146 @@ PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
 rtt min/avg/max/mdev = 3.039/3.174/3.310/0.146 ms
 ```
 
-What is going on here? Lets see what clues do I have: 1\) I can reach the gateway 2\) when asking for the Internet, my computer does not know what to do. In this case the **default gateway** is missing: the computer does not know what to do if a packet is outside its network mask. You know that we can set the default gateway using the /etc/network/interfaces config file but there is also a `route` command to show and change the routing configurations on the fly.
+What is going on here? Lets see what clues do I have: 1) I can reach the gateway 2) when asking for the Internet, my computer does not know what to do. In this case the **default gateway** is missing: the computer does not know what to do if a packet is outside its network mask. You know that we can set the default gateway using the /etc/network/interfaces config file but there is also a `route` (or the newwer `ip route` subcommand) to show and change the routing configurations on the fly.
 
-> routes added or changed via `route` command will be lost after a reboot! Permanent configurations should come from configuration files.
+> routes added or changed via `ip route` (or `route`) will be lost after a reboot! Permanent configurations should come from configuration files.
 
 Lets check our current routing state using `route` command as root.
 
 ```text
-[jadi@funlife ~]$ sudo route
+jadi@debian:~$ ip route show
+default via 192.168.70.1 dev enp0s1
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown
+192.168.70.0/24 dev enp0s1 proto kernel scope link src 192.168.70.2
+
+jadi@debian:~$ sudo ip route del default
 [sudo] password for jadi:
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-link-local      *               255.255.0.0     U     1000   0        0 wlp3s0
-192.168.1.0     *               255.255.255.0   U     600    0        0 wlp3s0
-```
 
-It is stated that "there is no gateway for the network 192.168.1.0 netmask 255.255.255.0". This means that if you ping a server in this network \(say 192.168.1.100\), it does not needs any routing. But what happens if you ping 8.8.8.8? Nothing stated in our _routing table_ above! No wonder that we are getting `Network is unreachable` when `ping 4.2.2.4`. Lets add a default route:
+jadi@debian:~$ ip route show
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown
+192.168.70.0/24 dev enp0s1 proto kernel scope link src 192.168.70.2
 
-```text
-[jadi@funlife ~]$ sudo route add default gw 192.168.1.1
-[jadi@funlife ~]$ ping 4.2.2.4
+jadi@debian:~$ ping 4.2.2.4
+ping: connect: Network is unreachable
+
+jadi@debian:~$ ip route add default via 192.168.70.1
+RTNETLINK answers: Operation not permitted
+
+jadi@debian:~$ sudo ip route add default via 192.168.70.1
+
+jadi@debian:~$ ping 4.2.2.4
 PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.
-64 bytes from 4.2.2.4: icmp_seq=1 ttl=50 time=109 ms
-64 bytes from 4.2.2.4: icmp_seq=2 ttl=50 time=111 ms
-64 bytes from 4.2.2.4: icmp_seq=3 ttl=49 time=199 ms
+64 bytes from 4.2.2.4: icmp_seq=1 ttl=55 time=316 ms
+64 bytes from 4.2.2.4: icmp_seq=2 ttl=55 time=434 ms
 ^C
 --- 4.2.2.4 ping statistics ---
-3 packets transmitted, 3 received, 0% packet loss, time 2002ms
-rtt min/avg/max/mdev = 109.493/140.344/199.612/41.922 ms
-[jadi@funlife ~]$ sudo route
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-default         192.168.1.1     0.0.0.0         UG    0      0        0 wlp3s0
-link-local      *               255.255.0.0     U     1000   0        0 wlp3s0
-192.168.1.0     *               255.255.255.0   U     600    0        0 wlp3s0
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 316.253/375.282/434.311/59.029 ms
 ```
 
-We were able to ping the Internet after adding a default gateway using `route` command. It is important to know that we can define even more routes and control exactly where our packets should go based on their destinations.
+We were able to ping the Internet after adding a default gateway using `ip route` command. It is important to know that we can define even more routes and control exactly where our packets should go based on their destinations.
 
-**netstat**
+#### tracepath & traceroute
 
-This command can show many different information about our network. The two main functionalities are showing the routing table and checking the listening ports. Lets check our routing table using it.
-
-```text
-[jadi@funlife ~]$ netstat -nr
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
-0.0.0.0         192.168.1.1     0.0.0.0         UG        0 0          0 wlp3s0
-169.254.0.0     0.0.0.0         255.255.0.0     U         0 0          0 wlp3s0
-192.168.1.0     0.0.0.0         255.255.255.0   U         0 0          0 wlp3s0
-```
-
-It is also very useful to the see what ports are in listening state in our server:
-
-```text
-[jadi@funlife ~]$ netstat -na | grep 80
-tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN
-```
-
-The `-na` switch will show all the open ports and here I'm checking if port 80 \(web\) is active on my server. It is and listening to any connection from `0.0.0.0` which means "anywhere": Any one can connect to my computers web server and request pages.
-
-> in these switches, `-n` stands for _numeric_, `-a` stands for _all ports_ and `-r` stands for _routes_.
-
-**traceroute**
 
 This is a more advanced troubleshooting tool. It is like pinging all the servers between you and your destination one by one and see where our packets go wrong. Lets check how I reach google.com.
 
 ```text
-[jadi@funlife ~]$ traceroute google.com
-traceroute to google.com (173.194.32.160), 30 hops max, 60 byte packets
- 1  192.168.1.1 (192.168.1.1)  3.090 ms  3.113 ms  3.115 ms
- 2  85-15-16-103.shatel.ir (85.15.16.103)  29.904 ms  34.851 ms  34.885 ms
- 3  85-15-0-193.shatel.ir (85.15.0.193)  34.880 ms  39.454 ms  39.459 ms
- 4  85-15-0-1.shatel.ir (85.15.0.1)  39.451 ms  39.444 ms  43.865 ms
- 5  172.18.196.17 (172.18.196.17)  43.887 ms  46.506 ms  51.990 ms
- 6  172.18.196.22 (172.18.196.22)  51.943 ms  29.418 ms  29.430 ms
- 7  10.10.53.229 (10.10.53.229)  32.421 ms  32.344 ms  34.705 ms
- 8  10.10.53.222 (10.10.53.222)  39.814 ms  39.773 ms  39.808 ms
- 9  xe-0-3-3-xcr2.fri.cw.net (62.208.252.109)  126.654 ms  131.411 ms  131.363 ms
-10  ae29-xcr1.fri.cw.net (195.2.24.221)  126.570 ms  129.053 ms  129.073 ms
-11  195.2.19.6 (195.2.19.6)  173.273 ms  173.284 ms  178.795 ms
-12  216.239.56.106 (216.239.56.106)  143.786 ms  145.279 ms 216.239.57.143 (216.239.57.143)  115.669 ms
-13  209.85.143.25 (209.85.143.25)  111.427 ms  113.970 ms  113.989 ms
-14  74.125.37.88 (74.125.37.88)  127.402 ms  125.199 ms 74.125.37.92 (74.125.37.92)  122.175 ms
-15  209.85.247.72 (209.85.247.72)  137.551 ms  137.564 ms  140.535 ms
-16  72.14.236.249 (72.14.236.249)  161.583 ms  170.447 ms  170.407 ms
-17  173.194.32.160 (173.194.32.160)  170.375 ms 72.14.235.231 (72.14.235.231)  159.352 ms  161.666 ms
+jadi@debian:~$ traceroute 4.2.2.4
+traceroute to 4.2.2.4 (4.2.2.4), 30 hops max, 60 byte packets
+ 1  192.168.70.1 (192.168.70.1)  0.619 ms *  0.673 ms
+ 2  10.192.0.1 (10.192.0.1)  421.898 ms  728.657 ms  728.617 ms
+ 3  162.221.202.253 (162.221.202.253)  728.597 ms  728.564 ms  728.552 ms
+ 4  * * *
+ 5  207.35.48.241 (207.35.48.241)  728.289 ms  728.265 ms  728.251 ms
+ 6  agg2-vancouverbg_5-2-0.net.bell.ca (64.230.122.250)  728.344 ms agg1-vancouverbg_5-2-0.net.bell.ca (64.230.122.248)  612.097 ms  922.055 ms
+ 7  * * *
+ 8  bx6-seattle_et-0/0/13_ae1.net.bell.ca (64.230.76.157)  921.662 ms  921.635 ms  921.566 ms
+ 9  ae96.edge6.Seattle1.Level3.net (4.16.2.13)  921.511 ms  921.372 ms  921.317 ms
+10  * * ae6.4.edge2.SanJose1.level3.net (4.69.220.185)  920.786 ms
+11  d.resolvers.level3.net (4.2.2.4)  601.295 ms  921.003 ms  920.970 ms
 ```
 
-On the first step \(1\) I reach my own router. On the 2nd step, I'm at my ISP which is shutel. I'm still on shatel on 3rd and 4th steps and so on. After a long path, on the 17th step, I reach my destination. This is used to troubleshoot routing problems.
+On the first step \(1\) I reach my own router. On the 2nd step, I'm at my ISPs local network and then will reach 162.blah.blah.blah. You can see in some cases the traceroute were able to do a **reverse DNS lookup** and find the hostname of the IPs and show them. After 11 hops, I reached my destination. The traceroute is a very useful tool in troublshooting network and routing issues or checking the status of your network and paths. 
 
 > In some routers, the ping trafic is blocked and you will see `* * *` at some steps because those servers are blocking ICMP traffic.
 
 There is another command called `tracepath` which is very similar to `traceroute`. For the LPIC1 level, they are essentially the same!
 
-**IPv6**
 
-If you are on an IPv6 network you have to use `traceroute6` and `ping6` instead of `traceroute` and `ping`. As easy as that.
+#### ss & netstat
 
-**dig**
+These commands can show a wide range of information about our network. The `ss` is the newer one and `netstat` is the older one. The two commands are replaceble in most cases and does the same things and even have similar option in most use cases. You can use the `netstat` to check your routing table:
+
+```text
+jadi@debian:~$ netstat -nr
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+0.0.0.0         192.168.70.1    0.0.0.0         UG        0 0          0 enp0s1
+172.17.0.0      0.0.0.0         255.255.0.0     U         0 0          0 docker0
+192.168.70.0    0.0.0.0         255.255.255.0   U         0 0          0 enp0s1
+```
+
+Or use the `ss` to see which port is in the LISTENING mode:
+
+```text
+jadi@debian:~$ ss -na | grep LISTEN | grep tcp
+tcp   LISTEN 0      128                                       127.0.0.1:631              0.0.0.0:*
+tcp   LISTEN 0      100                                         0.0.0.0:25               0.0.0.0:*
+tcp   LISTEN 0      128                                         0.0.0.0:22               0.0.0.0:*
+tcp   LISTEN 0      100                                            [::]:25                  [::]:*
+tcp   LISTEN 0      128                                            [::]:22                  [::]:*
+tcp   LISTEN 0      128                                           [::1]:631                 [::]:*
+```
+
+The `-na` switch will show all the open ports (including sockets) and here I'm checking only for the tcp ones in the LISTEN status.
+
+> in these switches, `-n` stands for _numeric_, `-a` stands for _all ports_ and `-r` stands for _routes_.
+
+A super common combination is the `-tulpn` option set:
+
+```
+jadi@debian:~$ ss -tulpn
+Netid             State              Recv-Q             Send-Q                         Local Address:Port                          Peer Address:Port            Process
+udp               UNCONN             0                  0                                    0.0.0.0:68                                 0.0.0.0:*
+udp               UNCONN             0                  0                                    0.0.0.0:631                                0.0.0.0:*
+udp               UNCONN             0                  0                                    0.0.0.0:58120                              0.0.0.0:*
+udp               UNCONN             0                  0                                    0.0.0.0:5353                               0.0.0.0:*
+udp               UNCONN             0                  0                                       [::]:39822                                 [::]:*
+udp               UNCONN             0                  0                                       [::]:5353                                  [::]:*
+tcp               LISTEN             0                  128                                127.0.0.1:631                                0.0.0.0:*
+tcp               LISTEN             0                  100                                  0.0.0.0:25                                 0.0.0.0:*
+tcp               LISTEN             0                  128                                  0.0.0.0:22                                 0.0.0.0:*
+tcp               LISTEN             0                  100                                     [::]:25                                    [::]:*
+tcp               LISTEN             0                  128                                     [::]:22                                    [::]:*
+tcp               LISTEN             0                  128                                    [::1]:631                                   [::]:*
+```
+
+#### netcat
+
+The nc \(or netcat\) utility is used for just about anything under the sun involving TCP, UDP, or UNIX-domain sockets. It can open TCP connections, send UDP packets, listen on arbitrary TCP and UDP ports, do port scanning, and deal with both IPv4 and IPv6. Unlike telnet, nc can be used easily in the scripts and separates error messages onto standard error instead of sending them to standard output, as telnet does with some. This is a very capable command and it is enough for you to be familier with its general concept.
+
+Here I'm creating a tcp listener on port 1337:
+
+```
+jadi@debian:~$ nc -l 1337
+```
+
+and here I'm openning a connection to that port and sending some data:
+
+```
+jadi@debian:~$ nc localhost 1337
+Are you enjoying the LPIC?
+```
+
+And the message should be visible on the listening `nc`. 
+
+#### dig
 
 The `dig` command is a DNS lookup tool. If you are having problem with a domain name, you can check how it is being resolved to IPs; and by whom.
 
 ```text
-[jadi@funlife ~]$ dig google.com
+[jadi@debian ~]$ dig google.com
 
 ; <<>> DiG 9.9.5-11ubuntu1.3-Ubuntu <<>> google.com
 ;; global options: +cmd
@@ -284,26 +309,4 @@ google.com.        293    IN    A    216.58.214.46
 ```
 
 You can see that SERVER 4.2.2.4 is resolving google.com to 216.58.214.46.
-
-**netcat**
-
-The nc \(or netcat\) utility is used for just about anything under the sun involving TCP, UDP, or UNIX-domain sockets. It can open TCP connections, send UDP packets, listen on arbitrary TCP and UDP ports, do port scanning, and deal with both IPv4 and IPv6. Unlike telnet, nc scripts nicely, and separates error messages onto standard error instead of sending them to standard output, as telnet does with some. This is a very capable command and it is enough for you to be familier with its general concept.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
 
