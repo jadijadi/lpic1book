@@ -37,7 +37,7 @@ In this section we will see how this can be achieved in modern GNU/Linux systems
 ### Network Interface
 The NIC (or Network Interface Card) is the physical network hardware in your computer. This can be the chip+antenna in your mobile phone or an Ethernet Card connected to a network cable on your PC.
 
-In older systems, these were called things like `eth0`, `eth1`, `eth2`, .. where 0, 1 & 2 were decided by the kernel - mostly based on the order of loading the drivers. In recent Linux machines the NICs are called by `wlan0`, `eno1`, `ens1`, `enp3s2` and such. This is based on some more concrete data like being an `wireless` or `et`hernet, PCI (`ens`) or bus like (`enp`). 
+In older systems, these were called things like `eth0`, `eth1`, `eth2`, ... where 0, 1 & 2 were decided by the kernel - mostly based on the order of loading the drivers. In recent Linux machines the NICs are called by `wlan0`, `eno1`, `ens1`, `enp3s2` and such. This is based on some more concrete data like being an `wireless` or `ethernet`, PCI (`ens`) or bus like (`enp`). 
 
 The `ip` command can show these:
 
@@ -51,7 +51,7 @@ The `ip` command can show these:
     link/ether 02:42:75:d3:e6:ff brd ff:ff:ff:ff:ff:ff
 ```
 
-> the `lo` is a virtual network adapter called the *loopback* device. It is always there and points to "this device or 127.0.0.1 as IPv4 calls it".
+> The `lo` is a virtual network adapter called the *loopback* device. It is always there and points to "this device or 127.0.0.1 as IPv4 calls it".
 
 ### Configuring NICs
 In older distributions, the `ifconfig` was used to check / configure the IP settings on NICs. Have a look:
@@ -109,7 +109,7 @@ In case you want to change the netmask of an interface, do `ifconfig eth0 netmas
 # ifconfig eth0 192.168.42.42 netmask 255.255.255.0
 ```
 
-It is also possible to turn the interfaces _up_ and _down_ \(on and off\) using a predefined configurations by:
+It is also possible to turn the interfaces _up_ and _down_ \(on and off\) using predefined configurations by:
 
 ```text
 $ sudo ifconfig enp0s25 down
@@ -134,7 +134,7 @@ wlp3s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 ```
 
-As you can see \_down\_ing the interface removed it from the list of active interfaces, using switch `-a` will tell the `ifconfig` to show ALL interfaces, even if they are down.
+As you can see, downing the interface removed it from the list of active interfaces, using switch `-a` will tell the `ifconfig` to show ALL interfaces, even if they are down.
 
 In many systems there are `ifup` and `ifdown` commands directly to up and down interfaces easily. They work just like `ifup eth0`.
 
@@ -160,7 +160,7 @@ HOSTNAME=lpictest
 GATEWAY=192.168.1.1
 ```
 
-On Debian based systems \(including Ubuntu\) the main configuration file for network interfaces is `/etc/network/interfaces`. This one file has the configuration for all of the interfaces. Have a look:
+On Debian based systems \(including Ubuntu\) the main configuration file for network interfaces is `/etc/network/interfaces`. This one file has the configuration for all the interfaces. Have a look:
 
 ```text
 auto lo
@@ -205,7 +205,7 @@ We always call the `nmcli` with one of it various commands, here is a list:
 | agent | secret or polkit agent |
 | monitor | Montor the changes |
 
-for example we can check the current status with the `general` command:
+For example, we can check the current status with the `general` command:
 
 ```
 ➜  ~ nmcli general
@@ -213,7 +213,7 @@ STATE      CONNECTIVITY  WIFI-HW  WIFI     WWAN-HW  WWAN
 connected  full          enabled  enabled  missing  enabled
 ```
                 
-Or if you want to check the devices or list of wifi connections:
+Or if you want to check the devices or list of Wi-Fi connections:
 
 ```
 ➜  ~ nmcli device          
@@ -231,7 +231,7 @@ IN-USE  BSSID              SSID                 MODE   CHAN  RATE        SIGNAL 
         30:85:A9:8C:71:2C  bahram               Infra  11    65 Mbit/s   29      ▂___  WPA2
 ```
 
-To connect to a wifi network youc an do:
+To connect to a Wi-Fi network, you're a do:
 
 ```
 nmcli device wifi connect AxLTE password AFunkyPassword 
@@ -302,7 +302,7 @@ This file contains a list of IPs and their corresponding names, including your o
 So when you need to reach a machine by its name, your OS will now which IP to reach. 
 
 #### DNS configuration
-DNS (which stands for Domain Name System) is a server which translates human readable domain names (or more technically, text based domain names) to the corresponding IP addresses. You have to configure your computer to use a DNS so it will know which IP to contacted if you wanted to reach `linux1st.com` (and [donate](https://linux1st.com/support) maybe).
+DNS (which stands for Domain Name System) is a server which translates human-readable domain names (or more technically, text based domain names) to the corresponding IP addresses. You have to configure your computer to use a DNS so it will know which IP to contacted if you wanted to reach `linux1st.com` (and [donate](https://linux1st.com/support) maybe).
 
 This configuration can be found in `/etc/resolve.conf`.
 
@@ -350,7 +350,7 @@ So if someone wants to check a password, the system will try the password _file_
 hosts:      dns files
 ```
 
-any resolve request will be sent to a DNS server first and the /etc/hosts will be used _only_ if the DNS servers answeres "I dont know!"
+Any resolve request will be sent to a DNS server first and the /etc/hosts will be used only if the DNS servers answers "I don't know!"
 
 
 
