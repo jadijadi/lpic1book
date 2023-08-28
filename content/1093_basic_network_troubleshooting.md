@@ -36,11 +36,11 @@ Candidates should be able to troubleshoot networking issues on client hosts.
 
 ### Troubleshooting network problems
 
-When a network related problem is reported to you, you have to take a lot of steps to find out where the root cause of the problem is. For example if the report says "I can not open webpages", you have to start from checking if the network interface has an ip, it it is up, it the routing is OK and if the DNS works fine and if everything is OK, you have to try reaching a server on the Internet via `ping` command and if you see any problems, you have to use `traceroute` to see where your traffic is going wrong. In this lesson, we will review these basic steps.
+When a network related problem is reported to you, you have to take a lot of steps to find out where the root cause of the problem is. For example, if the report says "I can not open webpages", you have to start from checking if the network interface has an ip, if it is up, its the routing is OK and if the DNS works fine and if everything is OK, you have to try reaching a server on the Internet via `ping` command and if you see any problems, you have to use `traceroute` to see where your traffic is going wrong. In this lesson, we will review these basic steps.
 
 #### ifconfig & ip
 
-As you already know, `ifconfig` and `ip` commands can be used to check the IP address of your interfaces. If a network card is going to work, it needs an correct IP address and netmask. Let me check my own computer to see it has an IP address:
+As you already know, `ifconfig` and `ip` commands can be used to check the IP address of your interfaces. If a network card is going to work, it needs a correct IP address and netmask. Let me check my own computer to see it has an IP address:
 
 ```text
 [jadi@debian ~]$ ip addr show
@@ -78,13 +78,13 @@ lo        Link encap:Local Loopback
           RX bytes:150859909 (150.8 MB)  TX bytes:150859909 (150.8 MB)
 ```
 
-Both commands show that my IP address is OK. This is assigned to my be the WiFi modem and _192.168.1.35_ as IP and _255.255.255.0_ looks reasonable.
+Both commands show that my IP address is OK. This is assigned to may be the Wi-Fi modem and 192.168.1.35 as IP and 255.255.255.0 looks reasonable.
 
 > Please note that you can get a full help on `ip` using the `man ip` or get manual of a specific section using the `man ip-address` (or any other subcommand)
 
 #### ping & ping6
 
-This is the most common tool when troubleshooting a network problem. It sends an ICMP packet to a destination and if gets back an answer, will inform you about not only it, but all the stats. Below I will check my default route and will try to ping it. You should always be able to ping your default router although sometimes paranoid sysadmins block the ICMP on the network and although you are connected, you wont get back answers.
+This is the most common tool when troubleshooting a network problem. It sends an ICMP packet to a destination and if it gets back an answer, will inform you about not only it, but all the stats. Below, I will check my default route and will try to ping it. You should always be able to ping your default router, although sometimes paranoid sysadmins block the ICMP on the network and although you are connected, you won't get back answers.
 
 ```text
 jadi@debian:~$ ip route show
@@ -101,7 +101,7 @@ PING 192.168.70.1 (192.168.70.1) 56(84) bytes of data.
 rtt min/avg/max/mdev = 0.855/0.984/1.113/0.129 msec
 ```
 
-I can ping my gateway but is it possible to reach a server on the Internet using its IP address. To find the answer, lets ping 4.2.2.4; it is very well known server on the Internet and many people use it to check their IP connectivity.
+I can ping my gateway, but is it possible to reach a server on the Internet using its IP address. To find the answer, let's ping 4.2.2.4; it is very well known server on the Internet and many people use it to check their IP connectivity.
 
 ```text
 [jadi@debian ~]$ ping 4.2.2.4
@@ -115,14 +115,14 @@ PING 4.2.2.4 (4.2.2.4) 56(84) bytes of data.
 rtt min/avg/max/mdev = 108.160/111.233/113.717/2.338 ms
 ```
 
-This is also working fine. Bud can I ping google.com too?
+This is also working fine. But can I ping google.com too?
 
 ```text
 [jadi@debian ~]$ ping google.com
 ping: unknown host google.com
 ```
 
-Aha! We found the problem. In this case I have a correct IP address on my machine, I can ping my default gateway and I can ping 4.2.2.4 but I can not ping google.com. The errrow message is "unknown host". This means my computer can not translate google.com to its IP address; this is a DNS issue:
+Aha! We found the problem. In this case I have a correct IP address on my machine, I can ping my default gateway and I can ping 4.2.2.4, but I can not ping google.com. The error message is "unknown host". This means my computer can not translate google.com to its IP address; this is a DNS issue:
 
 ```text
 [jadi@debian ~]$ cat /etc/resolv.conf
@@ -130,7 +130,7 @@ Aha! We found the problem. In this case I have a correct IP address on my machin
 #     DO NOT EDIT THIS FILE BY HAND -- YOUR CHANGES WILL BE OVERWRITTEN
 ```
 
-No wonder we had problems with surfing the WWW. There is no active DNS in my computer so no one will be able to reach sites by their domain names! This should be fixed by adding a DNS to my configuration file.
+No wonder, we had problems with surfing the WWW. There is no active DNS in my computer so no one will be able to reach sites by their domain names! This should be fixed by adding a DNS to my configuration file.
 
 #### routing problems
 
@@ -149,9 +149,12 @@ PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
 rtt min/avg/max/mdev = 3.039/3.174/3.310/0.146 ms
 ```
 
-What is going on here? Lets see what clues do I have: 1) I can reach the gateway 2) when asking for the Internet, my computer does not know what to do. In this case the **default gateway** is missing: the computer does not know what to do if a packet is outside its network mask. You know that we can set the default gateway using the /etc/network/interfaces config file but there is also a `route` (or the newwer `ip route` subcommand) to show and change the routing configurations on the fly.
+What is going on here? Let's see, what clues do I have:
+1) I can reach the gateway.
+2) when asking for the Internet, my computer does not know what to do.
+In this case the **default gateway** is missing: the computer does not know what to do if a packet is outside its network mask. You know that we can set the default gateway using the /etc/network/interfaces config file, but there is also a `route` (or the newer `ip route` subcommand) to show and change the routing configurations on the fly.
 
-> routes added or changed via `ip route` (or `route`) will be lost after a reboot! Permanent configurations should come from configuration files.
+> Routes added or changed via `ip route` (or `route`) will be lost after a reboot! Permanent configurations should come from configuration files.
 
 Lets check our current routing state using `route` command as root.
 
@@ -209,16 +212,16 @@ traceroute to 4.2.2.4 (4.2.2.4), 30 hops max, 60 byte packets
 11  d.resolvers.level3.net (4.2.2.4)  601.295 ms  921.003 ms  920.970 ms
 ```
 
-On the first step \(1\) I reach my own router. On the 2nd step, I'm at my ISPs local network and then will reach 162.blah.blah.blah. You can see in some cases the traceroute were able to do a **reverse DNS lookup** and find the hostname of the IPs and show them. After 11 hops, I reached my destination. The traceroute is a very useful tool in troublshooting network and routing issues or checking the status of your network and paths. 
+On the first step \(1\) I reach my own router. On the 2nd step, I'm at my ISPs local network and then will reach 162.blah.blah.blah. You can see in some cases the traceroute were able to do a **reverse DNS lookup** and find the hostname of the IPs and show them. After 11 hops, I reached my destination. The traceroute is a very useful tool in troubleshooting network and routing issues or checking the status of your network and paths. 
 
-> In some routers, the ping trafic is blocked and you will see `* * *` at some steps because those servers are blocking ICMP traffic.
+> In some routers, the ping traffic is blocked, and you will see `* * *` at some steps because those servers are blocking ICMP traffic.
 
 There is another command called `tracepath` which is very similar to `traceroute`. For the LPIC1 level, they are essentially the same!
 
 
 #### ss & netstat
 
-These commands can show a wide range of information about our network. The `ss` is the newer one and `netstat` is the older one. The two commands are replaceble in most cases and does the same things and even have similar option in most use cases. You can use the `netstat` to check your routing table:
+These commands can show a wide range of information about our network. The `ss` is the newer one and `netstat` is the older one. The two commands are replaceable in most cases and does the same things and even have similar option in most use cases. You can use the `netstat` to check your routing table:
 
 ```text
 jadi@debian:~$ netstat -nr
@@ -243,7 +246,7 @@ tcp   LISTEN 0      128                                           [::1]:631     
 
 The `-na` switch will show all the open ports (including sockets) and here I'm checking only for the tcp ones in the LISTEN status.
 
-> in these switches, `-n` stands for _numeric_, `-a` stands for _all ports_ and `-r` stands for _routes_.
+> In these switches, `-n` stands for _numeric_, `-a` stands for _all ports_ and `-r` stands for _routes_.
 
 A super common combination is the `-tulpn` option set:
 
@@ -266,7 +269,7 @@ tcp               LISTEN             0                  128                     
 
 #### netcat
 
-The nc \(or netcat\) utility is used for just about anything under the sun involving TCP, UDP, or UNIX-domain sockets. It can open TCP connections, send UDP packets, listen on arbitrary TCP and UDP ports, do port scanning, and deal with both IPv4 and IPv6. Unlike telnet, nc can be used easily in the scripts and separates error messages onto standard error instead of sending them to standard output, as telnet does with some. This is a very capable command and it is enough for you to be familier with its general concept.
+The nc \(or netcat\) utility is used for just about anything under the sun involving TCP, UDP, or UNIX-domain sockets. It can open TCP connections, send UDP packets, listen on arbitrary TCP and UDP ports, do port scanning, and deal with both IPv4 and IPv6. Unlike telnet, nc can be used easily in the scripts and separates error messages onto standard error instead of sending them to standard output, as telnet does with some. This is a very capable command, and it is enough for you to be familiar with its general concept.
 
 Here I'm creating a tcp listener on port 1337:
 
@@ -274,7 +277,7 @@ Here I'm creating a tcp listener on port 1337:
 jadi@debian:~$ nc -l 1337
 ```
 
-and here I'm openning a connection to that port and sending some data:
+And here I'm opening a connection to that port and sending some data:
 
 ```
 jadi@debian:~$ nc localhost 1337
@@ -285,7 +288,7 @@ And the message should be visible on the listening `nc`.
 
 #### dig
 
-The `dig` command is a DNS lookup tool. If you are having problem with a domain name, you can check how it is being resolved to IPs; and by whom.
+The `dig` command is a DNS lookup tool. If you are having a problem with a domain name, you can check how it is being resolved to IPs; and by whom.
 
 ```text
 [jadi@debian ~]$ dig google.com
