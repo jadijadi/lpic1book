@@ -19,14 +19,14 @@ Candidates should be able to view, change and verify configuration settings on c
 
 ### Terms and Utilities
 
-* /etc/hostname
-* /etc/hosts
-* /etc/nsswitch.conf
-* /etc/resolv.conf
-* nmcli
-* hostnamectl
-* ifup
-* ifdown
+* `/etc/hostname`
+* `/etc/hosts`
+* `/etc/nsswitch.conf`
+* `/etc/resolv.conf`
+* `nmcli`
+* `hostnamectl`
+* `ifup`
+* `ifdown`
 
 ### Intro
 As we saw in the previous section, every PC, server, laptop, phone, .. should have an IP configuration (IP, Netmask, Default gateway, DNS, ..) to work properly in the network. This can be done in various ways. Some devices like laptops are changing their network all the time and should be able to keep up with the changes. Some servers remain in the same location (physical and network wise) all their life and should persist this configuration after restarts, outages, upgrade and HW changes.
@@ -136,9 +136,9 @@ wlp3s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 
 As you can see \_down\_ing the interface removed it from the list of active interfaces, using switch `-a` will tell the `ifconfig` to show ALL interfaces, even if they are down.
 
-In may systems there are `ifup` and `ifdown` commands directly to up and down interfaces easily. They work just like `ifup eth0`.
+In many systems there are `ifup` and `ifdown` commands directly to up and down interfaces easily. They work just like `ifup eth0`.
 
-These predefined configs are located at `/etc/network/interfaces` on Debian based machines and in `/etc/sysconfig/network-scripts/` in RPM based computers. 
+These predefined configs are located at `/etc/network/interfaces` on Debian based machines and at `/etc/sysconfig/network-scripts/` in RPM based distro. 
 
 This is a sample of such file on a RedHat based distro:
 
@@ -176,7 +176,7 @@ dns-nameservers 4.2.2.4
 ```
 
 ### `ip` 
-Recent distors are mostly using the `ip` command. This command can do lots of things including and not limited to showing and configuring the IP addresses, netmasks, default gateways & routing rules.
+Recent distributions are mostly using the `ip` command. This command can do lots of things including and not limited to showing and configuring the IP addresses, netmasks, default gateways & routing rules.
 
 ```
 ip addr add 172.19.1.10/24 dev eth2 # temporary adding an IP
@@ -191,7 +191,7 @@ Please note that above commands do temporary changes which will be lost after re
 ### NetworkManager & `nmcli`
 In recent years, `NetworkManager` services has gained a lot of popularity. This service can "watch" the status of network and various configuration and configure the network cards (specially the wifi ones) accordingly. This is what makes our laptop connected whenever we open it in an area with a known WiFi or ask about the password if we want to connect to a new network or assign IP addresses as soon as we connect the cable to our Ethernet card. This IP assignment might happen via the "permanent IP configuration" on your device or a protocol called DHCP. When using DHCP (Dynamic Host Configuration Protocol), your computer asks a DHCP server (say your home's wifi router) about the IP, Netmask, Default gateway, DNS and other stuff and sets them. 
 
-By default, NetworkManager  daemon controls the networks which are not mentioned in `/etc/network/interfaces`. This service is running in the background and controls the NICs which are not configured there. Various frontend GUI (graphical user interface) or TUI (textual user interface) or CLI (command line interfaces) programs exists to control or configure the NetworkManager daemon. If you are using a Desktop Linux, you've probably already used / know one (say the network manager applet). Here I will show you how to use the `nmcli` from the command line. 
+By default, NetworkManager  daemon controls the networks which are not mentioned in `/etc/network/interfaces`. This service is running in the background and controls the NICs which are not configured there. Various frontend GUI (graphical user interface) or TUI (textual user interface. try `nmtui` ) or CLI (command line interfaces) programs exists to control or configure the NetworkManager daemon. If you are using a Desktop Linux, you've probably already used / know one (say the network manager applet). Here I will show you how to use the `nmcli` from the command line.
 
 We always call the `nmcli` with one of it various commands, here is a list:
 
@@ -239,7 +239,7 @@ nmcli device wifi connect AxLTE password AFunkyPassword
 ### Fancy Names for Computers
 
 #### hostname
-Remembering IP addresses are easy for robots but not for humans. Thats why we have "hostname"s. A hostname is a like a contact list where you just tell "call Jadi" and the system known my phone number. If you check your `/etc/hostname`, you will see your machines name there. Although you can change it temporary (or permanently). The command is `hostnamectl`. 
+Remembering IP addresses are easy for robots but not for humans. Thats why we have "hostname"s. A hostname is a like a contact list where you just tell "call Jadi" and the system known my phone number. If you check your `/etc/hostname`, you will see your machines name there. Although you can change it temporarily (or permanently). The command is `hostnamectl`. 
 
 ```
 [funlap ~]# hostnamectl set-hostname mycoolmachine
@@ -272,7 +272,7 @@ Operating System: Manjaro Linux
 Firmware Version: 1.30.0
 ```
 
-#### /etc/hosts
+#### `/etc/hosts`
 This file contains a list of IPs and their corresponding names, including your own computers. 
 
 ```
