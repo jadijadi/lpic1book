@@ -112,6 +112,8 @@
 <li>netstat</li>
 <li>route</li>
 </ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sAzkN5P2-0E?si=P1r5KgfEvit_BMFW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <h3>Troubleshooting network problems</h3>
 <p>When a network related problem is reported to you, you have to take a lot of steps to find out where the root cause of the problem is. For example, if the report says "I can not open webpages", you have to start from checking if the network interface has an ip, if it is up, its the routing is OK and if the DNS works fine and if everything is OK, you have to try reaching a server on the Internet via <code>ping</code> command and if you see any problems, you have to use <code>traceroute</code> to see where your traffic is going wrong. In this lesson, we will review these basic steps.</p>
 <h4>ifconfig &amp; ip</h4>
@@ -271,6 +273,8 @@ traceroute to 4.2.2.4 (4.2.2.4), 30 hops max, 60 byte packets
 </blockquote>
 <p>There is another command called <code>tracepath</code> which is very similar to <code>traceroute</code>. For the LPIC1 level, they are essentially the same!</p>
 <h4>ss &amp; netstat</h4>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/AvVOHQdbZDA?si=WZzCqGbaEdUDFp88" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <p>These commands can show a wide range of information about our network. The <code>ss</code> is the newer one and <code>netstat</code> is the older one. The two commands are replaceable in most cases and does the same things and even have similar option in most use cases. You can use the <code>netstat</code> to check your routing table:</p>
 <div class="highlight"><pre><span></span><code>jadi@debian:~$ netstat -nr
 Kernel IP routing table

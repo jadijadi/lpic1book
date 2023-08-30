@@ -107,6 +107,8 @@
 <li><code>ifdown</code></li>
 </ul>
 <h3>Intro</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YN8sJuy9df8?si=BEs4RmfvW1zdSUA4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <p>As we saw in the previous section, every PC, server, laptop, phone, .. should have an IP configuration (IP, Netmask, Default gateway, DNS, ..) to work properly in the network. This can be done in various ways. Some devices like laptops are changing their network all the time and should be able to keep up with the changes. Some servers remain in the same location (physical and network wise) all their life and should persist this configuration after restarts, outages, upgrade and HW changes.</p>
 <p>In this section we will see how this can be achieved in modern GNU/Linux systems.</p>
 <h3>Network Interface</h3>
@@ -126,6 +128,8 @@
 <p>The <code>lo</code> is a virtual network adapter called the <em>loopback</em> device. It is always there and points to "this device or 127.0.0.1 as IPv4 calls it".</p>
 </blockquote>
 <h3>Configuring NICs</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KKL-r4eAZHI?si=Av2ehqBv7eoRHuGw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <p>In older distributions, the <code>ifconfig</code> was used to check / configure the IP settings on NICs. Have a look:</p>
 <div class="highlight"><pre><span></span><code>$ ifconfig
 enp0s25: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500
@@ -311,6 +315,8 @@ IN-USE  BSSID              SSID                 MODE   CHAN  RATE        SIGNAL 
 </code></pre></div>
 
 <h3>Fancy Names for Computers</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/yR07UaiNeME?si=UcsRifk-HXLH-L4U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <h4>hostname</h4>
 <p>Remembering IP addresses are easy for robots but not for humans. Thats why we have "hostname"s. A hostname is a like a contact list where you just tell "call Jadi" and the system known my phone number. If you check your <code>/etc/hostname</code>, you will see your machines name there. Although you can change it temporarily (or permanently). The command is <code>hostnamectl</code>. </p>
 <div class="highlight"><pre><span></span><code>[funlap ~]# hostnamectl set-hostname mycoolmachine
