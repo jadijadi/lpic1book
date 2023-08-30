@@ -34,6 +34,8 @@ Candidates should be able to troubleshoot networking issues on client hosts.
 * netstat
 * route
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sAzkN5P2-0E?si=P1r5KgfEvit_BMFW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ### Troubleshooting network problems
 
 When a network related problem is reported to you, you have to take a lot of steps to find out where the root cause of the problem is. For example, if the report says "I can not open webpages", you have to start from checking if the network interface has an ip, if it is up, its the routing is OK and if the DNS works fine and if everything is OK, you have to try reaching a server on the Internet via `ping` command and if you see any problems, you have to use `traceroute` to see where your traffic is going wrong. In this lesson, we will review these basic steps.
@@ -220,6 +222,8 @@ There is another command called `tracepath` which is very similar to `traceroute
 
 
 #### ss & netstat
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/AvVOHQdbZDA?si=WZzCqGbaEdUDFp88" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 These commands can show a wide range of information about our network. The `ss` is the newer one and `netstat` is the older one. The two commands are replaceable in most cases and does the same things and even have similar option in most use cases. You can use the `netstat` to check your routing table:
 

@@ -29,6 +29,9 @@ Candidates should be able to view, change and verify configuration settings on c
 * `ifdown`
 
 ### Intro
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YN8sJuy9df8?si=BEs4RmfvW1zdSUA4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 As we saw in the previous section, every PC, server, laptop, phone, .. should have an IP configuration (IP, Netmask, Default gateway, DNS, ..) to work properly in the network. This can be done in various ways. Some devices like laptops are changing their network all the time and should be able to keep up with the changes. Some servers remain in the same location (physical and network wise) all their life and should persist this configuration after restarts, outages, upgrade and HW changes.
 
 In this section we will see how this can be achieved in modern GNU/Linux systems.
@@ -54,6 +57,9 @@ The `ip` command can show these:
 > The `lo` is a virtual network adapter called the *loopback* device. It is always there and points to "this device or 127.0.0.1 as IPv4 calls it".
 
 ### Configuring NICs
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KKL-r4eAZHI?si=Av2ehqBv7eoRHuGw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 In older distributions, the `ifconfig` was used to check / configure the IP settings on NICs. Have a look:
 
 ```text
@@ -236,7 +242,10 @@ To connect to a Wi-Fi network, you're a do:
 ```
 nmcli device wifi connect AxLTE password AFunkyPassword 
 ```
+
 ### Fancy Names for Computers
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/yR07UaiNeME?si=UcsRifk-HXLH-L4U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### hostname
 Remembering IP addresses are easy for robots but not for humans. Thats why we have "hostname"s. A hostname is a like a contact list where you just tell "call Jadi" and the system known my phone number. If you check your `/etc/hostname`, you will see your machines name there. Although you can change it temporarily (or permanently). The command is `hostnamectl`. 
