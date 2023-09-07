@@ -5,12 +5,6 @@ Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 sortorder: 440
 Summary: 
-## 109.4 Configure client side DNS
-
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
 
 _Weight: 2_
 
@@ -21,6 +15,8 @@ Candidates should be able to configure DNS on a client host.
 * Query remote DNS servers.
 * Configure local name resolution and use remote DNS servers.
 * Modify the order in which name resolution is done.
+* Debug errors related to name resolution
+* Awareness of systemd-resolved
 
 ### Terms and Utilities
 
@@ -33,7 +29,7 @@ Candidates should be able to configure DNS on a client host.
 
 ### DNS
 
-We already know a lot about Domain Name Server - A service who translates domain names \(like yahoo.com\) to IP addresses \(like 206.190.36.45\). A DNS server is used when you try to ping a server using its name. You have seen the config files for DNS and should know that the actual DNS server which is being used by the computer can be checked / changed \(temporarily\) from `/etc/resolv.conf`:
+We already know a lot about Domain Name System; A service which translates domain names \(say yahoo.com\) to IP addresses \(say 206.190.36.45\). A DNS server is used when you ping a server using its domain name. You have seen the config files for DNS and should know that the actual DNS server which is being used by the computer can be checked / changed \(temporarily\) from `/etc/resolv.conf`:
 
 ```text
 $ cat /etc/resolv.conf
@@ -51,9 +47,25 @@ PING x.org (131.252.210.176) 56(84) bytes of data.
 rtt min/avg/max/mdev = 333.088/335.612/338.136/2.524 ms
 ```
 
+### `host`
+This is a simple program to lookup DNS queries. This is a sample with no arguments:
+
+```
+$ host kernel.org
+kernel.org has address 139.178.84.217
+kernel.org has IPv6 address 2604:1380:4641:c500::1
+kernel.org mail is handled by 10 smtp1.kernel.org.
+kernel.org mail is handled by 10 smtp2.kernel.org.
+kernel.org mail is handled by 10 smtp3.kernel.org.
+```
+
+As you can see, the `host` command returns all the records it can find for a specific domain. In this case it returns IPv4 (A), IPv6 (AAAA) and two Mail (MX) records.
+
+> if you want to check only a specific record, you can provide it via `-t` swtich. So the `-t A` will only return back the IPv4 records.
+
 ### dig
 
-The `dig` tool is specifically build to query DNS. If you want to find out where x.org points to, you can do:
+The `dig` tool is specifically build to query DNS servers. If you want to find out where x.org points to, you can do:
 
 ```text
 $ dig x.org
@@ -78,7 +90,7 @@ x.org.            1625    IN    A    131.252.210.176
 ;; MSG SIZE  rcvd: 50
 ```
 
-As you can see, `dig` did a **ip lookup** for x.org and told me that the IP is 131.252.210.176. The `1625` is called the TTL or _Time To Live_ and show how many seconds before this answer expires. This command also tells us which server is used to find the answer \(last 4 lines\) and when and how long it took.
+As you can see, `dig` did an **ip lookup** for `x.org` and told me that its IP is 131.252.210.176. The `1625` is called the TTL or _Time To Live_ and show how many seconds this answer will be considered valid in chache. This command also tells us which server is used to query the answer \(last 4 lines\) and when and how long it took.
 
 There is also a way to tell `dig` command what server it should use as the DNS:
 
@@ -116,18 +128,18 @@ google.com.        112    IN    A    173.194.32.142
 ;; MSG SIZE  rcvd: 215
 ```
 
-Here I have asked dig to use 8.8.8.8 as its DNS and query google.com. You can see that I've got more than 1 answer \(actually much more than 1 answer\). My computer can randomly contact any of those IPs to reach the google.com. In other words, google.com is using more than 1 server/IP and 8.8.8.8 provides all of them when queried for that domain.
+Here I have asked dig to use `8.8.8.8` as its DNS and query `google.com`. You can see that I've got more than 1 answer \(actually much more than 1 answer\). My computer can randomly contact any of those IPs to reach the `google.com`. In other words, google.com is using more than 1 server/IP and `8.8.8.8` provides all of them when queried for that domain.
 
 ### /etc/hosts
 
-This is a file containing IP addresses and their domain names - statically saved! Lets have a look:
+This file contains IP addresses and their correspondive names. This is kind of an static name resolution on your computer. Let's have a look:
 
 ```text
 $ head /etc/hosts
 127.0.0.1    funlife localhost.localdomain    localhost clickadu.com
 ::1    funlife localhost6.localdomain6    localhost6
 
-10.159.32.155 nsnproxy
+10.159.32.155 nsproxy
 172.16.12.134 linuxclass wonderland
 193.40.12.135 salma
 
@@ -244,7 +256,7 @@ On the DNS line I have `hosts: files mdns4_minimal [NOTFOUND=return] dns myhostn
 127.0.0.1 facebook.com
 ```
 
-And then point my browser to facebook.com, my computer will try to open a webserver on 127.0.0.1 instead of the real IP of Facebook.
+And then point my browser to facebook.com, my computer will try to connect to the webserver on 127.0.0.1 instead of the real IP of Facebook.
 
 ### getent
 
@@ -271,21 +283,6 @@ $ getent hosts
 127.0.0.1       frctlmeth
 ```
 
-.
+### systemd-resolved
 
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
+It should be noted that the `systemd` provides a DNS called `systemd-resolved`. It listens for DNS requests on `127.0.0.53` and answers back after consulgint the `/etc/systemd/resolv.conf` or `/etc/resolv.conf`.
