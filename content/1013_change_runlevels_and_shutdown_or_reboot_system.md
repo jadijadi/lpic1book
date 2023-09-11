@@ -274,7 +274,7 @@ It is good to be informed! Especially if the system is going down; Especially on
 - `/etc/issue`: Text to be displayed on the tty terminal logins (before login)
 - `/etc/issue.net`: Text to be displayed on the remote terminal logins (before login)
 - `/etc/motd`: Message of the day (after login). Some companies add "Do not enter if you are not allowed" texts here for legal reasons.
-- `mesg`: Command controls if you want to get wall messages on not. You can do `mesg n` and `who -T` will show mesg status. Note that `shutdown` wall messages do not respect the `mesg` status
+- `mesg`: Command controls if you want to get wall messages or not. You can do `mesg n` and `who -T` will show mesg status. Note that `shutdown` wall messages do not respect the `mesg` status
 
 > systemctl sends wall messages for emergency, halt, power-off, reboot, and rescue
 
