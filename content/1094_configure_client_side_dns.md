@@ -20,12 +20,14 @@ Candidates should be able to configure DNS on a client host.
 
 ### Terms and Utilities
 
-* /etc/hosts
-* /etc/resolv.conf
-* /etc/nsswitch.conf
-* host
-* dig
-* getent
+* `/etc/hosts`
+* `/etc/resolv.conf`
+* `/etc/nsswitch.conf`
+* `host`
+* `dig`
+* `getent`
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wUDhmSpr3lg?si=O1LCyXq_L4LmLn39" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### DNS
 
@@ -90,9 +92,9 @@ x.org.            1625    IN    A    131.252.210.176
 ;; MSG SIZE  rcvd: 50
 ```
 
-As you can see, `dig` did an **ip lookup** for `x.org` and told me that its IP is 131.252.210.176. The `1625` is called the TTL or _Time To Live_ and show how many seconds this answer will be considered valid in chache. This command also tells us which server is used to query the answer \(last 4 lines\) and when and how long it took.
+As you can see, `dig` did an **ip lookup** for `x.org` and told me that its IP is 131.252.210.176. The `1625` is called the **TTL** or _Time To Live_ and show how many seconds this answer will be considered valid in cache. This command also tells us which server is used to query the answer \(last 4 lines\) and when and how long it took.
 
-There is also a way to tell `dig` command what server it should use as the DNS:
+There is also a way to tell `dig` command what server it should use as the DNS vi `@<DNS-SERVER>`:
 
 ```text
 $ dig @8.8.8.8 google.com
@@ -128,9 +130,9 @@ google.com.        112    IN    A    173.194.32.142
 ;; MSG SIZE  rcvd: 215
 ```
 
-Here I have asked dig to use `8.8.8.8` as its DNS and query `google.com`. You can see that I've got more than 1 answer \(actually much more than 1 answer\). My computer can randomly contact any of those IPs to reach the `google.com`. In other words, google.com is using more than 1 server/IP and `8.8.8.8` provides all of them when queried for that domain.
+Here I have asked dig to use `8.8.8.8` as its DNS and query `google.com`. You can see that I've got more than one answer \(actually much more than one answer\). My computer can randomly contact any of those IPs to reach the `google.com`. In other words, google.com is using more than one server/IP and `8.8.8.8` provides all of them when queried for that domain.
 
-### /etc/hosts
+### `/etc/hosts`
 
 This file contains IP addresses and their correspondive names. This is kind of an static name resolution on your computer. Let's have a look:
 
@@ -283,6 +285,8 @@ $ getent hosts
 127.0.0.1       frctlmeth
 ```
 
-### systemd-resolved
+### `systemd-resolved`
 
 It should be noted that the `systemd` provides a DNS called `systemd-resolved`. It listens for DNS requests on `127.0.0.53` and answers back after consulgint the `/etc/systemd/resolv.conf` or `/etc/resolv.conf`.
+
+Read more [Here](https://wiki.archlinux.org/title/Systemd-resolved) about `systemd-resolved`.
