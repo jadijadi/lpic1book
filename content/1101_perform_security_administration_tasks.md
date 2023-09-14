@@ -5,12 +5,6 @@ Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 sortorder: 450
 Summary: 
-## 110.1 Perform security administration tasks
-
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
 
 _Weight: 3_
 
@@ -43,16 +37,16 @@ Candidates should know how to review system configuration to ensure host securit
 
 #### suid and guid
 
-We've already covered `suid`. When the suid bit is set on an executable file, whoever runs the file, is running the file with the access of the owner of the file. Have a look at the `ping` command:
+We've already covered `suid`; In short, when the suid bit is set on an executable file, the user will run with the access level of the owner of the file (and not the runner). Have a look at the `ping` command:
 
-```text
-jadi@funlife ~$ type ping
-ping is hashed (/bin/ping)
-jadi@funlife ~$ ls -ltrh /bin/ping
--rwsr-xr-x 1 root root 44K May  8  2014 /bin/ping
+```
+➜  ~ type passwd
+passwd is /usr/bin/passwd
+➜  ~ ls -ltrh /usr/bin/passwd 
+-rwsr-xr-x 1 root root 63K Nov 23  2022 /usr/bin/passwd
 ```
 
-The `s` on the access rights part, tells us that whoever runs the ping command, the ping command will be run with root access. This is needed by root and is OK on my distro but what happens if someone changes the suid of the vi command? lets see who own vi:
+The `s` on the access rights part, will run the file using the owners (here its root) access; regardless of whom is running it. This is needed because the `passwd` commands needs to be able to change the passwords in the *shadow* file even if a normal user runs it. But what happens if someone changes the suid of the vi command? let's see who owns the `vi`:
 
 ```text
 jadi@funlife ~$ type vi
@@ -61,11 +55,13 @@ jadi@funlife ~$ ls -ltrh /usr/bin/vi
 lrwxrwxrwx 1 root root 20 Jun  1 12:52 /usr/bin/vi -> /etc/alternatives/vi
 ```
 
-at the moment, the `vi` is owned by root, so if the suid bit is set, vi will always be run as root! In that case, anybody will be able to edit any file! You can see why it is important to check for suid files on your system:
+The `vi` is owned by root, so if the suid bit is set, vi will always be run as root! In that case, anybody will be able to edit any file! So if you are a hacker and get a temporary root, its enough to copy vi somewhere (with a different unsuspicious name) and give it the `suid` access. Now you will be able to run it with normal users and modify system files when needed! That's why a system admin should be able to check her systems executable files with `suid` bit if needed:
 
 ```text
 $sudo find / -perm -u+s
 ```
+
+Here, the `-perm -u+s` tells `find` to search for file which has `suid` on `user`. For more info, check the `man find` and search for `perm`. 
 
 > same applies for guid. if the guid is set, the file will be run with access of its group
 
@@ -73,7 +69,7 @@ $sudo find / -perm -u+s
 
 **netstat, fuser and lsof**
 
-On module 109.1 we talked about ports, ports are like wholes in our systems used by servers to listen to the outside world. If I'm running a web server on my computer I should have a port open so people can ask that server "please show me your index.html". Many malwares open ports to let the attacker to communicate with them. It is important to check your computer for open ports time to time. The main command for this task is `netstat` using the `-na` or `-ap` or `-tuna` switch.. I'm sure tuna is easy to remember if you have the tuna fish in mind!
+On module 109.1 we talked about ports. Ports are like wholes in our systems used by programs to listen to the outside world. If I'm running a web server on my computer I should have a port open so people can ask that server "please show me your index.html". Many malwares open ports to let the attacker to communicate with them. It is important to check your computer for open ports time to time. The older command for this is the `netstat`; using the `-na` or `-ap` or `-tuna` switch.. I'm sure 'tuna' is easy to remember if you have every enjoyed a tuna sandwith.
 
 ```text
 jadi@funlife ~$ netstat -tuna
@@ -99,7 +95,7 @@ udp        0      0 0.0.0.0:5353            0.0.0.0:*
 
 All the `LISTEN` ports are servers; they are LISTENING for new incoming connections. The `ESTABLISHED` connections are the active connections between your computer and another computer. In these tables `0.0.0.0` dictates _any address_ or _any interface_.
 
-Another useful tool here is `lsof` and `fuser`. The former is already discussed in previous sections. `lsof` shows the open files on the system and having in mind that _everything in Linux is a file or a process_ you can conclude that this command should be able to display open connections too; and you are right:
+Other useful tools are `ss` for the same purpose as you saw on chapter 109 and `lsof` and `fuser`. The 'lsof' is already discussed in previous sections. It shows the open files on the system and having in mind that _everything in Linux is a file or a process_ you can conclude that this command should be able to display open connections too; and you are right:
 
 ```text
 # lsof -i
@@ -126,16 +122,17 @@ chrome    14264       jadi  138u  IPv4 1908382      0t0  TCP funlife:60408->funl
 
 Wow! This command shows the command, PID, user running it and source and destination IP and tells of if this is a LISTENING or STABLISHED connection.
 
-If you want to check which process is using port 80, you can grep the output of any above commands or simply use the `fuser` command to find all the PIDs related to that specific port:
+If you want to check which process is using port 80, you can grep the output of any above commands or simply use the `fuser` (file user; who uses this file) command to find all the PIDs related to that specific port. A common swithc is `-v` which goes verbose. 
 
 ```text
-root@funlife:/bin# fuser 80/tcp
-80/tcp:              11095 11096 11097 11098 11099
+➜  bin sudo fuser 22/tcp -v      
+                     USER        PID ACCESS COMMAND
+22/tcp:              root          1 F.... systemd
 ```
 
-**nmap**
+#### nmap
 
-`nmap` is the toolbox of hackers! You can nmap a server to find out about a lot of data about that server:
+`nmap` is the one of the hackers beloved tools! You can nmap a server to find out about a lot of data about that server:
 
 ```text
 # nmap localhost
@@ -158,9 +155,11 @@ root@funlife:~#
 
 In the most basic form, nmap checks all the open ports from 1 to 1000 and prints the results. There are a lot of switches to find other information about the hosts and they are used by every single hacker who wants to examine a servers status.
 
+Do a quick search for [nmap oneliners](https://duckduckgo.com/?t=h_&q=nmap+oneliners&ia=web) and you will find dozens of cool commands and tricks for it. Its so cool that its webside [has a section about nmap in movies](https://nmap.org/movies/)!
+
 #### sudo vs su
 
-We've used sudo and su in all the chapters and this is time to have a closer look at them! `su` changes your account to something else. You get a new prompt with the new user account after successfully `su`ing to that account:
+We've used sudo and su in practically all the chapters and now is the time to have a closer look! `su` switches you to some other account; a "set user". You get a new prompt with the new user account after successfully `su`ing to that account:
 
 ```text
 jadi@funlife ~$ whoami
@@ -170,8 +169,6 @@ Password:
 root@funlife:~# whoami
 root
 root@funlife:~# su jadi -
-bash: cannot set terminal process group (-1): Inappropriate ioctl for device
-bash: no job control in this shell
 jadi@funlife /root$ whoami
 jadi
 jadi@funlife /root$ exit
@@ -223,7 +220,7 @@ root    ALL=(ALL:ALL) ALL
 #includedir /etc/sudoers.d
 ```
 
-note the 2 important lines: how root gets the right to run all the commands and how the sudo and admin groups get rights to run commands as root. The `ALL:ALL` means these users can run as any user and any group. The last ALL tells the sudo that these users / groups can run ALL commands. It is possible to put /bin/ping in the last part to tell sudo that this user can run only ping as root.
+Note the 2 important lines: how root gets the right to run all the commands and how the sudo and admin groups get rights to run commands as root. The `ALL:ALL` means these users can run as any user and any group. The last ALL tells the sudo that these users / groups can run ALL commands. It is possible to put /bin/ping in the last part to tell sudo that this user can run only ping as root.
 
 > The /etc/sudoers file is very important and breaking it will make major problems. to prevent you from adding un-interpretable lines in that file, the `visudo` command should be used instead of `vi /etc/sudoers`. This tool will check your edits to make sure that sudo command can understand them.
 
@@ -353,7 +350,7 @@ jadi     pts/27   :0               21:55    8:09   0.01s  0.01s /bin/bash
 
 You have a line for each logged in users \(every single shell window is a seperated login\).
 
-Another userul command is `who`. Lets check it:
+Another useful command is `who`. Lets check it:
 
 ```text
 $ who
@@ -390,27 +387,62 @@ jadi     pts/21       :0               Fri Jun  3 18:44 - 19:47  (01:03)
 
 > there is a way to check the failed logins too: `last -f /var/log/btmp`
 
-.
+#### Password Management
+The `passwd` command is used to update / change the password of the users. 
 
-.
+```
+➜  passwd     
+Changing password for jadi.
+Current password: 
+New password: 
+Retype new password: 
+passwd: password updated successfully
+➜  sudo passwd jadi
+New password: 
+BAD PASSWORD: The password is shorter than 8 characters
+Retype new password: 
+passwd: password updated successfully
+```
 
-.
+You can also use this command to check the status of a user:
 
-.
+```
+➜  ~ passwd -S
+jadi P 2023-09-14 0 99999 7 -1
+```
 
-.
+It says my user is jadi, I have a valid *P*assword (could have been *L*ocked or *NP* for no password), my last password change time, minimum age of my password, maximum age of my password, warning period before password expiary & allowed password inactivity in days. 
 
-.
+The root user can also use the `passwd` to change the shell and other configurations of a user. 
 
-.
+But to properly check / change the password age and other configurations of users, the `chage` utility should be used. Run it with `-l` for `list`:
 
-.
+```
+➜  ~ chage -l jadi
+Last password change					: Sep 14, 2023
+Password expires					: never
+Password inactive					: never
+Account expires						: never
+Minimum number of days between password change		: 0
+Maximum number of days between password change		: 99999
+Number of days of warning before password expires	: 7
+```
 
-.
+or without any switches for interactive mode:
 
-.
+```
+➜  ~ chage jadi
+chage: Permission denied.
+➜  ~ sudo chage jadi
+Changing the aging information for jadi
+Enter the new value, or press ENTER for the default
 
-.
+	Minimum Password Age [0]: 
+	Maximum Password Age [99999]: 
+	Last Password Change (YYYY-MM-DD) [2023-09-14]: 
+	Password Expiration Warning [7]: 3
+	Password Inactive [-1]: 
+	Account Expiration Date (YYYY-MM-DD) [-1]: 
+```
 
-.
-
+You can also use switches to directly change values. Say -m for --mindays or -M for --maxdays. 
