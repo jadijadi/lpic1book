@@ -5,12 +5,6 @@ Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 sortorder: 460
 Summary: 
-## 110.2 Setup host security
-
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
 
 _Weight: 3_
 
@@ -29,8 +23,7 @@ Candidates should know how to set up a basic level of host security.
 * /etc/shadow
 * /etc/xinetd.d/
 * /etc/xinetd.conf
-* /etc/inetd.d/
-* /etc/inetd.conf
+* systemd.socket
 * /etc/inittab
 * /etc/init.d/
 * /etc/hosts.allow
@@ -63,27 +56,23 @@ jadi@funlife ~$ sudo ls -ltrh /etc/shadow
 
 This is a cool file! If you create and write something in it, the content will be shown to any person who tries to login into the system and the login attempt will fail. It is useful for maintenance time. Delete this file and the users will be able to login again.
 
-> admin users will be able to login even in the presence of /etc/nologin
+> the root user will be able to login even in the presence of /etc/nologin
 
-#### turn off network services
+Please also note that there a is dummy shell called `nologin` and you can set it as shell for any user you want to prevent from being able to login into the system via a shell. Note that such a user still has an active account and will be able to use other services (say email or ftp) but wont be able to enter the shell. 
 
-In the previous module, we learned how to find the running services on the server. Turning them off is easy but a bit different on different systems. In case you want to turn the `httpd` service off, you can do:
+```
+sudo usermod -s /sbin/nologin baduser
+```
 
-| system | service manager | command |
-| :--- | :--- | :--- |
-| older linux systems | SysV | chkconfig httpd off sysv-rc-conf httpd off |
-| Ubuntu | Upstart | update-rc.d httpd remove |
-| newer linux distros | systemd | systemctl disable httpd |
+### super-servers
 
-Please note that these commands prevent the service from starting on system boot. The `http` is still installed on the machine and you can run it if you need.
+A super-server or sometimes called a service dispatcher is a type of daemon running mostly on Unix-like systems for security and resource management reasons. It listens for requests its configured for and starts the target services when needed to answer the requests. This adds a layer of security to your communications and also lets some of the services to be inactive when we do not need them. You can see a super server or superdaemon as a TCP (and UDP or even ICMP) wrapper around other services.
 
-#### super-servers
+![Super Server](/images/super-server.png)
 
-A super-server or sometimes called a service dispatcher is a type of daemon run generally on Unix-like systems for security reasons. It starts other servers when needed, normally with access to them checked by a TCP wrapper.
+Few GNU/Linuxes use TCP wrappers like `xinetd` these days but you might see it in some installations or traces of it in your `/etc/xinet.d`. If needed it is also possible to configure the `systemd.socket` as a TCP wrapper for other services. 
 
-![Super Server](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Super-server.png/420px-Super-server.png)
-
-Practically no new Linux is using a super server anymore but some traces of `xinetd` is still there in some systems in `/etc/xinet.d/`. This is a sample xinetd configuration:
+Here is a sample xinetd configuration file:
 
 ```text
 service telnet
@@ -103,7 +92,65 @@ service telnet
 
 If we change the `disable` to `yes` and restart the xinetd, the telnet daemon will start running. There are a few files to control to xinetd related files.
 
-**/etc/hosts.allow & /etc/hosts.deny**
+As mentioned, `xinetd` is replaced by the `systemd.socket` units. Some of the services like ssh and cups might have a socket unit alongside the service unit in your distribution. In this case its enough to stop & disable the `ssh.service` and start the `ssh.docekt` instead. Now the systemd.socekt is acting as a warpper around the port 22 and IF someones needs the service, starts the ssh server to answer. 
+
+### Removing unused services
+Based on your distribution, you can check the running services using the `service` or `systemctl` command. If you are using the SysV init system (older distros mainly) or you have the compatibility tools installed, do as follow:
+
+```
+~ sudo service --status-all
+ [ - ]  alsa-utils
+ ....
+ [ + ]  ufw
+ [ + ]  unattended-upgrades
+ [ + ]  uuidd
+ [ + ]  vpn-unlimited-daemon
+ [ + ]  vsftpd
+ [ - ]  whoopsie
+ [ - ]  x11-common
+```
+
+On a RedHat based machine, you can stop a service via:
+
+```
+sudo chkconfig vsfptd off
+```
+
+and On debian machines:
+
+```
+sudo update-rc.d vsftpd remove
+```
+
+If you are using the systemd, do as follow to check and stop / disable a service:
+
+```
+systemctl list-units --state active --type service
+systemctl status
+systemctl disable vsftpd.service --now
+```
+
+Please also remember than on older systems, we used to have all the Init scripts in `/etc/init.d` and `/etc/rcX.d` folders. There were also a `/etc/inittab` file which was a configuration file for initializing a Linux system using SysV. I contains lines i this format:
+
+```
+id:runlevel:action:process
+```
+
+This would tell the init system to do `actions` on the `process` on a specific `runlevel`. For example:
+
+```
+1:2345:respawn:/sbin/mingetty tty1
+```
+
+tells the init to start (and respawn if killed), the `mingetty tty1` command on runlevels 2, 3, 4, & 5. As the final note, this was the most important line in the `inittab` file because it told the init to start in run level 3. 
+
+```
+id:3:initdefault:
+```
+
+for more information about runlevels, please refer to [Chapter 101.3](1013-change-runlevels-boot-targets-and-shutdown-or-reboot-the-system.html).
+
+#### /etc/hosts.allow & /etc/hosts.deny
 
 These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowed, everything else is denied but if you add something to the /etc/hosts.deny, only that specific thing is denied \(and every other thing is allowed\).
 
@@ -119,12 +166,19 @@ jadi@funlife ~$ cat /etc/hosts.allow
 # daemon name. See rpcbind(8) and rpc.mountd(8) for further information.
 #
 
-telnet: 10.10.100.
+vsftpd: 10.10.100.
 ```
 
-Here the `telnet` service is only allowed from 10.10.100.\* . It is possible to use `ALL` as the service name to allow or deny ALL services.
+How the `vsftpd` knows about this file? Because it uses the `libwrap` library in its source and the libwrap understands the wrapper tools. You can check this claim by searching for `libwrap` in the list of libraries `vsftpd` uses:
+
+```
+➜  ~ ldd /usr/sbin/vsftpd | grep libwrap
+	libwrap.so.0 => /lib/x86_64-linux-gnu/libwrap.so.0 (0x00007fb293921000)
+```
+
+Here the `vsftpd` service is only allowed from 10.10.100.\* . It is possible to use `ALL` as the service name to allow or deny ALL services.
 
 > after changing this file, xinetd should be restarted
 
-As mentioned, super servers are not being used anymore and most distributions use standalone services running on them. This is also called tcp wrapping since the tcp connections are being passwd from xinetd and xinetd decides what to do with them.
+As mentioned, super servers are not being used anymore and most distributions use standalone services. 
 
