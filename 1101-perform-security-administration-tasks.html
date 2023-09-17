@@ -231,17 +231,17 @@ jadi     pts/21       :0               Fri Jun  3 18:44 - 19:47  (01:03)
 </blockquote>
 <h3>Password Management</h3>
 <p>The <code>passwd</code> command is used to update / change the password of the users. </p>
-<div class="highlight"><pre><span></span><code><span class="err">➜</span><span class="w">  </span><span class="nx">passwd</span><span class="w">     </span>
-<span class="nx">Changing</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">jadi</span><span class="p">.</span>
-<span class="nx">Current</span><span class="w"> </span><span class="nx">password</span><span class="p">:</span><span class="w"> </span>
-<span class="nx">New</span><span class="w"> </span><span class="nx">password</span><span class="p">:</span><span class="w"> </span>
-<span class="nx">Retype</span><span class="w"> </span><span class="nx">new</span><span class="w"> </span><span class="nx">password</span><span class="p">:</span><span class="w"> </span>
-<span class="nx">passwd</span><span class="p">:</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="nx">updated</span><span class="w"> </span><span class="nx">successfully</span>
-<span class="err">➜</span><span class="w">  </span><span class="nx">sudo</span><span class="w"> </span><span class="nx">passwd</span><span class="w"> </span><span class="nx">jadi</span>
-<span class="nx">New</span><span class="w"> </span><span class="nx">password</span><span class="p">:</span><span class="w"> </span>
-<span class="nx">BAD</span><span class="w"> </span><span class="nx">PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">shorter</span><span class="w"> </span><span class="nx">than</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="nx">characters</span>
-<span class="nx">Retype</span><span class="w"> </span><span class="nx">new</span><span class="w"> </span><span class="nx">password</span><span class="p">:</span><span class="w"> </span>
-<span class="nx">passwd</span><span class="p">:</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="nx">updated</span><span class="w"> </span><span class="nx">successfully</span>
+<div class="highlight"><pre><span></span><code>➜<span class="w">  </span><span class="nv">passwd</span><span class="w">     </span>
+<span class="nv">Changing</span><span class="w"> </span><span class="nv">password</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">jadi</span>.
+<span class="nv">Current</span><span class="w"> </span><span class="nv">password</span>:<span class="w"> </span>
+<span class="nv">New</span><span class="w"> </span><span class="nv">password</span>:<span class="w"> </span>
+<span class="nv">Retype</span><span class="w"> </span><span class="nv">new</span><span class="w"> </span><span class="nv">password</span>:<span class="w"> </span>
+<span class="nv">passwd</span>:<span class="w"> </span><span class="nv">password</span><span class="w"> </span><span class="nv">updated</span><span class="w"> </span><span class="nv">successfully</span>
+➜<span class="w">  </span><span class="nv">sudo</span><span class="w"> </span><span class="nv">passwd</span><span class="w"> </span><span class="nv">jadi</span>
+<span class="nv">New</span><span class="w"> </span><span class="nv">password</span>:<span class="w"> </span>
+<span class="nv">BAD</span><span class="w"> </span><span class="nv">PASSWORD</span>:<span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">password</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">shorter</span><span class="w"> </span><span class="nv">than</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="nv">characters</span>
+<span class="nv">Retype</span><span class="w"> </span><span class="nv">new</span><span class="w"> </span><span class="nv">password</span>:<span class="w"> </span>
+<span class="nv">passwd</span>:<span class="w"> </span><span class="nv">password</span><span class="w"> </span><span class="nv">updated</span><span class="w"> </span><span class="nv">successfully</span>
 </code></pre></div>
 
 <p>You can also use this command to check the status of a user:</p>
@@ -282,10 +282,10 @@ Number of days of warning before password expires   : 7
 <p>You can also use switches to directly change values. Say -m for --mindays or -M for --maxdays. </p>
 <h3>suid and guid</h3>
 <p>We've already covered <code>suid</code>; In short, when the suid bit is set on an executable file, the user will run with the access level of the owner of the file (and not the runner). Have a look at the <code>ping</code> command:</p>
-<div class="highlight"><pre><span></span><code><span class="err">➜</span><span class="w">  </span><span class="o">~</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="nx">passwd</span>
-<span class="nx">passwd</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">passwd</span>
-<span class="err">➜</span><span class="w">  </span><span class="o">~</span><span class="w"> </span><span class="nx">ls</span><span class="w"> </span><span class="o">-</span><span class="nx">ltrh</span><span class="w"> </span><span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">passwd</span><span class="w"> </span>
-<span class="o">-</span><span class="nx">rwsr</span><span class="o">-</span><span class="nx">xr</span><span class="o">-</span><span class="nx">x</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nx">root</span><span class="w"> </span><span class="nx">root</span><span class="w"> </span><span class="mi">63</span><span class="nx">K</span><span class="w"> </span><span class="nx">Nov</span><span class="w"> </span><span class="mi">23</span><span class="w">  </span><span class="mi">2022</span><span class="w"> </span><span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">passwd</span>
+<div class="highlight"><pre><span></span><code>➜  ~ type passwd
+passwd is /usr/bin/passwd
+➜  ~ ls -ltrh /usr/bin/passwd 
+-rwsr-xr-x 1 root root 63K Nov 23  2022 /usr/bin/passwd
 </code></pre></div>
 
 <p>The <code>s</code> on the access rights part, will run the file using the owners (here its root) access; regardless of whom is running it. This is needed because the <code>passwd</code> commands needs to be able to change the passwords in the <em>shadow</em> file even if a normal user runs it. But what happens if someone changes the suid of the vi command? let's see who owns the <code>vi</code>:</p>
