@@ -99,6 +99,7 @@
 <li>Perform basic OpenSSH 2 client configuration and usage.</li>
 <li>Understand the role of OpenSSH 2 server host keys.</li>
 <li>Perform basic GnuPG configuration, usage and revocation.</li>
+<li>Use GPG to encrypt, decrypt, sign and verify files.</li>
 <li>Understand SSH port tunnels (including X11 tunnels).</li>
 </ul>
 <h3>Terms and Utilities</h3>
@@ -109,103 +110,347 @@
 <li>ssh-add</li>
 <li>~/.ssh/id_rsa and id_rsa.pub</li>
 <li>~/.ssh/id_dsa and id_dsa.pub</li>
+<li>~/.ssh/id_ecdsa and id_ecdsa.pub</li>
+<li>~/.ssh/id_ed25519 and id_ed25519.pub</li>
 <li>/etc/ssh/ssh_host_rsa_key and ssh_host_rsa_key.pub</li>
 <li>/etc/ssh/ssh_host_dsa_key and ssh_host_dsa_key.pub</li>
+<li>/etc/ssh/ssh_host_ecdsa_key and ssh_host_ecdsa_key.pub</li>
+<li>/etc/ssh/ssh_host_ed25519_key and ssh_host_ed25519_key.pub</li>
 <li>~/.ssh/authorized_keys</li>
 <li>ssh_known_hosts</li>
 <li>gpg</li>
+<li>gpg-agent</li>
 <li>~/.gnupg/</li>
 </ul>
-<h4>Key Pairs</h4>
-<p>In traditional cryptography, the symmetric keys were used: both parties had a shared password; the files were encrypted with that password and then decrypted using the same password. These years, the KeyPairs are becoming more and more common. When generating a key pair, we generate two keys using a computer algorithm in the way that any message which is encrypted using one, can be opened only using the other key. These are called Public &amp; Private key. You publish the public key to your friends and even the strangers and if they need to send an encrypted message to you, scramble it using YOUR public key and send it to you. After receiving it, you open the file using your PRIVATE key.</p>
+<h2>Key Pairs</h2>
+<p>In traditional cryptography, the symmetric keys were used: both parties had a shared password. The data were encrypted with that password and then decrypted using the same password. But in 1976, a new idea came into the view: what if we create 2 keys (lets call them the Private Key and the Public Key) in a way that only people who has the Public Key, be able to open whatever which is encrypted with the Private key? The scientists made this a reality and nowawayds, most of our encryptions are being done via these <strong>Key Pair</strong>s. When generating a key pair, we generate two keys using a computer algorithm in the way that any message which is encrypted using one, can be opened only using the other. These are called Public &amp; Private key. You publish the public key to your friends or even publicly on the net and if someone wants to send you an encrypted message, she encrypts it using your public key and send it to you with any means (or published the encoded message on the intneret) and only and only you will be able to open it, because you are the one who has the Private key!</p>
 <blockquote>
 <p>great point about Public / Private key is that the data can be transmitted over the internet with no fear of hackers or governments. You are publishing your key to the world, some one picks it and uses it to encrypt some data and sent the result to you. People can see that you are receiving "some data" but they can not encrypt it because they do not have the private key needed to decrypt it.</p>
 </blockquote>
-<h4>ssh key pairs</h4>
-<p>Before using keys, we have to generate them. This task is as simple as running one command:</p>
-<div class="highlight"><pre><span></span><code>$ ssh-keygen
-Generating public/private rsa key pair.
-Enter file in which to save the key (/home/jadi/.ssh/id_rsa):
-Created directory &#39;/home/jadi/.ssh&#39;.
-Enter passphrase (empty for no passphrase):
-Enter same passphrase again:
-Your identification has been saved in /home/jadi/.ssh/id_rsa.
-Your public key has been saved in /home/jadi/.ssh/id_rsa.pub.
-The key fingerprint is:
-bc:1c:1a:da:0b:8b:22:56:da:1f:68:14:5b:da:7e:2e jadi@localhost.localdomain
-The key&#39;s randomart image is:
-+--[ RSA 2048]----+
-|                 |
-|                 |
-|   . .           |
-|    *  .         |
-|   + .. S        |
-|  ..oo + o       |
-|  +oooo.o        |
-|oo.o E+.         |
-|o.. o.o.         |
-+-----------------+
+<h3>ssh keys</h3>
+<p>The same technology (Public key cryptography or asymetric cryptography) can be used in most of the network communications too. In fact the very <code>ssh</code> works based on this concept. It is used to authenticate hosts and secure the traffic. </p>
+<p>'''
+➜  ~ ssh 192.168.70.2
+The authenticity of host '192.168.70.2 (192.168.70.2)' can't be established.
+ED25519 key fingerprint is SHA256:4Wp2zz6sgPAhnbqhkNjOd6QDpNQ4jvjX7qAzslPX09U.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? y
+Please type 'yes', 'no' or the fingerprint: yes
+Warning: Permanently added '192.168.70.2' (ED25519) to the list of known hosts.
+jadi@192.168.70.2's password:
+Linux debian 6.4.0-2-arm64 #1 SMP Debian 6.4.4-3 (2023-08-08) aarch64</p>
+<p>The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.</p>
+<p>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+You have no mail.
+Last login: Sun Sep 17 04:43:18 2023 from 192.168.70.1
+jadi@debian:~$
+'''</p>
+<p>Above the server is showing us the fingerprint of its ED25519 key and asking us to approve it. From now on, our system wont warn us for the same key with the same server. BUT if the fingerprint (so the key) of the same server is changed, that will be considered a serious case:</p>
+<div class="highlight"><pre><span></span><code>➜<span class="w">  </span><span class="o">~</span><span class="w"> </span><span class="nv">ssh</span><span class="w"> </span><span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">70</span>.<span class="mi">2</span>
+<span class="nv">Host</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="nv">verification</span><span class="w"> </span><span class="nv">failed</span>.
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@<span class="w">    </span><span class="nv">WARNING</span>:<span class="w"> </span><span class="nv">REMOTE</span><span class="w"> </span><span class="nv">HOST</span><span class="w"> </span><span class="nv">IDENTIFICATION</span><span class="w"> </span><span class="nv">HAS</span><span class="w"> </span><span class="nv">CHANGED</span><span class="o">!</span><span class="w">     </span>@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+<span class="nv">IT</span><span class="w"> </span><span class="nv">IS</span><span class="w"> </span><span class="nv">POSSIBLE</span><span class="w"> </span><span class="nv">THAT</span><span class="w"> </span><span class="nv">SOMEONE</span><span class="w"> </span><span class="nv">IS</span><span class="w"> </span><span class="nv">DOING</span><span class="w"> </span><span class="nv">SOMETHING</span><span class="w"> </span><span class="nv">NASTY</span><span class="o">!</span>
+<span class="nv">Someone</span><span class="w"> </span><span class="nv">could</span><span class="w"> </span><span class="nv">be</span><span class="w"> </span><span class="nv">eavesdropping</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">you</span><span class="w"> </span><span class="nv">right</span><span class="w"> </span><span class="nv">now</span><span class="w"> </span><span class="ss">(</span><span class="nv">man</span><span class="o">-</span><span class="nv">in</span><span class="o">-</span><span class="nv">the</span><span class="o">-</span><span class="nv">middle</span><span class="w"> </span><span class="nv">attack</span><span class="ss">)</span><span class="o">!</span>
+<span class="nv">It</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">also</span><span class="w"> </span><span class="nv">possible</span><span class="w"> </span><span class="nv">that</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">host</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="nv">has</span><span class="w"> </span><span class="nv">just</span><span class="w"> </span><span class="nv">been</span><span class="w"> </span><span class="nv">changed</span>.
+<span class="nv">The</span><span class="w"> </span><span class="nv">fingerprint</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">ED25519</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="nv">sent</span><span class="w"> </span><span class="nv">by</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">remote</span><span class="w"> </span><span class="nv">host</span><span class="w"> </span><span class="nv">is</span>
+<span class="nv">SHA256</span>:<span class="mi">4</span><span class="nv">Wp2zz6sgPAhnbqhkNjOd6QDpNQ4jvjX7qAzslPX09U</span>.
+<span class="nv">Please</span><span class="w"> </span><span class="nv">contact</span><span class="w"> </span><span class="nv">your</span><span class="w"> </span><span class="nv">system</span><span class="w"> </span><span class="nv">administrator</span>.
+<span class="nv">Add</span><span class="w"> </span><span class="nv">correct</span><span class="w"> </span><span class="nv">host</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">jadi</span><span class="o">/</span>.<span class="nv">ssh</span><span class="o">/</span><span class="nv">known_hosts</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">get</span><span class="w"> </span><span class="nv">rid</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">this</span><span class="w"> </span><span class="nv">message</span>.
+<span class="nv">Offending</span><span class="w"> </span><span class="nv">RSA</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">jadi</span><span class="o">/</span>.<span class="nv">ssh</span><span class="o">/</span><span class="nv">known_hosts</span>:<span class="mi">548</span>
+<span class="nv">Host</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">70</span>.<span class="mi">2</span><span class="w"> </span><span class="nv">has</span><span class="w"> </span><span class="nv">changed</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="nv">you</span><span class="w"> </span><span class="nv">have</span><span class="w"> </span><span class="nv">requested</span><span class="w"> </span><span class="nv">strict</span><span class="w"> </span><span class="nv">checking</span>.
+</code></pre></div>
+
+<p>If you want to solve this - after making sure that this is not an attack - you have to remove the data of 192.168.70.2 from the <code>.ssh/known_hosts</code> file. Fortunately you do not need to directly edit the file. Its enough to use the <code>ssh-keygen</code> command:</p>
+<div class="highlight"><pre><span></span><code>➜  ~ ssh-keygen -R 192.168.70.2
+# Host 192.168.70.2 found: line 547
+# Host 192.168.70.2 found: line 548
+# Host 192.168.70.2 found: line 549
+/Users/jadi/.ssh/known_hosts updated.
+Original contents retained as /Users/jadi/.ssh/known_hosts.old
+</code></pre></div>
+
+<h4>creating your own key pairs</h4>
+<p>You can easily create as many key pairs want; Even with different algorithms (defined by <code>-t</code> switch and including dsa, ecdsa, ecdsa-sk, ed25519, ed25519-sk, rsa). Common choices are <em>rsa</em> which is the default and <em>ecdsa</em> which is used by bitcoin!</p>
+<p>Lets create an ecdsa key pair on our machine. We can use this to login into the servers without providing a password or sign/encrypt messages.</p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@debian</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span><span class="w"> </span><span class="o">-</span><span class="n">t</span><span class="w"> </span><span class="n">ecdsa</span>
+<span class="n">Generating</span><span class="w"> </span><span class="k">public</span><span class="o">/</span><span class="n">private</span><span class="w"> </span><span class="n">ecdsa</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="n">pair</span><span class="p">.</span>
+<span class="n">Enter</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">save</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_ecdsa</span><span class="p">)</span><span class="err">:</span>
+<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_ecdsa</span><span class="w"> </span><span class="n">already</span><span class="w"> </span><span class="ow">exists</span><span class="p">.</span>
+<span class="n">Overwrite</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="vm">?</span><span class="w"> </span><span class="n">y</span>
+<span class="n">Enter</span><span class="w"> </span><span class="n">passphrase</span><span class="w"> </span><span class="p">(</span><span class="n">empty</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">passphrase</span><span class="p">)</span><span class="err">:</span>
+<span class="n">Enter</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="n">passphrase</span><span class="w"> </span><span class="nl">again</span><span class="p">:</span>
+<span class="n">Your</span><span class="w"> </span><span class="n">identification</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_ecdsa</span>
+<span class="n">Your</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_ecdsa</span><span class="p">.</span><span class="n">pub</span>
+<span class="n">The</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="n">fingerprint</span><span class="w"> </span><span class="k">is</span><span class="err">:</span>
+<span class="nl">SHA256</span><span class="p">:</span><span class="n">WvJu5D7ns0a2z0sB6l8ZrCXnAgxSmb2kSwgo</span><span class="o">/</span><span class="n">lK0QYA</span><span class="w"> </span><span class="n">jadi</span><span class="nv">@debian</span>
+<span class="n">The</span><span class="w"> </span><span class="k">key</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">randomart</span><span class="w"> </span><span class="nc">image</span><span class="w"> </span><span class="k">is</span><span class="err">:</span>
+<span class="o">+---[</span><span class="n">ECDSA 256</span><span class="o">]---+</span>
+<span class="o">|</span><span class="p">.</span><span class="n">oo</span><span class="p">.</span><span class="w">  </span><span class="p">.</span><span class="o">+</span><span class="w">         </span><span class="o">|</span>
+<span class="o">|</span><span class="n">E</span><span class="w"> </span><span class="p">.</span><span class="n">o</span><span class="w"> </span><span class="p">.</span><span class="n">o</span><span class="w"> </span><span class="n">o</span><span class="w">        </span><span class="o">|</span>
+<span class="o">|</span><span class="n">o</span><span class="w"> </span><span class="p">..</span><span class="o">+</span><span class="p">..</span><span class="n">o</span><span class="w"> </span><span class="p">..</span><span class="w">      </span><span class="o">|</span>
+<span class="o">|</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="n">o</span><span class="p">..</span><span class="n">oo</span><span class="p">..</span><span class="w"> </span><span class="n">o</span><span class="w">     </span><span class="o">|</span>
+<span class="o">|</span><span class="w">  </span><span class="n">o</span><span class="w">  </span><span class="p">...</span><span class="n">S</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="o">*</span><span class="w">    </span><span class="o">|</span>
+<span class="o">|</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">.</span><span class="w">  </span><span class="p">.</span><span class="o">*</span><span class="p">..</span><span class="n">o</span><span class="o">*</span><span class="w"> </span><span class="o">+</span><span class="w">   </span><span class="o">|</span>
+<span class="o">|</span><span class="w">  </span><span class="p">.</span><span class="w">   </span><span class="p">.</span><span class="n">oooo</span><span class="p">.</span><span class="o">=</span><span class="w">    </span><span class="o">|</span>
+<span class="o">|</span><span class="w">       </span><span class="p">.</span><span class="o">+</span><span class="p">.</span><span class="o">==</span><span class="w">     </span><span class="o">|</span>
+<span class="o">|</span><span class="w">       </span><span class="n">oo</span><span class="o">=+++</span><span class="p">.</span><span class="w">   </span><span class="o">|</span>
+<span class="o">+</span><span class="c1">----[SHA256]-----+</span>
+</code></pre></div>
+
+<p>and since its free, lets create an rsa key too:</p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@debian</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span>
+<span class="n">Generating</span><span class="w"> </span><span class="k">public</span><span class="o">/</span><span class="n">private</span><span class="w"> </span><span class="n">rsa</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="n">pair</span><span class="p">.</span>
+<span class="n">Enter</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">save</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="p">)</span><span class="err">:</span>
+<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="w"> </span><span class="n">already</span><span class="w"> </span><span class="ow">exists</span><span class="p">.</span>
+<span class="n">Overwrite</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="vm">?</span><span class="w"> </span><span class="n">y</span>
+<span class="n">Enter</span><span class="w"> </span><span class="n">passphrase</span><span class="w"> </span><span class="p">(</span><span class="n">empty</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">passphrase</span><span class="p">)</span><span class="err">:</span>
+<span class="n">Enter</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="n">passphrase</span><span class="w"> </span><span class="nl">again</span><span class="p">:</span>
+<span class="n">Your</span><span class="w"> </span><span class="n">identification</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span>
+<span class="n">Your</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="p">.</span><span class="n">pub</span>
+<span class="n">The</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="n">fingerprint</span><span class="w"> </span><span class="k">is</span><span class="err">:</span>
+<span class="nl">SHA256</span><span class="p">:</span><span class="n">Q67Ob1DOfmF3gG449OfNLHXxE5QEH4B</span><span class="o">/</span><span class="n">UzHR8ycAHao</span><span class="w"> </span><span class="n">jadi</span><span class="nv">@debian</span>
+<span class="n">The</span><span class="w"> </span><span class="k">key</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">randomart</span><span class="w"> </span><span class="nc">image</span><span class="w"> </span><span class="k">is</span><span class="err">:</span>
+<span class="o">+---[</span><span class="n">RSA 3072</span><span class="o">]----+</span>
+<span class="o">|</span><span class="w">          </span><span class="p">.</span><span class="n">oo</span><span class="o">++*=|</span>
+<span class="o">|</span><span class="w">           </span><span class="n">oo</span><span class="w"> </span><span class="p">.</span><span class="o">+=|</span>
+<span class="o">|</span><span class="w">        </span><span class="p">.</span><span class="w"> </span><span class="p">......</span><span class="o">+|</span>
+<span class="o">|</span><span class="w">       </span><span class="n">oo</span><span class="p">..</span><span class="w"> </span><span class="p">...</span><span class="o">=</span><span class="n">o</span><span class="o">|</span>
+<span class="o">|</span><span class="w">       </span><span class="o">=</span><span class="n">E</span><span class="o">+</span><span class="w">   </span><span class="p">...</span><span class="o">*|</span>
+<span class="o">|</span><span class="w">      </span><span class="p">..</span><span class="o">=</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">o</span><span class="o">|</span>
+<span class="o">|</span><span class="w">      </span><span class="p">.</span><span class="n">o</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">..</span><span class="o">|</span>
+<span class="o">|</span><span class="w">     </span><span class="n">o</span><span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">+</span><span class="w">  </span><span class="o">|</span>
+<span class="o">|</span><span class="w">      </span><span class="n">oo</span><span class="p">..</span><span class="w">   </span><span class="p">.</span><span class="w">   </span><span class="o">|</span>
+<span class="o">+</span><span class="c1">----[SHA256]-----+</span>
+</code></pre></div>
+
+<p>That fun <em>Image</em> is what you can show your friends so they can make sure that they are using the correct key. </p>
+<blockquote>
+<p>Above, I did not set a password for the keys. If I did, I had to provide that password everytime I wanted to use that key</p>
+</blockquote>
+<p>These keys are saved in users <code>~/.ssh</code> directory. As you can guess, the system wide keys used for ssh server are located at <code>/etc/ssh</code>.</p>
+<h3>Key based / Password less login</h3>
+<p>The ssh server can be configured to check your identity using your keys. Its enough to save your public-key on the server's user account and tell the server to check for key-based logins too. In this case, your ssh client will provide your private key to the ssh server as a proof of identity and you will be able to enter the user without providing passwords.</p>
+<p>First copy your <em>public</em> key and login into the server. Open the <code>~/.ssh/authorized_keys</code> file and add yours. Also make sure that the <code>/etc/ssh/sshd_config</code> contains the <code>PubkeyAuthentication yes</code>. Now log out and on the next login you should be able to login without password! This is super userful when you are managing many servers or want to automate <code>scp</code> copies and other stuff. Its also more secure from the sysadmin point of view because if I need to let a new user to login into my system, I do not need to share the password or communicate the password on any channel. Its enough to ask the person for his <strong>public key</strong> and add it to the users <code>.ssh/authorized_keys</code> file.</p>
+<p>Oh! and you do not need to do the <em>key copying</em> manually; just use the <code>ssh-copy-id</code> command:</p>
+<div class="highlight"><pre><span></span><code><span class="err">➜</span><span class="w">  </span><span class="o">~</span><span class="w"> </span><span class="n">ssh</span><span class="o">-</span><span class="k">copy</span><span class="o">-</span><span class="kt">id</span><span class="w"> </span><span class="mf">192.168.70.2</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">ssh</span><span class="o">-</span><span class="k">copy</span><span class="o">-</span><span class="kt">id</span><span class="o">:</span><span class="w"> </span><span class="n">INFO</span><span class="o">:</span><span class="w"> </span><span class="n">Source</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">key</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">installed</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;/Users/jadi/.ssh/id_dsa.pub&quot;</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">ssh</span><span class="o">-</span><span class="k">copy</span><span class="o">-</span><span class="kt">id</span><span class="o">:</span><span class="w"> </span><span class="n">INFO</span><span class="o">:</span><span class="w"> </span><span class="n">attempting</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">log</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">key</span><span class="p">(</span><span class="n">s</span><span class="p">),</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">already</span><span class="w"> </span><span class="n">installed</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">ssh</span><span class="o">-</span><span class="k">copy</span><span class="o">-</span><span class="kt">id</span><span class="o">:</span><span class="w"> </span><span class="n">INFO</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">key</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="n">remain</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">installed</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">prompted</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">keys</span>
+<span class="n">jadi</span><span class="mf">@192.168.70.2</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">password</span><span class="o">:</span>
+
+<span class="n">Number</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">key</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="n">added</span><span class="o">:</span><span class="w">        </span><span class="mi">1</span>
+
+<span class="n">Now</span><span class="w"> </span><span class="n">try</span><span class="w"> </span><span class="n">logging</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">machine</span><span class="p">,</span><span class="w"> </span><span class="n">with</span><span class="o">:</span><span class="w">   </span><span class="s">&quot;ssh &#39;192.168.70.2&#39;&quot;</span>
+<span class="n">and</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="n">sure</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">key</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">wanted</span><span class="w"> </span><span class="n">were</span><span class="w"> </span><span class="n">added</span><span class="p">.</span>
+</code></pre></div>
+
+<h4>ssh-agent</h4>
+<p>The <code>ssh-agent</code> works like a key manager for your ssh keys. It keeps your private keys in memory and provides them when needed. For example if you have set a password on your key, you have to type the password every single time you are going to use that key. To make this easier using ssh-agent, you have to rush a shell with ssh-agent and add all your key to the agent:</p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@debian</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">ssh</span><span class="o">-</span><span class="n">agent</span><span class="w"> </span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span>
+<span class="n">jadi</span><span class="nv">@debian</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">ssh</span><span class="o">-</span><span class="k">add</span>
+<span class="k">Identity</span><span class="w"> </span><span class="nl">added</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="w"> </span><span class="p">(</span><span class="n">jadi</span><span class="nv">@debian</span><span class="p">)</span>
+<span class="k">Identity</span><span class="w"> </span><span class="nl">added</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_ecdsa</span><span class="w"> </span><span class="p">(</span><span class="n">jadi</span><span class="nv">@debian</span><span class="p">)</span>
+<span class="k">Identity</span><span class="w"> </span><span class="nl">added</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_dsa</span><span class="w"> </span><span class="p">(</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">jadi</span><span class="o">/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_dsa</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Now, the agent knows about your keys and wont ask for the passwords anymore.</p>
+<p><code>ssh-agent</code> can also <em>transfer</em> your keys safely in memory to other servers. Say you need to ssh to server A and while on server A, use your key to ssh to server B (or do a git pull using your private keys). The keys are on server A and its not safe to actually and physically copy them to server B. In this case you cal run <code>ssh-agent</code> and have your keys even when you are on server B. </p>
+<h4>ssh tunnels</h4>
+<p>The ssh can also be used for <em>tunnelling</em>. Its a very fun concept and a super userful tool in the hands of a network Ninja! Honestly we use it all the time to solve complicated problems. </p>
+<p>As the name sggests, ssh tunelling <em>tunnels</em> the data between machines. Look at this example:</p>
+<div class="highlight"><pre><span></span><code><span class="n">ssh</span><span class="w"> </span><span class="o">-</span><span class="n">L</span><span class="w"> </span><span class="mi">9000</span><span class="o">:</span><span class="n">hckrnews</span><span class="p">.</span><span class="n">com</span><span class="o">:</span><span class="mi">80</span><span class="w"> </span><span class="n">root</span><span class="mf">@5.161.197.79</span>
+</code></pre></div>
+
+<p>Here I'm telling my computer to ssh using user <code>root</code> (which is not a great idea) to the <code>5.161.197.79</code> server; AND create a <strong>local tunnel</strong> (<code>-L</code>) from on my machine toward the <code>hckrnews.com</code> port <code>80</code> through that machine. No if I connect to <code>localhost:8000</code> <strong>on my machine</strong>, the request will be tunnels through 5.161.197.79 toward hckrnews.com port 80. You can try it with <code>curl localhost:9000</code>. </p>
+<p>Why this is useful? Say you have a program on your server which only answers back to the local requests (and not the internet). Using local forwarding you can forward a port on your computer to port which programs works on and use the program on your own machine!</p>
+<p>There is also the concept of <strong>Remote Forwarding</strong>. In this case, you connect a port from a remote server to another server (mostly your own computer). Using this, you can expose a webserver from your own computer on the Internet:</p>
+<div class="highlight"><pre><span></span><code><span class="n">$</span><span class="w"> </span><span class="n">ssh</span><span class="w"> </span><span class="o">-</span><span class="n">R</span><span class="w"> </span><span class="mi">8000</span><span class="o">:</span><span class="n">localhost</span><span class="o">:</span><span class="mi">80</span><span class="w"> </span><span class="n">root</span><span class="mf">@5.161.197.79</span>
+</code></pre></div>
+
+<p>In the above example, I'm telling the ssh to create a <strong>Remote</strong> tunnel. After this any request on port 8000 from the 5.161.197.79 computer will reach to localhost (my machine) port 80!</p>
+<p>You can even ask the remote machine to start listening on a specific port on all of its interfaces (open up to the network and not only localhost):</p>
+<div class="highlight"><pre><span></span><code>ssh -R 0.0.0.0:8000:localhost:7777 192.168.70.2
+</code></pre></div>
+
+<p>Above, I'm telling the 192.168.70.2 machine to open port 8000 to ALL interfaces and forward whatever it got to my machiens 7777 port.</p>
+<blockquote>
+<p>to let clients to <em>bind</em> listening ports to anything other than localhost, the <code>GatewayPorts clientspecified</code> configu should be set in the ssh server's config file.</p>
+</blockquote>
+<p>There are even more use caases. For example you use the -D switch for a <code>dynamic</code> application level port forarding. It works like a proxy / anti censorship. If I do </p>
+<div class="highlight"><pre><span></span><code>ssh -D 1080 192.168.70.2
+</code></pre></div>
+
+<p>The 1080 port will work ask a <em>socks</em> proxy on my machine and forward whatever request reaches it to the 192.168.70.2 machine and returns back the answers. Now I can configure my applications to use the localhost:1080 as their socks proxy and the 192.168.70.2 will work as a proxy here. This is useful when you do not have internet on your localhost, but 192.168.70.2 has it.</p>
+<h5>X Forwarding</h5>
+<p>The last concept I want to talk about in forwarding section, is the X forwarding. As you already know from <a href="1061-install-and-configure-x11.html">Module 106</a>, linux graphical applications use X as their graphical host. This X can also be forwarded on the network as any other network based communication. Its even has its own switch on the ssh program. To forward the X, its enough to add a <code>-X</code> to your ssh. Please note that the <code>X11Forwarding yes</code> configuration should be present in your sshd_config file.</p>
+<p>To activate the X11 forwarding in a ssh session, simply add <code>-X</code> to your ssh:</p>
+<div class="highlight"><pre><span></span><code>ssh -X 192.168.70.2
+</code></pre></div>
+
+<p>and then you can run graphical programs (say <code>xeyes</code> for fun) on the remote machine and see the graphical part on your own X server!</p>
+<blockquote>
+<p>If you are not on a GNU/Linux machine with an X11 server, you need to install it (for example XQuartz on Mac)</p>
+</blockquote>
+<p>This is very useful when you want to run a program on a resourceful server or work from home whiel your graphical applications are at the office ;)</p>
+<h2>ecnrypt and sign using gpg</h2>
+<p>As described in previous section, a public and private key pair can be used to encrypt or sign messages. There is an implementation of this method called <code>gpg</code> which can be used on Linux (and other machiens) to perform these tasks. First you need to generate a key:</p>
+<div class="highlight"><pre><span></span><code>jadi@debian:~$ gpg --gen-key
+gpg (GnuPG) 2.2.40; Copyright (C) 2022 g10 Code GmbH
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+gpg: directory &#39;/home/jadi/.gnupg&#39; created
+gpg: keybox &#39;/home/jadi/.gnupg/pubring.kbx&#39; created
+Note: Use &quot;gpg --full-generate-key&quot; for a full featured key generation dialog.
+
+GnuPG needs to construct a user ID to identify your key.
+
+Real name: Jadi
+Name must be at least 5 characters long
+Real name: Jadi M
+Email address: jadijadi@gmail.com
+You selected this USER-ID:
+    &quot;Jadi M &lt;jadijadi@gmail.com&gt;&quot;
+
+Change (N)ame, (E)mail, or (O)kay/(Q)uit?
+Change (N)ame, (E)mail, or (O)kay/(Q)uit? O
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+gpg: /home/jadi/.gnupg/trustdb.gpg: trustdb created
+gpg: directory &#39;/home/jadi/.gnupg/openpgp-revocs.d&#39; created
+
+
+gpg: revocation certificate stored as &#39;/home/jadi/.gnupg/openpgp-revocs.d/E279681DC09318AB5B23D359C9063DD26365986A.rev&#39;
+public and secret key created and signed.
+
+pub   rsa3072 2023-09-17 [SC] [expires: 2025-09-16]
+      E279681DC09318AB5B23D359C9063DD26365986A
+uid                      Jadi M &lt;jadijadi@gmail.com&gt;
+sub   rsa3072 2023-09-17 [E] [expires: 2025-09-16]
+</code></pre></div>
+
+<p>Now the key is created in the <code>~/.gnupg</code> directory and we can share our public key with others:</p>
+<div class="highlight"><pre><span></span><code>jadi@debian:~$ gpg --list-keys
+/home/jadi/.gnupg/pubring.kbx
+-----------------------------
+pub   rsa3072 2023-09-17 [SC] [expires: 2025-09-16]
+      E279681DC09318AB5B23D359C9063DD26365986A
+uid           [ultimate] Jadi M &lt;jadijadi@gmail.com&gt;
+sub   rsa3072 2023-09-17 [E] [expires: 2025-09-16]
+
+jadi@debian:~$ gpg --export jadi &gt; jadi.pub.key
+jadi@debian:~$ file jadi.pub.key
+jadi.pub.key: OpenPGP Public Key Version 4, Created Sun Sep 17 12:39:19 2023, RSA (Encrypt or Sign, 3072 bits); User ID; Signature; OpenPGP Certificate
 </code></pre></div>
 
 <blockquote>
-<p>The above process asked for a prassphrase. It is used to secure our key. You can create a password and it will be asked each time you want to use this key.</p>
+<p>the exported key is in binary format, add <code>-a</code> to armor it in ascii</p>
 </blockquote>
-<p>We have the option to generate keys using different algorithms, here I used the default RSA and these two keys are created in <code>~/.ssh/</code>:</p>
-<div class="highlight"><pre><span></span><code>[jadi@localhost ~]$ ls .ssh -ltrh
-total 8.0K
--rw-r--r--. 1 jadi jadi  408 Jun 15 13:58 id_rsa.pubss
--rw-------. 1 jadi jadi 1.7K Jun 15 13:58 id_rsa
+<p>Now you have to distribute this key to others. You can upload it somewhere, email it, put it on your website or use some of the public key stores to share it with other. If anyone recives it, she can import it into her key store using the following command:</p>
+<div class="highlight"><pre><span></span><code>gpg --import jadi.pub.key
 </code></pre></div>
 
-<p>As soon as we ssh to any server, a file called <code>known_hosts</code> will save that site's public keys. The next step is copying our public key there. For this task there is a command called <code>ssh-copyid</code>. It works like this:</p>
-<div class="highlight"><pre><span></span><code> ssh-copy-id 10.0.2.15
-jadi@10.0.2.15&#39;s password:
-Now try logging into the machine, with &quot;ssh &#39;10.0.2.15&#39;&quot;, and check in:
-
-  .ssh/authorized_keys
-
-to make sure we haven&#39;t added extra keys that you weren&#39;t expecting.
+<p>Oh! and what happens if you feel that your key is compromised!? In this case you have to create a <strong>revoke</strong> file and share it with other to tell them that your key is not valid anymore:</p>
+<div class="highlight"><pre><span></span><code>gpg --output jadi.revoke.asc --gen-revoke jadijadi@gmail.com
 </code></pre></div>
 
-<p>Now we will be able to login into that server without providing our password.</p>
-<p>There is a keypair called <code>/etc/ssh_host_rsa_key</code> and <code>/etc/ssh_host_rsa_key.pub</code> on any server. These keys are used to verify the security of the connectivity. Server provides me its public key and uses its private key to keep the connection secure. This is the public key the client saved in its ~/.ssh/known_hosts.</p>
-<h4>ssh tunnels</h4>
-<p>We have already discussed X forwarding.</p>
-<h4>encryption using gpg</h4>
-<p>A software called <code>gpg</code> lets us use public and private keys to encrypt our data. At the beginning, we have to create a key pair:</p>
-<div class="highlight"><pre><span></span><code>gpg --gen-key
+<p>This tells gpg to create a revoke file called jadi.revoke.asc for the identity jadijadi@gmail.com. If jadijadi@gmail.com needs to invalidate his public key, he has to publish this file to the Internet or key servers and others will know that the previous public key is not valid anymore.</p>
+<h3>Encrypt / Decrypt files</h3>
+<p>At this stage, I have a key and my friends do have my public key imported in their machine. If any of them wants to send my an encrypted message, they can do the following: </p>
+<div class="highlight"><pre><span></span><code><span class="n">echo</span><span class="w"> </span><span class="ss">&quot;I Loved your course! I&#39;ll tell all my friends about it.&quot;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="k">file</span><span class="p">.</span><span class="n">txt</span>
+<span class="n">gpg</span><span class="w"> </span><span class="c1">--out file.txt.encrypted --recipient jadijdai@gmail.com --encrypt file.txt</span>
 </code></pre></div>
 
-<p>Then we need to share our public key to other people. To export our public key file, we need to run:</p>
-<div class="highlight"><pre><span></span><code>gpg --export name &gt; gpg.pub
-</code></pre></div>
-
-<p>and the other party can import our public key into his gpg database by:</p>
-<div class="highlight"><pre><span></span><code>gpg --import gpg.pub
-</code></pre></div>
-
-<p>At this stage, if he wants to encrypt some data to us (say the file file.txt) he should run:</p>
-<div class="highlight"><pre><span></span><code>gpg --out file.txt.encrypted --recipient jadijdai@gmail.com --encrypt file.txt
-</code></pre></div>
-
-<p>and give the <code>file.txt.encrypted</code> to us. For opening it, we just need to:</p>
+<p>Now its enough for them to send me this file. Even using unsecure channels because its encrypted by the top notch tools. Every one can download this file but ONLY I will be able to decypt it; because only I have the <strong>Private key</strong> of jadijadi@gmail.com.</p>
 <div class="highlight"><pre><span></span><code>gpg --out out.txt --decrypt file.txt.encrypted
 </code></pre></div>
 
-<p>and Done!</p>
 <blockquote>
-<p>As you saw, the public keys should be shared. The B party uses A parties public key to encrypt a data and A party uses his Private key to open it.</p>
+<p>If you liked this course, no need to encrypt the message, just share the <a href="https://linux1st.com">linux1st.com</a> on the internet! </p>
 </blockquote>
-<h4>revoking keys</h4>
-<p>What happens if you forget your key password or someone hacked your computer and acquired your private key? In this case, you have to announce to the world that "I'm hacked! Do not use that public key of mine anymore!". This is called revoking. To create a revoke key, run:</p>
-<div class="highlight"><pre><span></span><code>gpg --output revoke.asc --gen-revoke jadijadi@gmail.com
+<h4>Signing and verifying files</h4>
+<p>In the previous section, we used gpg to encrypt the data. We used someone's Public key to encrypt and then used our own Private Key to decrypt the data. But what happens if I use my Private key on my side and let other use my Public key to <em>open</em> the data? That is called *<em>signing</em>. </p>
+<p>Please remember that only I have access to my private key. So if I apply it to a file, every one:</p>
+<ol>
+<li>will be able to open the file using my Public Key</li>
+<li>Will be sure that <strong>I</strong> have signed this because only <strong>I</strong> has access to the private key of the public key they used to open the file.</li>
+</ol>
+<p>Lets sign a message:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;I&#39;m Jadi and I&#39;m glad that you reached to the end of your LPIC study&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>message-jadi.txt
+$<span class="w"> </span>gpg<span class="w"> </span>--output<span class="w"> </span>message-jadi.sig<span class="w"> </span>--sign<span class="w"> </span>message-jadi.txt
 </code></pre></div>
 
-<p>This tells gpg to create a revoke file called revoke.asc for the identity jadijadi@gmail.com. If jadijadi@gmail.com needs to invalidate his public key, he has to publish this file to the Internet or key servers.</p>
-<h4>signing</h4>
-<p>In the previous section, we used gpg to encrypt the data. We used someone's Public key to sign and she used her own Private key to decrypt the text. What happens if we do this in the reverse? I mean what happens if I encrypt something with my Private key, send it on the internet and everyone on the internet will be able to decrypt it using my Public key which is shared with everyone - since it is Public. This is signing!</p>
-<p>By encrypting a document using your private key, you let everyone try to open it using your public key and if they succeed, they will be sure that you have signed it using YOUR private key! <code>gpg</code> has a specific command to sign documents:</p>
-<div class="highlight"><pre><span></span><code>gpg --clearsign originalfile
+<p>Now its enough for me to publish the <code>message-jadi.sig</code> to the Internet or send it to someone. If they want to make sure that it is truely comming from me, its enough for them to check my signature (obviously after importing my public key):</p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@debian</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">gpg</span><span class="w"> </span><span class="o">--</span><span class="n">verify</span><span class="w"> </span><span class="n">message</span><span class="o">-</span><span class="n">jadi</span><span class="p">.</span><span class="n">sig</span>
+<span class="nl">gpg</span><span class="p">:</span><span class="w"> </span><span class="n">Signature</span><span class="w"> </span><span class="n">made</span><span class="w"> </span><span class="n">Sun</span><span class="w"> </span><span class="mi">17</span><span class="w"> </span><span class="n">Sep</span><span class="w"> </span><span class="mi">2023</span><span class="w"> </span><span class="mi">09</span><span class="err">:</span><span class="mi">26</span><span class="err">:</span><span class="mi">15</span><span class="w"> </span><span class="n">AM</span><span class="w"> </span><span class="n">EDT</span>
+<span class="nl">gpg</span><span class="p">:</span><span class="w">                </span><span class="k">using</span><span class="w"> </span><span class="n">RSA</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="n">E279681DC09318AB5B23D359C9063DD26365986A</span>
+<span class="nl">gpg</span><span class="p">:</span><span class="w"> </span><span class="n">Good</span><span class="w"> </span><span class="n">signature</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="ss">&quot;Jadi M &lt;jadijadi@gmail.com&gt;&quot;</span><span class="w"> </span><span class="o">[</span><span class="n">ultimate</span><span class="o">]</span>
+</code></pre></div>
+
+<p>This only checked the signature, if they also needed to decrypt the message they had to as follow:</p>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@debian</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">gpg</span><span class="w"> </span><span class="o">--</span><span class="k">output</span><span class="w"> </span><span class="n">message</span><span class="p">.</span><span class="n">jadi</span><span class="w"> </span><span class="o">--</span><span class="n">decrypt</span><span class="w"> </span><span class="n">message</span><span class="o">-</span><span class="n">jadi</span><span class="p">.</span><span class="n">sig</span>
+<span class="nl">gpg</span><span class="p">:</span><span class="w"> </span><span class="n">Signature</span><span class="w"> </span><span class="n">made</span><span class="w"> </span><span class="n">Sun</span><span class="w"> </span><span class="mi">17</span><span class="w"> </span><span class="n">Sep</span><span class="w"> </span><span class="mi">2023</span><span class="w"> </span><span class="mi">09</span><span class="err">:</span><span class="mi">26</span><span class="err">:</span><span class="mi">15</span><span class="w"> </span><span class="n">AM</span><span class="w"> </span><span class="n">EDT</span>
+<span class="nl">gpg</span><span class="p">:</span><span class="w">                </span><span class="k">using</span><span class="w"> </span><span class="n">RSA</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="n">E279681DC09318AB5B23D359C9063DD26365986A</span>
+<span class="nl">gpg</span><span class="p">:</span><span class="w"> </span><span class="n">Good</span><span class="w"> </span><span class="n">signature</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="ss">&quot;Jadi M &lt;jadijadi@gmail.com&gt;&quot;</span><span class="w"> </span><span class="o">[</span><span class="n">ultimate</span><span class="o">]</span>
+<span class="n">jadi</span><span class="nv">@debian</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="n">message</span><span class="p">.</span><span class="n">jadi</span>
+<span class="n">I</span><span class="s1">&#39;m Jadi and I&#39;</span><span class="n">m</span><span class="w"> </span><span class="n">glad</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">reached</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">LPIC</span><span class="w"> </span><span class="n">study</span>
+</code></pre></div>
+
+<p>Please also note the <code>--clearsign</code> option. This option will create a file ending in <code>.asc</code> which containt the original un-encrypted (clear text) message alongside the signature. This way non-tech-savy people will be able to read the message too and only if someone wants, she can <code>--verify</code> the signature.</p>
+<div class="highlight"><pre><span></span><code>jadi@debian:~$ cat message-jadi.txt
+I&#39;m Jadi and I&#39;m glad that you reached to the end of your LPIC study
+jadi@debian:~$ gpg --clearsign message-jadi.txt
+jadi@debian:~$ ls -ltrh
+total 16M
+drwxr-xr-x 27 jadi jadi 4.0K Jun 15 09:00 rust-for-linux
+drwxr-xr-x  2 jadi jadi 4.0K Jun 15 09:09 Downloads
+drwx------  2 jadi jadi 4.0K Jul 17 10:53 BRF
+-rw-r--r--  1 jadi jadi    6 Jul 17 10:57 myfile
+drwxr-xr-x  5 jadi jadi 4.0K Jul 25 13:34 nltk_data
+drwxr-xr-x  4 jadi jadi 4.0K Aug 13 07:29 w
+-rw-r--r--  1 jadi jadi  16M Aug 24 01:15 nvim-linux64.tar.gz
+drwxr-xr-x  6 jadi jadi 4.0K Aug 24 05:38 nvim-linux64
+-rw-r--r--  1 jadi jadi 3.8K Aug 27 15:49 report.xml
+-rw-r--r--  1 jadi jadi 1.8K Sep 17 08:50 jadi.pub.key
+-rw-r--r--  1 jadi jadi   69 Sep 17 09:26 message-jadi.txt
+-rw-r--r--  1 jadi jadi  549 Sep 17 09:26 message-jadi.sig
+-rw-r--r--  1 jadi jadi   69 Sep 17 09:27 message.jadi
+-rw-r--r--  1 jadi jadi  777 Sep 17 09:28 message-jadi.txt.asc
+jadi@debian:~$ cat message-jadi.txt.asc
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+I&#39;m Jadi and I&#39;m glad that you reached to the end of your LPIC study
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAEBCgAdFiEE4nloHcCTGKtbI9NZyQY90mNlmGoFAmUG/xYACgkQyQY90mNl
+mGqpXQv/QNv0NlCR+S7HJhxiOZcKXE3RB1sx4jRVrOtMd6ZoXYLb28Zz4xN/Lzh2
+sipohDbNttr1ovNZvMMu83bbuSeViY9L7nvjNjKsY50u5V1KnrMJPHRaGV8g/0p2
+t5zFJuzSFWXQczIjjXMpoLVH8jK3mJuBOmVFwLuBqUoW8827tCLIdr1DNyHXBW47
+fcLK5/bO/ljdwGnAX46d+Prg0TIfMLjPpb7uFXVkRBo+zMtCEVDGObaVHQ3J8t6w
+8i2YgMrmA3h9h4Gy/yM9Agb2kPeKl6iToeCfQ0EwTcnPF1TN0KZ1PS8Pr3Jp3LcS
+A+p32zj7YTzTeE1uBAb7/BorBqaArX8HtLe15yFkNKhPluXya9GG4/Nsxk33Qpd3
+c1KiLK9YhTFy7u+Q6tbTKG+uuGj71wANhkqRP30iMjLcBQ7aAO3ehVSYZFyZ7dbL
+SJollwyG1sf4zH0g5SQZOxpjyz874IrlFc7GldDCr5jXZw6H+4NuY2yiVWKAcOcU
+Qv23xWL2
+=q81y
+-----END PGP SIGNATURE-----
+jadi@debian:~$ gpg --verify message-jadi.txt.asc
+gpg: Signature made Sun 17 Sep 2023 09:28:54 AM EDT
+gpg:                using RSA key E279681DC09318AB5B23D359C9063DD26365986A
+gpg: Good signature from &quot;Jadi M &lt;jadijadi@gmail.com&gt;&quot; [ultimate]
+gpg: WARNING: not a detached signature; file &#39;message-jadi.txt&#39; was NOT verified!
 </code></pre></div>
 
 <blockquote>
@@ -214,6 +459,9 @@ to make sure we haven&#39;t added extra keys that you weren&#39;t expecting.
 <p>and another one to verify that a document is singed correctly:</p>
 <div class="highlight"><pre><span></span><code>gpg --verify recievedfile
 </code></pre></div>
+
+<h4>gpg-agent</h4>
+<p>Just like the <code>ssh-agent</code>, <code>gpg-agent</code> is a tool which acts like a password manager for you gpg keys. It keeps the keys in the memory so you wont need to provide password on every single use. </p>
 
 
              

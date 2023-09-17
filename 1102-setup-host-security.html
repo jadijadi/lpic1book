@@ -180,9 +180,9 @@ jadi@funlife ~$ sudo ls -ltrh /etc/shadow
 </code></pre></div>
 
 <p>If you are using the systemd, do as follow to check and stop / disable a service:</p>
-<div class="highlight"><pre><span></span><code>systemctl list-units --state active --type service
-systemctl status
-systemctl disable vsftpd.service --now
+<div class="highlight"><pre><span></span><code><span class="nx">systemctl</span><span class="w"> </span><span class="nx">list</span><span class="o">-</span><span class="nx">units</span><span class="w"> </span><span class="o">--</span><span class="nx">state</span><span class="w"> </span><span class="nx">active</span><span class="w"> </span><span class="o">--</span><span class="k">type</span><span class="w"> </span><span class="nx">service</span>
+<span class="nx">systemctl</span><span class="w"> </span><span class="nx">status</span>
+<span class="nx">systemctl</span><span class="w"> </span><span class="nx">disable</span><span class="w"> </span><span class="nx">vsftpd</span><span class="p">.</span><span class="nx">service</span><span class="w"> </span><span class="o">--</span><span class="nx">now</span>
 </code></pre></div>
 
 <p>Please also remember than on older systems, we used to have all the Init scripts in <code>/etc/init.d</code> and <code>/etc/rcX.d</code> folders. There were also a <code>/etc/inittab</code> file which was a configuration file for initializing a Linux system using SysV. I contains lines i this format:</p>
