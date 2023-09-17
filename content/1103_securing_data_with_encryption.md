@@ -5,14 +5,8 @@ Tags: LPIC1, 102, LPIC1-102-500
 Authors: Jadi
 sortorder: 470
 Summary: 
-## 110.3 Securing data with encryption
 
-<div class="alert alert-danger" role="alert">
-  This chapter is still a Work In Progress. Do not rely on it for LPIC version 500 exam. Will be updated in a few weeks.
-</div>
-
-
-_Weight: 3_
+_Weight: 4_
 
 The candidate should be able to use public key techniques to secure data and communication.
 
