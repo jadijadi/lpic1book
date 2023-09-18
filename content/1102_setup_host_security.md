@@ -94,6 +94,38 @@ If we change the `disable` to `yes` and restart the xinetd, the telnet daemon wi
 
 As mentioned, `xinetd` is replaced by the `systemd.socket` units. Some of the services like ssh and cups might have a socket unit alongside the service unit in your distribution. In this case its enough to stop & disable the `ssh.service` and start the `ssh.docekt` instead. Now the systemd.socekt is acting as a warpper around the port 22 and IF someones needs the service, starts the ssh server to answer. 
 
+#### /etc/hosts.allow & /etc/hosts.deny
+
+These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowed, everything else is denied but if you add something to the /etc/hosts.deny, only that specific thing is denied \(and every other thing is allowed\).
+
+```text
+jadi@funlife ~$ cat /etc/hosts.allow
+# /etc/hosts.allow: list of hosts that are allowed to access the system.
+#                   See the manual pages hosts_access(5) and hosts_options(5).
+#
+# Example:    ALL: LOCAL @some_netgroup
+#             ALL: .foobar.edu EXCEPT terminalserver.foobar.edu
+#
+# If you're going to protect the portmapper use the name "rpcbind" for the
+# daemon name. See rpcbind(8) and rpc.mountd(8) for further information.
+#
+
+vsftpd: 10.10.100.
+```
+
+How the `vsftpd` knows about this file? Because it uses the `libwrap` library in its source and the libwrap understands the wrapper tools. You can check this claim by searching for `libwrap` in the list of libraries `vsftpd` uses:
+
+```
+➜  ~ ldd /usr/sbin/vsftpd | grep libwrap
+	libwrap.so.0 => /lib/x86_64-linux-gnu/libwrap.so.0 (0x00007fb293921000)
+```
+
+Here the `vsftpd` service is only allowed from 10.10.100.\* . It is possible to use `ALL` as the service name to allow or deny ALL services.
+
+> after changing this file, xinetd should be restarted
+
+As mentioned, super servers are not being used anymore and most distributions use standalone services. 
+
 ### Removing unused services
 Based on your distribution, you can check the running services using the `service` or `systemctl` command. If you are using the SysV init system (older distros mainly) or you have the compatibility tools installed, do as follow:
 
@@ -150,35 +182,4 @@ id:3:initdefault:
 
 for more information about runlevels, please refer to [Chapter 101.3](1013-change-runlevels-boot-targets-and-shutdown-or-reboot-the-system.html).
 
-#### /etc/hosts.allow & /etc/hosts.deny
-
-These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowed, everything else is denied but if you add something to the /etc/hosts.deny, only that specific thing is denied \(and every other thing is allowed\).
-
-```text
-jadi@funlife ~$ cat /etc/hosts.allow
-# /etc/hosts.allow: list of hosts that are allowed to access the system.
-#                   See the manual pages hosts_access(5) and hosts_options(5).
-#
-# Example:    ALL: LOCAL @some_netgroup
-#             ALL: .foobar.edu EXCEPT terminalserver.foobar.edu
-#
-# If you're going to protect the portmapper use the name "rpcbind" for the
-# daemon name. See rpcbind(8) and rpc.mountd(8) for further information.
-#
-
-vsftpd: 10.10.100.
-```
-
-How the `vsftpd` knows about this file? Because it uses the `libwrap` library in its source and the libwrap understands the wrapper tools. You can check this claim by searching for `libwrap` in the list of libraries `vsftpd` uses:
-
-```
-➜  ~ ldd /usr/sbin/vsftpd | grep libwrap
-	libwrap.so.0 => /lib/x86_64-linux-gnu/libwrap.so.0 (0x00007fb293921000)
-```
-
-Here the `vsftpd` service is only allowed from 10.10.100.\* . It is possible to use `ALL` as the service name to allow or deny ALL services.
-
-> after changing this file, xinetd should be restarted
-
-As mentioned, super servers are not being used anymore and most distributions use standalone services. 
 
