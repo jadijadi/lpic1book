@@ -157,47 +157,6 @@ jadi@funlife ~$ sudo ls -ltrh /etc/shadow
 
 <p>If we change the <code>disable</code> to <code>yes</code> and restart the xinetd, the telnet daemon will start running. There are a few files to control to xinetd related files.</p>
 <p>As mentioned, <code>xinetd</code> is replaced by the <code>systemd.socket</code> units. Some of the services like ssh and cups might have a socket unit alongside the service unit in your distribution. In this case its enough to stop &amp; disable the <code>ssh.service</code> and start the <code>ssh.docekt</code> instead. Now the systemd.socekt is acting as a warpper around the port 22 and IF someones needs the service, starts the ssh server to answer. </p>
-<h3>Removing unused services</h3>
-<p>Based on your distribution, you can check the running services using the <code>service</code> or <code>systemctl</code> command. If you are using the SysV init system (older distros mainly) or you have the compatibility tools installed, do as follow:</p>
-<div class="highlight"><pre><span></span><code>~ sudo service --status-all
- [ - ]  alsa-utils
- ....
- [ + ]  ufw
- [ + ]  unattended-upgrades
- [ + ]  uuidd
- [ + ]  vpn-unlimited-daemon
- [ + ]  vsftpd
- [ - ]  whoopsie
- [ - ]  x11-common
-</code></pre></div>
-
-<p>On a RedHat based machine, you can stop a service via:</p>
-<div class="highlight"><pre><span></span><code>sudo chkconfig vsfptd off
-</code></pre></div>
-
-<p>and On debian machines:</p>
-<div class="highlight"><pre><span></span><code>sudo update-rc.d vsftpd remove
-</code></pre></div>
-
-<p>If you are using the systemd, do as follow to check and stop / disable a service:</p>
-<div class="highlight"><pre><span></span><code>systemctl list-units --state active --type service
-systemctl status
-systemctl disable vsftpd.service --now
-</code></pre></div>
-
-<p>Please also remember than on older systems, we used to have all the Init scripts in <code>/etc/init.d</code> and <code>/etc/rcX.d</code> folders. There were also a <code>/etc/inittab</code> file which was a configuration file for initializing a Linux system using SysV. I contains lines i this format:</p>
-<div class="highlight"><pre><span></span><code><span class="n">id</span><span class="o">:</span><span class="n">runlevel</span><span class="o">:</span><span class="n">action</span><span class="o">:</span><span class="n">process</span>
-</code></pre></div>
-
-<p>This would tell the init system to do <code>actions</code> on the <code>process</code> on a specific <code>runlevel</code>. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="mi">1</span><span class="o">:</span><span class="mi">2345</span><span class="o">:</span><span class="n">respawn</span><span class="o">:/</span><span class="n">sbin</span><span class="o">/</span><span class="n">mingetty</span><span class="w"> </span><span class="n">tty1</span>
-</code></pre></div>
-
-<p>tells the init to start (and respawn if killed), the <code>mingetty tty1</code> command on runlevels 2, 3, 4, &amp; 5. As the final note, this was the most important line in the <code>inittab</code> file because it told the init to start in run level 3. </p>
-<div class="highlight"><pre><span></span><code><span class="n">id</span><span class="o">:</span><span class="mi">3</span><span class="o">:</span><span class="n">initdefault</span><span class="o">:</span>
-</code></pre></div>
-
-<p>for more information about runlevels, please refer to <a href="1013-change-runlevels-boot-targets-and-shutdown-or-reboot-the-system.html">Chapter 101.3</a>.</p>
 <h4>/etc/hosts.allow &amp; /etc/hosts.deny</h4>
 <p>These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowed, everything else is denied but if you add something to the /etc/hosts.deny, only that specific thing is denied (and every other thing is allowed).</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife ~$ cat /etc/hosts.allow
@@ -224,6 +183,47 @@ vsftpd: 10.10.100.
 <p>after changing this file, xinetd should be restarted</p>
 </blockquote>
 <p>As mentioned, super servers are not being used anymore and most distributions use standalone services. </p>
+<h3>Removing unused services</h3>
+<p>Based on your distribution, you can check the running services using the <code>service</code> or <code>systemctl</code> command. If you are using the SysV init system (older distros mainly) or you have the compatibility tools installed, do as follow:</p>
+<div class="highlight"><pre><span></span><code>~ sudo service --status-all
+ [ - ]  alsa-utils
+ ....
+ [ + ]  ufw
+ [ + ]  unattended-upgrades
+ [ + ]  uuidd
+ [ + ]  vpn-unlimited-daemon
+ [ + ]  vsftpd
+ [ - ]  whoopsie
+ [ - ]  x11-common
+</code></pre></div>
+
+<p>On a RedHat based machine, you can stop a service via:</p>
+<div class="highlight"><pre><span></span><code>sudo chkconfig vsfptd off
+</code></pre></div>
+
+<p>and On debian machines:</p>
+<div class="highlight"><pre><span></span><code>sudo update-rc.d vsftpd remove
+</code></pre></div>
+
+<p>If you are using the systemd, do as follow to check and stop / disable a service:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">systemctl</span><span class="w"> </span><span class="nx">list</span><span class="o">-</span><span class="nx">units</span><span class="w"> </span><span class="o">--</span><span class="nx">state</span><span class="w"> </span><span class="nx">active</span><span class="w"> </span><span class="o">--</span><span class="k">type</span><span class="w"> </span><span class="nx">service</span>
+<span class="nx">systemctl</span><span class="w"> </span><span class="nx">status</span>
+<span class="nx">systemctl</span><span class="w"> </span><span class="nx">disable</span><span class="w"> </span><span class="nx">vsftpd</span><span class="p">.</span><span class="nx">service</span><span class="w"> </span><span class="o">--</span><span class="nx">now</span>
+</code></pre></div>
+
+<p>Please also remember than on older systems, we used to have all the Init scripts in <code>/etc/init.d</code> and <code>/etc/rcX.d</code> folders. There were also a <code>/etc/inittab</code> file which was a configuration file for initializing a Linux system using SysV. I contains lines i this format:</p>
+<div class="highlight"><pre><span></span><code><span class="n">id</span><span class="o">:</span><span class="n">runlevel</span><span class="o">:</span><span class="n">action</span><span class="o">:</span><span class="n">process</span>
+</code></pre></div>
+
+<p>This would tell the init system to do <code>actions</code> on the <code>process</code> on a specific <code>runlevel</code>. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="mi">1</span><span class="o">:</span><span class="mi">2345</span><span class="o">:</span><span class="n">respawn</span><span class="o">:/</span><span class="n">sbin</span><span class="o">/</span><span class="n">mingetty</span><span class="w"> </span><span class="n">tty1</span>
+</code></pre></div>
+
+<p>tells the init to start (and respawn if killed), the <code>mingetty tty1</code> command on runlevels 2, 3, 4, &amp; 5. As the final note, this was the most important line in the <code>inittab</code> file because it told the init to start in run level 3. </p>
+<div class="highlight"><pre><span></span><code><span class="n">id</span><span class="o">:</span><span class="mi">3</span><span class="o">:</span><span class="n">initdefault</span><span class="o">:</span>
+</code></pre></div>
+
+<p>for more information about runlevels, please refer to <a href="1013-change-runlevels-boot-targets-and-shutdown-or-reboot-the-system.html">Chapter 101.3</a>.</p>
 
 
              
