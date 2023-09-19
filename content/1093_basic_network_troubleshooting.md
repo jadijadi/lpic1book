@@ -15,24 +15,24 @@ Candidates should be able to troubleshoot networking issues on client hosts.
 * Manually configure network interfaces, including viewing and changing the configuration of network interfaces using iproute2.
 * Manually configure routing, including viewing and changing routing tables and setting the default route using iproute2.
 * Debug problems associated with the network configuration.
-* Awareness of legacy net-tools commands.
+* Awareness of legacy `net-tools` commands.
 
 
 ### Terms and Utilities
 
-* ip
-* hostname
-* ss
-* ping
-* ping6
-* traceroute
-* traceroute6
-* tracepath
-* tracepath6
-* netcat
-* ifconifg
-* netstat
-* route
+* `ip`
+* `hostname`
+* `ss`
+* `ping`
+* `ping6`
+* `traceroute`
+* `traceroute6`
+* `tracepath`
+* `tracepath6`
+* `netcat`
+* `ifconifg`
+* `netstat`
+* `route`
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/sAzkN5P2-0E?si=P1r5KgfEvit_BMFW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
@@ -60,6 +60,9 @@ As you already know, `ifconfig` and `ip` commands can be used to check the IP ad
        valid_lft 254836sec preferred_lft 254836sec
     inet6 fe80::8ea9:82ff:fe7b:8906/64 scope link
        valid_lft forever preferred_lft forever
+[jadi@debian ~]$ 
+[jadi@debian ~]$ 
+[jadi@debian ~]$ 
 [jadi@debian ~]$ ifconfig
 enp0s25   Link encap:Ethernet  HWaddr f0:de:f1:62:c5:73  
           inet addr:192.168.1.35  Bcast:192.168.1.255  Mask:255.255.255.0
@@ -154,7 +157,7 @@ rtt min/avg/max/mdev = 3.039/3.174/3.310/0.146 ms
 What is going on here? Let's see, what clues do I have:
 1) I can reach the gateway.
 2) when asking for the Internet, my computer does not know what to do.
-In this case the **default gateway** is missing: the computer does not know what to do if a packet is outside its network mask. You know that we can set the default gateway using the /etc/network/interfaces config file, but there is also a `route` (or the newer `ip route` subcommand) to show and change the routing configurations on the fly.
+In this case the **default gateway** is missing: the computer does not know what to do if a packet is outside its network mask. You know that we can set the default gateway using the `/etc/network/interfaces` config file, but there is also a `route` (or the newer `ip route` subcommand) to show and change the routing configurations on the fly.
 
 > Routes added or changed via `ip route` (or `route`) will be lost after a reboot! Permanent configurations should come from configuration files.
 
@@ -273,7 +276,7 @@ tcp               LISTEN             0                  128                     
 
 #### netcat
 
-The nc \(or netcat\) utility is used for just about anything under the sun involving TCP, UDP, or UNIX-domain sockets. It can open TCP connections, send UDP packets, listen on arbitrary TCP and UDP ports, do port scanning, and deal with both IPv4 and IPv6. Unlike telnet, nc can be used easily in the scripts and separates error messages onto standard error instead of sending them to standard output, as telnet does with some. This is a very capable command, and it is enough for you to be familiar with its general concept.
+The `nc` \(or netcat\) utility is used for just about anything under the sun involving TCP, UDP, or UNIX-domain sockets. It can open TCP connections, send UDP packets, listen on arbitrary TCP and UDP ports, do port scanning, and deal with both IPv4 and IPv6. Unlike `telnet`, `nc` can be used easily in the scripts and separates error messages onto standard error instead of sending them to standard output, as telnet does with some. This is a very capable command, and it is enough for you to be familiar with its general concept.
 
 Here I'm creating a tcp listener on port 1337:
 
