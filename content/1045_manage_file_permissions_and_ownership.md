@@ -289,6 +289,6 @@ $ umask
 0177
 ```
 
-> Note how I used `u=rw,g=,o=` to tell `umask` or `chomod` what I exactly wanted from it.
+> Note how I used `u=rw,g=,o=` to tell `umask` or `chmod` what I exactly wanted from it.
 
 
