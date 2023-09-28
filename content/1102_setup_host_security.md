@@ -18,16 +18,19 @@ Candidates should know how to set up a basic level of host security.
 
 ### Terms and Utilities
 
-* /etc/nologin
-* /etc/passwd
-* /etc/shadow
-* /etc/xinetd.d/
-* /etc/xinetd.conf
-* systemd.socket
-* /etc/inittab
-* /etc/init.d/
-* /etc/hosts.allow
-* /etc/hosts.deny
+* `/etc/nologin`
+* `/etc/passwd`
+* `/etc/shadow`
+* `/etc/xinetd.d/`
+* `/etc/xinetd.conf`
+* `systemd.socket`
+* `/etc/inittab`
+* `/etc/init.d/`
+* `/etc/hosts.allow`
+* `/etc/hosts.deny`
+  
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HoQtVkcSqz8" title="LPIC 1 - 80  - 110.2 - Setup Host Security; controlling server logins and using super services" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### shadow passwords
 
@@ -38,7 +41,7 @@ $ ls -ltrh /etc/passwd
 -rw-r--r-- 1 root root 2.5K Jun  5 19:14 /etc/passwd
 ```
 
-To prevent this the `/etc/shadow` file is introduces. In modern systems, we only show a `*` at the location of the password in /etc/passwd and store the real password in `/etc/shadow` which has a very limited file access:
+To prevent this the `/etc/shadow` file is introduced. In modern systems, we only show a `*` at the location of the password in `/etc/passwd` and store the real password in `/etc/shadow` which has a very limited file access:
 
 ```text
 jadi@funlife ~$ grep jadi /etc/passwd
@@ -52,13 +55,13 @@ jadi@funlife ~$ sudo ls -ltrh /etc/shadow
 -rw-r----- 1 root shadow 1.5K Jun 11 17:36 /etc/shadow
 ```
 
-#### /etc/nologin
+#### `/etc/nologin`
 
-This is a cool file! If you create and write something in it, the content will be shown to any person who tries to login into the system and the login attempt will fail. It is useful for maintenance time. Delete this file and the users will be able to login again.
+The `/etc/nologin` is a cool file! If you create and write something in it, the content will be shown to any person who tries to login into the system and with that file the login attempt will fail. It is useful for maintenance time. Delete this file and the users will be able to login again.
 
 > the root user will be able to login even in the presence of /etc/nologin
 
-Please also note that there a is dummy shell called `nologin` and you can set it as shell for any user you want to prevent from being able to login into the system via a shell. Note that such a user still has an active account and will be able to use other services (say email or ftp) but wont be able to enter the shell. 
+Please also note that there is a dummy shell called `nologin` and you can set it as shell for any user you want to prevent from being able to login into the system via a shell. Note that such a user still has an active account and will be able to use other services (say email or ftp) but wont be able to enter the shell. 
 
 ```
 sudo usermod -s /sbin/nologin baduser
@@ -72,7 +75,7 @@ A super-server or sometimes called a service dispatcher is a type of daemon runn
 
 Few GNU/Linuxes use TCP wrappers like `xinetd` these days but you might see it in some installations or traces of it in your `/etc/xinet.d`. If needed it is also possible to configure the `systemd.socket` as a TCP wrapper for other services. 
 
-Here is a sample xinetd configuration file:
+Here is a sample `xinetd` configuration file:
 
 ```text
 service telnet
@@ -90,13 +93,13 @@ service telnet
 }
 ```
 
-If we change the `disable` to `yes` and restart the xinetd, the telnet daemon will start running. There are a few files to control to xinetd related files.
+If we change the `disable` to `yes` and restart the xinetd, the telnet daemon will start running. There are a few files to control xinetd related files.
 
-As mentioned, `xinetd` is replaced by the `systemd.socket` units. Some of the services like ssh and cups might have a socket unit alongside the service unit in your distribution. In this case its enough to stop & disable the `ssh.service` and start the `ssh.docekt` instead. Now the systemd.socekt is acting as a warpper around the port 22 and IF someones needs the service, starts the ssh server to answer. 
+As mentioned, `xinetd` is replaced by the `systemd.socket` units. Some services like `ssh` and `cups` might have a socket unit alongside the service unit in your distribution. In this case its enough to stop & disable the `ssh.service` and start the `ssh.docekt` instead. Now the `systemd.socekt` is acting as a wrapper around the port 22 and IF someones needs the service, starts the ssh server to answer. 
 
-#### /etc/hosts.allow & /etc/hosts.deny
+#### `/etc/hosts.allow` & `/etc/hosts.deny`
 
-These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowed, everything else is denied but if you add something to the /etc/hosts.deny, only that specific thing is denied \(and every other thing is allowed\).
+These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowed, everything else is denied but if you add something to the `/etc/hosts.deny`, only that specific thing is denied \(and every other thing is allowed\).
 
 ```text
 jadi@funlife ~$ cat /etc/hosts.allow
@@ -162,24 +165,23 @@ systemctl status
 systemctl disable vsftpd.service --now
 ```
 
-Please also remember than on older systems, we used to have all the Init scripts in `/etc/init.d` and `/etc/rcX.d` folders. There were also a `/etc/inittab` file which was a configuration file for initializing a Linux system using SysV. I contains lines i this format:
+Please also remember that on older systems, we used to have all the Init scripts in `/etc/init.d` and `/etc/rcX.d` folders. There were also a `/etc/inittab` file which was a configuration file for initializing a Linux system using SysV . It contains lines in this format:
 
+This would tell the init system to do `actions` on the `process` on a specific `runlevel`. For example:
 ```
 id:runlevel:action:process
 ```
 
-This would tell the init system to do `actions` on the `process` on a specific `runlevel`. For example:
-
+It tells the init to start (and respawn if killed), the `mingetty tty1` command on runlevels `2`, `3`, `4`, & `5`. 
 ```
 1:2345:respawn:/sbin/mingetty tty1
 ```
 
-tells the init to start (and respawn if killed), the `mingetty tty1` command on runlevels 2, 3, 4, & 5. As the final note, this was the most important line in the `inittab` file because it told the init to start in run level 3. 
-
+As the final note, this was the most important line in the `inittab` file because it tells the init to start in run level 3. 
 ```
 id:3:initdefault:
 ```
 
-for more information about runlevels, please refer to [Chapter 101.3](1013-change-runlevels-boot-targets-and-shutdown-or-reboot-the-system.html).
+For more information about `runlevels` , please refer to [Chapter 101.3](1013-change-runlevels-boot-targets-and-shutdown-or-reboot-the-system.html).
 
 
