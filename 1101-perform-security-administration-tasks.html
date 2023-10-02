@@ -115,6 +115,8 @@
 <li>who, w, last</li>
 </ul>
 <h2>Users</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rNxitwVtRvo?si=V6a_wAv84xjOIbjx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <h3>sudo vs su</h3>
 <p>We've used sudo and su in practically all the chapters and now is the time to have a closer look! <code>su</code> switches you to some other account; a "set user". You get a new prompt with the new user account after successfully <code>su</code>ing to that account:</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife ~$ whoami
@@ -281,6 +283,8 @@ Number of days of warning before password expires   : 7
 
 <p>You can also use switches to directly change values. Say -m for --mindays or -M for --maxdays. </p>
 <h3>suid and guid</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1wyPXxrnI7g?si=Ba5wYOYgDIRNmZ_6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <p>We've already covered <code>suid</code>; In short, when the suid bit is set on an executable file, the user will run with the access level of the owner of the file (and not the runner). Have a look at the <code>ping</code> command:</p>
 <div class="highlight"><pre><span></span><code><span class="err">➜</span><span class="w">  </span><span class="o">~</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="nx">passwd</span>
 <span class="nx">passwd</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">passwd</span>
@@ -397,6 +401,8 @@ file locks                      (-x) unlimited
 <p>soft limits can be changed by the user but hard limits are the real stop points.</p>
 </blockquote>
 <h2>Open Ports</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9yycyd7ShyM?si=mIGy54tKa2CnKQR4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <h3>netstat, fuser and lsof</h3>
 <p>On module 109.1 we talked about ports. Ports are like wholes in our systems used by programs to listen to the outside world. If I'm running a web server on my computer I should have a port open so people can ask that server "please show me your index.html". Many malwares open ports to let the attacker to communicate with them. It is important to check your computer for open ports time to time. The older command for this is the <code>netstat</code>; using the <code>-na</code> or <code>-ap</code> or <code>-tuna</code> switch.. I'm sure 'tuna' is easy to remember if you have every enjoyed a tuna sandwich.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife ~$ netstat -tuna

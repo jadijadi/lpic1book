@@ -324,7 +324,7 @@ x:5:respawn:/etc/X11/prefdm -nodaemon
 <li><code>/etc/issue</code>: Text to be displayed on the tty terminal logins (before login)</li>
 <li><code>/etc/issue.net</code>: Text to be displayed on the remote terminal logins (before login)</li>
 <li><code>/etc/motd</code>: Message of the day (after login). Some companies add "Do not enter if you are not allowed" texts here for legal reasons.</li>
-<li><code>mesg</code>: Command controls if you want to get wall messages on not. You can do <code>mesg n</code> and <code>who -T</code> will show mesg status. Note that <code>shutdown</code> wall messages do not respect the <code>mesg</code> status</li>
+<li><code>mesg</code>: Command controls if you want to get wall messages or not. You can do <code>mesg n</code> and <code>who -T</code> will show mesg status. Note that <code>shutdown</code> wall messages do not respect the <code>mesg</code> status</li>
 </ul>
 <blockquote>
 <p>systemctl sends wall messages for emergency, halt, power-off, reboot, and rescue</p>

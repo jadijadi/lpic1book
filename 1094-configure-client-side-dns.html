@@ -99,13 +99,15 @@
 </ul>
 <h3>Terms and Utilities</h3>
 <ul>
-<li>/etc/hosts</li>
-<li>/etc/resolv.conf</li>
-<li>/etc/nsswitch.conf</li>
-<li>host</li>
-<li>dig</li>
-<li>getent</li>
+<li><code>/etc/hosts</code></li>
+<li><code>/etc/resolv.conf</code></li>
+<li><code>/etc/nsswitch.conf</code></li>
+<li><code>host</code></li>
+<li><code>dig</code></li>
+<li><code>getent</code></li>
 </ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wUDhmSpr3lg?si=O1LCyXq_L4LmLn39" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <h3>DNS</h3>
 <p>We already know a lot about Domain Name System; A service which translates domain names (say yahoo.com) to IP addresses (say 206.190.36.45). A DNS server is used when you ping a server using its domain name. You have seen the config files for DNS and should know that the actual DNS server which is being used by the computer can be checked / changed (temporarily) from <code>/etc/resolv.conf</code>:</p>
 <div class="highlight"><pre><span></span><code>$ cat /etc/resolv.conf
@@ -161,8 +163,8 @@ x.org.            1625    IN    A    131.252.210.176
 ;; MSG SIZE  rcvd: 50
 </code></pre></div>
 
-<p>As you can see, <code>dig</code> did an <strong>ip lookup</strong> for <code>x.org</code> and told me that its IP is 131.252.210.176. The <code>1625</code> is called the TTL or <em>Time To Live</em> and show how many seconds this answer will be considered valid in chache. This command also tells us which server is used to query the answer (last 4 lines) and when and how long it took.</p>
-<p>There is also a way to tell <code>dig</code> command what server it should use as the DNS:</p>
+<p>As you can see, <code>dig</code> did an <strong>ip lookup</strong> for <code>x.org</code> and told me that its IP is 131.252.210.176. The <code>1625</code> is called the <strong>TTL</strong> or <em>Time To Live</em> and show how many seconds this answer will be considered valid in cache. This command also tells us which server is used to query the answer (last 4 lines) and when and how long it took.</p>
+<p>There is also a way to tell <code>dig</code> command what server it should use as the DNS vi <code>@&lt;DNS-SERVER&gt;</code>:</p>
 <div class="highlight"><pre><span></span><code>$ dig @8.8.8.8 google.com
 
 ; &lt;&lt;&gt;&gt; DiG 9.10.3-P4-RedHat-9.10.3-12.P4.fc23 &lt;&lt;&gt;&gt; @8.8.8.8 google.com
@@ -196,8 +198,8 @@ google.com.        112    IN    A    173.194.32.142
 ;; MSG SIZE  rcvd: 215
 </code></pre></div>
 
-<p>Here I have asked dig to use <code>8.8.8.8</code> as its DNS and query <code>google.com</code>. You can see that I've got more than 1 answer (actually much more than 1 answer). My computer can randomly contact any of those IPs to reach the <code>google.com</code>. In other words, google.com is using more than 1 server/IP and <code>8.8.8.8</code> provides all of them when queried for that domain.</p>
-<h3>/etc/hosts</h3>
+<p>Here I have asked dig to use <code>8.8.8.8</code> as its DNS and query <code>google.com</code>. You can see that I've got more than one answer (actually much more than one answer). My computer can randomly contact any of those IPs to reach the <code>google.com</code>. In other words, google.com is using more than one server/IP and <code>8.8.8.8</code> provides all of them when queried for that domain.</p>
+<h3><code>/etc/hosts</code></h3>
 <p>This file contains IP addresses and their correspondive names. This is kind of an static name resolution on your computer. Let's have a look:</p>
 <div class="highlight"><pre><span></span><code>$ head /etc/hosts
 127.0.0.1    funlife localhost.localdomain    localhost clickadu.com
@@ -335,8 +337,9 @@ aliases:    files nisplus
 127.0.0.1       frctlmeth
 </code></pre></div>
 
-<h3>systemd-resolved</h3>
+<h3><code>systemd-resolved</code></h3>
 <p>It should be noted that the <code>systemd</code> provides a DNS called <code>systemd-resolved</code>. It listens for DNS requests on <code>127.0.0.53</code> and answers back after consulgint the <code>/etc/systemd/resolv.conf</code> or <code>/etc/resolv.conf</code>.</p>
+<p>Read more <a href="https://wiki.archlinux.org/title/Systemd-resolved">Here</a> about <code>systemd-resolved</code>.</p>
 
 
              
