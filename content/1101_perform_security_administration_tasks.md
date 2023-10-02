@@ -37,6 +37,7 @@ Candidates should know how to review system configuration to ensure host securit
 
 ## Users
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rNxitwVtRvo?si=V6a_wAv84xjOIbjx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### sudo vs su
 
@@ -229,6 +230,8 @@ You can also use switches to directly change values. Say -m for --mindays or -M 
 
 ### suid and guid
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1wyPXxrnI7g?si=Ba5wYOYgDIRNmZ_6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 We've already covered `suid`; In short, when the suid bit is set on an executable file, the user will run with the access level of the owner of the file (and not the runner). Have a look at the `ping` command:
 
 ```
@@ -362,6 +365,8 @@ $ cat /etc/security/limits.conf
 
 
 ## Open Ports
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9yycyd7ShyM?si=mIGy54tKa2CnKQR4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### netstat, fuser and lsof
 

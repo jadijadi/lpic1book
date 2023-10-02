@@ -29,6 +29,8 @@ Candidates should know how to set up a basic level of host security.
 * /etc/hosts.allow
 * /etc/hosts.deny
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HoQtVkcSqz8?si=Q5zWktbxB7qaTplh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 #### shadow passwords
 
 The `/dev/passwd` is already discussed. It contains the passwords of the users but there is a logical problem: if a user should be able to change her own password, he should have access to this file and if this is the case, he can see other people's passwords. This is not interesting even when the passwords are hashed \(shown as a more complex form using a one way function\).

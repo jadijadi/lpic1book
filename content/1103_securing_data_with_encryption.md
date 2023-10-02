@@ -38,6 +38,8 @@ The candidate should be able to use public key techniques to secure data and com
 * gpg-agent
 * ~/.gnupg/
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ElbC0EtZc4c?si=PemOqHr6s7V53wwS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## Key Pairs
 
 In traditional cryptography, the symmetric keys were used: both parties had a shared password. The data were encrypted with that password and then decrypted using the same password. But in 1976, a new idea came into the view: what if we create 2 keys (lets call them the Private Key and the Public Key) in a way that only people who has the Public Key, be able to open whatever which is encrypted with the Private key? The scientists made this a reality and nowawayds, most of our encryptions are being done via these **Key Pair**s. When generating a key pair, we generate two keys using a computer algorithm in the way that any message which is encrypted using one, can be opened only using the other. These are called Public & Private key. You publish the public key to your friends or even publicly on the net and if someone wants to send you an encrypted message, she encrypts it using your public key and send it to you with any means (or published the encoded message on the intneret) and only and only you will be able to open it, because you are the one who has the Private key!
@@ -203,6 +205,8 @@ Now, the agent knows about your keys and wont ask for the passwords anymore.
 
 #### ssh tunnels
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bjvOJNmWgYI?si=UFKx2TDaF9l5GCjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 The ssh can also be used for _tunnelling_. Its a very fun concept and a super userful tool in the hands of a network Ninja! Honestly we use it all the time to solve complicated problems. 
 
 As the name sggests, ssh tunelling *tunnels* the data between machines. Look at this example:
@@ -257,6 +261,8 @@ and then you can run graphical programs (say `xeyes` for fun) on the remote mach
 This is very useful when you want to run a program on a resourceful server or work from home whiel your graphical applications are at the office ;)
 
 ## ecnrypt and sign using gpg
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BX6BB8bqy24?si=iIWhRQnFmADr93n6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 As described in previous section, a public and private key pair can be used to encrypt or sign messages. There is an implementation of this method called `gpg` which can be used on Linux (and other machiens) to perform these tasks. First you need to generate a key:
 
