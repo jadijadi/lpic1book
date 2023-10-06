@@ -41,7 +41,7 @@ Candidates should be able to customize shell environments to meet users’ needs
 
 ## Environment variables
 
-Shell Environment Variables are special variables that contain information and configuration about the shell. System shell uses them when its needs to show you a prompt, run a command, or search what to run. Different operating system distributions have different environment variables and you can add yours if you need so; or want so!
+Shell Environment Variables are special variables that contain information and configuration about the shell. System shell uses them when it needs to show you a prompt, run a command, or search what to run. Different operating system distributions have different environment variables and you can add yours if you need so; or want so!
 
 
 ### env
@@ -64,7 +64,7 @@ Options
        Start with an empty environment, ignoring the inherited
        environment.
 ```
-You cal also use the more general `printenv` command.
+You can also use the more general `printenv` command.
 
 ## set
 
@@ -103,7 +103,7 @@ A programmer who enjoys cycling and promotes freedom
 
 ## unset
 
-This command unsets a variables or a functions.
+This command unsets a variable or a function.
 
 ```text
 $ name=jadi
