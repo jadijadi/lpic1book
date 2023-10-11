@@ -41,7 +41,7 @@ Candidates should know how to review system configuration to ensure host securit
 
 ### sudo vs su
 
-We've used sudo and su in practically all the chapters and now is the time to have a closer look! `su` switches you to some other account; a "set user". You get a new prompt with the new user account after successfully `su`ing to that account:
+We've used sudo and su in practically all the chapters and now is the time to have a closer look! `su` switches you to some other account; a "substitute user identity". You get a new prompt with the new user account after successfully `su`ing to that account:
 
 ```text
 jadi@funlife ~$ whoami
