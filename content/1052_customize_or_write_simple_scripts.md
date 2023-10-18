@@ -43,7 +43,7 @@ Candidates should be able to customize existing scripts, or write simple new Bas
 
 If you want to run more than one command in oneline, separate them by a `;`. So the `cd /tmp; ls` will run the `cd /tmp` and then `ls`. But there are more advanced usages too.
 
-You can use `&&` \(as logical And\) and `||` \(as logical OR\) chaining. In case of And, the execution will stop as soon as the first one fails to execute. In case of Or, the next command will only run if the first one fails. Just like in logic boards.
+You can use `&&` \(as logical And\) and `||` \(as logical OR\) chaining. In case of And, the execution will stop as soon as the first one fails to execute. In case of Or, the next command will only run if the first one fails. Just like in logic gates.
 
 Confusing? Let me explain again. The system will always try to *evaluate* the outcome of your chain. So if you have `A && B` then A fails, the system does not need to test B (because the overall result will be False anyway). Same logic works for `A || B || C`. If A works fine, the overall evaluation will be True so no need for testing B or C. But if A fails, system will try B and if B fails, we have to try C. 
 
