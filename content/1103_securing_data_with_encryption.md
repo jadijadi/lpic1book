@@ -49,7 +49,7 @@ In traditional cryptography, the symmetric keys were used: both parties had a sh
 ### ssh keys
 The same technology (Public key cryptography or asymetric cryptography) can be used in most of the network communications too. In fact the very `ssh` works based on this concept. It is used to authenticate hosts and secure the traffic. 
 
-'''
+```
 ➜  ~ ssh 192.168.70.2
 The authenticity of host '192.168.70.2 (192.168.70.2)' can't be established.
 ED25519 key fingerprint is SHA256:4Wp2zz6sgPAhnbqhkNjOd6QDpNQ4jvjX7qAzslPX09U.
@@ -69,7 +69,7 @@ permitted by applicable law.
 You have no mail.
 Last login: Sun Sep 17 04:43:18 2023 from 192.168.70.1
 jadi@debian:~$
-'''
+```
 
 Above the server is showing us the fingerprint of its ED25519 key and asking us to approve it. From now on, our system wont warn us for the same key with the same server. BUT if the fingerprint (so the key) of the same server is changed, that will be considered a serious case:
 
@@ -215,7 +215,7 @@ As the name sggests, ssh tunelling *tunnels* the data between machines. Look at 
 ssh -L 9000:hckrnews.com:80 root@5.161.197.79
 ```
 
-Here I'm telling my computer to ssh using user `root` (which is not a great idea) to the `5.161.197.79` server; AND create a **local tunnel** (`-L`) from on my machine toward the `hckrnews.com` port `80` through that machine. No if I connect to `localhost:8000` **on my machine**, the request will be tunnels through 5.161.197.79 toward hckrnews.com port 80. You can try it with `curl localhost:9000`. 
+Here I'm telling my computer to ssh using user `root` (which is not a great idea) to the `5.161.197.79` server; AND create a **local tunnel** (`-L`) from on my machine toward the `hckrnews.com` port `80` through that machine. Now if I connect to `localhost:9000` **on my machine**, the request will be tunnels through `5.161.197.79` toward hckrnews.com port 80. You can try it with `curl localhost:9000`. 
 
 Why this is useful? Say you have a program on your server which only answers back to the local requests (and not the internet). Using local forwarding you can forward a port on your computer to port which programs works on and use the program on your own machine!
 
