@@ -14,7 +14,7 @@
     "gulp-postcss": "^9.0.0",
     "gulp-run-command": "^0.0.10",
     "gulp-terser": "^2.0.1",
-    "postcss": "^8.3.6",
+    "postcss": "^8.4.31",
     "postcss-font-magician": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "recess": "^1.1.9",
