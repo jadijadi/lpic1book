@@ -21,27 +21,30 @@ Candidates should know how to review system configuration to ensure host securit
 
 ### Terms and Utilities
 
-* find
-* passwd
-* fuser
-* lsof
-* nmap
-* chage
-* netstat
-* sudo
-* /etc/sudoers
-* su
-* usermod
-* ulimit
-* who, w, last
+* `find`
+* `passwd`
+* `fuser`
+* `lsof`
+* `nmap`
+* `chage`
+* `netstat`
+* `sudo`
+* `/etc/sudoers`
+* `su`
+* `usermod`
+* `ulimit`
+* `who, w, last`
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rNxitwVtRvo" title="LPIC 1 - 77  - 110.1 (1/3) - Perform Security Admin Tasks;su,sudo,online users &amp;password management" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Users
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rNxitwVtRvo?si=V6a_wAv84xjOIbjx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-### sudo vs su
+### `sudo` vs `su`
 
-We've used sudo and su in practically all the chapters and now is the time to have a closer look! `su` switches you to some other account; a "substitute user identity". You get a new prompt with the new user account after successfully `su`ing to that account:
+We've used `sudo` and `su` in practically all the chapters and now is the time to have a closer look! `su` switches you to some other account; a "substitute user identity". You get a new prompt with the new user account after successfully `su`ing to that account:
 
 ```text
 jadi@funlife ~$ whoami
@@ -66,7 +69,7 @@ jadi@funlife ~$
 
 Note that when running `su` you have to **provide the root password** to become root; or any other users password to become that user!
 
-On the other hand, sudo asks for your own password and runs the command you gave it, with the root privileges. So `sudo ls` runs the ls command with the root privileges after asking for **your password**. Obviously you should have the _sudo right_ to issue sudo. This is defined in /etc/sudoers file:
+On the other hand, sudo asks for your own password and runs the command you gave it, with the root privileges. So `sudo ls` runs the ls command with the root privileges after asking for **your password**. Obviously you should have the _sudo right_ to issue sudo. This is defined in `/etc/sudoers` file:
 
 ```text
 $ sudo cat /etc/sudoers
@@ -102,7 +105,25 @@ root    ALL=(ALL:ALL) ALL
 #includedir /etc/sudoers.d
 ```
 
-Note the 2 important lines: how root gets the right to run all the commands and how the sudo and admin groups get rights to run commands as root. The `ALL:ALL` means these users can run as any user and any group. The last ALL tells the sudo that these users / groups can run ALL commands. It is possible to put /bin/ping in the last part to tell sudo that this user can run only ping as root.
+Note the 2 important lines: 
+- How root gets the right to run all the commands:
+  ```txt
+  root    ALL=(ALL:ALL) ALL
+  ```
+- And how the sudo and admin groups get rights to run commands as root: 
+  ```txt
+  # Members of the admin group may gain root privileges
+  %admin ALL=(ALL) ALL
+
+  # Allow members of group sudo to execute any command
+  %sudo    ALL=(ALL:ALL) ALL
+  ```
+
+  The `ALL:ALL` means these users can run as any user and any group. The last ALL tells the sudo that these users/groups can run ALL commands. It is possible to put `/bin/ping` in the last part to tell sudo that this user can run only ping as root, Like below:
+
+  ```txt
+  username ALL=(ALL) /bin/ping
+  ```
 
 > The /etc/sudoers file is very important and breaking it will make major problems. to prevent you from adding un-interpretable lines in that file, the `visudo` command should be used instead of `vi /etc/sudoers`. This tool will check your edits to make sure that sudo command can understand them.
 
@@ -191,11 +212,11 @@ You can also use this command to check the status of a user:
 jadi P 2023-09-14 0 99999 7 -1
 ```
 
-It says my user is jadi, I have a valid *P*assword (could have been *L*ocked or *NP* for no password), my last password change time, minimum age of my password, maximum age of my password, warning period before password expiry & allowed password inactivity in days. The `passwd` command can also be used to `--lock` (or `-l`) a user, `--expire` (or `-e`) a user or `--unlock` (or `-u`) a user.
+It says my user is jadi, I have a valid *P*assword (could have been *L*ocked or *NP* for no password), my last password change time, minimum and maximum age of my password, warning period before password expiry & allowed password inactivity in days. The `passwd` command can also be used to `--lock` (or `-l`) a user, `--expire` (or `-e`) a user or `--unlock` (or `-u`) a user.
 
 > As you've already see in the user management section, to change the user shell, home, ... you should use the `usermod` command
 
-But to properly check / change the password age and other configurations of users, the `chage` utility should be used. Run it with `-l` for `list`:
+But to properly check/change the password age and configurations of users, the `chage` utility should be used. Run it with `-l` for `list`:
 
 ```
 ➜  ~ chage -l jadi
@@ -225,12 +246,12 @@ Enter the new value, or press ENTER for the default
 	Account Expiration Date (YYYY-MM-DD) [-1]: 
 ```
 
-You can also use switches to directly change values. Say -m for --mindays or -M for --maxdays. 
+You can also use switches to directly change values. Say `-m` for --mindays or `-M` for --maxdays. 
 
 
 ### suid and guid
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/1wyPXxrnI7g?si=Ba5wYOYgDIRNmZ_6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1wyPXxrnI7g" title="LPIC 1 - 78  - 110.1 (2/3) - Perform Security Admin Tasks; suid, guid &amp; ulimits" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 We've already covered `suid`; In short, when the suid bit is set on an executable file, the user will run with the access level of the owner of the file (and not the runner). Have a look at the `ping` command:
 
@@ -263,7 +284,7 @@ Here, the `-perm -u+s` tells `find` to search for file which has `suid` on `user
 
 ### user limits
 
-The resources on a Linux machine can be manages for users by the `ulimit` command. It is part of the PAM system. If you want to check the limits on the system run:
+The resources on a Linux machine can be managed for users by the `ulimit` command. It is part of the PAM system. If you want to check the limits on the system run:
 
 ```text
 ~$ ulimit -a
@@ -366,11 +387,11 @@ $ cat /etc/security/limits.conf
 
 ## Open Ports
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/9yycyd7ShyM?si=mIGy54tKa2CnKQR4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9yycyd7ShyM" title="LPIC 1 - 79  - 110.1 (3/3) - Perform Security Admin Tasks; checking for open ports &amp; scan with nmap" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### netstat, fuser and lsof
 
-On module 109.1 we talked about ports. Ports are like wholes in our systems used by programs to listen to the outside world. If I'm running a web server on my computer I should have a port open so people can ask that server "please show me your index.html". Many malwares open ports to let the attacker to communicate with them. It is important to check your computer for open ports time to time. The older command for this is the `netstat`; using the `-na` or `-ap` or `-tuna` switch.. I'm sure 'tuna' is easy to remember if you have every enjoyed a tuna sandwich.
+On module 109.1 we talked about ports. Ports are like wholes in our systems used by programs to listen to the outside world. If I'm running a web server on my computer I should have a port open so people can ask that server "please show me your index.html". Many malwares open ports to let the attacker to communicate with them. It is important to check your computer for open ports time to time. The older command for this is the `netstat`; using the `-na` or `-ap` or `-tuna` switch.. I'm sure **tuna** is easy to remember if you have every enjoyed a tuna sandwich.
 
 ```text
 jadi@funlife ~$ netstat -tuna
@@ -396,7 +417,7 @@ udp        0      0 0.0.0.0:5353            0.0.0.0:*
 
 All the `LISTEN` ports are servers; they are LISTENING for new incoming connections. The `ESTABLISHED` connections are the active connections between your computer and another computer. In these tables `0.0.0.0` dictates _any address_ or _any interface_.
 
-Other useful tools are `ss` for the same purpose as you saw on chapter 109 and `lsof` and `fuser`. The 'lsof' is already discussed in previous sections. It shows the open files on the system and having in mind that _everything in Linux is a file or a process_ you can conclude that this command should be able to display open connections too; and you are right:
+Other useful tools are `ss` for the same purpose as you saw on chapter 109 and `lsof` and `fuser`. The `lsof` is already discussed in previous sections. It shows the open files on the system and having in mind that _everything in Linux is a file or a process_ you can conclude that this command should be able to display open connections too; and you are right:
 
 ```text
 # lsof -i
