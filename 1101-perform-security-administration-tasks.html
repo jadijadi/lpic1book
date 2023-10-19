@@ -100,25 +100,27 @@
 </ul>
 <h3>Terms and Utilities</h3>
 <ul>
-<li>find</li>
-<li>passwd</li>
-<li>fuser</li>
-<li>lsof</li>
-<li>nmap</li>
-<li>chage</li>
-<li>netstat</li>
-<li>sudo</li>
-<li>/etc/sudoers</li>
-<li>su</li>
-<li>usermod</li>
-<li>ulimit</li>
-<li>who, w, last</li>
+<li><code>find</code></li>
+<li><code>passwd</code></li>
+<li><code>fuser</code></li>
+<li><code>lsof</code></li>
+<li><code>nmap</code></li>
+<li><code>chage</code></li>
+<li><code>netstat</code></li>
+<li><code>sudo</code></li>
+<li><code>/etc/sudoers</code></li>
+<li><code>su</code></li>
+<li><code>usermod</code></li>
+<li><code>ulimit</code></li>
+<li><code>who, w, last</code></li>
 </ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rNxitwVtRvo" title="LPIC 1 - 77  - 110.1 (1/3) - Perform Security Admin Tasks;su,sudo,online users &amp;password management" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <h2>Users</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rNxitwVtRvo?si=V6a_wAv84xjOIbjx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-<h3>sudo vs su</h3>
-<p>We've used sudo and su in practically all the chapters and now is the time to have a closer look! <code>su</code> switches you to some other account; a "substitute user identity". You get a new prompt with the new user account after successfully <code>su</code>ing to that account:</p>
+<h3><code>sudo</code> vs <code>su</code></h3>
+<p>We've used <code>sudo</code> and <code>su</code> in practically all the chapters and now is the time to have a closer look! <code>su</code> switches you to some other account; a "substitute user identity". You get a new prompt with the new user account after successfully <code>su</code>ing to that account:</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife ~$ whoami
 jadi
 jadi@funlife ~$ su -
@@ -140,7 +142,7 @@ jadi@funlife ~$
 </code></pre></div>
 
 <p>Note that when running <code>su</code> you have to <strong>provide the root password</strong> to become root; or any other users password to become that user!</p>
-<p>On the other hand, sudo asks for your own password and runs the command you gave it, with the root privileges. So <code>sudo ls</code> runs the ls command with the root privileges after asking for <strong>your password</strong>. Obviously you should have the <em>sudo right</em> to issue sudo. This is defined in /etc/sudoers file:</p>
+<p>On the other hand, sudo asks for your own password and runs the command you gave it, with the root privileges. So <code>sudo ls</code> runs the ls command with the root privileges after asking for <strong>your password</strong>. Obviously you should have the <em>sudo right</em> to issue sudo. This is defined in <code>/etc/sudoers</code> file:</p>
 <div class="highlight"><pre><span></span><code>$ sudo cat /etc/sudoers
 #
 # This file MUST be edited with the &#39;visudo&#39; command as root.
@@ -174,7 +176,20 @@ root    ALL=(ALL:ALL) ALL
 #includedir /etc/sudoers.d
 </code></pre></div>
 
-<p>Note the 2 important lines: how root gets the right to run all the commands and how the sudo and admin groups get rights to run commands as root. The <code>ALL:ALL</code> means these users can run as any user and any group. The last ALL tells the sudo that these users / groups can run ALL commands. It is possible to put /bin/ping in the last part to tell sudo that this user can run only ping as root.</p>
+<p>Note the 2 important lines: 
+- How root gets the right to run all the commands:
+  <code>txt
+  root    ALL=(ALL:ALL) ALL</code>
+- And how the sudo and admin groups get rights to run commands as root: 
+  ```txt
+  # Members of the admin group may gain root privileges
+  %admin ALL=(ALL) ALL</p>
+<p># Allow members of group sudo to execute any command
+  %sudo    ALL=(ALL:ALL) ALL
+  ```</p>
+<p>The <code>ALL:ALL</code> means these users can run as any user and any group. The last ALL tells the sudo that these users/groups can run ALL commands. It is possible to put <code>/bin/ping</code> in the last part to tell sudo that this user can run only ping as root, Like below:</p>
+<p><code>txt
+  username ALL=(ALL) /bin/ping</code></p>
 <blockquote>
 <p>The /etc/sudoers file is very important and breaking it will make major problems. to prevent you from adding un-interpretable lines in that file, the <code>visudo</code> command should be used instead of <code>vi /etc/sudoers</code>. This tool will check your edits to make sure that sudo command can understand them.</p>
 </blockquote>
@@ -251,11 +266,11 @@ jadi     pts/21       :0               Fri Jun  3 18:44 - 19:47  (01:03)
 jadi P 2023-09-14 0 99999 7 -1
 </code></pre></div>
 
-<p>It says my user is jadi, I have a valid <em>P</em>assword (could have been <em>L</em>ocked or <em>NP</em> for no password), my last password change time, minimum age of my password, maximum age of my password, warning period before password expiry &amp; allowed password inactivity in days. The <code>passwd</code> command can also be used to <code>--lock</code> (or <code>-l</code>) a user, <code>--expire</code> (or <code>-e</code>) a user or <code>--unlock</code> (or <code>-u</code>) a user.</p>
+<p>It says my user is jadi, I have a valid <em>P</em>assword (could have been <em>L</em>ocked or <em>NP</em> for no password), my last password change time, minimum and maximum age of my password, warning period before password expiry &amp; allowed password inactivity in days. The <code>passwd</code> command can also be used to <code>--lock</code> (or <code>-l</code>) a user, <code>--expire</code> (or <code>-e</code>) a user or <code>--unlock</code> (or <code>-u</code>) a user.</p>
 <blockquote>
 <p>As you've already see in the user management section, to change the user shell, home, ... you should use the <code>usermod</code> command</p>
 </blockquote>
-<p>But to properly check / change the password age and other configurations of users, the <code>chage</code> utility should be used. Run it with <code>-l</code> for <code>list</code>:</p>
+<p>But to properly check/change the password age and configurations of users, the <code>chage</code> utility should be used. Run it with <code>-l</code> for <code>list</code>:</p>
 <div class="highlight"><pre><span></span><code>➜  ~ chage -l jadi
 Last password change                    : Sep 14, 2023
 Password expires                    : never
@@ -281,9 +296,9 @@ Number of days of warning before password expires   : 7
 <span class="w">    </span><span class="nv">Account</span><span class="w"> </span><span class="nv">Expiration</span><span class="w"> </span><span class="nv">Date</span><span class="w"> </span><span class="ss">(</span><span class="nv">YYYY</span><span class="o">-</span><span class="nv">MM</span><span class="o">-</span><span class="nv">DD</span><span class="ss">)</span><span class="w"> </span>[<span class="o">-</span><span class="mi">1</span>]:<span class="w"> </span>
 </code></pre></div>
 
-<p>You can also use switches to directly change values. Say -m for --mindays or -M for --maxdays. </p>
+<p>You can also use switches to directly change values. Say <code>-m</code> for --mindays or <code>-M</code> for --maxdays. </p>
 <h3>suid and guid</h3>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/1wyPXxrnI7g?si=Ba5wYOYgDIRNmZ_6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1wyPXxrnI7g" title="LPIC 1 - 78  - 110.1 (2/3) - Perform Security Admin Tasks; suid, guid &amp; ulimits" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <p>We've already covered <code>suid</code>; In short, when the suid bit is set on an executable file, the user will run with the access level of the owner of the file (and not the runner). Have a look at the <code>ping</code> command:</p>
 <div class="highlight"><pre><span></span><code><span class="err">➜</span><span class="w">  </span><span class="o">~</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="nx">passwd</span>
@@ -308,7 +323,7 @@ lrwxrwxrwx 1 root root 20 Jun  1 12:52 /usr/bin/vi -&gt; /etc/alternatives/vi
 <p>same applies for guid. if the guid is set, the file will be run with access of its group</p>
 </blockquote>
 <h3>user limits</h3>
-<p>The resources on a Linux machine can be manages for users by the <code>ulimit</code> command. It is part of the PAM system. If you want to check the limits on the system run:</p>
+<p>The resources on a Linux machine can be managed for users by the <code>ulimit</code> command. It is part of the PAM system. If you want to check the limits on the system run:</p>
 <div class="highlight"><pre><span></span><code>~$ ulimit -a
 core file size          (blocks, -c) 0
 data seg size           (kbytes, -d) unlimited
@@ -401,10 +416,10 @@ file locks                      (-x) unlimited
 <p>soft limits can be changed by the user but hard limits are the real stop points.</p>
 </blockquote>
 <h2>Open Ports</h2>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/9yycyd7ShyM?si=mIGy54tKa2CnKQR4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9yycyd7ShyM" title="LPIC 1 - 79  - 110.1 (3/3) - Perform Security Admin Tasks; checking for open ports &amp; scan with nmap" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <h3>netstat, fuser and lsof</h3>
-<p>On module 109.1 we talked about ports. Ports are like wholes in our systems used by programs to listen to the outside world. If I'm running a web server on my computer I should have a port open so people can ask that server "please show me your index.html". Many malwares open ports to let the attacker to communicate with them. It is important to check your computer for open ports time to time. The older command for this is the <code>netstat</code>; using the <code>-na</code> or <code>-ap</code> or <code>-tuna</code> switch.. I'm sure 'tuna' is easy to remember if you have every enjoyed a tuna sandwich.</p>
+<p>On module 109.1 we talked about ports. Ports are like wholes in our systems used by programs to listen to the outside world. If I'm running a web server on my computer I should have a port open so people can ask that server "please show me your index.html". Many malwares open ports to let the attacker to communicate with them. It is important to check your computer for open ports time to time. The older command for this is the <code>netstat</code>; using the <code>-na</code> or <code>-ap</code> or <code>-tuna</code> switch.. I'm sure <strong>tuna</strong> is easy to remember if you have every enjoyed a tuna sandwich.</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife ~$ netstat -tuna
 Active Internet connections (servers and established)
 Proto Recv-Q Send-Q Local Address           Foreign Address         State      
@@ -427,7 +442,7 @@ udp        0      0 0.0.0.0:5353            0.0.0.0:*
 </code></pre></div>
 
 <p>All the <code>LISTEN</code> ports are servers; they are LISTENING for new incoming connections. The <code>ESTABLISHED</code> connections are the active connections between your computer and another computer. In these tables <code>0.0.0.0</code> dictates <em>any address</em> or <em>any interface</em>.</p>
-<p>Other useful tools are <code>ss</code> for the same purpose as you saw on chapter 109 and <code>lsof</code> and <code>fuser</code>. The 'lsof' is already discussed in previous sections. It shows the open files on the system and having in mind that <em>everything in Linux is a file or a process</em> you can conclude that this command should be able to display open connections too; and you are right:</p>
+<p>Other useful tools are <code>ss</code> for the same purpose as you saw on chapter 109 and <code>lsof</code> and <code>fuser</code>. The <code>lsof</code> is already discussed in previous sections. It shows the open files on the system and having in mind that <em>everything in Linux is a file or a process</em> you can conclude that this command should be able to display open connections too; and you are right:</p>
 <div class="highlight"><pre><span></span><code># lsof -i
 COMMAND     PID       USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
 privoxy     806    privoxy    4u  IPv4   16130      0t0  TCP funlife:8118 (LISTEN)

@@ -97,17 +97,19 @@
 </ul>
 <h3>Terms and Utilities</h3>
 <ul>
-<li>/etc/nologin</li>
-<li>/etc/passwd</li>
-<li>/etc/shadow</li>
-<li>/etc/xinetd.d/</li>
-<li>/etc/xinetd.conf</li>
-<li>systemd.socket</li>
-<li>/etc/inittab</li>
-<li>/etc/init.d/</li>
-<li>/etc/hosts.allow</li>
-<li>/etc/hosts.deny</li>
+<li><code>/etc/nologin</code></li>
+<li><code>/etc/passwd</code></li>
+<li><code>/etc/shadow</code></li>
+<li><code>/etc/xinetd.d/</code></li>
+<li><code>/etc/xinetd.conf</code></li>
+<li><code>systemd.socket</code></li>
+<li><code>/etc/inittab</code></li>
+<li><code>/etc/init.d/</code></li>
+<li><code>/etc/hosts.allow</code></li>
+<li><code>/etc/hosts.deny</code></li>
 </ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HoQtVkcSqz8" title="LPIC 1 - 80  - 110.2 - Setup Host Security; controlling server logins and using super services" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/HoQtVkcSqz8?si=Q5zWktbxB7qaTplh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <h4>shadow passwords</h4>
@@ -116,7 +118,7 @@
 -rw-r--r-- 1 root root 2.5K Jun  5 19:14 /etc/passwd
 </code></pre></div>
 
-<p>To prevent this the <code>/etc/shadow</code> file is introduces. In modern systems, we only show a <code>*</code> at the location of the password in /etc/passwd and store the real password in <code>/etc/shadow</code> which has a very limited file access:</p>
+<p>To prevent this the <code>/etc/shadow</code> file is introduced. In modern systems, we only show a <code>*</code> at the location of the password in <code>/etc/passwd</code> and store the real password in <code>/etc/shadow</code> which has a very limited file access:</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife ~$ grep jadi /etc/passwd
 jadi:x:1000:1000:jadi,,,:/home/jadi:/bin/bash
 jadi@funlife ~$ grep jadi /etc/shadow
@@ -128,12 +130,12 @@ jadi@funlife ~$ sudo ls -ltrh /etc/shadow
 -rw-r----- 1 root shadow 1.5K Jun 11 17:36 /etc/shadow
 </code></pre></div>
 
-<h4>/etc/nologin</h4>
-<p>This is a cool file! If you create and write something in it, the content will be shown to any person who tries to login into the system and the login attempt will fail. It is useful for maintenance time. Delete this file and the users will be able to login again.</p>
+<h4><code>/etc/nologin</code></h4>
+<p>The <code>/etc/nologin</code> is a cool file! If you create and write something in it, the content will be shown to any person who tries to login into the system and with that file the login attempt will fail. It is useful for maintenance time. Delete this file and the users will be able to login again.</p>
 <blockquote>
 <p>the root user will be able to login even in the presence of /etc/nologin</p>
 </blockquote>
-<p>Please also note that there a is dummy shell called <code>nologin</code> and you can set it as shell for any user you want to prevent from being able to login into the system via a shell. Note that such a user still has an active account and will be able to use other services (say email or ftp) but wont be able to enter the shell. </p>
+<p>Please also note that there is a dummy shell called <code>nologin</code> and you can set it as shell for any user you want to prevent from being able to login into the system via a shell. Note that such a user still has an active account and will be able to use other services (say email or ftp) but wont be able to enter the shell. </p>
 <div class="highlight"><pre><span></span><code>sudo usermod -s /sbin/nologin baduser
 </code></pre></div>
 
@@ -141,7 +143,7 @@ jadi@funlife ~$ sudo ls -ltrh /etc/shadow
 <p>A super-server or sometimes called a service dispatcher is a type of daemon running mostly on Unix-like systems for security and resource management reasons. It listens for requests its configured for and starts the target services when needed to answer the requests. This adds a layer of security to your communications and also lets some of the services to be inactive when we do not need them. You can see a super server or superdaemon as a TCP (and UDP or even ICMP) wrapper around other services.</p>
 <p><img alt="Super Server" src="/images/super-server.png"></p>
 <p>Few GNU/Linuxes use TCP wrappers like <code>xinetd</code> these days but you might see it in some installations or traces of it in your <code>/etc/xinet.d</code>. If needed it is also possible to configure the <code>systemd.socket</code> as a TCP wrapper for other services. </p>
-<p>Here is a sample xinetd configuration file:</p>
+<p>Here is a sample <code>xinetd</code> configuration file:</p>
 <div class="highlight"><pre><span></span><code>service telnet
 {
         disable         = no
@@ -157,10 +159,10 @@ jadi@funlife ~$ sudo ls -ltrh /etc/shadow
 }
 </code></pre></div>
 
-<p>If we change the <code>disable</code> to <code>yes</code> and restart the xinetd, the telnet daemon will start running. There are a few files to control to xinetd related files.</p>
-<p>As mentioned, <code>xinetd</code> is replaced by the <code>systemd.socket</code> units. Some of the services like ssh and cups might have a socket unit alongside the service unit in your distribution. In this case its enough to stop &amp; disable the <code>ssh.service</code> and start the <code>ssh.docekt</code> instead. Now the systemd.socekt is acting as a warpper around the port 22 and IF someones needs the service, starts the ssh server to answer. </p>
-<h4>/etc/hosts.allow &amp; /etc/hosts.deny</h4>
-<p>These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowed, everything else is denied but if you add something to the /etc/hosts.deny, only that specific thing is denied (and every other thing is allowed).</p>
+<p>If we change the <code>disable</code> to <code>yes</code> and restart the xinetd, the telnet daemon will start running. There are a few files to control xinetd related files.</p>
+<p>As mentioned, <code>xinetd</code> is replaced by the <code>systemd.socket</code> units. Some services like <code>ssh</code> and <code>cups</code> might have a socket unit alongside the service unit in your distribution. In this case its enough to stop &amp; disable the <code>ssh.service</code> and start the <code>ssh.docekt</code> instead. Now the <code>systemd.socekt</code> is acting as a wrapper around the port 22 and IF someones needs the service, starts the ssh server to answer. </p>
+<h4><code>/etc/hosts.allow</code> &amp; <code>/etc/hosts.deny</code></h4>
+<p>These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowed, everything else is denied but if you add something to the <code>/etc/hosts.deny</code>, only that specific thing is denied (and every other thing is allowed).</p>
 <div class="highlight"><pre><span></span><code>jadi@funlife ~$ cat /etc/hosts.allow
 # /etc/hosts.allow: list of hosts that are allowed to access the system.
 #                   See the manual pages hosts_access(5) and hosts_options(5).
@@ -213,19 +215,20 @@ vsftpd: 10.10.100.
 <span class="nx">systemctl</span><span class="w"> </span><span class="nx">disable</span><span class="w"> </span><span class="nx">vsftpd</span><span class="p">.</span><span class="nx">service</span><span class="w"> </span><span class="o">--</span><span class="nx">now</span>
 </code></pre></div>
 
-<p>Please also remember than on older systems, we used to have all the Init scripts in <code>/etc/init.d</code> and <code>/etc/rcX.d</code> folders. There were also a <code>/etc/inittab</code> file which was a configuration file for initializing a Linux system using SysV. I contains lines i this format:</p>
+<p>Please also remember that on older systems, we used to have all the Init scripts in <code>/etc/init.d</code> and <code>/etc/rcX.d</code> folders. There were also a <code>/etc/inittab</code> file which was a configuration file for initializing a Linux system using SysV . It contains lines in this format:</p>
+<p>This would tell the init system to do <code>actions</code> on the <code>process</code> on a specific <code>runlevel</code>. For example:</p>
 <div class="highlight"><pre><span></span><code><span class="n">id</span><span class="o">:</span><span class="n">runlevel</span><span class="o">:</span><span class="n">action</span><span class="o">:</span><span class="n">process</span>
 </code></pre></div>
 
-<p>This would tell the init system to do <code>actions</code> on the <code>process</code> on a specific <code>runlevel</code>. For example:</p>
+<p>It tells the init to start (and respawn if killed), the <code>mingetty tty1</code> command on runlevels <code>2</code>, <code>3</code>, <code>4</code>, &amp; <code>5</code>. </p>
 <div class="highlight"><pre><span></span><code><span class="mi">1</span><span class="o">:</span><span class="mi">2345</span><span class="o">:</span><span class="n">respawn</span><span class="o">:/</span><span class="n">sbin</span><span class="o">/</span><span class="n">mingetty</span><span class="w"> </span><span class="n">tty1</span>
 </code></pre></div>
 
-<p>tells the init to start (and respawn if killed), the <code>mingetty tty1</code> command on runlevels 2, 3, 4, &amp; 5. As the final note, this was the most important line in the <code>inittab</code> file because it told the init to start in run level 3. </p>
+<p>As the final note, this was the most important line in the <code>inittab</code> file because it tells the init to start in run level 3. </p>
 <div class="highlight"><pre><span></span><code><span class="n">id</span><span class="o">:</span><span class="mi">3</span><span class="o">:</span><span class="n">initdefault</span><span class="o">:</span>
 </code></pre></div>
 
-<p>for more information about runlevels, please refer to <a href="1013-change-runlevels-boot-targets-and-shutdown-or-reboot-the-system.html">Chapter 101.3</a>.</p>
+<p>For more information about <code>runlevels</code> , please refer to <a href="1013-change-runlevels-boot-targets-and-shutdown-or-reboot-the-system.html">Chapter 101.3</a>.</p>
 
 
              

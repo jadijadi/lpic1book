@@ -116,7 +116,7 @@
 
 <h2>combining commands</h2>
 <p>If you want to run more than one command in oneline, separate them by a <code>;</code>. So the <code>cd /tmp; ls</code> will run the <code>cd /tmp</code> and then <code>ls</code>. But there are more advanced usages too.</p>
-<p>You can use <code>&amp;&amp;</code> (as logical And) and <code>||</code> (as logical OR) chaining. In case of And, the execution will stop as soon as the first one fails to execute. In case of Or, the next command will only run if the first one fails. Just like in logic boards.</p>
+<p>You can use <code>&amp;&amp;</code> (as logical And) and <code>||</code> (as logical OR) chaining. In case of And, the execution will stop as soon as the first one fails to execute. In case of Or, the next command will only run if the first one fails. Just like in logic gates.</p>
 <p>Confusing? Let me explain again. The system will always try to <em>evaluate</em> the outcome of your chain. So if you have <code>A &amp;&amp; B</code> then A fails, the system does not need to test B (because the overall result will be False anyway). Same logic works for <code>A || B || C</code>. If A works fine, the overall evaluation will be True so no need for testing B or C. But if A fails, system will try B and if B fails, we have to try C. </p>
 <p>We use chaining to create logical flows. For example:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>cp<span class="w"> </span>backup.gzip<span class="w"> </span>/backups/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>backup.gzip

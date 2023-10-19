@@ -126,25 +126,27 @@
 </blockquote>
 <h3>ssh keys</h3>
 <p>The same technology (Public key cryptography or asymetric cryptography) can be used in most of the network communications too. In fact the very <code>ssh</code> works based on this concept. It is used to authenticate hosts and secure the traffic. </p>
-<p>'''
-➜  ~ ssh 192.168.70.2
-The authenticity of host '192.168.70.2 (192.168.70.2)' can't be established.
-ED25519 key fingerprint is SHA256:4Wp2zz6sgPAhnbqhkNjOd6QDpNQ4jvjX7qAzslPX09U.
-This key is not known by any other names
-Are you sure you want to continue connecting (yes/no/[fingerprint])? y
-Please type 'yes', 'no' or the fingerprint: yes
-Warning: Permanently added '192.168.70.2' (ED25519) to the list of known hosts.
-jadi@192.168.70.2's password:
-Linux debian 6.4.0-2-arm64 #1 SMP Debian 6.4.4-3 (2023-08-08) aarch64</p>
-<p>The programs included with the Debian GNU/Linux system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.</p>
-<p>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-permitted by applicable law.
-You have no mail.
-Last login: Sun Sep 17 04:43:18 2023 from 192.168.70.1
-jadi@debian:~$
-'''</p>
+<div class="highlight"><pre><span></span><code><span class="err">➜</span><span class="w">  </span><span class="o">~</span><span class="w"> </span><span class="n">ssh</span><span class="w"> </span><span class="mf">192.168.70.2</span>
+<span class="n">The</span><span class="w"> </span><span class="n">authenticity</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">host</span><span class="w"> </span><span class="err">&#39;</span><span class="mf">192.168.70.2</span><span class="w"> </span><span class="p">(</span><span class="mf">192.168.70.2</span><span class="p">)</span><span class="err">&#39;</span><span class="w"> </span><span class="n">can</span><span class="err">&#39;</span><span class="n">t</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">established</span><span class="p">.</span>
+<span class="n">ED25519</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="n">fingerprint</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">SHA256</span><span class="o">:</span><span class="mi">4</span><span class="n">Wp2zz6sgPAhnbqhkNjOd6QDpNQ4jvjX7qAzslPX09U</span><span class="p">.</span>
+<span class="n">This</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">known</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="n">names</span>
+<span class="n">Are</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">sure</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="k">continue</span><span class="w"> </span><span class="n">connecting</span><span class="w"> </span><span class="p">(</span><span class="n">yes</span><span class="o">/</span><span class="n">no</span><span class="o">/</span><span class="p">[</span><span class="n">fingerprint</span><span class="p">])</span><span class="o">?</span><span class="w"> </span><span class="n">y</span>
+<span class="n">Please</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="err">&#39;</span><span class="n">yes</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="n">no</span><span class="err">&#39;</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">fingerprint</span><span class="o">:</span><span class="w"> </span><span class="n">yes</span>
+<span class="nl">Warning</span><span class="p">:</span><span class="w"> </span><span class="n">Permanently</span><span class="w"> </span><span class="n">added</span><span class="w"> </span><span class="err">&#39;</span><span class="mf">192.168.70.2</span><span class="err">&#39;</span><span class="w"> </span><span class="p">(</span><span class="n">ED25519</span><span class="p">)</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">known</span><span class="w"> </span><span class="n">hosts</span><span class="p">.</span>
+<span class="n">jadi</span><span class="mf">@192.168.70.2</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">password</span><span class="o">:</span>
+<span class="n">Linux</span><span class="w"> </span><span class="n">debian</span><span class="w"> </span><span class="mf">6.4.0</span><span class="mi">-2</span><span class="o">-</span><span class="n">arm64</span><span class="w"> </span><span class="err">#</span><span class="mi">1</span><span class="w"> </span><span class="n">SMP</span><span class="w"> </span><span class="n">Debian</span><span class="w"> </span><span class="mf">6.4.4</span><span class="mi">-3</span><span class="w"> </span><span class="p">(</span><span class="mi">2023-08-08</span><span class="p">)</span><span class="w"> </span><span class="n">aarch64</span>
+
+<span class="n">The</span><span class="w"> </span><span class="n">programs</span><span class="w"> </span><span class="n">included</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Debian</span><span class="w"> </span><span class="n">GNU</span><span class="o">/</span><span class="n">Linux</span><span class="w"> </span><span class="n">system</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">free</span><span class="w"> </span><span class="n">software</span><span class="p">;</span>
+<span class="n">the</span><span class="w"> </span><span class="n">exact</span><span class="w"> </span><span class="n">distribution</span><span class="w"> </span><span class="n">terms</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">program</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">described</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">the</span>
+<span class="n">individual</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">doc</span><span class="cm">/*/copyright.</span>
+
+<span class="cm">Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent</span>
+<span class="cm">permitted by applicable law.</span>
+<span class="cm">You have no mail.</span>
+<span class="cm">Last login: Sun Sep 17 04:43:18 2023 from 192.168.70.1</span>
+<span class="cm">jadi@debian:~$</span>
+</code></pre></div>
+
 <p>Above the server is showing us the fingerprint of its ED25519 key and asking us to approve it. From now on, our system wont warn us for the same key with the same server. BUT if the fingerprint (so the key) of the same server is changed, that will be considered a serious case:</p>
 <div class="highlight"><pre><span></span><code>➜<span class="w">  </span><span class="o">~</span><span class="w"> </span><span class="nv">ssh</span><span class="w"> </span><span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">70</span>.<span class="mi">2</span>
 <span class="nv">Host</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="nv">verification</span><span class="w"> </span><span class="nv">failed</span>.
@@ -265,7 +267,7 @@ Original contents retained as /Users/jadi/.ssh/known_hosts.old
 <div class="highlight"><pre><span></span><code><span class="n">ssh</span><span class="w"> </span><span class="o">-</span><span class="n">L</span><span class="w"> </span><span class="mi">9000</span><span class="o">:</span><span class="n">hckrnews</span><span class="p">.</span><span class="n">com</span><span class="o">:</span><span class="mi">80</span><span class="w"> </span><span class="n">root</span><span class="mf">@5.161.197.79</span>
 </code></pre></div>
 
-<p>Here I'm telling my computer to ssh using user <code>root</code> (which is not a great idea) to the <code>5.161.197.79</code> server; AND create a <strong>local tunnel</strong> (<code>-L</code>) from on my machine toward the <code>hckrnews.com</code> port <code>80</code> through that machine. No if I connect to <code>localhost:8000</code> <strong>on my machine</strong>, the request will be tunnels through 5.161.197.79 toward hckrnews.com port 80. You can try it with <code>curl localhost:9000</code>. </p>
+<p>Here I'm telling my computer to ssh using user <code>root</code> (which is not a great idea) to the <code>5.161.197.79</code> server; AND create a <strong>local tunnel</strong> (<code>-L</code>) from on my machine toward the <code>hckrnews.com</code> port <code>80</code> through that machine. Now if I connect to <code>localhost:9000</code> <strong>on my machine</strong>, the request will be tunnels through <code>5.161.197.79</code> toward hckrnews.com port 80. You can try it with <code>curl localhost:9000</code>. </p>
 <p>Why this is useful? Say you have a program on your server which only answers back to the local requests (and not the internet). Using local forwarding you can forward a port on your computer to port which programs works on and use the program on your own machine!</p>
 <p>There is also the concept of <strong>Remote Forwarding</strong>. In this case, you connect a port from a remote server to another server (mostly your own computer). Using this, you can expose a webserver from your own computer on the Internet:</p>
 <div class="highlight"><pre><span></span><code><span class="n">$</span><span class="w"> </span><span class="n">ssh</span><span class="w"> </span><span class="o">-</span><span class="n">R</span><span class="w"> </span><span class="mi">8000</span><span class="o">:</span><span class="n">localhost</span><span class="o">:</span><span class="mi">80</span><span class="w"> </span><span class="n">root</span><span class="mf">@5.161.197.79</span>
