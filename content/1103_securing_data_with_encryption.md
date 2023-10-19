@@ -38,6 +38,8 @@ The candidate should be able to use public key techniques to secure data and com
 * gpg-agent
 * ~/.gnupg/
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ElbC0EtZc4c?si=PemOqHr6s7V53wwS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## Key Pairs
 
 In traditional cryptography, the symmetric keys were used: both parties had a shared password. The data were encrypted with that password and then decrypted using the same password. But in 1976, a new idea came into the view: what if we create 2 keys (lets call them the Private Key and the Public Key) in a way that only people who has the Public Key, be able to open whatever which is encrypted with the Private key? The scientists made this a reality and nowawayds, most of our encryptions are being done via these **Key Pair**s. When generating a key pair, we generate two keys using a computer algorithm in the way that any message which is encrypted using one, can be opened only using the other. These are called Public & Private key. You publish the public key to your friends or even publicly on the net and if someone wants to send you an encrypted message, she encrypts it using your public key and send it to you with any means (or published the encoded message on the intneret) and only and only you will be able to open it, because you are the one who has the Private key!
@@ -47,7 +49,7 @@ In traditional cryptography, the symmetric keys were used: both parties had a sh
 ### ssh keys
 The same technology (Public key cryptography or asymetric cryptography) can be used in most of the network communications too. In fact the very `ssh` works based on this concept. It is used to authenticate hosts and secure the traffic. 
 
-'''
+```
 ➜  ~ ssh 192.168.70.2
 The authenticity of host '192.168.70.2 (192.168.70.2)' can't be established.
 ED25519 key fingerprint is SHA256:4Wp2zz6sgPAhnbqhkNjOd6QDpNQ4jvjX7qAzslPX09U.
@@ -67,7 +69,7 @@ permitted by applicable law.
 You have no mail.
 Last login: Sun Sep 17 04:43:18 2023 from 192.168.70.1
 jadi@debian:~$
-'''
+```
 
 Above the server is showing us the fingerprint of its ED25519 key and asking us to approve it. From now on, our system wont warn us for the same key with the same server. BUT if the fingerprint (so the key) of the same server is changed, that will be considered a serious case:
 
@@ -203,6 +205,8 @@ Now, the agent knows about your keys and wont ask for the passwords anymore.
 
 #### ssh tunnels
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bjvOJNmWgYI?si=UFKx2TDaF9l5GCjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 The ssh can also be used for _tunnelling_. Its a very fun concept and a super userful tool in the hands of a network Ninja! Honestly we use it all the time to solve complicated problems. 
 
 As the name sggests, ssh tunelling *tunnels* the data between machines. Look at this example:
@@ -211,7 +215,7 @@ As the name sggests, ssh tunelling *tunnels* the data between machines. Look at 
 ssh -L 9000:hckrnews.com:80 root@5.161.197.79
 ```
 
-Here I'm telling my computer to ssh using user `root` (which is not a great idea) to the `5.161.197.79` server; AND create a **local tunnel** (`-L`) from on my machine toward the `hckrnews.com` port `80` through that machine. No if I connect to `localhost:8000` **on my machine**, the request will be tunnels through 5.161.197.79 toward hckrnews.com port 80. You can try it with `curl localhost:9000`. 
+Here I'm telling my computer to ssh using user `root` (which is not a great idea) to the `5.161.197.79` server; AND create a **local tunnel** (`-L`) from on my machine toward the `hckrnews.com` port `80` through that machine. Now if I connect to `localhost:9000` **on my machine**, the request will be tunnels through `5.161.197.79` toward hckrnews.com port 80. You can try it with `curl localhost:9000`. 
 
 Why this is useful? Say you have a program on your server which only answers back to the local requests (and not the internet). Using local forwarding you can forward a port on your computer to port which programs works on and use the program on your own machine!
 
@@ -257,6 +261,8 @@ and then you can run graphical programs (say `xeyes` for fun) on the remote mach
 This is very useful when you want to run a program on a resourceful server or work from home whiel your graphical applications are at the office ;)
 
 ## ecnrypt and sign using gpg
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BX6BB8bqy24?si=iIWhRQnFmADr93n6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 As described in previous section, a public and private key pair can be used to encrypt or sign messages. There is an implementation of this method called `gpg` which can be used on Linux (and other machiens) to perform these tasks. First you need to generate a key:
 

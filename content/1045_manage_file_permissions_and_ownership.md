@@ -47,7 +47,7 @@ jadi
 
 As you can see `id` shows both user and group information.
 
-> Note the 0 UID and 0 GID of the root user and root group.
+> Note the 0 UID and 0 GID belong to the root user and root group.
 
 These are stored in `/etc/passwd` and `/etc/group` files.
 

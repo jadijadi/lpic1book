@@ -40,10 +40,11 @@ Candidates should know how to review system configuration to ensure host securit
 
 ## Users
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rNxitwVtRvo?si=V6a_wAv84xjOIbjx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### `sudo` vs `su`
 
-We've used `sudo` and `su` in practically all the chapters and now it's the time to have a closer look! `su` switches you to some other account; a "set user". You get a new prompt with the new user account after successfully `su`ing to that account:
+We've used `sudo` and `su` in practically all the chapters and now is the time to have a closer look! `su` switches you to some other account; a "substitute user identity". You get a new prompt with the new user account after successfully `su`ing to that account:
 
 ```text
 jadi@funlife ~$ whoami
@@ -387,7 +388,6 @@ $ cat /etc/security/limits.conf
 ## Open Ports
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/9yycyd7ShyM" title="LPIC 1 - 79  - 110.1 (3/3) - Perform Security Admin Tasks; checking for open ports &amp; scan with nmap" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
 
 ### netstat, fuser and lsof
 
