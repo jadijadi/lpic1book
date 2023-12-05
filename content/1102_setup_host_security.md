@@ -97,7 +97,7 @@ service telnet
 
 If we change the `disable` to `yes` and restart the xinetd, the telnet daemon will start running. There are a few files to control xinetd related files.
 
-As mentioned, `xinetd` is replaced by the `systemd.socket` units. Some services like `ssh` and `cups` might have a socket unit alongside the service unit in your distribution. In this case its enough to stop & disable the `ssh.service` and start the `ssh.docekt` instead. Now the `systemd.socekt` is acting as a wrapper around the port 22 and IF someones needs the service, starts the ssh server to answer. 
+As mentioned, `xinetd` is replaced by the `systemd.socket` units. Some services like `ssh` and `cups` might have a socket unit alongside the service unit in your distribution. In this case its enough to stop & disable the `ssh.service` and start the `ssh.socket` instead. Now the `systemd.socket` is acting as a wrapper around the port 22 and IF someones needs the service, starts the ssh server to answer. 
 
 #### `/etc/hosts.allow` & `/etc/hosts.deny`
 

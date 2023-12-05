@@ -134,7 +134,7 @@ Here I have asked dig to use `8.8.8.8` as its DNS and query `google.com`. You ca
 
 ### `/etc/hosts`
 
-This file contains IP addresses and their correspondive names. This is kind of an static name resolution on your computer. Let's have a look:
+This file contains IP addresses and their corresponding names. This is kind of an static name resolution on your computer. Let's have a look:
 
 ```text
 $ head /etc/hosts

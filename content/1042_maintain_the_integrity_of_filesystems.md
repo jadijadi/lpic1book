@@ -198,7 +198,7 @@ fsck from util-linux 2.25.1
 Some version do have a `-a` for automatic fixing all found issues but its not recommended. 
 ### e2fsck
 
-`e2fsck` is used to check the ext2/ext3/ext4 family of file systems.  For ext3 and ext4 file systems that use a `journal`, if the system has been shutdown uncleanly without any errors,normally, after replaying the committed transactions  in the journal, the file system should be marked as clean. Hence, forfile systems that use **journaling** , e2fsck will normally replay the journal and exit, unless its superblock indicates that further checking is required.
+`e2fsck` is used to check the ext2/ext3/ext4 family of file systems.  For ext3 and ext4 file systems that use a `journal`, if the system has been shutdown uncleanly without any errors,normally, after replaying the committed transactions  in the journal, the file system should be marked as clean. Hence, for file systems that use **journaling** , e2fsck will normally replay the journal and exit, unless its superblock indicates that further checking is required.
 
 device is a block device (e.g., `/dev/sdc1`) or file containing the file system.
 
@@ -207,7 +207,7 @@ Note that in general it is not safe to run `e2fsck` on  ***mounted*** file syste
 If `e2fsck` is run in interactive mode (meaning that none of `-y`, `-n`, or `-p` are specified), the program will ask the user to fix each problem found in the file system. A response of `'y'` will fix the error; `'n'` will leave the error unfixed; and `'a'` will fix the problem and all subsequent problems; pressing Enter will proceed with the default response, which is printed before the question mark.  Pressing `Control-C` terminates `e2fsck` immediately.
 
 ### mke2fs
-mke2fs is used to create an ext2, ext3, or ext4 filesystem, usually in a disk partition. device is the special file corresponding to the device (e.g /dev/hdXX). blocks-count is the number of blocks on the device. If omitted, mke2fs automagically figures the file system size. If called as mkfs.ext3 a journal is created as if the `-j` option was specified.
+mke2fs is used to create an ext2, ext3, or ext4 filesystem, usually in a disk partition. device is the special file corresponding to the device (e.g /dev/hdXX). blocks-count is the number of blocks on the device. If omitted, mke2fs automatically figures the file system size. If called as mkfs.ext3 a journal is created as if the `-j` option was specified.
 
 The defaults of the parameters for the newly created filesystem, if not overridden by the options listed below, are controlled by the /etc/mke2fs.conf configuration file. See the mke2fs.conf(5) manual page for more details.
 
@@ -331,7 +331,7 @@ This is same as the `tune2fs` but for xfs file systems.
 | xfs_info | display information |
 | xfs_growfs | expand file system |
 | xfs_admin | change parameters on XFS file systems |
-| xfs_repair | repair the problems. Please note that the filesytem under repair should be unmounted |
+| xfs_repair | repair the problems. Please note that the filesystem under repair should be unmounted |
 | xfs_db | checks and debug the filesystem. xfs_db is used to examine an XFS filesystem. Under rare circumstances it can also be used to modify an XFS filesystem, but that task is normally left to xfs_repair or to scripts such as xfs_admin that run xfs_db. |
 | xfs_fsr | filesystem reorganizer for XFS. When invoked with no arguments xfs_fsr reorganizes all regular files in all mounted filesystems. xfs_fsr makes many cycles over /etc/mtab each time making a single pass over each XFS filesystem. Each pass goes through and selects files that have the largest number of extents. It attempts to defragment the top 10% of these files on each pass. |
 

@@ -42,12 +42,12 @@ The candidate should be able to use public key techniques to secure data and com
 
 ## Key Pairs
 
-In traditional cryptography, the symmetric keys were used: both parties had a shared password. The data were encrypted with that password and then decrypted using the same password. But in 1976, a new idea came into the view: what if we create 2 keys (lets call them the Private Key and the Public Key) in a way that only people who has the Public Key, be able to open whatever which is encrypted with the Private key? The scientists made this a reality and nowawayds, most of our encryptions are being done via these **Key Pair**s. When generating a key pair, we generate two keys using a computer algorithm in the way that any message which is encrypted using one, can be opened only using the other. These are called Public & Private key. You publish the public key to your friends or even publicly on the net and if someone wants to send you an encrypted message, she encrypts it using your public key and send it to you with any means (or published the encoded message on the intneret) and only and only you will be able to open it, because you are the one who has the Private key!
+In traditional cryptography, the symmetric keys were used: both parties had a shared password. The data were encrypted with that password and then decrypted using the same password. But in 1976, a new idea came into the view: what if we create 2 keys (lets call them the Private Key and the Public Key) in a way that only people who has the Public Key, be able to open whatever which is encrypted with the Private key? The scientists made this a reality and nowadays, most of our encryptions are being done via these **Key Pair**s. When generating a key pair, we generate two keys using a computer algorithm in the way that any message which is encrypted using one, can be opened only using the other. These are called Public & Private key. You publish the public key to your friends or even publicly on the net and if someone wants to send you an encrypted message, she encrypts it using your public key and send it to you with any means (or published the encoded message on the Internet) and only and only you will be able to open it, because you are the one who has the Private key!
 
 > great point about Public / Private key is that the data can be transmitted over the internet with no fear of hackers or governments. You are publishing your key to the world, some one picks it and uses it to encrypt some data and sent the result to you. People can see that you are receiving "some data" but they can not encrypt it because they do not have the private key needed to decrypt it.
 
 ### ssh keys
-The same technology (Public key cryptography or asymetric cryptography) can be used in most of the network communications too. In fact the very `ssh` works based on this concept. It is used to authenticate hosts and secure the traffic. 
+The same technology (Public key cryptography or asymmetric cryptography) can be used in most of the network communications too. In fact the very `ssh` works based on this concept. It is used to authenticate hosts and secure the traffic. 
 
 ```
 ➜  ~ ssh 192.168.70.2
@@ -163,7 +163,7 @@ The key's randomart image is:
 
 That fun _Image_ is what you can show your friends so they can make sure that they are using the correct key. 
 
-> Above, I did not set a password for the keys. If I did, I had to provide that password everytime I wanted to use that key
+> Above, I did not set a password for the keys. If I did, I had to provide that password every time I wanted to use that key
 
 These keys are saved in users `~/.ssh` directory. As you can guess, the system wide keys used for ssh server are located at `/etc/ssh`.
 
@@ -171,7 +171,7 @@ These keys are saved in users `~/.ssh` directory. As you can guess, the system w
 ### Key based / Password less login
 The ssh server can be configured to check your identity using your keys. Its enough to save your public-key on the server's user account and tell the server to check for key-based logins too. In this case, your ssh client will provide your private key to the ssh server as a proof of identity and you will be able to enter the user without providing passwords.
 
-First copy your *public* key and login into the server. Open the `~/.ssh/authorized_keys` file and add yours. Also make sure that the `/etc/ssh/sshd_config` contains the `PubkeyAuthentication yes`. Now log out and on the next login you should be able to login without password! This is super userful when you are managing many servers or want to automate `scp` copies and other stuff. Its also more secure from the sysadmin point of view because if I need to let a new user to login into my system, I do not need to share the password or communicate the password on any channel. Its enough to ask the person for his **public key** and add it to the users `.ssh/authorized_keys` file.
+First copy your *public* key and login into the server. Open the `~/.ssh/authorized_keys` file and add yours. Also make sure that the `/etc/ssh/sshd_config` contains the `PubkeyAuthentication yes`. Now log out and on the next login you should be able to login without password! This is super useful when you are managing many servers or want to automate `scp` copies and other stuff. Its also more secure from the sysadmin point of view because if I need to let a new user to login into my system, I do not need to share the password or communicate the password on any channel. Its enough to ask the person for his **public key** and add it to the users `.ssh/authorized_keys` file.
 
 Oh! and you do not need to do the _key copying_ manually; just use the `ssh-copy-id` command:
 
@@ -207,9 +207,9 @@ Now, the agent knows about your keys and wont ask for the passwords anymore.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/bjvOJNmWgYI?si=UFKx2TDaF9l5GCjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-The ssh can also be used for _tunnelling_. Its a very fun concept and a super userful tool in the hands of a network Ninja! Honestly we use it all the time to solve complicated problems. 
+The ssh can also be used for _tunnelling_. Its a very fun concept and a super useful tool in the hands of a network Ninja! Honestly we use it all the time to solve complicated problems. 
 
-As the name sggests, ssh tunelling *tunnels* the data between machines. Look at this example:
+As the name suggests, ssh tunnelling *tunnels* the data between machines. Look at this example:
 
 ```
 ssh -L 9000:hckrnews.com:80 root@5.161.197.79
@@ -233,11 +233,11 @@ You can even ask the remote machine to start listening on a specific port on all
 ssh -R 0.0.0.0:8000:localhost:7777 192.168.70.2
 ```
 
-Above, I'm telling the 192.168.70.2 machine to open port 8000 to ALL interfaces and forward whatever it got to my machiens 7777 port.
+Above, I'm telling the 192.168.70.2 machine to open port 8000 to ALL interfaces and forward whatever it got to my machines 7777 port.
 
-> to let clients to *bind* listening ports to anything other than localhost, the `GatewayPorts clientspecified` configu should be set in the ssh server's config file.
+> to let clients to *bind* listening ports to anything other than localhost, the `GatewayPorts clientspecified` configur should be set in the ssh server's config file.
 
-There are even more use caases. For example you use the -D switch for a `dynamic` application level port forarding. It works like a proxy / anti censorship. If I do 
+There are even more use cases. For example you use the -D switch for a `dynamic` application level port forwarding. It works like a proxy / anti censorship. If I do 
 
 ```
 ssh -D 1080 192.168.70.2
@@ -258,13 +258,13 @@ and then you can run graphical programs (say `xeyes` for fun) on the remote mach
 
 > If you are not on a GNU/Linux machine with an X11 server, you need to install it (for example XQuartz on Mac)
 
-This is very useful when you want to run a program on a resourceful server or work from home whiel your graphical applications are at the office ;)
+This is very useful when you want to run a program on a resourceful server or work from home while your graphical applications are at the office ;)
 
 ## ecnrypt and sign using gpg
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/BX6BB8bqy24?si=iIWhRQnFmADr93n6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-As described in previous section, a public and private key pair can be used to encrypt or sign messages. There is an implementation of this method called `gpg` which can be used on Linux (and other machiens) to perform these tasks. First you need to generate a key:
+As described in previous section, a public and private key pair can be used to encrypt or sign messages. There is an implementation of this method called `gpg` which can be used on Linux (and other machines) to perform these tasks. First you need to generate a key:
 
 ```text
 jadi@debian:~$ gpg --gen-key
@@ -326,7 +326,7 @@ jadi.pub.key: OpenPGP Public Key Version 4, Created Sun Sep 17 12:39:19 2023, RS
 
 > the exported key is in binary format, add `-a` to armor it in ascii
 
-Now you have to distribute this key to others. You can upload it somewhere, email it, put it on your website or use some of the public key stores to share it with other. If anyone recives it, she can import it into her key store using the following command:
+Now you have to distribute this key to others. You can upload it somewhere, email it, put it on your website or use some of the public key stores to share it with other. If anyone receives it, she can import it into her key store using the following command:
 
 ```text
 gpg --import jadi.pub.key
@@ -349,7 +349,7 @@ echo "I Loved your course! I'll tell all my friends about it." > file.txt
 gpg --out file.txt.encrypted --recipient jadijdai@gmail.com --encrypt file.txt
 ```
 
-Now its enough for them to send me this file. Even using unsecure channels because its encrypted by the top notch tools. Every one can download this file but ONLY I will be able to decypt it; because only I have the **Private key** of jadijadi@gmail.com.
+Now its enough for them to send me this file. Even using unsecure channels because its encrypted by the top notch tools. Every one can download this file but ONLY I will be able to decrypt it; because only I have the **Private key** of jadijadi@gmail.com.
 
 ```text
 gpg --out out.txt --decrypt file.txt.encrypted
@@ -373,7 +373,7 @@ $ echo "I'm Jadi and I'm glad that you reached to the end of your LPIC study" > 
 $ gpg --output message-jadi.sig --sign message-jadi.txt
 ```
 
-Now its enough for me to publish the `message-jadi.sig` to the Internet or send it to someone. If they want to make sure that it is truely comming from me, its enough for them to check my signature (obviously after importing my public key):
+Now its enough for me to publish the `message-jadi.sig` to the Internet or send it to someone. If they want to make sure that it is truly coming from me, its enough for them to check my signature (obviously after importing my public key):
 
 ```
 jadi@debian:~$ gpg --verify message-jadi.sig

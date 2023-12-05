@@ -200,7 +200,7 @@ Commonly you will add whatever personal config you want into the `~/.bashrc`.
 
 ### Interactive \(non-login\) shell
 
-if you run a shell in an interactive mode \(non-login\) shell from a GUI or within another temrinal, only two file will handle the environment:
+if you run a shell in an interactive mode \(non-login\) shell from a GUI or within another terminal, only two file will handle the environment:
 
 1. `/etc/bash.bashrc` \(or `/etc/bashrc` in some systems)
 2. `/home/USERNAME/.bashrc`

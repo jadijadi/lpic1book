@@ -271,7 +271,7 @@ Last sector, +/-sectors or +/-size{K,M,G,T,P} (4200448-8388607, default 8388607)
 Created a new partition 6 of type 'Linux' and of size 2 GiB.
 ```
 
-And now, I have to change the type of the parition 6 to swap:
+And now, I have to change the type of the partition 6 to swap:
 
 ```
 Command (m for help): t

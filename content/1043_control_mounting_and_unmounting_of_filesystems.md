@@ -45,7 +45,7 @@ sudo umount /dev/sda3
 sudo umount /media/mydisk
 ```
 
-Mounting and umounting can happen on many different storage types, for example on NFS storages, ISO (with `-o loop`), tmpfs, ...
+Mounting and unmounting can happen on many different storage types, for example on NFS storages, ISO (with `-o loop`), tmpfs, ...
 
 > swap disks do not need mounting. You should use `swapon` and `swapoff` to use them.
 

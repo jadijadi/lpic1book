@@ -41,7 +41,7 @@ Candidates should be able to customize existing scripts, or write simple new Bas
 
 ## combining commands
 
-If you want to run more than one command in oneline, separate them by a `;`. So the `cd /tmp; ls` will run the `cd /tmp` and then `ls`. But there are more advanced usages too.
+If you want to run more than one command in one line, separate them by a `;`. So the `cd /tmp; ls` will run the `cd /tmp` and then `ls`. But there are more advanced usages too.
 
 You can use `&&` \(as logical And\) and `||` \(as logical OR\) chaining. In case of And, the execution will stop as soon as the first one fails to execute. In case of Or, the next command will only run if the first one fails. Just like in logic gates.
 
@@ -246,7 +246,7 @@ This is the syntax:
 while [condition]
 do
     do something
-    do anohter thing
+    do another thing
 done
 ```
 
