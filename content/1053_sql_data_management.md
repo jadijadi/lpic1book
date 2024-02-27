@@ -42,7 +42,7 @@ This module is about SQL language and MySQL is one of the many SQL databases. Fo
 
 ### mysql command line
 
-As I said, we are not goint to learn the `mysql` here, we only need to focus on `SQL` as a query language. You only need to know that `mysql` is a command line program to ineteractivly connect to a `mysql-server`. I use it like this:
+As I said, we are not going to learn the `mysql` here, we only need to focus on `SQL` as a query language. You only need to know that `mysql` is a command line program to interactively connect to a `mysql-server`. I use it like this:
 
 ```text
 $ mysql -u root -p
@@ -270,13 +270,13 @@ mysql> SELECT count(mood), mood FROM info GROUP BY mood;
 2 rows in set (0.00 sec)
 ```
 
-Whic counts home many rows have that specific mood. So I have 3 happy friends and one sad friend.
+Which counts home many rows have that specific mood. So I have 3 happy friends and one sad friend.
 
 > Note: `count` is not part of LPIC 105.3
 
 ### INSERT
 
-Another clear command. It adds a new row to a talbe. Say I want to add some data to phonebook:
+Another clear command. It adds a new row to a table. Say I want to add some data to phonebook:
 
 ```text
 mysql>  INSERT INTO phonebook (name, phone, email) VALUES ('ghasem', '+982112345678', '');
@@ -389,7 +389,7 @@ mysql> SELECT * FROM phonebook JOIN info ON phonebook.name = info.name;
 3 rows in set (0.00 sec)
 ```
 
-Great! Now I have my firneds list, their moods and their phone numbers! Say I'm bored and I need to phone a cool friend:
+Great! Now I have my friends list, their moods and their phone numbers! Say I'm bored and I need to phone a cool friend:
 
 ```text
 mysql> SELECT phonebook.name, phone, mood FROM phonebook JOIN info ON phonebook.name = info.name WHERE mood = 'happy';

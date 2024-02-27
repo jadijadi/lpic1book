@@ -220,8 +220,7 @@ The `ntpq` queries the ntp service. One famous switch is `-p` \(for Print\) that
 In this output a `*` means that the ntp is using this server as the main reference, `+` means that this is a good server and `-` shows an out of range server which will be neglected.
 
 ### chrony
-Another and a newer NTP protocol implemenation is the `chrony`. Compared to `ntpd` , this tool provides better results at synchronize time difficult conditions such as intermittent network connections (such as laptops) and congested networks. Chrony is the default NTP client in RedHat 8, SUSE 15 and many other distributions. Another adavn
-
+Another and a newer NTP protocol implemenation is the `chrony`. Compared to `ntpd` , this tool provides better results at synchronize time difficult conditions such as intermittent network connections (such as laptops) and congested networks. Chrony is the default NTP client in RedHat 8, SUSE 15 and many other distributions.
 
 Here is a sample `chrony.conf` file:
 

@@ -72,7 +72,7 @@ If you replace a field with `*` it means "whatever" or "all" or "any". Also if y
 23 0-23/2 * * * echo "run 23 minutes after midn, 2am, 4am ..., everyday"
 5 4 * * sun     echo "run at 5 after 4 every sunday"
 
-*/5 * * * *    echo "each 5 mintues"
+*/5 * * * *    echo "each 5 minutes"
 
 42 8,18 * * 1-5    echo "8:42 and 18:42 and only on weekdays (monday till friday)"
 
@@ -136,7 +136,7 @@ MAILTO=root
 
 As you can see this default crontab runs other crons! These are hourly, daily, weekly and monthly crons. Lets have a look at them in the next section.
 
-### System hourly, daliy, weekly, monthly, .. crons
+### System hourly, daily, weekly, monthly, .. crons
 
 We have some system level crontab files in `/etc/cron.d/` too. They look like general crontab files. For example this is one that `munin` program creates:
 
