@@ -30,10 +30,11 @@ Candidates should be able to determine and configure fundamental system hardware
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xCPDxgp0zXY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-An operating system (OS) is system software that manages computer hardware, and software resources, and provides common services for computer programs. It sits on top of the hardware and manages the resources when other software (Sometimes called a userspace program) asks for it. 
+An operating system (OS) is system software that manages computer hardware, and software resources, and provides common services for computer programs. It sits on top of the hardware and manages the resources when other software (Sometimes called an userspace program) asks for it. 
 
 Firmware is the software *on* your hardware that runs it; Think of it as a built-in os or driver for your hardware. Motherboards need some firmware to be able to work too. 
 
+Firmware is a type of software that lives in hardware. Software is any program or group of programs run by a computer.
 
 ![BIOS](/images/bios.png)
 1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu-based system and boot the computer from a bootloader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two-step boot procedure.
@@ -41,6 +42,8 @@ Firmware is the software *on* your hardware that runs it; Think of it as a built
 
 ![UEFI](/images/uefi.jpeg)
 2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in Intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On Linux it is on /boot/efi and files are .efi. You need to register each bootloader.
+
+![BIOSvsUEFI](/images/BIOSvsUEFI.png)
 
 ## Peripheral Devices
 These are device interfaces.
@@ -50,22 +53,31 @@ Peripheral Component Interconnect. Letting hardware boards be added to the mothe
 ![PCI](/images/pci.jpeg)
 
 - Internal HDD.
-   - PATA (old)
-   - SATA (serial & up to 4 devices)
-   - SCSI (parallel & up to 8 devices) 
-- External HDD. Fiber
-- Network cards. RJ 45 
+    - PATA (old)
+    - SATA (serial & up to 4 devices) (II-III)
+    - SCSI (parallel & up to 8 devices) (Small Computer System Interface)
+- External HDD. Fiber (Providing a high-speed data connection). SSD over USB
+- Network cards. RJ 45 (Registered Jack 45)
 - Wireless cards. IEEE 802.11
-- Bluetooth 
-- Video accelerators
+- Bluetooth. IEEE 802.15 (Short-range (up to 10m) wireless technology standard)
+- Video accelerators. Hardware circuits on a graphics card that speed up full-motion video.
 - Audio cards
+
+#### SSD vs HDD
+- SSDs are faster (reads up to 10 times and writes up to 20 times faster), quieter, smaller, more durable, and consume less energy, while HDDs are cheaper and offer more storage capacity and easier data recovery if damaged.
+- SSDs don't have moving parts such as actuator arms and spinning platters like hard drives (an SSD uses flash memory without any moving parts). That's one reason why SSDs can withstand accidental drops and other shocks, vibration, extreme temperatures, and magnetic fields better than HDDs.
+- HDDs tend to last around 3-5 years, SSDs can last up to 10 years or more. (Current SSDs have reserve capacities. These storage spaces aren't available to the user, but are used to repair damaged cells, so to speak. The defect cells are replaced with brand-new reserve cells; this procedure is called “Bad-Block-Management”. Thus, SSD storage cells in normal operation last a lifetime.)
+
+#### Network cards vs Wireless cards
+- NIC (Network Interface Card) provides computing network connectivity on a computing device to Ethernet network in Home or Office through RJ45 port. Wireless Adapter Card provides wireless connectivity to computing network enabled by Access Points on premises (in home or office) on a Computing Device.
+- Wireless cards are installed on an industrial computer is used to enable wireless connectivity to the internet.
 
 ### USB
 Universal Serial Bus. Serial and need fewer connections.
 
 ![USB Interfaces](/images/usb.png)
 
-- 1 (12Mbps), 2 (480Mbps), 3 (PCI.e 2.0 Bus:5Gbps, PCI.e 3.0 Bus:10Gbps, PCI.e 4.0 Bus:20Gbps)
+- 1 (12Mbps), 2 (480Mbps), 3 (PCI.e 2.0 Bus:5Gbps, PCI.e 3.0 Bus:10Gbps, PCI.e 3.2 Bus:20Gbps, PCI.e 4.0 Bus:40Gbps)
 - A, B, C
 
 ### GPIO

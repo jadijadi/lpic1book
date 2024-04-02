@@ -250,7 +250,7 @@ shutdown -r 60 Reloading updated kernel
 for more advanced users:
 
 * -t60 will delay 60 seconds between SIGTERM and SIGKILL
-* if you cancel a shutdown, users won't get the news! you can use the "wall" command to tell them that the shutdown is canceled
+* if you cancel a shutdown, users will get the news
 
 ### Halt, reboot, and poweroff
 
