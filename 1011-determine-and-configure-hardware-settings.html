@@ -108,34 +108,49 @@
 <h2>Find out about the hardware</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xCPDxgp0zXY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p>An operating system (OS) is system software that manages computer hardware, and software resources, and provides common services for computer programs. It sits on top of the hardware and manages the resources when other software (Sometimes called a userspace program) asks for it. </p>
+<p>An operating system (OS) is system software that manages computer hardware, and software resources, and provides common services for computer programs. It sits on top of the hardware and manages the resources when other software (Sometimes called an userspace program) asks for it. </p>
 <p>Firmware is the software <em>on</em> your hardware that runs it; Think of it as a built-in os or driver for your hardware. Motherboards need some firmware to be able to work too. </p>
+<p>Firmware is a type of software that lives in hardware. Software is any program or group of programs run by a computer.</p>
 <p><img alt="BIOS" src="/images/bios.png">
 1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu-based system and boot the computer from a bootloader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two-step boot procedure.</p>
 <p><img alt="UEFI" src="/images/uefi.jpeg">
 2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in Intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On Linux it is on /boot/efi and files are .efi. You need to register each bootloader.</p>
+<p><img alt="BIOSvsUEFI" src="/images/BIOSvsUEFI.png"></p>
 <h2>Peripheral Devices</h2>
 <p>These are device interfaces.</p>
 <h3>PCI</h3>
 <p>Peripheral Component Interconnect. Letting hardware boards be added to the motherboard. Now most servers use PCI Express (PCIe)</p>
 <p><img alt="PCI" src="/images/pci.jpeg"></p>
 <ul>
-<li>Internal HDD.</li>
+<li>Internal HDD.<ul>
 <li>PATA (old)</li>
-<li>SATA (serial &amp; up to 4 devices)</li>
-<li>SCSI (parallel &amp; up to 8 devices) </li>
-<li>External HDD. Fiber</li>
-<li>Network cards. RJ 45 </li>
+<li>SATA (serial &amp; up to 4 devices) (II-III)</li>
+<li>SCSI (parallel &amp; up to 8 devices) (Small Computer System Interface)</li>
+</ul>
+</li>
+<li>External HDD. Fiber (Providing a high-speed data connection). SSD over USB</li>
+<li>Network cards. RJ 45 (Registered Jack 45)</li>
 <li>Wireless cards. IEEE 802.11</li>
-<li>Bluetooth </li>
-<li>Video accelerators</li>
+<li>Bluetooth. IEEE 802.15 (Short-range (up to 10m) wireless technology standard)</li>
+<li>Video accelerators. Hardware circuits on a graphics card that speed up full-motion video.</li>
 <li>Audio cards</li>
+</ul>
+<h4>SSD vs HDD</h4>
+<ul>
+<li>SSDs are faster (reads up to 10 times and writes up to 20 times faster), quieter, smaller, more durable, and consume less energy, while HDDs are cheaper and offer more storage capacity and easier data recovery if damaged.</li>
+<li>SSDs don't have moving parts such as actuator arms and spinning platters like hard drives (an SSD uses flash memory without any moving parts). That's one reason why SSDs can withstand accidental drops and other shocks, vibration, extreme temperatures, and magnetic fields better than HDDs.</li>
+<li>HDDs tend to last around 3-5 years, SSDs can last up to 10 years or more. (Current SSDs have reserve capacities. These storage spaces aren't available to the user, but are used to repair damaged cells, so to speak. The defect cells are replaced with brand-new reserve cells; this procedure is called “Bad-Block-Management”. Thus, SSD storage cells in normal operation last a lifetime.)</li>
+</ul>
+<h4>Network cards vs Wireless cards</h4>
+<ul>
+<li>NIC (Network Interface Card) provides computing network connectivity on a computing device to Ethernet network in Home or Office through RJ45 port. Wireless Adapter Card provides wireless connectivity to computing network enabled by Access Points on premises (in home or office) on a Computing Device.</li>
+<li>Wireless cards are installed on an industrial computer is used to enable wireless connectivity to the internet.</li>
 </ul>
 <h3>USB</h3>
 <p>Universal Serial Bus. Serial and need fewer connections.</p>
 <p><img alt="USB Interfaces" src="/images/usb.png"></p>
 <ul>
-<li>1 (12Mbps), 2 (480Mbps), 3 (PCI.e 2.0 Bus:5Gbps, PCI.e 3.0 Bus:10Gbps, PCI.e 4.0 Bus:20Gbps)</li>
+<li>1 (12Mbps), 2 (480Mbps), 3 (PCI.e 2.0 Bus:5Gbps, PCI.e 3.0 Bus:10Gbps, PCI.e 3.2 Bus:20Gbps, PCI.e 4.0 Bus:40Gbps)</li>
 <li>A, B, C</li>
 </ul>
 <h3>GPIO</h3>
