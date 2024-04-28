@@ -198,7 +198,7 @@ fsck from util-linux 2.25.1
 Some version do have a `-a` for automatic fixing all found issues but its not recommended. 
 ### e2fsck
 
-`e2fsck` is used to check the ext2/ext3/ext4 family of file systems.  For ext3 and ext4 file systems that use a `journal`, if the system has been shutdown uncleanly without any errors,normally, after replaying the committed transactions  in the journal, the file system should be marked as clean. Hence, forfile systems that use **journaling** , e2fsck will normally replay the journal and exit, unless its superblock indicates that further checking is required.
+`e2fsck` is used to check the ext2/ext3/ext4 family of file systems.  For ext3 and ext4 file systems that use a `journal`, if the system has been shutdown uncleanly without any errors,normally, after replaying the committed transactions  in the journal, the file system should be marked as clean. Hence, for file systems that use **journaling** , e2fsck will normally replay the journal and exit, unless its superblock indicates that further checking is required.
 
 device is a block device (e.g., `/dev/sdc1`) or file containing the file system.
 
