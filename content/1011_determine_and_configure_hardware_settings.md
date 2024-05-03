@@ -32,23 +32,23 @@ Candidates should be able to determine and configure fundamental system hardware
 
 An operating system (OS) is system software that manages computer hardware, and software resources, and provides common services for computer programs. It sits on top of the hardware and manages the resources when other software (Sometimes called an userspace program) asks for it. 
 
-Firmware is the software *on* your hardware that runs it; Think of it as a built-in os or driver for your hardware. Motherboards need some firmware to be able to work too. 
+Firmware is the software *on* your hardware that runs it; Think of it as a built-in OS or driver for your hardware. Motherboards need some firmware to be able to work too. 
 
 Firmware is a type of software that lives in hardware. Software is any program or group of programs run by a computer.
 
 ![BIOS](/images/bios.png)
-1. BIOS (Basic Input/Output System). Older, You can configure it from a text menu-based system and boot the computer from a bootloader first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two-step boot procedure.
+1. BIOS (Basic Input/Output System). Old and redundant. It is intractable through a text menu-based system and it boots the computer by accessing the first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two-step boot procedure.
 
 
 ![UEFI](/images/uefi.jpeg)
-2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in Intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On Linux it is on /boot/efi and files are .efi. You need to register each bootloader.
+2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in Intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On Linux it's located on `/boot/efi` and the files use the `.efi` extension. You need to register each bootloader.
 
 ![BIOSvsUEFI](/images/BIOSvsUEFI.png)
 
 ## Peripheral Devices
 These are device interfaces.
 ### PCI
-Peripheral Component Interconnect. Letting hardware boards be added to the motherboard. Now most servers use PCI Express (PCIe)
+Peripheral Component Interconnect. Enables the user to add extra components to the Motherboard. Now most servers use PCI Express (PCIe)
 
 ![PCI](/images/pci.jpeg)
 
@@ -86,12 +86,13 @@ General Purpose Input Output.
 ![GPIO on a Raspberry Pi](/images/gpio.jpeg)
 
 - To control other devices
+- Examples include Arduino, raspberrypi, etc.
 
-## sysfs
+## Sysfs
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/879oHKwgDG8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-sysfs is a pseudo file system provided by the Linux kernel that exports information about various kernel subsystems, hardware devices, and associated device drivers from the kernel's device model to user space through virtual files.[1] In addition to providing information about various devices and kernel subsystems, exported virtual files are also used for their configuration.
+Sysfs is a pseudo file system provided by the Linux kernel that exports information about various kernel subsystems, hardware devices, and associated device drivers from the kernel's device model to user space through virtual files.[1] In addition to providing information about various devices and kernel subsystems, exported virtual files are also used for their configuration.
 
 Sysfs is mounted under the `/sys` mount point.
 
@@ -281,7 +282,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 ````
 
 ### lshw
-Shows hardware. Test it!
+Shows hardware. Might need root status to get the full list. Test it!
 
 ### lsblk
 Used for list devices that can read from or write to by blocks of data.
