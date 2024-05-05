@@ -18,7 +18,7 @@ Description: Candidates should be able to manage the SysVinit runlevel or system
 - Shutdown and reboot from the command line.
 - Alert users before switching runlevels / boot targets or other major system events.
 - Properly terminate processes.
-- Awareness of acpid.
+- Awareness of acpi.
 
 ## The following is a partial list of the used files, terms and utilities:
 
@@ -81,8 +81,8 @@ root@debian:~# systemctl status multi-user.target
 
 It is also possible to *isolate* any of the targets or move to two special targets too:
 
-1. `rescue`: Local file systems are mounted, there is no networking, and only root user (*maintenance* mode)
-2. `emergency`: Only the root file system and in read-only mode, No networking and only root (*maintenance* mode)
+1. `rescue`: Local file systems are mounted, no networking, and root-user only (*maintenance* mode)
+2. `emergency`: Only the root file system and in read-only mode, No networking and root-user only(*maintenance* mode)
 3. `reboot`
 4. `halt`: Stops all processes and halts CPU activities
 5. `poweroff`: Like halt but also sends an ACPI shutdown signal (No lights!)
@@ -234,7 +234,7 @@ root@funlife:~# ls /etc/rc2.d/
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/C7kr7fZtWqs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-The preferred method to shut down or reboot the system is to use the `shutdown` command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 1 minute or another delay, if specified, init sends a SIGKILL signal to forcibly end each remaining process.
+The preferred method to shut down or reboot the system is to use the `shutdown` command, which first sends a warning message to all logged-in users and blocks any further non-root logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 1 minute or another delay, if specified, init sends a SIGKILL signal to forcibly end each remaining process.
 
 * Default is a 1-minute delay and then going to runlevel 1
 * `-h` will halt the system
