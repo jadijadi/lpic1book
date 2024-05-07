@@ -145,7 +145,7 @@ These command during the _command mode_ will help you enter, edit, replace and t
 | o | open a new line below the cursor and go to the insert mode |
 | O | open a new line above the cursor and go to the insert mode |
 | c | clear to a location and go to the insert mode the replace till there and then normal insert \(`cw` will overwrite the current word\) |
-| d | delete. you can mix with w \(`dw`\) to delete a word. Same as cw but dw does not to to the insert mode |
+| d | delete. you can mix with w \(`dw`\) to delete a word. Same as cw but dw does not go to the insert mode |
 | dd | Delete the current line |
 | x | Delete character at the position of the cursor |
 | p | Paste the last deleted text after the cursor |
