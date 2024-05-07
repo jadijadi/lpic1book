@@ -40,7 +40,7 @@ Like any contemporary OS, Linux uses _files_ and _directories_ to operate. But u
 
 ## Unix directories
 
-This might be your enlightening moment in your Linux journey. Understanding **Filesystem Hierarchy Standard (FHS)** can help you find your programs, configs, logs and ... without having prior knowledge about them. This is standard and the latest revision is for 2015.
+This might be your enlightening moment in your Linux journey. Understanding **Filesystem Hierarchy Standard (FHS)** can help you find your programs, configs, logs and more without having prior knowledge about them. The table below has been the standard the latest revision since 2015.
 
 | Directory | Description |
 | :--- | :--- |
@@ -64,9 +64,15 @@ This might be your enlightening moment in your Linux journey. Understanding **Fi
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/WHsjpzCYXo8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-In the Linux world, devices are defined at `/dev/`. First SATA or SCSI disks you will have `/dev/sda`, For newer NVME drives you can see `/dev/nvme0` and partitions are available as `/dev/nvme0n1`, and for the 3rd PATA (super old) disk you will see `/dev/hdc`, also for SD/eMMC/bare NAND/NOR devices you will have `/dev/mmcblk0` and partitions are seen as `/dev/mmcblk0p0`.
+In the Linux world, devices are defined at `/dev/` and for different types of disks, there are different naming conventions:
+- PATA (Obsolete): `/dev/hdc`
+- SATA (Serial ATA) & SCSI disks: `/dev/sda`
+- SD/emmc & bare NAND/NOR devices: `/dev/mmcblk0` & their partitions are available as: `/dev/mmcblk0p0`
+- NVME drives: `/dev/nvme0` & their partitions are available as: `/dev/nvme0n1`
 
-You have to _PARTITION_ the disks, that is create smaller parts on a big disk. These are self-contained sections on the main drive. OS sees these as standalone disks.  We call them /dev/sd**a**1 \(first partition of the first SCSI disk\) or /dev/hd**b**3 (3rd partition on the second disk).
+You have to _PARTITION_ the disks, that is to create smaller parts on a big disk. These are self-contained sections on the main drive. OS sees these as standalone disks.  We recognize them as:
+- /dev/sd**a**1 \(first partition of the first SCSI disk\) 
+- /dev/hd**b**3 (3rd partition on the second disk)
 
 BIOS systems were using MBR and could have up to 4 partitions on each disk, although instead of creating 4 Primary partitions, you could create an Extended partition and define more Logical partitions inside it.  
 
@@ -171,7 +177,7 @@ A graphical tool for managing disks and partitions.
 
 In many cases, you need to resize your partitions or even install new disks and _add_ them to your current mount points; Increasing the total size. LVM is designed for this.
 
-LVM helps you create one partition from different disks and add or remove space to them. The main concepts are:
+LVM helps you create one partition from different disks and add or remove space from/to them. The main concepts are:
 
 * Physical Volume \(PV\): A whole drive or a partition. It is better to define partitions and **not use whole disks - unpartitioned**.
 * Volume Groups \(VG\): This is the collection of one or more **PV**s. OS will see the vg as one big disk. PVs in one VG, can have different sizes or even be on different physical disks.
@@ -189,11 +195,11 @@ Swap in Linux works like an extended memory. The Kernel will _page_ memory to th
 
 **/boot**
 
-Older Linux systems were not able to handle HUGE disks during the boot \(say Terabytes\) so there was a separated `/boot`. It is also useful to recover broken systems or even you can make `/boot` read-only. Most of the time, having 100MB for `/boot` is enough. This can be a different disk or a separated partition.
+Older Linux systems were not able to handle HUGE disks during boot \(say Terabytes\) so the `/boot` partition was separated. this separation comes in handy in situations such as  recovering broken systems. you can even make `/boot` read-only. Most of the time, having 100MB for `/boot` is enough. This partition can be on a different disk or a separated partition.
 
-This partition should be accessible by BIOS/UEFI during the boot \(No network drive\).
+This partition should be accessible by BIOS/UEFI during boot \(No network drive\).
 
-On UEFI systems, there is a `/boot/efi` mount point called EFI (Extensible Firmware Interface) system partition or ESP. This contains the bootloader and kernel and should be accessible by the UEFI firmware during the boot.
+On UEFI systems, there is a `/boot/efi` mount point called EFI (Extensible Firmware Interface) system partition or ESP. This contains the bootloader and kernel and should be accessible by the UEFI firmware during boot.
 
 ### Case one: Desktop computer
 
