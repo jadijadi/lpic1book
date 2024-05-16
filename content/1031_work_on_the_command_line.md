@@ -12,32 +12,32 @@ Description: Candidates should be able to interact with shells and commands usin
 
 ## Objectives
 
-* Use single shell commands and one-line command sequences to perform basic tasks on the command line.
-* Use and modify the shell environment including defining, referencing, and exporting environment variables.
-* Use and edit command history.
-* Invoke commands inside and outside the defined path.
+- Use single shell commands and one-line command sequences to perform basic tasks on the command line.
+- Use and modify the shell environment, including defining, referencing, and exporting environment variables.
+- Use and edit command history.
+- Invoke commands inside and outside the defined path.
 
 ## Terms
-* bash
-* echo
-* env
-* export
-* pwd
-* set
-* unset
-* type
-* which
-* man
-* uname
-* history
-* `.bash_history`
-* Quoting
+- `bash`
+- `echo`
+- `env`
+- `export`
+- `pwd`
+- `set`
+- `unset`
+- `type`
+- `which`
+- `man`
+- `uname`
+- `history`
+- `.bash_history`
+- Quoting
 
 ### Shells and Bash
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/X-zq9-FhjOA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-You issue your commands in a shell; it's your command line interface and you have various options for it. To reach your shell you should login into the system in the text mode or run one of the various *Terminal Emulators* in your GUI. Some samples are `gnome-terminal`, `konsole`, `xterm`, etc.
+You issue your commands in a shell; it's your command line interface, and you have various options for it. To reach your shell, you should login into the system in the text mode or run one of the various *Terminal Emulators* in your GUI. Some samples are `gnome-terminal`, `konsole`, `xterm`, etc.
 
 After running the Terminal Emulator or logging into the text mode, you are in the shell and you can issue commands. Although `bash` (GNU Bourne Again shell) is the most common one, you might use `zsh`, `dash`, `ksh`, `csh`, and others.
 
@@ -73,7 +73,7 @@ You've already seen lots of `cd` commands :) it *changes directory*, including `
 You can point to directories in two ways:
 
 1. **Absolute Paths**: Like `/home/jadi/lpic1/lesson3.1`
-2. **Relative Paths**: Like `lpic1/lesson3.1`. In this case, we are not adding the `/` in the beginning so the bash will try to find `lpic1` directory where we are (local / relative)
+2. **Relative Paths**: Like `lpic1/lesson3.1`. In this case, we are not adding the `/` in the beginning, so the bash will try to find `lpic1` directory where we are (local / relative)
 
 > The `~` characters means *home directory of the user issuing the command*
 
@@ -134,7 +134,7 @@ $ man 5 passwd
 
 
 ## Special characters and Quoting/Escaping
-In the computer world, some characters do have special meanings. For example in bash, the `*` character will expand to all files. In these cases, if you want to use this character without this expansion, you have to *Quote* it or *Escape* it. In many cases this is done via adding a `\` character before it:
+In the computer world, some characters do have special meanings. For example, in bash, the `*` character will expand to all files. In these cases, if you want to use this character without this expansion, you have to *Quote* it or *Escape* it. In many cases, this is done via adding a `\` character before it:
 
 ```
 $ echo 2 \* 3 = 6
@@ -169,7 +169,7 @@ Some other cases are:
 | \r | Carriage return |
 | \t | Horizontal tab |
 
-On bash you can use `\` to break a command into more lines:
+On bash, you can use `\` to break a command into more lines:
 
 ```
 $ echo You know slashes! But this \
@@ -208,7 +208,7 @@ These are some of the most used bash environment variables:
 | HOME | The user's home directory |
 | PWD | The current working directory |
 | SHELL | The name of the shell |
-| $ | The process id \(or PID of the running bash shell \(or other\) process |
+| $ | The process id \(or PID of the running bash shell \(or other\) process) |
 | PPID | The process id of the process that started this process \(that is, the id of the parent process\) |
 | ? | The exit code of the last command |
 
