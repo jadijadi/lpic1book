@@ -12,26 +12,25 @@ Description: Candidates should be able to configure disk partitions and then cre
 
 ### Objective
 
-* Manage MBR and GPT partition tables
-* Use various mkfs commands to create various filesystems such as:
-    * ext2/ext3/ext4
-    * XFS
-    * VFAT
-    * exFAT
-* Basic feature knowledge of Btrfs, including multi-device filesystems, compression and subvolumes.
-
-* fdisk
-* gdisk
-* parted
-* mkfs
-* mkswap
+- Manage MBR and GPT partition tables
+- Use various mkfs commands to create various filesystems such as:
+    - ext2/ext3/ext4
+    - XFS
+    - VFAT
+    - exFAT
+- Basic feature knowledge of Btrfs, including multi-device filesystems, compression and subvolumes.
+- `fdisk`
+- `gdisk`
+- `parted`
+- `mkfs`
+- `mkswap`
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xSQdIIMGG2g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### Block devices
 A block device is a nonvolatile mass storage device whose information can be accessed in any order; like hard disks, USB memories, floppy disks, and CD-ROMs. We *format* these devices to fixed sized blocks.
 
-We can check all block devices using `lsblk` command. In addition on a long ls format (`-l`), block devices are shown with a `b` at the first column:
+We can check all block devices using `lsblk` command. In addition, on a long ls format (`-l`), block devices are shown with a `b` at the first column:
 
 ```
 jadi@debianamd:~$ ls /dev/ -l | grep "^b"
@@ -44,14 +43,14 @@ brw-rw----+ 1 root cdrom    11,   0 Feb  3  2023 sr0
 ```
 
 
-It is possible to create **partitions** on a block device and even split it and use it as multiple disks. Systems with old BIOS boot loaders use the **Master Boot Record (MBR)** method for patitioning and newer UEFI systems, do you **GUID Parition Table (GPT)** formats.
+It is possible to create **partitions** on a block device and even split it and use it as multiple disks. Systems with old BIOS boot loaders use the **Master Boot Record (MBR)** method for partitioning and newer UEFI systems, do you **GUID Partition Table (GPT)** formats.
 
-Linux systems use `udev` to add block devices and their paritions to the `/dev` in the form of `/dev/sdb1` (2nd disk (b) and first parition (1)). 
+Linux systems use `udev` to add block devices and their partitions to the `/dev` in the form of `/dev/sdb1` (2nd disk (b) and first partition (1)). 
 
 ### Editing Partition Tables
 #### fdisk
 
-`fdisk` is the main command for viewing / changing and creating partitions on MBR systems. the `-l` switch lists the partitions:
+`fdisk` is the main command for viewing / changing and creating partitions on MBR systems. The `-l` switch lists the partitions:
 
 ```
 # fdisk -l /dev/sdb
@@ -128,7 +127,7 @@ Help:
 Command (m for help):
 ```
 
-To check current partition list, try the `p` (print) command:
+To check the current partition list, try the `p` (print) command:
 
 ```
 Command (m for help): p
@@ -146,7 +145,7 @@ Device        Start      End  Sectors  Size Type
 /dev/sdb3  39942144 41940991  1998848  976M Linux swap
 ```
 
-You should remember the disk layouts concepts from the [chapter 102.1](/1021-design-hard-disk-layout.html). So lets create some paritions using `fdisk`. I will use the `n` for *new*:
+You should remember the disk layouts concepts from the [chapter 102.1](/1021-design-hard-disk-layout.html). So, let's create some partitions using `fdisk`. I will use the `n` for *new*:
 
 ```
 # fdisk /dev/sda
@@ -182,7 +181,7 @@ Device     Boot Start     End Sectors Size Id Type
 /dev/sda1        2048 2099199 2097152   1G 83 Linux
 ```
 
-Lets  create another Extened parition and add a Linux (83) and a Swap (82) parition there. 
+Let's create another Extended partition and add a Linux (83) and a Swap (82) partition there. 
 
 ```
 Command (m for help): n
@@ -232,7 +231,7 @@ Device     Boot   Start     End Sectors Size Id Type
 /dev/sda5       2101248 8388607 6287360   3G 83 Linux
 ```
 
-Oh! I forgot to allocate space for the swap partition. Lets delete the previous one and add two new ones:
+Oh! I forgot to allocate space for the swap partition. Let's delete the previous one and add two new ones:
 
 ```
 Command (m for help): d
@@ -271,7 +270,7 @@ Last sector, +/-sectors or +/-size{K,M,G,T,P} (4200448-8388607, default 8388607)
 Created a new partition 6 of type 'Linux' and of size 2 GiB.
 ```
 
-And now, I have to change the type of the parition 6 to swap:
+And now, I have to change the type of the partition 6 to swap:
 
 ```
 Command (m for help): t
@@ -360,7 +359,7 @@ Device     Boot   Start     End Sectors Size Id Type
 /dev/sda6       4200448 8388607 4188160   2G 82 Linux swap / Solaris
 ```
 #### gdisk
-As seen on [chapter 102.1](/1021-design-hard-disk-layout.html), we have used `gdisk` on GPT machines. Its not that different from `fdisk`. Lets have a look at its main commands:
+As seen in [chapter 102.1](/1021-design-hard-disk-layout.html), we have used `gdisk` on GPT machines. It's not that different from `fdisk`. Let's take a look at its main commands:
 
 ```txt
 root@debianamd:~# gdisk /dev/sda
@@ -405,7 +404,7 @@ x	extra functionality (experts only)
 ?	print this menu
 ```
 
-As you can see, the partition table have to be compatible with your BIOS/UEFI setup. 
+As you can see, the partition table has to be compatible with your BIOS/UEFI setup. 
 
 #### parted
 `parted` is the GNU tool to edit partitions. Its main advantage is the ability to resize currently defined partitions but using it is a bit trickier than `fdisk` and `gdisk`:
@@ -435,8 +434,8 @@ Welcome to GNU Parted! Type 'help' to view a list of commands.
   version                                  display the version number and copyright information of GNU Parted
 ```
 
-#### hint? use gparted
-The `gparted` tool is a graphical tool to manage your partitioned. It has the ability to resize partitions and is super easy to use. Its not part of the LPIC exam but its good to know about it. just in case ;) [gparted.org](https://gparted.org/)
+#### Hint? Use gparted
+The `gparted` tool is a graphical tool to manage your partitioned. It has the ability to resize partitions and is super easy to use. It's not part of the LPIC exam, but it's good to know about it. Just in case ;) [gparted.org](https://gparted.org/)
 
 ### Formatting the partition
 
@@ -459,7 +458,7 @@ There are several filesystems in the linux world but, these are the most commonl
 | btrfs | A new high performance file system. Max file and filesize is 16 EB. Has its own form of RAID and LVM and build-in snapshots and fault tolerance and data compression on the fly. |
 
 #### Creating filesystems
-You can format your partitions with `mkfs` command \(and `mkswap` for swap\). This is a front end to commands like `mkfs.ext3` for *ext3*, `mkfs.ext4` for *ext4* and `mkfs.reiserfs` for *ReiserFS*. full list of installed on your system is here:
+You can format your partitions with `mkfs` command \(and `mkswap` for swap\). This is a front end to commands like `mkfs.ext3` for *ext3*, `mkfs.ext4` for *ext4* and `mkfs.reiserfs` for *ReiserFS*. Full list of installed on your system is here:
 
 ```
 # ls /sbin/mk*
@@ -490,14 +489,14 @@ Flushing... done.
 File system created successfully.
 ```
 
-If you need to assign a lable to the partition, you have to use the `-L lable_name` option. Please note that in recent system, people use UUIDs instead of labels. UUID of a disk can be viewed with:
+If you need to assign a label to the partition, you have to use the `-L lable_name` option. Please note that in recent system, people use UUIDs instead of labels. UUID of a disk can be viewed with:
 
 ```   
 # blkid /dev/sda1
 /dev/sda1: UUID="63625ecd-857a-419f-a300-12395aaad89f" BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="40bd0f72-01"
 ```
 
-and as the last task, lets create a swap on `/dev/sda6`:
+and as the last task, let's create a swap on `/dev/sda6`:
 
 ```
 # mkswap /dev/sda6
