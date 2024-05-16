@@ -12,16 +12,16 @@ Candidates should be able to perform package management using the Debian package
 
 * Install, upgrade and uninstall Debian binary packages.
 * Find packages containing specific files or libraries which may or may not be installed.
-* Obtain package information like version, content, dependencies, package integrity, and installation status \(Whether or not the package is installed\).
+* Obtain package information like version, content, dependencies, package integrity, and installation status \(Whether the package is installed or not\).
 * Awareness of apt.
 
 ## Terms and Utilities
 
 * `/etc/apt/sources.list`
-* dpkg
-* dpkg-reconfigure
-* apt-get
-* apt-cache
+* `dpkg`
+* `dpkg-reconfigure`
+* `apt-get`
+* `apt-cache`
 
 ## Concept of the package management system
 
@@ -235,7 +235,7 @@ Some common actions are:
 |-c or --contents| Show the contents of a package|
 |-C or --audit| Search for broken installed packages and propose solutions |
 |--configure| Reconfigure an installed package|
-|-i or --install| Install or Upgrade a package; Wont resolve / install dependencies|
+|-i or --install| Install or Upgrade a package; Won't resolve / install dependencies|
 |-I or --info| Show Info|
 |-l or --list| List all installed packages|
 |-L or --listfiles | List all files related to this package|
@@ -345,7 +345,7 @@ mplayer: /var/lib/mplayer/prefs/mirrors
 |update|Updates the information about packages from repositories|
 |upgrade|Upgrades all packages|
 
-> In some cases a package is installed but without proper dependencies (say using `dpkg`) or an installation is interrupted for any reason. In these cases a `apt-get install -f` might help, `-f` is for `fix broken`. 
+> In some cases, a package is installed but without proper dependencies (say using `dpkg`) or an installation is interrupted for any reason. In these cases a `apt-get install -f` might help, `-f` is for `fix broken`. 
 ## Common apt-cache options
 
 |Option|Usage|
