@@ -22,12 +22,12 @@ Candidates should be able to manage disk quotas for users.
 
 ### Objectives
 
-* Set up a disk quota for a filesystem.
-* Edit, check and generate user quota reports.
-* quota
-* edquota
-* repquota
-* quotaon
+- Set up a disk quota for a filesystem.
+- Edit, check and generate user quota reports.
+- `quota`
+- `edquota`
+- `repquota`
+- `quotaon`
 
 ### Enabling quotas
 
@@ -49,9 +49,9 @@ So for example is we want to enable quotas on sda2 we have to change the line in
 /dev/sda2  /home  ext4    defaults,usrquota,grpquota          1 2
 ```
 
-Next we need to specify the quotas of each user and each group. Two files called `aquota.user` and `aquota.group` in the root file system will do this. Now it is enough to run the `quotacheck` command.
+Next, we need to specify the quotas of each user and each group. Two files called `aquota.user` and `aquota.group` in the root file system will do this. Now it is enough to run the `quotacheck` command.
 
-> the `quotacheck` command will create the aquota.user and aquota.group if they do not exist
+> The `quotacheck` command will create the aquota.user and aquota.group if they do not exist
 
 ```text
 # quotacheck -u -a -m -c -v
@@ -74,7 +74,7 @@ Then you need to turn the quota checking on:
 
 ### Setting limits
 
-The main command for _editing_ quota is _\*edquota_. It will check the users quota from all file systems and presents them in a file editor to you.
+The main command for _editing_ quota is _\*edquota_. It will check the user's quota from all file systems and presents them in a file editor to you.
 
 ```text
 #edquota -u jadi
@@ -87,7 +87,7 @@ As you can see, the system shows the current blocks of 1k data, number of inodes
 
 > You have to run `quotacheck` to update these data
 
-For copying one users limits to another user, use the `-p` switch:
+For copying one user's limits to another user, use the `-p` switch:
 
 ```text
 # edquota -p jadi newuser neweruser lastuser
@@ -95,7 +95,7 @@ For copying one users limits to another user, use the `-p` switch:
 
 ### quota reports
 
-If you need to check the quota of only one user use the `quota` command.
+If you need to check the quota of only one user, use the `quota` command.
 
 ```text
 # quota  jadi
@@ -104,7 +104,7 @@ Disk quotas for user jadi (uid 1000):
       /dev/sda1       5    5000       0               2       0       0
 ```
 
-This is not easy if you have many users so you can use `repquota` as follow:
+This is not easy if you have many users, so you can use `repquota` as follow:
 
 ```text
 # repquota -u -a
