@@ -13,18 +13,16 @@ Candidates should be thoroughly familiar with the **Filesystem Hierarchy Standar
 
 ### Key Knowledge Areas
 
-* Understand the correct locations of files under the FHS.
-* Find files and commands on a Linux system.
-* Know the location and purpose of important file and directories as defined in the FHS.
-
-
-* `find`
-* `locate`
-* `updatedb`
-* `whereis`
-* `which`
-* `type`
-* `/etc/updatedb.conf`
+- Understand the correct locations of files under the FHS.
+- Find files and commands on a Linux system.
+- Know the location and purpose of important file and directories as defined in the FHS.
+- `find`
+- `locate`
+- `updatedb`
+- `whereis`
+- `which`
+- `type`
+- `/etc/updatedb.conf`
 
 ## FHS
 
@@ -34,7 +32,7 @@ Filesystem Hierarchy Standard \(FHS\) is a document describing the Linux/Unix fi
 | :---: | :--- |
 | /   | Primary hierarchy root and root directory of the entire file system hierarchy |
 | /bin | Essential command binaries |
-| /boot | Static files of the boot loader |
+| /boot | Static files of the bootloader |
 | /dev | Device files |
 | /etc | Host-specific system configuration |
 | /lib | Essential shared libraries and kernel modules |
@@ -52,7 +50,7 @@ Filesystem Hierarchy Standard \(FHS\) is a document describing the Linux/Unix fi
 
 </br>
 
-The `/usr` is the second level of the hierarchy. It containins shareable, read-only data. It can be shared between systems, although present practice does not often do this.
+The `/usr` is the second level of the hierarchy. It's containing shareable, read-only data. It can be shared between systems, although present practice does not often do this.
 
 The `/var` filesystem contains variable data files, including spool directories and files, administrative and logging data, and transient and temporary files. Some portions of /var are not shareable between different systems, but others, such as /var/mail, /var/cache/man, /var/cache/fonts, and /var/spool/news, may be shared.
 
@@ -72,14 +70,14 @@ And for the root user:
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-As you can see, this is the list of directories separated with colon. Obviously you can change your path with `export PATH=$PATH:/usr/new/dir` or put this in `.bashrc` to make it permanent.
+As you can see, this is the list of directories separated with colon. Obviously, you can change your path with `export PATH=$PATH:/usr/new/dir` or put this in `.bashrc` to make it permanent.
 
 ## Locating files
 
 
 ### `which`, `type` and `whereis`
 
-The `which` command shows the first appearance of the command given in the path. In other words the  `which mkfs` will tell you what will be run if you issue this `mkfs` command.
+The `which` command shows the first appearance of the command given in the path. In other words, the  `which mkfs` will tell you what will be run if you issue this `mkfs` command.
 
 ```text
 $ which mkfs
@@ -91,7 +89,7 @@ jadi@ubuntuserver:~$ which -a ping
 /bin/ping
 ```
 
-> use the `-a` switch to show all appearance in the path and not only the first one.
+> Use the `-a` switch to show all appearance in the path and not only the first one.
 
 But where is the `cd` command?
 
@@ -123,7 +121,7 @@ $ whereis mkfs
 mkfs: /usr/sbin/mkfs /usr/share/man/man8/mkfs.8.gz
 ```
 
-> tip: there is also a `whatis` command, try it.
+> Tip: there is also a `whatis` command, try it.
 
 ### find
 
@@ -154,7 +152,7 @@ $ sudo find /etc -iname "*vmware*"
 
 ### locate & updatedb
 
-You tries `find` and loved it but there is an issue with it: it does a live active search! This can slow down your system or push too much pressure on your hard or on larger file systems take too long. To solve this, there is a faster command:
+You tried `find` and loved it, but there is an issue with it: it does a live active search! This can slow down your system or push too much pressure on your hard or on larger file systems takes too long. To solve this, there is a faster command:
 
 ```
 $ locate networking
