@@ -19,18 +19,18 @@ Awareness of dnf
 The following is a partial list of the used files, terms, and utilities:
 
 ## Terms and Utilities
-* rpm
-* rpm2cpio
+* `rpm`
+* `rpm2cpio`
 * `/etc/yum.conf`
 * `/etc/yum.repos.d/`
-* yum
-* zypper
+* `yum`
+* `zypper`
 
 ## Introduction
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qk6qcEAvf4A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-**RedHat Package Manager \(RPM\)** and **YellowDog Update Manager \(YUM\)** are used by Fedora, RedHat, RHEL, CentOS, RocksOS, ... to manage packages. The package format is called RPM and can be managed by `rpm` tools but if you want to use the repositories to install, update, search, ... packages, or even upgrade the whole system, you can use the `yum` command. To have a deeper understanding of the repositories, please refer to the previous section (102.4); Here I assume that you know the concept.
+**RedHat Package Manager \(RPM\)** and **YellowDog Update Manager \(YUM\)** are used by Fedora, RedHat, RHEL, CentOS, RocksOS, ... to manage packages. The package format is called RPM and can be managed by `rpm` tools, but if you want to use the repositories to install, update, search, ... packages, or even upgrade the whole system, you can use the `yum` command. To have a deeper understanding of the repositories, please refer to the previous section (102.4); Here I assume that you know the concept.
 
 ## yum
 `yum` is the package manager used by RedHat-based systems. Its configuration files are located at `/etc/yum.conf` and `/etc/yum.repos.d/`. Below is a sample.
@@ -279,7 +279,7 @@ yumdownloader --resolve bzr
 
 The `rpm` command can run ACTIONs on individual RPM files. You can use it like `rpm ACTION [OPTION] rpm_file.rpm`
 
-One of common options is `-v` for verbose output and these are the common ACTIONs:
+One of common options is `-v` for verbose output, and these are the common ACTIONs:
 
 |Short Form|Long Form|Description|
 |-|-|-|
@@ -289,16 +289,16 @@ One of common options is `-v` for verbose output and these are the common ACTION
 |-q|--query|Checks if the package is installed|
 |-F|--freshen|Only update if it's already installed|
 |-V|--verify|Check the integrity of the installation|
-|-K|--checksig|Checks the integrity of an rpm package|
+|-K|--checksig|Checks the integrity of a rpm package|
 
 
 Please note that each action might have its specific options.
 ### Install and update
-In most cases, we use `-U` which Installs or upgrades a package. 
+In most cases, we use `-U` which installs or upgrades a package. 
 
 * RPM does not have a database of automatic package installation, so it can not remove the automatically installed dependencies.
 
-If you have an rpm with all of its dependencies, you can install them using `rpm -Uvh *.rpm`. This will tell rpm not to complain about the dependencies if it is presented in other files. Here the `-h` creates 50 hash signs to show the progress.
+If you have a rpm with all of its dependencies, you can install them using `rpm -Uvh *.rpm`. This will tell rpm not to complain about the dependencies if it is presented in other files. Here the `-h` creates 50 hash signs to show the progress.
 
 In some cases - if you know what you are doing - you can use `--nodeps` to prevent the dependency check or even use `--force` to force the install / upgrade despite all the issues & complains.
 
@@ -319,7 +319,7 @@ And you can use these options to spice it up:
 |Short|Long|Description|
 |-|-|-|
 |-c|--configfiles|Show the packages configuration files|
-|-i|--info|Detailed info about a pacakge|
+|-i|--info|Detailed info about a package|
 |-a|--all|Show all Installed packages|
 ||--whatprovides|Shows what packages provide this file|
 |-l|--list|Query the list of files a package installs|
@@ -348,7 +348,7 @@ And this is part of the `man rpm`'s `-V` section:
     P caPabilities differ
 ```
 
-You can also check the integrity of an rpm package with `-K`:
+You can also check the integrity of a rpm package with `-K`:
 
 ```
 # rpm -Kv breezy-3.2.1-3.fc36.x86_64.rpm
@@ -415,4 +415,4 @@ These are the main commands used in `zypper`:
 
 
 ## Other tools
-YUM and RPM are the main package managers on Fedora, RHEL & Centos but other tools are also available. As mentioned, SUSE uses `YaST`, and some modern desktops \(KDE & Gnome\) use `PackageKit` which is a graphical tool. It is also good to note that the `dnf` suite is also gaining popularity and is pre-installed on Fedora systems.
+YUM and RPM are the main package managers on Fedora, RHEL & Centos, but other tools are also available. As mentioned, SUSE uses `YaST`, and some modern desktops \(KDE & Gnome\) use `PackageKit` which is a graphical tool. It is also good to note that the `dnf` suite is also gaining popularity and is pre-installed on Fedora systems.
