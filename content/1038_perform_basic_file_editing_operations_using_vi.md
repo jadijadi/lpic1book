@@ -13,26 +13,26 @@ Candidates should be able to edit text files using vi. This objective includes v
 
 ### Objectives
 
-* Navigate a document using vi.
-* Understand and use vi modes.
-* Insert, edit, delete, copy and find text in vi.
-* Awareness of Emacs, nano and vim.
-* Configure the standard editor.
+- Navigate a document using vi.
+- Understand and use vi modes.
+- Insert, edit, delete, copy and find text in vi.
+- Awareness of Emacs, nano and vim.
+- Configure the standard editor.
 
-* vi
-* /, ?
-* h,j,k,l
-* i, o, a
-* d, p, y, dd, yy
-* ZZ, :w!, :q!
-* EDITOR
+- `vi`
+- /, ?
+- h,j,k,l
+- i, o, a
+- d, p, y, dd, yy
+- ZZ, :w!, :q!
+- EDITOR
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/7S5RaX1OsTE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### Introduction
-As any other tool, we have a wide range of selection when it comes to text editors. One of the most common and super powerful choices is the `vi` editor. It is pre-installed on all major Linux distributions and you can be sure that knowing it, will let you edit your files on all environments, let it be a remote server over SSH or a coding environment on your desktop machine or a CyberDeck machine with a minimal keyboard. Its only _drawback_ might be its kind of slow learning curve but I'm sure after a 1 hour session with it, you will manage to find your way in `vi`.
+As any other tool, we have a wide range of selection when it comes to text editors. One of the most common and super powerful choices is the `vi` editor. It is pre-installed on all major Linux distributions, and you can be sure that knowing it, will let you edit your files on all environments, let it be a remote server over SSH or a coding environment on your desktop machine or a CyberDeck machine with a minimal keyboard. Its only _drawback_ might be its kind of slow learning curve, but I'm sure after a 1-hour session with it, you will manage to find your way in `vi`.
 
-There is an _Improved_ version of `vi` which is called _VIMproved_ or `vim`. Sometimes thats what you will find on your system and sometimes the `vi` command is aliased or linked to `vim`. Lets check this on our system (Ubuntu 22.04):
+There is an _Improved_ version of `vi` which is called _VIMproved_ or `vim`. Sometimes that's what you will find on your system, and sometimes the `vi` command is aliased or linked to `vim`. Let's check this on our system (Ubuntu 22.04):
 
 ```
 jadi@funlife:~$ whatis vi
@@ -102,14 +102,14 @@ $ vi file.txt
 
 `vi` works in two modes:
 
-1. **Command mode** is where you go around the file, search, delete text, copy paste, replace, ... and give other commands to the vi. Some commands start with a `:` and some are only a keypress.
+1. **Command mode** is where you go around the file, search, delete text, copy-paste, replace, ... and give other commands to the vi. Some commands start with a `:` and some are only a keypress.
 2. **Insert mode** is where what you type, goes into the file at the cursors position.
 
-> To switch to the Command mode, press the ESC key. To go back to the Insert mode, you can use several commands but one common one is pressing the `i` key.
+> To switch to the Command mode, press the ESC key. To go back to the Insert mode, you can use several commands, but one common one is pressing the `i` key.
 
 ### Moving the cursor
 
-To move around a text file, use these keys in Command mode:
+To move around a text file, use these keys in command mode:
 
 | key | function |
 | :---: | :--- |
@@ -145,7 +145,7 @@ These command during the _command mode_ will help you enter, edit, replace and t
 | o | open a new line below the cursor and go to the insert mode |
 | O | open a new line above the cursor and go to the insert mode |
 | c | clear to a location and go to the insert mode the replace till there and then normal insert \(`cw` will overwrite the current word\) |
-| d | delete. you can mix with w \(`dw`\) to delete a word. Same as cw but dw does not go to the insert mode |
+| d | delete. You can mix with w \(`dw`\) to delete a word. Same as `cw`, but `dw` does not go to the insert mode |
 | dd | Delete the current line |
 | x | Delete character at the position of the cursor |
 | p | Paste the last deleted text after the cursor |
@@ -175,17 +175,17 @@ It is always funny when you see someone entering to the vi and not knowing how t
 | :e! | Reload the file from disk |
 | :! | Run a shell command |
 
-Entering colon \(`:`\) during _command mode_ will move the cursor to the bottom of the screen and vi will wait for your commands. Press ESC to return back to the normal command mode.
+Entering colon \(`:`\) during _command mode_ will move the cursor to the bottom of the screen, and vi will wait for your commands. Press ESC to return to the normal command mode.
 
 > The exclamation mark in most commands will say "I know what I'm doing" and will write on read-only files if you have access and will exit without asking
 
-> it is possible to combine commands. For example you can combine `:w` and `:q` and just say `:wq` (write and exit).
-### help
+> it is possible to combine commands. For example, you can combine `:w` and `:q` and just say `:wq` (write and exit).
 
+### help
 You can always ask for help with `:help` or `:help subject`. This way vi will open a help text which you can use / search just like any other text. Close it with `:q` command.
 
 ## Other editors
-You can also use other editors if you want. One easy to use and common option is `nano` and some other choices are `micro`, `emacs` (full featured) and `neovim` (an update to vim).
+You can also use other editors if you want. One easy to use, and common option is `nano` and some other choices are `micro`, `emacs` (full-featured) and `neovim` (an update to vim).
 
 ## Default editor
 The default editor in `bash` is set using the `EDITOR` environment variable. You can change it with:
@@ -194,4 +194,4 @@ The default editor in `bash` is set using the `EDITOR` environment variable. You
 $ export EDITOR='vim'
 ```
 
-or by adding the above line to the `.bashrc` file. We will see these in more details in next chapters.
+Or by adding the above line to the `.bashrc` file. We will see these in more details in next chapters.
