@@ -9,28 +9,27 @@ sortorder: 180
 
 _Weight: 3_
 
-Candidates should be able to manipulate files and text data using regular expressions. This objective includes creating simple regular expressions containing several notational elements as well as understanding the differences between basic and extended regular expressions. It also includes using regular expression tools to perform searches through a filesystem or file content.
+Candidates should be able to manipulate files and text data using regular expressions. This objective includes creating simple regular expressions containing several notational elements, as well as understanding the differences between basic and extended regular expressions. It also includes using regular expression tools to perform searches through a filesystem or file content.
 
 
 ## Objectives
 
-* Create simple regular expressions containing several notational elements.
-* Understand the differences between basic and extended regular expressions.
-* Understand the concepts of special characters, character classes, quantifiers, and anchors.
-* Use regular expression tools to perform searches through a filesystem or file content.
-* Use regular expressions to delete, change and substitute text.
-
-* grep
-* egrep
-* fgrep
-* sed
-* regex(7)
+- Create simple regular expressions containing several notational elements.
+- Understand the differences between basic and extended regular expressions.
+- Understand the concepts of special characters, character classes, quantifiers, and anchors.
+- Use regular expression tools to perform searches through a filesystem or file content.
+- Use regular expressions to delete, change and substitute text.
+- `grep`
+- `egrep`
+- `fgrep`
+- `sed`
+- regex(7)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/wa1OFZ-Ck-0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### Regex
 
-Regular expression, Regex, regex is a pattern to describe what you want to _match_ from a text. For example `a` and `ad` both matches `jadi`. `d.` is a _deeper_ example because `.` means _anything_ so `d.` will match the last two characters of `jadi`. In this section, we will cover the *grep** \(generalised regular expression processor\) command. It has different regex _dialect_; in short Basic regex and Extended regex.
+Regular expression, Regex, regex is a pattern to describe what you want to _match_ from a text. For example `a` and `ad` both matches `jadi`. `d.` is a _deeper_ example because `.` means _anything_ so `d.` will match the last two characters of `jadi`. In this section, we will cover the *grep** \(generalized regular expression processor\) command. It has different regex _dialect_; in short, Basic regex and Extended regex.
 
 #### Regex basics
 
@@ -55,7 +54,7 @@ You can simply write down whatever you want to match and regex will search for t
 | :--- | :--- | :--- |
 | a\*b | ab, aaab, aaaaab, aaabthis |  |
 | a\*b | b, sober | we should have zero or more `a`s and then a `b` |
-| a+b | ab, aab, aaabenz | wont match **sober** or **b** because there needs to be at least one **a** |
+| a+b | ab, aab, aaabenz | won't match **sober** or **b** because there needs to be at least one **a** |
 | a?b | ab, a**ab**, b, batman \(zero a then b\), ... | . |
 
 </br>
@@ -72,7 +71,7 @@ The dot \(**`.`**\) means any character. So **`..`** will match anything with at
 
 You can also refer to digits with \d. 
 
-> regex is case-sensitive.
+> Regex is case-sensitive.
 
 **Ranges**
 
@@ -84,13 +83,13 @@ There are shorthands for commonly used classes. Named classes to start with `[:`
 | \[:blank:\] | Space and tab characters |
 | \[:digit:\] | The digits 0 through 9 \(equivalent to 0-9\) |
 | \[:upper:\] and \[:lower:\] | Upper and lower case letters, respectively. |
-| ^ \(negation\) | As the first character after \[ in a character class negates the sense of the remaining characters |
+| ^ \(negation\) | As the first character after `[` in a character class, negates the sense of the remaining characters |
 
-> A common used regex is .\* which matches any character \(zero or any length\).
+> A commonly used regex is .\* which matches any character \(zero or any length\).
 
 **Matching at specific locations**
 
-* The caret **`^`** means beginning of the string.
+* The caret **`^`** means the beginning of the string.
 * The dollar **`$`** means the end of the string.
 
 #### Samples
@@ -128,7 +127,7 @@ These are the most common switches:
 | -v | reverse the search |
 | -n | show line numbers |
 | -l | show only file names |
-| -i | case insensitive |
+| -i | case-insensitive |
 | -r | Read  all  files  under each directory, recursively |
 
 </br>
@@ -208,7 +207,7 @@ $ egrep -r "192.168.(1|0)." /etc/ 2> /dev/null
 ```
 
 ### Extended grep
-Regex is cool and `grep` is awesome so many people have tried adding to them or inventing their variants. One is GNU Extended grep. This dialect of regex, does not need much escaping and you can use it via `-E` switch or using `egrep` instead of the normal `grep`. For example, `|` in an extended regex means "or". So you can do a `egrep "a|b" words` to match anything with an `a` or a `b`. 
+Regex is cool and `grep` is awesome, so many people have tried adding to them or inventing their variants. One is GNU Extended grep. This dialect of regex, does not need much escaping, and you can use it via `-E` switch or using `egrep` instead of the normal `grep`. For example, `|` in an extended regex means "or". So you can do a `egrep "a|b" words` to match anything with an `a` or a `b`. 
 
 ### Fixed grep
 
@@ -216,7 +215,7 @@ If you need to search for exact strings \(and not interpret it as a regex\), use
 
 ### sed
 
-In previous lessons, we saw simple `sed` usage and now I have great news for you: **sed understands regex**! You can use `-r` switch to tell sed that we are using regexes.
+In previous lessons, we saw simple `sed` usage, and now I have great news for you: **sed understands regex**! You can use `-r` switch to tell sed that we are using regexes.
 
 ```
 $ sed -r "s/(Z|R|J)/starts with ZRJ/" friends.txt 
@@ -233,7 +232,7 @@ Common switches:
 | switch | meaning |
 | :--- | :--- |
 | -r | use advanced regex |
-| -n | suppress output, you can use p at the end of your regex \( /something/p \) to print the output |
+| -n | suppress output, you can use p at the end of your regex \(`/something/p`\) to print the output |
 
 </br>
 
