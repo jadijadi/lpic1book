@@ -12,14 +12,12 @@ Candidates should be able to create and manage hard and symbolic links to a file
 
 ### Key Knowledge Areas
 
-* Create links.
-* Identify hard and/or softlinks.
-* Copying versus linking files.
-* Use links to support system administration tasks.
-
-
-* `ln`
-* `unlink`
+- Create links.
+- Identify hard and/or softlinks.
+- Copying versus linking files.
+- Use links to support system administration tasks.
+- `ln`
+- `unlink`
 
 ## links
 
@@ -118,7 +116,7 @@ we can find symbolic links using the `find` command:
 $ find . -type l
 ```
 
-They are highly used to keep one specific name pointing to a changing binary name. For example we always need to be able to run `python3` so we point it to the latest installed python on the system:
+They are highly used to keep one specific name, pointing to a changing binary name. For example, we always need to be able to run `python3` so we point it to the latest installed python on the system:
 
 ```
 $ which python3
