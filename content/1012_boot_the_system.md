@@ -13,7 +13,7 @@ Candidates should be able to guide the system through the booting process.
 
 ## Key Knowledge Areas
 
-* Provide common commands to the boot loader and options to the kernel at boot time
+* Provide common commands to the bootloader and options to the kernel at boot time
 * Demonstrate knowledge of the boot sequence from BIOS/UEFI to boot completion
 * Understanding of SysVinit and systemd
 * Awareness of Upstart
@@ -21,8 +21,8 @@ Candidates should be able to guide the system through the booting process.
 
 ## Terms
 
-* dmesg
-* journalctl
+* `dmesg`
+* `journalctl`
 * BIOS
 * UEFI
 * bootloader
@@ -35,7 +35,7 @@ Candidates should be able to guide the system through the booting process.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Zn_IGnNMHvc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## The Boot Process
-It is important to understand because at this stage, you have very little control over the system and you can not issue commands to troubleshoot much. You should have a good understanding of what is happening.
+It is important to understand because at this stage, you have very little control over the system, and you can not issue commands to troubleshoot much. You should have a good understanding of what is happening.
 
 1. Motherboard Firmware does a PowerOnSelfTest(POST)
 2. Motherboard loads the bootloader
@@ -82,9 +82,9 @@ You can also send parameters to the kernel during the boot using the Grub config
 
 Linux will show you the boot process logs during the boot. Some desktop systems hide this behind a fancy splash screen which you can hide using the `Esc` key or press `Ctrl+Alt+F1`.
 
-due to several reasons which are beyond the scope of this course, the kernel saves it's own logs into the "Kernel Ring Buffer". after the compilation of the boot process, the syslog daemon collects the *boot logs* and stores them in `/var/log/dmesg`.
+Due to several reasons which are beyond the scope of this course, the kernel saves it's own logs into the "Kernel Ring Buffer". After the compilation of the boot process, the syslog daemon collects the *boot logs* and stores them in `/var/log/dmesg`.
 
-to view all the logs including what has been logged after the boot process we use the `dmesg` command.
+To view all the logs including what has been logged after the boot process we use the `dmesg` command.
 
 We can also use `journalctl -k` to check Kernel logs or use `journalctl -b` to check for boot logs (or even use `journalctl -u kernel` to see all previous logs too).
 
@@ -100,15 +100,15 @@ After the init process comes up, syslog daemon will log messages. It has timesta
 
 ## init
 
-When the Kernel initialization is finished, its time to start other programs. To do so, the Kernel runs the Initialization Daemon process, and it takes care of starting other daemons, services, subsystems and programs. Using the init system one can say "I need service A and then service B. Then I need C and D and E but do not start D unless the A and B are running". The system admin can use the init system to stop and start the services later.
+When the Kernel initialization is finished, it's time to start other programs. To do so, the Kernel runs the Initialization Daemon process, and it takes care of starting other daemons, services, subsystems and programs. Using the init system one can say "I need service A and then service B. Then I need C and D and E but do not start D unless the A and B are running". The system admin can use the init system to stop and start the services later.
 
 There are different init systems:
 
-- **SysVinit** is based on Unix System V. Not being used much anymore but people loved it because it followed Unix philosophies. you may see it on older machines or even on recently installed ones.
-- **upstart** was an event-based replacement for the traditional init daemon developed by Canonical (The people behind Ubuntu). The goal of the project was to build a replacement for SysV when it got released in 2007. eventually, the project got discontinued due to the wide adoption of Systemd. Even Ubuntu uses Systemd these days, but upstart still can be found in google's ChromeOS.
+- **SysVinit** is based on Unix System V. Not being used much anymore, but people loved it because it followed Unix philosophies. You may see it on older machines or even on recently installed ones.
+- **upstart** was an event-based replacement for the traditional init daemon developed by Canonical (The people behind Ubuntu). The goal of the project was to build a replacement for SysV when it got released in 2007. Eventually, the project got discontinued due to the wide adoption of Systemd. Even Ubuntu uses Systemd these days, but upstart still can be found in Google's ChromeOS.
 - **Systemd** is the new replacement. It is hated by Linux elitists for not following Unix principles but it's widely adopted by major distros. It can start services in parallel and do lots of fancy stuff! 
 
-The init process had the ID of 1 and you can find it by running the 
+The init process had the ID of 1, and you can find it by running the 
 
 ```
 # which init
@@ -127,7 +127,7 @@ pstree
 ```
 
 ## systemd
-Is new, loved, and hated. Lots of new ideas but not following some of the beloved UNIX principles (say.. not saving logs in a text file or trying to help you too much but asking for the root password when you are not running commands with sudo). It lets us run services if the hardware is connected, in time intervals, if another service is started, and ...
+It's new, loved, and hated. Lots of new ideas, but not following some of the beloved UNIX principles (say.. not saving logs in a text file or trying to help you too much but asking for the root password when you are not running commands with sudo). It lets us run services if the hardware is connected, in time intervals, if another service is started, and ...
 
 The systemd is made around **units**. A unit can be a service, group of services, or an action. Units do have a name, a type, and a configuration file. There are 12 unit types: automount, device, mount, path, scope, service, slice, snapshot, socket, swap, target & timer.
 
@@ -186,7 +186,7 @@ to check the logs, we have to use the `journalctl` utility:
 ```
 
 ## SysV
-Is the older init system. Still can be used on many systems. The control files are located at `/etc/init.d/` and are closer to the general bash scripts. In many cases you can call like:
+Is the older init system. Still can be used on many systems. The control files are located at `/etc/init.d/` and are closer to the general bash scripts. In many cases, you can call like:
 
 ```
 /etc/init.d/ntpd status
