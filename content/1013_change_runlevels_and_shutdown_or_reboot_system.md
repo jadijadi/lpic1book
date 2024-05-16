@@ -23,15 +23,15 @@ Description: Candidates should be able to manage the SysVinit runlevel or system
 ## The following is a partial list of the used files, terms and utilities:
 
 - `/etc/inittab`
-- shutdown
-- init
+- `shutdown`
+- `init`
 - `/etc/init.d/`
-- telinit
+- `telinit`
 - systemd
-- systemctl
+- `systemctl`
 - `/etc/systemd/`
 - `/usr/lib/systemd/`
-- wall
+- `wall`
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1mOKv5LsPsw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -148,9 +148,9 @@ On systemd, you can find the configs in:
 
 As discussed in 101.2
 
-### /etc/inittab
+### `/etc/inittab`
 
-Is being replaced by upstart and systemd but is still part of the exam.
+It's being replaced by upstart and systemd, but is still part of the exam.
 
 ```text
 #
@@ -252,7 +252,7 @@ for more advanced users:
 * -t60 will delay 60 seconds between SIGTERM and SIGKILL
 * if you cancel a shutdown, users will get the news
 
-### Halt, reboot, and poweroff
+### `halt`, `reboot`, and `poweroff`
 
 * The `halt` command halts the system.
 * The `poweroff` command halts the system and then attempts to power it off.
