@@ -12,22 +12,22 @@ Candidates should be able to redirect streams and connect them to efficiently pr
 
 
 ## Objectives
-* Redirecting standard input, standard output, and standard error.
-* Pipe the output of one command to the input of another command.
-* Use the output of one command as arguments to another command.
-* Send output to both stdout and a file.
+- Redirecting standard input, standard output, and standard error.
+- Pipe the output of one command to the input of another command.
+- Use the output of one command as arguments to another command.
+- Send output to both stdout and a file.
 
 ## Terms
-* tee
-* xargs
+- `tee`
+- `xargs`
 
-These features help us to control the input/output of the commands and do things like saving the output of a command to a file, getting the input of a command from another command, or separating the normal output from errors. We've already used them in previous sections but let's learn more and deepen our understanding of these.
+These features help us to control the input/output of the commands and do things like saving the output of a command to a file, getting the input of a command from another command, or separating the normal output from errors. We've already used them in previous sections, but let's learn more and deepen our understanding of these.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PeUhwMoSCko" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Redirecting standard IO
 
-On a Linux system, most shells use streams for input and output. These streams can be from (and toward) various things including keyboards, block devices (hards, USB sticks, ..), files, and ...
+On a Linux system, most shells use streams for input and output. These streams can be from (and toward) various things including keyboards, block devices (hards, USB sticks, ...), files, and ...
 
 We have 3 different standard streams:
 
@@ -91,7 +91,7 @@ It is also possible to use `&1` and `&2` and `&0` to refer to the **target** of 
 
 #### sending to null
 
-In Linux **/dev/null** device works like an abyss. You can send anything there and it disappears without being any burden on your system. So it is normal to say:
+In Linux **/dev/null** device works like an abyss. You can send anything there, and it disappears without being any burden on your system. So it is normal to say:
 
 ```
 $ ls j* x* > file1
@@ -129,7 +129,7 @@ done!
 <iframe width="560" height="315" src="https://www.youtube.com/embed/j3L_7Wxcl0U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 ### Pipes
 
-With the pipe (`|`), you can redirect STDOUT, STDIN, and STDERR between multiple commands all on one command line. When you do `command1 | command2 `; command1, is executed but its STDOUT is redirected as STDIN into the COMMAND2. 
+With the pipe (`|`), you can redirect STDOUT, STDIN, and STDERR between multiple commands all on one command line. When you do `command1 | command2`, command1 is executed, but its STDOUT is redirected as STDIN into the COMMAND2. 
 
 
 ```
@@ -163,7 +163,7 @@ $ ls | xargs echo these are files:
 these are files: bob errors file1 jack jadi linus output sara who_uses_what.txt
 ```
 
-> if you do not give any command to the `xargs` , the echo will be the default command. 
+> If you do not give any command to `xargs`, the echo will be the default command. 
 
 One common switch is `-I`. This is useful if you need to pass stdin arguments in the middle (or even start) of your commands. Use it like this: `xargs -I SOMETHING echo here is SOMETHING end`:
 

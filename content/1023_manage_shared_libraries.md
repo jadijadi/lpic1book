@@ -18,8 +18,8 @@ Candidates should be able to determine the shared libraries that executable prog
 
 ## Terms and Utilities
 
-* ldd
-* ldconfig
+* `ldd`
+* `ldconfig`
 * `/etc/ld.so.conf`
 * LD\_LIBRARY\_PATH
 
@@ -30,7 +30,7 @@ Candidates should be able to determine the shared libraries that executable prog
 When we write a program, we use libraries. For example, if you need to read text from standard input, you need to _link_ a library that provides this. Think linking has two forms:
 
 * **Static** Linking is when you add this library to your executable program. In this method, your program size is big because it has all the needed libraries. One good advantage is your program can be run without being dependent on other programs/libraries.
-* **Dynamic** Linking is when you just say in your program "We need this and that library to run this program". This way your program is smaller but you need to install those libraries separately. This makes programs more secure \(Because libraries can be updated centrally, and more advanced any improvement in a library will improve the whole program\), and smaller.
+* **Dynamic** Linking is when you just say in your program "We need this and that library to run this program". This way your program is smaller, but you need to install those libraries separately. This makes programs more secure \(Because libraries can be updated centrally, and more advanced any improvement in a library will improve the whole program\), and smaller.
 
 Linux dynamic libraries have names like `libLIBNAME.so.VERSION` and are located at places like `/lib*/` and `/usr/lib*/`. On Windows, we call them Dynamic Linked Libraries (DLLs). 
 
@@ -47,7 +47,7 @@ The `ldd` command helps you find:
 * If a program is dynamically or statically linked
 * What libraries a program needs
 
-Let's have a look at two files:
+Let's take a look at two files:
 
 ```text
 [jadi@fedora ~]$ ldd /sbin/ldconfig
@@ -67,7 +67,7 @@ As you can see, `ldd` tells us that the `/sbin/ldconfig` is not dynamically link
 
 ### Symbolic links for libraries
 
-If you are writing a program and you use udev functions, you will ask for a library called _libudev.so.1_. But a Linux distro, might call its version of udev library _libudev.so.1.4.0_. How can we solve this problem? The answer is **symbolic links**; You will learn more about them in the next chapters but for short, a symbolic name is a new name for the same file.
+If you are writing a program, and you use udev functions, you will ask for a library called _libudev.so.1_. But a Linux distro, might call its version of udev library _libudev.so.1.4.0_. How can we solve this problem? The answer is **symbolic links**; You will learn more about them in the next chapters, but for short, a symbolic name is a new name for the same file.
 
 I will check the same thing on my system. First I'll find where the `libudev.so.1` on my system is:
 
@@ -147,7 +147,7 @@ And then run any command, the system will search `/usr/lib/myoldlibs` and then `
 
 ## Loading dynamically
 
-In the last part of this section, let's see how we can manually tell Linux to run a program using its _dynamic linker_. Its also called a dynamic loader and is used to load dynamic libraries needed by an executable. It might be called `ld` or `ld-linux`. You can find yours by running:
+In the last part of this section, let's see how we can manually tell Linux to run a program using its _dynamic linker_. It's also called a dynamic loader and is used to load dynamic libraries needed by an executable. It might be called `ld` or `ld-linux`. You can find yours by running:
 
 ```
 [jadi@fedora ~]$ locate ld-linux

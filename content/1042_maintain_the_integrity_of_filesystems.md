@@ -12,19 +12,18 @@ _Weight: 2_
 Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem.
 
 ## Objectives
-* Verify the integrity of filesystems.
-* Monitor free space and inodes.
-* Repair simple filesystem problems.
-
-* du
-* df
-* fsck
-* e2fsck
-* mke2fs
-* tune2fs
-* xfs_repair
-* xfs_fsr
-* xfs_db
+- Verify the integrity of filesystems.
+- Monitor free space and inodes.
+- Repair simple filesystem problems.
+- `du`
+- `df`
+- `fsck`
+- `e2fsck`
+- `mke2fs`
+- `tune2fs`
+- `xfs_repair`
+- `xfs_fsr`
+- `xfs_db`
 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qcAZ7vr6W9U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -33,7 +32,7 @@ Candidates should be able to maintain a standard filesystem, as well as the extr
 
 In many cases you want to find out about the free space of a disk or find how much space a directory is using or check how many inodes left.
 
-> The inode (index node) is a data structure in a Unix-style file system that describes a file-system object such as a file or a directory. Each inode stores the attributes and disk block locations of the object's data. File-system object attributes may include metadata (times of last change, access, modification), as well as owner and permission data. A directory is a list of inodes with their assigned names. The list includes an entry for itself, its parent, and each of its children. <small>([wikipedia](https://en.wikipedia.org/wiki/Inode))</small>
+> The inode (index node) is a data structure in a Unix-style file system that describes a file-system object, such as a file or a directory. Each inode stores the attributes and disk block locations of the object's data. File-system object attributes may include metadata (times of last change, access, modification), as well as owner and permission data. A directory is a list of inodes with their assigned names. The list includes an entry for itself, its parent, and each of its children. <small>([Wikipedia](https://en.wikipedia.org/wiki/Inode))</small>
 
 ### df
 
@@ -53,7 +52,7 @@ none              tmpfs     100M   28K  100M   1% /run/user
 /dev/sdb1         vfat      3.7G  7.8M  3.6G   1% /media/jadi/BA82-BECD
 ```
 
-Here, the `-T` switch tells `df` to show the file system types and \`-H\` make numbers human readable (in powers of 1000 , for powers of 2, use `-h`).
+Here, the `-T` switch tells `df` to show the file system types and \`-H\` make numbers human-readable (in powers of 1000, for powers of 2, use `-h`).
 
 On some filesystems (like ext2-4) we have a fixed number of inodes, so you may need to check the number of remaining inodes too. To do so, use the `-i` switch:
 
@@ -107,7 +106,7 @@ jadi@funlife:~/w/lpic$ du -hs
 9.0G    .
 ```
 
-> in many cases when I want to see what uses my serers space, I use something like `$sudo du /home -h --max-depth 1`
+> in many cases when I want to see what uses my servers space, I use something like `$sudo du /home -h --max-depth 1`
 
 ## checking file systems
 
@@ -115,7 +114,7 @@ jadi@funlife:~/w/lpic$ du -hs
 
 ### fsck
 
-If anything bad happens for your filesystem \(say power suddenly goes down\) you will have a corrupted file system. The general command to fix this is `fsck`. Technically this command is a front end for many commands:
+If anything bad happens for your filesystem \(say power suddenly goes down\) you will have a corrupted file system. The general command to fix this is `fsck`. Technically, this command is a front end for many commands:
 
 ```text
 jadi@funlife:~$ ls /sbin/*fsck*
@@ -127,7 +126,7 @@ jadi@funlife:~$ ls /sbin/*fsck*
 
 > Some of these are just hardlinks to `e2fsck` command
 
-A common switch during boot is `-A` which tells `fsck` to check all file systems in /etc/fstab ordered by _passno_ in that file which is 6th field \(File systems with _passno_ of 0, wont be checked during the boot.
+A common switch during boot is `-A` which tells `fsck` to check all file systems in /etc/fstab ordered by _passno_ in that file which is 6th field \(File systems with _passno_ of 0, won't be checked during the boot\).
 
 ```text
 root@funlife:~# fsck /dev/sdb
@@ -195,19 +194,19 @@ fsck from util-linux 2.25.1
 
 > If you want to check a XFS filesystem, you have to use `xfs_check` command
 
-Some version do have a `-a` for automatic fixing all found issues but its not recommended. 
+Some version do have a `-a` for automatic fixing all found issues, but it's not recommended. 
 ### e2fsck
 
-`e2fsck` is used to check the ext2/ext3/ext4 family of file systems.  For ext3 and ext4 file systems that use a `journal`, if the system has been shutdown uncleanly without any errors,normally, after replaying the committed transactions  in the journal, the file system should be marked as clean. Hence, for file systems that use **journaling** , e2fsck will normally replay the journal and exit, unless its superblock indicates that further checking is required.
+`e2fsck` is used to check the ext2/ext3/ext4 family of file systems.  For ext3 and ext4 file systems that use a `journal`, if the system has been shutdown uncleanly without any errors, normally, after replaying the committed transactions in the journal, the file system should be marked as clean. Hence, for file systems that use **journaling**, e2fsck will normally replay the journal and exit, unless its superblock indicates that further checking is required.
 
 device is a block device (e.g., `/dev/sdc1`) or file containing the file system.
 
-Note that in general it is not safe to run `e2fsck` on  ***mounted*** file systems.  The only exception is if the `-n` option is specified, and `-c`, `-l`, or `-L` options are not specified. However, even if it is safe to do so, the results printed by `e2fsck` are not valid if the file system is ***mounted*** . If `e2fsck` asks whether or not you should check a file system which is mounted, the only correct answer is ``no''.  Only experts who really know what they are doing should consider answering this question in any other way.
+Note that in general, it is not safe to run `e2fsck` on  ***mounted*** file systems.  The only exception is if the `-n` option is specified, and `-c`, `-l`, or `-L` options are not specified. However, even if it is safe to do so, the results printed by `e2fsck` are not valid if the file system is ***mounted***. If `e2fsck` asks whether you should check a file system which is mounted or not, the only correct answer is `no`. Only experts who really know what they are doing should consider answering this question in any other way.
 
 If `e2fsck` is run in interactive mode (meaning that none of `-y`, `-n`, or `-p` are specified), the program will ask the user to fix each problem found in the file system. A response of `'y'` will fix the error; `'n'` will leave the error unfixed; and `'a'` will fix the problem and all subsequent problems; pressing Enter will proceed with the default response, which is printed before the question mark.  Pressing `Control-C` terminates `e2fsck` immediately.
 
 ### mke2fs
-mke2fs is used to create an ext2, ext3, or ext4 filesystem, usually in a disk partition. device is the special file corresponding to the device (e.g /dev/hdXX). blocks-count is the number of blocks on the device. If omitted, mke2fs automagically figures the file system size. If called as mkfs.ext3 a journal is created as if the `-j` option was specified.
+mke2fs is used to create an ext2, ext3, or ext4 filesystem, usually in a disk partition. device is the special file corresponding to the device (e.g /dev/hdXX). blocks-count is the number of blocks on the device. If omitted, mke2fs automagically figures the file system size. If called as mkfs.ext3, a journal is created as if the `-j` option was specified.
 
 The defaults of the parameters for the newly created filesystem, if not overridden by the options listed below, are controlled by the /etc/mke2fs.conf configuration file. See the mke2fs.conf(5) manual page for more details.
 
@@ -265,7 +264,7 @@ Journal backup:           inode blocks
 ```
 ### debugfs
 
-This is an interactive tool for debug an ext filesystem. It opens the filesystem in read-only mode unless we tell it not to \(with `-w` option\). It can un-delete files and directories..
+This is an interactive tool for debug an ext filesystem. It opens the filesystem in read-only mode unless we tell it not to \(with `-w` option\). It can un-delete files and directories.
 
 ```text
 root@funlife:~# debugfs /dev/sda2
@@ -296,7 +295,7 @@ debugfs:  q            <-- quit
 
 #### Superblock
 
-Unix systems use superblocks to save _filesystem metadata_. Most of the times this block is located at the beginning of the file system and replicated on other locations too. The `-n` of `mke2fs` displays superblock locations
+Unix systems use superblocks to save _filesystem metadata_. Most of the time this block is located at the beginning of the file system and replicated on other locations too. The `-n` of `mke2fs` displays superblock locations
 
 ```text
 # mke2fs -n /dev/sda7
@@ -320,9 +319,9 @@ Superblock backups stored on blocks:
 
 ## xfs tools
 
-Note: in some distros, xfs tools are not installed by default and you might need to install `xfsprogs` package. 
+Note: in some distros, xfs tools are not installed by default, and you might need to install `xfsprogs` package. 
 
-This is same as the `tune2fs` but for xfs file systems.
+This is same as the `tune2fs`, but for xfs file systems.
 
 > xfs_info should be used on mounted file systems
 
@@ -332,18 +331,18 @@ This is same as the `tune2fs` but for xfs file systems.
 | xfs_growfs | expand file system |
 | xfs_admin | change parameters on XFS file systems |
 | xfs_repair | repair the problems. Please note that the filesytem under repair should be unmounted |
-| xfs_db | checks and debug the filesystem. xfs_db is used to examine an XFS filesystem. Under rare circumstances it can also be used to modify an XFS filesystem, but that task is normally left to xfs_repair or to scripts such as xfs_admin that run xfs_db. |
+| xfs_db | checks and debug the filesystem. xfs_db is used to examine an XFS filesystem. Under rare circumstances, it can also be used to modify an XFS filesystem, but that task is normally left to xfs_repair or to scripts such as xfs_admin that run xfs_db. |
 | xfs_fsr | filesystem reorganizer for XFS. When invoked with no arguments xfs_fsr reorganizes all regular files in all mounted filesystems. xfs_fsr makes many cycles over /etc/mtab each time making a single pass over each XFS filesystem. Each pass goes through and selects files that have the largest number of extents. It attempts to defragment the top 10% of these files on each pass. |
 
 
 
 ### Repairing
 
-We used the `fsck` for showing file system information but it is designed to _fix_ file systems too. If the boot time check find a problems, you will be put into a command line to fix the problems.
+We used the `fsck` for showing file system information, but it is designed to _fix_ file systems too. If the boot time check find a problem, you will be put into a command line to fix the problems.
 
-On non-journaling file systems \(ext2\) the fsck will show you many questions about each block and you have to say `y` if you want it to fix them. On journaling file systems \(ext3&4, xfs, ..\) the fsck has much less tasks to perform.
+On non-journaling file systems \(ext2\) the fsck will show you many questions about each block, and you have to say `y` if you want it to fix them. On journaling file systems \(ext3&4, xfs, ...\) the fsck has much fewer tasks to perform.
 
-> for xfs file systems, we have `xfs_check` command
+> For xfs file systems, we have `xfs_check` command
 
 An important switch is `-n` which causes these commands **not to fix** anything and just show what was going to be done.
 
@@ -356,7 +355,7 @@ For the LPIC exam, it is good to know about these commands.
 | :---: | :---: | :--- |
 | ext | tune2fs | Show or set ext2 and ext3 parameters or even set the journaling options |
 | ext | dumpe2fs | Prints the super block and block group descriptor information for an ext2 or ext3 filesystem. |
-| ext | debugfs | Is an interactive file system debugger. Use it to examine or change the state of an ext2 or ext3file system. |
+| ext | debugfs | It's an interactive file system debugger. Use it to examine or change the state of an ext2 or ext3file system. |
 | reiserfs | reiserfstune | show and set parameters |
 | reiserfs | debugreiserfs | Prints the super block and block group descriptor information for an ext2 or ext3 filesystem. |
 | XFS | xfs\_info | display information |

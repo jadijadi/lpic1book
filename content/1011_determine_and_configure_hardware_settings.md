@@ -20,10 +20,10 @@ Candidates should be able to determine and configure fundamental system hardware
 - `/sys`
 - `/proc`
 - `/dev`
-- modprobe
-- lsmod
-- lspci
-- lsusb
+- `modprobe`
+- `lsmod`
+- `lspci`
+- `lsusb`
  
 
 ## Find out about the hardware

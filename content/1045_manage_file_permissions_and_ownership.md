@@ -12,21 +12,20 @@ Candidates should be able to control file access through the proper use of permi
 
 ### Key Knowledge Areas
 
-* Manage access permissions on regular and special files as well as directories.
-* Use access modes such as suid, sgid and the sticky bit to maintain security.
-* Know how to change the file creation mask.
-* Use the group field to grant file access to group members.
-
-* chmod
-* umask
-* chown
-* chgrp
+- Manage access permissions on regular and special files as well as directories.
+- Use access modes such as suid, sgid and the sticky bit to maintain security.
+- Know how to change the file creation mask.
+- Use the group field to grant file access to group members.
+- `chmod`
+- `umask`
+- `chown`
+- `chgrp`
 
 ## Users and Groups
 
 A linux system can have many users and many groups. You can login with one user and use `su` command to change to another group. Each user belongs to one primary group and can be a member of other groups too.
 
-To check your user and group use the `whoami`, `groups` and `id` commands.
+To check your user and group, use the `whoami`, `groups` and `id` commands.
 
 ```text
 - $ whoami
@@ -60,7 +59,7 @@ lpadmin:x:108:jadi
 ## File ownership & permissions
 Linux uses three layers of access/permissions for each file or directory: User, Group & Others.
 
-Each file belongs to one user and one group and this user and the members of that group will have specific read/write/execute accesses on it. Have a look:
+Each file belongs to one user and one group, and this user and the members of that group will have specific read/write/execute accesses on it. Have a look:
 
 ```text
 $ ls -ltrh script.sh
@@ -84,7 +83,7 @@ The below table shows some more information regarding the first part of the `ls 
 | 11 | Indicated if any other access methods \(such as SELinux\) are applies to this file - not part of the LPIC 101 exam |
 
 
-Lets check another example.
+Let's check another example.
 
 ```text
 $ ls -l /sbin/fdisk
@@ -93,9 +92,9 @@ $ ls -l /sbin/fdisk
 
 We can see that the `fdisk` can be read, be written and be executed by its owner \(root\). Other users (even if they belong to the group `root`) can only read and execute it.
 
-> although non-root users can execute the fdisk, this program wont do much if it sees that a non root user is running it.
+> Although non-root users can execute the fdisk, this program won't do much if it sees that a non-root user is running it.
 
-Lets look at another example:
+Let's look at another example:
 
 ```text
 $ ls -l /home/
@@ -103,9 +102,9 @@ total 12
 drwxr-xr-x 160 jadi jadi 12288 Feb  7 11:44 jadi
 ```
 
-The first character is a `d` so this is a directory. The owner \(`jadi`\) has read, write and execute access but other members of the `jadi` **group** and **others** only have read and execute access on this directory.
+The first character is a `d` so this is a directory. The owner \(`jadi`\) has read, write and execute access, but other members of the `jadi` **group** and **others** only have read and execute access on this directory.
 
-execute \(`x` character\) means that they can see the files inside it, have a look if dir has not `x`:
+Execute \(`x` character\) means that they can see the files inside it, take a look if dir has not `x`:
 
 ```txt
 (with root user)
@@ -133,7 +132,7 @@ It is possible to change the permissions on files & directories using the `chmod
 1. using octal (base 8) codes
 2. using short codes 
 
-When using octal codes, you have to to create an octal number to tell chmod what you want to do. In this method, `0` means no access, `1` means execute, `2` means write and `4` means read. So if you want to give ***read***+***execute***, you have to give `4`+`1` which is `5`. The below table shows every possible combination:
+When using octal codes, you have to create an octal number to tell chmod what you want to do. In this method, `0` means no access, `1` means execute, `2` means write and `4` means read. So if you want to give ***read***+***execute***, you have to give `4`+`1` which is `5`. The below table shows every possible combination:
 
 | Symbolic | Octal |
 | :---: | :---:  |
@@ -156,7 +155,7 @@ $ ls -ltrh myfile
 -rwxr-x--x 1 jadi jadi 0 Feb  8 21:01 myfile
 ```
 
-This might look difficult but there are some commonly used combinations like `755` for general executable files or `600` for personal files.
+This might look difficult, but there are some commonly used combinations, like `755` for general executable files or `600` for personal files.
 
 There is also an _easier_ method. In this method `u` means user, `g` means group and `o` means others. You can append `+x` to give execute permission, `+r` to give read permission and `+w` to give write permission. For example `u+x` will grant execute permission to user. If you want to remove a permission, use a `-` sign. For example `g-r` to prevent `group` members from `read`ing the file.
 
@@ -196,7 +195,7 @@ $ ls -ltrh newfile
 
 A common switch is `-R` to `chown` recursively.
 
-If need to only change the group you may use `chgrp` command:
+If need to only change the group, you may use `chgrp` command:
 
 ```text
 $ sudo chgrp postgres newfile
@@ -229,7 +228,7 @@ $ ls -ltrh new*
 
 A question for you: If we do not have write access to `/etc/passwd` or `/etc/shadow`, how is it possible to change our password then?
 
-Normally when you run a program, it runs with _your_ access level. But what happens if you need to run a program with a higher access level? say to do changes in the password files? For this Linux sets two special bits for each file; **suid** \(set user id\) and **sgid** \(set group id\). If these bits are set on a file, that file will be executed with the access of the **owner** (or **group**) of the file and not the user who is running it.
+Normally, when you run a program, it runs with _your_ access level. But what happens if you need to run a program with a higher access level? Say to do changes in the password files? For this, Linux sets two special bits for each file; **suid** \(set user id\) and **sgid** \(set group id\). If these bits are set on a file, that file will be executed with the access of the **owner** (or **group**) of the file and not the user who is running it.
 
 ```text
 $ ls -ltrh /usr/bin/passwd
@@ -240,7 +239,7 @@ Kindly note the `s` in the _executable bit_ for the user permissions and also fo
 
 It is possible to set/unset the `suid` and `sgid` using `chmod` and `+s` or `-s` instead of `x`.
 
-While we are on this, let me introduce you to the last special bit. It is called **sticky bit** and if set, makes the file resistant to ***deletion***. If the sticky bit is set, ONLY the owner of the file will be able to delete it, even if others do have write access to it. This is useful for places like /tmp (everybody has write access on /tmp directory but we do not want others to delete our files).
+While we are on this, let me introduce you to the last special bit. It is called **sticky bit**, and if set, makes the file resistant to ***deletion***. If the sticky bit is set, ONLY the owner of the file will be able to delete it, even if others do have write access to it. This is useful for places like /tmp (everybody has write access on /tmp directory, but we do not want others to delete our files).
 
 Sticky bit is identified by `t` and will be shown on the last bit of a `ls -l`:
 
@@ -249,9 +248,9 @@ $ ls -dl /tmp
 drwxrwxrwt 13 root root 77824 Feb  8 21:27 /tmp
 ```
 
-As you can see the sticky bit is set and although all users have write access in this directory, they wont be able to delete each others files.
+As you can see, the sticky bit is set and although all users have write access in this directory, they won't be able to delete each other's files.
 
-Lets review how you can set these access modes:
+Let's review how you can set these access modes:
 
 | access mode | octal | symbolic |
 | :---: | :---: | :---: |
@@ -263,7 +262,7 @@ Lets review how you can set these access modes:
 
 ## umask
 
-Another tricky question: what is the permissions of a newly created file? What happens if you `touch` a non-existing file? What will be its permissions? This is set by the `umask`. This command tells the system what permissions (in addition to execute) **should not be given to** new files. In other words, imagine that all new files will have `666` octal permission (write + read for user, group & others), so a umask of 0002 (yes! 4 digits) will remove the 2 (write) for others (666-0002=664):
+Another tricky question: what are the permissions of a newly created file? What happens if you `touch` a non-existing file? What will be its permissions? This is set by the `umask`. This command tells the system what permissions (in addition to execute) **should not be given to** new files. In other words, imagine that all new files will have `666` octal permission (write + read for user, group & others), so an umask of 0002 (yes! 4 digits) will remove the 2 (write) for others (666-0002=664):
 
 ```text
 $ umask

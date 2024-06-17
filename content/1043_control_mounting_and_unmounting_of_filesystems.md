@@ -14,13 +14,12 @@ Candidates should be able to configure the mounting of a filesystem.
 - Configure user mountable removable filesystems.
 - Use of labels and UUIDs for identifying and mounting file systems.
 - Awareness of systemd mount units.
-
-- /etc/fstab
-- /media/
-- mount
-- umount
-- blkid
-- lsblk
+- `/etc/fstab`
+- `/media/`
+- `mount`
+- `umount`
+- `blkid`
+- `lsblk`
 
 
 
@@ -28,7 +27,7 @@ Candidates should be able to configure the mounting of a filesystem.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dod65eKzWtw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Mounting and Unmounting
-When we have a formatted partition and need to use it, we have to `mount` it somewhere in the Linux directory hierarchy. Unlike Windows, the new *driver* do now show up as separated disks, but like *virtual subdirectories* somewhere in your `/` tree. 
+When we have a formatted partition and need to use it, we have to `mount` it somewhere in the Linux directory hierarchy. Unlike Windows, the new *driver* does now show up as separated disks, but like *virtual subdirectories* somewhere in your `/` tree. 
 
 Say we want to *mount* the `/dev/sda3` on `/media/mydisk`. The directory `/media/mydisk` should be there and then, we just run:
 
@@ -52,7 +51,7 @@ Mounting and umounting can happen on many different storage types, for example o
 ```
 mount -t ext4 /dev/sda1 /media
 ```
-The `-t` switch indicates the type of the filesystem .
+The `-t` switch indicates the type of the filesystem.
 
 ```
 mount -o remount,ro /dev/sda1
@@ -69,7 +68,7 @@ mount -t ext4 -o remount,ro /dev/sda1 /media
 > The `/media` and `/mnt` directories are used to mount filesystems, even though you can use any directory for this purpose.
 
 ### UUID & Labels
-As you already know, there is a problem when working with classical device names like `/dev/vdb1`: they change! The current `/dev/sdb` might be seen as `/dev/sdd` after you remove / reconnect it. To solve this, its better to work with UUIDs (Universal Unique Identifiers). Check them with `lsblk` ( `-O` will show all available columns or specify with -o as below) and `blkid`.
+As you already know, there is a problem when working with classical device names like `/dev/vdb1`: they change! The current `/dev/sdb` might be seen as `/dev/sdd` after you remove / reconnect it. To solve this, it's better to work with UUIDs (Universal Unique Identifiers). Check them with `lsblk` (`-O` will show all available columns or specify with -o as below) and `blkid`.
 
 ```txt
 # lsblk -o +UUID
@@ -102,7 +101,7 @@ vdb    252:16   0    2G  0 disk
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/lQGvxIkdcSE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-For automatic mounting, Linux uses the `/etc/fstab` file. Its like a table which shows what file system should be mounted where during the boot. This is my the `/etc/fstab` of my Fedora:
+For automatic mounting, Linux uses the `/etc/fstab` file. It's like a table which shows what file system should be mounted where during the boot. This is my the `/etc/fstab` of my Fedora:
 
 ```
 # cat /etc/fstab
@@ -128,9 +127,9 @@ These are the columns:
 
 - file system: Label, UUID, device
 - mount point: swap or none for swap
-- type: can be ext4 , xfs ,nfs or other types of filesystem
+- type: can be ext4, xfs, nfs or other types of filesystem
 - options:  defaults, rw / ro, noauto, user, exec / noexec, noatime, umask
-- dump: do dump command backup this? mostly 0
+- dump: do dump command backup this? Mostly 0
 - pass: Non-zero values of pass specify the order of checking filesystems at boot time
 
 **note:**

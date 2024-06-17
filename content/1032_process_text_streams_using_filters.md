@@ -15,32 +15,32 @@ Description: Candidates should be able to apply filters to text streams.
 Send text files and output streams through text utility filters to modify the output using standard UNIX commands found in the GNU textutils package.
 
 ## Terms
-* bzcat
-* cat
-* cut
-* head
-* less
-* md5sum
-* nl
-* od
-* paste
-* sed
-* sha256sum
-* sha512sum
-* sort
-* split
-* tail
-* tr
-* uniq
-* wc
-* xzcat
-* zcat
+- `bzcat`
+- `cat`
+- `cut`
+- `head`
+- `less`
+- `md5sum`
+- `nl`
+- `od`
+- `paste`
+- `sed`
+- `sha256sum`
+- `sha512sum`
+- `sort`
+- `split`
+- `tail`
+- `tr`
+- `uniq`
+- `wc`
+- `xzcat`
+- `zcat`
 
 ## Streams
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/2mTH7HbErh8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-In **UNIX** world a lot of data is in TEXT form. Log files, configurations, data, etc. **Filtering** this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a **streams** is nothing more than _"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"_.
+In **UNIX** world, a lot of data is in TEXT form. Log files, configurations, data, etc. **Filtering** this data means taking an input stream of text and performing some conversion on the text before sending it to an output stream. In this context, a **stream** is nothing more than _"a sequence of bytes that can be read or written using library functions that hide the details of an underlying device from the application"_.
 
 In simple words, a text stream is an input of text from a keyboard, a file, a network device, ... which can be viewed, changed, examined, and ... via text util commands.
 
@@ -167,13 +167,13 @@ still writing
 
 * By default, split uses xaa, xab, xac, ... for output file names. It can be changed with `split -l 2 mydata output` which split mydata into outputaa, outputab, ...; 2 lines per file.
 * the `-l 2` splits 2 lines per file. It is possible to use `-b 42` to split every 42 bytes or even `-n 5` to force 5 output files.
-* If you want numeric output \(x00, x01, ..\) use `-d` option.
+* If you want numeric output \(x00, x01, ...\) use `-d` option.
 
 > Need to join these files? `cat` them with `cat x* > originalfile`.
 
 
 ### head and tail
-Will show the beginning (head) or end (tail) of text files. By default, it will show 10 lines but you can change it by `-n20` or `-20`.
+Will show the beginning (head) or end (tail) of text files. By default, it will show 10 lines, but you can change it by `-n20` or `-20`.
 
 > `tail -f` follows the new lines which are being written at the end of the file. Very useful.
 
@@ -181,7 +181,7 @@ Will show the beginning (head) or end (tail) of text files. By default, it will 
 
 The `cut` command will _cut_ one or more columns from a file. Good for separating fields:
 
-Lets cut the _first field_ of a file.
+Let's cut the _first field_ of a file.
 
 ```text
 jadi@funlife:~/w/lpic/101$ cat howcool
@@ -196,7 +196,7 @@ rubic
 you
 ```
 
-> Default delimiter is TAB. use `-dx` to change it to "x" or `-d' '` to change it to space
+> The default delimiter is TAB. Use `-dx` to change it to "x" or `-d' '` to change it to space
 
 It is also possible to _cut_ fields 1, 2, and 3 with `-f1-3` or only characters with index 4, 5, 7, 8 from each line `-c4,5,7,8`.
 
@@ -247,7 +247,7 @@ If you want a reverse sort, use the `-r` switch.
 
 > If you want to sort NUMERICALLY \(so 9 is lower than 19\), use `-n`.
 
-And the `uniq` removes duplicate entries from its input. Normal behavior is removing only the duplicated lines but you can change its behavior, for example  `-f1` switch forces it not to check the first field.
+And the `uniq` removes duplicate entries from its input. Normal behavior is removing only the duplicated lines, but you can change its behavior, for example  `-f1` switch forces it not to check the first field.
 
 ```text
 jadi@funlife:~/w/lpic/101$ uniq what_i_have.txt
@@ -316,7 +316,7 @@ you     12    neda mac
 ```
 
 ### tr
-The `tr` command _translates_ characters in the stream. For example, `tr 'ABC' '123'` will replace A with 1, B with 2, and C with 3 in the provided stream. It is a pure filter and does not accept the input file name. If needed you can pipe the cat with it (see chapter 103.4).
+The `tr` command _translates_ characters in the stream. For example, `tr 'ABC' '123'` will replace A with 1, B with 2, and C with 3 in the provided stream. It is a pure filter and does not accept the input file name. If needed, you can pipe the cat with it (see chapter 103.4).
 
 ```text
 jadi@funlife:~/w/lpic/101$ cat mydata
@@ -346,7 +346,7 @@ AND loNger!
 
 ### sed
 
-sed is **s**tream **ed**itor. It is POWERFUL and can do things that are not far from magic! Just like most of the tools we've seen far now, sed can work as a filter or take input from a file. Sed is a great tool for replacing text with using **regular expressions** . If you need to replace A with B only once in each line in a stream just issue  `sed 's/A/B/'`:
+sed is **s**tream **ed**itor. It is POWERFUL and can do things that are not far from magic! Just like most of the tools we've seen far now, sed can work as a filter or take input from a file. Sed is a great tool for replacing text with using **regular expressions**. If you need to replace A with B only once in each line in a stream, just issue  `sed 's/A/B/'`:
 
 ```text
 jadi@funlife:~/w/lpic/101$ cat uses
@@ -364,7 +364,7 @@ jadi@funlife:~/w/lpic/101$
 
 The pattern for changing EVERY occurrence of A to B in a line is `sed 's/A/B/g'`.
 
-Remember escape characters? They also work here and this will remove every _new line_ from a file and will replace it with a space:
+Remember escape characters? They also work here, and this will remove every _new line_ from a file and will replace it with a space:
 
 ```text
 jadi@funlife:~/w/lpic/101$ cat mydata
@@ -438,9 +438,9 @@ A hash function is any function that can be used to map data of arbitrary size t
 
 The hashing algorithms covered in LPIC1 are:
 
-- md5sum
-- sha256sum
-- sha512sum
+- `md5sum`
+- `sha256sum`
+- `sha512sum`
 
 You can check any file (or input streams hash with something like this):
 

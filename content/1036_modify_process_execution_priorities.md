@@ -11,17 +11,17 @@ _Weight: 2_
 Candidates should be able to manage process execution priorities.
 
 ## Objectives
-* Know the default priority of a job that is created.
-* Run a program with higher or lower priority than the default.
-* Change the priority of a running process.
+- Know the default priority of a job that is created.
+- Run a program with higher or lower priority than the default.
+- Change the priority of a running process.
 
 ## Terms
-* nice
-* ps
-* renice
-* top
+- `nice`
+- `ps`
+- `renice`
+- `top`
 
-On a Linux machine, you might have 100s of processes running at the same time and competing for more CPU & RAM. The good news is that you can give some of the processes higher or lower priority (or nice-ness) in this competition. Let's have a look at a sample `top` output:
+On a Linux machine, you might have 100s of processes running at the same time and competing for more CPU & RAM. The good news is that you can give some of the processes higher or lower priority (or nice-ness) in this competition. Let's take a look at a sample `top` output:
 
 
 ```text
@@ -45,7 +45,7 @@ MiB Swap:    975.0 total,    975.0 free,      0.0 used.   5210.3 avail Mem
      11 root      20   0       0      0      0 S   0.0   0.0   0:00.00 rcu_tasks_trace
 ```
 
-The **NI** column shows how **nice** this process is. The nicer the process, the less CPU it asks. The `nice` values can be from -20 to 19. To interpret this value, look at it like this: a process with nice = **-20** is ANGRY and gets more priority for CPU and RAM while a process with nice = **19** is SUPER NICE and lets **other** processes use the resources before her).
+The **NI** column shows how **nice** this process is. The nicer the process, the less CPU it asks. The `nice` values can be from -20 to 19. To interpret this value, look at it like this: a process with nice = **-20** is ANGRY and gets more priority for CPU and RAM, while a process with nice = **19** is SUPER NICE and lets **other** processes use the resources before her.
 
 The default value for `nice` is normally set to 0; this can be checked with:
 
@@ -66,7 +66,7 @@ F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 
 ### Setting nice-ness
 
-If you need to change the niceness level of a program you can run it with `nice` command and `-n` switch \(for nice\):
+If you need to change the niceness level of a program, you can run it with `nice` command and `-n` switch \(for nice\):
 
 ```text
 $ nice -n 19 echo "I am running!"

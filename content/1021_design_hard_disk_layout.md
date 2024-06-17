@@ -45,7 +45,7 @@ This might be your enlightening moment in your Linux journey. Understanding **Fi
 | Directory | Description |
 | :--- | :--- |
 | bin | Essential command binaries |
-| boot | Static files of the boot loader |
+| boot | Static files of the bootloader |
 | dev | Device files |
 | etc | Host-specific system configuration |
 | home | Home directory of the users |
@@ -116,7 +116,7 @@ Device     Boot     Start       End   Sectors   Size Id Type
 /dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
 ```
 
-The newer **GUID Partition Table \(or GPT\)** solves these problems. If you format your disk with GPT you can have 128 primary partitions \(no need for extended and logical\).
+The newer **GUID Partition Table \(or GPT\)** solves these problems. If you format your disk with GPT, you can have 128 primary partitions \(no need for extended and logical\).
 
 ## Commands
 
@@ -191,11 +191,11 @@ Disk layout and allocation partitions to directories depend on your usage. First
 
 Swap in Linux works like an extended memory. The Kernel will _page_ memory to this partition/file. It is enough to format one partition with **swap file system** and define it in `/etc/fstab` \(you will see this later in 104 modules\).
 
-> Note: There is no strict formula for swap size. People used to say "double the ram but not more than 8GB". On recent machines with SSDs, some say "RAM + 2" (Hibernation + some extra ) or "RAM * 2" depending on your usage.
+> Note: There is no strict formula for swap size. People used to say "double the ram but not more than 8GB". On recent machines with SSDs, some say "RAM + 2" (Hibernation + some extra) or "RAM * 2" depending on your usage.
 
 **/boot**
 
-Older Linux systems were not able to handle HUGE disks during boot \(say Terabytes\) so the `/boot` partition was separated. this separation comes in handy in situations such as  recovering broken systems. you can even make `/boot` read-only. Most of the time, having 100MB for `/boot` is enough. This partition can be on a different disk or a separated partition.
+Older Linux systems were not able to handle HUGE disks during boot \(say Terabytes\) so the `/boot` partition was separated. This separation comes in handy in situations such as  recovering broken systems. You can even make `/boot` read-only. Most of the time, having 100MB for `/boot` is enough. This partition can be on a different disk or a separated partition.
 
 This partition should be accessible by BIOS/UEFI during boot \(No network drive\).
 
@@ -207,14 +207,14 @@ On a desktop computer, it is good to have one swap, one `/boot`, and allocate al
 
 ### Case two: Network workstation
 
-As any other system `/boot` should be local \(a physical disk is connected to the machine\) and most of the time, the `/` \(root file system\) is also local. But in a network station, `/home` can be mounted from a network drive \(NFS, SMB, SSH, ..\). This lets users sit at any station, login, and have their own home mounted from a network drive. Swap can be mounted from network or local.
+As any other system `/boot` should be local \(a physical disk is connected to the machine\) and most of the time, the `/` \(root file system\) is also local. But in a network station, `/home` can be mounted from a network drive \(NFS, SMB, SSH, ...\). This lets users sit at any station, login, and have their own home mounted from a network drive. Swap can be mounted from network or local.
 
 ### Case three: Server
 
-On servers `/boot` is still local and based on usage, `/home` can be local or network. In many cases, we separate the `/var` because logs and many other files are there and being updated so it is good to separate it or even put it on more advanced storage \(like RAID disks to prevent data loss\). Some people also separate the `/usr` and write-protect it \(read-only file systems\) or even mount the `/usr` from the network so they can change/update one file on the network storage and all the servers will use the new file \(You remember? `/usr` contains important executables like Apache webserver\).
+On servers `/boot` is still local and based on usage, `/home` can be local or network. In many cases, we separate the `/var` because logs and many other files are there and being updated, so it is good to separate it or even put it on more advanced storage \(like RAID disks to prevent data loss\). Some people also separate the `/usr` and write-protect it \(read-only file systems\) or even mount the `/usr` from the network so they can change/update one file on the network storage and all the servers will use the new file \(You remember? `/usr` contains important executables like Apache webserver\).
 
-## Bonus! know about zram
-Here I'll review the 3 different methods to add a *swap* to your OS. We will have a look at 3 different distros:
+## Bonus! Know about zram
+Here I'll review the 3 different methods to add a *swap* to your OS. We will take a look at 3 different distros:
 
 - Debian 11: Uses a swap partition
 - Ubuntu 22.04: Uses a swap file

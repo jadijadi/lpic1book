@@ -11,32 +11,32 @@ _Weight: 4_
 Candidates should be able to use the basic Linux commands to manage files and directories.
 
 ## Objectives
-* Copy, move and remove files and directories individually.
-* Copy multiple files and directories recursively.
-* Remove files and directories recursively.
-* Use simple and advanced wildcard specifications in commands.
-* Using find to locate and act on files based on type, size, or time.
-* Usage of tar, cpio, and dd.
+- Copy, move and remove files and directories individually.
+- Copy multiple files and directories recursively.
+- Remove files and directories recursively.
+- Use simple and advanced wildcard specifications in commands.
+- Using find to locate and act on files based on type, size, or time.
+- Usage of tar, cpio, and dd.
 
 ### Terms
-- cp
-- find
-- mkdir
-- mv
-- ls
-- rm
-- rmdir
-- touch
-- tar
-- cpio
-- dd
-- file
-- gzip
-- gunzip
-- bzip2
-- bunzip2
-- xz
-- unxz
+- `cp`
+- `find`
+- `mkdir`
+- `mv`
+- `ls`
+- `rm`
+- `rmdir`
+- `touch`
+- `tar`
+- `cpio`
+- `dd`
+- `file`
+- `gzip`
+- `gunzip`
+- `bzip2`
+- `bunzip2`
+- `xz`
+- `unxz`
 - file globbing
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/lTnkGg9o6u0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -48,7 +48,7 @@ File globbing is a shell capability that lets you tell things like :
 - all files with 3-letter names which end in A or B or C
 - ...
 
-To do so you need to know about these characters:
+To do so, you need to know about these characters:
 
 * `*` means **any string**
 * `?` means any single character
@@ -57,7 +57,7 @@ To do so you need to know about these characters:
 * `[0-9a-z]` matches all digits and numbers
 * `[!x]` means NOT X.
 
-knowing these, you can create your patterns. For example:
+Knowing these, you can create your patterns. For example:
 
 | command | meaning |
 | :--- | :--- |
@@ -69,7 +69,7 @@ knowing these, you can create your patterns. For example:
 ### general commands
 #### listing with `ls`
 
-`ls` used to _list_ directories & files. You can provide an absolute or relative path; if omitted the "." will be used as a target.
+`ls` used to _list_ directories & files. You can provide an absolute or relative path; if omitted, the "." will be used as a target.
 
 ```text
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
@@ -80,16 +80,16 @@ total 16K
 -rw-rw-r-- 1 jadi jadi 116 Aug 14 04:44 note_to_self
 ```
 
-> First field indicates if this is a file (`-`) or directory (`d`).
+> The First field indicates if this is a file (`-`) or directory (`d`).
 
 Some common switches are:
 
 * `-l` is for _long_ (more info for each file)
 * `-1` will print one file per line
 * `-t` sorts based on modification date
-* `-r` reverses the search (so `-tr` is reverse time (newer files at the bottom).
+* `-r` reverses the search (so `-tr` is reverse time (newer files at the bottom)).
 
-> you can mix switches. A famous one is `-ltrh` (long + human readable sizes + reverse time).
+> You can mix switches. A famous one is `-ltrh` (long + human-readable sizes + reverse time).
 
 ### Copy (`cp`), Move (`mv`), and Delete (`rm`)
 #### **cp**
@@ -112,17 +112,17 @@ In general:
 
 * If the target is an existing directory, then all sources are copied into the target
 * If the target directory does not exist, then the source must be only one directory which will be renamed to the target directory.
-* If the target is a file, then the source must be only one file so rename will happen.
+* If the target is a file, then the source must be only one file, so rename will happen.
 
 These look like "formulas" but they are common sense!
 
 #### **rm**
 
-Removes (Deletes) **files**. You can do this recursively using the `-r` switch or even prevent it from checking for confirmations using `-f` (force) switch. So a `rm -rf /` means *delete everything from the file system*.
+Removes (Deletes) **files**. You can do this recursively using the `-r` switch, or even prevent it from checking for confirmations using `-f` (force) switch. So a `rm -rf /` means *delete everything from the file system*.
 
-**notes**
+**Notes**
 
-Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the `mv` will not move or rename a file if the target exists. Although this is highly dependent on your system's configuration. But in all cases, you can overcome this using the `-f` switch.
+Normally, the cp command will copy a file over an existing copy, if the existing file is writable. On the other hand, the `mv` will not move or rename a file if the target exists. Although, this is highly dependent on your system's configuration. But in all cases, you can overcome this using the `-f` switch.
 
 * `-f` (--force) will cause cp to try overwriting the target.
 * `-i` (--interactive) will ask Y/N question (deleting / overwriting).
@@ -193,7 +193,7 @@ jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ tree
 <iframe width="560" height="315" src="https://www.youtube.com/embed/tSN1MSaFYEw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 #### **touch**
-The `touch` will create an empty file (if it does not exists) or updates the **modification** date of a file if it already exists. The default time is *now* but you can specify other times too.
+The `touch` will create an empty file (if it does not exist) or updates the **modification** date of a file if it already exists. The default time is *now*, but you can specify other times too.
 
 ```
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -ltrh
@@ -239,7 +239,7 @@ $ ls -ltrh file?
 -rw-rw-r-- 1 jadi jadi 0 Nov  5  2022 file3
 ```
 
-Oh.. and it's possible to use another file's time to set, with switch `-r` (for --reference)):
+Oh... and it's possible to use another file's time to set, with switch `-r` (for --reference):
 
 ```
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ ls -l /etc/debian_version
@@ -281,7 +281,7 @@ jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$
 * `if` is the Input File
 * `of` is the Output File
 
-But commonly people use it to read/write from block devices. For example, this will read all the sectors from the `/dev/sdb` and will write them to a file named`backup.dd`. Later you can restore this backup by swapping the `if` and `of` and writing from the `backup.dd` to `/dev/sdb`. 
+But commonly, people use it to read/write from block devices. For example, this will read all the sectors from the `/dev/sdb` and will write them to a file named `backup.dd`. Later, you can restore this backup by swapping the `if` and `of` and writing from the `backup.dd` to `/dev/sdb`. 
 
 
 ```
@@ -308,7 +308,7 @@ $ sudo dd if=ubuntu.iso of=/dev/sdc bs=2048
 
 > Caution: here you are writing directly on a block device. If you do something wrong... you will ruin your disk and need to reformat it.
 #### **find**
-The `find` command helps us to find files based on different criteria. Look at this:
+The `find` command helps us find files based on different criteria. Look at this:
 
 ```
 $ find . -iname "[a-j]*"
@@ -330,14 +330,14 @@ jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ find . -type d -iname "[a-j]*"
 ./directory/innder_one
 ```
 
-if you want to search for file sizes do as below:
+if you want to search for file sizes, do as below:
 
 | command | meaning |
 | :--- | :--- |
 | -size 100c | files which are exactly 100 characters/bytes (you can also use `b`) |
 | -size +100k | files which are more than 100 kilobytes |
-| -size -20M | files smaller than 20Megabytes |
-| -size +2G | files bigger than 2Gigabytes |
+| -size -20M | files smaller than 20 Megabytes |
+| -size +2G | files bigger than 2 Gigabytes |
 
 So this will find all files ending in _tmp_ with sizes between 1M and 100M in /var/ directory:
 
@@ -352,10 +352,10 @@ Another useful search criterion is time. These are some of the options:
 
 | switch | meaning | samples |
 | :--- | :--- | :--- |
-| -amin | Access Minutes | `-amin 40` means "files accessed exactly 40min ago" or `-amin +40` mins files accessed more than 40min ago and `-amin -40` means files accessed less than 40min ago|
+| -amin | Access Minutes | `-amin 40` means "files accessed exactly 40 min ago" or `-amin +40` mins files accessed more than 40 min ago and `-amin -40` means files accessed less than 40 min ago|
 | -cmin | Status Change Min | `-cmin +60` file status changed before last hour |
 | -mmin | Modified Minutes | `-mmin -60` will give us files modified in last hour |
-| -atime | access time in days | `-atime +1` means files access "more than 1 days ago (which means 2 days and more)|
+| -atime | access time in days | `-atime +1` means files access "more than 1 days ago" (which means 2 days and more)|
 | -ctime | Status Changed in Days ||
 | -mtime | Modified days | |
 | -newer | Newer than reference | `-newer file1` will give you files which are newer than file1 |
@@ -430,7 +430,7 @@ drwxrwxr-x 3 jadi jadi 4.0K Aug 14 05:20 directory
 
 #### **bzip2 & bunzip2**
 
-The `bzip2` is another compressing tool. Works just like the famous `gzip` but with a different compression algorithm.
+The `bzip2` is another compressing tool. Works just like the famous `gzip`, but with a different compression algorithm.
 
 ```
 jadi@lpicjadi:~/lpic1-practice-iso/100/103.3$ bzip2 tasks.txt
@@ -474,12 +474,12 @@ drwxrwxr-x 3 jadi jadi 4.0K Aug 14 05:20 directory
 
 Please note that *compressing* a small text file makes it larger. This is *normal* in small files because of all the headers and metadata.
 
-> In some cases, commands like `unxz` is just a calls to `xz --dcompress`
+> In some cases, commands like `unxz` is just a call to `xz --dcompress`
 
 
 ### Archiving with tar & cpio
 
-Sometimes we need to create an archive file container of many other files. This operation is different than compressing, it combines files into one and then extracts them again. Archiving is mostly used in backups, moving files to a new location (say via email), and such. This is done with `cpio` and `tar`.
+Sometimes we need to create an archive file container of many other files. This operation is different from compressing, it combines files into one and then extracts them again. Archiving is mostly used in backups, moving files to a new location (say via email), and such. This is done with `cpio` and `tar`.
 
 #### **tar**
 
@@ -487,7 +487,7 @@ TapeARchive or tar is the most common archiving tool. It automatically creates a
 
 Common switches are:
 
-| switch | meanint |
+| switch | meaning |
 | :--- | :--- |
 | -cf `myarchive.tar` | create file named myarchive.tar |
 | -xf `myarchive.tar` | extract a file named myarchive.tar |
