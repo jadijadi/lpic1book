@@ -96,7 +96,7 @@
 <li>Shutdown and reboot from the command line.</li>
 <li>Alert users before switching runlevels / boot targets or other major system events.</li>
 <li>Properly terminate processes.</li>
-<li>Awareness of acpid.</li>
+<li>Awareness of acpi.</li>
 </ul>
 <h2>The following is a partial list of the used files, terms and utilities:</h2>
 <ul>
@@ -153,8 +153,8 @@
 
 <p>It is also possible to <em>isolate</em> any of the targets or move to two special targets too:</p>
 <ol>
-<li><code>rescue</code>: Local file systems are mounted, there is no networking, and only root user (<em>maintenance</em> mode)</li>
-<li><code>emergency</code>: Only the root file system and in read-only mode, No networking and only root (<em>maintenance</em> mode)</li>
+<li><code>rescue</code>: Local file systems are mounted, no networking, and root-user only (<em>maintenance</em> mode)</li>
+<li><code>emergency</code>: Only the root file system and in read-only mode, No networking and root-user only(<em>maintenance</em> mode)</li>
 <li><code>reboot</code></li>
 <li><code>halt</code>: Stops all processes and halts CPU activities</li>
 <li><code>poweroff</code>: Like halt but also sends an ACPI shutdown signal (No lights!)</li>
@@ -287,7 +287,7 @@ x:5:respawn:/etc/X11/prefdm -nodaemon
 <h2>Stopping the system</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/C7kr7fZtWqs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p>The preferred method to shut down or reboot the system is to use the <code>shutdown</code> command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 1 minute or another delay, if specified, init sends a SIGKILL signal to forcibly end each remaining process.</p>
+<p>The preferred method to shut down or reboot the system is to use the <code>shutdown</code> command, which first sends a warning message to all logged-in users and blocks any further non-root logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 1 minute or another delay, if specified, init sends a SIGKILL signal to forcibly end each remaining process.</p>
 <ul>
 <li>Default is a 1-minute delay and then going to runlevel 1</li>
 <li><code>-h</code> will halt the system</li>
