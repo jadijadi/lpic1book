@@ -11,6 +11,7 @@ Candidates should be able to determine and configure fundamental system hardware
 
 ## Objectives
 
+
 - Enable and disable integrated peripherals
 - Differentiate between the various types of mass storage devices
 - Determine hardware resources for devices
@@ -28,7 +29,9 @@ Candidates should be able to determine and configure fundamental system hardware
 
 ## Find out about the hardware
 
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xCPDxgp0zXY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 An operating system (OS) is system software that manages computer hardware, and software resources, and provides common services for computer programs. It sits on top of the hardware and manages the resources when other software (Sometimes called an userspace program) asks for it. 
 
@@ -90,7 +93,9 @@ General Purpose Input Output.
 
 ## Sysfs
 
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/879oHKwgDG8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 Sysfs is a pseudo file system provided by the Linux kernel that exports information about various kernel subsystems, hardware devices, and associated device drivers from the kernel's device model to user space through virtual files.[1] In addition to providing information about various devices and kernel subsystems, exported virtual files are also used for their configuration.
 

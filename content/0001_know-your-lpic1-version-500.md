@@ -3,7 +3,6 @@ Date: 2010-12-03 10:20
 Category: LPIC1
 sortorder: 010
 
-# 101.1 Know your LPIC1 version 5 exam
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/AKkNUvEHXhk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
