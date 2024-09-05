@@ -450,12 +450,12 @@ Awareness of dnf</li>
 <p>In some cases - if you know what you are doing - you can use <code>--nodeps</code> to prevent the dependency check or even use <code>--force</code> to force the install / upgrade despite all the issues &amp; complains.</p>
 <h3>Query</h3>
 <p>A normal query is like this:</p>
-<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">fedora</span><span class="w"> </span><span class="nx">tmp</span><span class="p">]</span><span class="err">#</span><span class="w"> </span><span class="nx">rpm</span><span class="w"> </span><span class="o">-</span><span class="nx">q</span><span class="w"> </span><span class="nx">breezy</span><span class="o">-</span><span class="m m-Double">3.2.1</span><span class="o">-</span><span class="mi">3</span><span class="p">.</span><span class="nx">fc36</span><span class="p">.</span><span class="nx">x86_64</span><span class="p">.</span><span class="nx">rpm</span>
-<span class="nx">breezy</span><span class="o">-</span><span class="m m-Double">3.2.1</span><span class="o">-</span><span class="mi">3</span><span class="p">.</span><span class="nx">fc36</span><span class="p">.</span><span class="nx">x86_64</span>
-<span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">fedora</span><span class="w"> </span><span class="nx">tmp</span><span class="p">]</span><span class="err">#</span><span class="w"> </span><span class="nx">rpm</span><span class="w"> </span><span class="o">-</span><span class="nx">q</span><span class="w"> </span><span class="nx">breezy</span>
-<span class="nx">breezy</span><span class="o">-</span><span class="m m-Double">3.2.1</span><span class="o">-</span><span class="mi">3</span><span class="p">.</span><span class="nx">fc36</span><span class="p">.</span><span class="nx">x86_64</span>
-<span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">fedora</span><span class="w"> </span><span class="nx">tmp</span><span class="p">]</span><span class="err">#</span><span class="w"> </span><span class="nx">rpm</span><span class="w"> </span><span class="o">-</span><span class="nx">q</span><span class="w"> </span><span class="nx">emacs</span>
-<span class="kn">package</span><span class="w"> </span><span class="nx">emacs</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nx">installed</span>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">root@fedora tmp</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">-</span><span class="n">q</span><span class="w"> </span><span class="n">breezy</span><span class="o">-</span><span class="mf">3.2.1</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="p">.</span><span class="n">x86_64</span><span class="p">.</span><span class="n">rpm</span>
+<span class="n">breezy</span><span class="o">-</span><span class="mf">3.2.1</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="p">.</span><span class="n">x86_64</span>
+<span class="o">[</span><span class="n">root@fedora tmp</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">-</span><span class="n">q</span><span class="w"> </span><span class="n">breezy</span>
+<span class="n">breezy</span><span class="o">-</span><span class="mf">3.2.1</span><span class="o">-</span><span class="mf">3.</span><span class="n">fc36</span><span class="p">.</span><span class="n">x86_64</span>
+<span class="o">[</span><span class="n">root@fedora tmp</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">-</span><span class="n">q</span><span class="w"> </span><span class="n">emacs</span>
+<span class="n">package</span><span class="w"> </span><span class="n">emacs</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">installed</span>
 </code></pre></div>
 
 <p>And you can use these options to spice it up:</p>
@@ -512,15 +512,15 @@ Awareness of dnf</li>
 </code></pre></div>
 
 <p>And this is part of the <code>man rpm</code>'s <code>-V</code> section:</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nx">S</span><span class="w"> </span><span class="nx">Size</span><span class="w"> </span><span class="nx">differs</span>
-<span class="w">    </span><span class="nx">M</span><span class="w"> </span><span class="nx">Mode</span><span class="w"> </span><span class="nx">differs</span><span class="w"> </span><span class="p">(</span><span class="nx">includes</span><span class="w"> </span><span class="nx">permissions</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="k">type</span><span class="p">)</span>
-<span class="w">    </span><span class="mi">5</span><span class="w"> </span><span class="nx">digest</span><span class="w"> </span><span class="p">(</span><span class="nx">formerly</span><span class="w"> </span><span class="nx">MD5</span><span class="w"> </span><span class="nx">sum</span><span class="p">)</span><span class="w"> </span><span class="nx">differs</span>
-<span class="w">    </span><span class="nx">D</span><span class="w"> </span><span class="nx">Device</span><span class="w"> </span><span class="nx">major</span><span class="o">/</span><span class="nx">minor</span><span class="w"> </span><span class="nx">number</span><span class="w"> </span><span class="nx">mismatch</span>
-<span class="w">    </span><span class="nx">L</span><span class="w"> </span><span class="nx">readLink</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="nx">mismatch</span>
-<span class="w">    </span><span class="nx">U</span><span class="w"> </span><span class="nx">User</span><span class="w"> </span><span class="nx">ownership</span><span class="w"> </span><span class="nx">differs</span>
-<span class="w">    </span><span class="nx">G</span><span class="w"> </span><span class="nx">Group</span><span class="w"> </span><span class="nx">ownership</span><span class="w"> </span><span class="nx">differs</span>
-<span class="w">    </span><span class="nx">T</span><span class="w"> </span><span class="nx">mTime</span><span class="w"> </span><span class="nx">differs</span>
-<span class="w">    </span><span class="nx">P</span><span class="w"> </span><span class="nx">caPabilities</span><span class="w"> </span><span class="nx">differ</span>
+<div class="highlight"><pre><span></span><code>    S Size differs
+    M Mode differs (includes permissions and file type)
+    5 digest (formerly MD5 sum) differs
+    D Device major/minor number mismatch
+    L readLink(2) path mismatch
+    U User ownership differs
+    G Group ownership differs
+    T mTime differs
+    P caPabilities differ
 </code></pre></div>
 
 <p>You can also check the integrity of an rpm package with <code>-K</code>:</p>

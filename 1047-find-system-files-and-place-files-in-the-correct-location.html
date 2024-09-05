@@ -112,78 +112,78 @@
 <table>
 <thead>
 <tr>
-<th align="center">directory</th>
-<th align="left">usage</th>
+<th style="text-align: center;">directory</th>
+<th style="text-align: left;">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">/</td>
-<td align="left">Primary hierarchy root and root directory of the entire file system hierarchy</td>
+<td style="text-align: center;">/</td>
+<td style="text-align: left;">Primary hierarchy root and root directory of the entire file system hierarchy</td>
 </tr>
 <tr>
-<td align="center">/bin</td>
-<td align="left">Essential command binaries</td>
+<td style="text-align: center;">/bin</td>
+<td style="text-align: left;">Essential command binaries</td>
 </tr>
 <tr>
-<td align="center">/boot</td>
-<td align="left">Static files of the boot loader</td>
+<td style="text-align: center;">/boot</td>
+<td style="text-align: left;">Static files of the boot loader</td>
 </tr>
 <tr>
-<td align="center">/dev</td>
-<td align="left">Device files</td>
+<td style="text-align: center;">/dev</td>
+<td style="text-align: left;">Device files</td>
 </tr>
 <tr>
-<td align="center">/etc</td>
-<td align="left">Host-specific system configuration</td>
+<td style="text-align: center;">/etc</td>
+<td style="text-align: left;">Host-specific system configuration</td>
 </tr>
 <tr>
-<td align="center">/lib</td>
-<td align="left">Essential shared libraries and kernel modules</td>
+<td style="text-align: center;">/lib</td>
+<td style="text-align: left;">Essential shared libraries and kernel modules</td>
 </tr>
 <tr>
-<td align="center">/media</td>
-<td align="left">Mount point for removable media</td>
+<td style="text-align: center;">/media</td>
+<td style="text-align: left;">Mount point for removable media</td>
 </tr>
 <tr>
-<td align="center">/mnt</td>
-<td align="left">Mount point for mounting a filesystem temporarily</td>
+<td style="text-align: center;">/mnt</td>
+<td style="text-align: left;">Mount point for mounting a filesystem temporarily</td>
 </tr>
 <tr>
-<td align="center">/opt</td>
-<td align="left">Add-on application software packages</td>
+<td style="text-align: center;">/opt</td>
+<td style="text-align: left;">Add-on application software packages</td>
 </tr>
 <tr>
-<td align="center">/sbin</td>
-<td align="left">Essential system binaries</td>
+<td style="text-align: center;">/sbin</td>
+<td style="text-align: left;">Essential system binaries</td>
 </tr>
 <tr>
-<td align="center">/srv</td>
-<td align="left">Data for services provided by this system</td>
+<td style="text-align: center;">/srv</td>
+<td style="text-align: left;">Data for services provided by this system</td>
 </tr>
 <tr>
-<td align="center">/tmp</td>
-<td align="left">Temporary files</td>
+<td style="text-align: center;">/tmp</td>
+<td style="text-align: left;">Temporary files</td>
 </tr>
 <tr>
-<td align="center">/usr</td>
-<td align="left">Secondary hierarchy</td>
+<td style="text-align: center;">/usr</td>
+<td style="text-align: left;">Secondary hierarchy</td>
 </tr>
 <tr>
-<td align="center">/var</td>
-<td align="left">Variable data</td>
+<td style="text-align: center;">/var</td>
+<td style="text-align: left;">Variable data</td>
 </tr>
 <tr>
-<td align="center">/home</td>
-<td align="left">User home directories (optional)</td>
+<td style="text-align: center;">/home</td>
+<td style="text-align: left;">User home directories (optional)</td>
 </tr>
 <tr>
-<td align="center">/lib</td>
-<td align="left">Alternate format essential shared libraries (optional)</td>
+<td style="text-align: center;">/lib</td>
+<td style="text-align: left;">Alternate format essential shared libraries (optional)</td>
 </tr>
 <tr>
-<td align="center">/root</td>
-<td align="left">Home directory for the root user (optional)</td>
+<td style="text-align: center;">/root</td>
+<td style="text-align: left;">Home directory for the root user (optional)</td>
 </tr>
 </tbody>
 </table>
@@ -218,9 +218,9 @@ jadi@ubuntuserver:~$ which -a ping
 <p>use the <code>-a</code> switch to show all appearance in the path and not only the first one.</p>
 </blockquote>
 <p>But where is the <code>cd</code> command?</p>
-<div class="highlight"><pre><span></span><code><span class="nx">jadi</span><span class="err">@</span><span class="nx">ubuntuserver</span><span class="p">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="nx">which</span><span class="w"> </span><span class="nx">cd</span>
-<span class="nx">jadi</span><span class="err">@</span><span class="nx">ubuntuserver</span><span class="p">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="nx">cd</span>
-<span class="nx">cd</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">shell</span><span class="w"> </span><span class="nx">builtin</span>
+<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@ubuntuserver</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">cd</span>
+<span class="n">jadi</span><span class="nv">@ubuntuserver</span><span class="err">:</span><span class="o">~</span><span class="err">$</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">cd</span>
+<span class="n">cd</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">shell</span><span class="w"> </span><span class="n">builtin</span>
 </code></pre></div>
 
 <p>As you can see, <code>which</code> did not find anything for <code>cd</code>, so we tried it with <code>type</code> to see what the h**l it is.</p>
