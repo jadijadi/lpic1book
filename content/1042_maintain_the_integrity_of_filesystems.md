@@ -53,7 +53,7 @@ none              tmpfs     100M   28K  100M   1% /run/user
 /dev/sdb1         vfat      3.7G  7.8M  3.6G   1% /media/jadi/BA82-BECD
 ```
 
-Here, the `-T` switch tells `df` to show the file system types and \`-H\` make numbers human readable (in powers of 1000 , for powers of 2, use `-h`).
+Here, the `-T` switch tells `df` to show the file system types and `-H` make numbers human readable (in powers of 1000 , for powers of 2, use `-h`).
 
 On some filesystems (like ext2-4) we have a fixed number of inodes, so you may need to check the number of remaining inodes too. To do so, use the `-i` switch:
 
@@ -80,7 +80,6 @@ The **d**isk**u**sage command shows the used space of **directories and files**.
 | switch | usage |
 | :---: | :--- |
 | -h | print sizes in powers of 1024 \(e.g., 1023M\) |
-| -H | print sizes in powers of 1000 \(e.g., 1.1G\) |
 | -c | show the grand total |
 | --max-depth 2 | Calculate all but show only 2 directories deep |
 | -s | Only shows the summary and not all the directories one by one |

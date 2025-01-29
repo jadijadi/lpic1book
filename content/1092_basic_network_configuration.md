@@ -313,7 +313,7 @@ So when you need to reach a machine by its name, your OS will now which IP to re
 #### DNS configuration
 DNS (which stands for Domain Name System) is a server which translates human-readable domain names (or more technically, text based domain names) to the corresponding IP addresses. You have to configure your computer to use a DNS so it will know which IP to contacted if you wanted to reach `linux1st.com` (and [donate](https://linux1st.com/support) maybe).
 
-This configuration can be found in `/etc/resolve.conf`.
+This configuration can be found in `/etc/resolv.conf`.
 
 ```
 nameserver 192.168.1.1
