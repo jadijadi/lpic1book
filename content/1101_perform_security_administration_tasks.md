@@ -105,13 +105,16 @@ root    ALL=(ALL:ALL) ALL
 #includedir /etc/sudoers.d
 ```
 
-Note the 2 important lines: 
+Note the 2 important lines:
+
 - How root gets the right to run all the commands:
-  ```txt
+
+  ```
   root    ALL=(ALL:ALL) ALL
   ```
 - And how the sudo and admin groups get rights to run commands as root: 
-  ```txt
+
+  ```
   # Members of the admin group may gain root privileges
   %admin ALL=(ALL) ALL
 
@@ -121,7 +124,7 @@ Note the 2 important lines:
 
   The `ALL:ALL` means these users can run as any user and any group. The last ALL tells the sudo that these users/groups can run ALL commands. It is possible to put `/bin/ping` in the last part to tell sudo that this user can run only ping as root, Like below:
 
-  ```txt
+  ```
   username ALL=(ALL) /bin/ping
   ```
 
@@ -253,7 +256,7 @@ You can also use switches to directly change values. Say `-m` for --mindays or `
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1wyPXxrnI7g" title="LPIC 1 - 78  - 110.1 (2/3) - Perform Security Admin Tasks; suid, guid &amp; ulimits" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-We've already covered `suid`; In short, when the suid bit is set on an executable file, the user will run with the access level of the owner of the file (and not the runner). Have a look at the `ping` command:
+We've already covered `suid`; In short, when the suid bit is set on an executable file, the user will run with the access level of the owner of the file (and not the runner). Have a look at the `passwd` command:
 
 ```
 ➜  ~ type passwd
