@@ -19,23 +19,30 @@ You can donate using the PayPal via my email address which is **jadijadi@gmail.c
 Receiving Crypto is always a joy.. or the best Joy. If you want to support via crypto, these are my addresses and I would be more than happy if you email me on jadijadi@gmail.com afterwards so I'll be able to thank you.
 
 ##### BTC
-![Support jadi bitcoin](images/crypto/jadi_bitcoin.png)
-1Kzrgoq8RHzLyd3ZVG5UVQ5p4QhLiYjqmc 
+![Support jadi bitcoin](images/crypto/btc.png)
+13RLcLmTMydp8HbanydHmeBCeiNq4qWEYz 
 ##### ETH
-![Support jadi eth](images/crypto/eth.jpg)
-0x5DdCd5AE08D331e2f50a8743f6df8ec7893D2C4d
+![Support jadi eth](images/crypto/eth.png)
+0xE7E3eC9D625a3f990d66939d4376dD2E2Fce29Db
 ##### Doge
-![Support with doge](images/crypto/doge.jpg)
-DDBW1rR4BSAB1JYiv4ZcMHuoHHQoKyaSMg
+![Support with doge](images/crypto/doge.png)
+DBgTzwhaLu9JrKEiRbFZEjJm3kAArHjvQQ
+##### TON
+![Support with doge](images/crypto/ton.png)
+EQB7q6P13S1A35mBI8_RM-8bmOwccMIjIl-2V-VegGrbhXxZ
 ##### LiteCoin
-![support jadi litecoin](images/crypto/litecoin-2.jpg)
-LaeLP3cwq3fvkA8tekYpBUDuesDp5r6Au9
+![support jadi litecoin](images/crypto/ltc.png)
+LSzaHFLbvAnZgipFPF53iTdxBk213XN1h8
 ##### Ripple
-![Support jadi with Ripple](images/crypto/xrp.jpg)
-rhcibx4aKaL2tcfAR5LTX1CJY2WRBCb4oh
+![Support jadi with Ripple](images/crypto/ripple.png)
+rH1YoaweLh7wWzHeDsdUJvJzXA3SCCb3py
 ##### Tron
-![Support with TRON](images/crypto/tron.jpg)
-TRnsvNpUvXq3oFvKGYu7C6yFBbx8ebxQvC
-##### BNB
-![Support jadi BNB](images/crypto/bnb.jpg)
-bnb1ayjd8rqfr2qct9frg8g0fm4vmdya892p7ugyc4
+![Support with TRON](images/crypto/tron.png)
+TKMWLuNJqRFhELebUHnGwanQ7H9AZwDcWb
+##### BSC
+![Support jadi BSC](images/crypto/bsc.png)
+0xE7E3eC9D625a3f990d66939d4376dD2E2Fce29Db
+##### Monero
+![Support jadi Monero](images/crypto/monero.png)
+49Ju7vmcevc78SzCWsySd6AmMPsfq3gV79XKw3imi2KETiNYQBd4QEogkKoY8JLNri78eTmoijC3cUs8UthmN1RJCkonV3E
+
