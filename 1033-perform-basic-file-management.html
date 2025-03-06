@@ -142,26 +142,26 @@
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">command</th>
-<th style="text-align: left;">meaning</th>
+<th align="left">command</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">rm *</td>
-<td style="text-align: left;">delete all files in this directory</td>
+<td align="left">rm *</td>
+<td align="left">delete all files in this directory</td>
 </tr>
 <tr>
-<td style="text-align: left;">ls A*B</td>
-<td style="text-align: left;">show all files starting with A and ending with B</td>
+<td align="left">ls A*B</td>
+<td align="left">show all files starting with A and ending with B</td>
 </tr>
 <tr>
-<td style="text-align: left;">cp ???.* /tmp</td>
-<td style="text-align: left;">Copy all files with 3 characters, then a dot then whatever (even nothing) to /tmp</td>
+<td align="left">cp ???.* /tmp</td>
+<td align="left">Copy all files with 3 characters, then a dot then whatever (even nothing) to /tmp</td>
 </tr>
 <tr>
-<td style="text-align: left;">rmdir [a-z]*</td>
-<td style="text-align: left;">remove all empty directories which start with a letter</td>
+<td align="left">rmdir [a-z]*</td>
+<td align="left">remove all empty directories which start with a letter</td>
 </tr>
 </tbody>
 </table>
@@ -386,35 +386,35 @@ $ ls -ltrh file?
 <li>The <code>-name</code> switch indicates the criteria (here <code>iname</code> means search files with this name and ignore the character cases (z equals Z)). </li>
 </ul>
 <p>Another common switch is <code>-type</code> to indicate the type we are searching for (<code>f</code> for regular files, <code>d</code> for directories, and <code>l</code> for symbolic links):</p>
-<div class="highlight"><pre><span></span><code><span class="n">jadi</span><span class="nv">@lpicjadi</span><span class="err">:</span><span class="o">~/</span><span class="n">lpic1</span><span class="o">-</span><span class="n">practice</span><span class="o">-</span><span class="n">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="mf">103.3</span><span class="err">$</span><span class="w"> </span><span class="n">find</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">-</span><span class="n">iname</span><span class="w"> </span><span class="ss">&quot;[a-j]*&quot;</span>
-<span class="p">.</span><span class="o">/</span><span class="n">directory</span>
-<span class="p">.</span><span class="o">/</span><span class="n">directory</span><span class="o">/</span><span class="n">innder_one</span>
+<div class="highlight"><pre><span></span><code><span class="nx">jadi</span><span class="err">@</span><span class="nx">lpicjadi</span><span class="p">:</span><span class="o">~/</span><span class="nx">lpic1</span><span class="o">-</span><span class="nx">practice</span><span class="o">-</span><span class="nx">iso</span><span class="o">/</span><span class="mi">100</span><span class="o">/</span><span class="m m-Double">103.3</span><span class="err">$</span><span class="w"> </span><span class="nx">find</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="o">-</span><span class="k">type</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="o">-</span><span class="nx">iname</span><span class="w"> </span><span class="s">&quot;[a-j]*&quot;</span>
+<span class="p">.</span><span class="o">/</span><span class="nx">directory</span>
+<span class="p">.</span><span class="o">/</span><span class="nx">directory</span><span class="o">/</span><span class="nx">innder_one</span>
 </code></pre></div>
 
 <p>if you want to search for file sizes do as below:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">command</th>
-<th style="text-align: left;">meaning</th>
+<th align="left">command</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">-size 100c</td>
-<td style="text-align: left;">files which are exactly 100 characters/bytes (you can also use <code>b</code>)</td>
+<td align="left">-size 100c</td>
+<td align="left">files which are exactly 100 characters/bytes (you can also use <code>b</code>)</td>
 </tr>
 <tr>
-<td style="text-align: left;">-size +100k</td>
-<td style="text-align: left;">files which are more than 100 kilobytes</td>
+<td align="left">-size +100k</td>
+<td align="left">files which are more than 100 kilobytes</td>
 </tr>
 <tr>
-<td style="text-align: left;">-size -20M</td>
-<td style="text-align: left;">files smaller than 20Megabytes</td>
+<td align="left">-size -20M</td>
+<td align="left">files smaller than 20Megabytes</td>
 </tr>
 <tr>
-<td style="text-align: left;">-size +2G</td>
-<td style="text-align: left;">files bigger than 2Gigabytes</td>
+<td align="left">-size +2G</td>
+<td align="left">files bigger than 2Gigabytes</td>
 </tr>
 </tbody>
 </table>
@@ -429,46 +429,46 @@ $ ls -ltrh file?
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">switch</th>
-<th style="text-align: left;">meaning</th>
-<th style="text-align: left;">samples</th>
+<th align="left">switch</th>
+<th align="left">meaning</th>
+<th align="left">samples</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">-amin</td>
-<td style="text-align: left;">Access Minutes</td>
-<td style="text-align: left;"><code>-amin 40</code> means "files accessed exactly 40min ago" or <code>-amin +40</code> mins files accessed more than 40min ago and <code>-amin -40</code> means files accessed less than 40min ago</td>
+<td align="left">-amin</td>
+<td align="left">Access Minutes</td>
+<td align="left"><code>-amin 40</code> means "files accessed exactly 40min ago" or <code>-amin +40</code> mins files accessed more than 40min ago and <code>-amin -40</code> means files accessed less than 40min ago</td>
 </tr>
 <tr>
-<td style="text-align: left;">-cmin</td>
-<td style="text-align: left;">Status Change Min</td>
-<td style="text-align: left;"><code>-cmin +60</code> file status changed before last hour</td>
+<td align="left">-cmin</td>
+<td align="left">Status Change Min</td>
+<td align="left"><code>-cmin +60</code> file status changed before last hour</td>
 </tr>
 <tr>
-<td style="text-align: left;">-mmin</td>
-<td style="text-align: left;">Modified Minutes</td>
-<td style="text-align: left;"><code>-mmin -60</code> will give us files modified in last hour</td>
+<td align="left">-mmin</td>
+<td align="left">Modified Minutes</td>
+<td align="left"><code>-mmin -60</code> will give us files modified in last hour</td>
 </tr>
 <tr>
-<td style="text-align: left;">-atime</td>
-<td style="text-align: left;">access time in days</td>
-<td style="text-align: left;"><code>-atime +1</code> means files access "more than 1 days ago (which means 2 days and more)</td>
+<td align="left">-atime</td>
+<td align="left">access time in days</td>
+<td align="left"><code>-atime +1</code> means files access "more than 1 days ago (which means 2 days and more)</td>
 </tr>
 <tr>
-<td style="text-align: left;">-ctime</td>
-<td style="text-align: left;">Status Changed in Days</td>
-<td style="text-align: left;"></td>
+<td align="left">-ctime</td>
+<td align="left">Status Changed in Days</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td style="text-align: left;">-mtime</td>
-<td style="text-align: left;">Modified days</td>
-<td style="text-align: left;"></td>
+<td align="left">-mtime</td>
+<td align="left">Modified days</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td style="text-align: left;">-newer</td>
-<td style="text-align: left;">Newer than reference</td>
-<td style="text-align: left;"><code>-newer file1</code> will give you files which are newer than file1</td>
+<td align="left">-newer</td>
+<td align="left">Newer than reference</td>
+<td align="left"><code>-newer file1</code> will give you files which are newer than file1</td>
 </tr>
 </tbody>
 </table>
@@ -480,18 +480,18 @@ $ ls -ltrh file?
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">switch</th>
-<th style="text-align: left;">meaning</th>
+<th align="left">switch</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">-ls</td>
-<td style="text-align: left;">will run ls -dils on each file</td>
+<td align="left">-ls</td>
+<td align="left">will run ls -dils on each file</td>
 </tr>
 <tr>
-<td style="text-align: left;">-print</td>
-<td style="text-align: left;">will print the full name of the files on each line</td>
+<td align="left">-print</td>
+<td align="left">will print the full name of the files on each line</td>
 </tr>
 </tbody>
 </table>
@@ -594,34 +594,34 @@ $ ls -ltrh file?
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">switch</th>
-<th style="text-align: left;">meanint</th>
+<th align="left">switch</th>
+<th align="left">meanint</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">-cf <code>myarchive.tar</code></td>
-<td style="text-align: left;">create file named myarchive.tar</td>
+<td align="left">-cf <code>myarchive.tar</code></td>
+<td align="left">create file named myarchive.tar</td>
 </tr>
 <tr>
-<td style="text-align: left;">-xf <code>myarchive.tar</code></td>
-<td style="text-align: left;">extract a file named myarchive.tar</td>
+<td align="left">-xf <code>myarchive.tar</code></td>
+<td align="left">extract a file named myarchive.tar</td>
 </tr>
 <tr>
-<td style="text-align: left;">-z</td>
-<td style="text-align: left;">compress the archive with gzip after creating it</td>
+<td align="left">-z</td>
+<td align="left">compress the archive with gzip after creating it</td>
 </tr>
 <tr>
-<td style="text-align: left;">-j</td>
-<td style="text-align: left;">compress the archive with bzip2 after creating it</td>
+<td align="left">-j</td>
+<td align="left">compress the archive with bzip2 after creating it</td>
 </tr>
 <tr>
-<td style="text-align: left;">-v</td>
-<td style="text-align: left;">verbose! print a lot of data about what is happening</td>
+<td align="left">-v</td>
+<td align="left">verbose! print a lot of data about what is happening</td>
 </tr>
 <tr>
-<td style="text-align: left;">-r</td>
-<td style="text-align: left;">append new files to the currently available archive</td>
+<td align="left">-r</td>
+<td align="left">append new files to the currently available archive</td>
 </tr>
 </tbody>
 </table>

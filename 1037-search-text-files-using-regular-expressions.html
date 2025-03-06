@@ -117,18 +117,18 @@ You can simply write down whatever you want to match and regex will search for t
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Regex</th>
-<th style="text-align: left;">Will match</th>
+<th align="left">Regex</th>
+<th align="left">Will match</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">a</td>
-<td style="text-align: left;"><strong>a</strong>fter, min<strong>a</strong>, b<strong>a</strong>nana, j<strong>a</strong>di</td>
+<td align="left">a</td>
+<td align="left"><strong>a</strong>fter, min<strong>a</strong>, b<strong>a</strong>nana, j<strong>a</strong>di</td>
 </tr>
 <tr>
-<td style="text-align: left;">na</td>
-<td style="text-align: left;"><strong>na</strong>rator, mi<strong>na</strong>, <strong>na</strong>nanana batman, so<strong>na</strong>r</td>
+<td align="left">na</td>
+<td align="left"><strong>na</strong>rator, mi<strong>na</strong>, <strong>na</strong>nanana batman, so<strong>na</strong>r</td>
 </tr>
 </tbody>
 </table>
@@ -143,31 +143,31 @@ You can simply write down whatever you want to match and regex will search for t
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Regex</th>
-<th style="text-align: left;">Will match</th>
-<th style="text-align: left;">Note</th>
+<th align="left">Regex</th>
+<th align="left">Will match</th>
+<th align="left">Note</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">a*b</td>
-<td style="text-align: left;">ab, aaab, aaaaab, aaabthis</td>
-<td style="text-align: left;"></td>
+<td align="left">a*b</td>
+<td align="left">ab, aaab, aaaaab, aaabthis</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td style="text-align: left;">a*b</td>
-<td style="text-align: left;">b, sober</td>
-<td style="text-align: left;">we should have zero or more <code>a</code>s and then a <code>b</code></td>
+<td align="left">a*b</td>
+<td align="left">b, sober</td>
+<td align="left">we should have zero or more <code>a</code>s and then a <code>b</code></td>
 </tr>
 <tr>
-<td style="text-align: left;">a+b</td>
-<td style="text-align: left;">ab, aab, aaabenz</td>
-<td style="text-align: left;">wont match <strong>sober</strong> or <strong>b</strong> because there needs to be at least one <strong>a</strong></td>
+<td align="left">a+b</td>
+<td align="left">ab, aab, aaabenz</td>
+<td align="left">wont match <strong>sober</strong> or <strong>b</strong> because there needs to be at least one <strong>a</strong></td>
 </tr>
 <tr>
-<td style="text-align: left;">a?b</td>
-<td style="text-align: left;">ab, a<strong>ab</strong>, b, batman (zero a then b), ...</td>
-<td style="text-align: left;">.</td>
+<td align="left">a?b</td>
+<td align="left">ab, a<strong>ab</strong>, b, batman (zero a then b), ...</td>
+<td align="left">.</td>
 </tr>
 </tbody>
 </table>
@@ -186,30 +186,30 @@ You can simply write down whatever you want to match and regex will search for t
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Range</th>
-<th style="text-align: left;">Meaning</th>
+<th align="left">Range</th>
+<th align="left">Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">[:alnum:]</td>
-<td style="text-align: left;">Alphanumeric characters</td>
+<td align="left">[:alnum:]</td>
+<td align="left">Alphanumeric characters</td>
 </tr>
 <tr>
-<td style="text-align: left;">[:blank:]</td>
-<td style="text-align: left;">Space and tab characters</td>
+<td align="left">[:blank:]</td>
+<td align="left">Space and tab characters</td>
 </tr>
 <tr>
-<td style="text-align: left;">[:digit:]</td>
-<td style="text-align: left;">The digits 0 through 9 (equivalent to 0-9)</td>
+<td align="left">[:digit:]</td>
+<td align="left">The digits 0 through 9 (equivalent to 0-9)</td>
 </tr>
 <tr>
-<td style="text-align: left;">[:upper:] and [:lower:]</td>
-<td style="text-align: left;">Upper and lower case letters, respectively.</td>
+<td align="left">[:upper:] and [:lower:]</td>
+<td align="left">Upper and lower case letters, respectively.</td>
 </tr>
 <tr>
-<td style="text-align: left;">^ (negation)</td>
-<td style="text-align: left;">As the first character after [ in a character class negates the sense of the remaining characters</td>
+<td align="left">^ (negation)</td>
+<td align="left">As the first character after [ in a character class negates the sense of the remaining characters</td>
 </tr>
 </tbody>
 </table>
@@ -248,34 +248,34 @@ funky
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">switch</th>
-<th style="text-align: left;">meaning</th>
+<th align="left">switch</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">-c</td>
-<td style="text-align: left;">just show the count</td>
+<td align="left">-c</td>
+<td align="left">just show the count</td>
 </tr>
 <tr>
-<td style="text-align: left;">-v</td>
-<td style="text-align: left;">reverse the search</td>
+<td align="left">-v</td>
+<td align="left">reverse the search</td>
 </tr>
 <tr>
-<td style="text-align: left;">-n</td>
-<td style="text-align: left;">show line numbers</td>
+<td align="left">-n</td>
+<td align="left">show line numbers</td>
 </tr>
 <tr>
-<td style="text-align: left;">-l</td>
-<td style="text-align: left;">show only file names</td>
+<td align="left">-l</td>
+<td align="left">show only file names</td>
 </tr>
 <tr>
-<td style="text-align: left;">-i</td>
-<td style="text-align: left;">case insensitive</td>
+<td align="left">-i</td>
+<td align="left">case insensitive</td>
 </tr>
 <tr>
-<td style="text-align: left;">-r</td>
-<td style="text-align: left;">Read  all  files  under each directory, recursively</td>
+<td align="left">-r</td>
+<td align="left">Read  all  files  under each directory, recursively</td>
 </tr>
 </tbody>
 </table>
@@ -370,18 +370,18 @@ Mary
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">switch</th>
-<th style="text-align: left;">meaning</th>
+<th align="left">switch</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">-r</td>
-<td style="text-align: left;">use advanced regex</td>
+<td align="left">-r</td>
+<td align="left">use advanced regex</td>
 </tr>
 <tr>
-<td style="text-align: left;">-n</td>
-<td style="text-align: left;">suppress output, you can use p at the end of your regex ( /something/p ) to print the output</td>
+<td align="left">-n</td>
+<td align="left">suppress output, you can use p at the end of your regex ( /something/p ) to print the output</td>
 </tr>
 </tbody>
 </table>

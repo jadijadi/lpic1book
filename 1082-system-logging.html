@@ -131,30 +131,30 @@
 <p>As I told you, Linux loves logs and will be happy logging everything. But what about the boot process? What happens if the kernel wants to log something before the disks are ready? These logs are saved by the Kernel in the <em>Kernel Ring Buffer</em>. You can access it using the <code>dmesg</code> command. </p>
 <h2>log rotation</h2>
 <p>So logs are being generated and saved! Someone need to clean them up to prevent the disk from getting full. The <code>logrotate</code> utility takes care of this task.  The main configuration is at <code>/etc/logrotate.conf</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="nv">@debian</span><span class="err">:#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">logrotate</span><span class="p">.</span><span class="n">conf</span>
-<span class="err">#</span><span class="w"> </span><span class="n">see</span><span class="w"> </span><span class="ss">&quot;man logrotate&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">details</span>
+<div class="highlight"><pre><span></span><code><span class="nx">root</span><span class="err">@</span><span class="nx">debian</span><span class="p">:</span><span class="err">#</span><span class="w"> </span><span class="nx">cat</span><span class="w"> </span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">logrotate</span><span class="p">.</span><span class="nx">conf</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">see</span><span class="w"> </span><span class="s">&quot;man logrotate&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">details</span>
 
-<span class="err">#</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">options</span><span class="w"> </span><span class="n">do</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">affect</span><span class="w"> </span><span class="n">preceding</span><span class="w"> </span><span class="k">include</span><span class="w"> </span><span class="n">directives</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">global</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="nx">do</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nx">affect</span><span class="w"> </span><span class="nx">preceding</span><span class="w"> </span><span class="nx">include</span><span class="w"> </span><span class="nx">directives</span>
 
-<span class="err">#</span><span class="w"> </span><span class="n">rotate</span><span class="w"> </span><span class="nf">log</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="n">weekly</span>
-<span class="n">weekly</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">rotate</span><span class="w"> </span><span class="nx">log</span><span class="w"> </span><span class="nx">files</span><span class="w"> </span><span class="nx">weekly</span>
+<span class="nx">weekly</span>
 
-<span class="err">#</span><span class="w"> </span><span class="n">keep</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">weeks</span><span class="w"> </span><span class="n">worth</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">backlogs</span>
-<span class="n">rotate</span><span class="w"> </span><span class="mi">4</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">keep</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="nx">weeks</span><span class="w"> </span><span class="nx">worth</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">backlogs</span>
+<span class="nx">rotate</span><span class="w"> </span><span class="mi">4</span>
 
-<span class="err">#</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">(</span><span class="n">empty</span><span class="p">)</span><span class="w"> </span><span class="nf">log</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="k">after</span><span class="w"> </span><span class="n">rotating</span><span class="w"> </span><span class="k">old</span><span class="w"> </span><span class="n">ones</span>
-<span class="k">create</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">create</span><span class="w"> </span><span class="nx">new</span><span class="w"> </span><span class="p">(</span><span class="nx">empty</span><span class="p">)</span><span class="w"> </span><span class="nx">log</span><span class="w"> </span><span class="nx">files</span><span class="w"> </span><span class="nx">after</span><span class="w"> </span><span class="nx">rotating</span><span class="w"> </span><span class="nx">old</span><span class="w"> </span><span class="nx">ones</span>
+<span class="nx">create</span>
 
-<span class="err">#</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="nc">date</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">suffix</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">rotated</span><span class="w"> </span><span class="k">file</span>
-<span class="n">#dateext</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">use</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">suffix</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">rotated</span><span class="w"> </span><span class="nx">file</span>
+<span class="err">#</span><span class="nx">dateext</span>
 
-<span class="err">#</span><span class="w"> </span><span class="n">uncomment</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="nf">log</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="n">compressed</span>
-<span class="n">#compress</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">uncomment</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">want</span><span class="w"> </span><span class="nx">your</span><span class="w"> </span><span class="nx">log</span><span class="w"> </span><span class="nx">files</span><span class="w"> </span><span class="nx">compressed</span>
+<span class="err">#</span><span class="nx">compress</span>
 
-<span class="err">#</span><span class="w"> </span><span class="n">packages</span><span class="w"> </span><span class="k">drop</span><span class="w"> </span><span class="nf">log</span><span class="w"> </span><span class="n">rotation</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">directory</span>
-<span class="k">include</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">logrotate</span><span class="p">.</span><span class="n">d</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">packages</span><span class="w"> </span><span class="nx">drop</span><span class="w"> </span><span class="nx">log</span><span class="w"> </span><span class="nx">rotation</span><span class="w"> </span><span class="nx">information</span><span class="w"> </span><span class="nx">into</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">directory</span>
+<span class="nx">include</span><span class="w"> </span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">logrotate</span><span class="p">.</span><span class="nx">d</span>
 
-<span class="err">#</span><span class="w"> </span><span class="k">system</span><span class="o">-</span><span class="k">specific</span><span class="w"> </span><span class="n">logs</span><span class="w"> </span><span class="n">may</span><span class="w"> </span><span class="n">also</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">configured</span><span class="w"> </span><span class="n">here</span><span class="p">.</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">system</span><span class="o">-</span><span class="nx">specific</span><span class="w"> </span><span class="nx">logs</span><span class="w"> </span><span class="nx">may</span><span class="w"> </span><span class="nx">also</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">configured</span><span class="w"> </span><span class="nx">here</span><span class="p">.</span>
 </code></pre></div>
 
 <p>and specific services do create their logs in <code>/etc/logrotate.d/</code>:</p>
@@ -180,34 +180,34 @@
 <table>
 <thead>
 <tr>
-<th style="text-align: center;">parameter</th>
-<th style="text-align: center;">meaning</th>
+<th align="center">parameter</th>
+<th align="center">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;">weekly</td>
-<td style="text-align: center;">rotate logs weekly</td>
+<td align="center">weekly</td>
+<td align="center">rotate logs weekly</td>
 </tr>
 <tr>
-<td style="text-align: center;">missingok</td>
-<td style="text-align: center;">it is fine if there is no log for this week</td>
+<td align="center">missingok</td>
+<td align="center">it is fine if there is no log for this week</td>
 </tr>
 <tr>
-<td style="text-align: center;">rotate 52</td>
-<td style="text-align: center;">keep the latest 52 logs and delete the older ones</td>
+<td align="center">rotate 52</td>
+<td align="center">keep the latest 52 logs and delete the older ones</td>
 </tr>
 <tr>
-<td style="text-align: center;">compress</td>
-<td style="text-align: center;">compress the logs</td>
+<td align="center">compress</td>
+<td align="center">compress the logs</td>
 </tr>
 <tr>
-<td style="text-align: center;">create 0640 www-data adm</td>
-<td style="text-align: center;">create the files with this access and owners</td>
+<td align="center">create 0640 www-data adm</td>
+<td align="center">create the files with this access and owners</td>
 </tr>
 <tr>
-<td style="text-align: center;">pre &amp; post rotate</td>
-<td style="text-align: center;">run these scripts or commands before and after the rotation</td>
+<td align="center">pre &amp; post rotate</td>
+<td align="center">run these scripts or commands before and after the rotation</td>
 </tr>
 </tbody>
 </table>
@@ -329,26 +329,26 @@
 <table>
 <thead>
 <tr>
-<th style="text-align: center;">action</th>
-<th style="text-align: center;">sample</th>
-<th style="text-align: left;">meaning</th>
+<th align="center">action</th>
+<th align="center">sample</th>
+<th align="left">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;">filename</td>
-<td style="text-align: center;">/usr/log/logins.log</td>
-<td style="text-align: left;">will write the log to this file</td>
+<td align="center">filename</td>
+<td align="center">/usr/log/logins.log</td>
+<td align="left">will write the log to this file</td>
 </tr>
 <tr>
-<td style="text-align: center;">username</td>
-<td style="text-align: center;">jadi</td>
-<td style="text-align: left;">will notify that person on the screen</td>
+<td align="center">username</td>
+<td align="center">jadi</td>
+<td align="left">will notify that person on the screen</td>
 </tr>
 <tr>
-<td style="text-align: center;">@ip</td>
-<td style="text-align: center;">@192.168.1.100</td>
-<td style="text-align: left;">will send this log to this log server and that log server will decide what to do with it based on its configs</td>
+<td align="center">@ip</td>
+<td align="center">@192.168.1.100</td>
+<td align="left">will send this log to this log server and that log server will decide what to do with it based on its configs</td>
 </tr>
 </tbody>
 </table>
@@ -482,42 +482,42 @@
 <table>
 <thead>
 <tr>
-<th style="text-align: center;">Switch</th>
-<th style="text-align: center;">Meaning</th>
+<th align="center">Switch</th>
+<th align="center">Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;">-r</td>
-<td style="text-align: center;">show in reverse; newer on top</td>
+<td align="center">-r</td>
+<td align="center">show in reverse; newer on top</td>
 </tr>
 <tr>
-<td style="text-align: center;">-f</td>
-<td style="text-align: center;">keep showing the tail</td>
+<td align="center">-f</td>
+<td align="center">keep showing the tail</td>
 </tr>
 <tr>
-<td style="text-align: center;">-e</td>
-<td style="text-align: center;">show and go to the end</td>
+<td align="center">-e</td>
+<td align="center">show and go to the end</td>
 </tr>
 <tr>
-<td style="text-align: center;">-n</td>
-<td style="text-align: center;">show this many lines from the end (newest ones)</td>
+<td align="center">-n</td>
+<td align="center">show this many lines from the end (newest ones)</td>
 </tr>
 <tr>
-<td style="text-align: center;">-k</td>
-<td style="text-align: center;">show kernel message (equal to <code>dmesg</code>)</td>
+<td align="center">-k</td>
+<td align="center">show kernel message (equal to <code>dmesg</code>)</td>
 </tr>
 <tr>
-<td style="text-align: center;">-b</td>
-<td style="text-align: center;">show from a specific boot, -1 is the previous one, 0 is the current one. You can check the list using <code>--list-boots</code></td>
+<td align="center">-b</td>
+<td align="center">show from a specific boot, -1 is the previous one, 0 is the current one. You can check the list using <code>--list-boots</code></td>
 </tr>
 <tr>
-<td style="text-align: center;">-p</td>
-<td style="text-align: center;">from specific priority, say <code>-p err</code></td>
+<td align="center">-p</td>
+<td align="center">from specific priority, say <code>-p err</code></td>
 </tr>
 <tr>
-<td style="text-align: center;">-u</td>
-<td style="text-align: center;">from a specific systemd unit</td>
+<td align="center">-u</td>
+<td align="center">from a specific systemd unit</td>
 </tr>
 </tbody>
 </table>
@@ -553,25 +553,25 @@
 <table>
 <thead>
 <tr>
-<th style="text-align: center;">Variable Name</th>
+<th align="center">Variable Name</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;">SystemMaxUse</td>
+<td align="center">SystemMaxUse</td>
 <td>The Maximum disk usage, say 500M. The default is on <code>10%</code></td>
 </tr>
 <tr>
-<td style="text-align: center;">SystemKeepFree</td>
+<td align="center">SystemKeepFree</td>
 <td>Keep at least this much free, say 1G. The default is 15%</td>
 </tr>
 <tr>
-<td style="text-align: center;">SystemMaxFileSize</td>
+<td align="center">SystemMaxFileSize</td>
 <td>Maximum size of each individual file. The default is 1/8 of SystemMaxUse</td>
 </tr>
 <tr>
-<td style="text-align: center;">SystemMaxFiles</td>
+<td align="center">SystemMaxFiles</td>
 <td>Max number of non-currently-active files. The default is 100</td>
 </tr>
 </tbody>
@@ -581,21 +581,21 @@
 <table>
 <thead>
 <tr>
-<th style="text-align: center;">Switch</th>
+<th align="center">Switch</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;">--vacuum-time</td>
+<td align="center">--vacuum-time</td>
 <td>clean everything older than this. for example <code>--vacuum-time=3months</code> clean anything older than 3 months. You can use <code>s</code>, <code>m</code>, <code>h</code> for seconds, minutes and days and <code>d</code>/<code>days</code>, <code>months</code>, <code>weeks</code>/<code>w</code> and <code>years</code>/<code>y</code>.</td>
 </tr>
 <tr>
-<td style="text-align: center;">--vacuum-size</td>
+<td align="center">--vacuum-size</td>
 <td>eliminate till logs occupy a specific size; say 1G</td>
 </tr>
 <tr>
-<td style="text-align: center;">--vacuum-files</td>
+<td align="center">--vacuum-files</td>
 <td>Only keep this much archive files</td>
 </tr>
 </tbody>
