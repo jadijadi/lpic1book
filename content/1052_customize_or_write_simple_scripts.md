@@ -125,7 +125,7 @@ In both above methods, the scripts runs inside a child bash process and *returns
 Up to now, we were just running commands one by one. That is not very _programmatic_. If we are going to have some _logic_ in our programs, we need _conditions_ and _loops_. First we will cover conditions, using the `if` command. Its usage is like this:
 
 ```bash
-if [condition]
+if [ condition ]
 then
    do something
    do another thing
@@ -243,7 +243,7 @@ done
 This is the syntax:
 
 ```bash
-while [condition]
+while [ condition ]
 do
     do something
     do anohter thing

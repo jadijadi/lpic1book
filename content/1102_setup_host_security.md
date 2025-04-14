@@ -42,7 +42,7 @@ $ ls -ltrh /etc/passwd
 -rw-r--r-- 1 root root 2.5K Jun  5 19:14 /etc/passwd
 ```
 
-To prevent this the `/etc/shadow` file is introduced. In modern systems, we only show a `*` at the location of the password in `/etc/passwd` and store the real password in `/etc/shadow` which has a very limited file access:
+To prevent this the `/etc/shadow` file is introduced. In modern systems, we only show a `x` at the location of the password in `/etc/passwd` and store the real password in `/etc/shadow` which has a very limited file access:
 
 ```text
 jadi@funlife ~$ grep jadi /etc/passwd
@@ -96,11 +96,11 @@ service telnet
 
 If we change the `disable` to `yes` and restart the xinetd, the telnet daemon will start running. There are a few files to control xinetd related files.
 
-As mentioned, `xinetd` is replaced by the `systemd.socket` units. Some services like `ssh` and `cups` might have a socket unit alongside the service unit in your distribution. In this case its enough to stop & disable the `ssh.service` and start the `ssh.docekt` instead. Now the `systemd.socekt` is acting as a wrapper around the port 22 and IF someones needs the service, starts the ssh server to answer.
+As mentioned, `xinetd` is replaced by the `systemd.socket` units. Some services like `ssh` and `cups` might have a socket unit alongside the service unit in your distribution. In this case its enough to stop & disable the `ssh.service` and start the `ssh.socket` instead. Now the `systemd.socket` is acting as a wrapper around the port 22 and IF someones needs the service, starts the ssh server to answer.
 
 #### `/etc/hosts.allow` & `/etc/hosts.deny`
 
-These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowed, everything else is denied but if you add something to the `/etc/hosts.deny`, only that specific thing is denied \(and every other thing is allowed\).
+These two files will allow or deny access from specific hosts. Its logic is like `cron.deny` and `cron.allow`. If something is allowed, everything else is denied but if you add something to the `/etc/hosts.deny`, only that specific thing is denied \(and every other thing is allowed\).
 
 ```text
 jadi@funlife ~$ cat /etc/hosts.allow
