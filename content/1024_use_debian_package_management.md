@@ -29,7 +29,7 @@ Candidates should be able to perform package management using the Debian package
 
 Some people think that on GNU/Linux we have to compile all the software we need manually. This is not the case in 99% of cases and never has been the case in the last 20 years. GNU/Linux is the predecessor of what we call the App Store these days. All major distros do have huge archives of pre-compiled software called their _repositories_ and some kind of a **package manager** software that takes care of searching these repositories, installing software from them, finding dependencies, installing them, resolving conflicts, and updating the system and installed software. Debian-based distros use `.deb` files as their "packages" and use tools like `apt-get`, `dpkg`, `apt`, and other tools to manage them.
 
-Debian packages are names like `NAME-VERSION-RELEASE_ARCHITECTURE.deb`; Say `tmux_3.2a-4build1_amd64.deb`. 
+Debian packages are names like `NAME_VERSION-RELEASE_ARCHITECTURE.deb`; Say `tmux_3.2a-4build1_amd64.deb`. 
 
 
 
