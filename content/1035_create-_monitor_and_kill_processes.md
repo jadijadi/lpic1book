@@ -110,7 +110,7 @@ rtt min/avg/max/mdev = 223.584/224.767/225.950/1.183 ms
 
 ### kill
 
-Despite its frightening name, the `kill` command sends unix *signals* to processes. Pressing `Ctrl+c` and `Ctrl+z` is also sending signals. By default, the `kill` command sends the signal **15** (which is TERM and tells to process to terminate itself).
+Despite its frightening name, the `kill` command sends unix *signals* to processes. Pressing `Ctrl+c` and `Ctrl+z` is also sending signals. By default, the `kill` command sends the signal **15** (which is TERM and tells the process to terminate itself).
 
 ```
 $ jobs
