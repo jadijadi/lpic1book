@@ -125,36 +125,36 @@
 <table>
 <thead>
 <tr>
-<th align="center">filed</th>
-<th align="left">Meaning</th>
-<th align="left">values</th>
+<th style="text-align: center;">filed</th>
+<th style="text-align: left;">Meaning</th>
+<th style="text-align: left;">values</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">A</td>
-<td align="left">minute</td>
-<td align="left">0-59</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: left;">minute</td>
+<td style="text-align: left;">0-59</td>
 </tr>
 <tr>
-<td align="center">B</td>
-<td align="left">hour</td>
-<td align="left">0-23</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: left;">hour</td>
+<td style="text-align: left;">0-23</td>
 </tr>
 <tr>
-<td align="center">C</td>
-<td align="left">day of month</td>
-<td align="left">1-31</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: left;">day of month</td>
+<td style="text-align: left;">1-31</td>
 </tr>
 <tr>
-<td align="center">D</td>
-<td align="left">month</td>
-<td align="left">1-12 (or names, see below)</td>
+<td style="text-align: center;">D</td>
+<td style="text-align: left;">month</td>
+<td style="text-align: left;">1-12 (or names, see below)</td>
 </tr>
 <tr>
-<td align="center">E</td>
-<td align="left">day of week</td>
-<td align="left">0-7 (0 or 7 is Sunday, or use names)</td>
+<td style="text-align: center;">E</td>
+<td style="text-align: left;">day of week</td>
+<td style="text-align: left;">0-7 (0 or 7 is Sunday, or use names)</td>
 </tr>
 </tbody>
 </table>
@@ -346,18 +346,18 @@ jadi@funlife:~$ atq
 <table>
 <thead>
 <tr>
-<th align="left">file extension</th>
-<th align="left">functionality</th>
+<th style="text-align: left;">file extension</th>
+<th style="text-align: left;">functionality</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">.allow</td>
-<td align="left">ONLY users mentioned in this file are allowed to run this service. All other users will be denied</td>
+<td style="text-align: left;">.allow</td>
+<td style="text-align: left;">ONLY users mentioned in this file are allowed to run this service. All other users will be denied</td>
 </tr>
 <tr>
-<td align="left">.deny</td>
-<td align="left">Everybody can use the service except the users mentioned in this file</td>
+<td style="text-align: left;">.deny</td>
+<td style="text-align: left;">Everybody can use the service except the users mentioned in this file</td>
 </tr>
 </tbody>
 </table>
@@ -459,18 +459,18 @@ jadi@funlife:~$ atq
 </tbody>
 </table>
 <p>This is one example from a recent Fedora installation:</p>
-<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="k">system</span><span class="o">/</span><span class="n">timers</span><span class="p">.</span><span class="n">target</span><span class="p">.</span><span class="n">wants</span><span class="o">/</span><span class="n">plocate</span><span class="o">-</span><span class="n">updatedb</span><span class="p">.</span><span class="n">timer</span><span class="w"> </span>
-<span class="o">[</span><span class="n">Unit</span><span class="o">]</span>
-<span class="n">Description</span><span class="o">=</span><span class="k">Update</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">plocate</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">daily</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># cat system/timers.target.wants/plocate-updatedb.timer </span>
+<span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">Update the plocate database daily</span>
 
-<span class="o">[</span><span class="n">Timer</span><span class="o">]</span>
-<span class="n">OnCalendar</span><span class="o">=</span><span class="n">daily</span>
-<span class="n">RandomizedDelaySec</span><span class="o">=</span><span class="mi">12</span><span class="n">h</span>
-<span class="n">AccuracySec</span><span class="o">=</span><span class="mi">20</span><span class="nf">min</span>
-<span class="n">Persistent</span><span class="o">=</span><span class="k">true</span>
+<span class="k">[Timer]</span>
+<span class="na">OnCalendar</span><span class="o">=</span><span class="s">daily</span>
+<span class="na">RandomizedDelaySec</span><span class="o">=</span><span class="s">12h</span>
+<span class="na">AccuracySec</span><span class="o">=</span><span class="s">20min</span>
+<span class="na">Persistent</span><span class="o">=</span><span class="s">true</span>
 
-<span class="o">[</span><span class="n">Install</span><span class="o">]</span>
-<span class="n">WantedBy</span><span class="o">=</span><span class="n">timers</span><span class="p">.</span><span class="n">target</span>
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">timers.target</span>
 </code></pre></div>
 
 <p>If you want to check the output of your timers, you can use the <code>journalctl</code>.</p>

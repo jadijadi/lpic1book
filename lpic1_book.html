@@ -540,13 +540,13 @@ PID TTY TIME     CMD
 </code></pre></div>
 
 <p>to check the logs, we have to use the <code>journalctl</code> utility:</p>
-<div class="highlight"><pre><span></span><code>#<span class="w"> </span><span class="nv">journalctl</span><span class="w"> </span>#<span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="nv">all</span><span class="w"> </span><span class="nv">journal</span>
-#<span class="w"> </span><span class="nv">journalctl</span><span class="w"> </span><span class="o">--</span><span class="nv">no</span><span class="o">-</span><span class="nv">pager</span><span class="w"> </span>#<span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nv">not</span><span class="w"> </span><span class="nv">use</span><span class="w"> </span><span class="nv">less</span>
-#<span class="w"> </span><span class="nv">journalctl</span><span class="w"> </span><span class="o">-</span><span class="nv">n</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span>#<span class="w"> </span><span class="nv">only</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="nv">lines</span>
-#<span class="w"> </span><span class="nv">journalctl</span><span class="w"> </span><span class="o">-</span><span class="nv">S</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="nv">d</span><span class="w"> </span>#<span class="w"> </span><span class="nv">last</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">day</span>
-#<span class="w"> </span><span class="nv">journalctl</span><span class="w"> </span><span class="o">-</span><span class="nv">xe</span><span class="w"> </span>#<span class="w"> </span><span class="nv">last</span><span class="w"> </span><span class="nv">few</span><span class="w"> </span><span class="nv">logs</span>
-#<span class="w"> </span><span class="nv">journalctl</span><span class="w"> </span><span class="o">-</span><span class="nv">u</span><span class="w"> </span><span class="nv">ntp</span><span class="w"> </span>#<span class="w"> </span><span class="nv">only</span><span class="w"> </span><span class="nv">ntp</span><span class="w"> </span><span class="nv">unit</span>
-#<span class="w"> </span><span class="nv">journalctl</span><span class="w"> </span><span class="nv">_PID</span><span class="o">=</span><span class="mi">1234</span>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> journalctl # show all journal
+<span class="gh">#</span> journalctl --no-pager # do not use less
+<span class="gh">#</span> journalctl -n 10 # only 10 lines
+<span class="gh">#</span> journalctl -S -1d # last 1 day
+<span class="gh">#</span> journalctl -xe # last few logs
+<span class="gh">#</span> journalctl -u ntp # only ntp unit
+<span class="gh">#</span> journalctl _PID=1234
 </code></pre></div>
 
 <h2>SysV</h2>
@@ -838,70 +838,70 @@ x:5:respawn:/etc/X11/prefdm -nodaemon
 <table>
 <thead>
 <tr>
-<th align="left">Directory</th>
-<th align="left">Description</th>
+<th style="text-align: left;">Directory</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">bin</td>
-<td align="left">Essential command binaries</td>
+<td style="text-align: left;">bin</td>
+<td style="text-align: left;">Essential command binaries</td>
 </tr>
 <tr>
-<td align="left">boot</td>
-<td align="left">Static files of the boot loader</td>
+<td style="text-align: left;">boot</td>
+<td style="text-align: left;">Static files of the boot loader</td>
 </tr>
 <tr>
-<td align="left">dev</td>
-<td align="left">Device files</td>
+<td style="text-align: left;">dev</td>
+<td style="text-align: left;">Device files</td>
 </tr>
 <tr>
-<td align="left">etc</td>
-<td align="left">Host-specific system configuration</td>
+<td style="text-align: left;">etc</td>
+<td style="text-align: left;">Host-specific system configuration</td>
 </tr>
 <tr>
-<td align="left">home</td>
-<td align="left">Home directory of the users</td>
+<td style="text-align: left;">home</td>
+<td style="text-align: left;">Home directory of the users</td>
 </tr>
 <tr>
-<td align="left">lib</td>
-<td align="left">Essential shared libraries and kernel modules</td>
+<td style="text-align: left;">lib</td>
+<td style="text-align: left;">Essential shared libraries and kernel modules</td>
 </tr>
 <tr>
-<td align="left">media</td>
-<td align="left">Mount point for removable media</td>
+<td style="text-align: left;">media</td>
+<td style="text-align: left;">Mount point for removable media</td>
 </tr>
 <tr>
-<td align="left">mnt</td>
-<td align="left">Mount point for mounting a filesystem temporarily</td>
+<td style="text-align: left;">mnt</td>
+<td style="text-align: left;">Mount point for mounting a filesystem temporarily</td>
 </tr>
 <tr>
-<td align="left">opt</td>
-<td align="left">Add-on application software packages</td>
+<td style="text-align: left;">opt</td>
+<td style="text-align: left;">Add-on application software packages</td>
 </tr>
 <tr>
-<td align="left">root</td>
-<td align="left">Home directory of the root user</td>
+<td style="text-align: left;">root</td>
+<td style="text-align: left;">Home directory of the root user</td>
 </tr>
 <tr>
-<td align="left">sbin</td>
-<td align="left">Essential system binaries</td>
+<td style="text-align: left;">sbin</td>
+<td style="text-align: left;">Essential system binaries</td>
 </tr>
 <tr>
-<td align="left">srv</td>
-<td align="left">Data for services provided by this system</td>
+<td style="text-align: left;">srv</td>
+<td style="text-align: left;">Data for services provided by this system</td>
 </tr>
 <tr>
-<td align="left">tmp</td>
-<td align="left">Temporary files, sometimes purged on each boot</td>
+<td style="text-align: left;">tmp</td>
+<td style="text-align: left;">Temporary files, sometimes purged on each boot</td>
 </tr>
 <tr>
-<td align="left">usr</td>
-<td align="left">Secondary hierarchy</td>
+<td style="text-align: left;">usr</td>
+<td style="text-align: left;">Secondary hierarchy</td>
 </tr>
 <tr>
-<td align="left">var</td>
-<td align="left">Variable data (logs, ...)</td>
+<td style="text-align: left;">var</td>
+<td style="text-align: left;">Variable data (logs, ...)</td>
 </tr>
 </tbody>
 </table>
@@ -1075,46 +1075,46 @@ In short, <code>zram</code> is a virtual disk on your RAM which can be used as s
 <table>
 <thead>
 <tr>
-<th align="left">Config</th>
-<th align="left">Description</th>
+<th style="text-align: left;">Config</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">#</td>
-<td align="left">Comment</td>
+<td style="text-align: left;">#</td>
+<td style="text-align: left;">Comment</td>
 </tr>
 <tr>
-<td align="left">color</td>
-<td align="left">Foreground and background colors for normal and active items</td>
+<td style="text-align: left;">color</td>
+<td style="text-align: left;">Foreground and background colors for normal and active items</td>
 </tr>
 <tr>
-<td align="left">default</td>
-<td align="left">Which boot menu item is the default</td>
+<td style="text-align: left;">default</td>
+<td style="text-align: left;">Which boot menu item is the default</td>
 </tr>
 <tr>
-<td align="left">fallback</td>
-<td align="left">Which boot menu should be used if the <em>default</em> fails</td>
+<td style="text-align: left;">fallback</td>
+<td style="text-align: left;">Which boot menu should be used if the <em>default</em> fails</td>
 </tr>
 <tr>
-<td align="left">hiddenmenu</td>
-<td align="left">Hide the menu options</td>
+<td style="text-align: left;">hiddenmenu</td>
+<td style="text-align: left;">Hide the menu options</td>
 </tr>
 <tr>
-<td align="left">splashimage</td>
-<td align="left">Show this image in the background!</td>
+<td style="text-align: left;">splashimage</td>
+<td style="text-align: left;">Show this image in the background!</td>
 </tr>
 <tr>
-<td align="left">timeout</td>
-<td align="left">Wait this much and then start the default</td>
+<td style="text-align: left;">timeout</td>
+<td style="text-align: left;">Wait this much and then start the default</td>
 </tr>
 <tr>
-<td align="left">password</td>
-<td align="left">Security is important! Will ask this password</td>
+<td style="text-align: left;">password</td>
+<td style="text-align: left;">Security is important! Will ask this password</td>
 </tr>
 <tr>
-<td align="left">savedefault</td>
-<td align="left">Remember the last booted item</td>
+<td style="text-align: left;">savedefault</td>
+<td style="text-align: left;">Remember the last booted item</td>
 </tr>
 </tbody>
 </table>
@@ -1122,34 +1122,34 @@ In short, <code>zram</code> is a virtual disk on your RAM which can be used as s
 <table>
 <thead>
 <tr>
-<th align="left">Config</th>
-<th align="left">Description</th>
+<th style="text-align: left;">Config</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">title</td>
-<td align="left">Defines the section name</td>
+<td style="text-align: left;">title</td>
+<td style="text-align: left;">Defines the section name</td>
 </tr>
 <tr>
-<td align="left">root</td>
-<td align="left">Disk and partition where <code>/boot</code> directory is. In the form of (hddrive, partition), say (hd0, 0) or (hd0, msdos0)</td>
+<td style="text-align: left;">root</td>
+<td style="text-align: left;">Disk and partition where <code>/boot</code> directory is. In the form of (hddrive, partition), say (hd0, 0) or (hd0, msdos0)</td>
 </tr>
 <tr>
-<td align="left">kernel</td>
-<td align="left">Kernel image file name in <code>/boot</code></td>
+<td style="text-align: left;">kernel</td>
+<td style="text-align: left;">Kernel image file name in <code>/boot</code></td>
 </tr>
 <tr>
-<td align="left">initrd</td>
-<td align="left">Initramfs file in <code>/boot</code></td>
+<td style="text-align: left;">initrd</td>
+<td style="text-align: left;">Initramfs file in <code>/boot</code></td>
 </tr>
 <tr>
-<td align="left">rootnoverify</td>
-<td align="left">Defines a non-Linux root partition</td>
+<td style="text-align: left;">rootnoverify</td>
+<td style="text-align: left;">Defines a non-Linux root partition</td>
 </tr>
 <tr>
-<td align="left">chainloader</td>
-<td align="left">Another file will act as stage 1 loader. Used for booting Windows systems</td>
+<td style="text-align: left;">chainloader</td>
+<td style="text-align: left;">Another file will act as stage 1 loader. Used for booting Windows systems</td>
 </tr>
 </tbody>
 </table>
@@ -1221,34 +1221,34 @@ title Windows
 <table>
 <thead>
 <tr>
-<th align="left">Option</th>
-<th align="left">Description</th>
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">menuentry</td>
-<td align="left">Defines a new menuentry</td>
+<td style="text-align: left;">menuentry</td>
+<td style="text-align: left;">Defines a new menuentry</td>
 </tr>
 <tr>
-<td align="left">set root</td>
-<td align="left">Defines the root where <code>/boot</code> located</td>
+<td style="text-align: left;">set root</td>
+<td style="text-align: left;">Defines the root where <code>/boot</code> located</td>
 </tr>
 <tr>
-<td align="left">linux, linux16</td>
-<td align="left">Defines the location of the Linux kernel on BIOS systems</td>
+<td style="text-align: left;">linux, linux16</td>
+<td style="text-align: left;">Defines the location of the Linux kernel on BIOS systems</td>
 </tr>
 <tr>
-<td align="left">linuxefi</td>
-<td align="left">Defines the Linux kernel on UEFI systems</td>
+<td style="text-align: left;">linuxefi</td>
+<td style="text-align: left;">Defines the Linux kernel on UEFI systems</td>
 </tr>
 <tr>
-<td align="left">initrd</td>
-<td align="left">Defines the initramfs image for BIOS systems</td>
+<td style="text-align: left;">initrd</td>
+<td style="text-align: left;">Defines the initramfs image for BIOS systems</td>
 </tr>
 <tr>
-<td align="left">initrdefi</td>
-<td align="left">Defines the initramfs image for UEFI systems</td>
+<td style="text-align: left;">initrdefi</td>
+<td style="text-align: left;">Defines the initramfs image for UEFI systems</td>
 </tr>
 </tbody>
 </table>
@@ -1476,50 +1476,50 @@ title Windows
 <table>
 <thead>
 <tr>
-<th align="left">Option</th>
-<th align="left">Description</th>
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">console=</td>
-<td align="left">Set the console</td>
+<td style="text-align: left;">console=</td>
+<td style="text-align: left;">Set the console</td>
 </tr>
 <tr>
-<td align="left">debug</td>
-<td align="left">Start in debug mode</td>
+<td style="text-align: left;">debug</td>
+<td style="text-align: left;">Start in debug mode</td>
 </tr>
 <tr>
-<td align="left">init=</td>
-<td align="left">Run an specific program instead of the default init</td>
+<td style="text-align: left;">init=</td>
+<td style="text-align: left;">Run an specific program instead of the default init</td>
 </tr>
 <tr>
-<td align="left">initrd=</td>
-<td align="left">Use this initrd</td>
+<td style="text-align: left;">initrd=</td>
+<td style="text-align: left;">Use this initrd</td>
 </tr>
 <tr>
-<td align="left">ro</td>
-<td align="left">Mount the root filesystem read only</td>
+<td style="text-align: left;">ro</td>
+<td style="text-align: left;">Mount the root filesystem read only</td>
 </tr>
 <tr>
-<td align="left">rw</td>
-<td align="left">Mount the root filesystem for read and write</td>
+<td style="text-align: left;">rw</td>
+<td style="text-align: left;">Mount the root filesystem for read and write</td>
 </tr>
 <tr>
-<td align="left">root=</td>
-<td align="left">Use this as the root filesystem</td>
+<td style="text-align: left;">root=</td>
+<td style="text-align: left;">Use this as the root filesystem</td>
 </tr>
 <tr>
-<td align="left">selinux</td>
-<td align="left">Disable <code>selinux</code> on boot</td>
+<td style="text-align: left;">selinux</td>
+<td style="text-align: left;">Disable <code>selinux</code> on boot</td>
 </tr>
 <tr>
-<td align="left">single,S,1,Single</td>
-<td align="left">Boot in single user mode for troubleshooting (SysV)</td>
+<td style="text-align: left;">single,S,1,Single</td>
+<td style="text-align: left;">Boot in single user mode for troubleshooting (SysV)</td>
 </tr>
 <tr>
-<td align="left">systemd.unit=</td>
-<td align="left">Boot in this systemd target</td>
+<td style="text-align: left;">systemd.unit=</td>
+<td style="text-align: left;">Boot in this systemd target</td>
 </tr>
 </tbody>
 </table>
@@ -1655,17 +1655,17 @@ llvm13-x86_64.conf  pipewire-jack-x86_64.conf
 <div class="highlight"><pre><span></span><code><span class="p">[</span><span class="nx">jadi</span><span class="err">@</span><span class="nx">fedora</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="err">$</span><span class="w"> </span><span class="nx">readelf</span><span class="w"> </span><span class="o">-</span><span class="nx">Wl</span><span class="w"> </span><span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">ls</span>
 
 <span class="nx">Elf</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">DYN</span><span class="w"> </span><span class="p">(</span><span class="nx">Position</span><span class="o">-</span><span class="nx">Independent</span><span class="w"> </span><span class="nx">Executable</span><span class="w"> </span><span class="nx">file</span><span class="p">)</span>
-<span class="nx">Entry</span><span class="w"> </span><span class="nx">point</span><span class="w"> </span><span class="mh">0x6</span><span class="nx">c00</span>
+<span class="nx">Entry</span><span class="w"> </span><span class="nx">point</span><span class="w"> </span><span class="mh">0x6c00</span>
 <span class="nx">There</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="nx">program</span><span class="w"> </span><span class="nx">headers</span><span class="p">,</span><span class="w"> </span><span class="nx">starting</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="nx">offset</span><span class="w"> </span><span class="mi">64</span>
 
 <span class="nx">Program</span><span class="w"> </span><span class="nx">Headers</span><span class="p">:</span>
 <span class="w">  </span><span class="nx">Type</span><span class="w">           </span><span class="nx">Offset</span><span class="w">   </span><span class="nx">VirtAddr</span><span class="w">           </span><span class="nx">PhysAddr</span><span class="w">           </span><span class="nx">FileSiz</span><span class="w">  </span><span class="nx">MemSiz</span><span class="w">   </span><span class="nx">Flg</span><span class="w"> </span><span class="nx">Align</span>
-<span class="w">  </span><span class="nx">PHDR</span><span class="w">           </span><span class="mh">0x0</span><span class="mi">00040</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">000000000000040</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">000000000000040</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">002</span><span class="nx">d8</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">002</span><span class="nx">d8</span><span class="w"> </span><span class="nx">R</span><span class="w">   </span><span class="mh">0x8</span>
-<span class="w">  </span><span class="nx">INTERP</span><span class="w">         </span><span class="mh">0x0</span><span class="mi">00318</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">000000000000318</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">000000000000318</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">0001</span><span class="nx">c</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">0001</span><span class="nx">c</span><span class="w"> </span><span class="nx">R</span><span class="w">   </span><span class="mh">0x1</span>
+<span class="w">  </span><span class="nx">PHDR</span><span class="w">           </span><span class="mh">0x000040</span><span class="w"> </span><span class="mh">0x0000000000000040</span><span class="w"> </span><span class="mh">0x0000000000000040</span><span class="w"> </span><span class="mh">0x0002d8</span><span class="w"> </span><span class="mh">0x0002d8</span><span class="w"> </span><span class="nx">R</span><span class="w">   </span><span class="mh">0x8</span>
+<span class="w">  </span><span class="nx">INTERP</span><span class="w">         </span><span class="mh">0x000318</span><span class="w"> </span><span class="mh">0x0000000000000318</span><span class="w"> </span><span class="mh">0x0000000000000318</span><span class="w"> </span><span class="mh">0x00001c</span><span class="w"> </span><span class="mh">0x00001c</span><span class="w"> </span><span class="nx">R</span><span class="w">   </span><span class="mh">0x1</span>
 <span class="w">      </span><span class="p">[</span><span class="nx">Requesting</span><span class="w"> </span><span class="nx">program</span><span class="w"> </span><span class="nx">interpreter</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="nx">lib64</span><span class="o">/</span><span class="nx">ld</span><span class="o">-</span><span class="nx">linux</span><span class="o">-</span><span class="nx">x86</span><span class="o">-</span><span class="mi">64</span><span class="p">.</span><span class="nx">so</span><span class="m m-Double">.2</span><span class="p">]</span>
-<span class="w">  </span><span class="nx">LOAD</span><span class="w">           </span><span class="mh">0x0</span><span class="mi">00000</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">000000000000000</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">000000000000000</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">03798</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">03798</span><span class="w"> </span><span class="nx">R</span><span class="w">   </span><span class="mh">0x1</span><span class="mi">000</span>
-<span class="w">  </span><span class="nx">LOAD</span><span class="w">           </span><span class="mh">0x0</span><span class="mi">04000</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">000000000004000</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">000000000004000</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">13</span><span class="nx">c21</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">13</span><span class="nx">c21</span><span class="w"> </span><span class="nx">R</span><span class="w"> </span><span class="nx">E</span><span class="w"> </span><span class="mh">0x1</span><span class="mi">000</span>
-<span class="w">  </span><span class="nx">LOAD</span><span class="w">           </span><span class="mh">0x0</span><span class="mi">18000</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">000000000018000</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">000000000018000</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">074</span><span class="nx">d8</span><span class="w"> </span><span class="mh">0x0</span><span class="mi">074</span><span class="nx">d8</span><span class="w"> </span><span class="nx">R</span><span class="w">   </span><span class="mh">0x1</span><span class="mi">000</span>
+<span class="w">  </span><span class="nx">LOAD</span><span class="w">           </span><span class="mh">0x000000</span><span class="w"> </span><span class="mh">0x0000000000000000</span><span class="w"> </span><span class="mh">0x0000000000000000</span><span class="w"> </span><span class="mh">0x003798</span><span class="w"> </span><span class="mh">0x003798</span><span class="w"> </span><span class="nx">R</span><span class="w">   </span><span class="mh">0x1000</span>
+<span class="w">  </span><span class="nx">LOAD</span><span class="w">           </span><span class="mh">0x004000</span><span class="w"> </span><span class="mh">0x0000000000004000</span><span class="w"> </span><span class="mh">0x0000000000004000</span><span class="w"> </span><span class="mh">0x013c21</span><span class="w"> </span><span class="mh">0x013c21</span><span class="w"> </span><span class="nx">R</span><span class="w"> </span><span class="nx">E</span><span class="w"> </span><span class="mh">0x1000</span>
+<span class="w">  </span><span class="nx">LOAD</span><span class="w">           </span><span class="mh">0x018000</span><span class="w"> </span><span class="mh">0x0000000000018000</span><span class="w"> </span><span class="mh">0x0000000000018000</span><span class="w"> </span><span class="mh">0x0074d8</span><span class="w"> </span><span class="mh">0x0074d8</span><span class="w"> </span><span class="nx">R</span><span class="w">   </span><span class="mh">0x1000</span>
 <span class="w">  </span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
 </code></pre></div>
 
@@ -2783,38 +2783,38 @@ cd $HOME
 <table>
 <thead>
 <tr>
-<th align="left">Option</th>
-<th align="left">Description</th>
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-s</td>
-<td align="left">Print the kernel name. This is the default if no option is specified.</td>
+<td style="text-align: left;">-s</td>
+<td style="text-align: left;">Print the kernel name. This is the default if no option is specified.</td>
 </tr>
 <tr>
-<td align="left">-n</td>
-<td align="left">Print the nodename or hostname.</td>
+<td style="text-align: left;">-n</td>
+<td style="text-align: left;">Print the nodename or hostname.</td>
 </tr>
 <tr>
-<td align="left">-r</td>
-<td align="left">Print the release of the kernel. This option is often used with module-handling commands.</td>
+<td style="text-align: left;">-r</td>
+<td style="text-align: left;">Print the release of the kernel. This option is often used with module-handling commands.</td>
 </tr>
 <tr>
-<td align="left">-v</td>
-<td align="left">Print the version of the kernel.</td>
+<td style="text-align: left;">-v</td>
+<td style="text-align: left;">Print the version of the kernel.</td>
 </tr>
 <tr>
-<td align="left">-m</td>
-<td align="left">Print the machine's hardware (CPU) name.</td>
+<td style="text-align: left;">-m</td>
+<td style="text-align: left;">Print the machine's hardware (CPU) name.</td>
 </tr>
 <tr>
-<td align="left">-o</td>
-<td align="left">Print the operating system name.</td>
+<td style="text-align: left;">-o</td>
+<td style="text-align: left;">Print the operating system name.</td>
 </tr>
 <tr>
-<td align="left">-a</td>
-<td align="left">Print all of the above information.</td>
+<td style="text-align: left;">-a</td>
+<td style="text-align: left;">Print all of the above information.</td>
 </tr>
 </tbody>
 </table>
@@ -2857,38 +2857,38 @@ there
 <table>
 <thead>
 <tr>
-<th align="left">Escape sequence    Function</th>
-<th align="left"></th>
+<th style="text-align: left;">Escape sequence    Function</th>
+<th style="text-align: left;"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">\a</td>
-<td align="left">Alert (bell)</td>
+<td style="text-align: left;">\a</td>
+<td style="text-align: left;">Alert (bell)</td>
 </tr>
 <tr>
-<td align="left">\b</td>
-<td align="left">Backspace</td>
+<td style="text-align: left;">\b</td>
+<td style="text-align: left;">Backspace</td>
 </tr>
 <tr>
-<td align="left">\c</td>
-<td align="left">Suppress trailing newline (same function as -n option)</td>
+<td style="text-align: left;">\c</td>
+<td style="text-align: left;">Suppress trailing newline (same function as -n option)</td>
 </tr>
 <tr>
-<td align="left">\f</td>
-<td align="left">Form feed (clear the screen on a video display)</td>
+<td style="text-align: left;">\f</td>
+<td style="text-align: left;">Form feed (clear the screen on a video display)</td>
 </tr>
 <tr>
-<td align="left">\n</td>
-<td align="left">New line</td>
+<td style="text-align: left;">\n</td>
+<td style="text-align: left;">New line</td>
 </tr>
 <tr>
-<td align="left">\r</td>
-<td align="left">Carriage return</td>
+<td style="text-align: left;">\r</td>
+<td style="text-align: left;">Carriage return</td>
 </tr>
 <tr>
-<td align="left">\t</td>
-<td align="left">Horizontal tab</td>
+<td style="text-align: left;">\t</td>
+<td style="text-align: left;">Horizontal tab</td>
 </tr>
 </tbody>
 </table>
@@ -2912,62 +2912,62 @@ You<span class="w"> </span>know<span class="w"> </span>slashes!<span class="w"> 
 <table>
 <thead>
 <tr>
-<th align="left">Name</th>
-<th align="left">Function</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Function</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">USER</td>
-<td align="left">The name of the logged-in user</td>
+<td style="text-align: left;">USER</td>
+<td style="text-align: left;">The name of the logged-in user</td>
 </tr>
 <tr>
-<td align="left">PATH</td>
-<td align="left">List of directories to search for commands, colon separated</td>
+<td style="text-align: left;">PATH</td>
+<td style="text-align: left;">List of directories to search for commands, colon separated</td>
 </tr>
 <tr>
-<td align="left">EDITOR</td>
-<td align="left">Default editor</td>
+<td style="text-align: left;">EDITOR</td>
+<td style="text-align: left;">Default editor</td>
 </tr>
 <tr>
-<td align="left">HISTFILE</td>
-<td align="left">Where bash should save its history (normally <code>.bash_history</code>)</td>
+<td style="text-align: left;">HISTFILE</td>
+<td style="text-align: left;">Where bash should save its history (normally <code>.bash_history</code>)</td>
 </tr>
 <tr>
-<td align="left">HOSTNAME</td>
-<td align="left">System hostname</td>
+<td style="text-align: left;">HOSTNAME</td>
+<td style="text-align: left;">System hostname</td>
 </tr>
 <tr>
-<td align="left">PS1</td>
-<td align="left">The Prompt! Play with it</td>
+<td style="text-align: left;">PS1</td>
+<td style="text-align: left;">The Prompt! Play with it</td>
 </tr>
 <tr>
-<td align="left">UID</td>
-<td align="left">The numeric user id of the logged-in user</td>
+<td style="text-align: left;">UID</td>
+<td style="text-align: left;">The numeric user id of the logged-in user</td>
 </tr>
 <tr>
-<td align="left">HOME</td>
-<td align="left">The user's home directory</td>
+<td style="text-align: left;">HOME</td>
+<td style="text-align: left;">The user's home directory</td>
 </tr>
 <tr>
-<td align="left">PWD</td>
-<td align="left">The current working directory</td>
+<td style="text-align: left;">PWD</td>
+<td style="text-align: left;">The current working directory</td>
 </tr>
 <tr>
-<td align="left">SHELL</td>
-<td align="left">The name of the shell</td>
+<td style="text-align: left;">SHELL</td>
+<td style="text-align: left;">The name of the shell</td>
 </tr>
 <tr>
-<td align="left">$</td>
-<td align="left">The process id (or PID of the running bash shell (or other) process</td>
+<td style="text-align: left;">$</td>
+<td style="text-align: left;">The process id (or PID of the running bash shell (or other) process</td>
 </tr>
 <tr>
-<td align="left">PPID</td>
-<td align="left">The process id of the process that started this process (that is, the id of the parent process)</td>
+<td style="text-align: left;">PPID</td>
+<td style="text-align: left;">The process id of the process that started this process (that is, the id of the parent process)</td>
 </tr>
 <tr>
-<td align="left">?</td>
-<td align="left">The exit code of the last command</td>
+<td style="text-align: left;">?</td>
+<td style="text-align: left;">The exit code of the last command</td>
 </tr>
 </tbody>
 </table>
@@ -3549,26 +3549,26 @@ and longer!
 <table>
 <thead>
 <tr>
-<th align="left">command</th>
-<th align="left">meaning</th>
+<th style="text-align: left;">command</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">rm *</td>
-<td align="left">delete all files in this directory</td>
+<td style="text-align: left;">rm *</td>
+<td style="text-align: left;">delete all files in this directory</td>
 </tr>
 <tr>
-<td align="left">ls A*B</td>
-<td align="left">show all files starting with A and ending with B</td>
+<td style="text-align: left;">ls A*B</td>
+<td style="text-align: left;">show all files starting with A and ending with B</td>
 </tr>
 <tr>
-<td align="left">cp ???.* /tmp</td>
-<td align="left">Copy all files with 3 characters, then a dot then whatever (even nothing) to /tmp</td>
+<td style="text-align: left;">cp ???.* /tmp</td>
+<td style="text-align: left;">Copy all files with 3 characters, then a dot then whatever (even nothing) to /tmp</td>
 </tr>
 <tr>
-<td align="left">rmdir [a-z]*</td>
-<td align="left">remove all empty directories which start with a letter</td>
+<td style="text-align: left;">rmdir [a-z]*</td>
+<td style="text-align: left;">remove all empty directories which start with a letter</td>
 </tr>
 </tbody>
 </table>
@@ -3802,26 +3802,26 @@ $ ls -ltrh file?
 <table>
 <thead>
 <tr>
-<th align="left">command</th>
-<th align="left">meaning</th>
+<th style="text-align: left;">command</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-size 100c</td>
-<td align="left">files which are exactly 100 characters/bytes (you can also use <code>b</code>)</td>
+<td style="text-align: left;">-size 100c</td>
+<td style="text-align: left;">files which are exactly 100 characters/bytes (you can also use <code>b</code>)</td>
 </tr>
 <tr>
-<td align="left">-size +100k</td>
-<td align="left">files which are more than 100 kilobytes</td>
+<td style="text-align: left;">-size +100k</td>
+<td style="text-align: left;">files which are more than 100 kilobytes</td>
 </tr>
 <tr>
-<td align="left">-size -20M</td>
-<td align="left">files smaller than 20Megabytes</td>
+<td style="text-align: left;">-size -20M</td>
+<td style="text-align: left;">files smaller than 20Megabytes</td>
 </tr>
 <tr>
-<td align="left">-size +2G</td>
-<td align="left">files bigger than 2Gigabytes</td>
+<td style="text-align: left;">-size +2G</td>
+<td style="text-align: left;">files bigger than 2Gigabytes</td>
 </tr>
 </tbody>
 </table>
@@ -3836,46 +3836,46 @@ $ ls -ltrh file?
 <table>
 <thead>
 <tr>
-<th align="left">switch</th>
-<th align="left">meaning</th>
-<th align="left">samples</th>
+<th style="text-align: left;">switch</th>
+<th style="text-align: left;">meaning</th>
+<th style="text-align: left;">samples</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-amin</td>
-<td align="left">Access Minutes</td>
-<td align="left"><code>-amin 40</code> means "files accessed exactly 40min ago" or <code>-amin +40</code> mins files accessed more than 40min ago and <code>-amin -40</code> means files accessed less than 40min ago</td>
+<td style="text-align: left;">-amin</td>
+<td style="text-align: left;">Access Minutes</td>
+<td style="text-align: left;"><code>-amin 40</code> means "files accessed exactly 40min ago" or <code>-amin +40</code> mins files accessed more than 40min ago and <code>-amin -40</code> means files accessed less than 40min ago</td>
 </tr>
 <tr>
-<td align="left">-cmin</td>
-<td align="left">Status Change Min</td>
-<td align="left"><code>-cmin +60</code> file status changed before last hour</td>
+<td style="text-align: left;">-cmin</td>
+<td style="text-align: left;">Status Change Min</td>
+<td style="text-align: left;"><code>-cmin +60</code> file status changed before last hour</td>
 </tr>
 <tr>
-<td align="left">-mmin</td>
-<td align="left">Modified Minutes</td>
-<td align="left"><code>-mmin -60</code> will give us files modified in last hour</td>
+<td style="text-align: left;">-mmin</td>
+<td style="text-align: left;">Modified Minutes</td>
+<td style="text-align: left;"><code>-mmin -60</code> will give us files modified in last hour</td>
 </tr>
 <tr>
-<td align="left">-atime</td>
-<td align="left">access time in days</td>
-<td align="left"><code>-atime +1</code> means files access "more than 1 days ago (which means 2 days and more)</td>
+<td style="text-align: left;">-atime</td>
+<td style="text-align: left;">access time in days</td>
+<td style="text-align: left;"><code>-atime +1</code> means files access "more than 1 days ago (which means 2 days and more)</td>
 </tr>
 <tr>
-<td align="left">-ctime</td>
-<td align="left">Status Changed in Days</td>
-<td align="left"></td>
+<td style="text-align: left;">-ctime</td>
+<td style="text-align: left;">Status Changed in Days</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td align="left">-mtime</td>
-<td align="left">Modified days</td>
-<td align="left"></td>
+<td style="text-align: left;">-mtime</td>
+<td style="text-align: left;">Modified days</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td align="left">-newer</td>
-<td align="left">Newer than reference</td>
-<td align="left"><code>-newer file1</code> will give you files which are newer than file1</td>
+<td style="text-align: left;">-newer</td>
+<td style="text-align: left;">Newer than reference</td>
+<td style="text-align: left;"><code>-newer file1</code> will give you files which are newer than file1</td>
 </tr>
 </tbody>
 </table>
@@ -3887,18 +3887,18 @@ $ ls -ltrh file?
 <table>
 <thead>
 <tr>
-<th align="left">switch</th>
-<th align="left">meaning</th>
+<th style="text-align: left;">switch</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-ls</td>
-<td align="left">will run ls -dils on each file</td>
+<td style="text-align: left;">-ls</td>
+<td style="text-align: left;">will run ls -dils on each file</td>
 </tr>
 <tr>
-<td align="left">-print</td>
-<td align="left">will print the full name of the files on each line</td>
+<td style="text-align: left;">-print</td>
+<td style="text-align: left;">will print the full name of the files on each line</td>
 </tr>
 </tbody>
 </table>
@@ -3908,7 +3908,7 @@ $ ls -ltrh file?
 </code></pre></div>
 
 <p>or this will rename all htm files to html</p>
-<div class="highlight"><pre><span></span><code><span class="nv">find</span><span class="w"> </span>.<span class="w"> </span><span class="o">-</span><span class="nv">name</span><span class="w"> </span><span class="s2">&quot;*.htm&quot;</span><span class="w"> </span><span class="o">-</span><span class="k">exec</span><span class="w"> </span><span class="nv">mv</span><span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="w"> </span><span class="s1">&#39;{}l&#39;</span><span class="w"> </span>\<span class="c1">;</span>
+<div class="highlight"><pre><span></span><code>find . -name &quot;*.htm&quot; -exec mv &#39;{}&#39; &#39;{}l&#39; \;
 </code></pre></div>
 
 <blockquote>
@@ -4001,34 +4001,34 @@ $ ls -ltrh file?
 <table>
 <thead>
 <tr>
-<th align="left">switch</th>
-<th align="left">meanint</th>
+<th style="text-align: left;">switch</th>
+<th style="text-align: left;">meanint</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-cf <code>myarchive.tar</code></td>
-<td align="left">create file named myarchive.tar</td>
+<td style="text-align: left;">-cf <code>myarchive.tar</code></td>
+<td style="text-align: left;">create file named myarchive.tar</td>
 </tr>
 <tr>
-<td align="left">-xf <code>myarchive.tar</code></td>
-<td align="left">extract a file named myarchive.tar</td>
+<td style="text-align: left;">-xf <code>myarchive.tar</code></td>
+<td style="text-align: left;">extract a file named myarchive.tar</td>
 </tr>
 <tr>
-<td align="left">-z</td>
-<td align="left">compress the archive with gzip after creating it</td>
+<td style="text-align: left;">-z</td>
+<td style="text-align: left;">compress the archive with gzip after creating it</td>
 </tr>
 <tr>
-<td align="left">-j</td>
-<td align="left">compress the archive with bzip2 after creating it</td>
+<td style="text-align: left;">-j</td>
+<td style="text-align: left;">compress the archive with bzip2 after creating it</td>
 </tr>
 <tr>
-<td align="left">-v</td>
-<td align="left">verbose! print a lot of data about what is happening</td>
+<td style="text-align: left;">-v</td>
+<td style="text-align: left;">verbose! print a lot of data about what is happening</td>
 </tr>
 <tr>
-<td align="left">-r</td>
-<td align="left">append new files to the currently available archive</td>
+<td style="text-align: left;">-r</td>
+<td style="text-align: left;">append new files to the currently available archive</td>
 </tr>
 </tbody>
 </table>
@@ -4384,7 +4384,7 @@ rtt<span class="w"> </span>min/avg/max/mdev<span class="w"> </span><span class="
 <p>It is common to use <code>2&gt;</code> to redirect the nohup errors to another file and use a <code>&amp;</code> to run it in the background: <code>nohup script.sh &gt; mynohup.out 2&gt;&amp;1 &amp;</code> </p>
 </blockquote>
 <h3>kill</h3>
-<p>Despite its frightening name, the <code>kill</code> command sends unix <em>signals</em> to processes. Pressing <code>Ctrl+c</code> and <code>Ctrl+z</code> is also sending signals. By default, the <code>kill</code> command sends the signal <strong>15</strong> (which is TERM and tells to process to terminate itself).</p>
+<p>Despite its frightening name, the <code>kill</code> command sends unix <em>signals</em> to processes. Pressing <code>Ctrl+c</code> and <code>Ctrl+z</code> is also sending signals. By default, the <code>kill</code> command sends the signal <strong>15</strong> (which is TERM and tells the process to terminate itself).</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">jobs</span>
 <span class="o">[</span><span class="m">3</span><span class="o">]</span><span class="w">   </span>Running<span class="w">                 </span>xeyes<span class="w"> </span><span class="p">&amp;</span>
 <span class="o">[</span><span class="m">4</span><span class="o">]</span><span class="w">   </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="p">&amp;</span>
@@ -4406,26 +4406,26 @@ $<span class="w"> </span><span class="nb">jobs</span>
 <table>
 <thead>
 <tr>
-<th align="center">signal number</th>
-<th align="center">signal name</th>
-<th align="left">meaning</th>
+<th style="text-align: center;">signal number</th>
+<th style="text-align: center;">signal name</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">1</td>
-<td align="center">HUP</td>
-<td align="left">Informing the process that its controlling terminal (like an ssh connection) is terminated</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">HUP</td>
+<td style="text-align: left;">Informing the process that its controlling terminal (like an ssh connection) is terminated</td>
 </tr>
 <tr>
-<td align="center">15</td>
-<td align="center">TERM</td>
-<td align="left">normal termination request</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">TERM</td>
+<td style="text-align: left;">normal termination request</td>
 </tr>
 <tr>
-<td align="center">9</td>
-<td align="center">KILL</td>
-<td align="left">forcefully kills the proccess</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">KILL</td>
+<td style="text-align: left;">forcefully kills the proccess</td>
 </tr>
 </tbody>
 </table>
@@ -4553,30 +4553,30 @@ jadi<span class="w">      </span><span class="m">7725</span><span class="w">  </
 <table>
 <thead>
 <tr>
-<th align="center">key during top</th>
-<th align="left">functionality</th>
+<th style="text-align: center;">key during top</th>
+<th style="text-align: left;">functionality</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">h</td>
-<td align="left">help</td>
+<td style="text-align: center;">h</td>
+<td style="text-align: left;">help</td>
 </tr>
 <tr>
-<td align="center">q</td>
-<td align="left">quit</td>
+<td style="text-align: center;">q</td>
+<td style="text-align: left;">quit</td>
 </tr>
 <tr>
-<td align="center">M</td>
-<td align="left">sort based on memory usage</td>
+<td style="text-align: center;">M</td>
+<td style="text-align: left;">sort based on memory usage</td>
 </tr>
 <tr>
-<td align="center">c</td>
-<td align="left">show full commands</td>
+<td style="text-align: center;">c</td>
+<td style="text-align: left;">show full commands</td>
 </tr>
 <tr>
-<td align="center">k</td>
-<td align="left">kill after asking pid and signal</td>
+<td style="text-align: center;">k</td>
+<td style="text-align: left;">kill after asking pid and signal</td>
 </tr>
 </tbody>
 </table>
@@ -4626,45 +4626,45 @@ Swap:<span class="w">         </span><span class="m">7627</span><span class="w">
 <table>
 <thead>
 <tr>
-<th align="center">Key</th>
+<th style="text-align: center;">Key</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">\</td>
+<td style="text-align: center;">\</td>
 <td>Kill all processes windows and terminate the screen</td>
 </tr>
 <tr>
-<td align="center">|</td>
+<td style="text-align: center;">|</td>
 <td>Split current window into two vertical focuses</td>
 </tr>
 <tr>
-<td align="center">Shift+S</td>
+<td style="text-align: center;">Shift+S</td>
 <td>Split current window into two horizontal focuses</td>
 </tr>
 <tr>
-<td align="center">C</td>
+<td style="text-align: center;">C</td>
 <td>Create a window in the current focus</td>
 </tr>
 <tr>
-<td align="center">Tab</td>
+<td style="text-align: center;">Tab</td>
 <td>Go to the next focus</td>
 </tr>
 <tr>
-<td align="center">D</td>
+<td style="text-align: center;">D</td>
 <td>Detach from window</td>
 </tr>
 <tr>
-<td align="center">K</td>
+<td style="text-align: center;">K</td>
 <td>Kill current window</td>
 </tr>
 <tr>
-<td align="center">N</td>
+<td style="text-align: center;">N</td>
 <td>Move to Next window</td>
 </tr>
 <tr>
-<td align="center">P</td>
+<td style="text-align: center;">P</td>
 <td>Move to the Previous window</td>
 </tr>
 </tbody>
@@ -4675,25 +4675,25 @@ Swap:<span class="w">         </span><span class="m">7627</span><span class="w">
 <table>
 <thead>
 <tr>
-<th align="center">Key</th>
+<th style="text-align: center;">Key</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">%</td>
+<td style="text-align: center;">%</td>
 <td>Split current window vertically</td>
 </tr>
 <tr>
-<td align="center">"</td>
+<td style="text-align: center;">"</td>
 <td>Split current window horizontally</td>
 </tr>
 <tr>
-<td align="center">D</td>
+<td style="text-align: center;">D</td>
 <td>Detach from the current window</td>
 </tr>
 <tr>
-<td align="center">&amp;</td>
+<td style="text-align: center;">&amp;</td>
 <td>Kill current window</td>
 </tr>
 </tbody>
@@ -4824,18 +4824,18 @@ You can simply write down whatever you want to match and regex will search for t
 <table>
 <thead>
 <tr>
-<th align="left">Regex</th>
-<th align="left">Will match</th>
+<th style="text-align: left;">Regex</th>
+<th style="text-align: left;">Will match</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">a</td>
-<td align="left"><strong>a</strong>fter, min<strong>a</strong>, b<strong>a</strong>nana, j<strong>a</strong>di</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: left;"><strong>a</strong>fter, min<strong>a</strong>, b<strong>a</strong>nana, j<strong>a</strong>di</td>
 </tr>
 <tr>
-<td align="left">na</td>
-<td align="left"><strong>na</strong>rator, mi<strong>na</strong>, <strong>na</strong>nanana batman, so<strong>na</strong>r</td>
+<td style="text-align: left;">na</td>
+<td style="text-align: left;"><strong>na</strong>rator, mi<strong>na</strong>, <strong>na</strong>nanana batman, so<strong>na</strong>r</td>
 </tr>
 </tbody>
 </table>
@@ -4850,31 +4850,31 @@ You can simply write down whatever you want to match and regex will search for t
 <table>
 <thead>
 <tr>
-<th align="left">Regex</th>
-<th align="left">Will match</th>
-<th align="left">Note</th>
+<th style="text-align: left;">Regex</th>
+<th style="text-align: left;">Will match</th>
+<th style="text-align: left;">Note</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">a*b</td>
-<td align="left">ab, aaab, aaaaab, aaabthis</td>
-<td align="left"></td>
+<td style="text-align: left;">a*b</td>
+<td style="text-align: left;">ab, aaab, aaaaab, aaabthis</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td align="left">a*b</td>
-<td align="left">b, sober</td>
-<td align="left">we should have zero or more <code>a</code>s and then a <code>b</code></td>
+<td style="text-align: left;">a*b</td>
+<td style="text-align: left;">b, sober</td>
+<td style="text-align: left;">we should have zero or more <code>a</code>s and then a <code>b</code></td>
 </tr>
 <tr>
-<td align="left">a+b</td>
-<td align="left">ab, aab, aaabenz</td>
-<td align="left">wont match <strong>sober</strong> or <strong>b</strong> because there needs to be at least one <strong>a</strong></td>
+<td style="text-align: left;">a+b</td>
+<td style="text-align: left;">ab, aab, aaabenz</td>
+<td style="text-align: left;">wont match <strong>sober</strong> or <strong>b</strong> because there needs to be at least one <strong>a</strong></td>
 </tr>
 <tr>
-<td align="left">a?b</td>
-<td align="left">ab, a<strong>ab</strong>, b, batman (zero a then b), ...</td>
-<td align="left">.</td>
+<td style="text-align: left;">a?b</td>
+<td style="text-align: left;">ab, a<strong>ab</strong>, b, batman (zero a then b), ...</td>
+<td style="text-align: left;">.</td>
 </tr>
 </tbody>
 </table>
@@ -4893,30 +4893,30 @@ You can simply write down whatever you want to match and regex will search for t
 <table>
 <thead>
 <tr>
-<th align="left">Range</th>
-<th align="left">Meaning</th>
+<th style="text-align: left;">Range</th>
+<th style="text-align: left;">Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">[:alnum:]</td>
-<td align="left">Alphanumeric characters</td>
+<td style="text-align: left;">[:alnum:]</td>
+<td style="text-align: left;">Alphanumeric characters</td>
 </tr>
 <tr>
-<td align="left">[:blank:]</td>
-<td align="left">Space and tab characters</td>
+<td style="text-align: left;">[:blank:]</td>
+<td style="text-align: left;">Space and tab characters</td>
 </tr>
 <tr>
-<td align="left">[:digit:]</td>
-<td align="left">The digits 0 through 9 (equivalent to 0-9)</td>
+<td style="text-align: left;">[:digit:]</td>
+<td style="text-align: left;">The digits 0 through 9 (equivalent to 0-9)</td>
 </tr>
 <tr>
-<td align="left">[:upper:] and [:lower:]</td>
-<td align="left">Upper and lower case letters, respectively.</td>
+<td style="text-align: left;">[:upper:] and [:lower:]</td>
+<td style="text-align: left;">Upper and lower case letters, respectively.</td>
 </tr>
 <tr>
-<td align="left">^ (negation)</td>
-<td align="left">As the first character after [ in a character class negates the sense of the remaining characters</td>
+<td style="text-align: left;">^ (negation)</td>
+<td style="text-align: left;">As the first character after [ in a character class negates the sense of the remaining characters</td>
 </tr>
 </tbody>
 </table>
@@ -4955,34 +4955,34 @@ funky
 <table>
 <thead>
 <tr>
-<th align="left">switch</th>
-<th align="left">meaning</th>
+<th style="text-align: left;">switch</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-c</td>
-<td align="left">just show the count</td>
+<td style="text-align: left;">-c</td>
+<td style="text-align: left;">just show the count</td>
 </tr>
 <tr>
-<td align="left">-v</td>
-<td align="left">reverse the search</td>
+<td style="text-align: left;">-v</td>
+<td style="text-align: left;">reverse the search</td>
 </tr>
 <tr>
-<td align="left">-n</td>
-<td align="left">show line numbers</td>
+<td style="text-align: left;">-n</td>
+<td style="text-align: left;">show line numbers</td>
 </tr>
 <tr>
-<td align="left">-l</td>
-<td align="left">show only file names</td>
+<td style="text-align: left;">-l</td>
+<td style="text-align: left;">show only file names</td>
 </tr>
 <tr>
-<td align="left">-i</td>
-<td align="left">case insensitive</td>
+<td style="text-align: left;">-i</td>
+<td style="text-align: left;">case insensitive</td>
 </tr>
 <tr>
-<td align="left">-r</td>
-<td align="left">Read  all  files  under each directory, recursively</td>
+<td style="text-align: left;">-r</td>
+<td style="text-align: left;">Read  all  files  under each directory, recursively</td>
 </tr>
 </tbody>
 </table>
@@ -5077,18 +5077,18 @@ Mary
 <table>
 <thead>
 <tr>
-<th align="left">switch</th>
-<th align="left">meaning</th>
+<th style="text-align: left;">switch</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-r</td>
-<td align="left">use advanced regex</td>
+<td style="text-align: left;">-r</td>
+<td style="text-align: left;">use advanced regex</td>
 </tr>
 <tr>
-<td align="left">-n</td>
-<td align="left">suppress output, you can use p at the end of your regex ( /something/p ) to print the output</td>
+<td style="text-align: left;">-n</td>
+<td style="text-align: left;">suppress output, you can use p at the end of your regex ( /something/p ) to print the output</td>
 </tr>
 </tbody>
 </table>
@@ -5205,46 +5205,46 @@ unHAPPY
 <table>
 <thead>
 <tr>
-<th align="center">key</th>
-<th align="left">function</th>
+<th style="text-align: center;">key</th>
+<th style="text-align: left;">function</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">h</td>
-<td align="left">One character to the left (only current line)</td>
+<td style="text-align: center;">h</td>
+<td style="text-align: left;">One character to the left (only current line)</td>
 </tr>
 <tr>
-<td align="center">j</td>
-<td align="left">One line down</td>
+<td style="text-align: center;">j</td>
+<td style="text-align: left;">One line down</td>
 </tr>
 <tr>
-<td align="center">k</td>
-<td align="left">One line up</td>
+<td style="text-align: center;">k</td>
+<td style="text-align: left;">One line up</td>
 </tr>
 <tr>
-<td align="center">l</td>
-<td align="left">One character to the right (only current line)</td>
+<td style="text-align: center;">l</td>
+<td style="text-align: left;">One character to the right (only current line)</td>
 </tr>
 <tr>
-<td align="center">w</td>
-<td align="left">Next word on the current line</td>
+<td style="text-align: center;">w</td>
+<td style="text-align: left;">Next word on the current line</td>
 </tr>
 <tr>
-<td align="center">e</td>
-<td align="left">Next end of word on the current line</td>
+<td style="text-align: center;">e</td>
+<td style="text-align: left;">Next end of word on the current line</td>
 </tr>
 <tr>
-<td align="center">b</td>
-<td align="left">Previous beginning of the word on the current line</td>
+<td style="text-align: center;">b</td>
+<td style="text-align: left;">Previous beginning of the word on the current line</td>
 </tr>
 <tr>
-<td align="center">Ctrl-f</td>
-<td align="left">Scroll forward one page</td>
+<td style="text-align: center;">Ctrl-f</td>
+<td style="text-align: left;">Scroll forward one page</td>
 </tr>
 <tr>
-<td align="center">Ctrl-b</td>
-<td align="left">Scroll backward one page</td>
+<td style="text-align: center;">Ctrl-b</td>
+<td style="text-align: left;">Scroll backward one page</td>
 </tr>
 </tbody>
 </table>
@@ -5255,22 +5255,22 @@ unHAPPY
 <table>
 <thead>
 <tr>
-<th align="center">key</th>
-<th align="left">function</th>
+<th style="text-align: center;">key</th>
+<th style="text-align: left;">function</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">G</td>
-<td align="left">With no number, will jump to the end &amp; 10G will jump to line 10</td>
+<td style="text-align: center;">G</td>
+<td style="text-align: left;">With no number, will jump to the end &amp; 10G will jump to line 10</td>
 </tr>
 <tr>
-<td align="center">H</td>
-<td align="left">5H will go to the 5th line from the top of the screen</td>
+<td style="text-align: center;">H</td>
+<td style="text-align: left;">5H will go to the 5th line from the top of the screen</td>
 </tr>
 <tr>
-<td align="center">L</td>
-<td align="left">3L will move the cursor to the 3rd line to the last line of the screen</td>
+<td style="text-align: center;">L</td>
+<td style="text-align: left;">3L will move the cursor to the 3rd line to the last line of the screen</td>
 </tr>
 </tbody>
 </table>
@@ -5279,58 +5279,58 @@ unHAPPY
 <table>
 <thead>
 <tr>
-<th align="center">key</th>
-<th align="left">function</th>
+<th style="text-align: center;">key</th>
+<th style="text-align: left;">function</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">i</td>
-<td align="left">Enter the insert mode</td>
+<td style="text-align: center;">i</td>
+<td style="text-align: left;">Enter the insert mode</td>
 </tr>
 <tr>
-<td align="center">a</td>
-<td align="left">Enter the insert mode after the current position of the cursor</td>
+<td style="text-align: center;">a</td>
+<td style="text-align: left;">Enter the insert mode after the current position of the cursor</td>
 </tr>
 <tr>
-<td align="center">r</td>
-<td align="left">replace only one character</td>
+<td style="text-align: center;">r</td>
+<td style="text-align: left;">replace only one character</td>
 </tr>
 <tr>
-<td align="center">o</td>
-<td align="left">open a new line below the cursor and go to the insert mode</td>
+<td style="text-align: center;">o</td>
+<td style="text-align: left;">open a new line below the cursor and go to the insert mode</td>
 </tr>
 <tr>
-<td align="center">O</td>
-<td align="left">open a new line above the cursor and go to the insert mode</td>
+<td style="text-align: center;">O</td>
+<td style="text-align: left;">open a new line above the cursor and go to the insert mode</td>
 </tr>
 <tr>
-<td align="center">c</td>
-<td align="left">clear to a location and go to the insert mode the replace till there and then normal insert (<code>cw</code> will overwrite the current word)</td>
+<td style="text-align: center;">c</td>
+<td style="text-align: left;">clear to a location and go to the insert mode the replace till there and then normal insert (<code>cw</code> will overwrite the current word)</td>
 </tr>
 <tr>
-<td align="center">d</td>
-<td align="left">delete. you can mix with w (<code>dw</code>) to delete a word. Same as cw but dw does not go to the insert mode</td>
+<td style="text-align: center;">d</td>
+<td style="text-align: left;">delete. you can mix with w (<code>dw</code>) to delete a word. Same as cw but dw does not go to the insert mode</td>
 </tr>
 <tr>
-<td align="center">dd</td>
-<td align="left">Delete the current line</td>
+<td style="text-align: center;">dd</td>
+<td style="text-align: left;">Delete the current line</td>
 </tr>
 <tr>
-<td align="center">x</td>
-<td align="left">Delete character at the position of the cursor</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: left;">Delete character at the position of the cursor</td>
 </tr>
 <tr>
-<td align="center">p</td>
-<td align="left">Paste the last deleted text after the cursor</td>
+<td style="text-align: center;">p</td>
+<td style="text-align: left;">Paste the last deleted text after the cursor</td>
 </tr>
 <tr>
-<td align="center">P</td>
-<td align="left">Paste the last deleted text before the cursor</td>
+<td style="text-align: center;">P</td>
+<td style="text-align: left;">Paste the last deleted text before the cursor</td>
 </tr>
 <tr>
-<td align="center">xp</td>
-<td align="left">swaps the character at the cursor position with the one on its right</td>
+<td style="text-align: center;">xp</td>
+<td style="text-align: left;">swaps the character at the cursor position with the one on its right</td>
 </tr>
 </tbody>
 </table>
@@ -5338,22 +5338,22 @@ unHAPPY
 <table>
 <thead>
 <tr>
-<th align="center">key</th>
-<th align="left">function</th>
+<th style="text-align: center;">key</th>
+<th style="text-align: left;">function</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">/</td>
-<td align="left">Search forward (<code>/happiness</code> will find the next happiness)</td>
+<td style="text-align: center;">/</td>
+<td style="text-align: left;">Search forward (<code>/happiness</code> will find the next happiness)</td>
 </tr>
 <tr>
-<td align="center">?</td>
-<td align="left">Search backward</td>
+<td style="text-align: center;">?</td>
+<td style="text-align: left;">Search backward</td>
 </tr>
 <tr>
-<td align="center">n</td>
-<td align="left">repeat previous search. You can also use <code>/</code> and <code>?</code> without any parameters)</td>
+<td style="text-align: center;">n</td>
+<td style="text-align: left;">repeat previous search. You can also use <code>/</code> and <code>?</code> without any parameters)</td>
 </tr>
 </tbody>
 </table>
@@ -5365,34 +5365,34 @@ unHAPPY
 <table>
 <thead>
 <tr>
-<th align="center">key</th>
-<th align="left">function</th>
+<th style="text-align: center;">key</th>
+<th style="text-align: left;">function</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">:q!</td>
-<td align="left">Quit editing without saving = runaway after any mistake</td>
+<td style="text-align: center;">:q!</td>
+<td style="text-align: left;">Quit editing without saving = runaway after any mistake</td>
 </tr>
 <tr>
-<td align="center">:w!</td>
-<td align="left">Write the file (whether modified or not). Attempt to overwrite existing files or read-only or other unwritable files</td>
+<td style="text-align: center;">:w!</td>
+<td style="text-align: left;">Write the file (whether modified or not). Attempt to overwrite existing files or read-only or other unwritable files</td>
 </tr>
 <tr>
-<td align="center">:w myfile.txt</td>
-<td align="left">Write to a new name</td>
+<td style="text-align: center;">:w myfile.txt</td>
+<td style="text-align: left;">Write to a new name</td>
 </tr>
 <tr>
-<td align="center">ZZ</td>
-<td align="left">Exit and save the file if modified</td>
+<td style="text-align: center;">ZZ</td>
+<td style="text-align: left;">Exit and save the file if modified</td>
 </tr>
 <tr>
-<td align="center">:e!</td>
-<td align="left">Reload the file from disk</td>
+<td style="text-align: center;">:e!</td>
+<td style="text-align: left;">Reload the file from disk</td>
 </tr>
 <tr>
-<td align="center">:!</td>
-<td align="left">Run a shell command</td>
+<td style="text-align: center;">:!</td>
+<td style="text-align: left;">Run a shell command</td>
 </tr>
 </tbody>
 </table>
@@ -5553,7 +5553,7 @@ unHAPPY
 <span class="nx">Be</span><span class="w"> </span><span class="nx">careful</span><span class="w"> </span><span class="nx">before</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">write</span><span class="w"> </span><span class="nx">command</span><span class="p">.</span>
 
 <span class="nx">Device</span><span class="w"> </span><span class="nx">does</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nx">contain</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">recognized</span><span class="w"> </span><span class="nx">partition</span><span class="w"> </span><span class="nx">table</span><span class="p">.</span>
-<span class="nx">Created</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">new</span><span class="w"> </span><span class="nx">DOS</span><span class="w"> </span><span class="nx">disklabel</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">disk</span><span class="w"> </span><span class="nx">identifier</span><span class="w"> </span><span class="mh">0x4</span><span class="mi">0</span><span class="nx">bd0f72</span><span class="p">.</span>
+<span class="nx">Created</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">new</span><span class="w"> </span><span class="nx">DOS</span><span class="w"> </span><span class="nx">disklabel</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">disk</span><span class="w"> </span><span class="nx">identifier</span><span class="w"> </span><span class="mh">0x40bd0f72</span><span class="p">.</span>
 
 <span class="nx">Command</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">help</span><span class="p">):</span><span class="w"> </span><span class="nx">n</span>
 <span class="nx">Partition</span><span class="w"> </span><span class="k">type</span>
@@ -5573,7 +5573,7 @@ unHAPPY
 <span class="nx">Sector</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="p">(</span><span class="nx">logical</span><span class="o">/</span><span class="nx">physical</span><span class="p">):</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span>
 <span class="nx">I</span><span class="o">/</span><span class="nx">O</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="p">(</span><span class="nx">minimum</span><span class="o">/</span><span class="nx">optimal</span><span class="p">):</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span>
 <span class="nx">Disklabel</span><span class="w"> </span><span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="nx">dos</span>
-<span class="nx">Disk</span><span class="w"> </span><span class="nx">identifier</span><span class="p">:</span><span class="w"> </span><span class="mh">0x4</span><span class="mi">0</span><span class="nx">bd0f72</span>
+<span class="nx">Disk</span><span class="w"> </span><span class="nx">identifier</span><span class="p">:</span><span class="w"> </span><span class="mh">0x40bd0f72</span>
 
 <span class="nx">Device</span><span class="w">     </span><span class="nx">Boot</span><span class="w"> </span><span class="nx">Start</span><span class="w">     </span><span class="nx">End</span><span class="w"> </span><span class="nx">Sectors</span><span class="w"> </span><span class="nx">Size</span><span class="w"> </span><span class="nx">Id</span><span class="w"> </span><span class="nx">Type</span>
 <span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda1</span><span class="w">        </span><span class="mi">2048</span><span class="w"> </span><span class="mi">2099199</span><span class="w"> </span><span class="mi">2097152</span><span class="w">   </span><span class="mi">1</span><span class="nx">G</span><span class="w"> </span><span class="mi">83</span><span class="w"> </span><span class="nx">Linux</span>
@@ -5598,7 +5598,7 @@ unHAPPY
 <span class="nx">Sector</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="p">(</span><span class="nx">logical</span><span class="o">/</span><span class="nx">physical</span><span class="p">):</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span>
 <span class="nx">I</span><span class="o">/</span><span class="nx">O</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="p">(</span><span class="nx">minimum</span><span class="o">/</span><span class="nx">optimal</span><span class="p">):</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span>
 <span class="nx">Disklabel</span><span class="w"> </span><span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="nx">dos</span>
-<span class="nx">Disk</span><span class="w"> </span><span class="nx">identifier</span><span class="p">:</span><span class="w"> </span><span class="mh">0x4</span><span class="mi">0</span><span class="nx">bd0f72</span>
+<span class="nx">Disk</span><span class="w"> </span><span class="nx">identifier</span><span class="p">:</span><span class="w"> </span><span class="mh">0x40bd0f72</span>
 
 <span class="nx">Device</span><span class="w">     </span><span class="nx">Boot</span><span class="w">   </span><span class="nx">Start</span><span class="w">     </span><span class="nx">End</span><span class="w"> </span><span class="nx">Sectors</span><span class="w"> </span><span class="nx">Size</span><span class="w"> </span><span class="nx">Id</span><span class="w"> </span><span class="nx">Type</span>
 <span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda1</span><span class="w">          </span><span class="mi">2048</span><span class="w"> </span><span class="mi">2099199</span><span class="w"> </span><span class="mi">2097152</span><span class="w">   </span><span class="mi">1</span><span class="nx">G</span><span class="w"> </span><span class="mi">83</span><span class="w"> </span><span class="nx">Linux</span>
@@ -5619,7 +5619,7 @@ unHAPPY
 <span class="nx">Sector</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="p">(</span><span class="nx">logical</span><span class="o">/</span><span class="nx">physical</span><span class="p">):</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span>
 <span class="nx">I</span><span class="o">/</span><span class="nx">O</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="p">(</span><span class="nx">minimum</span><span class="o">/</span><span class="nx">optimal</span><span class="p">):</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span>
 <span class="nx">Disklabel</span><span class="w"> </span><span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="nx">dos</span>
-<span class="nx">Disk</span><span class="w"> </span><span class="nx">identifier</span><span class="p">:</span><span class="w"> </span><span class="mh">0x4</span><span class="mi">0</span><span class="nx">bd0f72</span>
+<span class="nx">Disk</span><span class="w"> </span><span class="nx">identifier</span><span class="p">:</span><span class="w"> </span><span class="mh">0x40bd0f72</span>
 
 <span class="nx">Device</span><span class="w">     </span><span class="nx">Boot</span><span class="w">   </span><span class="nx">Start</span><span class="w">     </span><span class="nx">End</span><span class="w"> </span><span class="nx">Sectors</span><span class="w"> </span><span class="nx">Size</span><span class="w"> </span><span class="nx">Id</span><span class="w"> </span><span class="nx">Type</span>
 <span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda1</span><span class="w">          </span><span class="mi">2048</span><span class="w"> </span><span class="mi">2099199</span><span class="w"> </span><span class="mi">2097152</span><span class="w">   </span><span class="mi">1</span><span class="nx">G</span><span class="w"> </span><span class="mi">83</span><span class="w"> </span><span class="nx">Linux</span>
@@ -5648,7 +5648,7 @@ unHAPPY
 <span class="nx">Sector</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="p">(</span><span class="nx">logical</span><span class="o">/</span><span class="nx">physical</span><span class="p">):</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span>
 <span class="nx">I</span><span class="o">/</span><span class="nx">O</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="p">(</span><span class="nx">minimum</span><span class="o">/</span><span class="nx">optimal</span><span class="p">):</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span>
 <span class="nx">Disklabel</span><span class="w"> </span><span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="nx">dos</span>
-<span class="nx">Disk</span><span class="w"> </span><span class="nx">identifier</span><span class="p">:</span><span class="w"> </span><span class="mh">0x4</span><span class="mi">0</span><span class="nx">bd0f72</span>
+<span class="nx">Disk</span><span class="w"> </span><span class="nx">identifier</span><span class="p">:</span><span class="w"> </span><span class="mh">0x40bd0f72</span>
 
 <span class="nx">Device</span><span class="w">     </span><span class="nx">Boot</span><span class="w">   </span><span class="nx">Start</span><span class="w">     </span><span class="nx">End</span><span class="w"> </span><span class="nx">Sectors</span><span class="w"> </span><span class="nx">Size</span><span class="w"> </span><span class="nx">Id</span><span class="w"> </span><span class="nx">Type</span>
 <span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda1</span><span class="w">          </span><span class="mi">2048</span><span class="w"> </span><span class="mi">2099199</span><span class="w"> </span><span class="mi">2097152</span><span class="w">   </span><span class="mi">1</span><span class="nx">G</span><span class="w"> </span><span class="mi">83</span><span class="w"> </span><span class="nx">Linux</span>
@@ -5714,7 +5714,7 @@ unHAPPY
 <span class="nx">Sector</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="p">(</span><span class="nx">logical</span><span class="o">/</span><span class="nx">physical</span><span class="p">):</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span>
 <span class="nx">I</span><span class="o">/</span><span class="nx">O</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="p">(</span><span class="nx">minimum</span><span class="o">/</span><span class="nx">optimal</span><span class="p">):</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span>
 <span class="nx">Disklabel</span><span class="w"> </span><span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="nx">dos</span>
-<span class="nx">Disk</span><span class="w"> </span><span class="nx">identifier</span><span class="p">:</span><span class="w"> </span><span class="mh">0x4</span><span class="mi">0</span><span class="nx">bd0f72</span>
+<span class="nx">Disk</span><span class="w"> </span><span class="nx">identifier</span><span class="p">:</span><span class="w"> </span><span class="mh">0x40bd0f72</span>
 
 <span class="nx">Device</span><span class="w">     </span><span class="nx">Boot</span><span class="w">   </span><span class="nx">Start</span><span class="w">     </span><span class="nx">End</span><span class="w"> </span><span class="nx">Sectors</span><span class="w"> </span><span class="nx">Size</span><span class="w"> </span><span class="nx">Id</span><span class="w"> </span><span class="nx">Type</span>
 <span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda1</span><span class="w">          </span><span class="mi">2048</span><span class="w"> </span><span class="mi">2099199</span><span class="w"> </span><span class="mi">2097152</span><span class="w">   </span><span class="mi">1</span><span class="nx">G</span><span class="w"> </span><span class="mi">83</span><span class="w"> </span><span class="nx">Linux</span>
@@ -5740,7 +5740,7 @@ unHAPPY
 <span class="nx">Sector</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="p">(</span><span class="nx">logical</span><span class="o">/</span><span class="nx">physical</span><span class="p">):</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span>
 <span class="nx">I</span><span class="o">/</span><span class="nx">O</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="p">(</span><span class="nx">minimum</span><span class="o">/</span><span class="nx">optimal</span><span class="p">):</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">512</span><span class="w"> </span><span class="nx">bytes</span>
 <span class="nx">Disklabel</span><span class="w"> </span><span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="nx">dos</span>
-<span class="nx">Disk</span><span class="w"> </span><span class="nx">identifier</span><span class="p">:</span><span class="w"> </span><span class="mh">0x4</span><span class="mi">0</span><span class="nx">bd0f72</span>
+<span class="nx">Disk</span><span class="w"> </span><span class="nx">identifier</span><span class="p">:</span><span class="w"> </span><span class="mh">0x40bd0f72</span>
 
 <span class="nx">Device</span><span class="w">     </span><span class="nx">Boot</span><span class="w">   </span><span class="nx">Start</span><span class="w">     </span><span class="nx">End</span><span class="w"> </span><span class="nx">Sectors</span><span class="w"> </span><span class="nx">Size</span><span class="w"> </span><span class="nx">Id</span><span class="w"> </span><span class="nx">Type</span>
 <span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda1</span><span class="w">          </span><span class="mi">2048</span><span class="w"> </span><span class="mi">2099199</span><span class="w"> </span><span class="mi">2097152</span><span class="w">   </span><span class="mi">1</span><span class="nx">G</span><span class="w"> </span><span class="mi">83</span><span class="w"> </span><span class="nx">Linux</span>
@@ -5831,48 +5831,48 @@ unHAPPY
 <table>
 <thead>
 <tr>
-<th align="center">Format</th>
-<th align="left">Description</th>
+<th style="text-align: center;">Format</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">ext2</td>
-<td align="left">second extended filesystem was developed to address shortcomings in the older Unix/Minix filesystem used in early versions of Linux. It has been used extensively on Linux for many years. There is no journaling in ext2, and it has largely been replaced by ext3 and more recently ext4.</td>
+<td style="text-align: center;">ext2</td>
+<td style="text-align: left;">second extended filesystem was developed to address shortcomings in the older Unix/Minix filesystem used in early versions of Linux. It has been used extensively on Linux for many years. There is no journaling in ext2, and it has largely been replaced by ext3 and more recently ext4.</td>
 </tr>
 <tr>
-<td align="center">ext3</td>
-<td align="left">ext2 + journaling, max file size is 2TB and max filesystem size is 16TB</td>
+<td style="text-align: center;">ext3</td>
+<td style="text-align: left;">ext2 + journaling, max file size is 2TB and max filesystem size is 16TB</td>
 </tr>
 <tr>
-<td align="center">ext4</td>
-<td align="left">current version of ext, max file size is 16TB and max filesystem size is 1EB (1000*1000TB)</td>
+<td style="text-align: center;">ext4</td>
+<td style="text-align: left;">current version of ext, max file size is 16TB and max filesystem size is 1EB (1000*1000TB)</td>
 </tr>
 <tr>
-<td align="center">XFS</td>
-<td align="left">journaling, caches to RAM, great for uninterruptible power supplies, Max file and filesystem size is 8EB</td>
+<td style="text-align: center;">XFS</td>
+<td style="text-align: left;">journaling, caches to RAM, great for uninterruptible power supplies, Max file and filesystem size is 8EB</td>
 </tr>
 <tr>
-<td align="center">swap</td>
-<td align="left">Swap is used when the system needs to use more ram than what is has. It's like an extra ram on disk</td>
+<td style="text-align: center;">swap</td>
+<td style="text-align: left;">Swap is used when the system needs to use more ram than what is has. It's like an extra ram on disk</td>
 </tr>
 <tr>
-<td align="center">VFAT</td>
-<td align="left">FAT32, no journaling, good for data exchange with windows, does not understand <strong>permissions</strong> and symbolic links</td>
+<td style="text-align: center;">VFAT</td>
+<td style="text-align: left;">FAT32, no journaling, good for data exchange with windows, does not understand <strong>permissions</strong> and symbolic links</td>
 </tr>
 <tr>
-<td align="center">exFAT</td>
-<td align="left">Extended FAT. A newer version of FAT which is used mainly for extended device which should work on all machines; like USB disks</td>
+<td style="text-align: center;">exFAT</td>
+<td style="text-align: left;">Extended FAT. A newer version of FAT which is used mainly for extended device which should work on all machines; like USB disks</td>
 </tr>
 <tr>
-<td align="center">btrfs</td>
-<td align="left">A new high performance file system. Max file and filesize is 16 EB. Has its own form of RAID and LVM and build-in snapshots and fault tolerance and data compression on the fly.</td>
+<td style="text-align: center;">btrfs</td>
+<td style="text-align: left;">A new high performance file system. Max file and filesize is 16 EB. Has its own form of RAID and LVM and build-in snapshots and fault tolerance and data compression on the fly.</td>
 </tr>
 </tbody>
 </table>
 <h4>Creating filesystems</h4>
 <p>You can format your partitions with <code>mkfs</code> command (and <code>mkswap</code> for swap). This is a front end to commands like <code>mkfs.ext3</code> for <em>ext3</em>, <code>mkfs.ext4</code> for <em>ext4</em> and <code>mkfs.reiserfs</code> for <em>ReiserFS</em>. full list of installed on your system is here:</p>
-<div class="highlight"><pre><span></span><code># ls /sbin/mk*
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> ls /sbin/mk*
 /sbin/mkdosfs  /sbin/mkexfatfs  /sbin/mkfs.bfs     /sbin/mkfs.exfat  /sbin/mkfs.ext3  /sbin/mkfs.fat    /sbin/mkfs.msdos  /sbin/mkfs.vfat     /sbin/mkinitramfs   /sbin/mkntfs
 /sbin/mke2fs   /sbin/mkfs   /sbin/mkfs.cramfs  /sbin/mkfs.ext2   /sbin/mkfs.ext4  /sbin/mkfs.minix  /sbin/mkfs.ntfs   /sbin/mkhomedir_helper  /sbin/mklost+found  /sbin/mkswap
 </code></pre></div>
@@ -5899,7 +5899,7 @@ unHAPPY
 </code></pre></div>
 
 <p>If you need to assign a lable to the partition, you have to use the <code>-L lable_name</code> option. Please note that in recent system, people use UUIDs instead of labels. UUID of a disk can be viewed with:</p>
-<div class="highlight"><pre><span></span><code># blkid /dev/sda1
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> blkid /dev/sda1
 /dev/sda1: UUID=&quot;63625ecd-857a-419f-a300-12395aaad89f&quot; BLOCK_SIZE=&quot;4096&quot; TYPE=&quot;ext4&quot; PARTUUID=&quot;40bd0f72-01&quot;
 </code></pre></div>
 
@@ -5983,30 +5983,30 @@ none               1007533     33  1007500    1% /run/user
 <table>
 <thead>
 <tr>
-<th align="center">switch</th>
-<th align="left">usage</th>
+<th style="text-align: center;">switch</th>
+<th style="text-align: left;">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">-h</td>
-<td align="left">print sizes in powers of 1024 (e.g., 1023M)</td>
+<td style="text-align: center;">-h</td>
+<td style="text-align: left;">print sizes in powers of 1024 (e.g., 1023M)</td>
 </tr>
 <tr>
-<td align="center">-H</td>
-<td align="left">print sizes in powers of 1000 (e.g., 1.1G)</td>
+<td style="text-align: center;">-H</td>
+<td style="text-align: left;">print sizes in powers of 1000 (e.g., 1.1G)</td>
 </tr>
 <tr>
-<td align="center">-c</td>
-<td align="left">show the grand total</td>
+<td style="text-align: center;">-c</td>
+<td style="text-align: left;">show the grand total</td>
 </tr>
 <tr>
-<td align="center">--max-depth 2</td>
-<td align="left">Calculate all but show only 2 directories deep</td>
+<td style="text-align: center;">--max-depth 2</td>
+<td style="text-align: left;">Calculate all but show only 2 directories deep</td>
 </tr>
 <tr>
-<td align="center">-s</td>
-<td align="left">Only shows the summary and not all the directories one by one</td>
+<td style="text-align: center;">-s</td>
+<td style="text-align: left;">Only shows the summary and not all the directories one by one</td>
 </tr>
 </tbody>
 </table>
@@ -6228,34 +6228,34 @@ Superblock backups stored on blocks:
 <table>
 <thead>
 <tr>
-<th align="center">Command</th>
-<th align="left">usage</th>
+<th style="text-align: center;">Command</th>
+<th style="text-align: left;">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">xfs_info</td>
-<td align="left">display information</td>
+<td style="text-align: center;">xfs_info</td>
+<td style="text-align: left;">display information</td>
 </tr>
 <tr>
-<td align="center">xfs_growfs</td>
-<td align="left">expand file system</td>
+<td style="text-align: center;">xfs_growfs</td>
+<td style="text-align: left;">expand file system</td>
 </tr>
 <tr>
-<td align="center">xfs_admin</td>
-<td align="left">change parameters on XFS file systems</td>
+<td style="text-align: center;">xfs_admin</td>
+<td style="text-align: left;">change parameters on XFS file systems</td>
 </tr>
 <tr>
-<td align="center">xfs_repair</td>
-<td align="left">repair the problems. Please note that the filesytem under repair should be unmounted</td>
+<td style="text-align: center;">xfs_repair</td>
+<td style="text-align: left;">repair the problems. Please note that the filesytem under repair should be unmounted</td>
 </tr>
 <tr>
-<td align="center">xfs_db</td>
-<td align="left">checks and debug the filesystem. xfs_db is used to examine an XFS filesystem. Under rare circumstances it can also be used to modify an XFS filesystem, but that task is normally left to xfs_repair or to scripts such as xfs_admin that run xfs_db.</td>
+<td style="text-align: center;">xfs_db</td>
+<td style="text-align: left;">checks and debug the filesystem. xfs_db is used to examine an XFS filesystem. Under rare circumstances it can also be used to modify an XFS filesystem, but that task is normally left to xfs_repair or to scripts such as xfs_admin that run xfs_db.</td>
 </tr>
 <tr>
-<td align="center">xfs_fsr</td>
-<td align="left">filesystem reorganizer for XFS. When invoked with no arguments xfs_fsr reorganizes all regular files in all mounted filesystems. xfs_fsr makes many cycles over /etc/mtab each time making a single pass over each XFS filesystem. Each pass goes through and selects files that have the largest number of extents. It attempts to defragment the top 10% of these files on each pass.</td>
+<td style="text-align: center;">xfs_fsr</td>
+<td style="text-align: left;">filesystem reorganizer for XFS. When invoked with no arguments xfs_fsr reorganizes all regular files in all mounted filesystems. xfs_fsr makes many cycles over /etc/mtab each time making a single pass over each XFS filesystem. Each pass goes through and selects files that have the largest number of extents. It attempts to defragment the top 10% of these files on each pass.</td>
 </tr>
 </tbody>
 </table>
@@ -6271,61 +6271,61 @@ Superblock backups stored on blocks:
 <table>
 <thead>
 <tr>
-<th align="center">filesystem</th>
-<th align="center">command</th>
-<th align="left">usage</th>
+<th style="text-align: center;">filesystem</th>
+<th style="text-align: center;">command</th>
+<th style="text-align: left;">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">ext</td>
-<td align="center">tune2fs</td>
-<td align="left">Show or set ext2 and ext3 parameters or even set the journaling options</td>
+<td style="text-align: center;">ext</td>
+<td style="text-align: center;">tune2fs</td>
+<td style="text-align: left;">Show or set ext2 and ext3 parameters or even set the journaling options</td>
 </tr>
 <tr>
-<td align="center">ext</td>
-<td align="center">dumpe2fs</td>
-<td align="left">Prints the super block and block group descriptor information for an ext2 or ext3 filesystem.</td>
+<td style="text-align: center;">ext</td>
+<td style="text-align: center;">dumpe2fs</td>
+<td style="text-align: left;">Prints the super block and block group descriptor information for an ext2 or ext3 filesystem.</td>
 </tr>
 <tr>
-<td align="center">ext</td>
-<td align="center">debugfs</td>
-<td align="left">Is an interactive file system debugger. Use it to examine or change the state of an ext2 or ext3file system.</td>
+<td style="text-align: center;">ext</td>
+<td style="text-align: center;">debugfs</td>
+<td style="text-align: left;">Is an interactive file system debugger. Use it to examine or change the state of an ext2 or ext3file system.</td>
 </tr>
 <tr>
-<td align="center">reiserfs</td>
-<td align="center">reiserfstune</td>
-<td align="left">show and set parameters</td>
+<td style="text-align: center;">reiserfs</td>
+<td style="text-align: center;">reiserfstune</td>
+<td style="text-align: left;">show and set parameters</td>
 </tr>
 <tr>
-<td align="center">reiserfs</td>
-<td align="center">debugreiserfs</td>
-<td align="left">Prints the super block and block group descriptor information for an ext2 or ext3 filesystem.</td>
+<td style="text-align: center;">reiserfs</td>
+<td style="text-align: center;">debugreiserfs</td>
+<td style="text-align: left;">Prints the super block and block group descriptor information for an ext2 or ext3 filesystem.</td>
 </tr>
 <tr>
-<td align="center">XFS</td>
-<td align="center">xfs_info</td>
-<td align="left">display information</td>
+<td style="text-align: center;">XFS</td>
+<td style="text-align: center;">xfs_info</td>
+<td style="text-align: left;">display information</td>
 </tr>
 <tr>
-<td align="center">XFS</td>
-<td align="center">xfs_growfs</td>
-<td align="left">expand file system</td>
+<td style="text-align: center;">XFS</td>
+<td style="text-align: center;">xfs_growfs</td>
+<td style="text-align: left;">expand file system</td>
 </tr>
 <tr>
-<td align="center">XFS</td>
-<td align="center">xfs_admin</td>
-<td align="left">change parameters on XFS file systems</td>
+<td style="text-align: center;">XFS</td>
+<td style="text-align: center;">xfs_admin</td>
+<td style="text-align: left;">change parameters on XFS file systems</td>
 </tr>
 <tr>
-<td align="center">XFS</td>
-<td align="center">xfs_repair</td>
-<td align="left">repair the problems</td>
+<td style="text-align: center;">XFS</td>
+<td style="text-align: center;">xfs_repair</td>
+<td style="text-align: left;">repair the problems</td>
 </tr>
 <tr>
-<td align="center">XFS</td>
-<td align="center">xfs_db</td>
-<td align="left">checks and debugs the filesystem</td>
+<td style="text-align: center;">XFS</td>
+<td style="text-align: center;">xfs_db</td>
+<td style="text-align: left;">checks and debugs the filesystem</td>
 </tr>
 </tbody>
 </table>
@@ -6477,30 +6477,30 @@ sudo umount /media/mydisk
 <table>
 <thead>
 <tr>
-<th align="left">option</th>
-<th align="left">meaning</th>
+<th style="text-align: left;">option</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">usrquota</td>
-<td align="left">user quotas</td>
+<td style="text-align: left;">usrquota</td>
+<td style="text-align: left;">user quotas</td>
 </tr>
 <tr>
-<td align="left">uqouta</td>
-<td align="left">same as usrquota</td>
+<td style="text-align: left;">uqouta</td>
+<td style="text-align: left;">same as usrquota</td>
 </tr>
 <tr>
-<td align="left">quota</td>
-<td align="left">same as usrquota</td>
+<td style="text-align: left;">quota</td>
+<td style="text-align: left;">same as usrquota</td>
 </tr>
 <tr>
-<td align="left">grpquota</td>
-<td align="left">group quotas</td>
+<td style="text-align: left;">grpquota</td>
+<td style="text-align: left;">group quotas</td>
 </tr>
 <tr>
-<td align="left">gquota</td>
-<td align="left">same as grpquota</td>
+<td style="text-align: left;">gquota</td>
+<td style="text-align: left;">same as grpquota</td>
 </tr>
 </tbody>
 </table>
@@ -6640,30 +6640,30 @@ lpadmin:x:108:jadi
 <table>
 <thead>
 <tr>
-<th align="center">Position</th>
-<th align="center">Meaning</th>
+<th style="text-align: center;">Position</th>
+<th style="text-align: center;">Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">1</td>
-<td align="center">What this entry is. Dash (-) is for ordinary files, 'l' is for links &amp; 'd' is for directory</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">What this entry is. Dash (-) is for ordinary files, 'l' is for links &amp; 'd' is for directory</td>
 </tr>
 <tr>
-<td align="center">2,3,4</td>
-<td align="center">read, write and execute access for the owner</td>
+<td style="text-align: center;">2,3,4</td>
+<td style="text-align: center;">read, write and execute access for the owner</td>
 </tr>
 <tr>
-<td align="center">5,6,7</td>
-<td align="center">read, write and execute access for the group members</td>
+<td style="text-align: center;">5,6,7</td>
+<td style="text-align: center;">read, write and execute access for the group members</td>
 </tr>
 <tr>
-<td align="center">8,9,10</td>
-<td align="center">read, write and execute access for other users</td>
+<td style="text-align: center;">8,9,10</td>
+<td style="text-align: center;">read, write and execute access for other users</td>
 </tr>
 <tr>
-<td align="center">11</td>
-<td align="center">Indicated if any other access methods (such as SELinux) are applies to this file - not part of the LPIC 101 exam</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">Indicated if any other access methods (such as SELinux) are applies to this file - not part of the LPIC 101 exam</td>
 </tr>
 </tbody>
 </table>
@@ -6712,42 +6712,42 @@ total 0
 <table>
 <thead>
 <tr>
-<th align="center">Symbolic</th>
-<th align="center">Octal</th>
+<th style="text-align: center;">Symbolic</th>
+<th style="text-align: center;">Octal</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">rwx</td>
-<td align="center">7</td>
+<td style="text-align: center;">rwx</td>
+<td style="text-align: center;">7</td>
 </tr>
 <tr>
-<td align="center">rw-</td>
-<td align="center">6</td>
+<td style="text-align: center;">rw-</td>
+<td style="text-align: center;">6</td>
 </tr>
 <tr>
-<td align="center">r-x</td>
-<td align="center">5</td>
+<td style="text-align: center;">r-x</td>
+<td style="text-align: center;">5</td>
 </tr>
 <tr>
-<td align="center">r--</td>
-<td align="center">4</td>
+<td style="text-align: center;">r--</td>
+<td style="text-align: center;">4</td>
 </tr>
 <tr>
-<td align="center">-wx</td>
-<td align="center">3</td>
+<td style="text-align: center;">-wx</td>
+<td style="text-align: center;">3</td>
 </tr>
 <tr>
-<td align="center">-w-</td>
-<td align="center">2</td>
+<td style="text-align: center;">-w-</td>
+<td style="text-align: center;">2</td>
 </tr>
 <tr>
-<td align="center">--x</td>
-<td align="center">1</td>
+<td style="text-align: center;">--x</td>
+<td style="text-align: center;">1</td>
 </tr>
 <tr>
-<td align="center">---</td>
-<td align="center">0</td>
+<td style="text-align: center;">---</td>
+<td style="text-align: center;">0</td>
 </tr>
 </tbody>
 </table>
@@ -6832,26 +6832,26 @@ drwxrwxrwt 13 root root 77824 Feb  8 21:27 /tmp
 <table>
 <thead>
 <tr>
-<th align="center">access mode</th>
-<th align="center">octal</th>
-<th align="center">symbolic</th>
+<th style="text-align: center;">access mode</th>
+<th style="text-align: center;">octal</th>
+<th style="text-align: center;">symbolic</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">suid</td>
-<td align="center">4000</td>
-<td align="center">u+s</td>
+<td style="text-align: center;">suid</td>
+<td style="text-align: center;">4000</td>
+<td style="text-align: center;">u+s</td>
 </tr>
 <tr>
-<td align="center">sgid</td>
-<td align="center">2000</td>
-<td align="center">g+s</td>
+<td style="text-align: center;">sgid</td>
+<td style="text-align: center;">2000</td>
+<td style="text-align: center;">g+s</td>
 </tr>
 <tr>
-<td align="center">sticky</td>
-<td align="center">1000</td>
-<td align="center">+t</td>
+<td style="text-align: center;">sticky</td>
+<td style="text-align: center;">1000</td>
+<td style="text-align: center;">+t</td>
 </tr>
 </tbody>
 </table>
@@ -7017,78 +7017,78 @@ lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </spa
 <table>
 <thead>
 <tr>
-<th align="center">directory</th>
-<th align="left">usage</th>
+<th style="text-align: center;">directory</th>
+<th style="text-align: left;">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">/</td>
-<td align="left">Primary hierarchy root and root directory of the entire file system hierarchy</td>
+<td style="text-align: center;">/</td>
+<td style="text-align: left;">Primary hierarchy root and root directory of the entire file system hierarchy</td>
 </tr>
 <tr>
-<td align="center">/bin</td>
-<td align="left">Essential command binaries</td>
+<td style="text-align: center;">/bin</td>
+<td style="text-align: left;">Essential command binaries</td>
 </tr>
 <tr>
-<td align="center">/boot</td>
-<td align="left">Static files of the boot loader</td>
+<td style="text-align: center;">/boot</td>
+<td style="text-align: left;">Static files of the boot loader</td>
 </tr>
 <tr>
-<td align="center">/dev</td>
-<td align="left">Device files</td>
+<td style="text-align: center;">/dev</td>
+<td style="text-align: left;">Device files</td>
 </tr>
 <tr>
-<td align="center">/etc</td>
-<td align="left">Host-specific system configuration</td>
+<td style="text-align: center;">/etc</td>
+<td style="text-align: left;">Host-specific system configuration</td>
 </tr>
 <tr>
-<td align="center">/lib</td>
-<td align="left">Essential shared libraries and kernel modules</td>
+<td style="text-align: center;">/lib</td>
+<td style="text-align: left;">Essential shared libraries and kernel modules</td>
 </tr>
 <tr>
-<td align="center">/media</td>
-<td align="left">Mount point for removable media</td>
+<td style="text-align: center;">/media</td>
+<td style="text-align: left;">Mount point for removable media</td>
 </tr>
 <tr>
-<td align="center">/mnt</td>
-<td align="left">Mount point for mounting a filesystem temporarily</td>
+<td style="text-align: center;">/mnt</td>
+<td style="text-align: left;">Mount point for mounting a filesystem temporarily</td>
 </tr>
 <tr>
-<td align="center">/opt</td>
-<td align="left">Add-on application software packages</td>
+<td style="text-align: center;">/opt</td>
+<td style="text-align: left;">Add-on application software packages</td>
 </tr>
 <tr>
-<td align="center">/sbin</td>
-<td align="left">Essential system binaries</td>
+<td style="text-align: center;">/sbin</td>
+<td style="text-align: left;">Essential system binaries</td>
 </tr>
 <tr>
-<td align="center">/srv</td>
-<td align="left">Data for services provided by this system</td>
+<td style="text-align: center;">/srv</td>
+<td style="text-align: left;">Data for services provided by this system</td>
 </tr>
 <tr>
-<td align="center">/tmp</td>
-<td align="left">Temporary files</td>
+<td style="text-align: center;">/tmp</td>
+<td style="text-align: left;">Temporary files</td>
 </tr>
 <tr>
-<td align="center">/usr</td>
-<td align="left">Secondary hierarchy</td>
+<td style="text-align: center;">/usr</td>
+<td style="text-align: left;">Secondary hierarchy</td>
 </tr>
 <tr>
-<td align="center">/var</td>
-<td align="left">Variable data</td>
+<td style="text-align: center;">/var</td>
+<td style="text-align: left;">Variable data</td>
 </tr>
 <tr>
-<td align="center">/home</td>
-<td align="left">User home directories (optional)</td>
+<td style="text-align: center;">/home</td>
+<td style="text-align: left;">User home directories (optional)</td>
 </tr>
 <tr>
-<td align="center">/lib</td>
-<td align="left">Alternate format essential shared libraries (optional)</td>
+<td style="text-align: center;">/lib</td>
+<td style="text-align: left;">Alternate format essential shared libraries (optional)</td>
 </tr>
 <tr>
-<td align="center">/root</td>
-<td align="left">Home directory for the root user (optional)</td>
+<td style="text-align: center;">/root</td>
+<td style="text-align: left;">Home directory for the root user (optional)</td>
 </tr>
 </tbody>
 </table>
@@ -7261,30 +7261,30 @@ Options
 <table>
 <thead>
 <tr>
-<th align="center">switch</th>
-<th align="left">result</th>
+<th style="text-align: center;">switch</th>
+<th style="text-align: left;">result</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">-b</td>
-<td align="left">Cause the status of terminated background jobs to be reported immediately, rather than before printing the next primary prompt.</td>
+<td style="text-align: center;">-b</td>
+<td style="text-align: left;">Cause the status of terminated background jobs to be reported immediately, rather than before printing the next primary prompt.</td>
 </tr>
 <tr>
-<td align="center">-e</td>
-<td align="left">return in case a pipline, command, ... return non-zero</td>
+<td style="text-align: center;">-e</td>
+<td style="text-align: left;">return in case a pipline, command, ... return non-zero</td>
 </tr>
 <tr>
-<td align="center">-n</td>
-<td align="left">Read commands but do not execute them; this may be used to check a script for syntax errors. This option is ignored by interactive shells.</td>
+<td style="text-align: center;">-n</td>
+<td style="text-align: left;">Read commands but do not execute them; this may be used to check a script for syntax errors. This option is ignored by interactive shells.</td>
 </tr>
 <tr>
-<td align="center">-t</td>
-<td align="left">Exit after reading and executing one command.</td>
+<td style="text-align: center;">-t</td>
+<td style="text-align: left;">Exit after reading and executing one command.</td>
 </tr>
 <tr>
-<td align="center">-C</td>
-<td align="left">Prevent output redirection using ‘&gt;’, ‘&gt;&amp;’, and ‘&lt;&gt;’ from overwriting existing files.</td>
+<td style="text-align: center;">-C</td>
+<td style="text-align: left;">Prevent output redirection using ‘&gt;’, ‘&gt;&amp;’, and ‘&lt;&gt;’ from overwriting existing files.</td>
 </tr>
 </tbody>
 </table>
@@ -7510,50 +7510,50 @@ backup_20230408-1604.tar
 <table>
 <thead>
 <tr>
-<th align="center">conditions</th>
-<th align="left">what is means</th>
+<th style="text-align: center;">conditions</th>
+<th style="text-align: left;">what is means</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">"a" = "b"</td>
-<td align="left">if two strings are equal (here it will return False)</td>
+<td style="text-align: center;">"a" = "b"</td>
+<td style="text-align: left;">if two strings are equal (here it will return False)</td>
 </tr>
 <tr>
-<td align="center">"a" != "b"</td>
-<td align="left">string a <em>is not equal</em> to string b</td>
+<td style="text-align: center;">"a" != "b"</td>
+<td style="text-align: left;">string a <em>is not equal</em> to string b</td>
 </tr>
 <tr>
-<td align="center">4 -lt 40</td>
-<td align="left">if 4 is <em>lower   than</em> 40 (True)</td>
+<td style="text-align: center;">4 -lt 40</td>
+<td style="text-align: left;">if 4 is <em>lower   than</em> 40 (True)</td>
 </tr>
 <tr>
-<td align="center">5 -gt 15</td>
-<td align="left">if 5 is <em>greater than</em> 15 (False)</td>
+<td style="text-align: center;">5 -gt 15</td>
+<td style="text-align: left;">if 5 is <em>greater than</em> 15 (False)</td>
 </tr>
 <tr>
-<td align="center">5 -ge 5</td>
-<td align="left">if 5 is <em>greater or equal</em> 5</td>
+<td style="text-align: center;">5 -ge 5</td>
+<td style="text-align: left;">if 5 is <em>greater or equal</em> 5</td>
 </tr>
 <tr>
-<td align="center">5 -le 3</td>
-<td align="left">if 5 is <em>lower or equal</em> to 3</td>
+<td style="text-align: center;">5 -le 3</td>
+<td style="text-align: left;">if 5 is <em>lower or equal</em> to 3</td>
 </tr>
 <tr>
-<td align="center">9 -ne 2</td>
-<td align="left">9 is <em>not equal</em> with 2 (True)</td>
+<td style="text-align: center;">9 -ne 2</td>
+<td style="text-align: left;">9 is <em>not equal</em> with 2 (True)</td>
 </tr>
 <tr>
-<td align="center">-f FILENAME</td>
-<td align="left">if file FILENAME exists</td>
+<td style="text-align: center;">-f FILENAME</td>
+<td style="text-align: left;">if file FILENAME exists</td>
 </tr>
 <tr>
-<td align="center">-s FILENAME</td>
-<td align="left">if file exists and its size is more than 0 (Zero)</td>
+<td style="text-align: center;">-s FILENAME</td>
+<td style="text-align: left;">if file exists and its size is more than 0 (Zero)</td>
 </tr>
 <tr>
-<td align="center">-x FILENAME</td>
-<td align="left">if file exists and is executable</td>
+<td style="text-align: center;">-x FILENAME</td>
+<td style="text-align: left;">if file exists and is executable</td>
 </tr>
 </tbody>
 </table>
@@ -8484,30 +8484,30 @@ passwd: password updated successfully
 <table>
 <thead>
 <tr>
-<th align="left">switch</th>
-<th align="left">meaning</th>
+<th style="text-align: left;">switch</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-d</td>
-<td align="left">home directory (-d /home/user)</td>
+<td style="text-align: left;">-d</td>
+<td style="text-align: left;">home directory (-d /home/user)</td>
 </tr>
 <tr>
-<td align="left">-m</td>
-<td align="left">create home directory</td>
+<td style="text-align: left;">-m</td>
+<td style="text-align: left;">create home directory</td>
 </tr>
 <tr>
-<td align="left">-s</td>
-<td align="left">specify shell</td>
+<td style="text-align: left;">-s</td>
+<td style="text-align: left;">specify shell</td>
 </tr>
 <tr>
-<td align="left">-G</td>
-<td align="left">add to additional groups</td>
+<td style="text-align: left;">-G</td>
+<td style="text-align: left;">add to additional groups</td>
 </tr>
 <tr>
-<td align="left">-c</td>
-<td align="left">comment. most of the time, users actual name. Use quotes if comments has spaces or special characters in them</td>
+<td style="text-align: left;">-c</td>
+<td style="text-align: left;">comment. most of the time, users actual name. Use quotes if comments has spaces or special characters in them</td>
 </tr>
 </tbody>
 </table>
@@ -8521,22 +8521,22 @@ passwd: password updated successfully
 <table>
 <thead>
 <tr>
-<th align="left">switch</th>
-<th align="left">meaning</th>
+<th style="text-align: left;">switch</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">-L</td>
-<td align="left">lock this account</td>
+<td style="text-align: left;">-L</td>
+<td style="text-align: left;">lock this account</td>
 </tr>
 <tr>
-<td align="left">-U</td>
-<td align="left">Unlock the account</td>
+<td style="text-align: left;">-U</td>
+<td style="text-align: left;">Unlock the account</td>
 </tr>
 <tr>
-<td align="left">-aG</td>
-<td align="left">append to more groups (say <code>usermod -aG wheel jadi</code>)</td>
+<td style="text-align: left;">-aG</td>
+<td style="text-align: left;">append to more groups (say <code>usermod -aG wheel jadi</code>)</td>
 </tr>
 </tbody>
 </table>
@@ -8609,26 +8609,26 @@ privoxy:!:19473::::::
 <table>
 <thead>
 <tr>
-<th align="left">filed</th>
-<th align="left">meaning</th>
+<th style="text-align: left;">filed</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">19473</td>
-<td align="left">When was the last time this password changes</td>
+<td style="text-align: left;">19473</td>
+<td style="text-align: left;">When was the last time this password changes</td>
 </tr>
 <tr>
-<td align="left">0</td>
-<td align="left">User wont be able to change the password 0 days after each change</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">User wont be able to change the password 0 days after each change</td>
 </tr>
 <tr>
-<td align="left">99999</td>
-<td align="left">After this many days, the user HAVE to change his password</td>
+<td style="text-align: left;">99999</td>
+<td style="text-align: left;">After this many days, the user HAVE to change his password</td>
 </tr>
 <tr>
-<td align="left">7</td>
-<td align="left">...and the user will be informed 7 days before the expiration to change his password</td>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">...and the user will be informed 7 days before the expiration to change his password</td>
 </tr>
 </tbody>
 </table>
@@ -8639,18 +8639,18 @@ privoxy:!:19473::::::
 <table>
 <thead>
 <tr>
-<th align="center">switch</th>
-<th align="left">meaning</th>
+<th style="text-align: center;">switch</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">-l</td>
-<td align="left">list information</td>
+<td style="text-align: center;">-l</td>
+<td style="text-align: left;">list information</td>
 </tr>
 <tr>
-<td align="center">-E</td>
-<td align="left">Set the expiration date. Date can be a number, in YYYY-MM-DD format or -1 which will mean <em>never</em></td>
+<td style="text-align: center;">-E</td>
+<td style="text-align: left;">Set the expiration date. Date can be a number, in YYYY-MM-DD format or -1 which will mean <em>never</em></td>
 </tr>
 </tbody>
 </table>
@@ -8738,36 +8738,36 @@ jadi:$6$enk5I3bv$uSQrRpen7m9xDapYLgwgh3P/71OLZUgj31n8AwzgIM2lA5Hc/BmRVAMC0eswdBG
 <table>
 <thead>
 <tr>
-<th align="center">filed</th>
-<th align="left">Meaning</th>
-<th align="left">values</th>
+<th style="text-align: center;">filed</th>
+<th style="text-align: left;">Meaning</th>
+<th style="text-align: left;">values</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">A</td>
-<td align="left">minute</td>
-<td align="left">0-59</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: left;">minute</td>
+<td style="text-align: left;">0-59</td>
 </tr>
 <tr>
-<td align="center">B</td>
-<td align="left">hour</td>
-<td align="left">0-23</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: left;">hour</td>
+<td style="text-align: left;">0-23</td>
 </tr>
 <tr>
-<td align="center">C</td>
-<td align="left">day of month</td>
-<td align="left">1-31</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: left;">day of month</td>
+<td style="text-align: left;">1-31</td>
 </tr>
 <tr>
-<td align="center">D</td>
-<td align="left">month</td>
-<td align="left">1-12 (or names, see below)</td>
+<td style="text-align: center;">D</td>
+<td style="text-align: left;">month</td>
+<td style="text-align: left;">1-12 (or names, see below)</td>
 </tr>
 <tr>
-<td align="center">E</td>
-<td align="left">day of week</td>
-<td align="left">0-7 (0 or 7 is Sunday, or use names)</td>
+<td style="text-align: center;">E</td>
+<td style="text-align: left;">day of week</td>
+<td style="text-align: left;">0-7 (0 or 7 is Sunday, or use names)</td>
 </tr>
 </tbody>
 </table>
@@ -8959,18 +8959,18 @@ jadi@funlife:~$ atq
 <table>
 <thead>
 <tr>
-<th align="left">file extension</th>
-<th align="left">functionality</th>
+<th style="text-align: left;">file extension</th>
+<th style="text-align: left;">functionality</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">.allow</td>
-<td align="left">ONLY users mentioned in this file are allowed to run this service. All other users will be denied</td>
+<td style="text-align: left;">.allow</td>
+<td style="text-align: left;">ONLY users mentioned in this file are allowed to run this service. All other users will be denied</td>
 </tr>
 <tr>
-<td align="left">.deny</td>
-<td align="left">Everybody can use the service except the users mentioned in this file</td>
+<td style="text-align: left;">.deny</td>
+<td style="text-align: left;">Everybody can use the service except the users mentioned in this file</td>
 </tr>
 </tbody>
 </table>
@@ -9072,18 +9072,18 @@ jadi@funlife:~$ atq
 </tbody>
 </table>
 <p>This is one example from a recent Fedora installation:</p>
-<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="k">system</span><span class="o">/</span><span class="n">timers</span><span class="p">.</span><span class="n">target</span><span class="p">.</span><span class="n">wants</span><span class="o">/</span><span class="n">plocate</span><span class="o">-</span><span class="n">updatedb</span><span class="p">.</span><span class="n">timer</span><span class="w"> </span>
-<span class="o">[</span><span class="n">Unit</span><span class="o">]</span>
-<span class="n">Description</span><span class="o">=</span><span class="k">Update</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">plocate</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">daily</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># cat system/timers.target.wants/plocate-updatedb.timer </span>
+<span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">Update the plocate database daily</span>
 
-<span class="o">[</span><span class="n">Timer</span><span class="o">]</span>
-<span class="n">OnCalendar</span><span class="o">=</span><span class="n">daily</span>
-<span class="n">RandomizedDelaySec</span><span class="o">=</span><span class="mi">12</span><span class="n">h</span>
-<span class="n">AccuracySec</span><span class="o">=</span><span class="mi">20</span><span class="nf">min</span>
-<span class="n">Persistent</span><span class="o">=</span><span class="k">true</span>
+<span class="k">[Timer]</span>
+<span class="na">OnCalendar</span><span class="o">=</span><span class="s">daily</span>
+<span class="na">RandomizedDelaySec</span><span class="o">=</span><span class="s">12h</span>
+<span class="na">AccuracySec</span><span class="o">=</span><span class="s">20min</span>
+<span class="na">Persistent</span><span class="o">=</span><span class="s">true</span>
 
-<span class="o">[</span><span class="n">Install</span><span class="o">]</span>
-<span class="n">WantedBy</span><span class="o">=</span><span class="n">timers</span><span class="p">.</span><span class="n">target</span>
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">timers.target</span>
 </code></pre></div>
 
 <p>If you want to check the output of your timers, you can use the <code>journalctl</code>.</p>
@@ -9662,34 +9662,34 @@ $<span class="w"> </span>sudo<span class="w"> </span>chronyc<span class="w"> </s
 <table>
 <thead>
 <tr>
-<th align="center">parameter</th>
-<th align="center">meaning</th>
+<th style="text-align: center;">parameter</th>
+<th style="text-align: center;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">weekly</td>
-<td align="center">rotate logs weekly</td>
+<td style="text-align: center;">weekly</td>
+<td style="text-align: center;">rotate logs weekly</td>
 </tr>
 <tr>
-<td align="center">missingok</td>
-<td align="center">it is fine if there is no log for this week</td>
+<td style="text-align: center;">missingok</td>
+<td style="text-align: center;">it is fine if there is no log for this week</td>
 </tr>
 <tr>
-<td align="center">rotate 52</td>
-<td align="center">keep the latest 52 logs and delete the older ones</td>
+<td style="text-align: center;">rotate 52</td>
+<td style="text-align: center;">keep the latest 52 logs and delete the older ones</td>
 </tr>
 <tr>
-<td align="center">compress</td>
-<td align="center">compress the logs</td>
+<td style="text-align: center;">compress</td>
+<td style="text-align: center;">compress the logs</td>
 </tr>
 <tr>
-<td align="center">create 0640 www-data adm</td>
-<td align="center">create the files with this access and owners</td>
+<td style="text-align: center;">create 0640 www-data adm</td>
+<td style="text-align: center;">create the files with this access and owners</td>
 </tr>
 <tr>
-<td align="center">pre &amp; post rotate</td>
-<td align="center">run these scripts or commands before and after the rotation</td>
+<td style="text-align: center;">pre &amp; post rotate</td>
+<td style="text-align: center;">run these scripts or commands before and after the rotation</td>
 </tr>
 </tbody>
 </table>
@@ -9811,26 +9811,26 @@ $<span class="w"> </span>sudo<span class="w"> </span>chronyc<span class="w"> </s
 <table>
 <thead>
 <tr>
-<th align="center">action</th>
-<th align="center">sample</th>
-<th align="left">meaning</th>
+<th style="text-align: center;">action</th>
+<th style="text-align: center;">sample</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">filename</td>
-<td align="center">/usr/log/logins.log</td>
-<td align="left">will write the log to this file</td>
+<td style="text-align: center;">filename</td>
+<td style="text-align: center;">/usr/log/logins.log</td>
+<td style="text-align: left;">will write the log to this file</td>
 </tr>
 <tr>
-<td align="center">username</td>
-<td align="center">jadi</td>
-<td align="left">will notify that person on the screen</td>
+<td style="text-align: center;">username</td>
+<td style="text-align: center;">jadi</td>
+<td style="text-align: left;">will notify that person on the screen</td>
 </tr>
 <tr>
-<td align="center">@ip</td>
-<td align="center">@192.168.1.100</td>
-<td align="left">will send this log to this log server and that log server will decide what to do with it based on its configs</td>
+<td style="text-align: center;">@ip</td>
+<td style="text-align: center;">@192.168.1.100</td>
+<td style="text-align: left;">will send this log to this log server and that log server will decide what to do with it based on its configs</td>
 </tr>
 </tbody>
 </table>
@@ -9964,42 +9964,42 @@ $<span class="w"> </span>sudo<span class="w"> </span>chronyc<span class="w"> </s
 <table>
 <thead>
 <tr>
-<th align="center">Switch</th>
-<th align="center">Meaning</th>
+<th style="text-align: center;">Switch</th>
+<th style="text-align: center;">Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">-r</td>
-<td align="center">show in reverse; newer on top</td>
+<td style="text-align: center;">-r</td>
+<td style="text-align: center;">show in reverse; newer on top</td>
 </tr>
 <tr>
-<td align="center">-f</td>
-<td align="center">keep showing the tail</td>
+<td style="text-align: center;">-f</td>
+<td style="text-align: center;">keep showing the tail</td>
 </tr>
 <tr>
-<td align="center">-e</td>
-<td align="center">show and go to the end</td>
+<td style="text-align: center;">-e</td>
+<td style="text-align: center;">show and go to the end</td>
 </tr>
 <tr>
-<td align="center">-n</td>
-<td align="center">show this many lines from the end (newest ones)</td>
+<td style="text-align: center;">-n</td>
+<td style="text-align: center;">show this many lines from the end (newest ones)</td>
 </tr>
 <tr>
-<td align="center">-k</td>
-<td align="center">show kernel message (equal to <code>dmesg</code>)</td>
+<td style="text-align: center;">-k</td>
+<td style="text-align: center;">show kernel message (equal to <code>dmesg</code>)</td>
 </tr>
 <tr>
-<td align="center">-b</td>
-<td align="center">show from a specific boot, -1 is the previous one, 0 is the current one. You can check the list using <code>--list-boots</code></td>
+<td style="text-align: center;">-b</td>
+<td style="text-align: center;">show from a specific boot, -1 is the previous one, 0 is the current one. You can check the list using <code>--list-boots</code></td>
 </tr>
 <tr>
-<td align="center">-p</td>
-<td align="center">from specific priority, say <code>-p err</code></td>
+<td style="text-align: center;">-p</td>
+<td style="text-align: center;">from specific priority, say <code>-p err</code></td>
 </tr>
 <tr>
-<td align="center">-u</td>
-<td align="center">from a specific systemd unit</td>
+<td style="text-align: center;">-u</td>
+<td style="text-align: center;">from a specific systemd unit</td>
 </tr>
 </tbody>
 </table>
@@ -10035,25 +10035,25 @@ $<span class="w"> </span>sudo<span class="w"> </span>chronyc<span class="w"> </s
 <table>
 <thead>
 <tr>
-<th align="center">Variable Name</th>
+<th style="text-align: center;">Variable Name</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">SystemMaxUse</td>
+<td style="text-align: center;">SystemMaxUse</td>
 <td>The Maximum disk usage, say 500M. The default is on <code>10%</code></td>
 </tr>
 <tr>
-<td align="center">SystemKeepFree</td>
+<td style="text-align: center;">SystemKeepFree</td>
 <td>Keep at least this much free, say 1G. The default is 15%</td>
 </tr>
 <tr>
-<td align="center">SystemMaxFileSize</td>
+<td style="text-align: center;">SystemMaxFileSize</td>
 <td>Maximum size of each individual file. The default is 1/8 of SystemMaxUse</td>
 </tr>
 <tr>
-<td align="center">SystemMaxFiles</td>
+<td style="text-align: center;">SystemMaxFiles</td>
 <td>Max number of non-currently-active files. The default is 100</td>
 </tr>
 </tbody>
@@ -10063,21 +10063,21 @@ $<span class="w"> </span>sudo<span class="w"> </span>chronyc<span class="w"> </s
 <table>
 <thead>
 <tr>
-<th align="center">Switch</th>
+<th style="text-align: center;">Switch</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">--vacuum-time</td>
+<td style="text-align: center;">--vacuum-time</td>
 <td>clean everything older than this. for example <code>--vacuum-time=3months</code> clean anything older than 3 months. You can use <code>s</code>, <code>m</code>, <code>h</code> for seconds, minutes and days and <code>d</code>/<code>days</code>, <code>months</code>, <code>weeks</code>/<code>w</code> and <code>years</code>/<code>y</code>.</td>
 </tr>
 <tr>
-<td align="center">--vacuum-size</td>
+<td style="text-align: center;">--vacuum-size</td>
 <td>eliminate till logs occupy a specific size; say 1G</td>
 </tr>
 <tr>
-<td align="center">--vacuum-files</td>
+<td style="text-align: center;">--vacuum-files</td>
 <td>Only keep this much archive files</td>
 </tr>
 </tbody>
@@ -10813,26 +10813,26 @@ ErrorPolicy<span class="w"> </span>retry-job
 <table>
 <thead>
 <tr>
-<th align="left">command</th>
-<th align="left">usage</th>
+<th style="text-align: left;">command</th>
+<th style="text-align: left;">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">lpr</td>
-<td align="left">print a file</td>
+<td style="text-align: left;">lpr</td>
+<td style="text-align: left;">print a file</td>
 </tr>
 <tr>
-<td align="left">lpq</td>
-<td align="left">show print queue/jobs</td>
+<td style="text-align: left;">lpq</td>
+<td style="text-align: left;">show print queue/jobs</td>
 </tr>
 <tr>
-<td align="left">lprm</td>
-<td align="left">rm/remove a file from priner queue</td>
+<td style="text-align: left;">lprm</td>
+<td style="text-align: left;">rm/remove a file from priner queue</td>
 </tr>
 <tr>
-<td align="left">lpc</td>
-<td align="left">printer control / troubleshooting program</td>
+<td style="text-align: left;">lpc</td>
+<td style="text-align: left;">printer control / troubleshooting program</td>
 </tr>
 </tbody>
 </table>
@@ -10905,26 +10905,26 @@ Apple-Dot-Matrix:
 <table>
 <thead>
 <tr>
-<th align="left">command</th>
-<th align="left">usage</th>
+<th style="text-align: left;">command</th>
+<th style="text-align: left;">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">cupsaccept</td>
-<td align="left">tells the printer queue to accept new jobs</td>
+<td style="text-align: left;">cupsaccept</td>
+<td style="text-align: left;">tells the printer queue to accept new jobs</td>
 </tr>
 <tr>
-<td align="left">cupsreject</td>
-<td align="left">tells the printer to reject any new job</td>
+<td style="text-align: left;">cupsreject</td>
+<td style="text-align: left;">tells the printer to reject any new job</td>
 </tr>
 <tr>
-<td align="left">cupsenable</td>
-<td align="left">enables the actual/physical printing of the jobs</td>
+<td style="text-align: left;">cupsenable</td>
+<td style="text-align: left;">enables the actual/physical printing of the jobs</td>
 </tr>
 <tr>
-<td align="left">cupsdisable</td>
-<td align="left">disables the physical printing of the jobs</td>
+<td style="text-align: left;">cupsdisable</td>
+<td style="text-align: left;">disables the physical printing of the jobs</td>
 </tr>
 </tbody>
 </table>
@@ -11011,22 +11011,22 @@ Apple-Dot-Matrix:
 <table>
 <thead>
 <tr>
-<th align="left">range</th>
-<th align="left">Number of IPs in this range</th>
+<th style="text-align: left;">range</th>
+<th style="text-align: left;">Number of IPs in this range</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">192.168.0-255.0-255</td>
-<td align="left">65K IPs</td>
+<td style="text-align: left;">192.168.0-255.0-255</td>
+<td style="text-align: left;">65K IPs</td>
 </tr>
 <tr>
-<td align="left">172.16-31.0-255.0-255</td>
-<td align="left">1M IPs</td>
+<td style="text-align: left;">172.16-31.0-255.0-255</td>
+<td style="text-align: left;">1M IPs</td>
 </tr>
 <tr>
-<td align="left">10.0-255.0-255.0-255</td>
-<td align="left">16M IPs</td>
+<td style="text-align: left;">10.0-255.0-255.0-255</td>
+<td style="text-align: left;">16M IPs</td>
 </tr>
 </tbody>
 </table>
@@ -11119,105 +11119,105 @@ Apple-Dot-Matrix:
 <table>
 <thead>
 <tr>
-<th align="left">128</th>
-<th align="left">64</th>
-<th align="left">32</th>
-<th align="left">16</th>
-<th align="left">8</th>
-<th align="left">4</th>
-<th align="left">2</th>
-<th align="left">1</th>
-<th align="left">Decimal</th>
+<th style="text-align: left;">128</th>
+<th style="text-align: left;">64</th>
+<th style="text-align: left;">32</th>
+<th style="text-align: left;">16</th>
+<th style="text-align: left;">8</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">Decimal</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
 </tr>
 <tr>
-<td align="left">1</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">128</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">128</td>
 </tr>
 <tr>
-<td align="left">1</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">1</td>
-<td align="left">129</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">129</td>
 </tr>
 <tr>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">1</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">32</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">32</td>
 </tr>
 <tr>
-<td align="left">1</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">1</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">132</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">132</td>
 </tr>
 <tr>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">0</td>
-<td align="left">6</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">6</td>
 </tr>
 <tr>
-<td align="left">1</td>
-<td align="left">0</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">179</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">179</td>
 </tr>
 <tr>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">255</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">255</td>
 </tr>
 </tbody>
 </table>
@@ -11272,78 +11272,78 @@ rtt min/avg/max/mdev = 236.707/238.174/239.642/1.546 ms
 <table>
 <thead>
 <tr>
-<th align="center">port</th>
-<th align="center">usage</th>
+<th style="text-align: center;">port</th>
+<th style="text-align: center;">usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">20, 21</td>
-<td align="center">FTP (one data, one control)</td>
+<td style="text-align: center;">20, 21</td>
+<td style="text-align: center;">FTP (one data, one control)</td>
 </tr>
 <tr>
-<td align="center">22</td>
-<td align="center">SSH</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">SSH</td>
 </tr>
 <tr>
-<td align="center">23</td>
-<td align="center">Telnet</td>
+<td style="text-align: center;">23</td>
+<td style="text-align: center;">Telnet</td>
 </tr>
 <tr>
-<td align="center">25</td>
-<td align="center">SMTP</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">SMTP</td>
 </tr>
 <tr>
-<td align="center">53</td>
-<td align="center">DNS</td>
+<td style="text-align: center;">53</td>
+<td style="text-align: center;">DNS</td>
 </tr>
 <tr>
-<td align="center">80</td>
-<td align="center">HTTP</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">HTTP</td>
 </tr>
 <tr>
-<td align="center">110</td>
-<td align="center">POP3</td>
+<td style="text-align: center;">110</td>
+<td style="text-align: center;">POP3</td>
 </tr>
 <tr>
-<td align="center">123</td>
-<td align="center">NTP</td>
+<td style="text-align: center;">123</td>
+<td style="text-align: center;">NTP</td>
 </tr>
 <tr>
-<td align="center">139</td>
-<td align="center">NetBIOS</td>
+<td style="text-align: center;">139</td>
+<td style="text-align: center;">NetBIOS</td>
 </tr>
 <tr>
-<td align="center">143</td>
-<td align="center">IMAP</td>
+<td style="text-align: center;">143</td>
+<td style="text-align: center;">IMAP</td>
 </tr>
 <tr>
-<td align="center">161, 162</td>
-<td align="center">SNMP</td>
+<td style="text-align: center;">161, 162</td>
+<td style="text-align: center;">SNMP</td>
 </tr>
 <tr>
-<td align="center">389</td>
-<td align="center">LDAP</td>
+<td style="text-align: center;">389</td>
+<td style="text-align: center;">LDAP</td>
 </tr>
 <tr>
-<td align="center">443</td>
-<td align="center">HTTPS</td>
+<td style="text-align: center;">443</td>
+<td style="text-align: center;">HTTPS</td>
 </tr>
 <tr>
-<td align="center">465</td>
-<td align="center">SMTPS</td>
+<td style="text-align: center;">465</td>
+<td style="text-align: center;">SMTPS</td>
 </tr>
 <tr>
-<td align="center">636</td>
-<td align="center">LDAPS</td>
+<td style="text-align: center;">636</td>
+<td style="text-align: center;">LDAPS</td>
 </tr>
 <tr>
-<td align="center">993</td>
-<td align="center">IMAPS</td>
+<td style="text-align: center;">993</td>
+<td style="text-align: center;">IMAPS</td>
 </tr>
 <tr>
-<td align="center">995</td>
-<td align="center">POP3S</td>
+<td style="text-align: center;">995</td>
+<td style="text-align: center;">POP3S</td>
 </tr>
 </tbody>
 </table>
@@ -11386,13 +11386,13 @@ rtt min/avg/max/mdev = 236.707/238.174/239.642/1.546 ms
 <p>The NIC (or Network Interface Card) is the physical network hardware in your computer. This can be the chip+antenna in your mobile phone or an Ethernet Card connected to a network cable on your PC.</p>
 <p>In older systems, these were called things like <code>eth0</code>, <code>eth1</code>, <code>eth2</code>, ... where 0, 1 &amp; 2 were decided by the kernel - mostly based on the order of loading the drivers. In recent Linux machines the NICs are called by <code>wlan0</code>, <code>eno1</code>, <code>ens1</code>, <code>enp3s2</code> and such. This is based on some more concrete data like being an <code>wireless</code> or <code>ethernet</code>, PCI (<code>ens</code>) or bus like (<code>enp</code>). </p>
 <p>The <code>ip</code> command can show these:</p>
-<div class="highlight"><pre><span></span><code>➜<span class="w">  </span><span class="o">~</span><span class="w"> </span><span class="nv">ip</span><span class="w"> </span><span class="nv">link</span><span class="w"> </span><span class="k">show</span>
-<span class="mi">1</span>:<span class="w"> </span><span class="nv">lo</span>:<span class="w"> </span><span class="o">&lt;</span><span class="nv">LOOPBACK</span>,<span class="nv">UP</span>,<span class="nv">LOWER_UP</span><span class="o">&gt;</span><span class="w"> </span><span class="nv">mtu</span><span class="w"> </span><span class="mi">65536</span><span class="w"> </span><span class="nv">qdisc</span><span class="w"> </span><span class="nv">noqueue</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="nv">UNKNOWN</span><span class="w"> </span><span class="nv">mode</span><span class="w"> </span><span class="nv">DEFAULT</span><span class="w"> </span><span class="nv">group</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">qlen</span><span class="w"> </span><span class="mi">1000</span>
-<span class="w">    </span><span class="nv">link</span><span class="o">/</span><span class="nv">loopback</span><span class="w"> </span><span class="mi">00</span>:<span class="mi">00</span>:<span class="mi">00</span>:<span class="mi">00</span>:<span class="mi">00</span>:<span class="mi">00</span><span class="w"> </span><span class="nv">brd</span><span class="w"> </span><span class="mi">00</span>:<span class="mi">00</span>:<span class="mi">00</span>:<span class="mi">00</span>:<span class="mi">00</span>:<span class="mi">00</span>
-<span class="mi">2</span>:<span class="w"> </span><span class="nv">wlp108s0</span>:<span class="w"> </span><span class="o">&lt;</span><span class="nv">BROADCAST</span>,<span class="nv">MULTICAST</span>,<span class="nv">UP</span>,<span class="nv">LOWER_UP</span><span class="o">&gt;</span><span class="w"> </span><span class="nv">mtu</span><span class="w"> </span><span class="mi">1500</span><span class="w"> </span><span class="nv">qdisc</span><span class="w"> </span><span class="nv">noqueue</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="nv">UP</span><span class="w"> </span><span class="nv">mode</span><span class="w"> </span><span class="nv">DORMANT</span><span class="w"> </span><span class="nv">group</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">qlen</span><span class="w"> </span><span class="mi">1000</span>
-<span class="w">    </span><span class="nv">link</span><span class="o">/</span><span class="nv">ether</span><span class="w"> </span><span class="mi">00</span>:<span class="nv">bb</span>:<span class="mi">60</span>:<span class="mi">97</span>:<span class="mi">6</span><span class="nv">b</span>:<span class="mi">07</span><span class="w"> </span><span class="nv">brd</span><span class="w"> </span><span class="nv">ff</span>:<span class="nv">ff</span>:<span class="nv">ff</span>:<span class="nv">ff</span>:<span class="nv">ff</span>:<span class="nv">ff</span>
-<span class="mi">3</span>:<span class="w"> </span><span class="nv">docker0</span>:<span class="w"> </span><span class="o">&lt;</span><span class="nv">NO</span><span class="o">-</span><span class="nv">CARRIER</span>,<span class="nv">BROADCAST</span>,<span class="nv">MULTICAST</span>,<span class="nv">UP</span><span class="o">&gt;</span><span class="w"> </span><span class="nv">mtu</span><span class="w"> </span><span class="mi">1500</span><span class="w"> </span><span class="nv">qdisc</span><span class="w"> </span><span class="nv">noqueue</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="nv">DOWN</span><span class="w"> </span><span class="nv">mode</span><span class="w"> </span><span class="nv">DEFAULT</span><span class="w"> </span><span class="nv">group</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span>
-<span class="w">    </span><span class="nv">link</span><span class="o">/</span><span class="nv">ether</span><span class="w"> </span><span class="mi">02</span>:<span class="mi">42</span>:<span class="mi">75</span>:<span class="nv">d3</span>:<span class="nv">e6</span>:<span class="nv">ff</span><span class="w"> </span><span class="nv">brd</span><span class="w"> </span><span class="nv">ff</span>:<span class="nv">ff</span>:<span class="nv">ff</span>:<span class="nv">ff</span>:<span class="nv">ff</span>:<span class="nv">ff</span>
+<div class="highlight"><pre><span></span><code>➜  ~ ip link show
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: wlp108s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP mode DORMANT group default qlen 1000
+    link/ether 00:bb:60:97:6b:07 brd ff:ff:ff:ff:ff:ff
+3: docker0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN mode DEFAULT group default 
+    link/ether 02:42:75:d3:e6:ff brd ff:ff:ff:ff:ff:ff
 </code></pre></div>
 
 <blockquote>
@@ -11508,9 +11508,9 @@ dns-nameservers 4.2.2.4
 
 <h3><code>ip</code></h3>
 <p>Recent distributions are mostly using the <code>ip</code> command. This command can do lots of things including and not limited to showing and configuring the IP addresses, netmasks, default gateways &amp; routing rules.</p>
-<div class="highlight"><pre><span></span><code><span class="nx">ip</span><span class="w"> </span><span class="kd">addr</span><span class="w"> </span><span class="nx">add</span><span class="w"> </span><span class="m m-Double">172.19.1.1</span><span class="mi">0</span><span class="o">/</span><span class="mi">24</span><span class="w"> </span><span class="nx">dev</span><span class="w"> </span><span class="nx">eth2</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">temporary</span><span class="w"> </span><span class="nx">adding</span><span class="w"> </span><span class="nx">an</span><span class="w"> </span><span class="nx">IP</span>
+<div class="highlight"><pre><span></span><code><span class="nx">ip</span><span class="w"> </span><span class="kd">addr</span><span class="w"> </span><span class="nx">add</span><span class="w"> </span><span class="m m-Double">172.19.1.10</span><span class="o">/</span><span class="mi">24</span><span class="w"> </span><span class="nx">dev</span><span class="w"> </span><span class="nx">eth2</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">temporary</span><span class="w"> </span><span class="nx">adding</span><span class="w"> </span><span class="nx">an</span><span class="w"> </span><span class="nx">IP</span>
 <span class="nx">ip</span><span class="w"> </span><span class="kd">addr</span><span class="w"> </span><span class="nx">show</span><span class="w"> </span><span class="nx">eth2</span>
-<span class="nx">ip</span><span class="w"> </span><span class="kd">addr</span><span class="w"> </span><span class="nx">del</span><span class="w"> </span><span class="m m-Double">172.19.1.1</span><span class="mi">0</span><span class="o">/</span><span class="mi">24</span><span class="w"> </span><span class="nx">dev</span><span class="w"> </span><span class="nx">eth2</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">deleting</span><span class="w"> </span><span class="nx">an</span><span class="w"> </span><span class="nx">IP</span><span class="w"> </span><span class="nx">address</span>
+<span class="nx">ip</span><span class="w"> </span><span class="kd">addr</span><span class="w"> </span><span class="nx">del</span><span class="w"> </span><span class="m m-Double">172.19.1.10</span><span class="o">/</span><span class="mi">24</span><span class="w"> </span><span class="nx">dev</span><span class="w"> </span><span class="nx">eth2</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">deleting</span><span class="w"> </span><span class="nx">an</span><span class="w"> </span><span class="nx">IP</span><span class="w"> </span><span class="nx">address</span>
 <span class="nx">ip</span><span class="w"> </span><span class="nx">link</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">eth2</span><span class="w"> </span><span class="nx">up</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">brining</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">NIC</span><span class="w"> </span><span class="nx">up</span>
 <span class="nx">ip</span><span class="w"> </span><span class="nx">route</span><span class="w"> </span><span class="nx">show</span>
 <span class="nx">ip</span><span class="w"> </span><span class="nx">route</span><span class="w"> </span><span class="nx">add</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">via</span><span class="w"> </span><span class="m m-Double">192.168.1.1</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">add</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">gateway</span>
@@ -11576,7 +11576,7 @@ p2p-dev-wlp108s0  wifi-p2p  disconnected            --
 IN-USE  BSSID              SSID                 MODE   CHAN  RATE        SIGNAL  BARS  SECURITY  
         6C:AD:EF:38:13:38  AxLTE                Infra  3     270 Mbit/s  84      ▂▄▆█  WPA2      
         00:E0:4C:93:1D:B8  Lanat Be Sansoorchi  Infra  6     130 Mbit/s  59      ▂▄▆_  WPA2      
-*       24:F5:A2:42:DE:CE  Sharm Bar Sansoor 5  Infra  36    540 Mbit/s  47      ▂▄__  WPA2      
+<span class="k">*</span>       24:F5:A2:42:DE:CE  Sharm Bar Sansoor 5  Infra  36    540 Mbit/s  47      ▂▄__  WPA2      
         30:A2:20:DD:8B:54  AvinaAmin            Infra  7     270 Mbit/s  29      ▂___  WPA1 WPA2 
         30:85:A9:8C:71:2C  bahram               Infra  11    65 Mbit/s   29      ▂___  WPA2
 </code></pre></div>
@@ -12827,27 +12827,27 @@ vsftpd: 10.10.100.
 </code></pre></div>
 
 <p>Above the server is showing us the fingerprint of its ED25519 key and asking us to approve it. From now on, our system wont warn us for the same key with the same server. BUT if the fingerprint (so the key) of the same server is changed, that will be considered a serious case:</p>
-<div class="highlight"><pre><span></span><code>➜<span class="w">  </span><span class="o">~</span><span class="w"> </span><span class="nv">ssh</span><span class="w"> </span><span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">70</span>.<span class="mi">2</span>
-<span class="nv">Host</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="nv">verification</span><span class="w"> </span><span class="nv">failed</span>.
+<div class="highlight"><pre><span></span><code>➜  ~ ssh 192.168.70.2
+Host key verification failed.
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@<span class="w">    </span><span class="nv">WARNING</span>:<span class="w"> </span><span class="nv">REMOTE</span><span class="w"> </span><span class="nv">HOST</span><span class="w"> </span><span class="nv">IDENTIFICATION</span><span class="w"> </span><span class="nv">HAS</span><span class="w"> </span><span class="nv">CHANGED</span><span class="o">!</span><span class="w">     </span>@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-<span class="nv">IT</span><span class="w"> </span><span class="nv">IS</span><span class="w"> </span><span class="nv">POSSIBLE</span><span class="w"> </span><span class="nv">THAT</span><span class="w"> </span><span class="nv">SOMEONE</span><span class="w"> </span><span class="nv">IS</span><span class="w"> </span><span class="nv">DOING</span><span class="w"> </span><span class="nv">SOMETHING</span><span class="w"> </span><span class="nv">NASTY</span><span class="o">!</span>
-<span class="nv">Someone</span><span class="w"> </span><span class="nv">could</span><span class="w"> </span><span class="nv">be</span><span class="w"> </span><span class="nv">eavesdropping</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">you</span><span class="w"> </span><span class="nv">right</span><span class="w"> </span><span class="nv">now</span><span class="w"> </span><span class="ss">(</span><span class="nv">man</span><span class="o">-</span><span class="nv">in</span><span class="o">-</span><span class="nv">the</span><span class="o">-</span><span class="nv">middle</span><span class="w"> </span><span class="nv">attack</span><span class="ss">)</span><span class="o">!</span>
-<span class="nv">It</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">also</span><span class="w"> </span><span class="nv">possible</span><span class="w"> </span><span class="nv">that</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">host</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="nv">has</span><span class="w"> </span><span class="nv">just</span><span class="w"> </span><span class="nv">been</span><span class="w"> </span><span class="nv">changed</span>.
-<span class="nv">The</span><span class="w"> </span><span class="nv">fingerprint</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">ED25519</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="nv">sent</span><span class="w"> </span><span class="nv">by</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">remote</span><span class="w"> </span><span class="nv">host</span><span class="w"> </span><span class="nv">is</span>
-<span class="nv">SHA256</span>:<span class="mi">4</span><span class="nv">Wp2zz6sgPAhnbqhkNjOd6QDpNQ4jvjX7qAzslPX09U</span>.
-<span class="nv">Please</span><span class="w"> </span><span class="nv">contact</span><span class="w"> </span><span class="nv">your</span><span class="w"> </span><span class="nv">system</span><span class="w"> </span><span class="nv">administrator</span>.
-<span class="nv">Add</span><span class="w"> </span><span class="nv">correct</span><span class="w"> </span><span class="nv">host</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">jadi</span><span class="o">/</span>.<span class="nv">ssh</span><span class="o">/</span><span class="nv">known_hosts</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">get</span><span class="w"> </span><span class="nv">rid</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">this</span><span class="w"> </span><span class="nv">message</span>.
-<span class="nv">Offending</span><span class="w"> </span><span class="nv">RSA</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">jadi</span><span class="o">/</span>.<span class="nv">ssh</span><span class="o">/</span><span class="nv">known_hosts</span>:<span class="mi">548</span>
-<span class="nv">Host</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">70</span>.<span class="mi">2</span><span class="w"> </span><span class="nv">has</span><span class="w"> </span><span class="nv">changed</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="nv">you</span><span class="w"> </span><span class="nv">have</span><span class="w"> </span><span class="nv">requested</span><span class="w"> </span><span class="nv">strict</span><span class="w"> </span><span class="nv">checking</span>.
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ED25519 key sent by the remote host is
+SHA256:4Wp2zz6sgPAhnbqhkNjOd6QDpNQ4jvjX7qAzslPX09U.
+Please contact your system administrator.
+Add correct host key in /Users/jadi/.ssh/known_hosts to get rid of this message.
+Offending RSA key in /Users/jadi/.ssh/known_hosts:548
+Host key for 192.168.70.2 has changed and you have requested strict checking.
 </code></pre></div>
 
 <p>If you want to solve this - after making sure that this is not an attack - you have to remove the data of 192.168.70.2 from the <code>.ssh/known_hosts</code> file. Fortunately you do not need to directly edit the file. Its enough to use the <code>ssh-keygen</code> command:</p>
 <div class="highlight"><pre><span></span><code>➜  ~ ssh-keygen -R 192.168.70.2
-# Host 192.168.70.2 found: line 547
-# Host 192.168.70.2 found: line 548
-# Host 192.168.70.2 found: line 549
+<span class="gh">#</span> Host 192.168.70.2 found: line 547
+<span class="gh">#</span> Host 192.168.70.2 found: line 548
+<span class="gh">#</span> Host 192.168.70.2 found: line 549
 /Users/jadi/.ssh/known_hosts updated.
 Original contents retained as /Users/jadi/.ssh/known_hosts.old
 </code></pre></div>

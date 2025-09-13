@@ -180,7 +180,7 @@ rtt<span class="w"> </span>min/avg/max/mdev<span class="w"> </span><span class="
 <p>It is common to use <code>2&gt;</code> to redirect the nohup errors to another file and use a <code>&amp;</code> to run it in the background: <code>nohup script.sh &gt; mynohup.out 2&gt;&amp;1 &amp;</code> </p>
 </blockquote>
 <h3>kill</h3>
-<p>Despite its frightening name, the <code>kill</code> command sends unix <em>signals</em> to processes. Pressing <code>Ctrl+c</code> and <code>Ctrl+z</code> is also sending signals. By default, the <code>kill</code> command sends the signal <strong>15</strong> (which is TERM and tells to process to terminate itself).</p>
+<p>Despite its frightening name, the <code>kill</code> command sends unix <em>signals</em> to processes. Pressing <code>Ctrl+c</code> and <code>Ctrl+z</code> is also sending signals. By default, the <code>kill</code> command sends the signal <strong>15</strong> (which is TERM and tells the process to terminate itself).</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">jobs</span>
 <span class="o">[</span><span class="m">3</span><span class="o">]</span><span class="w">   </span>Running<span class="w">                 </span>xeyes<span class="w"> </span><span class="p">&amp;</span>
 <span class="o">[</span><span class="m">4</span><span class="o">]</span><span class="w">   </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="p">&amp;</span>
@@ -202,26 +202,26 @@ $<span class="w"> </span><span class="nb">jobs</span>
 <table>
 <thead>
 <tr>
-<th align="center">signal number</th>
-<th align="center">signal name</th>
-<th align="left">meaning</th>
+<th style="text-align: center;">signal number</th>
+<th style="text-align: center;">signal name</th>
+<th style="text-align: left;">meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">1</td>
-<td align="center">HUP</td>
-<td align="left">Informing the process that its controlling terminal (like an ssh connection) is terminated</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">HUP</td>
+<td style="text-align: left;">Informing the process that its controlling terminal (like an ssh connection) is terminated</td>
 </tr>
 <tr>
-<td align="center">15</td>
-<td align="center">TERM</td>
-<td align="left">normal termination request</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">TERM</td>
+<td style="text-align: left;">normal termination request</td>
 </tr>
 <tr>
-<td align="center">9</td>
-<td align="center">KILL</td>
-<td align="left">forcefully kills the proccess</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">KILL</td>
+<td style="text-align: left;">forcefully kills the proccess</td>
 </tr>
 </tbody>
 </table>
@@ -349,30 +349,30 @@ jadi<span class="w">      </span><span class="m">7725</span><span class="w">  </
 <table>
 <thead>
 <tr>
-<th align="center">key during top</th>
-<th align="left">functionality</th>
+<th style="text-align: center;">key during top</th>
+<th style="text-align: left;">functionality</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">h</td>
-<td align="left">help</td>
+<td style="text-align: center;">h</td>
+<td style="text-align: left;">help</td>
 </tr>
 <tr>
-<td align="center">q</td>
-<td align="left">quit</td>
+<td style="text-align: center;">q</td>
+<td style="text-align: left;">quit</td>
 </tr>
 <tr>
-<td align="center">M</td>
-<td align="left">sort based on memory usage</td>
+<td style="text-align: center;">M</td>
+<td style="text-align: left;">sort based on memory usage</td>
 </tr>
 <tr>
-<td align="center">c</td>
-<td align="left">show full commands</td>
+<td style="text-align: center;">c</td>
+<td style="text-align: left;">show full commands</td>
 </tr>
 <tr>
-<td align="center">k</td>
-<td align="left">kill after asking pid and signal</td>
+<td style="text-align: center;">k</td>
+<td style="text-align: left;">kill after asking pid and signal</td>
 </tr>
 </tbody>
 </table>
@@ -422,45 +422,45 @@ Swap:<span class="w">         </span><span class="m">7627</span><span class="w">
 <table>
 <thead>
 <tr>
-<th align="center">Key</th>
+<th style="text-align: center;">Key</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">\</td>
+<td style="text-align: center;">\</td>
 <td>Kill all processes windows and terminate the screen</td>
 </tr>
 <tr>
-<td align="center">|</td>
+<td style="text-align: center;">|</td>
 <td>Split current window into two vertical focuses</td>
 </tr>
 <tr>
-<td align="center">Shift+S</td>
+<td style="text-align: center;">Shift+S</td>
 <td>Split current window into two horizontal focuses</td>
 </tr>
 <tr>
-<td align="center">C</td>
+<td style="text-align: center;">C</td>
 <td>Create a window in the current focus</td>
 </tr>
 <tr>
-<td align="center">Tab</td>
+<td style="text-align: center;">Tab</td>
 <td>Go to the next focus</td>
 </tr>
 <tr>
-<td align="center">D</td>
+<td style="text-align: center;">D</td>
 <td>Detach from window</td>
 </tr>
 <tr>
-<td align="center">K</td>
+<td style="text-align: center;">K</td>
 <td>Kill current window</td>
 </tr>
 <tr>
-<td align="center">N</td>
+<td style="text-align: center;">N</td>
 <td>Move to Next window</td>
 </tr>
 <tr>
-<td align="center">P</td>
+<td style="text-align: center;">P</td>
 <td>Move to the Previous window</td>
 </tr>
 </tbody>
@@ -471,25 +471,25 @@ Swap:<span class="w">         </span><span class="m">7627</span><span class="w">
 <table>
 <thead>
 <tr>
-<th align="center">Key</th>
+<th style="text-align: center;">Key</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">%</td>
+<td style="text-align: center;">%</td>
 <td>Split current window vertically</td>
 </tr>
 <tr>
-<td align="center">"</td>
+<td style="text-align: center;">"</td>
 <td>Split current window horizontally</td>
 </tr>
 <tr>
-<td align="center">D</td>
+<td style="text-align: center;">D</td>
 <td>Detach from the current window</td>
 </tr>
 <tr>
-<td align="center">&amp;</td>
+<td style="text-align: center;">&amp;</td>
 <td>Kill current window</td>
 </tr>
 </tbody>

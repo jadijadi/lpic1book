@@ -224,13 +224,13 @@ PID TTY TIME     CMD
 </code></pre></div>
 
 <p>to check the logs, we have to use the <code>journalctl</code> utility:</p>
-<div class="highlight"><pre><span></span><code>#<span class="w"> </span><span class="nv">journalctl</span><span class="w"> </span>#<span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="nv">all</span><span class="w"> </span><span class="nv">journal</span>
-#<span class="w"> </span><span class="nv">journalctl</span><span class="w"> </span><span class="o">--</span><span class="nv">no</span><span class="o">-</span><span class="nv">pager</span><span class="w"> </span>#<span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nv">not</span><span class="w"> </span><span class="nv">use</span><span class="w"> </span><span class="nv">less</span>
-#<span class="w"> </span><span class="nv">journalctl</span><span class="w"> </span><span class="o">-</span><span class="nv">n</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span>#<span class="w"> </span><span class="nv">only</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="nv">lines</span>
-#<span class="w"> </span><span class="nv">journalctl</span><span class="w"> </span><span class="o">-</span><span class="nv">S</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="nv">d</span><span class="w"> </span>#<span class="w"> </span><span class="nv">last</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">day</span>
-#<span class="w"> </span><span class="nv">journalctl</span><span class="w"> </span><span class="o">-</span><span class="nv">xe</span><span class="w"> </span>#<span class="w"> </span><span class="nv">last</span><span class="w"> </span><span class="nv">few</span><span class="w"> </span><span class="nv">logs</span>
-#<span class="w"> </span><span class="nv">journalctl</span><span class="w"> </span><span class="o">-</span><span class="nv">u</span><span class="w"> </span><span class="nv">ntp</span><span class="w"> </span>#<span class="w"> </span><span class="nv">only</span><span class="w"> </span><span class="nv">ntp</span><span class="w"> </span><span class="nv">unit</span>
-#<span class="w"> </span><span class="nv">journalctl</span><span class="w"> </span><span class="nv">_PID</span><span class="o">=</span><span class="mi">1234</span>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> journalctl # show all journal
+<span class="gh">#</span> journalctl --no-pager # do not use less
+<span class="gh">#</span> journalctl -n 10 # only 10 lines
+<span class="gh">#</span> journalctl -S -1d # last 1 day
+<span class="gh">#</span> journalctl -xe # last few logs
+<span class="gh">#</span> journalctl -u ntp # only ntp unit
+<span class="gh">#</span> journalctl _PID=1234
 </code></pre></div>
 
 <h2>SysV</h2>
