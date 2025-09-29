@@ -59,7 +59,9 @@ Peripheral Component Interconnect. Enables the user to add extra components to t
     - PATA (old)
     - SATA (serial & up to 4 devices) (II-III)
     - SCSI (parallel & up to 8 devices) (Small Computer System Interface)
-- External HDD. Fiber (Providing a high-speed data connection). SSD over USB
+- External HDD
+- Fiber (Providing a high-speed data connection)
+- SSD over USB
 - Network cards. RJ 45 (Registered Jack 45)
 - Wireless cards. IEEE 802.11
 - Bluetooth. IEEE 802.15 (Short-range (up to 10m) wireless technology standard)
