@@ -31,8 +31,8 @@ Candidates should be able to use cron and systemd timers to run jobs at regular 
 * `at`
 * `atq`
 * `atrm`
-* systemctl
-* systemd-run
+* `systemctl`
+* `systemd-run`
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/jIgJ-l_HMgE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
@@ -277,7 +277,7 @@ In most systems none of these files exist but if you create them, they will beco
 ## systemd & systemd-run
 Nowadays most GNU/Linux distributions use `systemd` which has its own **timers** as an alternative to cron to schedule your tasks. Timer unit files use the `.timer` suffix, and for each of these there must be a corresponding unit file which describes the unit to be activated when the timer activates. By default, a timer activates a service with the same name, except for the suffix.
 
-Timers have a [Timer] section that specifies when scheduled jobs should run. There are two types of timers. One is the **readl-time timer** which works with `OnCalendar=` option and defines kind of close to cron timers (based on calendar event expressions). This is the syntax:
+Timers have a [Timer] section that specifies when scheduled jobs should run. There are two types of timers. One is the **real-time timer** which works with `OnCalendar=` option and defines kind of close to cron timers (based on calendar event expressions). This is the syntax:
 
 ```
 OnCalendar=DayOfWeek Year-Month-Day Hour:Minute:Second
