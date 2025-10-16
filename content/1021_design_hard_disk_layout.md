@@ -218,7 +218,7 @@ Here I'll review the 3 different methods to add a *swap* to your OS. We will hav
 
 - Debian 11: Uses a swap partition
 - Ubuntu 22.04: Uses a swap file
-- Fedora 36: uses `zram`
-In short, `zram` is a virtual disk on your RAM which can be used as swap space or be mounted anywhere you like; A common example is `\tmp`. Let's see.
+- Fedora 36: Uses `zram`
+In short, `zram` is a virtual disk on your RAM which can be used as swap space or be mounted anywhere you like; A common example is `/tmp`. Let's see.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Y6aceqC0p0Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
