@@ -122,12 +122,13 @@ To close this section, let's run ldconfig with the **-p** switch to see what is 
 As you can see, this file tells the kernel that if anyone asks for `libzstd.so.1`, the `/lib64/libzstd.so.1` file should be loaded and used.
 
 ### Where OS finds dynamic libraries
-When a program needs a shared library, the system will search files in this order:
+When a program that uses shared libraries is run, the system (more specifically, the dynamic linker) searches for the required .so files in this order:
 
-1. LD\_LIBRARY\_PATH environment variable
-2. Programs PATH
-3. `/etc/ld.so.conf` (Which might load more files from `/etc/ld.so.conf.d/` in its beginning or its end)
-4. `/lib/`, `/lib64/`, `/usr/lib/`, `/usr/lib64/`
+1. Any location hardcoded inside the binary itself (called `RPATH`)
+2. The `LD_LIBRARY_PATH` environment variable (if set)
+3. Another hardcoded field inside the binary (`RUNPATH`), similar to RPATH
+4. The shared library cache at `/etc/ld.so.cache` (created by the `ldconfig` command, which uses the list of paths in `/etc/ld.so.conf` and `/etc/ld.so.conf.d/`)
+5. The default system directories: `/lib`, `/lib64`, `/usr/lib`, and `/usr/lib64`
 
 In some cases, you might need to override the default system libraries. Some examples are:
 
