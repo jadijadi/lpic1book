@@ -21,7 +21,7 @@ Candidates should demonstrate a proper understanding of TCP/IP network fundament
 
 ### Terms and Utilities
 
-* /etc/services
+* `/etc/services`
 * IPv4, IPv6
 * Subnetting
 * TCP, UDP, ICMP
@@ -112,7 +112,7 @@ When speaking about networks, you have to decide on
 1. How many bits of my IP address is going to be shared between all my devices (network)
 2. How many bits of my IP address is going to differentiate my devices in this network (hosts)
 
-For example if you assign the `192.168.1.1` to your router and set the Netmask on `/24`, you are claiming 24 (left hand bits) of `192.168.1.1` as your Network (so `192.168.1.` because 245 = 8 * 3) and 8 bits as your Host (last octet). In this network you can assign these IPs to your devices:  `192.168.1.10`,  `192.168.1.2`,  `192.168.1.200` and they will see each other correctly. 
+For example if you assign the `192.168.1.1` to your router and set the Netmask on `/24`, you are claiming 24 (left hand bits) of `192.168.1.1` as your Network (so `192.168.1.` because 24 = 8 * 3) and 8 bits as your Host (last octet). In this network you can assign these IPs to your devices:  `192.168.1.10`,  `192.168.1.2`,  `192.168.1.200` and they will see each other correctly. 
 
 There are 2 methods to talk about Netmask bits. The CIDR `/24` method and Decimal Netmask (255.255.255.0) method. In CIDR we are saying how many bits are 1 (the network section of an IP address) and in Decimal method, we are representing these 1 bits in an IP address format. Have a look at the following table:
 
