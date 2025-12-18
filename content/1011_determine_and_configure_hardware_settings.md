@@ -230,7 +230,7 @@ root@funlife:/proc/acpi/ibm# echo on > light
 root@funlife:/proc/acpi/ibm# echo off > light
 ````
 
-One more traditional example is changing the max number of open files per user:
+One more traditional example is changing the system-wide max number of open files:
 
 ````
 root@funlife:/proc/sys/fs# cat file-max
