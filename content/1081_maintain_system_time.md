@@ -67,7 +67,7 @@ The previous commands sets the hardware clock on that specific date and tell it 
 # hwclock -u -w
 ```
 
-Here, `-w` tells the `hwclock` to set the hardware time based on the current system time and `-u` tells the hwclock that we are using the UTC. This also sets the HWClock using UTC int he `\etc\adjtime` file.
+Here, `-w` tells the `hwclock` to set the hardware time based on the current system time and `-u` tells the hwclock that we are using the UTC. This also sets the HWClock using UTC in the `\etc\adjtime` file.
 
 > If you set a time on the hardware clock without mentioning it being UTC / Local, the `/etc/adjtime` will decide this, if this file does not exists, the UTC will be used.
 

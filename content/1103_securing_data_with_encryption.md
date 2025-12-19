@@ -359,7 +359,7 @@ gpg --out out.txt --decrypt file.txt.encrypted
 
 #### Signing and verifying files
 
-In the previous section, we used gpg to encrypt the data. We used someone's Public key to encrypt and then used our own Private Key to decrypt the data. But what happens if I use my Private key on my side and let other use my Public key to _open_ the data? That is called **signing*. 
+In the previous section, we used gpg to encrypt the data. We used someone's Public key to encrypt and then used our own Private Key to decrypt the data. But what happens if I use my Private key on my side and let other use my Public key to _open_ the data? That is called **signing**. 
 
 Please remember that only I have access to my private key. So if I apply it to a file, every one:
 
@@ -441,7 +441,7 @@ gpg: Good signature from "Jadi M <jadijadi@gmail.com>" [ultimate]
 gpg: WARNING: not a detached signature; file 'message-jadi.txt' was NOT verified!
 ```
 
-> here the --clearsign tells the gpg to include the clear text message in the output file too. The output file will be originalfile.asc
+> here the `--clearsign` tells the gpg to include the clear text message in the output file too. The output file will be originalfile.asc
 
 and another one to verify that a document is singed correctly:
 

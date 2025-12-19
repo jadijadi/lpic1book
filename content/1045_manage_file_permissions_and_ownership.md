@@ -67,7 +67,7 @@ $ ls -ltrh script.sh
 -rwxr-xr-x 1 jadi adm 34 Mar  5  2023 script.sh
 ```
 
-In above example, `jadi` is the owner of the file. The file belongs to the `adm` group and the owner (`jadi` here) has  **r**ead, **w**rite \(including deletion and edit\) & **e**xecute \(reading directory content\) permissions on the file while the `adm` group members and **others** only have read & execute access.
+In above example, `jadi` is the owner of the file. The file belongs to the `adm` group and the owner (`jadi` here) has  **r**ead, **w**rite \(including deletion and edit\) & e**x**ecute \(reading directory content\) permissions on the file while the `adm` group members and **others** only have read & execute access.
 
 ![](/images/file_permissions.png)
 

@@ -173,7 +173,7 @@ Service logs do create files or directories at `/var/log` and update their logs 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xliHONdwFy0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-This is the newer generation of syslogs and is used in many environments. Its main configuration is located at `/etc/rsyslog.conf` and it also reads anything in `/etc/rssylog.d/` directory. Its configuration consists of 3 main sections: 
+This is the newer generation of syslogs and is used in many environments. Its main configuration is located at `/etc/rsyslog.conf` and it also reads anything in `/etc/rsyslog.d/` directory. Its configuration consists of 3 main sections: 
 
 1. `MODULES`, modules used. For example to let the rsyslog use UDP connections
 2. `GLOBAL DIRECTIVES`, general configurations like directories accesses
