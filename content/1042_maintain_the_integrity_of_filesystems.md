@@ -106,7 +106,7 @@ jadi@funlife:~/w/lpic$ du -hs
 9.0G    .
 ```
 
-> in many cases when I want to see what uses my serers space, I use something like `$sudo du /home -h --max-depth 1`
+> in many cases when I want to see what uses my server's space, I use something like `$sudo du /home -h --max-depth 1`
 
 ## checking file systems
 
@@ -270,7 +270,7 @@ This is an interactive tool for debug an ext filesystem. It opens the filesystem
 root@funlife:~# debugfs /dev/sda2
 debugfs 1.42.10 (18-May-2014)
 debugfs:  cd /etc/        <-- cd
-debugfs:  pwd            <-- show were am I
+debugfs:  pwd            <-- show where am I
 [pwd]   INODE: 524289  PATH: /etc
 [root]  INODE:      2  PATH: /
 debugfs:  stat passwd        <-- show data on one file
@@ -355,7 +355,7 @@ For the LPIC exam, it is good to know about these commands.
 | :---: | :---: | :--- |
 | ext | tune2fs | Show or set ext2 and ext3 parameters or even set the journaling options |
 | ext | dumpe2fs | Prints the super block and block group descriptor information for an ext2 or ext3 filesystem. |
-| ext | debugfs | Is an interactive file system debugger. Use it to examine or change the state of an ext2 or ext3file system. |
+| ext | debugfs | Is an interactive file system debugger. Use it to examine or change the state of an ext2 or ext3 file system. |
 | reiserfs | reiserfstune | show and set parameters |
 | reiserfs | debugreiserfs | Prints the super block and block group descriptor information for an ext2 or ext3 filesystem. |
 | XFS | xfs\_info | display information |
