@@ -44,9 +44,9 @@ brw-rw----+ 1 root cdrom    11,   0 Feb  3  2023 sr0
 ```
 
 
-It is possible to create **partitions** on a block device and even split it and use it as multiple disks. Systems with old BIOS boot loaders use the **Master Boot Record (MBR)** method for patitioning and newer UEFI systems, use **GUID Parition Table (GPT)** formats.
+It is possible to create **partitions** on a block device and even split it and use it as multiple disks. Systems with old BIOS boot loaders use the **Master Boot Record (MBR)** method for partitioning and newer UEFI systems, use **GUID Partition Table (GPT)** formats.
 
-Linux systems use `udev` to add block devices and their paritions to the `/dev` in the form of `/dev/sdb1` (2nd disk (b) and first parition (1)). 
+Linux systems use `udev` to add block devices and their partitions to the `/dev` in the form of `/dev/sdb1` (2nd disk (b) and first partition (1)). 
 
 ### Editing Partition Tables
 #### fdisk
@@ -146,7 +146,7 @@ Device        Start      End  Sectors  Size Type
 /dev/sdb3  39942144 41940991  1998848  976M Linux swap
 ```
 
-You should remember the disk layouts concepts from the [chapter 102.1](/1021-design-hard-disk-layout.html). So lets create some paritions using `fdisk`. I will use the `n` for *new*:
+You should remember the disk layouts concepts from the [chapter 102.1](/1021-design-hard-disk-layout.html). So lets create some partitions using `fdisk`. I will use the `n` for *new*:
 
 ```
 # fdisk /dev/sda
@@ -182,7 +182,7 @@ Device     Boot Start     End Sectors Size Id Type
 /dev/sda1        2048 2099199 2097152   1G 83 Linux
 ```
 
-Lets  create another Extened parition and add a Linux (83) and a Swap (82) parition there. 
+Lets  create another Extened partition and add a Linux (83) and a Swap (82) partition there. 
 
 ```
 Command (m for help): n
@@ -271,7 +271,7 @@ Last sector, +/-sectors or +/-size{K,M,G,T,P} (4200448-8388607, default 8388607)
 Created a new partition 6 of type 'Linux' and of size 2 GiB.
 ```
 
-And now, I have to change the type of the parition 6 to swap:
+And now, I have to change the type of the partition 6 to swap:
 
 ```
 Command (m for help): t
@@ -490,7 +490,7 @@ Flushing... done.
 File system created successfully.
 ```
 
-If you need to assign a lable to the partition, you have to use the `-L lable_name` option. Please note that in recent system, people use UUIDs instead of labels. UUID of a disk can be viewed with:
+If you need to assign a label to the partition, you have to use the `-L label_name` option. Please note that in recent system, people use UUIDs instead of labels. UUID of a disk can be viewed with:
 
 ```   
 # blkid /dev/sda1
@@ -511,4 +511,4 @@ and then
 # swapon /dev/sda6
 ```
 
-On chapter 14.3 we will see how we can *mount* / *unmount* these filesystems.
+On chapter 104.3 we will see how we can *mount* / *unmount* these filesystems.
