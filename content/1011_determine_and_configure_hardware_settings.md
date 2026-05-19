@@ -40,10 +40,12 @@ Firmware is the software *on* your hardware that runs it; Think of it as a built
 Firmware is a type of software that lives in hardware. Software is any program or group of programs run by a computer.
 
 ![BIOS](/images/bios.png)
+
 1. BIOS (Basic Input/Output System). Old and redundant. It is intractable through a text menu-based system and it boots the computer by accessing the first sector of the first partition of your hard disk (MBR). This is not enough for modern systems and most systems use a two-step boot procedure.
 
 
 ![UEFI](/images/uefi.jpeg)
+
 2. UEFI (Unified Extensible Firmware Interface). Started as EFI in 1998 in Intel. Now the standard. Uses a specific disk partition for boot (EFI System Partition (ESP)) and uses FAT. On Linux it's located on `/boot/efi` and the files use the `.efi` extension. You need to register each bootloader.
 
 ![BIOSvsUEFI](/images/BIOSvsUEFI.png)
